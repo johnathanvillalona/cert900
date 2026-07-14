@@ -7,6 +7,7 @@ import { shuffle } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, Check, X, Moon, Sun } from "lucide-react"
+import { AccountMenu } from "@/components/AccountMenu"
 
 /** Real product in the hero: one actual bank question, fully answerable. */
 function LiveQuestion() {
@@ -39,7 +40,7 @@ function LiveQuestion() {
               className={cn(
                 "flex w-full cursor-pointer items-center gap-2.5 rounded-md border px-3 py-2 text-left text-sm transition-colors duration-200",
                 state === "idle" && !graded && "hover:border-primary hover:bg-accent",
-                state === "correct" && "border-primary bg-accent",
+                state === "correct" && "border-success bg-success/10",
                 state === "wrong" && "border-destructive bg-destructive/10",
               )}
             >
@@ -59,7 +60,7 @@ function LiveQuestion() {
             href={exam.videos[q.t].u}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex items-center gap-1.5 font-medium text-primary underline-offset-4 hover:underline"
+            className="mt-2 inline-flex items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
           >
             Watch: Professor Messer, {exam.videos[q.t].n}
             <ArrowRight className="size-3.5" strokeWidth={2} />
@@ -98,7 +99,7 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
                 {answered} answered{lastScaled !== null && ` · last exam ${lastScaled}`}
               </span>
             </span>
-            <span className="flex items-center gap-2 font-medium text-primary">
+            <span className="flex items-center gap-2 font-medium text-brand">
               Continue
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" strokeWidth={2} />
             </span>
@@ -145,6 +146,7 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
             </Button>
+            <AccountMenu />
             <span className="ml-1 flex items-center gap-1" data-testid="nav-exam-chips">
               {exams.map((ex) => (
                 <button
@@ -152,7 +154,7 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
                   onClick={() => onChooseExam(ex.id)}
                   aria-label={`Start ${ex.cert} ${ex.name}`}
                   title={`${ex.cert} ${ex.name} (${ex.code})`}
-                  className="flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-colors duration-200 hover:border-primary hover:bg-accent hover:text-primary"
+                  className="flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-colors duration-200 hover:border-primary hover:bg-accent hover:text-brand"
                 >
                   {ex.id === "220-1201" ? "C1" : ex.id === "220-1202" ? "C2" : "N+"}
                 </button>
@@ -233,10 +235,10 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
                   {ex.questions.length} questions · {ex.pbqs.length} PBQs
                   <span className="block">
                     {Object.keys(ex.domains).length} domains
-                    {answered > 0 && <span className="text-primary"> · {answered} answered</span>}
+                    {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
                   </span>
                 </span>
-                <ArrowRight className="hidden size-5 justify-self-end text-primary transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
+                <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
               </button>
             )
           })}

@@ -44,8 +44,8 @@ export function Home(props: {
             onClick={handlers[m.key]}
           >
             <span className="flex items-center justify-between">
-              <m.icon className="size-5 text-primary" strokeWidth={2} />
-              <ArrowRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" strokeWidth={2} />
+              <m.icon className="size-5 text-brand" strokeWidth={2} />
+              <ArrowRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brand" strokeWidth={2} />
             </span>
             <span className="font-heading mt-3 block text-lg font-semibold">{m.title}</span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">{m.desc}</span>

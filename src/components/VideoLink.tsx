@@ -16,7 +16,7 @@ export function VideoLink({ exam, topic, label = "Watch" }: { exam: ExamDef; top
         <Play className="size-3" strokeWidth={2.5} fill="currentColor" />
       </span>
       <span>
-        {label} <span className="text-primary">Professor Messer: {v.n}</span>
+        {label} <span className="text-brand">Professor Messer: {v.n}</span>
       </span>
     </a>
   )
