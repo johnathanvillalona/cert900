@@ -1,0 +1,14 @@
+{
+  "name": "CompTIA Practice Trainer",
+  "short_name": "CompTIA Trainer",
+  "description": "Free practice exams for CompTIA A+ Core 1, A+ Core 2, and Network+ with adaptive drills, PBQs, and full exam simulation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f8fafc",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

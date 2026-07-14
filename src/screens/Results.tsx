@@ -4,6 +4,8 @@ import { PASS_SCALED } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"
+import { ReportButton } from "@/components/ReportButton"
+import { AdSlot } from "@/components/AdSlot"
 import { cn } from "@/lib/utils"
 
 export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onHome }: {
@@ -115,16 +117,18 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
                   Correct: <b className="text-success">{r.q.o[r.q.a]}</b>
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm">{r.q.e}</p>
-                <div className="mt-3">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <VideoLink exam={exam} topic={r.q.t} />
+                  <ReportButton examId={exam.id} refId={`q:${r.q.id}`} />
                 </div>
               </div>
             ) : (
               <div key={i} className="rounded-md border p-4">
                 <p className="font-mono text-xs text-destructive">PBQ {Math.round(r.frac * 100)}%</p>
                 <p className="mt-1 font-medium">{r.p.title}</p>
-                <div className="mt-3">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <VideoLink exam={exam} topic={r.p.t} />
+                  <ReportButton examId={exam.id} refId={`pbq:${r.p.title}`} />
                 </div>
               </div>
             ),
@@ -137,6 +141,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
         <Button variant="outline" onClick={onProgress}>My progress</Button>
         <Button variant="outline" onClick={onHome}>Home</Button>
       </div>
+      <AdSlot slot="results" />
     </main>
   )
 }
