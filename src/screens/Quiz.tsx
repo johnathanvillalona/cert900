@@ -7,6 +7,7 @@ import { useQuizSession, type QuizConfig, type QuizItem, type QuizOutcome, type 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"
+import { ReportButton } from "@/components/ReportButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
@@ -315,8 +316,9 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
             {ok ? "Correct" : "Incorrect. The answer is highlighted above"}
           </p>
           <p className="mt-1 text-sm">{q.e}</p>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
             <VideoLink exam={exam} topic={q.t} label="Review this topic:" />
+            <ReportButton examId={exam.id} refId={`q:${q.id}`} />
           </div>
         </div>
       )}
@@ -360,8 +362,9 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
           <p className={cn("font-semibold", frac >= 0.8 ? "text-success" : "text-destructive")}>
             {Math.round(frac * 100)}% correct on this PBQ
           </p>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
             <VideoLink exam={exam} topic={p.t} label="Review this topic:" />
+            <ReportButton examId={exam.id} refId={`pbq:${p.title}`} />
           </div>
         </div>
       )}

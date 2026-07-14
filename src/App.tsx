@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react"
+import { Suspense, lazy, useEffect, useMemo, useState } from "react"
+import { LoaderCircle } from "lucide-react"
 import { EXAMS, EXAM_ORDER } from "@/data/index"
 import type { ExamDef } from "@/data/types"
 import { ProgressContext, useProgressStore } from "@/hooks/useProgress"
@@ -16,7 +17,13 @@ import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
-import { ProgressScreen } from "@/screens/ProgressScreen"
+import { Privacy, Terms } from "@/screens/Legal"
+import { SiteFooter } from "@/components/SiteFooter"
+
+// Charts (recharts) load only when someone opens detailed progress.
+const ProgressScreen = lazy(() =>
+  import("@/screens/ProgressScreen").then((m) => ({ default: m.ProgressScreen })),
+)
 
 export type Screen =
   | { kind: "landing" }
@@ -27,13 +34,38 @@ export type Screen =
   | { kind: "quiz"; cfg: QuizConfig; sessionKey: number }
   | { kind: "results"; outcome: QuizOutcome }
   | { kind: "progress" }
+  | { kind: "privacy" }
+  | { kind: "terms" }
+
+/** The two deep-linkable paths; everything else is app state under "/". */
+function screenForPath(path: string): Screen {
+  if (path === "/privacy") return { kind: "privacy" }
+  if (path === "/terms") return { kind: "terms" }
+  return { kind: "landing" }
+}
 
 export default function App() {
   const store = useProgressStore()
   const { toggle } = useTheme()
   const [examId, setExamId] = useState<string | null>(null)
-  const [screen, setScreen] = useState<Screen>({ kind: "landing" })
+  const [screen, setScreen] = useState<Screen>(() => screenForPath(window.location.pathname))
   const [sessionCounter, setSessionCounter] = useState(0)
+
+  // Keep the address bar honest: legal pages get real URLs, everything else lives at "/".
+  useEffect(() => {
+    const want = screen.kind === "privacy" ? "/privacy" : screen.kind === "terms" ? "/terms" : "/"
+    if (window.location.pathname !== want) window.history.pushState({}, "", want)
+  }, [screen.kind])
+  useEffect(() => {
+    const onPop = () => setScreen(screenForPath(window.location.pathname))
+    window.addEventListener("popstate", onPop)
+    return () => window.removeEventListener("popstate", onPop)
+  }, [])
+
+  const openLegal = (path: "/privacy" | "/terms") => {
+    setScreen(path === "/privacy" ? { kind: "privacy" } : { kind: "terms" })
+    window.scrollTo(0, 0)
+  }
 
   const exam: ExamDef | null = examId ? EXAMS[examId] : null
 
@@ -63,6 +95,7 @@ export default function App() {
             setScreen({ kind: "dashboard" })
             window.scrollTo(0, 0)
           }}
+          onOpenLegal={openLegal}
         />
         <Toaster />
       </ProgressContext.Provider>
@@ -71,7 +104,7 @@ export default function App() {
 
   return (
     <ProgressContext.Provider value={store}>
-      <div className="min-h-[100dvh]">
+      <div className="flex min-h-[100dvh] flex-col">
         <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
             <button
@@ -123,7 +156,7 @@ export default function App() {
             </div>
           </div>
         </header>
-        <div className="mx-auto max-w-5xl px-4 pb-16 pt-8">
+        <div className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">
 
         {screen.kind === "dashboard" && (
           <Dashboard
@@ -192,9 +225,21 @@ export default function App() {
         )}
 
         {exam && screen.kind === "progress" && (
-          <ProgressScreen exam={exam} onHome={() => setScreen({ kind: "home" })} />
+          <Suspense
+            fallback={
+              <div className="flex justify-center py-24" aria-label="Loading progress">
+                <LoaderCircle className="size-6 animate-spin text-muted-foreground" strokeWidth={2} />
+              </div>
+            }
+          >
+            <ProgressScreen exam={exam} onHome={() => setScreen({ kind: "home" })} />
+          </Suspense>
         )}
+
+        {screen.kind === "privacy" && <Privacy />}
+        {screen.kind === "terms" && <Terms />}
         </div>
+        <SiteFooter onNavigate={openLegal} />
       </div>
       <Toaster />
     </ProgressContext.Provider>

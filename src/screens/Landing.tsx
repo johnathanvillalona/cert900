@@ -7,9 +7,10 @@ import { shuffle } from "@/lib/engine"
 import { questionOfTheDay } from "@/lib/qotd"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowRight, Check, X } from "lucide-react"
+import { ArrowRight, Check, Plus, X } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
+import { SiteFooter } from "@/components/SiteFooter"
 
 /** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
@@ -107,7 +108,45 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
   )
 }
 
-export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void }) {
+const FAQ: [string, string][] = [
+  [
+    "Is this really free?",
+    "Yes. Every question, every simulated exam, every PBQ, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
+  ],
+  [
+    "Are these real exam questions?",
+    "No, and that matters. Real exam content is protected and using it would be cheating. Every question here is original, written to the same objectives and difficulty the real exams test.",
+  ],
+  [
+    "How does the 100 to 900 scoring work?",
+    "CompTIA reports exams on a scaled range from 100 to 900 with a pass line around 675 to 720 depending on the exam. Simulated exams here use the same scale with the pass line at 700, so a score here reads like the real thing.",
+  ],
+  [
+    "Do I need an account?",
+    "No. Progress saves in your browser automatically. Signing in with Google is optional and does one thing: it syncs progress across devices so you can drill on your phone and review at your desk.",
+  ],
+]
+
+function FaqSection() {
+  return (
+    <section id="faq" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
+      <h2 className="font-heading text-3xl font-semibold tracking-tight">Common questions.</h2>
+      <div className="mt-8 max-w-3xl border-t">
+        {FAQ.map(([q, a]) => (
+          <details key={q} className="group border-b">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-heading text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              {q}
+              <Plus className="size-4 shrink-0 text-brand transition-transform duration-200 group-open:rotate-45" strokeWidth={2.5} />
+            </summary>
+            <p className="text-muted-foreground -mt-1 max-w-2xl pb-5 leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onOpenLegal: (path: "/privacy" | "/terms") => void }) {
   const store = useProgress()
   const { toggle } = useTheme()
 
@@ -270,21 +309,10 @@ export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: 
         </div>
       </section>
 
-      {/* footer */}
-      <footer className="border-t">
-        <div className="mx-auto max-w-6xl px-4 py-10">
-          <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
-            A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA or Professor
-            Messer. CompTIA A+<sup>®</sup> and Network+<sup>®</sup> are registered trademarks of CompTIA, Inc. All
-            practice questions are original. Video links open Professor Messer's free official training courses.{" "}
-            <a className="underline underline-offset-2" href="mailto:johnathanv16@gmail.com?subject=CompTIA%20Practice%20Trainer%20feedback">
-              Report an error
-            </a>
-            .
-          </p>
-          <p className="text-muted-foreground mt-4 font-mono text-xs">COMPTIA·TRAINER</p>
-        </div>
-      </footer>
+      {/* faq */}
+      <FaqSection />
+
+      <SiteFooter full onNavigate={onOpenLegal} />
     </div>
   )
 }

@@ -6,6 +6,7 @@ import { domainAccuracy, studyStreak, allSessions } from "@/lib/stats"
 import { PASS_SCALED } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { AdSlot } from "@/components/AdSlot"
 import { cn } from "@/lib/utils"
 
 /** One friendly overview for all exams. Detail lives in each exam's progress page. */
@@ -94,6 +95,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
           />
         ))}
       </div>
+      <AdSlot slot="dashboard" />
     </main>
   )
 }

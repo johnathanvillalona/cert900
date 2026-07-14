@@ -67,6 +67,50 @@ async function handleProgress(req: Request, env: Env): Promise<Response> {
   return json({ error: "method not allowed" }, 405)
 }
 
+/** One-way hash of the client IP; stored instead of the IP itself. */
+async function ipHash(req: Request): Promise<string> {
+  const ip = req.headers.get("CF-Connecting-IP") ?? "unknown"
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`report:${ip}`))
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("")
+}
+
+/** Anonymous question reports, rate limited per IP and globally. */
+async function handleReport(req: Request, env: Env): Promise<Response> {
+  if (req.method !== "POST") return json({ error: "method not allowed" }, 405)
+
+  let body: { examId?: unknown; ref?: unknown }
+  try {
+    body = await req.json()
+  } catch {
+    return json({ error: "bad json" }, 400)
+  }
+  const { examId, ref } = body
+  if (
+    typeof examId !== "string" || !examId || examId.length > 32 ||
+    typeof ref !== "string" || !ref || ref.length > 200
+  ) {
+    return json({ error: "bad payload" }, 400)
+  }
+
+  const hash = await ipHash(req)
+  const dayAgo = Date.now() - 86_400_000
+  const counts = await env.DB.prepare(
+    "SELECT COUNT(*) AS total, SUM(ip_hash = ?1) AS mine FROM reports WHERE created_at > ?2",
+  )
+    .bind(hash, dayAgo)
+    .first<{ total: number; mine: number | null }>()
+  if ((counts?.mine ?? 0) >= 20 || (counts?.total ?? 0) >= 1000) {
+    return json({ error: "rate limited" }, 429)
+  }
+
+  await env.DB.prepare(
+    "INSERT INTO reports (exam_id, ref, ip_hash, created_at) VALUES (?, ?, ?, ?)",
+  )
+    .bind(examId, ref, hash, Date.now())
+    .run()
+  return json({ ok: true })
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url)
@@ -76,6 +120,9 @@ export default {
     }
     if (url.pathname === "/api/progress") {
       return handleProgress(req, env)
+    }
+    if (url.pathname === "/api/report") {
+      return handleReport(req, env)
     }
     if (url.pathname.startsWith("/api/")) {
       return json({ error: "not found" }, 404)

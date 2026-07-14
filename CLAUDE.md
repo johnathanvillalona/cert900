@@ -18,8 +18,9 @@ must use the GitHub noreply email (set in local git config).
 ## Stack
 React 19 + Vite 7 + TypeScript + Tailwind v4 + shadcn (radix-vega style), deployed
 as a **Cloudflare Worker with static assets**: `worker/index.ts` serves `/api/*`
-(Better Auth at `/api/auth/*`, progress sync at `/api/progress`) and falls through
-to `dist/` assets (SPA mode). D1 (`comptia-trainer`) stores auth + synced progress.
+(Better Auth at `/api/auth/*`, progress sync at `/api/progress`, anonymous
+question reports at `/api/report`) and falls through to `dist/` assets (SPA
+mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 
 ## Layout
 - `src/data/` — question banks as typed modules (`220-1201.ts`, `220-1202.ts`,
@@ -32,11 +33,22 @@ to `dist/` assets (SPA mode). D1 (`comptia-trainer`) stores auth + synced progre
 - `src/hooks/` — `useProgress` (store + cloud sync), `useQuizSession` (reducer),
   `useTheme` (`trainer-theme`, pre-paint boot script in `index.html`).
 - `src/screens/` — Landing (smart hero: new-visitor pitch with a LIVE answerable
-  question vs returning-user continue cards), ExamPicker, Home, DrillSetup, Quiz
-  (MC + PBQ match/order, palette, flags, timer), Results, ProgressScreen (stat
-  tiles + charts + mastery map).
+  question vs returning-user continue cards + FAQ), ExamPicker, Home, DrillSetup,
+  Quiz (MC + PBQ match/order, palette, flags, timer), Results, ProgressScreen
+  (stat tiles + charts + mastery map; **lazy-loaded** so recharts stays out of
+  the entry chunk), Legal (`Privacy`/`Terms`; deep-linkable at `/privacy` and
+  `/terms` via minimal pushState routing in App — the only real URLs besides `/`).
 - `worker/` — `index.ts` (router), `auth.ts` (Better Auth config; Google provider;
   email/password ONLY when BETTER_AUTH_URL contains localhost), `schema.sql`.
+- Platform pieces: `ErrorBoundary` (wraps App in main.tsx), `SiteFooter`
+  (Privacy/Terms/Contact + optional donate link; landing gets `full` disclaimer),
+  `ReportButton` (drill/PBQ feedback + exam review; POST `/api/report`,
+  20/day/IP + 1k/day global rate limit), `AdSlot` (inert until `ADS.enabled`
+  in `src/lib/site.ts`; only placements: Results bottom, Dashboard bottom).
+  `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL/ADS.
+- `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml.
+  Icons/og are RENDERED artifacts: regenerate with scratchpad `qa/brand-render.js`
+  (terminal-prompt mark, slate #151b29 + amber #f2b27c, Geist from node_modules).
 
 ## Commands
 - `npm run dev` + `npm run dev:worker` (two terminals; Vite proxies `/api` → :8787)
@@ -93,7 +105,16 @@ to `dist/` assets (SPA mode). D1 (`comptia-trainer`) stores auth + synced progre
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
 
 ## Next tasks
-- Phase G round 1 done (2026-07-14): banks at 291/330/315 Q, 12/13/12 PBQs.
-  Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
+- Launch checklist (owner = user): remote D1 migration for `reports`
+  (`npx wrangler d1 execute comptia-trainer --remote --file=worker/schema.sql`),
+  CF Web Analytics token (beacon goes in index.html), donate URL (fills
+  DONATE_URL in src/lib/site.ts), custom domain purchase + OAuth consent screen
+  to Production with /privacy URL.
+- At domain cutover: update SITE_URL, index.html canonical/og URLs, robots +
+  sitemap, wrangler routes, BETTER_AUTH_URL, worker 301 from workers.dev.
+- Monetization ladder (decided 2026-07-14): donate link → EthicalAds/Carbon
+  single unit → affiliates on Results. AdSlot placements are already scaffolded;
+  never add slots inside quiz/landing hero.
+- Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
   topics/ids/duplicates, derives id and d automatically).
 - Consider Security+ (SY0-701) as a fourth exam using the same data shape.
