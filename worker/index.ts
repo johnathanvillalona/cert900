@@ -111,9 +111,19 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
   return json({ ok: true })
 }
 
+const CANONICAL_HOST = "cert900.com"
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url)
+
+    // Canonical-host redirect: old workers.dev links and www land on the apex.
+    // (Allowlist keeps local dev hosts untouched.)
+    if (url.hostname === `www.${CANONICAL_HOST}` || url.hostname.endsWith(".workers.dev")) {
+      url.hostname = CANONICAL_HOST
+      const status = req.method === "GET" || req.method === "HEAD" ? 301 : 308
+      return Response.redirect(url.toString(), status)
+    }
 
     if (url.pathname.startsWith("/api/auth/")) {
       return createAuth(env).handler(req)

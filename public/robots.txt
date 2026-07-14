@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://comptia-practice-trainer.johnathanv16.workers.dev/sitemap.xml
+Sitemap: https://cert900.com/sitemap.xml
