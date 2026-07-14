@@ -110,7 +110,7 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
   )
 }
 
-export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }) {
+export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void }) {
   const store = useProgress()
   const { theme, toggle } = useTheme()
 
@@ -142,6 +142,9 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
             </button>
             <button onClick={() => scrollTo("how")} className="hidden cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:block">
               How it works
+            </button>
+            <button onClick={onOpenDashboard} data-testid="landing-progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              Progress
             </button>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}

@@ -11,8 +11,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
     <script data-boot>
       try {
-        var t = localStorage.getItem("trainer-theme");
-        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        var t = localStorage.getItem("trainer-theme") || "light";
         document.documentElement.classList.toggle("dark", t === "dark");
         document.documentElement.setAttribute("data-theme", t);
       } catch (e) {}

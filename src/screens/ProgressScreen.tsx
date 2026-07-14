@@ -51,7 +51,8 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
 
   return (
     <main>
-      <h1 className="text-3xl font-bold tracking-tight">My Progress</h1>
+      <p className="font-mono text-xs text-muted-foreground">{exam.cert} {exam.name} · {exam.code}</p>
+      <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Detailed progress</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4" data-testid="statline">
         {[
