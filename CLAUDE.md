@@ -11,7 +11,8 @@ CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
 deterministic **question of the day** (`src/lib/qotd.ts`, rotates midnight UTC). All exam versions current as of 2026. Every question
 links to its Professor Messer video.
 
-**Live**: https://comptia-practice-trainer.johnathanv16.workers.dev
+**Live**: https://cert900.com (Cloudflare Registrar, same account; workers.dev
+URL 301s here; www redirects to apex via worker CANONICAL_HOST logic)
 **Repo**: private GitHub `johnathanvillalona/comptia-practice-trainer`. Commits
 must use the GitHub noreply email (set in local git config).
 
@@ -105,13 +106,12 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
 
 ## Next tasks
-- Launch checklist (owner = user): remote D1 migration for `reports`
-  (`npx wrangler d1 execute comptia-trainer --remote --file=worker/schema.sql`),
-  CF Web Analytics token (beacon goes in index.html), donate URL (fills
-  DONATE_URL in src/lib/site.ts), custom domain purchase + OAuth consent screen
-  to Production with /privacy URL.
-- At domain cutover: update SITE_URL, index.html canonical/og URLs, robots +
-  sitemap, wrangler routes, BETTER_AUTH_URL, worker 301 from workers.dev.
+- Launch remainders (owner = user): Google OAuth redirect URI
+  `https://cert900.com/api/auth/callback/google` + publish consent screen to
+  Production with the /privacy URL. Confirm CF Web Analytics data arrives
+  (zone auto-injection expected; if not, add beacon token to index.html).
+- Done 2026-07-14: cert900.com cutover (routes/BETTER_AUTH_URL/301s/canonical),
+  remote D1 `reports` migration, DONATE_URL (buymeacoffee.com/sorannex).
 - Monetization ladder (decided 2026-07-14): donate link → EthicalAds/Carbon
   single unit → affiliates on Results. AdSlot placements are already scaffolded;
   never add slots inside quiz/landing hero.

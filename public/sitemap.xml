@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://comptia-practice-trainer.johnathanv16.workers.dev/</loc>
+    <loc>https://cert900.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://comptia-practice-trainer.johnathanv16.workers.dev/privacy</loc>
+    <loc>https://cert900.com/privacy</loc>
     <changefreq>yearly</changefreq>
   </url>
   <url>
-    <loc>https://comptia-practice-trainer.johnathanv16.workers.dev/terms</loc>
+    <loc>https://cert900.com/terms</loc>
     <changefreq>yearly</changefreq>
   </url>
 </urlset>
