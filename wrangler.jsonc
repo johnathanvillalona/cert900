@@ -23,6 +23,9 @@
     { "pattern": "cert900.com", "custom_domain": true },
     { "pattern": "www.cert900.com", "custom_domain": true }
   ],
+  "triggers": {
+    "crons": ["30 14 * * *", "0 15 * * 1"]
+  },
   "d1_databases": [
     {
       "binding": "DB",

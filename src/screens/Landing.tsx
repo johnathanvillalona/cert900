@@ -147,7 +147,7 @@ function FaqSection() {
   )
 }
 
-export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onOpenLegal: (path: "/privacy" | "/terms") => void }) {
+export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onOpenLegal: (path: string) => void }) {
   const store = useProgress()
   const { toggle } = useTheme()
 

@@ -1,12 +1,13 @@
 import { Heart } from "lucide-react"
 import { CONTACT_EMAIL, DONATE_URL } from "@/lib/site"
 import { Wordmark } from "@/components/Wordmark"
+import { GUIDE_META } from "@/screens/Guides"
 
 /**
  * Quiet legal footer used on the landing page and the app shell.
  * `full` adds the trademark disclaimer paragraph (landing only).
  */
-export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNavigate: (path: "/privacy" | "/terms") => void }) {
+export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNavigate: (path: string) => void }) {
   return (
     <footer className="border-t">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -17,7 +18,19 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             practice questions are original. Video links open Professor Messer's free official training courses.
           </p>
         )}
-        <div className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2" : "flex flex-wrap items-center gap-x-5 gap-y-2"}>
+        <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
+          {(["aplus", "nplus", "pbq"] as const).map((k) => (
+            <a
+              key={k}
+              href={GUIDE_META[k].path}
+              onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_META[k].path) }}
+              className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
+            >
+              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : "PBQ practice"}
+            </a>
+          ))}
+        </nav>
+        <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
           <Wordmark className="text-xs text-muted-foreground" iconClassName="size-4" />
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
             <button

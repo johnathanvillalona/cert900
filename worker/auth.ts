@@ -8,6 +8,15 @@ export interface Env {
   BETTER_AUTH_URL: string
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
+  // Social automation secrets; optional so the cron degrades gracefully.
+  X_API_KEY?: string
+  X_API_SECRET?: string
+  X_ACCESS_TOKEN?: string
+  X_ACCESS_SECRET?: string
+  BSKY_IDENTIFIER?: string
+  BSKY_APP_PASSWORD?: string
+  REDDIT_CLIENT_ID?: string
+  REDDIT_CLIENT_SECRET?: string
 }
 
 export function createAuth(env: Env) {
