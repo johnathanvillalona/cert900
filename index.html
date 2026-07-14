@@ -1930,9 +1930,11 @@ function renderHome(){
   if(!storageOK)h+='<br><span class="note" style="color:var(--bad)">Note: persistent storage is unavailable in this environment, so progress resets when the page closes.</span>';
   $("home-snapshot").innerHTML=h;
 }
+const EXAM_ORDER=["220-1201","220-1202","n10-009"];
 function renderExamPicker(){
   let h="";
-  Object.values(EXAMS).forEach(ex=>{
+  const ids=EXAM_ORDER.filter(id=>EXAMS[id]).concat(Object.keys(EXAMS).filter(id=>!EXAM_ORDER.includes(id)));
+  ids.map(id=>EXAMS[id]).forEach(ex=>{
     const p=progressAll[ex.id];let ans=0;
     if(p&&p.topics)Object.values(p.topics).forEach(s=>ans+=s.t);
     const nd=Object.keys(ex.domains).length;
