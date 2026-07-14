@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
+import { Landing } from "@/screens/Landing"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
@@ -14,6 +15,7 @@ import { Results } from "@/screens/Results"
 import { ProgressScreen } from "@/screens/ProgressScreen"
 
 export type Screen =
+  | { kind: "landing" }
   | { kind: "picker" }
   | { kind: "home" }
   | { kind: "setup" }
@@ -25,7 +27,7 @@ export default function App() {
   const store = useProgressStore()
   const { theme, toggle } = useTheme()
   const [examId, setExamId] = useState<string | null>(null)
-  const [screen, setScreen] = useState<Screen>({ kind: "picker" })
+  const [screen, setScreen] = useState<Screen>({ kind: "landing" })
   const [sessionCounter, setSessionCounter] = useState(0)
 
   const exam: ExamDef | null = examId ? EXAMS[examId] : null
@@ -43,19 +45,35 @@ export default function App() {
     setScreen({ kind: "quiz", cfg, sessionKey: sessionCounter + 1 })
   }
 
+  if (screen.kind === "landing") {
+    return (
+      <ProgressContext.Provider value={store}>
+        <Landing
+          onChooseExam={(id) => {
+            setExamId(id)
+            setScreen({ kind: "home" })
+            window.scrollTo(0, 0)
+          }}
+        />
+        <Toaster />
+      </ProgressContext.Provider>
+    )
+  }
+
   return (
     <ProgressContext.Provider value={store}>
       <div className="mx-auto min-h-screen max-w-4xl px-4 pb-16">
         <header className="flex flex-wrap items-center justify-between gap-3 py-4">
           <button
-            className="font-mono text-sm font-semibold tracking-wide"
+            className="font-heading cursor-pointer text-sm font-semibold tracking-wide"
             onClick={() => {
               setExamId(null)
-              setScreen({ kind: "picker" })
+              setScreen({ kind: "landing" })
+              window.scrollTo(0, 0)
             }}
             data-testid="brand"
           >
-            COMPTIA TRAINER
+            COMPTIA·TRAINER
             {exam && <span className="text-muted-foreground font-normal"> · {exam.cert} {exam.name} · {exam.code}</span>}
           </button>
           <div className="flex items-center gap-2">
