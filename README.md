@@ -1,5 +1,7 @@
 # CompTIA Practice Trainer
 
+**Live at: https://comptia-practice-trainer.johnathanv16.workers.dev**
+
 A free, single-file practice-exam web app for three CompTIA certifications:
 
 | Exam | Version | Bank |
@@ -30,9 +32,10 @@ Progress is stored in the browser via `localStorage`, tracked separately per exa
 
 ## Deployment
 
-Hosted on Cloudflare Pages from this private repo. Every push to `main`
-auto-deploys. Static site — framework preset "None", no build command,
-output directory `/`.
+Hosted on Cloudflare (Workers static assets) from this private repo — every push
+to `main` auto-deploys to the URL above. `wrangler.jsonc` serves the repo root as
+static assets; `.assetsignore` restricts what is publicly served to the app itself
+(docs, tools, and config are excluded).
 
 ## Legal
 
