@@ -2,8 +2,8 @@
 
 ## What this is
 A free practice-exam platform for **three CompTIA certifications** — A+ Core 1
-(220-1201, 239 Q / 5 PBQs), A+ Core 2 (220-1202, 281 Q / 8 PBQs), Network+
-(N10-009, 264 Q / 6 PBQs). All exam versions current as of 2026. Every question
+(220-1201, 291 Q / 12 PBQs), A+ Core 2 (220-1202, 330 Q / 13 PBQs), Network+
+(N10-009, 315 Q / 12 PBQs). All exam versions current as of 2026. Every question
 links to its Professor Messer video.
 
 **Live**: https://comptia-practice-trainer.johnathanv16.workers.dev
@@ -77,6 +77,8 @@ to `dist/` assets (SPA mode). D1 (`comptia-trainer`) stores auth + synced progre
   `npm ci && npm run build`, deploy `npx wrangler deploy`.
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
 
-## Next tasks (Phase G)
-- Content expansion: +40-60 MCQs per exam (domain-balanced), PBQs → 12-15/exam.
+## Next tasks
+- Phase G round 1 done (2026-07-14): banks at 291/330/315 Q, 12/13/12 PBQs.
+  Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
+  topics/ids/duplicates, derives id and d automatically).
 - Consider Security+ (SY0-701) as a fourth exam using the same data shape.

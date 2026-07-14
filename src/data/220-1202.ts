@@ -4329,6 +4329,692 @@ export const exam: ExamDef = {
    "a": 1,
    "e": "Bias in training data produces systematically unfair model outputs — a key AI governance concern.",
    "d": 4
+  },
+  {
+   "id": 281,
+   "t": "cmd",
+   "x": "A technician needs to mirror a large folder tree to a NAS nightly, resuming cleanly after network drops. Which built-in Windows command fits best?",
+   "o": [
+    "robocopy",
+    "copy",
+    "xcopy",
+    "type"
+   ],
+   "a": 0,
+   "e": "Robocopy ('robust copy') supports mirroring, retries, resume, and logging, the standard for scripted bulk copies.",
+   "d": 1
+  },
+  {
+   "id": 282,
+   "t": "cmd",
+   "x": "Why is diskpart considered dangerous compared with Disk Management?",
+   "o": [
+    "Its clean command instantly wipes a disk's partition table without confirmation prompts",
+    "It cannot format disks",
+    "It only works on USB drives",
+    "It requires internet access"
+   ],
+   "a": 0,
+   "e": "diskpart executes destructive commands like clean immediately; selecting the wrong disk destroys its layout with no undo.",
+   "d": 1
+  },
+  {
+   "id": 283,
+   "t": "windows-tools",
+   "x": "Task Manager shows high disk usage but not which files are being touched. Which tool shows per-process disk, network, and file-handle activity in detail?",
+   "o": [
+    "Resource Monitor (resmon)",
+    "Notepad",
+    "Disk Cleanup",
+    "Character Map"
+   ],
+   "a": 0,
+   "e": "Resource Monitor breaks out per-process disk I/O with file names, plus network and memory detail beyond Task Manager.",
+   "d": 1
+  },
+  {
+   "id": 284,
+   "t": "mmc",
+   "x": "A technician wants CPU and memory statistics logged every 15 seconds for a week to diagnose intermittent slowdowns. Which tool does this?",
+   "o": [
+    "Performance Monitor data collector sets",
+    "Task Manager",
+    "Disk Management",
+    "Device Manager"
+   ],
+   "a": 0,
+   "e": "Performance Monitor (perfmon) records counters over time via data collector sets, which Task Manager cannot do.",
+   "d": 1
+  },
+  {
+   "id": 285,
+   "t": "task-manager",
+   "x": "Which Task Manager information helps decide which startup programs to disable first?",
+   "o": [
+    "The measured 'startup impact' rating per program",
+    "The process ID",
+    "The window title",
+    "The icon color"
+   ],
+   "a": 0,
+   "e": "The Startup tab's impact column ranks how much each program slows sign-in, prioritizing what to disable.",
+   "d": 1
+  },
+  {
+   "id": 286,
+   "t": "windows-settings",
+   "x": "PDF files suddenly open in the wrong program. Where does a user fix which application handles PDFs?",
+   "o": [
+    "Settings > Apps > Default apps",
+    "Device Manager",
+    "Disk Management",
+    "Windows Update"
+   ],
+   "a": 0,
+   "e": "Default apps maps file types to applications; installers often hijack associations, and this is where to reclaim them.",
+   "d": 1
+  },
+  {
+   "id": 287,
+   "t": "control-panel",
+   "x": "Windows keeps using an old saved password for a network share. Which Control Panel tool removes the stored credential?",
+   "o": [
+    "Credential Manager",
+    "Ease of Access",
+    "Sync Center",
+    "Phone and Modem"
+   ],
+   "a": 0,
+   "e": "Credential Manager stores Windows and web credentials; deleting the stale entry forces a fresh prompt.",
+   "d": 1
+  },
+  {
+   "id": 288,
+   "t": "windows-features",
+   "x": "Company policy requires encryption on USB flash drives leaving the office. Which Windows feature encrypts removable drives?",
+   "o": [
+    "BitLocker To Go",
+    "EFS only",
+    "ReadyBoost",
+    "Storage Sense"
+   ],
+   "a": 0,
+   "e": "BitLocker To Go extends BitLocker encryption to removable drives, with a password or smart card to unlock.",
+   "d": 1
+  },
+  {
+   "id": 289,
+   "t": "file-systems",
+   "x": "A Windows Server storing critical VM files uses a file system with built-in integrity streams and corruption self-healing. Which file system is this?",
+   "o": [
+    "ReFS",
+    "FAT32",
+    "exFAT",
+    "ext4"
+   ],
+   "a": 0,
+   "e": "The Resilient File System (ReFS) targets data integrity with checksums and automatic repair on mirrored spaces.",
+   "d": 1
+  },
+  {
+   "id": 290,
+   "t": "installing-os",
+   "x": "IT wants Windows installs that configure themselves: partitioning, locale, and account, with no clicking. Which mechanism does this?",
+   "o": [
+    "An unattended installation answer file",
+    "Safe Mode",
+    "A repair install",
+    "Fast startup"
+   ],
+   "a": 0,
+   "e": "Answer files (unattend.xml) script setup decisions for hands-free, consistent deployments.",
+   "d": 1
+  },
+  {
+   "id": 291,
+   "t": "upgrading-windows",
+   "x": "Two weeks after an upgrade to a new Windows version, a user wants to roll back to the previous one, but the option is gone. Why?",
+   "o": [
+    "The rollback window expired and Windows removed the old installation files",
+    "Rollback requires a Microsoft account",
+    "The BIOS blocks it",
+    "Antivirus removed it"
+   ],
+   "a": 0,
+   "e": "Windows keeps windows.old for a limited period (10 days by default); after cleanup, rollback requires a clean reinstall.",
+   "d": 1
+  },
+  {
+   "id": 292,
+   "t": "macos-features",
+   "x": "A user tries to open a downloaded app and macOS refuses because it is from an unidentified developer. Which macOS security feature is this?",
+   "o": [
+    "Gatekeeper",
+    "Spotlight",
+    "Mission Control",
+    "AirDrop"
+   ],
+   "a": 0,
+   "e": "Gatekeeper enforces code-signing/notarization policy on downloaded apps.",
+   "d": 1
+  },
+  {
+   "id": 293,
+   "t": "macos-prefs",
+   "x": "Which macOS feature provides full-disk encryption?",
+   "o": [
+    "FileVault",
+    "Keychain",
+    "Time Machine",
+    "Stage Manager"
+   ],
+   "a": 0,
+   "e": "FileVault encrypts the entire startup disk, tied to user credentials and a recovery key.",
+   "d": 1
+  },
+  {
+   "id": 294,
+   "t": "linux",
+   "x": "On a Debian-based Linux system, which command installs software from the distribution's repositories?",
+   "o": [
+    "apt install <package>",
+    "regedit",
+    "chkdsk",
+    "brew doctor"
+   ],
+   "a": 0,
+   "e": "Debian/Ubuntu systems use APT; Red Hat family uses dnf/yum. Package managers handle dependencies and updates.",
+   "d": 1
+  },
+  {
+   "id": 295,
+   "t": "linux-cmd2",
+   "x": "A Linux process is unresponsive. Which command sequence finds its process ID and stops it?",
+   "o": [
+    "ps (or pgrep) to find the PID, then kill <PID>",
+    "ls then rm",
+    "df then du",
+    "cat then grep"
+   ],
+   "a": 0,
+   "e": "ps/pgrep locate the process; kill sends SIGTERM (kill -9 as last resort for a stuck process).",
+   "d": 1
+  },
+  {
+   "id": 296,
+   "t": "net-cmd",
+   "x": "Which Windows command combines ping and tracert, showing per-hop packet loss over time?",
+   "o": [
+    "pathping",
+    "netstat",
+    "nbtstat",
+    "getmac"
+   ],
+   "a": 0,
+   "e": "pathping traces the route, then sends probes to each hop for a period, revealing exactly where loss occurs.",
+   "d": 1
+  },
+  {
+   "id": 297,
+   "t": "win-firewall-cfg",
+   "x": "An application cannot receive connections, and policy says do NOT open raw ports. What is the Windows Firewall alternative?",
+   "o": [
+    "Allow the application itself through the firewall (program rule)",
+    "Disable the firewall",
+    "Enable every inbound port",
+    "Use public profile everywhere"
+   ],
+   "a": 0,
+   "e": "Program-based rules permit a specific executable to listen regardless of port, tighter than blanket port openings.",
+   "d": 1
+  },
+  {
+   "id": 298,
+   "t": "ts-windows",
+   "x": "A user signs in and gets a desktop with none of their files; Windows says they are on a temporary profile. What should the technician do?",
+   "o": [
+    "Fix or restore the user's profile (registry ProfileList repair or profile recreation); files are still on disk",
+    "Wipe the PC",
+    "Create a new Microsoft account",
+    "Replace the drive"
+   ],
+   "a": 0,
+   "e": "Temp-profile logons mean the real profile failed to load; the data remains under C:\\Users and the profile can be repaired or relinked.",
+   "d": 3
+  },
+  {
+   "id": 299,
+   "t": "ts-windows",
+   "x": "sfc /scannow reports corrupt files it could not fix. Which command repairs the component store so sfc can succeed?",
+   "o": [
+    "DISM /Online /Cleanup-Image /RestoreHealth, then rerun sfc",
+    "chkdsk /f",
+    "defrag C:",
+    "gpupdate /force"
+   ],
+   "a": 0,
+   "e": "DISM repairs the source store that sfc pulls from; the standard order is DISM RestoreHealth, then sfc /scannow.",
+   "d": 3
+  },
+  {
+   "id": 300,
+   "t": "ts-windows",
+   "x": "Immediately after a monthly update, a PC blue-screens on every boot. Which recovery path removes the cause without losing data?",
+   "o": [
+    "Boot WinRE and uninstall the latest quality update",
+    "Format and reinstall",
+    "Replace the RAM",
+    "Disable the firewall"
+   ],
+   "a": 0,
+   "e": "WinRE includes 'Uninstall Updates' precisely for update-induced boot failures; data is untouched.",
+   "d": 3
+  },
+  {
+   "id": 301,
+   "t": "ts-windows",
+   "x": "A legacy business app crashes on a new Windows version but ran fine on an older one. Which quick mitigation should be tried first?",
+   "o": [
+    "Run the app in compatibility mode for the older Windows version",
+    "Reinstall Windows",
+    "Buy new hardware",
+    "Disable antivirus permanently"
+   ],
+   "a": 0,
+   "e": "Compatibility mode shims the environment (version checks, paths) and often gets legacy apps working immediately.",
+   "d": 3
+  },
+  {
+   "id": 302,
+   "t": "ts-windows",
+   "x": "A service crashes every few minutes; the technician needs the exact error and faulting module. Where do they look?",
+   "o": [
+    "Event Viewer's System and Application logs",
+    "The Recycle Bin",
+    "Task Scheduler",
+    "The hosts file"
+   ],
+   "a": 0,
+   "e": "Service failures log event IDs, error codes, and faulting modules in Event Viewer, the starting point for a crash loop.",
+   "d": 3
+  },
+  {
+   "id": 303,
+   "t": "ts-mobile",
+   "x": "On Android, what is the difference between clearing an app's cache and clearing its data (storage)?",
+   "o": [
+    "Cache removes temporary files only; clearing data resets the app to fresh-install state",
+    "They are identical",
+    "Cache deletes the app",
+    "Data only removes icons"
+   ],
+   "a": 0,
+   "e": "Cache clearing is safe and non-destructive; clearing data wipes logins and settings, a bigger hammer for deeper problems.",
+   "d": 3
+  },
+  {
+   "id": 304,
+   "t": "ts-mobile",
+   "x": "A user gets no notifications from a messaging app until they open it manually. Which settings should be checked first?",
+   "o": [
+    "Notification permissions and battery optimization exemptions for that app",
+    "Screen resolution",
+    "SIM PIN",
+    "Storage encryption"
+   ],
+   "a": 0,
+   "e": "Aggressive battery optimization suspends background delivery; exempting the app (and allowing notifications) restores real-time alerts.",
+   "d": 3
+  },
+  {
+   "id": 305,
+   "t": "ts-mobile",
+   "x": "A user can send individual texts but group messages and picture messages fail. Which configuration is involved?",
+   "o": [
+    "MMS settings / APN configuration on the cellular connection",
+    "Bluetooth",
+    "The flashlight",
+    "NFC"
+   ],
+   "a": 0,
+   "e": "Group and media messages ride MMS, which depends on correct APN data settings from the carrier.",
+   "d": 3
+  },
+  {
+   "id": 306,
+   "t": "ts-mobile",
+   "x": "After a phone OS update, its Bluetooth no longer auto-connects to the user's car. What is the standard first fix?",
+   "o": [
+    "Forget the pairing on both phone and car, then pair fresh",
+    "Factory reset the car",
+    "Replace the phone battery",
+    "Disable Wi-Fi"
+   ],
+   "a": 0,
+   "e": "Updates can invalidate stored pairing keys; re-pairing from scratch on both ends re-establishes a clean bond.",
+   "d": 3
+  },
+  {
+   "id": 307,
+   "t": "ts-mobile-security",
+   "x": "A user tapped a link that installed a 'settings profile' on their iPhone, and now web traffic behaves oddly. What should the technician do?",
+   "o": [
+    "Remove the unknown configuration profile in Settings and check for a rogue VPN/proxy",
+    "Charge the phone fully",
+    "Rotate the wallpaper",
+    "Toggle airplane mode"
+   ],
+   "a": 0,
+   "e": "Malicious configuration profiles can add proxies, VPNs, or certificates that intercept traffic; removing the profile removes the control.",
+   "d": 3
+  },
+  {
+   "id": 308,
+   "t": "ts-mobile-security",
+   "x": "MDM flags a corporate phone as rooted. Per best practice, what happens next?",
+   "o": [
+    "The device is quarantined from corporate resources until wiped/reimaged and verified",
+    "Nothing; rooting is cosmetic",
+    "It gets more access for testing",
+    "Only the wallpaper is reset"
+   ],
+   "a": 0,
+   "e": "Rooted devices cannot be trusted to enforce policy; compliance systems block corporate access until remediated.",
+   "d": 3
+  },
+  {
+   "id": 309,
+   "t": "ts-mobile-security",
+   "x": "On hotel Wi-Fi, a phone shows certificate warnings on every site until the user opens a login page. What explains this?",
+   "o": [
+    "A captive portal intercepts traffic until sign-in; warnings on sites are expected before authenticating",
+    "The phone is broken",
+    "Every website is down",
+    "The SIM expired"
+   ],
+   "a": 0,
+   "e": "Captive portals redirect all requests, which trips HTTPS warnings; complete the portal login, and stop if warnings persist afterward.",
+   "d": 3
+  },
+  {
+   "id": 310,
+   "t": "ts-mobile-security",
+   "x": "An app from the official store requests device-admin rights and floods the phone with ads. What should the user do?",
+   "o": [
+    "Revoke its admin rights, uninstall it, and report it to the store",
+    "Grant the rights to stop the ads",
+    "Root the phone",
+    "Clear the wallpaper"
+   ],
+   "a": 0,
+   "e": "Store vetting is imperfect; revoke elevated rights first (or uninstall may be blocked), remove the app, and report it.",
+   "d": 3
+  },
+  {
+   "id": 311,
+   "t": "ts-security",
+   "x": "A user's search results now route through an unknown search site, and an unfamiliar browser extension keeps reappearing. What class of software is this?",
+   "o": [
+    "A browser hijacker / potentially unwanted program",
+    "A device driver",
+    "A codec pack",
+    "Firmware"
+   ],
+   "a": 0,
+   "e": "Search redirection plus a persistent extension is hijacker behavior; remove the PUP, reset browser settings, and scan.",
+   "d": 3
+  },
+  {
+   "id": 312,
+   "t": "ts-security",
+   "x": "EDR alerts that a workstation is scanning neighboring systems and attempting logons with harvested credentials. What is the FIRST response action?",
+   "o": [
+    "Isolate the machine from the network, then begin incident response",
+    "Reboot it and wait",
+    "Uninstall the EDR agent",
+    "Email all staff"
+   ],
+   "a": 0,
+   "e": "Lateral movement means active compromise; containment (isolation) comes before analysis and eradication.",
+   "d": 3
+  },
+  {
+   "id": 313,
+   "t": "ts-security",
+   "x": "An employee reports they clicked a phishing link and entered their password before realizing. What must happen immediately?",
+   "o": [
+    "Change the password, revoke active sessions, enable/verify MFA, and report per policy",
+    "Nothing if the site looked real",
+    "Delete the email only",
+    "Run defrag"
+   ],
+   "a": 0,
+   "e": "Credential exposure requires immediate rotation and session revocation; speed determines whether attackers get in first.",
+   "d": 3
+  },
+  {
+   "id": 314,
+   "t": "ts-security",
+   "x": "A technician finds an unfamiliar folder excluded from antivirus scans on a compromised PC. Why would malware add this?",
+   "o": [
+    "Exclusions create a scan-proof hiding place; audit and remove unauthorized exclusions",
+    "Exclusions speed up the mouse",
+    "Exclusions are cosmetic",
+    "Antivirus requires them"
+   ],
+   "a": 0,
+   "e": "Adding itself to AV exclusions is a common persistence trick; exclusion lists deserve review during any cleanup.",
+   "d": 3
+  },
+  {
+   "id": 315,
+   "t": "ts-security",
+   "x": "A user finds a USB drive labeled 'Payroll' in the parking lot. What does security best practice say to do?",
+   "o": [
+    "Hand it to IT/security unopened; never plug it in",
+    "Plug it in to find the owner",
+    "Format it for personal use",
+    "Throw it away silently"
+   ],
+   "a": 0,
+   "e": "Baiting attacks rely on curiosity; unknown media goes to security for safe handling, never into a workstation.",
+   "d": 3
+  },
+  {
+   "id": 316,
+   "t": "ticketing",
+   "x": "A ticket system distinguishes 'severity' from 'priority'. What is the difference?",
+   "o": [
+    "Severity measures technical impact; priority sets the order work happens based on business needs",
+    "They are synonyms",
+    "Priority is set by the user only",
+    "Severity applies to hardware only"
+   ],
+   "a": 0,
+   "e": "A high-severity lab outage may still be lower priority than a low-severity issue blocking payroll; business context sets priority.",
+   "d": 4
+  },
+  {
+   "id": 317,
+   "t": "asset-mgmt",
+   "x": "New laptops receive barcode tags tied to records of owner, location, purchase date, and warranty. What is this practice?",
+   "o": [
+    "Asset tagging and inventory management",
+    "Change management",
+    "Sandboxing",
+    "Escalation"
+   ],
+   "a": 0,
+   "e": "Asset tags link physical devices to lifecycle records, enabling audits, warranty recovery, and loss tracking.",
+   "d": 4
+  },
+  {
+   "id": 318,
+   "t": "documents",
+   "x": "After solving a tricky recurring problem, a technician writes up symptoms, cause, and fix in the internal system. What are they creating?",
+   "o": [
+    "A knowledge base article",
+    "An SLA",
+    "An NDA",
+    "A purchase order"
+   ],
+   "a": 0,
+   "e": "KB articles turn one person's hard-won fix into everyone's five-minute fix.",
+   "d": 4
+  },
+  {
+   "id": 319,
+   "t": "documents",
+   "x": "Which document tells new employees what they may and may not do with company computers and internet access?",
+   "o": [
+    "The acceptable use policy (AUP)",
+    "The MSDS",
+    "A network diagram",
+    "The chain of custody form"
+   ],
+   "a": 0,
+   "e": "The AUP defines permitted use of company IT resources and the consequences of misuse.",
+   "d": 4
+  },
+  {
+   "id": 320,
+   "t": "change-mgmt",
+   "x": "A change request must include a plan for undoing the change if it fails. What is this called?",
+   "o": [
+    "A rollback (backout) plan",
+    "A sandbox",
+    "A hotfix",
+    "An SLA"
+   ],
+   "a": 0,
+   "e": "Approval requires knowing how to restore service if the change goes wrong; the backout plan is that answer.",
+   "d": 4
+  },
+  {
+   "id": 321,
+   "t": "change-mgmt",
+   "x": "A production switch is down and the fix requires an immediate configuration change outside the normal approval window. Which change type is this?",
+   "o": [
+    "An emergency change",
+    "A standard change",
+    "A routine change",
+    "An unauthorized change"
+   ],
+   "a": 0,
+   "e": "Emergency changes follow an expedited path during outages, with retroactive review; routine pre-approved items are 'standard' changes.",
+   "d": 4
+  },
+  {
+   "id": 322,
+   "t": "backups",
+   "x": "Management asks: 'If we restore from backup, how much recent data are we willing to lose?' Which metric answers this?",
+   "o": [
+    "RPO (recovery point objective)",
+    "RTO",
+    "MTBF",
+    "SLA"
+   ],
+   "a": 0,
+   "e": "RPO is maximum tolerable data loss (time since last backup); RTO is how fast service must be restored.",
+   "d": 4
+  },
+  {
+   "id": 323,
+   "t": "safety",
+   "x": "A technician must move a 25 kg UPS from the floor to a rack shelf. Which technique prevents injury?",
+   "o": [
+    "Lift with the legs, keep the back straight, and get help for heavy items",
+    "Bend at the waist and lift fast",
+    "Carry it above the head",
+    "Drag it by the cable"
+   ],
+   "a": 0,
+   "e": "Proper lifting uses leg muscles with a neutral spine; team-lift anything awkward or heavy.",
+   "d": 4
+  },
+  {
+   "id": 324,
+   "t": "safety",
+   "x": "Which fire extinguisher class is safe for energized electrical equipment?",
+   "o": [
+    "Class C (CO2 or dry chemical)",
+    "Class A water",
+    "Class K",
+    "A garden hose"
+   ],
+   "a": 0,
+   "e": "Class C agents don't conduct electricity; water-based Class A on live equipment risks electrocution.",
+   "d": 4
+  },
+  {
+   "id": 325,
+   "t": "environment",
+   "x": "How should a box of used toner cartridges and old UPS batteries be handled?",
+   "o": [
+    "Recycle through manufacturer or certified e-waste programs per local regulations",
+    "Regular trash",
+    "Burn them",
+    "Bury them"
+   ],
+   "a": 0,
+   "e": "Batteries and toner contain regulated materials; vendor take-back and certified recyclers handle them legally and safely.",
+   "d": 4
+  },
+  {
+   "id": 326,
+   "t": "incident-response",
+   "x": "When capturing evidence from a live compromised machine, why is RAM collected before imaging the disk?",
+   "o": [
+    "Order of volatility: memory contents vanish at power-off while disks persist",
+    "RAM is larger",
+    "Disks cannot be copied",
+    "RAM holds the OS license"
+   ],
+   "a": 0,
+   "e": "Evidence is collected most-volatile first: registers/RAM/network state before storage, or it is lost forever.",
+   "d": 4
+  },
+  {
+   "id": 327,
+   "t": "licensing",
+   "x": "A team bundles an open-source library into a commercial product. What must they check first?",
+   "o": [
+    "The library's license terms and their obligations (attribution, copyleft, redistribution)",
+    "The library's file size",
+    "The author's location",
+    "Nothing; open source is unrestricted"
+   ],
+   "a": 0,
+   "e": "Open source is licensed, not public domain; GPL-family licenses especially carry obligations that affect commercial use.",
+   "d": 4
+  },
+  {
+   "id": 328,
+   "t": "professionalism",
+   "x": "A repair will take three days longer than promised. What does professional communication require?",
+   "o": [
+    "Contact the customer proactively, explain, and set a new realistic expectation",
+    "Stay silent and hope",
+    "Blame the parts supplier in writing",
+    "Close the ticket"
+   ],
+   "a": 0,
+   "e": "Setting and resetting expectations honestly preserves trust; surprises destroy it.",
+   "d": 4
+  },
+  {
+   "id": 329,
+   "t": "scripting",
+   "x": "A technician automates Windows administration tasks: user creation, service restarts, and registry edits. Which scripting language is the native fit?",
+   "o": [
+    "PowerShell (.ps1)",
+    "Bash (.sh)",
+    "JavaScript (.js)",
+    "Python only"
+   ],
+   "a": 0,
+   "e": "PowerShell is Windows' native automation shell with direct access to system cmdlets, AD, and the registry.",
+   "d": 4
   }
  ],
  "pbqs": [
@@ -4625,6 +5311,144 @@ export const exam: ExamDef = {
     "Create a forensic copy/image of the storage drive",
     "Document and maintain chain of custody for all evidence",
     "Hand off evidence to the appropriate authority or team"
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "ts-windows",
+   "title": "Pick the Recovery Tool",
+   "scen": "Match each Windows problem to the most appropriate recovery tool or action.",
+   "choices": [
+    "Safe Mode",
+    "System Restore",
+    "WinRE Startup Repair",
+    "DISM + sfc",
+    "Uninstall updates in WinRE",
+    "Reset this PC"
+   ],
+   "items": [
+    {
+     "l": "A bad driver loads at boot and needs to be rolled back from a minimal environment",
+     "a": 0
+    },
+    {
+     "l": "The system became unstable after new software; return system files/settings to yesterday's state",
+     "a": 1
+    },
+    {
+     "l": "The boot configuration is damaged and Windows no longer starts",
+     "a": 2
+    },
+    {
+     "l": "Protected system files are corrupt and sfc alone could not repair them",
+     "a": 3
+    },
+    {
+     "l": "Every boot blue-screens starting right after this month's patch",
+     "a": 4
+    },
+    {
+     "l": "The OS is beyond repair; keep personal files but reinstall Windows",
+     "a": 5
+    }
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "windows-settings",
+   "title": "Where in Settings?",
+   "scen": "Match each task to the Windows Settings area that handles it.",
+   "choices": [
+    "Apps > Default apps",
+    "Privacy & Security",
+    "Accounts",
+    "Time & Language",
+    "Network & Internet",
+    "Personalization"
+   ],
+   "items": [
+    {
+     "l": "Make a different browser open all web links",
+     "a": 0
+    },
+    {
+     "l": "Stop an app from using the microphone",
+     "a": 1
+    },
+    {
+     "l": "Add a second sign-in user to this PC",
+     "a": 2
+    },
+    {
+     "l": "Add a keyboard layout for another language",
+     "a": 3
+    },
+    {
+     "l": "Set the current Wi-Fi network as metered",
+     "a": 4
+    },
+    {
+     "l": "Change the lock screen picture",
+     "a": 5
+    }
+   ]
+  },
+  {
+   "kind": "order",
+   "t": "change-mgmt",
+   "title": "Change Management, Start to Finish",
+   "scen": "Arrange the steps of a properly managed production change.",
+   "steps": [
+    "Submit a change request with purpose and scope",
+    "Assess risk and document the rollback plan",
+    "Obtain approval from the change board",
+    "Implement during the approved maintenance window",
+    "Test and verify the result",
+    "Document the outcome and close the change"
+   ]
+  },
+  {
+   "kind": "order",
+   "t": "esd",
+   "title": "ESD-Safe Component Replacement",
+   "scen": "Arrange the steps for safely replacing a graphics card without electrostatic damage.",
+   "steps": [
+    "Power down and unplug the PC from the wall",
+    "Press the power button to drain residual charge",
+    "Put on an ESD strap connected to the chassis",
+    "Remove the old card and place it in an anti-static bag",
+    "Install the new card, handling it by the edges",
+    "Reassemble, reconnect power, and test"
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "logical-security",
+   "title": "Name the Authentication Factor",
+   "scen": "Match each example to the authentication factor category it represents.",
+   "choices": [
+    "Something you know",
+    "Something you have",
+    "Something you are",
+    "Somewhere you are"
+   ],
+   "items": [
+    {
+     "l": "A password or PIN",
+     "a": 0
+    },
+    {
+     "l": "A hardware token or smart card",
+     "a": 1
+    },
+    {
+     "l": "A fingerprint or face scan",
+     "a": 2
+    },
+    {
+     "l": "Sign-in allowed only from the office network",
+     "a": 3
+    }
    ]
   }
  ]
