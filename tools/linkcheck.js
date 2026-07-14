@@ -19,8 +19,9 @@ const fakeEl = new Proxy({}, {
   },
   set(t, p, v) { t[p] = v; return true; }
 });
-global.document = { getElementById: () => fakeEl, querySelectorAll: () => [], querySelector: () => fakeEl };
-global.window = { scrollTo(){} };
+global.document = { getElementById: () => fakeEl, querySelectorAll: () => [], querySelector: () => fakeEl, documentElement: fakeEl };
+global.window = { scrollTo(){}, matchMedia: () => ({ matches: false }) };
+global.matchMedia = () => ({ matches: false });
 global.localStorage = { getItem: () => null, setItem(){}, removeItem(){} };
 global.setInterval = () => 0; global.clearInterval = () => {};
 global.confirm = () => true; global.alert = () => {};
