@@ -145,9 +145,19 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
             </Button>
-            <Button onClick={() => scrollTo("exams")} className="active:scale-[0.98]" data-testid="nav-cta">
-              Start practicing
-            </Button>
+            <span className="ml-1 flex items-center gap-1" data-testid="nav-exam-chips">
+              {exams.map((ex) => (
+                <button
+                  key={ex.id}
+                  onClick={() => onChooseExam(ex.id)}
+                  aria-label={`Start ${ex.cert} ${ex.name}`}
+                  title={`${ex.cert} ${ex.name} (${ex.code})`}
+                  className="flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-colors duration-200 hover:border-primary hover:bg-accent hover:text-primary"
+                >
+                  {ex.id === "220-1201" ? "C1" : ex.id === "220-1202" ? "C2" : "N+"}
+                </button>
+              ))}
+            </span>
           </div>
         </nav>
       </header>
