@@ -20,10 +20,22 @@ everything (CSS, data, engine) lives in the one file. Vanilla JS only.
 noreply email (set in local git config) — the account blocks email-exposing pushes.
 
 ## File structure (top to bottom)
-1. **HTML + CSS** — light "workbench" theme. Colors: paper `#F4F6F8`, ink `#16202B`,
-   cobalt accent `#2145D6`. Screens: `scr-exams` (picker), `scr-home`, `scr-setup`,
-   `scr-quiz`, `scr-results`, `scr-progress`. Topbar `#brand` + `#switch-exam-btn`
-   update as you enter/leave an exam.
+1. **HTML + CSS** — "technical field manual" design, two themes:
+   - Light "paper": bg `#F3EDE0`, surface `#FBF7EE`, ink `#221B12`, oxide accent `#A93C25`.
+   - Dark "night desk": bg `#1B1712`, surface `#252017`, ink `#EBE2CF`, accent `#D87A56`.
+   - Theme = `data-theme` on `<html>`; boot script in `<head>` (`<script data-boot>` —
+     the attribute keeps it out of the validators' `<script>` regex) applies saved
+     `localStorage["trainer-theme"]` or system preference pre-paint; `toggleTheme()`
+     + `#theme-btn` in topbar. Dark vars appear twice (attr selector + prefers-color-scheme
+     fallback) — keep both in sync.
+   - Type: Fraunces (display serif), IBM Plex Sans (body), IBM Plex Mono (labels) via
+     Google Fonts link — the app's only external requests.
+   - Motifs: ink-block `.btn` (`--block`/`--on-block`), stamped chips, `Fig. 0N` CSS
+     counters on `.mode-btn .tag`, thick-thin topbar rule, crop-marked `.score-hero`,
+     rotated `.stamp` PASS/NOT YET on exam results, hatched `.dbar .track` and empty
+     mastery `.cell`s (mastery colors: `--lvl1..3` vars), `.folio` footer.
+   Screens: `scr-exams` (picker), `scr-home`, `scr-setup`, `scr-quiz`, `scr-results`,
+   `scr-progress`. Topbar `#brand` + `#switch-exam-btn` update as you enter/leave an exam.
 2. **Multi-exam framework** — `EXAMS` registry. `beginExam(cfg)` starts an exam and
    sets the builder target `_CUR`; then `V()`, `q()`, `pbq()` add to the current
    exam. Each exam object carries its own `videos`, `questions`, `pbqs`, `domains`,
