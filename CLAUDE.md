@@ -4,9 +4,11 @@
 A single-file HTML practice-exam app (`index.html`) covering
 **three CompTIA certifications**, chosen from a landing menu:
 
-- **A+ Core 1** — 220-1201 (63 questions, 3 PBQs) — *starter bank*
-- **A+ Core 2** — 220-1202 (250 questions, 8 PBQs) — *full bank*
-- **Network+** — N10-009 (59 questions, 3 PBQs) — *starter bank*
+- **A+ Core 1** — 220-1201 (239 questions, 5 PBQs)
+- **A+ Core 2** — 220-1202 (281 questions, 8 PBQs)
+- **Network+** — N10-009 (264 questions, 6 PBQs)
+
+Picker order is `EXAM_ORDER` (Core 1 → Core 2 → Network+), not definition order.
 
 All exam versions are current as of 2026. No build step, no dependencies —
 everything (CSS, data, engine) lives in the one file. Vanilla JS only.
@@ -67,13 +69,15 @@ Deployed via Cloudflare Pages from this private repo (push to main = deploy).
 - Vanilla JS, single file.
 
 ## Validation
-`tools/validate.js` stubs the DOM, builds all exams, and drives a full flow per exam
-(select → pick → all-correct full exam → progress). Run `node tools/validate.js`
-after EVERY content/engine edit — it flags bad topic keys, invalid answer indices,
-and runtime errors. Must pass before each commit.
+- `tools/validate.js` — stubs the DOM, builds all exams, and drives a full flow per
+  exam (select → pick → all-correct full exam → progress). Run `node tools/validate.js`
+  after EVERY content/engine edit — it flags bad topic keys, invalid answer indices,
+  and runtime errors. Must pass before each commit.
+- `tools/linkcheck.js` — HTTP-checks every video URL in all banks (last full run:
+  214/214 OK). Run before releases and after adding video topics.
 
 ## Likely next tasks
-- Grow the Core 1 (220-1201) and Network+ (N10-009) banks toward Core 2 parity
-  (~250 each), keeping domain balance per `examSplit`.
-- More PBQs for Core 1 and Network+.
-- Expand Core 2 Domain 3 (Software Troubleshooting, lightest at 24).
+- Continue growing banks in verified batches (author → validate → linkcheck new
+  slugs → commit), keeping domain balance per `examSplit`.
+- More PBQs across all three exams.
+- Consider a Security+ (SY0-701) exam block using the same framework.
