@@ -59,14 +59,17 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   return (
     <main>
       <Card className="p-8 text-center" data-testid="score-hero">
-        <p className={cn("font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
-          {outcome.scaled}
+        <p className="relative inline-block">
+          <span className={cn("verdict-pop block font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
+            {outcome.scaled}
+          </span>
+          {outcome.pass && <span className="ring-pulse" aria-hidden />}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">
           scaled 100 to 900, pass line {PASS_SCALED}. Raw score {Math.round(outcome.pct * 100)}%
           {outcome.timeUp && " · time expired"}
         </p>
-        <p className={cn("mt-3 text-lg font-bold", outcome.pass ? "text-success" : "text-destructive")} data-testid="verdict">
+        <p className={cn("verdict-line mt-3 text-lg font-bold", outcome.pass ? "text-success" : "text-destructive")} data-testid="verdict">
           {outcome.pass ? "PASS. Nice work." : "Not yet. The review below shows exactly what to study."}
         </p>
       </Card>
@@ -85,7 +88,10 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
                   <span className="font-mono tabular-nums">{pct}%</span>
                 </div>
                 <div className="mt-1 h-2.5 overflow-hidden rounded-full border bg-muted">
-                  <div className="h-full bg-primary" style={{ width: `${pct}%` }} />
+                  <div
+                    className="bar-fill h-full w-full rounded-full bg-primary"
+                    style={{ "--pct": pct / 100, "--i": d - 1 } as React.CSSProperties}
+                  />
                 </div>
               </div>
             )

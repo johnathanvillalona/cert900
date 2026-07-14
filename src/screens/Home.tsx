@@ -40,7 +40,7 @@ export function Home(props: {
           <button
             key={m.key}
             data-testid={`mode-${m.key}`}
-            className="group cursor-pointer rounded-lg border bg-card p-5 text-left transition-colors duration-200 hover:border-primary"
+            className="pressable group cursor-pointer rounded-lg border bg-card p-5 text-left transition-[color,background-color,border-color,transform] duration-200 hover:border-primary"
             onClick={handlers[m.key]}
           >
             <span className="flex items-center justify-between">

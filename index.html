@@ -8,12 +8,15 @@
     <meta property="og:title" content="CompTIA Practice Trainer — A+ Core 1, Core 2 & Network+" />
     <meta property="og:description" content="Free practice exams with timed simulations, PBQs, adaptive drills, and per-topic study videos. No sign-up required, progress tracking built in." />
     <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#f8fafc" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
     <script data-boot>
       try {
         var t = localStorage.getItem("trainer-theme") || "light";
         document.documentElement.classList.toggle("dark", t === "dark");
         document.documentElement.setAttribute("data-theme", t);
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute("content", t === "dark" ? "#151b29" : "#f8fafc");
       } catch (e) {}
     </script>
   </head>
