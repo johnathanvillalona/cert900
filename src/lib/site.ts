@@ -1,6 +1,6 @@
 /** Site-wide config: contact, support, and (future) ad settings in one place. */
 
-export const SITE_NAME = "CompTIA Practice Trainer"
+export const SITE_NAME = "Cert900"
 export const SITE_URL = "https://cert900.com"
 export const CONTACT_EMAIL = "johnathanv16@gmail.com"
 

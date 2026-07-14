@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
+import { pbqAnswerBlank, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
 import type { ExamProgress } from "@/lib/progress"
 
 export type QuizMode = "practice" | "exam" | "pbq"
@@ -218,9 +218,11 @@ export function useQuizSession(
     onSeen: (questionId: number) => void
   },
 ): QuizSession {
-  // Build once per mount; progress intentionally sampled at start.
-  const initial = useMemo<State>(() => {
-    const items = buildItems(exam, progress, cfg)
+  // Build once per mount via the reducer's lazy initializer: unlike useMemo,
+  // it is never re-invoked by interrupted concurrent renders, so the shuffle
+  // inside buildItems stays out of render. Progress intentionally sampled at start.
+  const [state, dispatch] = useReducer(reducer, cfg, (c): State => {
+    const items = buildItems(exam, progress, c)
     const answers: Record<number, Answer> = {}
     items.forEach((it, i) => {
       const a = initialAnswerFor(it)
@@ -232,17 +234,14 @@ export function useQuizSession(
       answers,
       graded: {},
       flags: new Set(),
-      remaining: cfg.mode === "exam" ? exam.examMinutes * 60 : -1,
+      remaining: c.mode === "exam" ? exam.examMinutes * 60 : -1,
       finished: false,
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const [state, dispatch] = useReducer(reducer, initial)
+  })
 
   // mark questions seen once at session start
   useEffect(() => {
-    initial.items.forEach((it) => {
+    state.items.forEach((it) => {
       if (it.kind === "mc") callbacks.onSeen(it.q.id)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -288,16 +287,7 @@ export function useQuizSession(
         const a = state.answers[i]
         if (a === undefined) return true
         if (it.kind !== "pbq") return false
-        const p = it.p
-        if (p.kind === "match") return (a as number[]).some((x) => x === -1)
-        if (p.kind === "terminal") return (a as string[]).every((c) => !c.trim())
-        if (p.kind === "config")
-          return (a as (number | boolean | string)[]).every(
-            (v, fi) => (p.fields[fi].type === "select" && v === -1) || (p.fields[fi].type === "text" && v === ""),
-          ) && p.fields.some((f) => f.type !== "toggle")
-        if (p.kind === "hotspot") return (a as string[]).length === 0
-        if (p.kind === "dragconnect") return Object.keys(a as Record<string, string>).length === 0
-        return false
+        return pbqAnswerBlank(it.p, a as PBQAnswer)
       }).length
     },
     outcome(): QuizOutcome {

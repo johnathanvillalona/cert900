@@ -7,6 +7,7 @@ import {
   pickMC,
   pickExamMC,
   pickExamPBQs,
+  pbqAnswerBlank,
   pbqScore,
   scaledScore,
   masteryLevel,
@@ -123,6 +124,22 @@ describe("pbqScore", () => {
     expect(pbqScore(drag, { z1: "hdmi", z2: "rj45" })).toBe(1)
     expect(pbqScore(drag, { z1: "hdmi", z2: "vga" })).toBeCloseTo(0.5)
     expect(pbqScore(drag, {})).toBe(0)
+  })
+
+  // Regression: the exam palette crashed on non-array answer shapes
+  // (dragconnect records) because it assumed number[] for every PBQ.
+  it("pbqAnswerBlank handles every kind's answer shape without throwing", () => {
+    expect(pbqAnswerBlank(match, [-1, -1, -1, -1])).toBe(true)
+    expect(pbqAnswerBlank(match, [0, -1, -1, -1])).toBe(true)
+    expect(pbqAnswerBlank(match, [0, 1, 2, 0])).toBe(false)
+    expect(pbqAnswerBlank(order, [0, 1, 2, 3])).toBe(false)
+    expect(pbqAnswerBlank(terminal, ["", "  "])).toBe(true)
+    expect(pbqAnswerBlank(terminal, ["ipconfig", ""])).toBe(false)
+    expect(pbqAnswerBlank(config, [-1, true, ""])).toBe(false) // toggle fields count as interaction surface
+    expect(pbqAnswerBlank(hotspot, [])).toBe(true)
+    expect(pbqAnswerBlank(hotspot, ["b"])).toBe(false)
+    expect(pbqAnswerBlank(drag, {})).toBe(true)
+    expect(pbqAnswerBlank(drag, { z1: "hdmi" })).toBe(false)
   })
 })
 
