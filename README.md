@@ -10,12 +10,14 @@ A free, single-file practice-exam web app for three CompTIA certifications:
 | A+ Core 2 | 220-1202 | 250 Q, 8 PBQs |
 | Network+ | N10-009 | growing toward ~250 Q |
 
-Everything lives in `index.html` — no build step, no dependencies, vanilla JS.
+v2: React + Vite + TypeScript + Tailwind + shadcn, served by a Cloudflare Worker
+with static assets and a D1 database. Optional Google sign-in syncs progress
+across devices; anonymous use works fully with browser-local progress.
 Features: timed full-exam simulation on the 900-point scale, performance-based
 questions (matching/ordering), adaptive practice drills, per-topic mastery
 tracking, and a Professor Messer video link for every topic missed.
 
-Progress is stored in the browser via `localStorage`, tracked separately per exam.
+Progress is tracked separately per exam: browser-local by default, cloud-synced when signed in.
 
 ## Development
 
@@ -23,19 +25,18 @@ Progress is stored in the browser via `localStorage`, tracked separately per exa
 - After any content or engine change, run the validator:
 
   ```
-  node tools/validate.js
+  npm test
   ```
 
-  It parses `index.html`, builds all three exam banks, verifies every question's
-  topic key resolves to a video, checks answer indices and PBQ choice indices,
-  and drives a full exam flow (select → pick → score → progress) per exam.
+- Dev: `npm run dev` + `npm run dev:worker` (Vite proxies /api to wrangler).
+- Tests: `npm test` (data parity, engine, sync, stats).
+- Links: `node tools/linkcheck.js` checks every Professor Messer URL.
 
 ## Deployment
 
-Hosted on Cloudflare (Workers static assets) from this private repo — every push
-to `main` auto-deploys to the URL above. `wrangler.jsonc` serves the repo root as
-static assets; `.assetsignore` restricts what is publicly served to the app itself
-(docs, tools, and config are excluded).
+Cloudflare Worker + static assets (`dist/`) + D1, from this private repo.
+`npm run build` then `npx wrangler deploy`, or push to `main` (CI build command:
+`npm ci && npm run build`). Secrets via `wrangler secret put`.
 
 ## Legal
 

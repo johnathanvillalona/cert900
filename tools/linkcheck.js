@@ -1,39 +1,23 @@
-// HTTP-checks every Professor Messer video URL in index.html's exam banks.
+// HTTP-checks every Professor Messer video URL in the v2 data modules (src/data/*.ts).
 // Usage: node tools/linkcheck.js
-const fs = require('fs');
-const path = require('path').join(__dirname, '..', 'index.html');
-const html = fs.readFileSync(path, 'utf8');
-const m = html.match(/<script>([\s\S]*)<\/script>/);
-if (!m) { console.error('no <script> found'); process.exit(1); }
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// stub browser globals (same approach as validate.js)
-const fakeEl = new Proxy({}, {
-  get(t, p) {
-    if (p === 'classList') return { add(){}, remove(){}, toggle(){} };
-    if (p === 'style') return {};
-    if (p === 'dataset') return { v: '0' };
-    if (p === 'querySelectorAll') return () => [];
-    if (p === 'querySelector') return () => fakeEl;
-    if (typeof p === 'string') return (typeof t[p] === 'function') ? t[p] : (t[p] ?? function(){});
-    return undefined;
-  },
-  set(t, p, v) { t[p] = v; return true; }
-});
-global.document = { getElementById: () => fakeEl, querySelectorAll: () => [], querySelector: () => fakeEl, documentElement: fakeEl };
-global.window = { scrollTo(){}, matchMedia: () => ({ matches: false }) };
-global.matchMedia = () => ({ matches: false });
-global.localStorage = { getItem: () => null, setItem(){}, removeItem(){} };
-global.setInterval = () => 0; global.clearInterval = () => {};
-global.confirm = () => true; global.alert = () => {};
-
-let src = m[1] + '\n;globalThis.__EXAMS = EXAMS;';
-(0, eval)(src);
-const EX = globalThis.__EXAMS;
+const dataDir = path.join(__dirname, '..', 'src', 'data');
+const examFiles = fs.readdirSync(dataDir).filter((f) => /^(220-|n10-)/.test(f) && f.endsWith('.ts'));
 
 const urls = new Map(); // url -> "examId/topicKey"
-for (const id of Object.keys(EX)) {
-  for (const [k, v] of Object.entries(EX[id].videos)) {
-    if (!urls.has(v.u)) urls.set(v.u, `${id}/${k}`);
+for (const file of examFiles) {
+  const src = fs.readFileSync(path.join(dataDir, file), 'utf8');
+  // data modules are `export const exam: ExamDef = { ...json... }` with a JSON.stringify body
+  const marker = 'export const exam: ExamDef = ';
+  const start = src.indexOf(marker);
+  if (start === -1) { console.error(`no exam marker in ${file}`); process.exit(1); }
+  const exam = JSON.parse(src.slice(start + marker.length).trim());
+  for (const [k, v] of Object.entries(exam.videos)) {
+    if (!urls.has(v.u)) urls.set(v.u, `${exam.id}/${k}`);
   }
 }
 console.log(`Checking ${urls.size} unique video URLs...`);
@@ -42,12 +26,11 @@ const entries = [...urls.entries()];
 const CONCURRENCY = 4;
 let bad = [], done = 0;
 
-async function checkOne(url, label) {
+async function checkOne(url) {
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       const res = await fetch(url, { method: 'GET', redirect: 'follow',
         headers: { 'User-Agent': 'Mozilla/5.0 (linkcheck; practice-exam-app)' } });
-      // read a little of the body to confirm it's a real page, then discard
       const text = await res.text();
       const is404 = res.status === 404 || /page not found|error 404/i.test(text.slice(0, 2000));
       if (res.ok && !is404) return { ok: true };
@@ -55,7 +38,7 @@ async function checkOne(url, label) {
     } catch (e) {
       if (attempt === 2) return { ok: false, why: e.message };
     }
-    await new Promise(r => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 1500));
   }
 }
 
@@ -64,14 +47,14 @@ async function checkOne(url, label) {
   async function worker() {
     while (idx < entries.length) {
       const [url, label] = entries[idx++];
-      const r = await checkOne(url, label);
+      const r = await checkOne(url);
       done++;
       if (!r.ok) { bad.push({ url, label, why: r.why }); console.log(`  FAIL ${label}: ${r.why}\n       ${url}`); }
-      if (done % 25 === 0) console.log(`  ...${done}/${entries.length}`);
+      if (done % 50 === 0) console.log(`  ...${done}/${entries.length}`);
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   console.log(`\nChecked ${done}. Failures: ${bad.length}`);
-  if (bad.length) { bad.forEach(b => console.log(`  ${b.label} -> ${b.url} (${b.why})`)); process.exit(1); }
+  if (bad.length) { bad.forEach((b) => console.log(`  ${b.label} -> ${b.url} (${b.why})`)); process.exit(1); }
   console.log('ALL LINKS OK');
 })();
