@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
+import { Moon, Sun } from "lucide-react"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
@@ -62,39 +63,46 @@ export default function App() {
 
   return (
     <ProgressContext.Provider value={store}>
-      <div className="mx-auto min-h-screen max-w-4xl px-4 pb-16">
-        <header className="flex flex-wrap items-center justify-between gap-3 py-4">
-          <button
-            className="font-heading cursor-pointer text-sm font-semibold tracking-wide"
-            onClick={() => {
-              setExamId(null)
-              setScreen({ kind: "landing" })
-              window.scrollTo(0, 0)
-            }}
-            data-testid="brand"
-          >
-            COMPTIA·TRAINER
-            {exam && <span className="text-muted-foreground font-normal"> · {exam.cert} {exam.name} · {exam.code}</span>}
-          </button>
-          <div className="flex items-center gap-2">
-            {exam && screen.kind !== "picker" && (
-              <Button
-                variant="outline"
-                size="sm"
-                data-testid="switch-exam"
-                onClick={() => {
-                  setExamId(null)
-                  setScreen({ kind: "picker" })
-                }}
-              >
-                Switch exam
+      <div className="min-h-[100dvh]">
+        <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
+          <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+            <button
+              className="cursor-pointer font-heading text-sm font-semibold tracking-wide"
+              onClick={() => {
+                setExamId(null)
+                setScreen({ kind: "landing" })
+                window.scrollTo(0, 0)
+              }}
+              data-testid="brand"
+            >
+              COMPTIA·TRAINER
+              {exam && (
+                <span className="text-muted-foreground hidden font-mono text-xs font-normal sm:inline">
+                  {" "}· {exam.code}
+                </span>
+              )}
+            </button>
+            <div className="flex items-center gap-1.5">
+              {exam && screen.kind !== "picker" && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  data-testid="switch-exam"
+                  onClick={() => {
+                    setExamId(null)
+                    setScreen({ kind: "picker" })
+                  }}
+                >
+                  Switch exam
+                </Button>
+              )}
+              <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
+                {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
               </Button>
-            )}
-            <Button variant="outline" size="sm" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
-              {theme === "dark" ? "Light" : "Dark"}
-            </Button>
+            </div>
           </div>
         </header>
+        <div className="mx-auto max-w-5xl px-4 pb-16 pt-8">
 
         {screen.kind === "picker" && (
           <ExamPicker
@@ -148,6 +156,7 @@ export default function App() {
         {exam && screen.kind === "progress" && (
           <ProgressScreen exam={exam} onHome={() => setScreen({ kind: "home" })} />
         )}
+        </div>
       </div>
       <Toaster />
     </ProgressContext.Provider>
