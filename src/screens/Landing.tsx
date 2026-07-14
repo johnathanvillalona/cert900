@@ -147,7 +147,7 @@ export function Landing({ onChooseExam }: { onChooseExam: (id: string) => void }
               {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
             </Button>
             <AccountMenu />
-            <span className="ml-1 flex items-center gap-1" data-testid="nav-exam-chips">
+            <span className="ml-1 hidden items-center gap-1 sm:flex" data-testid="nav-exam-chips">
               {exams.map((ex) => (
                 <button
                   key={ex.id}

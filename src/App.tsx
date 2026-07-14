@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
-import { Moon, Sun } from "lucide-react"
+import { ArrowLeftRight, Moon, Sun } from "lucide-react"
 import { AccountMenu } from "@/components/AccountMenu"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
@@ -89,12 +89,14 @@ export default function App() {
                   variant="ghost"
                   size="sm"
                   data-testid="switch-exam"
+                  aria-label="Switch exam"
                   onClick={() => {
                     setExamId(null)
                     setScreen({ kind: "picker" })
                   }}
                 >
-                  Switch exam
+                  <ArrowLeftRight className="size-4 sm:hidden" strokeWidth={2} />
+                  <span className="hidden sm:inline">Switch exam</span>
                 </Button>
               )}
               <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
