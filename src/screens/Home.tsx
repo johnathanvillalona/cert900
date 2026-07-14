@@ -7,7 +7,7 @@ const MODES = [
   { key: "exam", icon: Timer, title: "Full Exam", desc: "90 timed minutes, PBQs plus multiple choice, scored 100 to 900. No feedback until you finish, just like the real thing." },
   { key: "drill", icon: ListChecks, title: "Question Drill", desc: "Short adaptive rounds with an explanation and the matching Professor Messer video after every answer." },
   { key: "pbq", icon: Puzzle, title: "PBQ Lab", desc: "Just the performance-based questions: matching and ordering scenarios with full feedback." },
-  { key: "progress", icon: ChartLine, title: "My Progress", desc: "Mastery map by topic, weak areas to review, and your exam score history." },
+  { key: "progress", icon: ChartLine, title: "Detailed Progress", desc: "Mastery map by topic, weak areas to review, and your exam score history." },
 ] as const
 
 export function Home(props: {

@@ -8,7 +8,8 @@ import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
-import { ArrowLeftRight, Moon, Sun } from "lucide-react"
+import { Dashboard } from "@/screens/Dashboard"
+import { ArrowLeftRight, ChartLine, Moon, Sun } from "lucide-react"
 import { AccountMenu } from "@/components/AccountMenu"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
@@ -18,6 +19,7 @@ import { ProgressScreen } from "@/screens/ProgressScreen"
 
 export type Screen =
   | { kind: "landing" }
+  | { kind: "dashboard" }
   | { kind: "picker" }
   | { kind: "home" }
   | { kind: "setup" }
@@ -56,6 +58,10 @@ export default function App() {
             setScreen({ kind: "home" })
             window.scrollTo(0, 0)
           }}
+          onOpenDashboard={() => {
+            setScreen({ kind: "dashboard" })
+            window.scrollTo(0, 0)
+          }}
         />
         <Toaster />
       </ProgressContext.Provider>
@@ -84,6 +90,16 @@ export default function App() {
               )}
             </button>
             <div className="flex items-center gap-1.5">
+              <Button
+                variant={screen.kind === "dashboard" ? "secondary" : "ghost"}
+                size="sm"
+                data-testid="nav-progress"
+                aria-label="Progress"
+                onClick={() => setScreen({ kind: "dashboard" })}
+              >
+                <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
+                <span className="hidden sm:inline">Progress</span>
+              </Button>
               {exam && screen.kind !== "picker" && (
                 <Button
                   variant="ghost"
@@ -107,6 +123,23 @@ export default function App() {
           </div>
         </header>
         <div className="mx-auto max-w-5xl px-4 pb-16 pt-8">
+
+        {screen.kind === "dashboard" && (
+          <Dashboard
+            onContinue={(id) => {
+              setExamId(id)
+              setScreen({ kind: "home" })
+            }}
+            onDetails={(id) => {
+              setExamId(id)
+              setScreen({ kind: "progress" })
+            }}
+            onBrowseExams={() => {
+              setExamId(null)
+              setScreen({ kind: "picker" })
+            }}
+          />
+        )}
 
         {screen.kind === "picker" && (
           <ExamPicker

@@ -1,6 +1,11 @@
 import type { ExamDef } from "@/data/types"
-import type { ExamProgress, SessionRecord } from "./progress"
+import type { ExamProgress, ProgressAll, SessionRecord } from "./progress"
 import { domainNumbers } from "./engine"
+
+/** All sessions across every exam, for cross-exam streaks. */
+export function allSessions(all: ProgressAll): SessionRecord[] {
+  return Object.values(all).flatMap((p) => p.sessions ?? [])
+}
 
 /** Consecutive days practiced, counting back from today or yesterday. */
 export function studyStreak(sessions: SessionRecord[] | undefined, today: string): number {
