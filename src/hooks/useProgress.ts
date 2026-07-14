@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState, useCallback } from "react"
+import { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback } from "react"
 import {
   blankProgress,
   createLocalStorage,
@@ -8,10 +8,15 @@ import {
   type ProgressAll,
   type SessionRecord,
 } from "@/lib/progress"
+import { fetchCloud, mergeCloudLocal, pushExam, UPDATED_AT_KEY, type UpdatedAtMap } from "@/lib/sync"
+import { useSession } from "@/lib/auth-client"
+
+export type SyncStatus = "local" | "syncing" | "synced" | "error"
 
 export interface ProgressStore {
   all: ProgressAll
   storageAvailable: boolean
+  syncStatus: SyncStatus
   get(examId: string): ExamProgress
   recordResult(examId: string, topic: string, frac: number): void
   markSeen(examId: string, questionId: number): void
@@ -22,24 +27,121 @@ export interface ProgressStore {
   importJson(json: string): void
 }
 
+function loadUpdatedAt(): UpdatedAtMap {
+  try {
+    return JSON.parse(localStorage.getItem(UPDATED_AT_KEY) ?? "{}")
+  } catch {
+    return {}
+  }
+}
+
+function saveUpdatedAt(m: UpdatedAtMap) {
+  try {
+    localStorage.setItem(UPDATED_AT_KEY, JSON.stringify(m))
+  } catch {
+    /* in-memory only */
+  }
+}
+
 export function useProgressStore(): ProgressStore {
   const storage = useMemo(createLocalStorage, [])
   const [all, setAll] = useState<ProgressAll>(() => storage.loadAll())
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>("local")
+  const updatedAtRef = useRef<UpdatedAtMap>(loadUpdatedAt())
+  const dirtyRef = useRef<Set<string>>(new Set())
+  const pushTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const { data: session } = useSession()
+  const signedIn = !!session?.user
+
+  const flushDirty = useCallback(
+    (current: ProgressAll) => {
+      if (!signedIn || dirtyRef.current.size === 0) return
+      const ids = [...dirtyRef.current]
+      dirtyRef.current.clear()
+      setSyncStatus("syncing")
+      Promise.all(
+        ids.map((id) => {
+          const t = updatedAtRef.current[id] ?? Date.now()
+          return current[id] ? pushExam(id, current[id], t) : Promise.resolve()
+        }),
+      )
+        .then(() => setSyncStatus("synced"))
+        .catch(() => {
+          ids.forEach((id) => dirtyRef.current.add(id))
+          setSyncStatus("error")
+        })
+    },
+    [signedIn],
+  )
 
   const update = useCallback(
     (examId: string, fn: (p: ExamProgress) => ExamProgress) => {
       setAll((prev) => {
         const next = { ...prev, [examId]: fn(prev[examId] ?? blankProgress()) }
         storage.saveAll(next)
+        updatedAtRef.current[examId] = Date.now()
+        saveUpdatedAt(updatedAtRef.current)
+        dirtyRef.current.add(examId)
+        if (pushTimer.current) clearTimeout(pushTimer.current)
+        pushTimer.current = setTimeout(() => flushDirty(next), 2000)
         return next
       })
     },
-    [storage],
+    [storage, flushDirty],
   )
+
+  // On sign-in: pull cloud, merge, upload local-newer exams.
+  useEffect(() => {
+    if (!signedIn) {
+      setSyncStatus("local")
+      return
+    }
+    let cancelled = false
+    setSyncStatus("syncing")
+    ;(async () => {
+      try {
+        const cloud = await fetchCloud()
+        if (cancelled || cloud === null) return
+        setAll((local) => {
+          const { merged, mergedUpdatedAt, toUpload } = mergeCloudLocal(local, updatedAtRef.current, cloud)
+          updatedAtRef.current = mergedUpdatedAt
+          saveUpdatedAt(mergedUpdatedAt)
+          storage.saveAll(merged)
+          Promise.all(
+            toUpload.map((id) => pushExam(id, merged[id], mergedUpdatedAt[id] ?? Date.now())),
+          )
+            .then(() => !cancelled && setSyncStatus("synced"))
+            .catch(() => !cancelled && setSyncStatus("error"))
+          if (toUpload.length === 0) setSyncStatus("synced")
+          return merged
+        })
+      } catch {
+        if (!cancelled) setSyncStatus("error")
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [signedIn, storage])
+
+  // flush pending pushes on tab close
+  useEffect(() => {
+    const flush = () => {
+      if (pushTimer.current) clearTimeout(pushTimer.current)
+      // best-effort; keepalive not guaranteed but cheap
+      setAll((current) => {
+        flushDirty(current)
+        return current
+      })
+    }
+    window.addEventListener("pagehide", flush)
+    return () => window.removeEventListener("pagehide", flush)
+  }, [flushDirty])
 
   return {
     all,
     storageAvailable: storage.available,
+    syncStatus: signedIn ? syncStatus : "local",
     get: (examId) => all[examId] ?? blankProgress(),
     recordResult: (examId, topic, frac) =>
       update(examId, (p) => {
@@ -56,13 +158,26 @@ export function useProgressStore(): ProgressStore {
         const next = { ...prev }
         delete next[examId]
         storage.saveAll(next)
+        updatedAtRef.current[examId] = Date.now()
+        saveUpdatedAt(updatedAtRef.current)
+        if (signedIn) {
+          pushExam(examId, blankProgress(), updatedAtRef.current[examId]).catch(() => setSyncStatus("error"))
+        }
         return next
       }),
     exportJson: () => JSON.stringify(all, null, 1),
     importJson: (json) => {
       const data = validateProgressAll(JSON.parse(json))
       storage.saveAll(data)
+      const now = Date.now()
+      for (const id of Object.keys(data)) {
+        updatedAtRef.current[id] = now
+        dirtyRef.current.add(id)
+      }
+      saveUpdatedAt(updatedAtRef.current)
       setAll(data)
+      if (pushTimer.current) clearTimeout(pushTimer.current)
+      pushTimer.current = setTimeout(() => flushDirty(data), 500)
     },
   }
 }

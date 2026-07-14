@@ -9,6 +9,7 @@ import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Moon, Sun } from "lucide-react"
+import { AccountMenu } from "@/components/AccountMenu"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
@@ -99,6 +100,7 @@ export default function App() {
               <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
                 {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
               </Button>
+              <AccountMenu />
             </div>
           </div>
         </header>

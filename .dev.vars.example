@@ -1,0 +1,6 @@
+# Copy to .dev.vars (gitignored) for local `wrangler dev`.
+BETTER_AUTH_SECRET=any-long-random-string-for-local-dev
+# browser-facing origin: vite dev server proxies /api to wrangler dev
+BETTER_AUTH_URL=http://localhost:5173
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret

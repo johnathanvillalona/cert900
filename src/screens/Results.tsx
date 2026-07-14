@@ -59,14 +59,14 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   return (
     <main>
       <Card className="p-8 text-center" data-testid="score-hero">
-        <p className={cn("font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-primary" : "text-destructive")}>
+        <p className={cn("font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
           {outcome.scaled}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">
           scaled 100 to 900, pass line {PASS_SCALED}. Raw score {Math.round(outcome.pct * 100)}%
           {outcome.timeUp && " · time expired"}
         </p>
-        <p className={cn("mt-3 text-lg font-bold", outcome.pass ? "text-primary" : "text-destructive")} data-testid="verdict">
+        <p className={cn("mt-3 text-lg font-bold", outcome.pass ? "text-success" : "text-destructive")} data-testid="verdict">
           {outcome.pass ? "PASS. Nice work." : "Not yet. The review below shows exactly what to study."}
         </p>
       </Card>
@@ -106,7 +106,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
                   Your answer: <span className="text-destructive">{r.sel === undefined ? "(none)" : r.q.o[r.sel]}</span>
                 </p>
                 <p className="text-sm">
-                  Correct: <b className="text-primary">{r.q.o[r.q.a]}</b>
+                  Correct: <b className="text-success">{r.q.o[r.q.a]}</b>
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm">{r.q.e}</p>
                 <div className="mt-3">

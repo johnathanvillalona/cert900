@@ -32,11 +32,11 @@ export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (i
                 {ex.questions.length} questions · {ex.pbqs.length} PBQs
                 <span className="block">
                   {Object.keys(ex.domains).length} domains
-                  {answered > 0 && <span className="text-primary"> · {answered} answered</span>}
+                  {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
                 </span>
               </span>
               <ArrowRight
-                className="hidden size-4 justify-self-end text-primary transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block"
+                className="hidden size-4 justify-self-end text-brand transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block"
                 strokeWidth={2}
               />
             </button>

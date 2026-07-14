@@ -9,7 +9,7 @@ import { VideoLink } from "@/components/VideoLink"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 
-const LEVEL_CLASSES = ["", "bg-destructive/40 border-destructive/50", "bg-amber-400/60 border-amber-500/60", "bg-primary/50 border-primary/60", "bg-primary border-primary"]
+const LEVEL_CLASSES = ["", "bg-destructive/40 border-destructive/50", "bg-amber-400/60 border-amber-500/60", "bg-success/50 border-success/60", "bg-success border-success"]
 
 export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => void }) {
   const store = useProgress()
@@ -128,7 +128,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
             {p.exams.slice().reverse().map((e, i) => (
               <div key={i} className="flex justify-between py-2 tabular-nums">
                 <span>{e.date}</span>
-                <span className={e.scaled >= 700 ? "text-primary" : "text-destructive"}>
+                <span className={e.scaled >= 700 ? "text-success" : "text-destructive"}>
                   {e.scaled} ({e.pct}%)
                 </span>
               </div>
