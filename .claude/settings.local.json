@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"/c/Users/user/AppData/Local/Temp/claude/c--Users-user-Desktop--CLAUDE--Comptia-practice-exam/d0a6b468-d0f4-43ab-bdc5-3b56ec6b916a/scratchpad/validate.js\" \"/c/Users/user/Desktop/\\(CLAUDE\\) Comptia practice exam/tools/validate.js\")",
+      "Bash(node tools/validate.js)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\user\\AppData\\Local\\Temp\\claude\\c--Users-user-Desktop--CLAUDE--Comptia-practice-exam\\d0a6b468-d0f4-43ab-bdc5-3b56ec6b916a\\scratchpad"
+    ]
+  }
+}
