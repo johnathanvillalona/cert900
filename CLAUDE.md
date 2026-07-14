@@ -12,7 +12,12 @@ Picker order is `EXAM_ORDER` (Core 1 → Core 2 → Network+), not definition or
 
 All exam versions are current as of 2026. No build step, no dependencies —
 everything (CSS, data, engine) lives in the one file. Vanilla JS only.
-Deployed via Cloudflare Pages from this private repo (push to main = deploy).
+
+**Live**: https://comptia-practice-trainer.johnathanv16.workers.dev
+**Repo**: private GitHub `johnathanvillalona/comptia-practice-trainer`; push to
+`main` auto-deploys via Cloudflare Workers static assets (`wrangler.jsonc`,
+`.assetsignore` limits public files to the app). Commits must use the GitHub
+noreply email (set in local git config) — the account blocks email-exposing pushes.
 
 ## File structure (top to bottom)
 1. **HTML + CSS** — light "workbench" theme. Colors: paper `#F4F6F8`, ink `#16202B`,
