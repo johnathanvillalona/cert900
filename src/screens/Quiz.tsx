@@ -11,6 +11,7 @@ import { ReportButton } from "@/components/ReportButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
+import { pbqAnswerBlank, type PBQAnswer } from "@/lib/engine"
 
 const LETTERS = "ABCDEF"
 
@@ -191,7 +192,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
               const answered =
                 it.kind === "mc"
                   ? a !== undefined
-                  : a !== undefined && (it.p.kind === "order" || (a as number[]).some((x) => x !== -1))
+                  : a !== undefined && !pbqAnswerBlank(it.p, a as PBQAnswer)
               return (
                 <button
                   key={i}

@@ -197,6 +197,17 @@
     to { opacity: 1; transform: scale(1); }
 }
 
+/* Brand wordmark: while hovering (or keyboard-focusing) the home link, the
+   prompt's cursor blinks like a terminal. Color shift handled by the link's
+   own hover:text-brand. Reduced-motion kills the loop via the global rule. */
+.brand-link:hover .wm-cursor,
+.brand-link:focus-visible .wm-cursor {
+    animation: wm-blink 1.1s steps(1, end) infinite;
+}
+@keyframes wm-blink {
+    50% { opacity: 0; }
+}
+
 /* Exam verdict reveal (Results). Staged via transition delays. */
 .verdict-pop {
     opacity: 1;

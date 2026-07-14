@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CompTIA Practice Trainer — A+ Core 1, Core 2 & Network+</title>
+    <title>Cert900 — Free CompTIA A+ & Network+ Practice Exams</title>
     <meta name="description" content="Free CompTIA practice exams: A+ Core 1 (220-1201), A+ Core 2 (220-1202), and Network+ (N10-009). Timed simulations, performance-based questions, adaptive drills, and a Professor Messer video for every topic you miss." />
-    <meta property="og:title" content="CompTIA Practice Trainer — A+ Core 1, Core 2 & Network+" />
+    <meta property="og:title" content="Cert900 — Free CompTIA A+ & Network+ Practice Exams" />
     <meta property="og:description" content="Free practice exams with timed simulations, PBQs, adaptive drills, and per-topic study videos. No sign-up required, progress tracking built in." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cert900.com/" />
@@ -31,6 +31,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Cloudflare Web Analytics (cookieless; disclosed in /privacy) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "abbbc803242447e698c67c9ba9b8497c"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics (cookieless; disclosed in /privacy).
+         Loaded only on the production host so dev/preview stay quiet. -->
+    <script>
+      if (location.hostname === "cert900.com") {
+        var cfb = document.createElement("script");
+        cfb.defer = true;
+        cfb.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        cfb.setAttribute("data-cf-beacon", '{"token": "abbbc803242447e698c67c9ba9b8497c"}');
+        document.head.appendChild(cfb);
+      }
+    </script>
   </body>
 </html>

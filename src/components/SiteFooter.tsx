@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react"
 import { CONTACT_EMAIL, DONATE_URL } from "@/lib/site"
+import { Wordmark } from "@/components/Wordmark"
 
 /**
  * Quiet legal footer used on the landing page and the app shell.
@@ -17,7 +18,7 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
           </p>
         )}
         <div className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2" : "flex flex-wrap items-center gap-x-5 gap-y-2"}>
-          <p className="text-muted-foreground font-mono text-xs">COMPTIA·TRAINER</p>
+          <Wordmark className="text-xs text-muted-foreground" iconClassName="size-4" />
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
             <button
               onClick={() => onNavigate("/privacy")}

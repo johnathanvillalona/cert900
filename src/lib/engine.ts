@@ -105,6 +105,32 @@ export function commandMatches(input: string, accept: string[]): boolean {
   })
 }
 
+/**
+ * True when a PBQ answer is still in its untouched initial state.
+ * Answer shapes differ per kind (arrays vs records); this is the single
+ * source of truth for "has the candidate interacted with this PBQ".
+ */
+export function pbqAnswerBlank(p: PBQ, a: PBQAnswer): boolean {
+  switch (p.kind) {
+    case "match":
+      return (a as number[]).some((x) => x === -1)
+    case "order":
+      return false // the presented order is itself a valid attempt
+    case "terminal":
+      return (a as string[]).every((c) => !c.trim())
+    case "config":
+      return (
+        (a as (number | boolean | string)[]).every(
+          (v, fi) => (p.fields[fi].type === "select" && v === -1) || (p.fields[fi].type === "text" && v === ""),
+        ) && p.fields.some((f) => f.type !== "toggle")
+      )
+    case "hotspot":
+      return (a as string[]).length === 0
+    case "dragconnect":
+      return Object.keys(a as Record<string, string>).length === 0
+  }
+}
+
 /** Fraction correct for a PBQ answer (partial credit per CompTIA's model). */
 export function pbqScore(p: PBQ, ans: PBQAnswer | undefined): number {
   if (!ans) return 0

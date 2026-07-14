@@ -11,6 +11,7 @@ import { ArrowRight, Check, Plus, X } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { SiteFooter } from "@/components/SiteFooter"
+import { Wordmark } from "@/components/Wordmark"
 
 /** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
@@ -171,7 +172,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChoo
       {/* nav */}
       <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
         <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-          <span className="font-heading text-sm font-semibold tracking-wide">COMPTIA·TRAINER</span>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="brand-link pressable flex cursor-pointer items-center rounded-md text-sm transition-colors duration-200 hover:text-brand"
+            aria-label="cert900, back to top"
+            title="cert900"
+            data-testid="brand"
+          >
+            <Wordmark className="text-sm" />
+          </button>
           <div className="flex items-center gap-1 sm:gap-2">
             <button onClick={() => scrollTo("exams")} className="hidden cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:block">
               Exams

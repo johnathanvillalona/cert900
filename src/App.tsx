@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, startTransition, useEffect, useMemo, useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import { EXAMS, EXAM_ORDER } from "@/data/index"
 import type { ExamDef } from "@/data/types"
@@ -13,6 +13,7 @@ import { Dashboard } from "@/screens/Dashboard"
 import { ArrowLeftRight, ChartLine } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
+import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
@@ -67,6 +68,10 @@ export default function App() {
     window.scrollTo(0, 0)
   }
 
+  // ProgressScreen is lazy; navigating inside a transition lets React keep the
+  // current screen up while the chunk loads instead of aborting the render.
+  const openProgress = () => startTransition(() => setScreen({ kind: "progress" }))
+
   const exam: ExamDef | null = examId ? EXAMS[examId] : null
 
   const orderedExams = useMemo(
@@ -108,18 +113,20 @@ export default function App() {
         <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
             <button
-              className="cursor-pointer font-heading text-sm font-semibold tracking-wide"
+              className="brand-link pressable flex cursor-pointer items-baseline gap-2 rounded-md text-sm transition-colors duration-200 hover:text-brand"
               onClick={() => {
                 setExamId(null)
                 setScreen({ kind: "landing" })
                 window.scrollTo(0, 0)
               }}
               data-testid="brand"
+              aria-label="cert900 home"
+              title="Home"
             >
-              COMPTIA·TRAINER
+              <Wordmark className="text-sm" />
               {exam && (
                 <span className="text-muted-foreground hidden font-mono text-xs font-normal sm:inline">
-                  {" "}· {exam.code}
+                  · {exam.code}
                 </span>
               )}
             </button>
@@ -166,7 +173,7 @@ export default function App() {
             }}
             onDetails={(id) => {
               setExamId(id)
-              setScreen({ kind: "progress" })
+              openProgress()
             }}
             onBrowseExams={() => {
               setExamId(null)
@@ -191,7 +198,7 @@ export default function App() {
             onFullExam={() => startQuiz({ mode: "exam" })}
             onDrill={() => setScreen({ kind: "setup" })}
             onPbqLab={() => startQuiz({ mode: "pbq" })}
-            onProgress={() => setScreen({ kind: "progress" })}
+            onProgress={openProgress}
           />
         )}
 
@@ -219,7 +226,7 @@ export default function App() {
             outcome={screen.outcome}
             onRetake={() => startQuiz({ mode: "exam" })}
             onDrillAgain={() => setScreen({ kind: "setup" })}
-            onProgress={() => setScreen({ kind: "progress" })}
+            onProgress={openProgress}
             onHome={() => setScreen({ kind: "home" })}
           />
         )}
