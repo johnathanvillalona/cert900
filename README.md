@@ -2,13 +2,13 @@
 
 **Live at: https://comptia-practice-trainer.johnathanv16.workers.dev**
 
-A free, single-file practice-exam web app for three CompTIA certifications:
+A free practice-exam platform for three CompTIA certifications:
 
 | Exam | Version | Bank |
 |---|---|---|
-| A+ Core 1 | 220-1201 | growing toward ~250 Q |
-| A+ Core 2 | 220-1202 | 250 Q, 8 PBQs |
-| Network+ | N10-009 | growing toward ~250 Q |
+| A+ Core 1 | 220-1201 | 239 Q, 5 PBQs |
+| A+ Core 2 | 220-1202 | 281 Q, 8 PBQs |
+| Network+ | N10-009 | 264 Q, 6 PBQs |
 
 v2: React + Vite + TypeScript + Tailwind + shadcn, served by a Cloudflare Worker
 with static assets and a D1 database. Optional Google sign-in syncs progress
