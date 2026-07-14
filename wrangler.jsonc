@@ -10,8 +10,12 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"]
+    // All requests hit the worker so the canonical-host redirect covers pages,
+    // not just /api. Asset serving remains a free ASSETS.fetch subrequest.
+    "run_worker_first": true
   },
+  // Keep the old workers.dev URL alive so pre-domain links 301 to cert900.com.
+  "workers_dev": true,
   "compatibility_flags": [
     "nodejs_compat"
   ],
