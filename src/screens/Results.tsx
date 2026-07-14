@@ -59,15 +59,15 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   return (
     <main>
       <Card className="p-8 text-center" data-testid="score-hero">
-        <p className={cn("font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-green-600" : "text-destructive")}>
+        <p className={cn("font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-primary" : "text-destructive")}>
           {outcome.scaled}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">
-          estimated scaled score (100–900) · {PASS_SCALED} needed to pass · {Math.round(outcome.pct * 100)}% raw
+          scaled 100 to 900, pass line {PASS_SCALED}. Raw score {Math.round(outcome.pct * 100)}%
           {outcome.timeUp && " · time expired"}
         </p>
-        <p className={cn("mt-3 text-lg font-bold", outcome.pass ? "text-green-600" : "text-destructive")} data-testid="verdict">
-          {outcome.pass ? "PASS — nice work." : "Not yet — the review below shows exactly what to study."}
+        <p className={cn("mt-3 text-lg font-bold", outcome.pass ? "text-primary" : "text-destructive")} data-testid="verdict">
+          {outcome.pass ? "PASS. Nice work." : "Not yet. The review below shows exactly what to study."}
         </p>
       </Card>
 
@@ -94,7 +94,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
       </Card>
 
       <Card className="mt-4 p-6">
-        <h2 className="text-lg font-semibold">Review — {misses.length} to study</h2>
+        <h2 className="text-lg font-semibold">Review: {misses.length} to study</h2>
         <p className="text-muted-foreground text-sm">Every miss links to the Professor Messer video for that topic.</p>
         {misses.length === 0 && <p className="mt-3">Nothing missed. Seriously impressive.</p>}
         <div className="mt-3 flex flex-col gap-3">
@@ -106,7 +106,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
                   Your answer: <span className="text-destructive">{r.sel === undefined ? "(none)" : r.q.o[r.sel]}</span>
                 </p>
                 <p className="text-sm">
-                  Correct: <b className="text-green-700 dark:text-green-500">{r.q.o[r.q.a]}</b>
+                  Correct: <b className="text-primary">{r.q.o[r.q.a]}</b>
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm">{r.q.e}</p>
                 <div className="mt-3">

@@ -133,7 +133,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
       {isExam && (
         <div className="mt-6">
           <p className="text-muted-foreground text-sm">
-            Question palette — tap to jump. <span className="text-amber-600">⚑ flagged</span>
+            Question palette. Tap to jump. <span className="text-amber-600">⚑ flagged</span>
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5" data-testid="palette">
             {session.items.map((it, i) => {
@@ -228,7 +228,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
                 "flex w-full items-start gap-3 rounded-md border p-3 text-left text-sm transition-colors",
                 state === "idle" && "hover:border-primary",
                 state === "selected" && "border-primary bg-primary/10",
-                state === "correct" && "border-green-600 bg-green-600/10",
+                state === "correct" && "border-primary bg-accent",
                 state === "wrong" && "border-destructive bg-destructive/10",
               )}
             >
@@ -236,7 +236,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
                 className={cn(
                   "flex size-6 shrink-0 items-center justify-center rounded border font-mono text-xs font-bold",
                   state === "selected" && "border-primary bg-primary text-primary-foreground",
-                  state === "correct" && "border-green-600 bg-green-600 text-white",
+                  state === "correct" && "border-primary bg-primary text-primary-foreground",
                   state === "wrong" && "border-destructive bg-destructive text-white",
                 )}
               >
@@ -249,15 +249,15 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
       </div>
       {graded && (
         <div
-          className={cn("mt-4 rounded-md border p-4", ok ? "border-green-600/40 bg-green-600/5" : "border-destructive/40 bg-destructive/5")}
+          className={cn("mt-4 rounded-md border p-4", ok ? "border-primary/50 bg-accent/60" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
-          <p className={cn("font-semibold", ok ? "text-green-700 dark:text-green-500" : "text-destructive")}>
-            {ok ? "Correct" : "Incorrect — the answer is highlighted above"}
+          <p className={cn("font-semibold", ok ? "text-primary" : "text-destructive")}>
+            {ok ? "Correct" : "Incorrect. The answer is highlighted above"}
           </p>
           <p className="mt-1 text-sm">{q.e}</p>
           <div className="mt-3">
-            <VideoLink exam={exam} topic={q.t} label="Review this topic —" />
+            <VideoLink exam={exam} topic={q.t} label="Review this topic:" />
           </div>
         </div>
       )}
@@ -294,14 +294,14 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       )}
       {graded && (
         <div
-          className={cn("mt-4 rounded-md border p-4", frac >= 0.8 ? "border-green-600/40 bg-green-600/5" : "border-destructive/40 bg-destructive/5")}
+          className={cn("mt-4 rounded-md border p-4", frac >= 0.8 ? "border-primary/50 bg-accent/60" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
-          <p className={cn("font-semibold", frac >= 0.8 ? "text-green-700 dark:text-green-500" : "text-destructive")}>
+          <p className={cn("font-semibold", frac >= 0.8 ? "text-primary" : "text-destructive")}>
             {Math.round(frac * 100)}% correct on this PBQ
           </p>
           <div className="mt-3">
-            <VideoLink exam={exam} topic={p.t} label="Review this topic —" />
+            <VideoLink exam={exam} topic={p.t} label="Review this topic:" />
           </div>
         </div>
       )}
@@ -318,7 +318,7 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
           key={i}
           className={cn(
             "flex flex-wrap items-center justify-between gap-2 rounded-md border p-3",
-            graded && (ans[i] === item.a ? "border-green-600 bg-green-600/10" : "border-destructive bg-destructive/10"),
+            graded && (ans[i] === item.a ? "border-primary bg-accent" : "border-destructive bg-destructive/10"),
           )}
         >
           <span className="min-w-44 flex-1 text-sm">{item.l}</span>
@@ -328,7 +328,7 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
             onValueChange={(v) => session.setMatch(i, Number(v))}
           >
             <SelectTrigger className="w-56" data-testid="match-select">
-              <SelectValue placeholder="— choose —" />
+              <SelectValue placeholder="Choose" />
             </SelectTrigger>
             <SelectContent>
               {p.choices.map((c, ci) => (
@@ -339,7 +339,7 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
             </SelectContent>
           </Select>
           {graded && ans[i] !== item.a && (
-            <p className="w-full text-xs font-medium text-green-700 dark:text-green-500">Correct: {p.choices[item.a]}</p>
+            <p className="w-full text-xs font-medium text-primary">Correct: {p.choices[item.a]}</p>
           )}
         </div>
       ))}
@@ -357,7 +357,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
             key={si}
             className={cn(
               "flex items-center gap-3 rounded-md border p-3",
-              graded && (si === pos ? "border-green-600 bg-green-600/10" : "border-destructive bg-destructive/10"),
+              graded && (si === pos ? "border-primary bg-accent" : "border-destructive bg-destructive/10"),
             )}
           >
             <span className="min-w-6 font-mono text-sm font-bold text-muted-foreground">{pos + 1}</span>

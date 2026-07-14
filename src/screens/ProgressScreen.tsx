@@ -9,7 +9,7 @@ import { VideoLink } from "@/components/VideoLink"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 
-const LEVEL_CLASSES = ["", "bg-red-300 dark:bg-red-900", "bg-amber-300 dark:bg-amber-800", "bg-emerald-300 dark:bg-emerald-800", "bg-emerald-600"]
+const LEVEL_CLASSES = ["", "bg-destructive/40 border-destructive/50", "bg-amber-400/60 border-amber-500/60", "bg-primary/50 border-primary/60", "bg-primary border-primary"]
 
 export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => void }) {
   const store = useProgress()
@@ -53,7 +53,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
           <p className="text-muted-foreground text-xs">questions answered</p>
         </div>
         <div>
-          <p className="font-mono text-2xl font-bold tabular-nums">{totals.q ? Math.round((totals.c / totals.q) * 100) + "%" : "—"}</p>
+          <p className="font-mono text-2xl font-bold tabular-nums">{totals.q ? Math.round((totals.c / totals.q) * 100) + "%" : "0%"}</p>
           <p className="text-muted-foreground text-xs">overall accuracy</p>
         </div>
         <div>
@@ -66,7 +66,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
         <h2 className="text-lg font-semibold">Needs work</h2>
         <p className="text-muted-foreground text-sm">Topics under 70% accuracy (3+ attempts). Watch the video, then run a weak-topics drill.</p>
         {weak.length === 0 ? (
-          <p className="text-muted-foreground mt-3 text-sm">Nothing here yet — either you are crushing it, or you need more attempts for the data to show.</p>
+          <p className="text-muted-foreground mt-3 text-sm">Nothing here yet. Either you are crushing it, or you need more attempts for the data to show.</p>
         ) : (
           <div className="mt-2 divide-y">
             {weak.map((t) => (
@@ -86,7 +86,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
 
       <Card className="mt-4 p-6">
         <h2 className="text-lg font-semibold">Mastery map</h2>
-        <p className="text-muted-foreground text-sm">One block per exam topic. Cells fill as your accuracy climbs — tap a block to open its Professor Messer video.</p>
+        <p className="text-muted-foreground text-sm">One block per exam topic. Cells fill as your accuracy climbs. Tap a block to open its Professor Messer video.</p>
         {domainNumbers(exam).map((d) => (
           <div key={d}>
             <p className="text-muted-foreground mt-4 font-mono text-xs uppercase tracking-wider">{exam.domains[d]}</p>
@@ -128,7 +128,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
             {p.exams.slice().reverse().map((e, i) => (
               <div key={i} className="flex justify-between py-2 tabular-nums">
                 <span>{e.date}</span>
-                <span className={e.scaled >= 700 ? "text-green-600" : "text-destructive"}>
+                <span className={e.scaled >= 700 ? "text-primary" : "text-destructive"}>
                   {e.scaled} ({e.pct}%)
                 </span>
               </div>
