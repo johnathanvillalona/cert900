@@ -22,8 +22,10 @@ global.document = {
   getElementById: () => fakeEl,
   querySelectorAll: () => [],
   querySelector: () => fakeEl,
+  documentElement: fakeEl,
 };
-global.window = { scrollTo(){} };
+global.window = { scrollTo(){}, matchMedia: () => ({ matches: false }) };
+global.matchMedia = () => ({ matches: false });
 let store = {};
 global.localStorage = { getItem: k => store[k] ?? null, setItem(k,v){store[k]=String(v);}, removeItem(k){delete store[k];} };
 global.setInterval = () => 0;
