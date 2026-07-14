@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 import type { ExamDef, PBQMatch, PBQOrder } from "@/data/types"
+import { TerminalView, ConfigView, HotspotView, DragConnectView } from "@/components/pbq-sims"
 import { useProgress } from "@/hooks/useProgress"
 import { useQuizSession, type QuizConfig, type QuizItem, type QuizOutcome, type QuizSession } from "@/hooks/useQuizSession"
 import { Button } from "@/components/ui/button"
@@ -339,11 +340,12 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       <p className="text-lg font-semibold">{p.title}</p>
       <p className="mt-2 whitespace-pre-line rounded-md border bg-muted/40 p-3 text-sm">{p.scen}</p>
 
-      {p.kind === "match" ? (
-        <MatchView p={p} session={session} graded={graded} />
-      ) : (
-        <OrderView p={p} session={session} graded={graded} />
-      )}
+      {p.kind === "match" && <MatchView p={p} session={session} graded={graded} />}
+      {p.kind === "order" && <OrderView p={p} session={session} graded={graded} />}
+      {p.kind === "terminal" && <TerminalView p={p} session={session} graded={graded} />}
+      {p.kind === "config" && <ConfigView p={p} session={session} graded={graded} />}
+      {p.kind === "hotspot" && <HotspotView p={p} session={session} graded={graded} />}
+      {p.kind === "dragconnect" && <DragConnectView p={p} session={session} graded={graded} />}
 
       {!isExam && !graded && (
         <Button className="mt-4" onClick={session.gradePbq} data-testid="check-pbq">

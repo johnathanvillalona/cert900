@@ -69,3 +69,17 @@ describe("domainAccuracy", () => {
     expect(stats.length).toBe(4)
   })
 })
+
+describe("question of the day", () => {
+  it("has a healthy pool and picks deterministically per day", async () => {
+    const { qotdPool, questionOfTheDay } = await import("./qotd")
+    const pool = qotdPool()
+    expect(pool.length).toBeGreaterThan(100)
+    expect(questionOfTheDay(20649).q.id).toBe(questionOfTheDay(20649).q.id)
+    expect(questionOfTheDay(20649).q).not.toEqual(questionOfTheDay(20650).q)
+    for (const p of pool.slice(0, 50)) {
+      expect(p.q.o.length).toBe(4)
+      expect(p.q.x.length).toBeLessThanOrEqual(130)
+    }
+  })
+})

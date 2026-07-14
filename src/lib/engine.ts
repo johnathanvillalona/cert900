@@ -86,21 +86,79 @@ export function pickExamPBQs(exam: ExamDef, rng: Rng = Math.random): PBQ[] {
   return shuffle(exam.pbqs, rng).slice(0, Math.min(exam.examPBQ, exam.pbqs.length))
 }
 
-/** Fraction correct for a PBQ answer. Match answers: choice index per item (-1 unset). Order answers: permutation of step indices. */
-export function pbqScore(p: PBQ, ans: number[] | undefined): number {
-  if (!ans) return 0
-  if (p.kind === "match") {
-    let c = 0
-    p.items.forEach((item, i) => {
-      if (ans[i] === item.a) c++
-    })
-    return c / p.items.length
-  }
-  let c = 0
-  ans.forEach((si, pos) => {
-    if (si === pos) c++
+/** Per-kind PBQ answer shapes:
+ *  match: choice index per item (-1 unset) · order: permutation of step indices ·
+ *  terminal: typed command per task ("" unset) · config: current value per field ·
+ *  hotspot: selected node ids · dragconnect: zoneId -> itemId placements. */
+export type PBQAnswer = number[] | string[] | (number | boolean | string)[] | Record<string, string>
+
+/** Case-insensitive full match against any accepted pattern, whitespace-collapsed. */
+export function commandMatches(input: string, accept: string[]): boolean {
+  const cleaned = input.trim().replace(/\s+/g, " ")
+  if (!cleaned) return false
+  return accept.some((pat) => {
+    try {
+      return new RegExp(`^(?:${pat})$`, "i").test(cleaned)
+    } catch {
+      return false
+    }
   })
-  return c / p.steps.length
+}
+
+/** Fraction correct for a PBQ answer (partial credit per CompTIA's model). */
+export function pbqScore(p: PBQ, ans: PBQAnswer | undefined): number {
+  if (!ans) return 0
+  switch (p.kind) {
+    case "match": {
+      const a = ans as number[]
+      let c = 0
+      p.items.forEach((item, i) => {
+        if (a[i] === item.a) c++
+      })
+      return c / p.items.length
+    }
+    case "order": {
+      const a = ans as number[]
+      let c = 0
+      a.forEach((si, pos) => {
+        if (si === pos) c++
+      })
+      return c / p.steps.length
+    }
+    case "terminal": {
+      const a = ans as string[]
+      let c = 0
+      p.tasks.forEach((task, i) => {
+        if (commandMatches(a[i] ?? "", task.accept)) c++
+      })
+      return c / p.tasks.length
+    }
+    case "config": {
+      const a = ans as (number | boolean | string)[]
+      let c = 0
+      p.fields.forEach((f, i) => {
+        const v = a[i]
+        if (f.type === "select" && typeof v === "number" && v === f.answer) c++
+        else if (f.type === "toggle" && typeof v === "boolean" && v === f.answer) c++
+        else if (f.type === "text" && typeof v === "string" && commandMatches(v, f.answer as string[])) c++
+      })
+      return c / p.fields.length
+    }
+    case "hotspot": {
+      const sel = ans as string[]
+      const hits = sel.filter((id) => p.targets.includes(id)).length
+      const misses = sel.length - hits
+      return Math.max(0, hits - misses) / p.targets.length
+    }
+    case "dragconnect": {
+      const placed = ans as Record<string, string>
+      let c = 0
+      for (const z of p.zones) {
+        if (placed[z.id] && placed[z.id] === p.answer[z.id]) c++
+      }
+      return c / p.zones.length
+    }
+  }
 }
 
 export const PASS_SCALED = 700
