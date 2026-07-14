@@ -2,8 +2,13 @@
 
 ## What this is
 A free practice-exam platform for **three CompTIA certifications** — A+ Core 1
-(220-1201, 291 Q / 12 PBQs), A+ Core 2 (220-1202, 330 Q / 13 PBQs), Network+
-(N10-009, 315 Q / 12 PBQs). All exam versions current as of 2026. Every question
+(220-1201, 291 Q / 20 PBQs), A+ Core 2 (220-1202, 330 Q / 20 PBQs), Network+
+(N10-009, 315 Q / 19 PBQs). PBQs span six interaction kinds: match, order, and
+CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
+**config** (device settings panels), **hotspot** (network-diagram selection),
+**dragconnect** (drag connectors onto illustrated SVG scenes; art in
+`src/components/pbq-art.tsx`, views in `pbq-sims.tsx`). Landing hero shows a
+deterministic **question of the day** (`src/lib/qotd.ts`, rotates midnight UTC). All exam versions current as of 2026. Every question
 links to its Professor Messer video.
 
 **Live**: https://comptia-practice-trainer.johnathanv16.workers.dev

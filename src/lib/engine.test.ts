@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import {
+  commandMatches,
   shuffle,
   weightFor,
   weightedSample,
@@ -55,6 +56,73 @@ describe("pbqScore", () => {
     expect(pbqScore(order, [0, 1, 2, 3])).toBe(1)
     expect(pbqScore(order, [1, 0, 2, 3])).toBeCloseTo(0.5)
     expect(pbqScore(order, [3, 0, 1, 2])).toBe(0)
+  })
+
+  const terminal: PBQ = {
+    kind: "terminal", t: "x", title: "", scen: "", host: "C:\\>",
+    tasks: [
+      { prompt: "show config", accept: ["ipconfig( /all)?"], output: "..." },
+      { prompt: "test gateway", accept: ["ping 192\\.168\\.1\\.1"], output: "..." },
+    ],
+  }
+  it("terminal: accepts alternatives case-insensitively with whitespace tolerance", () => {
+    expect(pbqScore(terminal, ["IPCONFIG  /ALL", "ping 192.168.1.1"])).toBe(1)
+    expect(pbqScore(terminal, ["ipconfig", ""])).toBeCloseTo(0.5)
+    expect(pbqScore(terminal, ["ipconfig /renew", "ping 10.0.0.1"])).toBe(0)
+  })
+  it("commandMatches rejects empty and bad regex safely", () => {
+    expect(commandMatches("", ["a"])).toBe(false)
+    expect(commandMatches("x", ["("])).toBe(false)
+  })
+
+  const config: PBQ = {
+    kind: "config", t: "x", title: "", scen: "", panel: "P",
+    fields: [
+      { id: "enc", label: "Encryption", type: "select", options: ["Open", "WEP", "WPA3"], answer: 2 },
+      { id: "wps", label: "WPS", type: "toggle", answer: false, initial: true },
+      { id: "ssid", label: "SSID", type: "text", answer: ["Office(Net)?"] },
+    ],
+  }
+  it("config: per-field partial credit across all field types", () => {
+    expect(pbqScore(config, [2, false, "OfficeNet"])).toBe(1)
+    expect(pbqScore(config, [2, true, ""])).toBeCloseTo(1 / 3)
+    expect(pbqScore(config, [-1, true, ""])).toBe(0)
+  })
+
+  const hotspot: PBQ = {
+    kind: "hotspot", t: "x", title: "", scen: "", prompt: "",
+    nodes: [
+      { id: "a", x: 10, y: 10, label: "A", icon: "pc" },
+      { id: "b", x: 50, y: 10, label: "B", icon: "switch" },
+      { id: "c", x: 90, y: 10, label: "C", icon: "router" },
+    ],
+    edges: [["a", "b"], ["b", "c"]],
+    targets: ["b", "c"],
+  }
+  it("hotspot: wrong selections subtract, floored at zero", () => {
+    expect(pbqScore(hotspot, ["b", "c"])).toBe(1)
+    expect(pbqScore(hotspot, ["b"])).toBeCloseTo(0.5)
+    expect(pbqScore(hotspot, ["b", "a"])).toBe(0)
+    expect(pbqScore(hotspot, ["a"])).toBe(0)
+  })
+
+  const drag: PBQ = {
+    kind: "dragconnect", t: "x", title: "", scen: "", prompt: "", scene: "pc-rear",
+    zones: [
+      { id: "z1", x: 0, y: 0, w: 10, h: 10, label: "HDMI" },
+      { id: "z2", x: 20, y: 0, w: 10, h: 10, label: "LAN" },
+    ],
+    items: [
+      { id: "hdmi", label: "HDMI", glyph: "hdmi" },
+      { id: "rj45", label: "RJ45", glyph: "rj45" },
+      { id: "vga", label: "VGA", glyph: "vga" },
+    ],
+    answer: { z1: "hdmi", z2: "rj45" },
+  }
+  it("dragconnect: per-zone credit, distractors score nothing", () => {
+    expect(pbqScore(drag, { z1: "hdmi", z2: "rj45" })).toBe(1)
+    expect(pbqScore(drag, { z1: "hdmi", z2: "vga" })).toBeCloseTo(0.5)
+    expect(pbqScore(drag, {})).toBe(0)
   })
 })
 

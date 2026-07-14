@@ -1,24 +1,19 @@
 import { useMemo, useState } from "react"
 import { EXAMS } from "@/data/index"
-import type { ExamDef, Question } from "@/data/types"
+import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
+import { questionOfTheDay } from "@/lib/qotd"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, Check, X } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 
-/** Real product in the hero: one actual bank question, fully answerable. */
+/** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
-  const exam = EXAMS["n10-009"]
-  const q = useMemo<Question>(
-    () =>
-      exam.questions.find((x) => x.x.startsWith("Which of the following is a private IPv4")) ??
-      exam.questions[0],
-    [exam],
-  )
+  const { exam, q } = useMemo(() => questionOfTheDay(), [])
   const order = useMemo(() => shuffle(q.o.map((_, i) => i)), [q])
   const [sel, setSel] = useState<number | null>(null)
   const graded = sel !== null
@@ -26,8 +21,9 @@ function LiveQuestion() {
 
   return (
     <div className="rounded-lg border bg-card p-5 shadow-sm" data-testid="live-question">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-        {exam.code} · {exam.domains[q.d]}
+      <p className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        <span className="text-brand">Question of the day</span>
+        <span>{exam.code} · {exam.domains[q.d]}</span>
       </p>
       <p className="mt-2 font-medium leading-snug">{q.x}</p>
       <div className="mt-3 flex flex-col gap-1.5">
@@ -67,7 +63,7 @@ function LiveQuestion() {
             <ArrowRight className="size-3.5" strokeWidth={2} />
           </a>
           <p className="text-muted-foreground mt-2 font-mono text-xs">
-            Every question works like this. 783 to go.
+            Every question works like this. New one tomorrow.
           </p>
         </div>
       )}

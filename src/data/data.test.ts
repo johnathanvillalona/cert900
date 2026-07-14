@@ -42,7 +42,7 @@ describe("exam data integrity", () => {
         }
       })
 
-      it("every PBQ topic resolves and match indices are valid", () => {
+      it("every PBQ topic resolves and per-kind shapes are valid", () => {
         for (const p of ex.pbqs) {
           expect(ex.videos[p.t], `pbq "${p.title}" topic "${p.t}"`).toBeDefined()
           if (p.kind === "match") {
@@ -50,8 +50,41 @@ describe("exam data integrity", () => {
               expect(item.a, `pbq "${p.title}" item "${item.l}"`).toBeGreaterThanOrEqual(0)
               expect(item.a, `pbq "${p.title}" item "${item.l}"`).toBeLessThan(p.choices.length)
             }
-          } else {
+          } else if (p.kind === "order") {
             expect(p.steps.length, `pbq "${p.title}"`).toBeGreaterThanOrEqual(3)
+          } else if (p.kind === "terminal") {
+            expect(p.tasks.length, `pbq "${p.title}"`).toBeGreaterThanOrEqual(2)
+            for (const task of p.tasks) {
+              expect(task.accept.length, `pbq "${p.title}" task`).toBeGreaterThan(0)
+              for (const pat of task.accept) expect(() => new RegExp(pat, "i"), `pbq "${p.title}" pattern ${pat}`).not.toThrow()
+            }
+          } else if (p.kind === "config") {
+            for (const f of p.fields) {
+              if (f.type === "select") {
+                expect(f.options?.length, `pbq "${p.title}" field ${f.id}`).toBeGreaterThan(1)
+                expect(f.answer, `pbq "${p.title}" field ${f.id}`).toBeGreaterThanOrEqual(0)
+                expect(f.answer, `pbq "${p.title}" field ${f.id}`).toBeLessThan(f.options!.length)
+              } else if (f.type === "toggle") {
+                expect(typeof f.answer, `pbq "${p.title}" field ${f.id}`).toBe("boolean")
+              } else {
+                expect(Array.isArray(f.answer) && (f.answer as string[]).length > 0, `pbq "${p.title}" field ${f.id}`).toBe(true)
+              }
+            }
+          } else if (p.kind === "hotspot") {
+            const ids = new Set(p.nodes.map((n) => n.id))
+            expect(p.targets.length, `pbq "${p.title}"`).toBeGreaterThan(0)
+            for (const t of p.targets) expect(ids.has(t), `pbq "${p.title}" target ${t}`).toBe(true)
+            for (const [a, b] of p.edges) {
+              expect(ids.has(a) && ids.has(b), `pbq "${p.title}" edge ${a}-${b}`).toBe(true)
+            }
+          } else if (p.kind === "dragconnect") {
+            const zoneIds = new Set(p.zones.map((z) => z.id))
+            const itemIds = new Set(p.items.map((i) => i.id))
+            expect(Object.keys(p.answer).length, `pbq "${p.title}"`).toBe(p.zones.length)
+            for (const [z, it] of Object.entries(p.answer)) {
+              expect(zoneIds.has(z), `pbq "${p.title}" answer zone ${z}`).toBe(true)
+              expect(itemIds.has(it), `pbq "${p.title}" answer item ${it}`).toBe(true)
+            }
           }
         }
       })

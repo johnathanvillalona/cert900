@@ -30,12 +30,51 @@ for (const q of add.questions ?? []) {
   exam.questions.push({ id: nextId++, t: q.t, x: q.x, o: q.o, a: q.a, e: q.e, d: v.d })
 }
 
+const GLYPHS = new Set(["rj45","rj11","usb-a","usb-c","hdmi","vga","dp","audio","coax","lc-fiber","power","lock","shield","badge","blocker"])
+const ICONS = new Set(["router","switch","firewall","ap","pc","server","printer","cloud","phone"])
+const SCENES = new Set(["pc-rear","patch-panel","rack","desk"])
+
 for (const p of add.pbqs ?? []) {
   if (!exam.videos[p.t]) { errors.push(`unknown PBQ topic "${p.t}" (${p.title})`); continue }
+  if (exam.pbqs.some((e) => e.title === p.title)) { errors.push(`duplicate PBQ title: ${p.title}`); continue }
   if (p.kind === "match" && p.items.some((i) => i.a < 0 || i.a >= p.choices.length)) {
     errors.push(`bad match index in PBQ ${p.title}`); continue
   }
-  if (exam.pbqs.some((e) => e.title === p.title)) { errors.push(`duplicate PBQ title: ${p.title}`); continue }
+  if (p.kind === "terminal") {
+    let bad = false
+    for (const task of p.tasks) {
+      if (!task.accept?.length || !task.output) { errors.push(`terminal task missing accept/output in ${p.title}`); bad = true; break }
+      for (const pat of task.accept) {
+        try { new RegExp(pat, "i") } catch { errors.push(`bad regex "${pat}" in ${p.title}`); bad = true }
+      }
+    }
+    if (bad) continue
+  }
+  if (p.kind === "config") {
+    let bad = false
+    for (const f of p.fields) {
+      if (f.type === "select" && (!f.options || f.answer < 0 || f.answer >= f.options.length)) { errors.push(`bad select field ${f.id} in ${p.title}`); bad = true }
+      if (f.type === "toggle" && typeof f.answer !== "boolean") { errors.push(`bad toggle field ${f.id} in ${p.title}`); bad = true }
+      if (f.type === "text" && (!Array.isArray(f.answer) || !f.answer.length)) { errors.push(`bad text field ${f.id} in ${p.title}`); bad = true }
+    }
+    if (bad) continue
+  }
+  if (p.kind === "hotspot") {
+    const ids = new Set(p.nodes.map((n) => n.id))
+    if (p.nodes.some((n) => !ICONS.has(n.icon))) { errors.push(`unknown icon in ${p.title}`); continue }
+    if (!p.targets?.length || p.targets.some((t) => !ids.has(t))) { errors.push(`bad targets in ${p.title}`); continue }
+    if (p.edges.some(([a, b]) => !ids.has(a) || !ids.has(b))) { errors.push(`bad edge in ${p.title}`); continue }
+  }
+  if (p.kind === "dragconnect") {
+    if (!SCENES.has(p.scene)) { errors.push(`unknown scene "${p.scene}" in ${p.title}`); continue }
+    const zoneIds = new Set(p.zones.map((z) => z.id))
+    const itemIds = new Set(p.items.map((i) => i.id))
+    if (p.items.some((i) => !GLYPHS.has(i.glyph))) { errors.push(`unknown glyph in ${p.title}`); continue }
+    const ans = Object.entries(p.answer)
+    if (ans.length !== p.zones.length || ans.some(([z, it]) => !zoneIds.has(z) || !itemIds.has(it))) {
+      errors.push(`answer map mismatch in ${p.title}`); continue
+    }
+  }
   exam.pbqs.push(p)
 }
 

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle } from "@/lib/engine"
+import { pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
 import type { ExamProgress } from "@/lib/progress"
 
 export type QuizMode = "practice" | "exam" | "pbq"
@@ -9,8 +9,8 @@ export type QuizItem =
   | { kind: "mc"; q: Question; optOrder: number[] }
   | { kind: "pbq"; p: PBQ }
 
-/** MC answer: option index. PBQ match: choices per item (-1 unset). PBQ order: permutation. */
-export type Answer = number | number[]
+/** MC answer: option index. PBQ answers: see PBQAnswer in lib/engine. */
+export type Answer = number | PBQAnswer
 
 export interface QuizConfig {
   mode: QuizMode
@@ -32,6 +32,10 @@ interface State {
 type Action =
   | { type: "answer-mc"; oi: number; grade: boolean }
   | { type: "set-match"; itemIdx: number; choice: number }
+  | { type: "set-terminal"; taskIdx: number; command: string }
+  | { type: "set-config-field"; fieldIdx: number; value: number | boolean | string }
+  | { type: "toggle-hotspot"; nodeId: string; max: number }
+  | { type: "place-item"; zoneId: string | null; itemId: string }
   | { type: "move-step"; pos: number; dir: -1 | 1 }
   | { type: "grade-pbq" }
   | { type: "nav"; to: number }
@@ -85,11 +89,22 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
 }
 
 function initialAnswerFor(item: QuizItem): Answer | undefined {
-  if (item.kind === "pbq") {
-    if (item.p.kind === "match") return item.p.items.map(() => -1)
-    return shuffle(item.p.steps.map((_, i) => i))
+  if (item.kind !== "pbq") return undefined
+  const p = item.p
+  switch (p.kind) {
+    case "match":
+      return p.items.map(() => -1)
+    case "order":
+      return shuffle(p.steps.map((_, i) => i))
+    case "terminal":
+      return p.tasks.map(() => "")
+    case "config":
+      return p.fields.map((f) => (f.type === "select" ? -1 : f.type === "toggle" ? (f.initial ?? false) : ""))
+    case "hotspot":
+      return [] as string[]
+    case "dragconnect":
+      return {} as Record<string, string>
   }
-  return undefined
 }
 
 function reducer(state: State, action: Action): State {
@@ -109,6 +124,31 @@ function reducer(state: State, action: Action): State {
       cur[action.itemIdx] = action.choice
       return { ...state, answers: { ...state.answers, [idx]: cur } }
     }
+    case "set-terminal": {
+      const cur = (state.answers[idx] as string[]).slice()
+      cur[action.taskIdx] = action.command
+      return { ...state, answers: { ...state.answers, [idx]: cur } }
+    }
+    case "set-config-field": {
+      const cur = (state.answers[idx] as (number | boolean | string)[]).slice()
+      cur[action.fieldIdx] = action.value
+      return { ...state, answers: { ...state.answers, [idx]: cur } }
+    }
+    case "toggle-hotspot": {
+      const cur = (state.answers[idx] as string[]).slice()
+      const at = cur.indexOf(action.nodeId)
+      if (at !== -1) cur.splice(at, 1)
+      else if (cur.length < action.max) cur.push(action.nodeId)
+      else return state
+      return { ...state, answers: { ...state.answers, [idx]: cur } }
+    }
+    case "place-item": {
+      const cur = { ...(state.answers[idx] as Record<string, string>) }
+      // remove the item from any zone it currently occupies
+      for (const z of Object.keys(cur)) if (cur[z] === action.itemId) delete cur[z]
+      if (action.zoneId) cur[action.zoneId] = action.itemId
+      return { ...state, answers: { ...state.answers, [idx]: cur } }
+    }
     case "move-step": {
       const ord = (state.answers[idx] as number[]).slice()
       const np = action.pos + action.dir
@@ -119,7 +159,7 @@ function reducer(state: State, action: Action): State {
     case "grade-pbq": {
       const item = state.items[idx]
       if (item.kind !== "pbq") return state
-      const frac = pbqScore(item.p, state.answers[idx] as number[])
+      const frac = pbqScore(item.p, state.answers[idx] as PBQAnswer)
       return { ...state, graded: { ...state.graded, [idx]: frac } }
     }
     case "nav": {
@@ -155,6 +195,10 @@ export interface QuizSession {
   finished: boolean
   gradePractice(oi: number): void
   setMatch(itemIdx: number, choice: number): void
+  setTerminal(taskIdx: number, command: string): void
+  setConfigField(fieldIdx: number, value: number | boolean | string): void
+  toggleHotspot(nodeId: string, max: number): void
+  placeItem(zoneId: string | null, itemId: string): void
   moveStep(pos: number, dir: -1 | 1): void
   gradePbq(): void
   nav(delta: number): void
@@ -223,11 +267,15 @@ export function useQuizSession(
       }
     },
     setMatch: (itemIdx, choice) => dispatch({ type: "set-match", itemIdx, choice }),
+    setTerminal: (taskIdx, command) => dispatch({ type: "set-terminal", taskIdx, command }),
+    setConfigField: (fieldIdx, value) => dispatch({ type: "set-config-field", fieldIdx, value }),
+    toggleHotspot: (nodeId, max) => dispatch({ type: "toggle-hotspot", nodeId, max }),
+    placeItem: (zoneId, itemId) => dispatch({ type: "place-item", zoneId, itemId }),
     moveStep: (pos, dir) => dispatch({ type: "move-step", pos, dir }),
     gradePbq() {
       const item = state.items[state.idx]
       if (item.kind !== "pbq" || state.graded[state.idx] !== undefined) return
-      const frac = pbqScore(item.p, state.answers[state.idx] as number[])
+      const frac = pbqScore(item.p, state.answers[state.idx] as PBQAnswer)
       dispatch({ type: "grade-pbq" })
       callbacks.onResult(item.p.t, frac)
     },
@@ -239,7 +287,16 @@ export function useQuizSession(
       return state.items.filter((it, i) => {
         const a = state.answers[i]
         if (a === undefined) return true
-        if (it.kind === "pbq" && it.p.kind === "match") return (a as number[]).some((x) => x === -1)
+        if (it.kind !== "pbq") return false
+        const p = it.p
+        if (p.kind === "match") return (a as number[]).some((x) => x === -1)
+        if (p.kind === "terminal") return (a as string[]).every((c) => !c.trim())
+        if (p.kind === "config")
+          return (a as (number | boolean | string)[]).every(
+            (v, fi) => (p.fields[fi].type === "select" && v === -1) || (p.fields[fi].type === "text" && v === ""),
+          ) && p.fields.some((f) => f.type !== "toggle")
+        if (p.kind === "hotspot") return (a as string[]).length === 0
+        if (p.kind === "dragconnect") return Object.keys(a as Record<string, string>).length === 0
         return false
       }).length
     },
@@ -269,7 +326,7 @@ export function useQuizSession(
           domainScores[it.q.d].max += 1
           return { kind: "mc", q: it.q, sel, ok: ok === 1 }
         }
-        const frac = pbqScore(it.p, state.answers[i] as number[])
+        const frac = pbqScore(it.p, state.answers[i] as PBQAnswer)
         const d = exam.videos[it.p.t].d
         pts += frac * 2
         max += 2
