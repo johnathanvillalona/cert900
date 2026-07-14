@@ -19,6 +19,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { Privacy, Terms } from "@/screens/Legal"
+import { APlusGuide, NPlusGuide, PbqGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -37,12 +38,31 @@ export type Screen =
   | { kind: "progress" }
   | { kind: "privacy" }
   | { kind: "terms" }
+  | { kind: "guide-aplus" }
+  | { kind: "guide-nplus" }
+  | { kind: "guide-pbq" }
 
-/** The two deep-linkable paths; everything else is app state under "/". */
+/** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
+const PATH_SCREENS: Record<string, Screen["kind"]> = {
+  "/privacy": "privacy",
+  "/terms": "terms",
+  [GUIDE_META.aplus.path]: "guide-aplus",
+  [GUIDE_META.nplus.path]: "guide-nplus",
+  [GUIDE_META.pbq.path]: "guide-pbq",
+}
+const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
+const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
+  privacy: "Privacy policy | Cert900",
+  terms: "Terms of use | Cert900",
+  "guide-aplus": GUIDE_META.aplus.title,
+  "guide-nplus": GUIDE_META.nplus.title,
+  "guide-pbq": GUIDE_META.pbq.title,
+}
+const DEFAULT_TITLE = "Cert900 — Free CompTIA A+ & Network+ Practice Exams"
+
 function screenForPath(path: string): Screen {
-  if (path === "/privacy") return { kind: "privacy" }
-  if (path === "/terms") return { kind: "terms" }
-  return { kind: "landing" }
+  const kind = PATH_SCREENS[path]
+  return kind ? ({ kind } as Screen) : { kind: "landing" }
 }
 
 export default function App() {
@@ -52,10 +72,11 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>(() => screenForPath(window.location.pathname))
   const [sessionCounter, setSessionCounter] = useState(0)
 
-  // Keep the address bar honest: legal pages get real URLs, everything else lives at "/".
+  // Keep the address bar honest: deep-linkable pages get real URLs, everything else lives at "/".
   useEffect(() => {
-    const want = screen.kind === "privacy" ? "/privacy" : screen.kind === "terms" ? "/terms" : "/"
+    const want = SCREEN_PATHS[screen.kind] ?? "/"
     if (window.location.pathname !== want) window.history.pushState({}, "", want)
+    document.title = SCREEN_TITLES[screen.kind] ?? DEFAULT_TITLE
   }, [screen.kind])
   useEffect(() => {
     const onPop = () => setScreen(screenForPath(window.location.pathname))
@@ -63,8 +84,14 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop)
   }, [])
 
-  const openLegal = (path: "/privacy" | "/terms") => {
-    setScreen(path === "/privacy" ? { kind: "privacy" } : { kind: "terms" })
+  const openPath = (path: string) => {
+    setScreen(screenForPath(path))
+    window.scrollTo(0, 0)
+  }
+
+  const startExamFromGuide = (id: string) => {
+    setExamId(id)
+    setScreen({ kind: "home" })
     window.scrollTo(0, 0)
   }
 
@@ -100,7 +127,7 @@ export default function App() {
             setScreen({ kind: "dashboard" })
             window.scrollTo(0, 0)
           }}
-          onOpenLegal={openLegal}
+          onOpenLegal={openPath}
         />
         <Toaster />
       </ProgressContext.Provider>
@@ -245,8 +272,11 @@ export default function App() {
 
         {screen.kind === "privacy" && <Privacy />}
         {screen.kind === "terms" && <Terms />}
+        {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}
         </div>
-        <SiteFooter onNavigate={openLegal} />
+        <SiteFooter onNavigate={openPath} />
       </div>
       <Toaster />
     </ProgressContext.Provider>

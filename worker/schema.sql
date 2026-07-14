@@ -72,3 +72,15 @@ CREATE TABLE IF NOT EXISTS "reports" (
   "created_at" integer NOT NULL
 );
 CREATE INDEX IF NOT EXISTS "reports_created_idx" ON "reports" ("created_at");
+
+-- Weekly Reddit scanner output: threads asking about practice tests/PBQs.
+-- Read: npx wrangler d1 execute comptia-trainer --remote \
+--   --command "SELECT subreddit, title, url FROM leads ORDER BY created_at DESC LIMIT 20"
+CREATE TABLE IF NOT EXISTS "leads" (
+  "id" text PRIMARY KEY,
+  "subreddit" text NOT NULL,
+  "title" text NOT NULL,
+  "url" text NOT NULL,
+  "created_at" integer NOT NULL,
+  "found_at" integer NOT NULL
+);

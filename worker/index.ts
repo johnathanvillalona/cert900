@@ -1,4 +1,5 @@
 import { createAuth, type Env } from "./auth"
+import { dailySocialPost, weeklyRedditScan, weeklyIndexNow } from "./social"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
 
@@ -138,5 +139,15 @@ export default {
       return json({ error: "not found" }, 404)
     }
     return env.ASSETS.fetch(req)
+  },
+
+  // Marketing automation. "30 14 * * *" = daily question-of-the-day post;
+  // "0 15 * * 1" = Monday lead scan + IndexNow ping.
+  async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
+    if (controller.cron === "30 14 * * *") {
+      ctx.waitUntil(dailySocialPost(env))
+    } else {
+      ctx.waitUntil(Promise.allSettled([weeklyRedditScan(env), weeklyIndexNow()]))
+    }
   },
 } satisfies ExportedHandler<Env>

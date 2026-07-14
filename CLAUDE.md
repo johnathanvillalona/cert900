@@ -47,9 +47,23 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
   20/day/IP + 1k/day global rate limit), `AdSlot` (inert until `ADS.enabled`
   in `src/lib/site.ts`; only placements: Results bottom, Dashboard bottom).
   `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL/ADS.
-- `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml.
-  Icons/og are RENDERED artifacts: regenerate with scratchpad `qa/brand-render.js`
-  (terminal-prompt mark, slate #151b29 + amber #f2b27c, Geist from node_modules).
+- `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml,
+  IndexNow key file. Icons/og are RENDERED artifacts: regenerate with scratchpad
+  `qa/brand-render.js` (terminal-prompt mark, slate #151b29 + amber #f2b27c).
+- SEO guides: `src/screens/Guides.tsx` (3 pages: /comptia-a-plus-practice-test,
+  /network-plus-practice-test, /comptia-pbq-practice; hook-free so they SSR).
+  `tools/prerender.tsx` (runs in `npm run build` via tsx) writes static
+  `dist/<slug>.html` (unique title/canonical/FAQPage JSON-LD, real asset tags)
+  + `dist/qotd-feed.json` (worker cron input). Guide FAQ/meta live in
+  GUIDE_META; footer links to all three on every page.
+- `marketing/` — Reddit launch post + reply snippets + Discord/wiki outreach +
+  $20 Reddit Ads spec (week 3). Manual channels stay manual: NEVER automate
+  Reddit/Discord posting.
+- Worker crons (`wrangler.jsonc` triggers + `worker/social.ts`): daily 14:30
+  UTC QOTD post to X (OAuth1 HMAC-SHA1) + Bluesky; Monday 15:00 UTC Reddit
+  lead scan (app-only OAuth, read-only -> D1 `leads`) + IndexNow ping. All
+  platform secrets optional; unset = graceful skip. Leads:
+  `npx wrangler d1 execute comptia-trainer --remote --command "SELECT subreddit, title, url FROM leads ORDER BY created_at DESC LIMIT 20"`
 
 ## Commands
 - `npm run dev` + `npm run dev:worker` (two terminals; Vite proxies `/api` → :8787)
@@ -106,12 +120,16 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
 
 ## Next tasks
-- Launch remainders (owner = user): Google OAuth redirect URI
-  `https://cert900.com/api/auth/callback/google` + publish consent screen to
-  Production with the /privacy URL. Confirm CF Web Analytics data arrives
-  (zone auto-injection expected; if not, add beacon token to index.html).
-- Done 2026-07-14: cert900.com cutover (routes/BETTER_AUTH_URL/301s/canonical),
-  remote D1 `reports` migration, DONATE_URL (buymeacoffee.com/sorannex).
+- Marketing user steps: remote D1 migration for `leads` (schema.sql command),
+  X dev account -> 4 secrets (X_API_KEY/SECRET, X_ACCESS_TOKEN/SECRET),
+  Bluesky app password -> BSKY_IDENTIFIER + BSKY_APP_PASSWORD, Reddit script
+  app -> REDDIT_CLIENT_ID/SECRET (all via `wrangler secret put`; crons skip
+  gracefully until set). Google Search Console verify + submit sitemap.
+  Post marketing/reddit-launch.md manually. Week 3: marketing/reddit-ads.md
+  ($20 cap). OAuth consent screen to Production if not yet done.
+- Done 2026-07-14: cert900.com cutover, reports migration, donate link,
+  analytics beacon (prod-hostname gated), cert900 wordmark rebrand, SEO
+  guides + prerender, worker cron automation scaffold.
 - Monetization ladder (decided 2026-07-14): donate link → EthicalAds/Carbon
   single unit → affiliates on Results. AdSlot placements are already scaffolded;
   never add slots inside quiz/landing hero.
