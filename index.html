@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CompTIA Practice Trainer — A+ Core 1, Core 2 & Network+</title>
+<meta name="description" content="Free CompTIA practice exams: A+ Core 1 (220-1201), A+ Core 2 (220-1202), and Network+ (N10-009). Timed simulations, performance-based questions, adaptive drills, and a Professor Messer video for every topic you miss.">
+<meta property="og:title" content="CompTIA Practice Trainer — A+ Core 1, Core 2 & Network+">
+<meta property="og:description" content="Free practice exams with timed simulations, PBQs, adaptive drills, and per-topic study videos. No sign-up, progress saved in your browser.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 <style>
 :root{
   --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16202B; --muted:#5B6B7A; --line:#DDE3E9;
@@ -178,6 +183,12 @@ h2{font-size:19px;margin-bottom:4px}
   <h1>Choose your certification.</h1>
   <p class="sub">Timed exam simulations, performance-based questions, and adaptive drills — with a Professor Messer video for every topic you miss. Progress is saved separately for each exam in your browser.</p>
   <div class="mode-grid" id="exam-grid"></div>
+  <p class="note" style="margin-top:32px;line-height:1.7">
+    A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA or Professor Messer.
+    CompTIA A+<sup>®</sup> and Network+<sup>®</sup> are registered trademarks of CompTIA, Inc.
+    All practice questions are original. Video links open Professor Messer's free official training courses in a new tab.
+    Spotted a wrong answer or broken link? <a href="mailto:johnathanv16@gmail.com?subject=CompTIA%20Practice%20Trainer%20feedback">Report it</a>.
+  </p>
 </section>
 
 <!-- HOME -->
@@ -1863,8 +1874,43 @@ function showProgress(){
     });
     h+='</div>';
   }
-  h+='<div class="btnrow"><button class="btn ghost" onclick="resetProgress()">Reset all progress</button><button class="btn" onclick="goHome()">Home</button></div>';
+  h+='<div class="btnrow"><button class="btn ghost" onclick="resetProgress()">Reset all progress</button><button class="btn ghost" onclick="exportProgress()">Export progress</button><button class="btn ghost" onclick="importProgress()">Import progress</button><button class="btn" onclick="goHome()">Home</button></div>';
+  h+='<p class="note" style="margin-top:8px">Progress lives in this browser only. Export a backup file to move it to another browser or computer, then import it there (covers all exams).</p>';
   $("scr-progress").innerHTML=h;show("scr-progress");
+}
+function exportProgress(){
+  const blob=new Blob([JSON.stringify(progressAll,null,1)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="comptia-trainer-progress.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Progress exported.");
+}
+function importProgress(){
+  const inp=document.createElement("input");
+  inp.type="file";inp.accept=".json,application/json";
+  inp.onchange=()=>{
+    const f=inp.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const data=JSON.parse(r.result);
+        if(!data||typeof data!=="object"||Array.isArray(data))throw new Error("shape");
+        for(const k of Object.keys(data)){
+          const p=data[k];
+          if(!p||typeof p!=="object"||!p.topics||!Array.isArray(p.exams)||!p.seen)throw new Error("shape");
+        }
+        progressAll=data;
+        if(A){progress=progressAll[A.id]||(progressAll[A.id]=blankProg());}
+        saveProgress();
+        toast("Progress imported.");
+        if(A){renderHome();showProgress();}else renderExamPicker();
+      }catch(e){toast("That file doesn't look like exported progress.");}
+    };
+    r.readAsText(f);
+  };
+  inp.click();
 }
 function resetProgress(){
   if(!confirm("Erase all tracked progress and exam history for "+A.cert+" "+A.name+"?"))return;
