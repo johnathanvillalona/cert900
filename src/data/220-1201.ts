@@ -3683,6 +3683,734 @@ export const exam: ExamDef = {
    "a": 0,
    "e": "Inkjet nozzles dry out with disuse; run cleaning cycles and, if needed, replace cartridges or soak the head.",
    "d": 5
+  },
+  {
+   "id": 239,
+   "t": "mobile-device-networks",
+   "x": "A new phone activates its cellular plan without any physical card. Which technology makes this possible?",
+   "o": [
+    "eSIM",
+    "NFC",
+    "MicroSD",
+    "WPS"
+   ],
+   "a": 0,
+   "e": "An eSIM is a programmable SIM built into the phone; carriers provision it digitally, no physical SIM swap needed.",
+   "d": 1
+  },
+  {
+   "id": 240,
+   "t": "laptop-hardware",
+   "x": "A traveling executive wants people beside them on a plane to be unable to read the laptop screen. Which accessory addresses this?",
+   "o": [
+    "A privacy filter",
+    "A brighter panel",
+    "A matte case",
+    "A second battery"
+   ],
+   "a": 0,
+   "e": "Privacy filters narrow the viewing angle so the screen appears dark from the sides.",
+   "d": 1
+  },
+  {
+   "id": 241,
+   "t": "connecting-mobile-devices",
+   "x": "A hotel's Wi-Fi is unusable, so a technician connects a laptop to the internet through a phone using only a USB cable. What is this called?",
+   "o": [
+    "USB tethering",
+    "NFC pairing",
+    "Bluetooth beaming",
+    "Roaming"
+   ],
+   "a": 0,
+   "e": "USB tethering shares the phone's cellular data over the cable, and usually charges the phone at the same time.",
+   "d": 1
+  },
+  {
+   "id": 242,
+   "t": "mobile-device-management",
+   "x": "An employee leaves the company. Their personal phone was enrolled under BYOD. Which action removes company data while leaving personal photos and apps intact?",
+   "o": [
+    "A selective (enterprise) wipe of the work profile",
+    "A full factory reset",
+    "Removing the SIM card",
+    "Disabling Bluetooth"
+   ],
+   "a": 0,
+   "e": "MDM selective wipe deletes the managed work profile and corporate data only, which is the point of BYOD containerization.",
+   "d": 1
+  },
+  {
+   "id": 243,
+   "t": "dns-configuration",
+   "x": "A DNS administrator wants shop.example.com to always resolve to whatever address www.example.com uses. Which record type does this?",
+   "o": [
+    "CNAME",
+    "MX",
+    "PTR",
+    "TXT"
+   ],
+   "a": 0,
+   "e": "A CNAME record aliases one hostname to another, so the alias follows the target's address automatically.",
+   "d": 2
+  },
+  {
+   "id": 244,
+   "t": "network-devices",
+   "x": "A small office outgrew its unmanaged switch. Which capability would upgrading to a managed switch add?",
+   "o": [
+    "VLANs, port monitoring, and remote configuration",
+    "More electrical power to devices",
+    "Faster cables",
+    "Built-in antivirus"
+   ],
+   "a": 0,
+   "e": "Managed switches add configuration features: VLANs, SNMP monitoring, port mirroring, and link aggregation.",
+   "d": 2
+  },
+  {
+   "id": 245,
+   "t": "storage-devices",
+   "x": "A video editor compares drive options: a SATA SSD tops out around 550 MB/s. Roughly what can a PCIe 4.0 NVMe SSD reach?",
+   "o": [
+    "About the same",
+    "Around 1 GB/s",
+    "Several GB/s (5,000+ MB/s)",
+    "Under 200 MB/s"
+   ],
+   "a": 2,
+   "e": "NVMe over PCIe 4.0 x4 reaches 5,000-7,000 MB/s, roughly ten times SATA's ceiling, because it bypasses the SATA bus entirely.",
+   "d": 3
+  },
+  {
+   "id": 246,
+   "t": "raid",
+   "x": "Which RAID level survives the failure of any TWO drives in the array?",
+   "o": [
+    "RAID 0",
+    "RAID 1",
+    "RAID 5",
+    "RAID 6"
+   ],
+   "a": 3,
+   "e": "RAID 6 uses double distributed parity, tolerating two simultaneous drive failures; RAID 5 tolerates only one.",
+   "d": 3
+  },
+  {
+   "id": 247,
+   "t": "memory-technologies",
+   "x": "New RAM rated for 6000 MT/s runs at only 4800 MT/s after installation. What must be enabled in firmware to reach the rated speed?",
+   "o": [
+    "The XMP/EXPO memory profile",
+    "Secure Boot",
+    "Fast startup",
+    "Legacy boot mode"
+   ],
+   "a": 0,
+   "e": "DDR5 defaults to JEDEC speeds; the advertised speed is an overclock profile (Intel XMP / AMD EXPO) enabled in UEFI.",
+   "d": 3
+  },
+  {
+   "id": 248,
+   "t": "motherboard-connections",
+   "x": "A case's front-panel USB-C port does not work, though rear ports are fine. What should the technician check FIRST?",
+   "o": [
+    "That the case's USB-C cable is seated in the motherboard's internal header",
+    "The GPU drivers",
+    "The CMOS battery",
+    "The wall outlet"
+   ],
+   "a": 0,
+   "e": "Front-panel ports connect via internal headers; an unseated USB 3.x/USB-C header cable is the classic cause.",
+   "d": 3
+  },
+  {
+   "id": 249,
+   "t": "computer-power",
+   "x": "During brief storms the office lights flicker and PCs reboot. Which purchase prevents the reboots?",
+   "o": [
+    "A UPS (battery backup)",
+    "A surge strip",
+    "A bigger PSU",
+    "A voltage tester"
+   ],
+   "a": 0,
+   "e": "Only a UPS bridges sags and brief outages with battery power; surge strips clamp spikes but cannot fill gaps.",
+   "d": 3
+  },
+  {
+   "id": 250,
+   "t": "display-attributes",
+   "x": "A gaming monitor advertises FreeSync/G-Sync compatibility. What problem does this variable refresh rate feature solve?",
+   "o": [
+    "Screen tearing when frame rate and refresh rate mismatch",
+    "Dead pixels",
+    "Colour blindness",
+    "Slow boot times"
+   ],
+   "a": 0,
+   "e": "VRR lets the monitor refresh in step with the GPU's frame output, eliminating tearing and reducing stutter.",
+   "d": 3
+  },
+  {
+   "id": 251,
+   "t": "peripheral-cables",
+   "x": "A user daisy-chains a dock, two displays, and an external SSD off one laptop port. Which interface supports this chaining?",
+   "o": [
+    "Thunderbolt",
+    "USB-A 2.0",
+    "VGA",
+    "RJ45"
+   ],
+   "a": 0,
+   "e": "Thunderbolt supports daisy-chaining multiple devices (displays, storage, docks) from a single port.",
+   "d": 3
+  },
+  {
+   "id": 252,
+   "t": "fiber-connectors",
+   "x": "A data-center tech terminates a high-density 40 Gbps run that uses a single rectangular connector carrying 12 fibers. Which connector is this?",
+   "o": [
+    "MPO/MTP",
+    "LC",
+    "ST",
+    "RJ45"
+   ],
+   "a": 0,
+   "e": "MPO/MTP connectors bundle 12+ fibers in one ferrule and are standard for 40/100 Gbps parallel optics.",
+   "d": 3
+  },
+  {
+   "id": 253,
+   "t": "expansion-cards",
+   "x": "A podcaster needs XLR microphone inputs with lower latency and less noise than the motherboard's onboard audio. Which upgrade fits?",
+   "o": [
+    "A dedicated sound card or audio interface",
+    "A capture card",
+    "A RAID controller",
+    "A second NIC"
+   ],
+   "a": 0,
+   "e": "Dedicated audio hardware provides better analog-to-digital conversion, preamps, and lower-latency drivers than onboard audio.",
+   "d": 3
+  },
+  {
+   "id": 254,
+   "t": "bios-settings",
+   "x": "Windows 11 setup refuses to install, reporting the PC doesn't meet requirements. The CPU is supported. Which firmware settings most likely need enabling?",
+   "o": [
+    "TPM 2.0 and Secure Boot",
+    "Wake-on-LAN and PXE",
+    "Fan curves and XMP",
+    "SATA hot plug"
+   ],
+   "a": 0,
+   "e": "Windows 11 requires TPM 2.0 and UEFI Secure Boot; both are often disabled by default on older boards.",
+   "d": 3
+  },
+  {
+   "id": 255,
+   "t": "multifunction-devices",
+   "x": "Scan-to-email from the office copier suddenly fails after the mail provider disabled basic authentication. What must be updated on the device?",
+   "o": [
+    "Its SMTP settings to use the provider's current authentication method",
+    "The paper trays",
+    "The fuser unit",
+    "The print driver on one PC"
+   ],
+   "a": 0,
+   "e": "Scan-to-email relies on the MFD's built-in SMTP client; provider auth changes (e.g., OAuth/app passwords) must be reflected there.",
+   "d": 3
+  },
+  {
+   "id": 256,
+   "t": "motherboard-expansion-slots",
+   "x": "A PCIe 3.0 graphics card is installed in a motherboard's PCIe 4.0 x16 slot. What happens?",
+   "o": [
+    "It works normally at PCIe 3.0 speeds",
+    "It is damaged by the faster slot",
+    "It runs at PCIe 4.0 speeds",
+    "It will not be detected"
+   ],
+   "a": 0,
+   "e": "PCIe is forward and backward compatible; the link simply negotiates down to the highest generation both sides support.",
+   "d": 3
+  },
+  {
+   "id": 257,
+   "t": "virtualization-concepts",
+   "x": "What is the key difference between a Type 1 and a Type 2 hypervisor?",
+   "o": [
+    "Type 1 runs directly on hardware; Type 2 runs as an application on a host OS",
+    "Type 1 is free; Type 2 is paid",
+    "Type 1 only runs Linux guests",
+    "Type 2 is faster"
+   ],
+   "a": 0,
+   "e": "Bare-metal (Type 1) hypervisors like ESXi/Hyper-V run on the hardware itself; Type 2 (VirtualBox, VMware Workstation) run atop a desktop OS.",
+   "d": 4
+  },
+  {
+   "id": 258,
+   "t": "virtualization-concepts",
+   "x": "A host runs six VMs. Users complain all of them slow down at 9 a.m. when everyone logs in. What is this problem called?",
+   "o": [
+    "Resource contention",
+    "VM escape",
+    "Sandbox leakage",
+    "Overprovisioning storage only"
+   ],
+   "a": 0,
+   "e": "VMs share the host's CPU, RAM, and disk I/O; simultaneous demand causes contention until resources are rebalanced.",
+   "d": 4
+  },
+  {
+   "id": 259,
+   "t": "virtualization-concepts",
+   "x": "A security flaw that lets code inside a guest VM run commands on the host system is called what?",
+   "o": [
+    "VM escape",
+    "Snapshot rollback",
+    "Live migration",
+    "Thin provisioning"
+   ],
+   "a": 0,
+   "e": "VM escape breaks the isolation boundary between guest and hypervisor/host, the most serious class of virtualization vulnerability.",
+   "d": 4
+  },
+  {
+   "id": 260,
+   "t": "virtualization-concepts",
+   "x": "Over a year, a team spun up dozens of test VMs that nobody tracks or shuts down. What is this called?",
+   "o": [
+    "VM sprawl",
+    "Elasticity",
+    "High availability",
+    "Failover"
+   ],
+   "a": 0,
+   "e": "VM sprawl is unmanaged VM growth that wastes resources and creates unpatched, forgotten attack surfaces.",
+   "d": 4
+  },
+  {
+   "id": 261,
+   "t": "virtualization-services",
+   "x": "A developer wants each microservice packaged with its dependencies but does NOT want a full OS per service. Which technology fits?",
+   "o": [
+    "Containers",
+    "Type 1 hypervisor VMs",
+    "Dual-boot",
+    "RAID 10"
+   ],
+   "a": 0,
+   "e": "Containers isolate applications while sharing the host kernel, far lighter than a VM per service.",
+   "d": 4
+  },
+  {
+   "id": 262,
+   "t": "cloud-models",
+   "x": "A company subscribes to a web-based CRM. Vendor handles servers, patching, and the application itself. Which service model is this?",
+   "o": [
+    "SaaS",
+    "IaaS",
+    "PaaS",
+    "On-premises"
+   ],
+   "a": 0,
+   "e": "Software as a Service delivers the complete application; the customer just uses it through a browser.",
+   "d": 4
+  },
+  {
+   "id": 263,
+   "t": "cloud-characteristics",
+   "x": "A developer provisions a new cloud VM at 2 a.m. through a web portal without contacting anyone. Which cloud characteristic is this?",
+   "o": [
+    "On-demand self-service",
+    "Vendor lock-in",
+    "Colocation",
+    "Failback"
+   ],
+   "a": 0,
+   "e": "On-demand self-service means consumers provision resources themselves, instantly, without human interaction with the provider.",
+   "d": 4
+  },
+  {
+   "id": 264,
+   "t": "cloud-characteristics",
+   "x": "In the public-cloud shared responsibility model, who is responsible for securing the data a company stores in the cloud?",
+   "o": [
+    "The customer",
+    "The cloud provider",
+    "The ISP",
+    "Nobody; it is automatic"
+   ],
+   "a": 0,
+   "e": "Providers secure the infrastructure; customers remain responsible for their own data, identities, and configurations.",
+   "d": 4
+  },
+  {
+   "id": 265,
+   "t": "cloud-characteristics",
+   "x": "A startup's traffic doubles every month. Instead of buying servers, capacity grows in the cloud as needed. Which benefit of cloud computing is this?",
+   "o": [
+    "Scalability without capital hardware purchases",
+    "Guaranteed zero cost",
+    "Immunity to outages",
+    "No need for backups"
+   ],
+   "a": 0,
+   "e": "Cloud scalability converts capital expense into operational expense and removes hardware lead times.",
+   "d": 4
+  },
+  {
+   "id": 266,
+   "t": "troubleshooting-hardware",
+   "x": "A PC gradually became loud and now shuts down under load. Opening the case reveals the CPU heatsink packed with dust. After cleaning, what should the technician also consider?",
+   "o": [
+    "Replacing the thermal paste between CPU and heatsink",
+    "Replacing the RAM",
+    "Flashing the BIOS",
+    "Changing the boot order"
+   ],
+   "a": 0,
+   "e": "Years of heat cycles dry out thermal paste; cleaning plus fresh paste restores proper heat transfer.",
+   "d": 5
+  },
+  {
+   "id": 267,
+   "t": "troubleshooting-hardware",
+   "x": "A system powers on but shows nothing, and the technician suspects the power supply. Which tool tests PSU output voltages directly?",
+   "o": [
+    "A PSU tester or multimeter",
+    "A loopback plug",
+    "A toner probe",
+    "A cable crimper"
+   ],
+   "a": 0,
+   "e": "A PSU tester (or multimeter on the 24-pin connector) verifies each rail outputs correct voltage.",
+   "d": 5
+  },
+  {
+   "id": 268,
+   "t": "troubleshooting-hardware",
+   "x": "A desktop freezes randomly, and the events happen more often the longer it runs. Memory tests pass when run immediately, but fail after an hour. What does this suggest?",
+   "o": [
+    "A heat-related failure",
+    "A dead CMOS battery",
+    "A corrupted OS",
+    "A failing keyboard"
+   ],
+   "a": 0,
+   "e": "Faults that appear only after warm-up point to thermal problems: cooling, seating, or heat-sensitive components.",
+   "d": 5
+  },
+  {
+   "id": 269,
+   "t": "troubleshooting-hardware",
+   "x": "During POST troubleshooting on a board with no speaker, which motherboard feature can still report error codes?",
+   "o": [
+    "A two-digit debug LED / POST code display",
+    "The Windows Event Viewer",
+    "The GPU fans",
+    "The power LED color"
+   ],
+   "a": 0,
+   "e": "Many boards include POST code displays or diagnostic LEDs (CPU/DRAM/VGA/BOOT) that identify the failing stage without a speaker.",
+   "d": 5
+  },
+  {
+   "id": 270,
+   "t": "troubleshooting-hardware",
+   "x": "A technician replaced a motherboard, and now the system reboots at random. All cables look connected. Which simple mistake commonly causes this?",
+   "o": [
+    "An extra brass standoff shorting the board against the case",
+    "The wrong wallpaper",
+    "An unformatted disk",
+    "A missing driver"
+   ],
+   "a": 0,
+   "e": "A misplaced standoff touching solder points causes intermittent shorts: classic new-build/replacement fault.",
+   "d": 5
+  },
+  {
+   "id": 271,
+   "t": "troubleshooting-storage-devices",
+   "x": "A drive's SMART report shows a rapidly increasing 'Reallocated Sector Count'. What does this mean?",
+   "o": [
+    "The drive is remapping failing sectors and should be replaced soon",
+    "The drive was defragmented",
+    "The partition is full",
+    "The drive is encrypted"
+   ],
+   "a": 0,
+   "e": "Growing reallocated sectors mean physical media failure in progress; back up and replace.",
+   "d": 5
+  },
+  {
+   "id": 272,
+   "t": "troubleshooting-storage-devices",
+   "x": "Two drives were striped in RAID 0 for speed. One drive just died. What is the state of the data?",
+   "o": [
+    "All array data is lost unless a backup exists",
+    "The other drive has a full copy",
+    "Only half the files are lost",
+    "The array rebuilds automatically"
+   ],
+   "a": 0,
+   "e": "RAID 0 stripes without redundancy; either member failing destroys the whole array. Speed, not safety.",
+   "d": 5
+  },
+  {
+   "id": 273,
+   "t": "troubleshooting-storage-devices",
+   "x": "Windows shows a USB drive as 'RAW' and asks to format it, but it contains needed files. What should a technician try FIRST?",
+   "o": [
+    "Data-recovery/file-system repair tools before any format",
+    "Format it quickly",
+    "Defragment it",
+    "Change the drive letter"
+   ],
+   "a": 0,
+   "e": "RAW means the file system isn't recognized. Recovery utilities can often restore the table or extract files; formatting overwrites them.",
+   "d": 5
+  },
+  {
+   "id": 274,
+   "t": "troubleshooting-storage-devices",
+   "x": "An aging laptop with a mechanical drive takes four minutes to boot. Hardware diagnostics pass. Which upgrade gives the largest improvement?",
+   "o": [
+    "Replace the HDD with an SSD",
+    "Add a bigger battery",
+    "A faster Wi-Fi card",
+    "A new keyboard"
+   ],
+   "a": 0,
+   "e": "Boot time is dominated by storage random-read speed; an SSD swap is the single highest-impact upgrade for an HDD system.",
+   "d": 5
+  },
+  {
+   "id": 275,
+   "t": "troubleshooting-display-issues",
+   "x": "A laptop screen flickers only when the lid is moved. External monitors are stable. What is the MOST likely cause?",
+   "o": [
+    "A worn display cable in the hinge",
+    "A GPU driver bug",
+    "Wrong resolution",
+    "A failing PSU"
+   ],
+   "a": 0,
+   "e": "Movement-dependent flicker points to the display ribbon cable flexing at the hinge; the external output bypasses it.",
+   "d": 5
+  },
+  {
+   "id": 276,
+   "t": "troubleshooting-display-issues",
+   "x": "A monitor connected over HDMI shows 'No Signal' although the PC is running. What should be checked FIRST?",
+   "o": [
+    "That the monitor's input source matches the port in use",
+    "The wall outlet",
+    "The keyboard batteries",
+    "The DNS settings"
+   ],
+   "a": 0,
+   "e": "Monitors with multiple inputs often sit on the wrong source; verify input selection, then the cable and port.",
+   "d": 5
+  },
+  {
+   "id": 277,
+   "t": "troubleshooting-display-issues",
+   "x": "After a GPU driver update failed midway, the desktop is stuck at 800x600 and can't be changed. What is the fix?",
+   "o": [
+    "Cleanly reinstall the graphics driver",
+    "Replace the monitor",
+    "Enable Secure Boot",
+    "Increase the page file"
+   ],
+   "a": 0,
+   "e": "Windows falls back to a basic display driver when the GPU driver is broken; a clean reinstall restores native resolutions.",
+   "d": 5
+  },
+  {
+   "id": 278,
+   "t": "troubleshooting-display-issues",
+   "x": "Photos edited on one PC look washed out with wrong tones on a second, identical monitor. Which adjustment aligns the two displays?",
+   "o": [
+    "Color calibration of the monitors",
+    "A longer HDMI cable",
+    "Higher refresh rate",
+    "Cleaning the screen"
+   ],
+   "a": 0,
+   "e": "Calibration (brightness, gamma, color temperature or a hardware calibrator) makes displays render color consistently.",
+   "d": 5
+  },
+  {
+   "id": 279,
+   "t": "troubleshooting-mobile-devices",
+   "x": "A phone left in a hot car now shows a temperature warning and refuses to charge. What is the correct response?",
+   "o": [
+    "Let it cool before using or charging it",
+    "Charge it faster to recalibrate",
+    "Put it in a freezer",
+    "Remove the screen"
+   ],
+   "a": 0,
+   "e": "Lithium batteries must not charge at high temperature; devices deliberately block charging until they cool.",
+   "d": 5
+  },
+  {
+   "id": 280,
+   "t": "troubleshooting-mobile-devices",
+   "x": "A phone plays audio through Bluetooth headphones but its built-in speaker stays silent even for ringtones at full volume. What is likely?",
+   "o": [
+    "A hardware fault in the speaker (or stuck headphone detection)",
+    "Airplane mode",
+    "A full storage",
+    "A bad SIM"
+   ],
+   "a": 0,
+   "e": "When only the physical speaker path fails across all apps, suspect speaker hardware or the jack sensor stuck in 'headphones' mode.",
+   "d": 5
+  },
+  {
+   "id": 281,
+   "t": "troubleshooting-mobile-devices",
+   "x": "The camera app on a phone shows a black screen and says the camera is in use by another app. A restart fixes it briefly. What should be checked?",
+   "o": [
+    "Which background app is holding the camera, then update or remove it",
+    "The SIM card",
+    "Screen brightness",
+    "The charging cable"
+   ],
+   "a": 0,
+   "e": "Camera-busy errors mean another process holds the device; app permissions and recently installed apps are the usual culprits.",
+   "d": 5
+  },
+  {
+   "id": 282,
+   "t": "troubleshooting-mobile-devices",
+   "x": "After a screen replacement by a third-party shop, a phone's auto-brightness stopped working. Why?",
+   "o": [
+    "The ambient light sensor was damaged or not reconnected during repair",
+    "The OS needs re-activation",
+    "The battery is too small",
+    "The SIM moved"
+   ],
+   "a": 0,
+   "e": "Auto-brightness depends on the ambient light sensor near the earpiece; screen repairs commonly disturb it.",
+   "d": 5
+  },
+  {
+   "id": 283,
+   "t": "troubleshooting-networks",
+   "x": "A PC shows 'No internet' and holds address 169.254.8.20. Other PCs on the same switch work. Moving the cable to another wall jack fixes it. What was the problem?",
+   "o": [
+    "A bad cable run or jack preventing DHCP from reaching the PC",
+    "A DNS outage",
+    "A duplicate IP",
+    "Malware"
+   ],
+   "a": 0,
+   "e": "APIPA on one drop while others work isolates the fault to that cable path, not the DHCP server.",
+   "d": 5
+  },
+  {
+   "id": 284,
+   "t": "troubleshooting-networks",
+   "x": "A remote worker's VPN connects, but they cannot reach internal file servers while public websites work. Which VPN setting is MOST relevant?",
+   "o": [
+    "Split tunneling / routes for the internal subnets",
+    "The wallpaper",
+    "Wi-Fi channel width",
+    "Monitor resolution"
+   ],
+   "a": 0,
+   "e": "If internal routes aren't sent through the tunnel (or DNS isn't), internal resources fail while internet traffic flows normally.",
+   "d": 5
+  },
+  {
+   "id": 285,
+   "t": "troubleshooting-networks",
+   "x": "Every afternoon, Wi-Fi slows badly in the breakroom only. A site survey shows heavy 2.4 GHz noise from the microwave. Which change helps most?",
+   "o": [
+    "Move breakroom clients/AP to 5 GHz",
+    "Longer Ethernet cables",
+    "A new DHCP scope",
+    "Disable DNS"
+   ],
+   "a": 0,
+   "e": "Microwave ovens swamp 2.4 GHz; 5 GHz channels avoid the interference entirely.",
+   "d": 5
+  },
+  {
+   "id": 286,
+   "t": "troubleshooting-networks",
+   "x": "Two printers were given static IPs. Months later a new laptop can't join the network, showing an address-conflict error. What went wrong?",
+   "o": [
+    "The statics were inside the DHCP pool, and the server leased one address twice",
+    "The laptop is incompatible",
+    "The switch is unmanaged",
+    "The DNS zone expired"
+   ],
+   "a": 0,
+   "e": "Statics must live outside the DHCP scope (or be reserved); otherwise the server eventually leases the same address.",
+   "d": 5
+  },
+  {
+   "id": 287,
+   "t": "troubleshooting-printers",
+   "x": "Laser printouts smear when rubbed, as if the toner never bonded to the page. Which part has failed?",
+   "o": [
+    "The fuser assembly",
+    "The pickup roller",
+    "The Wi-Fi module",
+    "The paper tray"
+   ],
+   "a": 0,
+   "e": "The fuser melts toner into the paper; unfused, smearing output means it isn't reaching temperature.",
+   "d": 5
+  },
+  {
+   "id": 288,
+   "t": "troubleshooting-printers",
+   "x": "A color inkjet prints everything with a strong magenta tint. Nozzle check shows cyan completely missing. What is the FIRST fix?",
+   "o": [
+    "Run head cleaning and replace the cyan cartridge if needed",
+    "Reinstall Windows",
+    "Replace the fuser",
+    "Use thicker paper"
+   ],
+   "a": 0,
+   "e": "A missing color channel skews all output; cleaning cycles clear clogged nozzles, then replace the cartridge or head.",
+   "d": 5
+  },
+  {
+   "id": 289,
+   "t": "troubleshooting-printers",
+   "x": "A brand-new laser printer prints completely blank pages. What classic setup mistake causes this?",
+   "o": [
+    "The sealing tape was left on the toner cartridge",
+    "Wrong DNS",
+    "Paper loaded upside down",
+    "The fuser is too hot"
+   ],
+   "a": 0,
+   "e": "New cartridges ship with a protective seal strip that must be pulled; leaving it blocks all toner flow.",
+   "d": 5
+  },
+  {
+   "id": 290,
+   "t": "troubleshooting-printers",
+   "x": "After the office subnet changed, the network printer works via USB but network jobs never arrive. The printer still shows its old static IP. What is the fix?",
+   "o": [
+    "Update the printer's IP configuration for the new subnet (and the port on clients)",
+    "Replace the toner",
+    "Restart the spooler only",
+    "New drivers on one PC"
+   ],
+   "a": 0,
+   "e": "A static address from the old subnet is unreachable; reconfigure the printer's IP/gateway and update client printer ports.",
+   "d": 5
   }
  ],
  "pbqs": [
@@ -3833,6 +4561,203 @@ export const exam: ExamDef = {
      "l": "A stripe of mirrors — redundancy and performance, minimum 4 drives",
      "a": 3
     }
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "peripheral-cables",
+   "title": "Identify the Video Connector",
+   "scen": "A technician sorts a box of display cables. Match each description to the connector.",
+   "choices": [
+    "HDMI",
+    "DisplayPort",
+    "VGA",
+    "DVI-D",
+    "USB-C (DP alt mode)"
+   ],
+   "items": [
+    {
+     "l": "19-pin trapezoid connector; carries video and audio; standard on TVs",
+     "a": 0
+    },
+    {
+     "l": "20-pin connector with a single latching corner; common on PC monitors and GPUs",
+     "a": 1
+    },
+    {
+     "l": "Blue 15-pin D-shaped connector; analog only",
+     "a": 2
+    },
+    {
+     "l": "Wide connector with a grid of pins; digital video only, no audio",
+     "a": 3
+    },
+    {
+     "l": "Small reversible oval connector that can also charge the laptop",
+     "a": 4
+    }
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "wireless-network-technologies",
+   "title": "Match the Wi-Fi Standard",
+   "scen": "Match each description to the 802.11 standard it describes.",
+   "choices": [
+    "802.11b",
+    "802.11g",
+    "802.11n (Wi-Fi 4)",
+    "802.11ac (Wi-Fi 5)",
+    "802.11ax (Wi-Fi 6)"
+   ],
+   "items": [
+    {
+     "l": "Legacy 2.4 GHz standard topping out at 11 Mbps",
+     "a": 0
+    },
+    {
+     "l": "2.4 GHz only, up to 54 Mbps",
+     "a": 1
+    },
+    {
+     "l": "First dual-band standard; introduced MIMO",
+     "a": 2
+    },
+    {
+     "l": "5 GHz only; brought wide channels and MU-MIMO downlink",
+     "a": 3
+    },
+    {
+     "l": "Adds OFDMA and works across 2.4/5 GHz (6 GHz with 6E)",
+     "a": 4
+    }
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "cloud-models",
+   "title": "Pick the Cloud Service Model",
+   "scen": "Match each scenario to the service model it represents.",
+   "choices": [
+    "IaaS",
+    "PaaS",
+    "SaaS",
+    "DaaS"
+   ],
+   "items": [
+    {
+     "l": "Renting raw virtual machines and networks; you manage the OS and apps",
+     "a": 0
+    },
+    {
+     "l": "Deploying your code to a managed platform; provider runs servers and patching",
+     "a": 1
+    },
+    {
+     "l": "Using a complete vendor-hosted email suite through the browser",
+     "a": 2
+    },
+    {
+     "l": "Streaming full virtual desktops to thin clients from the cloud",
+     "a": 3
+    }
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "memory-technologies",
+   "title": "Match the Memory",
+   "scen": "Match each memory description to what it is.",
+   "choices": [
+    "SODIMM",
+    "ECC memory",
+    "Dual-channel",
+    "Virtual memory",
+    "XMP/EXPO profile"
+   ],
+   "items": [
+    {
+     "l": "Compact module form factor used in laptops",
+     "a": 0
+    },
+    {
+     "l": "Detects and corrects single-bit errors; used in servers and workstations",
+     "a": 1
+    },
+    {
+     "l": "Doubles memory bus width using matched modules in paired slots",
+     "a": 2
+    },
+    {
+     "l": "Disk space standing in for RAM when physical memory runs out",
+     "a": 3
+    },
+    {
+     "l": "Firmware setting that runs RAM at its advertised overclock speed",
+     "a": 4
+    }
+   ]
+  },
+  {
+   "kind": "order",
+   "t": "troubleshooting-display-issues",
+   "title": "Laptop Shows Nothing On Screen",
+   "scen": "A laptop powers on (lights and fan) but the screen stays black. Arrange a sensible first-to-last troubleshooting sequence.",
+   "steps": [
+    "Shine a flashlight at the screen to check for a faint image (backlight failure)",
+    "Connect an external monitor to test video output",
+    "If external works, reseat or inspect the internal display cable",
+    "If external is also black, reseat RAM and test with minimal hardware",
+    "Replace the display assembly or escalate to board-level repair"
+   ]
+  },
+  {
+   "kind": "match",
+   "t": "troubleshooting-printers",
+   "title": "Printer Symptom to Likely Fix",
+   "scen": "Match each printer symptom to its most likely fix.",
+   "choices": [
+    "Replace the fuser",
+    "Replace pickup rollers/separation pad",
+    "Replace the imaging drum",
+    "Reinstall the correct driver",
+    "Restart the print spooler"
+   ],
+   "items": [
+    {
+     "l": "Toner smears off the page when touched",
+     "a": 0
+    },
+    {
+     "l": "Repeated jams with multiple sheets feeding at once",
+     "a": 1
+    },
+    {
+     "l": "A ghost of the previous page repeats down each printout",
+     "a": 2
+    },
+    {
+     "l": "Pages of random symbols instead of the document",
+     "a": 3
+    },
+    {
+     "l": "Jobs stuck in the queue; nothing prints on any document",
+     "a": 4
+    }
+   ]
+  },
+  {
+   "kind": "order",
+   "t": "troubleshooting-hardware",
+   "title": "No-POST Checklist",
+   "scen": "A desktop powers on with spinning fans but never POSTs (no beep, no display). Arrange the checks first-to-last.",
+   "steps": [
+    "Check the simple things: monitor input, cable seating, PSU switch",
+    "Note any beep codes or debug LEDs on the board",
+    "Reseat RAM and try one known-good module in slot 1",
+    "Strip to minimum hardware: board, CPU, one RAM stick, PSU",
+    "Swap in a known-good power supply",
+    "Suspect motherboard or CPU and escalate/replace"
    ]
   }
  ]
