@@ -3,6 +3,8 @@ import { toast } from "sonner"
 import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { accuracy, masteryLevel, topicStat, weakTopics, domainNumbers } from "@/lib/engine"
+import { domainAccuracy, recentAccuracy, sessionTrend, studyStreak } from "@/lib/stats"
+import { AccuracyTrendChart, DomainAccuracyChart, ExamScoreChart } from "@/components/charts"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"
@@ -19,6 +21,10 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
 
   const totals = Object.values(p.topics).reduce((acc, s) => ({ q: acc.q + s.t, c: acc.c + s.c }), { q: 0, c: 0 })
   const weak = weakTopics(exam, p)
+  const streak = studyStreak(p.sessions, new Date().toISOString().slice(0, 10))
+  const trend = sessionTrend(p.sessions)
+  const recent = recentAccuracy(p.sessions)
+  const domains = domainAccuracy(exam, p)
 
   const exportProgress = () => {
     const blob = new Blob([store.exportJson()], { type: "application/json" })
@@ -47,19 +53,37 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
     <main>
       <h1 className="text-3xl font-bold tracking-tight">My Progress</h1>
 
-      <Card className="mt-4 flex flex-wrap gap-8 p-6" data-testid="statline">
-        <div>
-          <p className="font-mono text-2xl font-bold tabular-nums">{totals.q}</p>
-          <p className="text-muted-foreground text-xs">questions answered</p>
-        </div>
-        <div>
-          <p className="font-mono text-2xl font-bold tabular-nums">{totals.q ? Math.round((totals.c / totals.q) * 100) + "%" : "0%"}</p>
-          <p className="text-muted-foreground text-xs">overall accuracy</p>
-        </div>
-        <div>
-          <p className="font-mono text-2xl font-bold tabular-nums">{p.exams.length}</p>
-          <p className="text-muted-foreground text-xs">full exams taken</p>
-        </div>
+      <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4" data-testid="statline">
+        {[
+          [String(totals.q), "questions answered"],
+          [totals.q ? Math.round((totals.c / totals.q) * 100) + "%" : "0%", "overall accuracy"],
+          [recent !== null ? recent + "%" : "0%", "recent accuracy (last ~100)"],
+          [streak === 1 ? "1 day" : `${streak} days`, "study streak"],
+        ].map(([v, k]) => (
+          <Card key={k} className="p-4">
+            <p className="font-heading text-2xl font-semibold tabular-nums">{v}</p>
+            <p className="text-muted-foreground mt-0.5 text-xs">{k}</p>
+          </Card>
+        ))}
+      </div>
+
+      <div className="mt-3 grid gap-3 lg:grid-cols-2">
+        <Card className="p-5">
+          <h2 className="text-base font-semibold">Accuracy per session</h2>
+          <p className="text-muted-foreground mb-3 text-xs">Last {Math.min(trend.length, 30) || 30} practice rounds</p>
+          <AccuracyTrendChart trend={trend} />
+        </Card>
+        <Card className="p-5">
+          <h2 className="text-base font-semibold">Exam scores</h2>
+          <p className="text-muted-foreground mb-3 text-xs">Scaled 100 to 900. The dashed line is the pass mark.</p>
+          <ExamScoreChart exams={p.exams} />
+        </Card>
+      </div>
+
+      <Card className="mt-3 p-5">
+        <h2 className="text-base font-semibold">Accuracy by domain</h2>
+        <p className="text-muted-foreground mb-3 text-xs">Exam weight lives in the full simulation; keep every bar above 70%.</p>
+        <DomainAccuracyChart stats={domains} />
       </Card>
 
       <Card className="mt-4 p-6">
