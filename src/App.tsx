@@ -9,7 +9,8 @@ import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
-import { ArrowLeftRight, ChartLine, Moon, Sun } from "lucide-react"
+import { ArrowLeftRight, ChartLine } from "lucide-react"
+import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
@@ -29,7 +30,7 @@ export type Screen =
 
 export default function App() {
   const store = useProgressStore()
-  const { theme, toggle } = useTheme()
+  const { toggle } = useTheme()
   const [examId, setExamId] = useState<string | null>(null)
   const [screen, setScreen] = useState<Screen>({ kind: "landing" })
   const [sessionCounter, setSessionCounter] = useState(0)
@@ -116,7 +117,7 @@ export default function App() {
                 </Button>
               )}
               <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
-                {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
+                <ThemeIcon />
               </Button>
               <AccountMenu />
             </div>

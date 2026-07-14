@@ -6,7 +6,8 @@ import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowRight, Check, X, Moon, Sun } from "lucide-react"
+import { ArrowRight, Check, X } from "lucide-react"
+import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 
 /** Real product in the hero: one actual bank question, fully answerable. */
@@ -38,14 +39,14 @@ function LiveQuestion() {
               disabled={graded}
               onClick={() => setSel(oi)}
               className={cn(
-                "flex w-full cursor-pointer items-center gap-2.5 rounded-md border px-3 py-2 text-left text-sm transition-colors duration-200",
+                "pressable flex w-full cursor-pointer items-center gap-2.5 rounded-md border px-3 py-2 text-left text-sm transition-[color,background-color,border-color,transform] duration-200",
                 state === "idle" && !graded && "hover:border-primary hover:bg-accent",
                 state === "correct" && "border-success bg-success/10",
                 state === "wrong" && "border-destructive bg-destructive/10",
               )}
             >
               <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border font-mono text-[11px] font-semibold">
-                {state === "correct" ? <Check className="size-3.5" strokeWidth={2.5} /> : state === "wrong" ? <X className="size-3.5" strokeWidth={2.5} /> : "ABCD"[pos]}
+                {state === "correct" ? <Check className="pop-in size-3.5" strokeWidth={2.5} /> : state === "wrong" ? <X className="pop-in size-3.5" strokeWidth={2.5} /> : "ABCD"[pos]}
               </span>
               {q.o[oi]}
             </button>
@@ -53,7 +54,7 @@ function LiveQuestion() {
         })}
       </div>
       {graded && (
-        <div className="mt-3 border-t pt-3 text-sm">
+        <div className="enter-fade-rise mt-3 border-t pt-3 text-sm">
           <p className="font-semibold">{ok ? "Correct." : "Not quite."}</p>
           <p className="text-muted-foreground mt-1">{q.e}</p>
           <a
@@ -88,7 +89,7 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
           <button
             key={exam.id}
             onClick={() => onChoose(exam.id)}
-            className="group flex cursor-pointer items-center justify-between gap-4 rounded-lg border bg-card p-5 text-left transition-colors duration-200 hover:border-primary"
+            className="pressable group flex cursor-pointer items-center justify-between gap-4 rounded-lg border bg-card p-5 text-left transition-[color,background-color,border-color,transform] duration-200 hover:border-primary"
           >
             <span>
               <span className="font-mono text-xs text-muted-foreground">{exam.code}</span>
@@ -112,7 +113,7 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
 
 export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void }) {
   const store = useProgress()
-  const { theme, toggle } = useTheme()
+  const { toggle } = useTheme()
 
   const exams = useMemo(() => ["220-1201", "220-1202", "n10-009"].map((id) => EXAMS[id]), [])
   const totalQ = exams.reduce((a, e) => a + e.questions.length, 0)
@@ -147,7 +148,7 @@ export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: 
               Progress
             </button>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
-              {theme === "dark" ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
+              <ThemeIcon />
             </Button>
             <AccountMenu />
             <span className="ml-1 hidden items-center gap-1 sm:flex" data-testid="nav-exam-chips">
@@ -157,7 +158,7 @@ export function Landing({ onChooseExam, onOpenDashboard }: { onChooseExam: (id: 
                   onClick={() => onChooseExam(ex.id)}
                   aria-label={`Start ${ex.cert} ${ex.name}`}
                   title={`${ex.cert} ${ex.name} (${ex.code})`}
-                  className="flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-colors duration-200 hover:border-primary hover:bg-accent hover:text-brand"
+                  className="pressable flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:border-primary hover:bg-accent hover:text-brand"
                 >
                   {ex.id === "220-1201" ? "C1" : ex.id === "220-1202" ? "C2" : "N+"}
                 </button>

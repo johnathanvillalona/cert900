@@ -62,26 +62,27 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
 
       <div className="mt-5 grid grid-cols-3 gap-3" data-testid="dash-tiles">
-        <Card className="p-4">
+        <Card className="stagger-item p-4" style={{ "--i": 0 } as React.CSSProperties}>
           <p className="font-heading flex items-center gap-1.5 text-2xl font-semibold tabular-nums">
             {streak > 0 && <Flame className="size-5 text-brand" strokeWidth={2} />}
             {streak === 1 ? "1 day" : `${streak} days`}
           </p>
           <p className="text-muted-foreground mt-0.5 text-xs">study streak</p>
         </Card>
-        <Card className="p-4">
+        <Card className="stagger-item p-4" style={{ "--i": 1 } as React.CSSProperties}>
           <p className="font-heading text-2xl font-semibold tabular-nums">{totalAnswered}</p>
           <p className="text-muted-foreground mt-0.5 text-xs">questions answered</p>
         </Card>
-        <Card className="p-4">
+        <Card className="stagger-item p-4" style={{ "--i": 2 } as React.CSSProperties}>
           <p className="font-heading text-2xl font-semibold tabular-nums">{overall ?? 0}%</p>
           <p className="text-muted-foreground mt-0.5 text-xs">overall accuracy</p>
         </Card>
       </div>
 
       <div className="mt-3 flex flex-col gap-3">
-        {perExam.map(({ exam, answered, accuracy, lastExam, weakest }) => (
+        {perExam.map(({ exam, answered, accuracy, lastExam, weakest }, i) => (
           <ExamSummaryCard
+            style={{ "--i": i + 3 } as React.CSSProperties}
             key={exam.id}
             exam={exam}
             answered={answered}
@@ -97,7 +98,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   )
 }
 
-function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContinue, onDetails }: {
+function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContinue, onDetails, style }: {
   exam: ExamDef
   answered: number
   accuracy: number | null
@@ -105,10 +106,11 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContin
   weakest: { name: string; pct: number } | null
   onContinue: () => void
   onDetails: () => void
+  style?: React.CSSProperties
 }) {
   const started = answered > 0
   return (
-    <Card className="p-5" data-testid="dash-exam-card">
+    <Card className="stagger-item p-5" style={style} data-testid="dash-exam-card">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
         <div className="min-w-48">
           <p className="font-mono text-xs text-muted-foreground">{exam.code}</p>

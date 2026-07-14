@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { flushSync } from "react-dom"
 import type { ExamDef, PBQMatch, PBQOrder } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { useQuizSession, type QuizConfig, type QuizItem, type QuizOutcome, type QuizSession } from "@/hooks/useQuizSession"
@@ -67,6 +68,53 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
   const isExam = cfg.mode === "exam"
   const graded = session.graded[session.idx] !== undefined
   const last = session.idx === session.items.length - 1
+
+  // Keyboard-first grind: A-D/1-4 answer, Enter/ArrowRight advance, ArrowLeft back, F flag.
+  // Per the motion audit's frequency rule, keyboard-triggered changes get NO added animation.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (confirmEnd || confirmQuit || session.finished) return
+      const t = e.target as HTMLElement
+      if (t.closest('input, textarea, select, [role="dialog"], [role="listbox"]')) return
+      // Let native activation handle Enter/Space on focused controls.
+      if ((e.key === "Enter" || e.key === " ") && t.closest("button, a")) return
+
+      const cur = session.items[session.idx]
+      const curGraded = session.graded[session.idx] !== undefined
+      const k = e.key.toLowerCase()
+
+      if (cur.kind === "mc" && (!curGraded || isExam)) {
+        let pos = ["a", "b", "c", "d", "e", "f"].indexOf(k)
+        if (isExam && k === "f") pos = -1 // F is flag in exam mode
+        if (pos === -1) pos = ["1", "2", "3", "4", "5", "6"].indexOf(e.key)
+        if (pos !== -1 && pos < cur.optOrder.length) {
+          e.preventDefault()
+          session.gradePractice(cur.optOrder[pos])
+          return
+        }
+      }
+      if (e.key === "ArrowRight" || e.key === "Enter") {
+        if (isExam) {
+          if (session.idx < session.items.length - 1) {
+            e.preventDefault()
+            session.nav(1)
+          }
+        } else if (curGraded) {
+          e.preventDefault()
+          if (session.idx === session.items.length - 1) session.finish()
+          else session.nav(1)
+        }
+      } else if (e.key === "ArrowLeft" && isExam) {
+        e.preventDefault()
+        session.nav(-1)
+      } else if (k === "f" && isExam) {
+        e.preventDefault()
+        session.toggleFlag()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  })
 
   return (
     <main>
@@ -164,7 +212,17 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
         </div>
       )}
 
-      <div className="mt-6">
+      <p className="text-muted-foreground mt-5 hidden font-mono text-xs sm:block" data-testid="key-hints">
+        {item.kind === "mc"
+          ? isExam
+            ? "Keys: A-D answer · ← → move · F flag"
+            : "Keys: A-D answer · Enter next"
+          : isExam
+            ? "Keys: ← → move"
+            : ""}
+      </p>
+
+      <div className="mt-4">
         <Button variant="ghost" onClick={() => (isExam ? setConfirmQuit(true) : onQuit())} data-testid="quit">
           Quit
         </Button>
@@ -225,7 +283,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
               data-testid="option"
               onClick={() => session.gradePractice(oi)}
               className={cn(
-                "flex w-full items-start gap-3 rounded-md border p-3 text-left text-sm transition-colors",
+                "pressable flex w-full items-start gap-3 rounded-md border p-3 text-left text-sm transition-[color,background-color,border-color,transform]",
                 state === "idle" && "hover:border-primary",
                 state === "selected" && "border-primary bg-primary/10",
                 state === "correct" && "border-success bg-success/10",
@@ -249,7 +307,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
       </div>
       {graded && (
         <div
-          className={cn("mt-4 rounded-md border p-4", ok ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
+          className={cn("enter-fade-rise mt-4 rounded-md border p-4", ok ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
           <p className={cn("font-semibold", ok ? "text-success" : "text-destructive")}>
@@ -294,7 +352,7 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       )}
       {graded && (
         <div
-          className={cn("mt-4 rounded-md border p-4", frac >= 0.8 ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
+          className={cn("enter-fade-rise mt-4 rounded-md border p-4", frac >= 0.8 ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
           <p className={cn("font-semibold", frac >= 0.8 ? "text-success" : "text-destructive")}>
@@ -327,7 +385,7 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
             value={ans[i] === -1 ? undefined : String(ans[i])}
             onValueChange={(v) => session.setMatch(i, Number(v))}
           >
-            <SelectTrigger className="w-56" data-testid="match-select">
+            <SelectTrigger className="w-56" aria-label={`Answer for: ${item.l}`} data-testid="match-select">
               <SelectValue placeholder="Choose" />
             </SelectTrigger>
             <SelectContent>
@@ -349,12 +407,22 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
 
 function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; graded: boolean }) {
   const ord = session.answers[session.idx] as number[]
+  // Motion explains the swap: View Transitions where supported, instant otherwise.
+  const moveWithTransition = (pos: number, dir: -1 | 1) => {
+    const apply = () => session.moveStep(pos, dir)
+    if (document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.startViewTransition(() => flushSync(apply))
+    } else {
+      apply()
+    }
+  }
   return (
     <div className="mt-3">
       <div className="flex flex-col gap-2">
         {ord.map((si, pos) => (
           <div
             key={si}
+            style={{ viewTransitionName: `pbq-row-${si}` }}
             className={cn(
               "flex items-center gap-3 rounded-md border p-3",
               graded && (si === pos ? "border-success bg-success/10" : "border-destructive bg-destructive/10"),
@@ -364,10 +432,10 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
             <span className="flex-1 text-sm">{p.steps[si]}</span>
             {!graded && (
               <span className="flex gap-1">
-                <Button variant="outline" size="icon" className="size-8" aria-label="Move up" onClick={() => session.moveStep(pos, -1)}>
+                <Button variant="outline" size="icon" className="size-8" aria-label="Move up" onClick={() => moveWithTransition(pos, -1)}>
                   ↑
                 </Button>
-                <Button variant="outline" size="icon" className="size-8" aria-label="Move down" onClick={() => session.moveStep(pos, 1)}>
+                <Button variant="outline" size="icon" className="size-8" aria-label="Move down" onClick={() => moveWithTransition(pos, 1)}>
                   ↓
                 </Button>
               </span>

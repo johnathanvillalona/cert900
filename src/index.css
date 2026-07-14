@@ -7,6 +7,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
     --font-heading: 'Geist Variable', system-ui, sans-serif;
     --font-sans: 'Geist Variable', system-ui, sans-serif;
     --font-mono: 'Geist Mono Variable', ui-monospace, Consolas, monospace;
@@ -56,6 +58,7 @@
 /* CompTIA Trainer palette: cool slate neutrals + one pale-orange accent (terminal amber).
    Light = clean lab bench; dark = code editor at night. One accent, both modes. */
 :root {
+    color-scheme: light;
     --background: oklch(0.984 0.003 247.9);
     --foreground: oklch(0.208 0.042 265.8);
     --card: oklch(0.995 0.002 247.9);
@@ -94,6 +97,7 @@
 }
 
 .dark {
+    color-scheme: dark;
     --success: oklch(0.723 0.192 149.6);
     --success-foreground: oklch(0.216 0.055 153);
     --brand: oklch(0.85 0.115 75);
@@ -130,12 +134,116 @@
     --sidebar-ring: oklch(0.85 0.115 75);
 }
 
+/* Reduced motion: fewer and gentler, not zero. Movement is removed
+   (transforms jump, entrances complete instantly to their end state),
+   while comprehension-aiding opacity/color transitions stay. Spinners
+   keep spinning so loading states never look hung. */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-property: color, background-color, border-color, opacity, box-shadow !important;
     }
+    .animate-spin {
+        animation-duration: 1s !important;
+        animation-iteration-count: infinite !important;
+    }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ---- Motion vocabulary (CSS-only; see CLAUDE.md design section) ---- */
+
+/* Press feedback for custom pressables (ui/Button has its own). */
+.pressable {
+    transition: transform 160ms var(--ease-out-strong);
+}
+.pressable:active {
+    transform: scale(0.98);
+}
+
+/* Entrance for feedback panels and other meaningful insertions. */
+.enter-fade-rise {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 180ms var(--ease-out-strong), transform 180ms var(--ease-out-strong);
+    @starting-style {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+}
+
+/* One-shot staggered rise for dashboard tiles/cards. --i is the item index. */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: rise-in 300ms var(--ease-out-strong) forwards;
+    animation-delay: calc(var(--i, 0) * 40ms);
+}
+@keyframes rise-in {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Icon pop for the graded live-question chip. */
+.pop-in {
+    animation: pop-in 200ms var(--ease-out-strong);
+}
+@keyframes pop-in {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Exam verdict reveal (Results). Staged via transition delays. */
+.verdict-pop {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 500ms var(--ease-out-strong), transform 500ms var(--ease-out-strong);
+    @starting-style {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+.verdict-line {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 400ms var(--ease-out-strong) 80ms, transform 400ms var(--ease-out-strong) 80ms;
+    @starting-style {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+}
+/* Domain bars: transform-only fill (no width animation). */
+.bar-fill {
+    transform-origin: left;
+    transform: scaleX(var(--pct, 0));
+    transition: transform 600ms var(--ease-in-out-strong) calc(var(--i, 0) * 60ms);
+    @starting-style {
+        transform: scaleX(0);
+    }
+}
+/* One-time success ring on a passing score. Transform+opacity only. */
+.ring-pulse {
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    border: 2px solid var(--success);
+    opacity: 0;
+    pointer-events: none;
+    animation: ring-pulse 600ms var(--ease-out-strong) 350ms;
+}
+@keyframes ring-pulse {
+    from { opacity: 0.6; transform: scale(0.9); }
+    to { opacity: 0; transform: scale(1.18); }
+}
+
+/* PBQ reorder view transition pacing. */
+::view-transition-group(*) {
+    animation-duration: 200ms;
+    animation-timing-function: var(--ease-in-out-strong);
 }
 
 @layer base {

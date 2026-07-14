@@ -52,6 +52,16 @@ to `dist/` assets (SPA mode). D1 (`comptia-trainer`) stores auth + synced progre
 - Both themes; `.dark` class stamped pre-paint; toggle persists to `trainer-theme`.
 - Taste-skill rules in force: zero em-dashes in UI strings, eyebrow budget,
   no pure black/white, one CTA label per intent ("Start practicing" / "Continue").
+- **Motion system** (emil-design-eng + improve-animations skills; CSS-only, no
+  motion lib): tokens `--ease-out-strong`/`--ease-in-out-strong` (Tailwind
+  `ease-out-strong` etc.); `.pressable` (scale .98 @160ms), `.enter-fade-rise`
+  (feedback panels, @starting-style), `.stagger-item` (--i * 40ms),
+  `.verdict-pop/.verdict-line/.bar-fill/.ring-pulse` (results reveal), PBQ
+  reorder via View Transitions (no-op in Firefox). Reduced-motion policy in
+  index.css: movement removed, opacity/color kept, spinners exempt. Never
+  animate keyboard-triggered actions; UI motion stays under 300ms.
+- **Quiz keyboard map**: A-D/1-4 answer, Enter/ArrowRight next, ArrowLeft prev
+  (exam), F flag (exam). Hints under the quiz nav; drive-v3 tests these.
 
 ## Auth & sync
 - Optional Google sign-in (Better Auth). Anonymous = localStorage only.

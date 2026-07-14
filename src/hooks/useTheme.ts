@@ -10,6 +10,7 @@ function current(): "light" | "dark" {
 function apply(theme: "light" | "dark") {
   document.documentElement.classList.toggle("dark", theme === "dark")
   document.documentElement.setAttribute("data-theme", theme)
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#151b29" : "#f8fafc")
   try {
     localStorage.setItem(THEME_KEY, theme)
   } catch {
