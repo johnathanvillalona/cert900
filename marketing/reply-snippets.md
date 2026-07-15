@@ -1,7 +1,12 @@
 # Reply templates for scanner leads
 
-The Monday cron collects threads asking about practice tests and PBQs into
-the `leads` table. Read them:
+Finding the leads, two ways:
+
+1. **Manual (works today)**: bookmark this and skim it every Monday. It is
+   the exact query the automated scanner runs:
+   https://www.reddit.com/r/CompTIA+ITCareerQuestions+CompTIA_Cert/search/?q=%22practice+test%22+OR+%22practice+exam%22+OR+PBQ+OR+%22exam+simulator%22&restrict_sr=on&sort=new&t=week
+2. **Automated (dormant until Reddit approves the Data API ticket filed
+   2026-07)**: the Monday cron fills the `leads` table. Read it with:
 
     npx wrangler d1 execute comptia-trainer --remote --command "SELECT subreddit, title, url FROM leads ORDER BY created_at DESC LIMIT 20"
 
