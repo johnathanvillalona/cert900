@@ -7,18 +7,23 @@ export function AppButton({
   variant = "primary",
   loading = false,
   disabled = false,
+  testID,
 }: {
   label: string
   onPress: () => void
   variant?: "primary" | "ghost"
   loading?: boolean
   disabled?: boolean
+  testID?: string
 }) {
   const isPrimary = variant === "primary"
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
+      testID={testID}
+      accessibilityRole="button"
+      accessibilityLabel={label}
       style={({ pressed }) => [
         styles.btn,
         isPrimary ? styles.primary : styles.ghost,
