@@ -1,8 +1,31 @@
 # Mobile App Roadmap — cert900 companion (Expo / React Native)
 
-> Status: **planning only.** No app code and no backend changes have been built yet.
-> This document is the plan of record for a native companion app that syncs practice
-> progress with the web app at https://cert900.com.
+> Status: **scaffold built.** Phase 0 (backend) is done and the Expo app scaffold in
+> [`mobile/`](../mobile) bundles and runs on Expo Go — see `mobile/README.md`. Remaining:
+> native Google OAuth config, EAS builds + store submission, and native PBQ simulations.
+
+## Built so far (this pass)
+
+- **Backend is mobile-ready.** `worker/auth.ts` now runs the Better Auth `expo()` plugin and
+  trusts the `cert900://` app scheme (plus `exp://` in dev). The mobile data path —
+  `/api/progress` authenticated with the session cookie the Expo client captures
+  (`getCookie()`) — is verified end-to-end with curl (empty GET → PUT → GET round-trip → 401
+  without auth). No CORS was needed: React Native's fetch is not subject to browser CORS, and
+  the app targets the apex host directly. (A Bearer plugin was evaluated and dropped — the
+  cookie path is the documented, working Expo pattern.)
+- **App scaffold** in `mobile/`: Expo SDK 57 / React Native, `cert900` scheme,
+  `com.cert900.app` bundle id. Runs a 10-question multiple-choice drill offline, persists
+  progress on-device (AsyncStorage, same `comptia-trainer-v1` shape), and reuses the web
+  engine/sync/data. Sign-in + sync are wired (`@better-auth/expo` + SecureStore); Google
+  sign-in needs the native OAuth client configured to complete (see `mobile/README.md`).
+- **Code reuse:** the app imports `@/lib/engine`, `@/lib/sync`, `@/lib/progress`, and `@/data`
+  from a build-time copy of `../src/{lib,data}` (`mobile/scripts/sync-shared.js` → `vendor/`).
+  Direct `../src` imports fail because Metro's Windows crawler can't hash a sibling watchFolder
+  under this repo's parenthesized path; vendoring keeps `../src` the single source of truth.
+
+---
+
+> Original plan of record below (kept for the phases not yet done).
 
 ## 1. Goal & approach
 
@@ -73,22 +96,26 @@ The data contract is clean, but **auth is browser-shaped**:
 
 Resolving auth is Phase 0 and gates everything else.
 
-## 4. Phase 0 — make the backend mobile-ready (prerequisite)
+## 4. Phase 0 — make the backend mobile-ready (prerequisite) — ✅ DONE
 
-Small, well-scoped backend change set. Ship and verify against the web app before writing app UI.
+What actually shipped (differs slightly from the original sketch below it):
 
-- Add the Better Auth **Bearer** plugin so the API accepts `Authorization: Bearer <token>`
-  and returns a token on sign-in; evaluate the **Expo** plugin for native session handling.
-- Add **CORS** to `/api/*` — or prefer a **bearer-only** path for the app to avoid
-  credentialed-CORS complexity (no cookies from native = simpler and safer).
-- Register a **native Google OAuth** redirect URI (custom scheme / deep link) in the Google
-  Cloud console and add the app's callback origin to `trustedOrigins` in `worker/auth.ts`.
-- Store the token on device with **Expo SecureStore** (never AsyncStorage for secrets).
-- Confirm the app targets the **apex host** so it never eats the canonical 301.
+- Added the Better Auth **`expo()` plugin** and the `cert900://` scheme (+ dev `exp://`) to
+  `trustedOrigins` in `worker/auth.ts`.
+- **No CORS added, no Bearer plugin.** React Native's fetch isn't subject to browser CORS, so
+  the data path just replays the session **cookie** the Expo client captured
+  (`authClient.getCookie()` → `Cookie` header), which the existing `getSession` reads. A Bearer
+  plugin was tried; it didn't authenticate through the direct `getSession` call and the cookie
+  path is the documented Expo pattern, so it was dropped.
+- Session persisted on device with **Expo SecureStore**; the app targets the **apex host**.
 
-Acceptance: an authenticated `GET /api/progress` with a Bearer token from a non-browser
-client returns the user's `CloudProgress`, and a `PUT` round-trips — all without regressing
-the web cookie flow.
+**Verified:** with a local `wrangler dev`, sign-up → capture cookie → `GET /api/progress` (200,
+empty) → `PUT` → `GET` (returns the exam + `updatedAt`) → unauth `GET` (401). Web build + 62
+tests still green.
+
+**Remaining user step:** register a **native Google OAuth** client (iOS + Android) for
+`com.cert900.app` in Google Cloud Console so `signIn.social` completes on device. Server side is
+already done.
 
 ## 5. Phase 1 — shared core package
 
