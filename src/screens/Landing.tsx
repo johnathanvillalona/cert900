@@ -12,6 +12,7 @@ import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { SiteFooter } from "@/components/SiteFooter"
 import { Wordmark } from "@/components/Wordmark"
+import { GUIDE_META } from "@/screens/Guides"
 
 /** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
@@ -115,10 +116,6 @@ const FAQ: [string, string][] = [
     "Yes. Every question, every simulated exam, every PBQ, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
   ],
   [
-    "Are these real exam questions?",
-    "No, and that matters. Real exam content is protected and using it would be cheating. Every question here is original, written to the same objectives and difficulty the real exams test.",
-  ],
-  [
     "How does the 100 to 900 scoring work?",
     "CompTIA reports exams on a scaled range from 100 to 900 with a pass line around 675 to 720 depending on the exam. Simulated exams here use the same scale with the pass line at 700, so a score here reads like the real thing.",
   ],
@@ -147,7 +144,7 @@ function FaqSection() {
   )
 }
 
-export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onOpenLegal: (path: string) => void }) {
+export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onNavigate: (path: string) => void }) {
   const store = useProgress()
   const { toggle } = useTheme()
 
@@ -190,6 +187,9 @@ export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChoo
             </button>
             <button onClick={onOpenDashboard} data-testid="landing-progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               Progress
+            </button>
+            <button onClick={() => onNavigate(GUIDE_META.pbq.path)} data-testid="landing-pbqs" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              PBQs
             </button>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               <ThemeIcon />
@@ -321,7 +321,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onOpenLegal }: { onChoo
       {/* faq */}
       <FaqSection />
 
-      <SiteFooter full onNavigate={onOpenLegal} />
+      <SiteFooter full onNavigate={onNavigate} />
     </div>
   )
 }

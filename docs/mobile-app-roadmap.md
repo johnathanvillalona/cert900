@@ -1,0 +1,137 @@
+# Mobile App Roadmap — cert900 companion (Expo / React Native)
+
+> Status: **planning only.** No app code and no backend changes have been built yet.
+> This document is the plan of record for a native companion app that syncs practice
+> progress with the web app at https://cert900.com.
+
+## 1. Goal & approach
+
+Ship a native **iOS + Android** app, built with **Expo / React Native (TypeScript)**, that
+lets a user drill CompTIA questions on their phone and keep progress in sync with the web
+app. Google sign-in is what links a device to an account; anonymous use stays local-only,
+exactly like the web.
+
+Why Expo/React Native: it lets us reuse the web app's TypeScript directly — the progress
+model, the sync/merge algorithm, and the question banks are plain TS with no DOM
+dependency, so the hard-won data logic ships to mobile unchanged. The only parts that must
+be rebuilt natively are the UI and the PBQ simulations.
+
+**Guiding principle:** the backend is the source of truth for the sync *contract*. Reuse it;
+change it as little as possible; keep all last-writer-wins logic on the client (as it is
+today).
+
+## 2. What is reusable as-is
+
+These web modules are DOM-free and portable to React Native with little or no change:
+
+- **Progress model & types** — [`src/lib/progress.ts`](../src/lib/progress.ts).
+  `ExamProgress { topics, exams, seen, sessions? }`, `TopicStat { c, t }`,
+  `ProgressAll = Record<examId, ExamProgress>`. Storage keys `comptia-trainer-v1` (the blob)
+  and `comptia-trainer-updated-at` (the per-exam timestamp map, kept separate and *not* part
+  of the blob). On device, swap `localStorage` for AsyncStorage/MMKV behind the same
+  read/write helpers; the shapes and validation (`validateProgressAll`, `isExamProgress`)
+  carry over verbatim.
+- **Merge algorithm** — [`src/lib/sync.ts`](../src/lib/sync.ts) `mergeCloudLocal()`.
+  Last-writer-wins **per exam** (whole-blob replacement, no field-level merge); cloud wins on
+  ties and whenever there is no local timestamp (fresh-device rule). The `CloudProgress`
+  (`{ [examId]: { data, updatedAt } }`) and `pushExam(examId, data, updatedAt)` wire shapes
+  are the mobile client's contract too. `mergeCloudLocal` is unit-tested
+  ([`src/lib/sync.test.ts`](../src/lib/sync.test.ts)) — those tests should move into the
+  shared package so both platforms are covered by one suite.
+- **Sync lifecycle to port** — [`src/hooks/useProgress.ts`](../src/hooks/useProgress.ts).
+  On sign-in: `fetchCloud()` → `mergeCloudLocal()` → upload the `toUpload` set. On each
+  answer: mark the exam dirty, **2s debounce**, then per-exam `pushExam()`. Flush in-flight
+  writes on `pagehide`. On mobile, replace `pagehide` with `AppState` background/inactive
+  events; keep the debounce + dirty-set discipline (it's what prevents multi-device clobber).
+- **Question banks & engine** — [`src/data/*`](../src/data) and
+  [`src/lib/engine.ts`](../src/lib/engine.ts) (adaptive selection, PBQ scoring, 100–900
+  scale) are pure TS and reusable. `qotd.ts`, `stats.ts` likewise.
+- **API contract** — `GET/PUT/DELETE /api/progress`
+  ([`worker/index.ts`](../worker/index.ts) `handleProgress`). GET returns `CloudProgress`;
+  PUT upserts one exam blob (server does a **blind upsert** — no timestamp comparison — and
+  caps the serialized blob at **512 KB/exam** → 413); DELETE wipes all of a user's exams.
+  Everything under `/api/progress` requires a valid session.
+
+## 3. The blocker: the API is not mobile-ready yet
+
+The data contract is clean, but **auth is browser-shaped**:
+
+- **Cookie-based sessions.** The worker authenticates every `/api/progress` call by reading
+  the Better Auth **session cookie** from request headers
+  ([`worker/auth.ts`](../worker/auth.ts), [`worker/index.ts`](../worker/index.ts)); the web
+  client sends `credentials: "include"`. There is **no bearer-token path**. A native HTTP
+  client has no shared browser cookie jar, so it cannot authenticate today.
+- **Browser-redirect Google OAuth.** `signIn.social({ provider: "google" })`
+  ([`src/lib/auth-client.ts`](../src/lib/auth-client.ts), `AccountMenu.tsx`) assumes a
+  full-page browser redirect back to the web origin. Native needs a system-browser /
+  `expo-auth-session` flow with a deep-link callback.
+- **No CORS.** There are zero `Access-Control-*` headers in `worker/`; the web app never
+  needed them (same origin).
+- **Empty `trustedOrigins` in production** and a **canonical-host 301 redirect** that bounces
+  anything other than the apex `cert900.com`. Mobile must call `https://cert900.com` directly
+  and any new callback origin/scheme must be added to `trustedOrigins`.
+
+Resolving auth is Phase 0 and gates everything else.
+
+## 4. Phase 0 — make the backend mobile-ready (prerequisite)
+
+Small, well-scoped backend change set. Ship and verify against the web app before writing app UI.
+
+- Add the Better Auth **Bearer** plugin so the API accepts `Authorization: Bearer <token>`
+  and returns a token on sign-in; evaluate the **Expo** plugin for native session handling.
+- Add **CORS** to `/api/*` — or prefer a **bearer-only** path for the app to avoid
+  credentialed-CORS complexity (no cookies from native = simpler and safer).
+- Register a **native Google OAuth** redirect URI (custom scheme / deep link) in the Google
+  Cloud console and add the app's callback origin to `trustedOrigins` in `worker/auth.ts`.
+- Store the token on device with **Expo SecureStore** (never AsyncStorage for secrets).
+- Confirm the app targets the **apex host** so it never eats the canonical 301.
+
+Acceptance: an authenticated `GET /api/progress` with a Bearer token from a non-browser
+client returns the user's `CloudProgress`, and a `PUT` round-trips — all without regressing
+the web cookie flow.
+
+## 5. Phase 1 — shared core package
+
+Extract the reusable TS (Section 2) into a package both web and app import, so sync logic
+never forks:
+
+- Start with `progress.ts`, `sync.ts`, `data/types.ts`, and the question banks; add
+  `engine.ts`, `qotd.ts`, `stats.ts` as they're needed by app screens.
+- Abstract the one platform seam — storage — behind a tiny interface (`get/set/remove`) so
+  web binds `localStorage` and app binds SecureStore/MMKV.
+- **Open decision: monorepo vs separate repo.** Recommendation: a workspaces monorepo
+  (`packages/core`, `apps/web`, `apps/mobile`) so the shared suite (including
+  `sync.test.ts`) guards both platforms in one CI. Record the decision here once made.
+
+## 6. Phases 2–4 — the app itself
+
+- **Phase 2 — shell, auth, offline store.** Expo app scaffold, navigation, theme, the
+  SecureStore token store, and the ported sync lifecycle (Section 2) driven by `AppState`
+  events. Deliverable: sign in, pull cloud progress, drill a plain multiple-choice set
+  offline, and see it sync to the web.
+- **Phase 3 — quiz + PBQ simulations.** The MC quiz is a straightforward RN rebuild. **PBQs
+  are the largest effort:** the web sims are DOM/SVG/View-Transition based
+  ([`src/components/pbq-sims.tsx`](../src/components/pbq-sims.tsx),
+  [`pbq-art.tsx`](../src/components/pbq-art.tsx)) across six interaction kinds — match, order,
+  terminal, config, hotspot, dragconnect — and must be reimplemented with native
+  gesture/SVG primitives. The **scoring** (`engine.ts`, partial credit) is reused unchanged;
+  only the interaction layer is new. Since PBQs are the product's differentiator, budget the
+  most design/QA time here.
+- **Phase 4 — polish & ship.** Push notifications (study reminders / streaks), app icons and
+  store assets, and App Store / Play Store submission.
+
+## 7. Risks & decisions to carry forward
+
+- **Concurrent-edit loss.** LWW-per-exam means two devices editing the *same* exam
+  concurrently lose one side's changes — this is already true on web and is accepted; the app
+  must keep the same debounce/dirty discipline to minimize the window. Field-level merge is
+  out of scope unless it becomes a real complaint.
+- **Native PBQ rebuild** is the schedule risk — plan it as its own milestone with design
+  review, don't fold it into "the quiz screen."
+- **Account deletion is client-orchestrated** (`DELETE /api/progress`, then Better Auth
+  `deleteUser()` — see `AccountMenu.tsx`). The app must replicate **both** steps, or a
+  "deleted" account still leaves progress rows.
+- **Content parity.** Question banks live in the shared package; a content edit must ship to
+  both platforms together (mobile bundles the banks, so an app release is required to pick up
+  new questions — decide whether banks stay bundled or move to a fetched manifest later).
+- **Secrets on device:** tokens in SecureStore only; never log them.

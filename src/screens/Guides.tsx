@@ -33,10 +33,6 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
         "CompTIA scores on a 100 to 900 scale. Core 1 (220-1201) requires 675 and Core 2 (220-1202) requires 700. Our simulator uses the same scale so your practice scores read like the real thing.",
       ],
       [
-        "Are these real exam questions?",
-        "No. Real exam content is protected, and using leaked questions is cheating that can void your certification. Every question here is original, written to the same objectives and difficulty as the real exams.",
-      ],
-      [
         "Is this actually free?",
         "Yes. All 621 A+ questions, all 40 PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional Google sign-in syncs it across devices.",
       ],
@@ -60,10 +56,6 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
       [
         "What topics does N10-009 cover?",
         "Five domains: networking concepts (23%), network implementation (20%), network operations (19%), network security (14%), and network troubleshooting (24%). Our drills track your accuracy in each domain separately.",
-      ],
-      [
-        "Are these real exam questions?",
-        "No. Every question is original, written to the N10-009 objectives. Each one links to the free Professor Messer video for its topic, so a miss turns into a study plan.",
       ],
     ],
   },

@@ -10,7 +10,7 @@ import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
-import { ArrowLeftRight, ChartLine } from "lucide-react"
+import { ArrowLeftRight, ChartLine, SquareMousePointer } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { Wordmark } from "@/components/Wordmark"
@@ -127,7 +127,7 @@ export default function App() {
             setScreen({ kind: "dashboard" })
             window.scrollTo(0, 0)
           }}
-          onOpenLegal={openPath}
+          onNavigate={openPath}
         />
         <Toaster />
       </ProgressContext.Provider>
@@ -167,6 +167,16 @@ export default function App() {
               >
                 <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
                 <span className="hidden sm:inline">Progress</span>
+              </Button>
+              <Button
+                variant={screen.kind === "guide-pbq" ? "secondary" : "ghost"}
+                size="sm"
+                data-testid="nav-pbqs"
+                aria-label="PBQ practice"
+                onClick={() => openPath(GUIDE_META.pbq.path)}
+              >
+                <SquareMousePointer className="size-4 sm:hidden" strokeWidth={2} />
+                <span className="hidden sm:inline">PBQs</span>
               </Button>
               {exam && screen.kind !== "picker" && (
                 <Button
