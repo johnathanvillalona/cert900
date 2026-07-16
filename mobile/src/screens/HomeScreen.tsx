@@ -79,7 +79,7 @@ export function HomeScreen({ onStart }: { onStart: (examId: string) => void }) {
               </Text>
             </View>
             <View style={styles.examAction}>
-              <AppButton label="Practice" onPress={() => onStart(id)} />
+              <AppButton label="Practice" onPress={() => onStart(id)} testID={`practice-${id}`} />
             </View>
           </View>
         )

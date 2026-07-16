@@ -71,6 +71,9 @@ export function DrillScreen({ examId, onExit }: { examId: string; onExit: () => 
               key={i}
               onPress={() => choose(i)}
               disabled={graded}
+              testID="option"
+              accessibilityRole="button"
+              accessibilityLabel={opt}
               style={[
                 styles.option,
                 state === "correct" && styles.optionCorrect,
@@ -84,7 +87,7 @@ export function DrillScreen({ examId, onExit }: { examId: string; onExit: () => 
       </View>
 
       {selected !== null && (
-        <View style={styles.explain}>
+        <View style={styles.explain} testID="feedback">
           <Text style={styles.explainVerdict}>
             {selected === q.a ? "Correct" : "Not quite"}
           </Text>
@@ -97,6 +100,7 @@ export function DrillScreen({ examId, onExit }: { examId: string; onExit: () => 
           label={index + 1 >= questions.length ? "Finish" : "Next"}
           onPress={next}
           disabled={selected === null}
+          testID="next"
         />
       </View>
     </ScrollView>
@@ -119,7 +123,7 @@ function Summary({
   const pct = total ? Math.round((correct / total) * 100) : 0
   return (
     <ScrollView contentContainerStyle={styles.content}>
-      <Text style={styles.summaryScore}>
+      <Text style={styles.summaryScore} testID="summary-score">
         {correct}/{total}
       </Text>
       <Text style={styles.summaryPct}>{pct}% this set</Text>

@@ -12,3 +12,5 @@ Thumbs.db
 !.env.example
 dist/
 .vite/
+
+.playwright-mcp/

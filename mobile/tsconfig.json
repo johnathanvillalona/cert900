@@ -3,7 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./vendor/*"]
+      "@/*": [
+        "./vendor/*"
+      ]
     }
   },
   "include": [
@@ -11,7 +13,6 @@
     "index.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "types/globals.d.ts",
-    "expo-env.d.ts"
+    "types/globals.d.ts"
   ]
 }
