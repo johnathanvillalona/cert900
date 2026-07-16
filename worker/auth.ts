@@ -1,5 +1,12 @@
 import { betterAuth } from "better-auth"
+import { expo } from "@better-auth/expo"
 import { D1Dialect } from "kysely-d1"
+
+// Native app deep-link scheme (see mobile/app.json). The mobile client signs in
+// through this scheme's OAuth redirect, then authenticates the data API with the
+// session cookie it captured (expoClient.getCookie()), which getSession reads
+// exactly like a browser cookie.
+const APP_SCHEME = "cert900"
 
 export interface Env {
   DB: D1Database
@@ -20,6 +27,12 @@ export interface Env {
 }
 
 export function createAuth(env: Env) {
+  const isLocal = env.BETTER_AUTH_URL.includes("localhost")
+  // The native app must be a trusted origin so Google OAuth can redirect back
+  // to its deep link. exp:// covers Expo Go during development only.
+  const appOrigins = isLocal
+    ? [`${APP_SCHEME}://`, `${APP_SCHEME}://*`, "exp://", "exp://*"]
+    : [`${APP_SCHEME}://`, `${APP_SCHEME}://*`]
   return betterAuth({
     database: {
       dialect: new D1Dialect({ database: env.DB }),
@@ -27,6 +40,11 @@ export function createAuth(env: Env) {
     },
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
+    // expo(): rewrites the OAuth callback to the app's deep-link scheme so
+    //   native Google sign-in can complete, and lets the app scheme be a
+    //   trusted origin. The app then sends the captured session cookie on
+    //   data-API calls.
+    plugins: [expo()],
     socialProviders: {
       google: {
         clientId: env.GOOGLE_CLIENT_ID,
@@ -36,11 +54,11 @@ export function createAuth(env: Env) {
     // Password auth is enabled ONLY for local integration testing (no email
     // delivery is configured, so there is no reset flow in production).
     emailAndPassword: {
-      enabled: env.BETTER_AUTH_URL.includes("localhost"),
+      enabled: isLocal,
     },
-    trustedOrigins: env.BETTER_AUTH_URL.includes("localhost")
-      ? ["http://localhost:5173", "http://127.0.0.1:5173"]
-      : [],
+    trustedOrigins: isLocal
+      ? ["http://localhost:5173", "http://127.0.0.1:5173", ...appOrigins]
+      : appOrigins,
     user: {
       deleteUser: {
         enabled: true,
