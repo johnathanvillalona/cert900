@@ -30,18 +30,19 @@ emulator/simulator if you have one.
 - **Sync + sign-in are wired** (`@better-auth/expo` + SecureStore). The data path
   (`/api/progress` with the session cookie) is verified end-to-end.
 
-## What needs one more step: Google sign-in
+## Google sign-in
 
-Tapping **Sign in with Google** needs a native Google OAuth client configured
-before it completes end-to-end (until then the app runs local-first and shows a
-friendly notice). To enable it:
+Sign-in uses a **browser-based** OAuth flow against the deployed worker (not a
+native Google SDK): the app opens the system browser to the worker, Google
+redirects back to the worker's existing web callback, and the `expo()` plugin
+deep-links the session back to `cert900://`. The worker already trusts that
+scheme (`worker/auth.ts`), so **it should complete on-device as-is** — test it on
+your phone. Google only ever sees the already-registered web redirect URI; no
+native client is required. `API_BASE` in `src/config.ts` selects the backend
+(defaults to the live worker; use `http://<your-LAN-ip>:8787` for `wrangler dev`).
 
-1. In Google Cloud Console, add an **iOS** and **Android** OAuth client for
-   bundle id / package `com.cert900.app` (and keep the existing Web client).
-2. The worker already trusts the `cert900://` scheme and runs the Better Auth
-   `expo()` plugin (`worker/auth.ts`), so no server change is needed.
-3. Point `API_BASE` in `src/config.ts` at the backend (defaults to the live
-   worker; use `http://<your-LAN-ip>:8787` to test against `wrangler dev`).
+See [`../docs/store-submission-runbook.md`](../docs/store-submission-runbook.md)
+for the full path to the App Store and Google Play (EAS builds, listings, submit).
 
 ## How shared code is reused
 

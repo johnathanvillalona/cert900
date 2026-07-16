@@ -10,15 +10,15 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cert900.app"
+      "bundleIdentifier": "com.cert900.app",
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.cert900.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#151b29",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./assets/android-icon-foreground.png"
       },
       "predictiveBackGestureEnabled": false
     },
