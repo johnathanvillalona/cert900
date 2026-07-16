@@ -2,6 +2,7 @@
   "expo": {
     "name": "Cert900",
     "slug": "cert900",
+    "owner": "sorannex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -40,6 +41,17 @@
           "backgroundColor": "#151b29"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "614f09fe-ae14-4641-ae63-959a08d0ad89"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/614f09fe-ae14-4641-ae63-959a08d0ad89"
+    }
   }
 }
