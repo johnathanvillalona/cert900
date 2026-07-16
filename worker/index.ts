@@ -138,7 +138,24 @@ export default {
     if (url.pathname.startsWith("/api/")) {
       return json({ error: "not found" }, 404)
     }
-    return env.ASSETS.fetch(req)
+    // Vite content-hashes everything under /assets/ (js, css, fonts), so those
+    // files never change in place: let browsers keep them for a year instead of
+    // revalidating on every visit. HTML keeps the platform default
+    // (max-age=0, must-revalidate) so deploys land on the next navigation.
+    // The text/html guard matters: missing asset paths fall through to the SPA
+    // index.html with a 200, which must never be cached as immutable.
+    const res = await env.ASSETS.fetch(req)
+    const type = res.headers.get("content-type") ?? ""
+    if (
+      url.pathname.startsWith("/assets/") &&
+      (res.ok || res.status === 304) &&
+      !type.includes("text/html")
+    ) {
+      const out = new Response(res.body, res)
+      out.headers.set("cache-control", "public, max-age=31536000, immutable")
+      return out
+    }
+    return res
   },
 
   // Marketing automation. "30 14 * * *" = daily question-of-the-day post;
