@@ -2,7 +2,8 @@
 
 > Status: **scaffold built.** Phase 0 (backend) is done and the Expo app scaffold in
 > [`mobile/`](../mobile) bundles and runs on Expo Go — see `mobile/README.md`. Remaining:
-> native Google OAuth config, EAS builds + store submission, and native PBQ simulations.
+> on-device Google sign-in verification, EAS builds + store submission, and native PBQ
+> simulations. Store steps: [`store-submission-runbook.md`](./store-submission-runbook.md).
 
 ## Built so far (this pass)
 
@@ -17,7 +18,8 @@
   `com.cert900.app` bundle id. Runs a 10-question multiple-choice drill offline, persists
   progress on-device (AsyncStorage, same `comptia-trainer-v1` shape), and reuses the web
   engine/sync/data. Sign-in + sync are wired (`@better-auth/expo` + SecureStore); Google
-  sign-in needs the native OAuth client configured to complete (see `mobile/README.md`).
+  sign-in uses a browser OAuth flow against the deployed worker and should complete on
+  device as-is (verify on a phone) — see `mobile/README.md`.
 - **Code reuse:** the app imports `@/lib/engine`, `@/lib/sync`, `@/lib/progress`, and `@/data`
   from a build-time copy of `../src/{lib,data}` (`mobile/scripts/sync-shared.js` → `vendor/`).
   Direct `../src` imports fail because Metro's Windows crawler can't hash a sibling watchFolder
@@ -113,9 +115,11 @@ What actually shipped (differs slightly from the original sketch below it):
 empty) → `PUT` → `GET` (returns the exam + `updatedAt`) → unauth `GET` (401). Web build + 62
 tests still green.
 
-**Remaining user step:** register a **native Google OAuth** client (iOS + Android) for
-`com.cert900.app` in Google Cloud Console so `signIn.social` completes on device. Server side is
-already done.
+**Remaining:** verify Google sign-in on a physical device against the deployed backend. The
+flow is browser-based (system browser → worker → Google → worker → `cert900://`), so it uses
+the existing **web** OAuth client and should work without a native Google client. Only if
+Google rejects the redirect, confirm the consent screen is in Production and the web callback
+is registered (see [`store-submission-runbook.md`](./store-submission-runbook.md)).
 
 ## 5. Phase 1 — shared core package
 

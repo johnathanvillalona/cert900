@@ -24,8 +24,8 @@ export function HomeScreen({ onStart }: { onStart: (examId: string) => void }) {
       await authClient.signIn.social({ provider: "google", callbackURL: "/" })
     } catch (e) {
       Alert.alert(
-        "Sign-in unavailable",
-        "Google sign-in needs the native OAuth client configured (see docs/mobile-app-roadmap.md). Your progress is still saved on this device.",
+        "Sign-in didn't complete",
+        "Couldn't finish Google sign-in. Your progress is still saved on this device; try again in a moment.",
       )
     } finally {
       setBusy(false)
