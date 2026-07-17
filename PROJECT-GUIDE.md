@@ -49,7 +49,12 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
   `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL/ADS.
 - `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml,
   IndexNow key file. Icons/og are RENDERED artifacts: regenerate with scratchpad
-  `qa/brand-render.js` (terminal-prompt mark, slate #151b29 + amber #f2b27c).
+  `qa/brand-render.js` (dial-9 mark, slate #151b29 + amber #f2b27c). Brand mark
+  = the "dial-9": a gauge arc that resolves into the 9 of 900 (the perfect
+  CompTIA score). Same path data lives in `public/favicon.svg`,
+  `src/components/Wordmark.tsx`, and the render scripts — keep all in sync.
+  Mobile icons: scratchpad `qa/mobile-icons.js` -> `mobile/assets/*.png`;
+  RN mark in `mobile/src/mark.tsx`. Wordmark = "cert900" with "900" in Geist Mono.
 - SEO guides: `src/screens/Guides.tsx` (3 pages: /comptia-a-plus-practice-test,
   /network-plus-practice-test, /comptia-pbq-practice; hook-free so they SSR).
   `tools/prerender.tsx` (runs in `npm run build` via tsx) writes static

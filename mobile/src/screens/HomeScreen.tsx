@@ -5,6 +5,7 @@ import { authClient, signOut, useSession } from "../auth"
 import { useProgress, type SyncStatus } from "../progress-store"
 import { colors, radius, space } from "../theme"
 import { AppButton, Pill } from "../ui"
+import { DialMark } from "../mark"
 
 const SYNC_LABEL: Record<SyncStatus, { text: string; tone: "muted" | "success" | "danger" | "primary" }> = {
   local: { text: "On this device", tone: "muted" },
@@ -37,9 +38,12 @@ export function HomeScreen({ onStart }: { onStart: (examId: string) => void }) {
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.headerRow}>
-        <Text style={styles.wordmark}>
-          cert<Text style={{ color: colors.primary }}>900</Text>
-        </Text>
+        <View style={styles.brand}>
+          <DialMark size={26} />
+          <Text style={styles.wordmark}>
+            cert<Text style={{ color: colors.primary }}>900</Text>
+          </Text>
+        </View>
         <Pill text={sync.text} tone={sync.tone} />
       </View>
       <Text style={styles.tagline}>Practice CompTIA anywhere. PBQs and all.</Text>
@@ -96,6 +100,7 @@ export function HomeScreen({ onStart }: { onStart: (examId: string) => void }) {
 const styles = StyleSheet.create({
   content: { padding: space.lg, paddingBottom: space.xl, gap: space.md },
   headerRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  brand: { flexDirection: "row", alignItems: "center", gap: space.sm },
   wordmark: { fontSize: 22, fontWeight: "800", color: colors.text, letterSpacing: -0.5 },
   tagline: { color: colors.muted, fontSize: 14, marginTop: -space.xs },
   authCard: {
