@@ -5595,41 +5595,41 @@ export const exam: ExamDef = {
    "kind": "dragconnect",
    "t": "network-transceivers",
    "title": "Wire the Rack",
-   "scen": "Finish cabling the branch rack: fiber uplink to the ISP, copper to the wall jack, coax to the cable modem, and power for the switch.",
-   "prompt": "Drag each cable to the correct unit and port area.",
+   "scen": "Finish cabling the branch rack: fiber uplink into the top switch's SFP+ bay, copper into an access port, coax to the internet gateway at the bottom, and power for the second switch.",
+   "prompt": "Connect each cable to its labeled target on the rack.",
    "scene": "rack",
    "zones": [
     {
      "id": "zsfp",
-     "x": 62,
-     "y": 12,
-     "w": 14,
-     "h": 8,
-     "label": "Switch SFP+ · LC fiber"
+     "x": 71.5,
+     "y": 48.8,
+     "w": 9,
+     "h": 6,
+     "label": "Switch 1 SFP+ bay"
     },
     {
      "id": "zcopper",
-     "x": 24,
-     "y": 12,
-     "w": 14,
-     "h": 8,
-     "label": "Switch access port · RJ45"
+     "x": 43,
+     "y": 48.8,
+     "w": 22,
+     "h": 6,
+     "label": "Switch 1 access ports"
     },
     {
      "id": "zcoax",
-     "x": 62,
-     "y": 28,
-     "w": 14,
-     "h": 8,
-     "label": "Modem · coax"
+     "x": 30,
+     "y": 71.8,
+     "w": 40,
+     "h": 7.6,
+     "label": "Internet gateway (bottom)"
     },
     {
      "id": "zpdu",
-     "x": 24,
-     "y": 44,
-     "w": 14,
-     "h": 8,
-     "label": "PDU outlet · power"
+     "x": 80.5,
+     "y": 61,
+     "w": 9,
+     "h": 7,
+     "label": "Switch 2 power inlet"
     }
    ],
    "items": [

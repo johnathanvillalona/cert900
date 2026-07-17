@@ -6,8 +6,14 @@ A free practice-exam platform for **three CompTIA certifications** — A+ Core 1
 (N10-009, 315 Q / 19 PBQs). PBQs span six interaction kinds: match, order, and
 CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
 **config** (device settings panels), **hotspot** (network-diagram selection),
-**dragconnect** (drag connectors onto illustrated SVG scenes; art in
-`src/components/pbq-art.tsx`, views in `pbq-sims.tsx`). Landing hero shows a
+**dragconnect** (photoreal "bench": Wikimedia-Commons photo scenes + connector
+thumbnails in `public/pbq/` with attribution in `public/pbq/CREDITS.md`
+(footer "Photo credits" link is REQUIRED by the CC licenses); registry
+`src/components/pbq-images.ts`; bench view in `pbq-sims.tsx` with
+always-visible labeled targets + tap-or-drag; zone x/y/w/h are 0-100 x 0-H
+coords over the photo, H = 100*imgH/imgW; SVG `pbq-art.tsx` Glyph/Scene kept
+as fallback for glyphs without photos, e.g. shield). Zone labels must name
+the LOCATION without leaking the pairing answer. Landing hero shows a
 deterministic **question of the day** (`src/lib/qotd.ts`, rotates midnight UTC). All exam versions current as of 2026. Every question
 links to its Professor Messer video.
 

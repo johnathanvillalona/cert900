@@ -53,6 +53,14 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             >
               Contact
             </a>
+            <a
+              className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
+              href="/pbq/CREDITS.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Photo credits
+            </a>
             {DONATE_URL && (
               <a
                 className="inline-flex items-center gap-1 text-brand underline-offset-2 transition-colors hover:underline"

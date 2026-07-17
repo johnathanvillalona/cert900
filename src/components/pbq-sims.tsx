@@ -1,12 +1,13 @@
 import { useRef, useState } from "react"
 import { Check, ChevronRight } from "lucide-react"
-import type { PBQConfig, PBQDragConnect, PBQHotspot, PBQTerminal, HotspotIcon } from "@/data/types"
+import type { PBQConfig, PBQDragConnect, PBQHotspot, PBQTerminal, HotspotIcon, ConnectorGlyph } from "@/data/types"
 import type { QuizSession } from "@/hooks/useQuizSession"
 import { commandMatches } from "@/lib/engine"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Glyph, Scene, SCENE_HEIGHT } from "@/components/pbq-art"
+import { SCENE_IMG, GLYPH_IMG } from "@/components/pbq-images"
 import { cn } from "@/lib/utils"
 import { Router, Network, Shield, Wifi, Monitor, Server, Printer, Cloud, Phone } from "lucide-react"
 
@@ -244,25 +245,40 @@ export function HotspotView({ p, session, graded }: { p: PBQHotspot; session: Qu
 
 /* ============================ dragconnect ============================ */
 
+/** Item thumbnail: real photo when available, illustrated glyph fallback. */
+function ItemThumb({ glyph, className }: { glyph: ConnectorGlyph; className?: string }) {
+  const src = GLYPH_IMG[glyph]
+  return (
+    <span className={cn("flex items-center justify-center overflow-hidden rounded bg-white", className)}>
+      {src ? (
+        <img src={src} alt="" className="size-full object-contain" draggable={false} />
+      ) : (
+        <span className="text-slate-700 block size-3/4 p-0.5"><Glyph g={glyph} className="size-full" /></span>
+      )}
+    </span>
+  )
+}
+
 export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; session: QuizSession; graded: boolean }) {
   const placed = session.answers[session.idx] as Record<string, string>
   const [heldItem, setHeldItem] = useState<string | null>(null)
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null)
-  const svgRef = useRef<SVGSVGElement>(null)
-  const H = SCENE_HEIGHT[p.scene]
+  const sceneRef = useRef<HTMLDivElement>(null)
+  const img = SCENE_IMG[p.scene]
+  const H = img ? (100 * img.h) / img.w : SCENE_HEIGHT[p.scene]
 
   const itemById = Object.fromEntries(p.items.map((i) => [i.id, i]))
+  const zoneById = Object.fromEntries(p.zones.map((z) => [z.id, z]))
   const zoneOf = (itemId: string) => Object.keys(placed).find((z) => placed[z] === itemId)
-  const trayItems = p.items.filter((i) => !zoneOf(i.id))
 
-  const svgPoint = (clientX: number, clientY: number) => {
-    const rect = svgRef.current!.getBoundingClientRect()
+  const scenePoint = (clientX: number, clientY: number) => {
+    const rect = sceneRef.current!.getBoundingClientRect()
     return { x: ((clientX - rect.left) / rect.width) * 100, y: ((clientY - rect.top) / rect.height) * H }
   }
   const zoneAt = (x: number, y: number) => p.zones.find((z) => x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h)
 
   const dropAt = (clientX: number, clientY: number, itemId: string) => {
-    const pt = svgPoint(clientX, clientY)
+    const pt = scenePoint(clientX, clientY)
     const zone = zoneAt(pt.x, pt.y)
     session.placeItem(zone ? zone.id : null, itemId)
   }
@@ -277,97 +293,141 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
     }
   }
 
+  const pct = (v: number) => `${v}%`
+  const pctY = (v: number) => `${(v / H) * 100}%`
+
   return (
     <div className="mt-3" data-testid="dragconnect">
       <p className="text-sm font-medium">{p.prompt}</p>
       <p className="text-muted-foreground mt-0.5 text-xs">
-        Drag a connector onto a port, or tap a connector then tap its port. Tap a placed connector to remove it.
+        Tap a connector, then tap its labeled target on the photo (or drag it there). Tap a placed connector to remove it.
       </p>
 
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 100 ${H}`}
-        className="mt-3 w-full touch-none rounded-md border bg-muted/30"
-        data-testid="dragconnect-scene"
-        onPointerMove={(e) => drag && setDrag({ ...drag, x: e.clientX, y: e.clientY })}
-        onPointerUp={(e) => {
-          if (drag) {
-            dropAt(e.clientX, e.clientY, drag.id)
-            setDrag(null)
-          }
-        }}
-      >
-        <Scene scene={p.scene} />
-        {p.zones.map((z) => {
-          const itemId = placed[z.id]
-          const ok = graded && itemId === p.answer[z.id]
-          const stroke = graded ? (ok ? "var(--success)" : "var(--destructive)") : heldItem ? "var(--brand)" : "var(--muted-foreground)"
-          return (
-            <g
-              key={z.id}
-              role="button"
-              tabIndex={graded ? -1 : 0}
-              aria-label={`Port zone${itemId ? `, contains ${itemById[itemId].label}` : ", empty"}`}
-              data-testid={`zone-${z.id}`}
-              className="cursor-pointer outline-none focus-visible:opacity-80"
-              onClick={() => place(z.id)}
-              onKeyDown={(e) => {
-                if (!graded && (e.key === "Enter" || e.key === " ")) {
-                  e.preventDefault()
-                  place(z.id)
-                }
-              }}
-            >
-              <rect x={z.x} y={z.y} width={z.w} height={z.h} rx={1} fill={itemId ? "var(--card)" : "var(--background)"} stroke={stroke} strokeWidth={0.7} strokeDasharray={itemId ? undefined : "1.6 1.2"} />
-              {itemId && (
-                <foreignObject x={z.x + z.w / 2 - 2.6} y={z.y + z.h / 2 - 2.6} width={5.2} height={5.2}>
-                  <span className="text-foreground block size-full"><Glyph g={itemById[itemId].glyph} className="size-full" /></span>
-                </foreignObject>
-              )}
-              {graded && (
-                <text x={z.x + z.w / 2} y={z.y + z.h + 2.6} textAnchor="middle" fontSize={2.1} fontFamily="var(--font-mono)" fill={ok ? "var(--success)" : "var(--destructive)"}>
-                  {z.label}
-                </text>
-              )}
-            </g>
-          )
-        })}
-      </svg>
+      <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_230px]">
+        {/* scene */}
+        <div
+          ref={sceneRef}
+          className="relative w-full touch-none self-start overflow-hidden rounded-md border bg-muted/30"
+          data-testid="dragconnect-scene"
+          onPointerMove={(e) => drag && setDrag({ ...drag, x: e.clientX, y: e.clientY })}
+          onPointerUp={(e) => {
+            if (drag) {
+              dropAt(e.clientX, e.clientY, drag.id)
+              setDrag(null)
+            }
+          }}
+        >
+          {img ? (
+            <img src={img.src} alt="" className="block w-full select-none" draggable={false} />
+          ) : (
+            <svg viewBox={`0 0 100 ${H}`} className="block w-full">
+              <Scene scene={p.scene} />
+            </svg>
+          )}
 
-      {/* tray */}
-      <div className="mt-3 flex flex-wrap gap-2" data-testid="dragconnect-tray">
-        {trayItems.length === 0 && <p className="text-muted-foreground text-xs">All connectors placed.</p>}
-        {trayItems.map((it) => (
-          <button
-            key={it.id}
-            disabled={graded}
-            data-testid={`item-${it.id}`}
-            aria-pressed={heldItem === it.id}
-            className={cn(
-              "pressable flex cursor-grab touch-none items-center gap-2 rounded-md border bg-card px-2.5 py-1.5 text-xs font-medium",
-              heldItem === it.id && "border-brand ring-2 ring-ring/50",
-              drag?.id === it.id && "opacity-40",
-            )}
-            onClick={() => !graded && setHeldItem(heldItem === it.id ? null : it.id)}
-            onPointerDown={(e) => {
-              if (graded) return
-              ;(e.target as HTMLElement).releasePointerCapture?.(e.pointerId)
-              setDrag({ id: it.id, x: e.clientX, y: e.clientY })
-            }}
-            onPointerUp={(e) => {
-              if (drag && svgRef.current) {
-                const r = svgRef.current.getBoundingClientRect()
-                if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-                  dropAt(e.clientX, e.clientY, drag.id)
-                }
-                setDrag(null)
-              }
-            }}
-          >
-            <span className="size-5 text-foreground"><Glyph g={it.glyph} className="size-full" /></span>
-            {it.label}
-          </button>
-        ))}
+          {p.zones.map((z) => {
+            const itemId = placed[z.id]
+            const ok = graded && itemId === p.answer[z.id]
+            const state = graded ? (ok ? "ok" : "bad") : itemId ? "filled" : heldItem ? "ready" : "empty"
+            return (
+              <button
+                key={z.id}
+                disabled={graded}
+                data-testid={`zone-${z.id}`}
+                aria-label={`${z.label}${itemId ? `, contains ${itemById[itemId].label}` : ", empty"}`}
+                className={cn(
+                  "absolute flex cursor-pointer items-center justify-center rounded-md border-2 outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring",
+                  state === "empty" && "border-dashed border-white/80 bg-black/25 hover:bg-black/40",
+                  state === "ready" && "border-brand border-dashed bg-black/45 shadow-[0_0_0_3px_rgba(0,0,0,0.25)]",
+                  state === "filled" && "border-white bg-black/50",
+                  state === "ok" && "border-[var(--success)] bg-black/50",
+                  state === "bad" && "border-[var(--destructive)] bg-black/50",
+                )}
+                style={{ left: pct(z.x), top: pctY(z.y), width: pct(z.w), height: pctY(z.h) }}
+                onClick={() => place(z.id)}
+              >
+                {itemId && (
+                  <span className="pbq-pop pointer-events-none flex max-h-full max-w-full items-center justify-center p-0.5">
+                    <ItemThumb glyph={itemById[itemId].glyph} className="size-8 max-h-full shadow-md" />
+                  </span>
+                )}
+              </button>
+            )
+          })}
+
+          {/* always-visible target labels */}
+          {p.zones.map((z) => {
+            const itemId = placed[z.id]
+            const ok = graded && itemId === p.answer[z.id]
+            return (
+              <span
+                key={`label-${z.id}`}
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border px-1.5 py-px font-mono text-[10px] font-semibold whitespace-nowrap shadow-sm",
+                  graded
+                    ? ok
+                      ? "border-[var(--success)] bg-[var(--success)] text-white"
+                      : "border-[var(--destructive)] bg-[var(--destructive)] text-white"
+                    : "border-black/30 bg-white/95 text-slate-900",
+                )}
+                style={{ left: pct(z.x + z.w / 2), top: pctY(z.y + z.h) }}
+              >
+                {z.label}
+              </span>
+            )
+          })}
+        </div>
+
+        {/* inventory */}
+        <div className="flex min-w-0 flex-col gap-1.5 self-start" data-testid="dragconnect-tray">
+          <p className="text-muted-foreground font-mono text-[11px] font-semibold tracking-wider uppercase">Connectors</p>
+          {p.items.map((it) => {
+            const inZone = zoneOf(it.id)
+            const held = heldItem === it.id
+            return (
+              <button
+                key={it.id}
+                disabled={graded}
+                data-testid={`item-${it.id}`}
+                aria-pressed={held}
+                className={cn(
+                  "pressable flex w-full cursor-grab touch-none items-center gap-2.5 rounded-md border bg-card p-1.5 text-left text-xs font-medium",
+                  held && "border-brand ring-ring/50 ring-2",
+                  inZone && !graded && "opacity-75",
+                  drag?.id === it.id && "opacity-40",
+                )}
+                onClick={() => {
+                  if (graded) return
+                  if (inZone) session.placeItem(null, it.id)
+                  else setHeldItem(held ? null : it.id)
+                }}
+                onPointerDown={(e) => {
+                  if (graded || inZone) return
+                  ;(e.target as HTMLElement).releasePointerCapture?.(e.pointerId)
+                  setDrag({ id: it.id, x: e.clientX, y: e.clientY })
+                }}
+                onPointerUp={(e) => {
+                  if (drag && sceneRef.current) {
+                    const r = sceneRef.current.getBoundingClientRect()
+                    if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
+                      dropAt(e.clientX, e.clientY, drag.id)
+                    }
+                    setDrag(null)
+                  }
+                }}
+              >
+                <ItemThumb glyph={it.glyph} className="size-11 shrink-0 border" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate">{it.label}</span>
+                  <span className={cn("mt-0.5 block truncate text-[10px]", inZone ? "text-[var(--success)]" : "text-muted-foreground")}>
+                    {inZone ? `Connected: ${zoneById[inZone].label}` : held ? "Now tap a target" : "Not connected"}
+                  </span>
+                </span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* drag ghost */}
@@ -377,7 +437,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
           style={{ transform: `translate(${drag.x + 8}px, ${drag.y + 8}px)`, top: 0, left: 0 }}
           aria-hidden
         >
-          <span className="size-4"><Glyph g={itemById[drag.id].glyph} className="size-full" /></span>
+          <ItemThumb glyph={itemById[drag.id].glyph} className="size-6" />
           {itemById[drag.id].label}
         </div>
       )}

@@ -5764,40 +5764,40 @@ export const exam: ExamDef = {
    "t": "physical-security",
    "title": "Secure the Front Desk",
    "scen": "The lobby workstation faces the public. Place each physical security control where it belongs.",
-   "prompt": "Drag each control to the right spot: laptop, monitor, doorway, or the open USB port.",
+   "prompt": "Place each control on its labeled spot: laptop, monitor, doorway, or the exposed USB cabling.",
    "scene": "desk",
    "zones": [
     {
      "id": "zlaptop",
-     "x": 10,
-     "y": 18,
-     "w": 14,
-     "h": 9,
-     "label": "Laptop · cable lock"
+     "x": 9,
+     "y": 24,
+     "w": 22,
+     "h": 15,
+     "label": "Laptop"
     },
     {
      "id": "zmon",
-     "x": 42,
-     "y": 2,
-     "w": 16,
-     "h": 8,
-     "label": "Monitor · privacy filter"
+     "x": 40,
+     "y": 9,
+     "w": 20,
+     "h": 20,
+     "label": "Public-facing monitor"
     },
     {
      "id": "zdoor",
-     "x": 84,
-     "y": 44,
-     "w": 12,
-     "h": 9,
-     "label": "Doorway · badge reader"
+     "x": 88.5,
+     "y": 9,
+     "w": 10,
+     "h": 26,
+     "label": "Doorway"
     },
     {
      "id": "zusb",
-     "x": 28,
-     "y": 44,
-     "w": 12,
-     "h": 9,
-     "label": "USB port · data blocker"
+     "x": 13,
+     "y": 47,
+     "w": 20,
+     "h": 12,
+     "label": "Exposed USB cabling"
     }
    ],
    "items": [
