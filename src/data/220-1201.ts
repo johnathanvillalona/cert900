@@ -5097,49 +5097,41 @@ export const exam: ExamDef = {
    "kind": "dragconnect",
    "t": "peripheral-cables",
    "title": "Cable the New Workstation",
-   "scen": "A new desktop just came out of the box. Connect each cable to the correct port on the rear I/O panel.",
-   "prompt": "Drag each connector to its port. One connector in the tray does not belong anywhere.",
+   "scen": "A new desktop just came out of the box. Connect each cable to the correct port on the rear I/O panel. Two of the cables in the tray do not plug into this panel at all.",
+   "prompt": "Connect each cable to its labeled port. Two connectors do not belong on this panel.",
    "scene": "pc-rear",
    "zones": [
     {
      "id": "zhdmi",
-     "x": 24,
-     "y": 12,
-     "w": 12,
-     "h": 8,
-     "label": "HDMI out"
+     "x": 29,
+     "y": 17.5,
+     "w": 17.5,
+     "h": 8.2,
+     "label": "Monitor out"
     },
     {
      "id": "zlan",
-     "x": 24,
-     "y": 26,
-     "w": 12,
-     "h": 8,
+     "x": 15,
+     "y": 5.5,
+     "w": 10.5,
+     "h": 9.5,
      "label": "Gigabit LAN"
     },
     {
      "id": "zusb",
-     "x": 40,
-     "y": 26,
-     "w": 12,
-     "h": 8,
+     "x": 15.5,
+     "y": 15.3,
+     "w": 10,
+     "h": 10.6,
      "label": "USB-A"
     },
     {
      "id": "zaud",
-     "x": 40,
-     "y": 40,
-     "w": 12,
-     "h": 8,
+     "x": 73,
+     "y": 18.2,
+     "w": 21.5,
+     "h": 7.4,
      "label": "Line out"
-    },
-    {
-     "id": "zpwr",
-     "x": 24,
-     "y": 40,
-     "w": 12,
-     "h": 8,
-     "label": "PSU inlet"
     }
    ],
    "items": [
@@ -5178,8 +5170,7 @@ export const exam: ExamDef = {
     "zhdmi": "hdmi",
     "zlan": "rj45",
     "zusb": "usb",
-    "zaud": "aud",
-    "zpwr": "pwr"
+    "zaud": "aud"
    }
   },
   {
@@ -5192,35 +5183,35 @@ export const exam: ExamDef = {
    "zones": [
     {
      "id": "p1",
-     "x": 12,
-     "y": 18,
-     "w": 14,
-     "h": 10,
-     "label": "Port 1 · Reception"
+     "x": 13.5,
+     "y": 2.6,
+     "w": 8.5,
+     "h": 7.2,
+     "label": "Port 1"
     },
     {
      "id": "p2",
-     "x": 32,
-     "y": 18,
-     "w": 14,
-     "h": 10,
-     "label": "Port 2 · Office A"
+     "x": 34.5,
+     "y": 2.6,
+     "w": 8.5,
+     "h": 7.2,
+     "label": "Port 2"
     },
     {
      "id": "p3",
-     "x": 52,
-     "y": 18,
-     "w": 14,
-     "h": 10,
-     "label": "Port 3 · Office B"
+     "x": 48,
+     "y": 2.6,
+     "w": 8.5,
+     "h": 7.2,
+     "label": "Port 3"
     },
     {
      "id": "p4",
-     "x": 72,
-     "y": 18,
-     "w": 14,
-     "h": 10,
-     "label": "Port 4 · Conference"
+     "x": 62.5,
+     "y": 2.6,
+     "w": 8.5,
+     "h": 7.2,
+     "label": "Port 4"
     }
    ],
    "items": [
