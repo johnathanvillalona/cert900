@@ -15,3 +15,5 @@ dist/
 .vite/
 
 .playwright-mcp/
+
+mobile/store-assets/*.aab
