@@ -159,6 +159,13 @@ export type ConnectorGlyph =
   | "air"
   | "vacuum"
   | "bubble"
+  | "toner"
+  | "punchdown"
+  | "crimper"
+  | "tester"
+  | "loopback"
+  | "multimeter"
+  | "nettap"
 
 export interface DragZone {
   id: string

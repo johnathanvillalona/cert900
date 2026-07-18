@@ -32,6 +32,12 @@ licenses, cropped/scaled for display. Thank you to the photographers.
 - **vacuum**: [Kruimeldief.JPG](https://commons.wikimedia.org/wiki/File:Kruimeldief.JPG) — Maniago · Public domain
 - **bubble**: [Bubble Wrap.jpg](https://commons.wikimedia.org/wiki/File:Bubble_Wrap.jpg) — Consequencefree on en.wikipedia · CC BY-SA 3.0
 - **fp-leads**: [JPANEL MB IMG 1121.JPG](https://commons.wikimedia.org/wiki/File:JPANEL_MB_IMG_1121.JPG) — Hans Haase · CC BY-SA 4.0
+- **toner**: [Tone-generator-and-wire-tracker-0a.jpg](https://commons.wikimedia.org/wiki/File:Tone-generator-and-wire-tracker-0a.jpg) — Adamantios · CC BY-SA 3.0
+- **punchdown**: [Punch-down-tool-Krone-and-110-0a.jpg](https://commons.wikimedia.org/wiki/File:Punch-down-tool-Krone-and-110-0a.jpg) — Adamantios · CC BY-SA 3.0
+- **crimper**: [CrimpZangeRJ.jpg](https://commons.wikimedia.org/wiki/File:CrimpZangeRJ.jpg) — Appaloosa · CC BY-SA 3.0
+- **tester**: [Teste cabo.jpg](https://commons.wikimedia.org/wiki/File:Teste_cabo.jpg) — Mvdiogo · CC BY-SA 4.0
+- **loopback**: [LPT Loopback Tester (54216342019).jpg](https://commons.wikimedia.org/wiki/File:LPT_Loopback_Tester_(54216342019).jpg) — tony_duell · CC BY 2.0
+- **multimeter**: [Digital universal multimeter (ubt).jpeg](https://commons.wikimedia.org/wiki/File:Digital_universal_multimeter_(ubt).jpeg) — Tomasz Sienicki · CC BY 3.0
 - **scene-mobo**: [Asus M5-A99 FX PRO 2,0 motherboard.jpg](https://commons.wikimedia.org/wiki/File:Asus_M5-A99_FX_PRO_2,0_motherboard.jpg) — Elijah K Jewell · CC BY-SA 4.0 (cropped)
 - **scene-bench**: [Reparieren und Basteln (29983460260).jpg](https://commons.wikimedia.org/wiki/File:Reparieren_und_Basteln_(29983460260).jpg) — Wolfgang Stief · CC0 (cropped)
 

@@ -5098,7 +5098,7 @@ export const exam: ExamDef = {
    "t": "peripheral-cables",
    "title": "Provision the Sales Workstation",
    "scen": "Deployment ticket #4412: the sales rep keeps the analog monitor from the old fleet, needs the wired office LAN drop live, copies files to a flash drive nightly, and uses powered speakers. The tray the mover packed also holds the desk's DSL line cord, an HDMI cable, and the PC power cord.",
-   "prompt": "Connect each item to the port it should plug into. Three of the seven have no correct connection on this panel.",
+   "prompt": "Connect each item to the port it should plug into. Not all items will be used.",
    "scene": "pc-rear",
    "zones": [
     {
@@ -5181,84 +5181,89 @@ export const exam: ExamDef = {
   {
    "kind": "dragconnect",
    "t": "network-tools",
-   "title": "Tone Out the Panel",
-   "scen": "The wiring chart for this strip is missing, so you toned out each drop. Your notes read: the Conference drop lands immediately left of Office A's. Office A's drop lands immediately left of Reception's. Office B's drop is NOT next to Conference's. The Break Room drop was never punched down at this panel.",
-   "prompt": "Deduce each cable's port from the toner notes. One cable doesn't terminate here at all.",
+   "title": "Grab the Right Tool",
+   "scen": "Four jobs are queued at this panel. One drop lost its label and nobody knows which port it lands on. Another drop's wires were pulled loose from the back of its jack. A spare patch cable was cut clean and still needs a new end put on. And the run you just finished must have its wiring verified before handoff.",
+   "prompt": "Stage the right tool at each job. Not all tools will be used.",
    "scene": "patch-panel",
    "zones": [
     {
-     "id": "p1",
+     "id": "ztone",
      "x": 13.5,
      "y": 2.6,
      "w": 8.5,
      "h": 7.2,
-     "label": "Port 1"
+     "label": "Unlabeled drop"
     },
     {
-     "id": "p2",
+     "id": "zpunch",
      "x": 34.5,
      "y": 2.6,
      "w": 8.5,
      "h": 7.2,
-     "label": "Port 2"
+     "label": "Wires loose at the jack"
     },
     {
-     "id": "p3",
-     "x": 48,
-     "y": 2.6,
-     "w": 8.5,
-     "h": 7.2,
-     "label": "Port 3"
+     "id": "zcrimp",
+     "x": 46,
+     "y": 14,
+     "w": 10,
+     "h": 9,
+     "label": "Cut cable end"
     },
     {
-     "id": "p4",
+     "id": "zcert",
      "x": 62.5,
      "y": 2.6,
      "w": 8.5,
      "h": 7.2,
-     "label": "Port 4"
+     "label": "Just-finished run"
     }
    ],
    "items": [
     {
-     "id": "rec",
-     "label": "Reception drop",
-     "glyph": "rj45"
+     "id": "toner",
+     "label": "Tone generator & probe",
+     "glyph": "toner"
     },
     {
-     "id": "offa",
-     "label": "Office A drop",
-     "glyph": "rj45"
+     "id": "punch",
+     "label": "Punchdown tool",
+     "glyph": "punchdown"
     },
     {
-     "id": "offb",
-     "label": "Office B drop",
-     "glyph": "rj45"
+     "id": "crimp",
+     "label": "RJ45 crimper",
+     "glyph": "crimper"
     },
     {
-     "id": "conf",
-     "label": "Conference drop",
-     "glyph": "rj45"
+     "id": "tst",
+     "label": "Cable tester",
+     "glyph": "tester"
     },
     {
-     "id": "brk",
-     "label": "Break Room drop",
-     "glyph": "rj45"
+     "id": "loop",
+     "label": "Loopback plug",
+     "glyph": "loopback"
+    },
+    {
+     "id": "tap",
+     "label": "Network tap",
+     "glyph": "nettap"
     }
    ],
    "answer": {
-    "p1": "conf",
-    "p2": "offa",
-    "p3": "rec",
-    "p4": "offb"
+    "ztone": "toner",
+    "zpunch": "punch",
+    "zcrimp": "crimp",
+    "zcert": "tst"
    }
   },
   {
    "kind": "dragconnect",
    "t": "motherboard-connections",
    "title": "Inside the Case",
-   "scen": "Build sheet for a customer PC: the 2.5-inch SSD needs its data link to the board, the case's front USB 3.0 ports need their internal lead seated, the power button and HDD light must work, and the rear case fan runs off board power. The PSU's main 24-pin is already in. Two leads in your hand belong to the power supply's drive harness and never touch a board header.",
-   "prompt": "Seat each lead on the correct board location. Two leads don't connect to the board at all.",
+   "scen": "Build sheet for a customer PC: the 2.5-inch SSD needs its data link to the board, the case's front USB 3.0 ports need their internal lead seated, the power button and HDD light must work, and the rear case fan runs off board power. The PSU's main 24-pin is already in. Some of the leads in your hand belong to the power supply's drive harness and never touch a board header.",
+   "prompt": "Seat each lead on the correct board location. Not all leads will be used.",
    "scene": "mobo",
    "zones": [
     {
