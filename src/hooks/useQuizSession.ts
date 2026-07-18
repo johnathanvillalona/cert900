@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
+import { VENDOR_FORMATS } from "@/data/vendors"
 import type { ExamProgress } from "@/lib/progress"
 
 export type QuizMode = "practice" | "exam" | "pbq"
@@ -39,7 +40,7 @@ type Action =
   | { type: "toggle-hotspot"; nodeId: string; max: number }
   | { type: "place-item"; zoneId: string | null; itemId: string }
   | { type: "move-step"; pos: number; dir: -1 | 1 }
-  | { type: "grade-pbq" }
+  | { type: "grade-pbq"; frac: number }
   | { type: "nav"; to: number }
   | { type: "toggle-flag" }
   | { type: "tick" }
@@ -80,7 +81,8 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
     const mcs = pickExamMC(exam, progress).map(
       (q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }),
     )
-    return [...pbqs, ...mcs]
+    // CompTIA fronts its PBQs; AWS/Azure mix interactive items through the exam.
+    return VENDOR_FORMATS[exam.vendor].interleave ? shuffle([...pbqs, ...mcs]) : [...pbqs, ...mcs]
   }
   if (cfg.mode === "pbq") {
     return shuffle(exam.pbqs).map((p): QuizItem => ({ kind: "pbq", p }))
@@ -180,8 +182,7 @@ function reducer(state: State, action: Action): State {
     case "grade-pbq": {
       const item = state.items[idx]
       if (item.kind !== "pbq") return state
-      const frac = pbqScore(item.p, state.answers[idx] as PBQAnswer)
-      return { ...state, graded: { ...state.graded, [idx]: frac } }
+      return { ...state, graded: { ...state.graded, [idx]: action.frac } }
     }
     case "nav": {
       const to = Math.min(Math.max(action.to, 0), state.items.length - 1)
@@ -308,8 +309,9 @@ export function useQuizSession(
     gradePbq() {
       const item = state.items[state.idx]
       if (item.kind !== "pbq" || state.graded[state.idx] !== undefined) return
-      const frac = pbqScore(item.p, state.answers[state.idx] as PBQAnswer)
-      dispatch({ type: "grade-pbq" })
+      // Credit follows the vendor's rule: CompTIA partial, AWS/Azure all-or-nothing.
+      const frac = pbqCredit(exam.vendor, pbqScore(item.p, state.answers[state.idx] as PBQAnswer))
+      dispatch({ type: "grade-pbq", frac })
       callbacks.onResult(item.p.t, frac)
     },
     nav: (delta) => dispatch({ type: "nav", to: state.idx + delta }),
@@ -350,12 +352,13 @@ export function useQuizSession(
           domainScores[it.q.d].max += 1
           return { kind: "mc", q: it.q, sel, ok: ok === 1 }
         }
-        const frac = pbqScore(it.p, state.answers[i] as PBQAnswer)
+        const w = VENDOR_FORMATS[exam.vendor].itemWeight
+        const frac = pbqCredit(exam.vendor, pbqScore(it.p, state.answers[i] as PBQAnswer))
         const d = exam.videos[it.p.t].d
-        pts += frac * 2
-        max += 2
-        domainScores[d].pts += frac * 2
-        domainScores[d].max += 2
+        pts += frac * w
+        max += w
+        domainScores[d].pts += frac * w
+        domainScores[d].max += w
         return { kind: "pbq", p: it.p, frac, ok: frac >= 0.8 }
       })
       const pct = max ? pts / max : 0

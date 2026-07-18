@@ -11,7 +11,8 @@ import { ReportButton } from "@/components/ReportButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import { mcAnswerBlank, pbqAnswerBlank, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, pbqAnswerBlank, pbqScore, type PBQAnswer } from "@/lib/engine"
+import { VENDOR_FORMATS } from "@/data/vendors"
 
 const LETTERS = "ABCDEF"
 
@@ -132,7 +133,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="font-mono text-sm text-muted-foreground" data-testid="qcount">
           Question {session.idx + 1} of {session.items.length}
-          {item.kind === "pbq" && " · PBQ"}
+          {item.kind === "pbq" && ` · ${VENDOR_FORMATS[exam.vendor].itemSuffix[item.p.kind] ?? "PBQ"}`}
         </p>
         <div className="flex items-center gap-2">
           {isExam && (
@@ -379,13 +380,14 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
 
 function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "pbq" }>; isExam: boolean }) {
   const p = item.p
+  const fmt = VENDOR_FORMATS[exam.vendor]
   const graded = !isExam && session.graded[session.idx] !== undefined
   const frac = session.graded[session.idx]
 
   return (
     <div>
       <p className="mb-3 mr-2 inline-block rounded bg-foreground px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-background">
-        Performance-Based Question
+        {fmt.itemBadge[p.kind] ?? "Performance-Based Question"}
       </p>
       <p className="mb-3 inline-block rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
         {exam.domains[exam.videos[p.t].d]}
@@ -410,9 +412,26 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
           className={cn("enter-fade-rise mt-4 rounded-md border p-4", frac >= 0.8 ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
-          <p className={cn("font-semibold", frac >= 0.8 ? "text-success" : "text-destructive")}>
-            {Math.round(frac * 100)}% correct on this PBQ
-          </p>
+          {fmt.partialCredit ? (
+            <p className={cn("font-semibold", frac >= 0.8 ? "text-success" : "text-destructive")}>
+              {Math.round(frac * 100)}% correct on this PBQ
+            </p>
+          ) : (
+            <>
+              <p className={cn("font-semibold", frac === 1 ? "text-success" : "text-destructive")}>
+                {frac === 1 ? "Correct" : "Incorrect"}
+              </p>
+              {frac !== 1 && (() => {
+                const raw = pbqScore(p, session.answers[session.idx] as PBQAnswer)
+                return raw > 0 ? (
+                  <p className="mt-1 text-sm">
+                    You had {Math.round(raw * 100)}% of it, but this question type awards credit only when every part
+                    is right, just like the real exam.
+                  </p>
+                ) : null
+              })()}
+            </>
+          )}
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
             <VideoLink exam={exam} topic={p.t} label="Review this topic:" />
             <ReportButton examId={exam.id} refId={`pbq:${p.title}`} />

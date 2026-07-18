@@ -38,7 +38,7 @@ export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (i
                       <span className="text-muted-foreground mt-0.5 block text-sm">{ex.blurb}</span>
                     </span>
                     <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
-                      {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} PBQs`}
+                      {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
                       <span className="block">
                         {Object.keys(ex.domains).length} domains
                         {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
