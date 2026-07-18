@@ -1,12 +1,13 @@
 import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight } from "lucide-react"
 import type { ExamDef } from "@/data/types"
+import { VENDOR_FORMATS } from "@/data/vendors"
 import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
 
 const MODES = [
-  { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // desc computed per exam below
+  { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // computed per exam below
   { key: "drill", icon: ListChecks, title: "Question Drill", desc: "Short adaptive rounds with an explanation and the matching free training video after every answer." },
-  { key: "pbq", icon: Puzzle, title: "PBQ Lab", desc: "Just the performance-based questions: matching and ordering scenarios with full feedback." },
+  { key: "pbq", icon: Puzzle, title: "", desc: "" }, // vendor-format lab, computed per exam below
   { key: "progress", icon: ChartLine, title: "Detailed Progress", desc: "Mastery map by topic, weak areas to review, and your exam score history." },
 ] as const
 
@@ -36,7 +37,7 @@ export function Home(props: {
       </p>
       <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Practice like it's exam day.</h1>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {MODES.map((m) => (
+        {MODES.filter((m) => m.key !== "pbq" || exam.pbqs.length > 0).map((m) => (
           <button
             key={m.key}
             data-testid={`mode-${m.key}`}
@@ -47,18 +48,22 @@ export function Home(props: {
               <m.icon className="size-5 text-brand" strokeWidth={2} />
               <ArrowRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brand" strokeWidth={2} />
             </span>
-            <span className="font-heading mt-3 block text-lg font-semibold">{m.title}</span>
+            <span className="font-heading mt-3 block text-lg font-semibold">
+              {m.key === "pbq" ? VENDOR_FORMATS[exam.vendor].labTitle : m.title}
+            </span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
               {m.key === "exam"
                 ? `${exam.examMinutes} timed minutes, scored 100 to ${exam.scale.max}. No feedback until you finish, just like the real thing.`
-                : m.desc}
+                : m.key === "pbq"
+                  ? VENDOR_FORMATS[exam.vendor].labDesc
+                  : m.desc}
             </span>
           </button>
         ))}
       </div>
       <div className="mt-3 rounded-lg border bg-card p-5 text-sm leading-relaxed" data-testid="home-snapshot">
         <span className="font-mono tabular-nums">{exam.questions.length}</span> questions and{" "}
-        <span className="font-mono tabular-nums">{exam.pbqs.length}</span> PBQs in the {exam.cert} {exam.name} ({exam.code})
+        <span className="font-mono tabular-nums">{exam.pbqs.length}</span> {VENDOR_FORMATS[exam.vendor].countNoun} in the {exam.cert} {exam.name} ({exam.code})
         bank, covering all {Object.keys(exam.domains).length} exam domains.{" "}
         {totals.q === 0 ? (
           "Your progress will be tracked automatically from your first answer."

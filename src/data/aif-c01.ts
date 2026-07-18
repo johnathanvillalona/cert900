@@ -1995,7 +1995,7 @@ export const exam: ExamDef = {
   {
    "id": 120,
    "t": "bias-fairness",
-   "x": "A medical-imaging model is trained exclusively on scans collected at two hospitals in the same region. When deployed nationwide, accuracy drops sharply for patients elsewhere. Which term best describes this flaw?",
+   "x": "A medical-imaging model is trained exclusively on scans from two hospitals in the same region. When deployed nationwide, accuracy drops sharply for patients elsewhere. Which term best describes this flaw?",
    "o": [
     "Label leakage during preprocessing",
     "Catastrophic forgetting",
@@ -2085,7 +2085,7 @@ export const exam: ExamDef = {
     "SageMaker Model Cards",
     "SageMaker Model Registry version entries",
     "AWS AI Service Cards",
-    "Amazon Inspector findings"
+    "Amazon Bedrock model evaluation job reports"
    ],
    "a": 1,
    "e": "SageMaker Model Cards document your own models' intended uses, risk ratings, and evaluation results, while AWS AI Service Cards do the same for AWS-managed AI services. AWS Artifact is tempting because it sounds audit-related, but it holds AWS infrastructure compliance reports, not model transparency documentation.",
@@ -2157,13 +2157,13 @@ export const exam: ExamDef = {
    "x": "Which safeguards does Amazon Bedrock Guardrails provide? (Select THREE.)",
    "o": [
     "Filtering harmful content categories in prompts and responses",
-    "Permanently retraining the model to remove unsafe behavior",
+    "Encrypting prompts and responses with customer managed KMS keys",
     "Blocking builder-defined topics described in natural language",
-    "Guaranteeing that every response is factually correct",
+    "Detecting anomalous invocation patterns across AWS accounts",
     "Masking or blocking sensitive information such as personally identifiable information"
    ],
    "a": 0,
-   "e": "Guardrails act as inference-time policies: content filters for harmful categories, denied topics, word filters, sensitive-information handling, and contextual grounding checks. They never modify model weights and cannot certify factual accuracy, which is why the retraining and guarantee options fail.",
+   "e": "Guardrails are inference-time content policies: harmful-content filters, denied topics, word filters, and sensitive-information handling. Encryption is handled by KMS and the service platform, and anomaly detection belongs to monitoring tools, not Guardrails.",
    "d": 4,
    "as": [
     0,
@@ -2218,10 +2218,10 @@ export const exam: ExamDef = {
    "t": "responsible-practices",
    "x": "A team is comparing foundation models on Amazon Bedrock and wants responsible-AI characteristics to influence the selection, beyond leaderboard accuracy. What is the most effective approach?",
    "o": [
-    "Select the model with the largest parameter count as a proxy for maturity",
+    "Select the model with the largest parameter count, since larger models get more safety training",
     "Select whichever model refuses the greatest share of prompts",
     "Select the most recently released model available",
-    "Review each provider's published documentation on safety measures and limitations, then run task-specific evaluations for bias and toxicity"
+    "Review provider safety documentation and run task-specific bias and toxicity evaluations"
    ],
    "a": 3,
    "e": "Provider transparency documentation reveals safety training and known limitations, and your own evaluations show how the model behaves on your actual workload. A high refusal rate is a tempting shortcut, but by itself it can indicate over-blocking rather than genuinely responsible behavior.",
@@ -2543,7 +2543,7 @@ export const exam: ExamDef = {
    "x": "During an internal investigation, an ML engineer must prove exactly which dataset version and training job produced the model currently deployed in production. What is the most reliable way to establish this?",
    "o": [
     "Enable S3 Versioning and infer the relationship from object timestamps",
-    "Use SageMaker lineage tracking, which links datasets, training runs, and model artifacts",
+    "Use SageMaker ML Lineage Tracking",
     "Query CloudTrail for the training job's API calls and reconstruct the chain manually",
     "Run an AWS Glue crawler over the bucket that stores the model artifacts"
    ],
@@ -2598,14 +2598,14 @@ export const exam: ExamDef = {
    "t": "audit-monitoring",
    "x": "A financial services firm must be able to reconstruct, months later, exactly what its generative AI assistant was asked, what it answered, and what account changes occurred around that time. Which actions support this requirement? (Select TWO.)",
    "o": [
-    "Raise the temperature parameter so responses are more varied",
-    "Enable model invocation logging so prompts and responses are retained",
+    "Enable AWS Config to record the assistant’s conversation history",
+    "Enable model invocation logging for the service",
     "Disable request logging to avoid storing sensitive prompt content",
-    "Create a trail that delivers the account's API activity records to durable storage",
+    "Create a CloudTrail trail that delivers events to an S3 bucket",
     "Increase the maximum output token limit for completions"
    ],
    "a": 1,
-   "e": "Invocation logging preserves the prompts and responses themselves, while a CloudTrail trail preserves the surrounding account API activity, and together they allow full reconstruction. Temperature and token limits are inference parameters that shape generation, and disabling logging works against auditability rather than for it.",
+   "e": "Model invocation logging preserves the prompts and responses themselves, and a CloudTrail trail preserves the surrounding account API activity. AWS Config tracks resource configuration, not conversations, and inference parameters have nothing to do with retention.",
    "d": 5,
    "as": [
     1,
@@ -2632,7 +2632,7 @@ export const exam: ExamDef = {
    "kind": "order",
    "t": "rag",
    "title": "Assemble the RAG Pipeline",
-   "scen": "Your team is building a support assistant that must answer from the current product manuals without retraining the model. Arrange the pipeline in the order a user question flows through it.",
+   "scen": "Your team is building a support assistant that answers from the current product manuals without retraining the model. Arrange the end-to-end pipeline in order, from preparing the manuals to generating the answer.",
    "steps": [
     "Chunk the manuals and generate embeddings with an embedding model",
     "Store the embeddings in a vector database",
@@ -2752,7 +2752,7 @@ export const exam: ExamDef = {
      "a": 1
     },
     {
-     "l": "Reproduce your team’s exact response style from labeled examples",
+     "l": "Reproduce your team’s exact response style by training on thousands of labeled example conversations",
      "a": 2
     },
     {
@@ -2766,78 +2766,62 @@ export const exam: ExamDef = {
    ]
   },
   {
-   "kind": "config",
+   "kind": "match",
    "t": "inference-params",
    "title": "Dial In the Summarizer",
-   "scen": "A legal team’s contract summarizer must produce the same faithful summary every time it sees the same contract, must never cut multi-page summaries short, and reviewers want text to start appearing while the rest generates.",
-   "panel": "Amazon Bedrock · Inference configuration",
-   "fields": [
+   "scen": "A legal team is tuning its contract summarizer on Amazon Bedrock. Match each requirement to the Bedrock request setting the team should use.",
+   "choices": [
+    "Temperature",
+    "Maximum output tokens",
+    "Response streaming",
+    "Stop sequences"
+   ],
+   "items": [
     {
-     "id": "temp",
-     "label": "Temperature",
-     "type": "select",
-     "options": [
-      "0.1",
-      "0.7",
-      "1.0"
-     ],
-     "answer": 0,
-     "note": "randomness"
+     "l": "Produce the same faithful summary every run for the same contract",
+     "a": 0
     },
     {
-     "id": "maxtok",
-     "label": "Maximum output tokens",
-     "type": "select",
-     "options": [
-      "50",
-      "2048"
-     ],
-     "answer": 1
+     "l": "Keep multi-page summaries from being cut off early",
+     "a": 1
     },
     {
-     "id": "stream",
-     "label": "Stream partial responses",
-     "type": "toggle",
-     "answer": true,
-     "initial": false
+     "l": "Show text to reviewers while the rest is still generating",
+     "a": 2
+    },
+    {
+     "l": "End generation exactly at the closing section delimiter",
+     "a": 3
     }
    ]
   },
   {
-   "kind": "config",
+   "kind": "match",
    "t": "guardrails",
    "title": "Lock Down the Bank Bot",
-   "scen": "A public banking chatbot must refuse to discuss investment advice, block harmful content, and keep customer account numbers out of its replies while still answering the question.",
-   "panel": "Amazon Bedrock · Guardrails",
-   "fields": [
+   "scen": "A public banking chatbot on Amazon Bedrock has four protection requirements. Match each one to the Guardrails capability that enforces it.",
+   "choices": [
+    "Content filters",
+    "Denied topics",
+    "Sensitive information filter",
+    "Contextual grounding check"
+   ],
+   "items": [
     {
-     "id": "filters",
-     "label": "Harmful-content filters",
-     "type": "toggle",
-     "answer": true,
-     "initial": false
+     "l": "Block hateful or violent language in both prompts and replies",
+     "a": 0
     },
     {
-     "id": "denied",
-     "label": "Denied topics",
-     "type": "select",
-     "options": [
-      "None",
-      "Investment advice",
-      "Branch opening hours"
-     ],
-     "answer": 1
+     "l": "Refuse every request for investment advice",
+     "a": 1
     },
     {
-     "id": "pii",
-     "label": "Sensitive information (PII)",
-     "type": "select",
-     "options": [
-      "Pass through",
-      "Mask in responses",
-      "Reject the entire request"
-     ],
-     "answer": 1
+     "l": "Mask customer account numbers in responses",
+     "a": 2
+    },
+    {
+     "l": "Block answers not supported by the retrieved documents",
+     "a": 3
     }
    ]
   },

@@ -20,6 +20,16 @@ const VIDEO_URL_RULES: Record<string, RegExp> = {
   azure: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
 }
 
+// Each vendor's interactive items must use only that vendor's REAL exam
+// formats (per the official exam guides): AWS has ordering + matching;
+// Azure Fundamentals uses build list (order) + drag and drop (match).
+// "PBQ" kinds like terminal/hotspot/dragconnect are CompTIA-only.
+const ALLOWED_PBQ_KINDS: Record<string, string[]> = {
+  comptia: ["match", "order", "terminal", "config", "hotspot", "dragconnect"],
+  aws: ["order", "match"],
+  azure: ["order", "match"],
+}
+
 describe("exam data integrity", () => {
   it("has exactly the expected exams, all in EXAM_ORDER", () => {
     expect(Object.keys(EXAMS).sort()).toEqual(Object.keys(EXPECTED).sort())
@@ -75,6 +85,7 @@ describe("exam data integrity", () => {
 
       it("every PBQ topic resolves and per-kind shapes are valid", () => {
         for (const p of ex.pbqs) {
+          expect(ALLOWED_PBQ_KINDS[ex.vendor], `no kind rule for vendor "${ex.vendor}"`).toContain(p.kind)
           expect(ex.videos[p.t], `pbq "${p.title}" topic "${p.t}"`).toBeDefined()
           if (p.kind === "match") {
             for (const item of p.items) {

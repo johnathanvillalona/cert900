@@ -1,4 +1,5 @@
 import type { ExamDef, Question } from "@/data/types"
+import { VENDOR_FORMATS } from "@/data/vendors"
 import type { QuizOutcome } from "@/hooks/useQuizSession"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -133,7 +134,11 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
               </div>
             ) : (
               <div key={i} className="rounded-md border p-4">
-                <p className="font-mono text-xs text-destructive">PBQ {Math.round(r.frac * 100)}%</p>
+                <p className="font-mono text-xs text-destructive">
+                  {exam.vendor === "comptia"
+                    ? `PBQ ${Math.round(r.frac * 100)}%`
+                    : `${VENDOR_FORMATS[exam.vendor].itemSuffix[r.p.kind] ?? "Interactive"} · incorrect`}
+                </p>
                 <p className="mt-1 font-medium">{r.p.title}</p>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <VideoLink exam={exam} topic={r.p.t} />

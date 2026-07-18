@@ -227,7 +227,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-6 px-4 py-8 sm:grid-cols-4">
           {[
             [String(totalQ), "original questions"],
-            [String(totalPBQ), "performance-based questions"],
+            [String(totalPBQ), "PBQs & interactive questions"],
             [String(exams.length), "certifications covered"],
             [String(totalVideos), "video links, all verified"],
           ].map(([n, label]) => (
@@ -272,7 +272,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
                         <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
                       </span>
                       <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
-                        {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} PBQs`}
+                        {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
                         <span className="block">
                           {Object.keys(ex.domains).length} domains
                           {answered > 0 && <span className="text-brand"> · {answered} answered</span>}

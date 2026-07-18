@@ -16,7 +16,8 @@ export function VideoLink({ exam, topic, label = "Watch" }: { exam: ExamDef; top
         <Play className="size-3" strokeWidth={2.5} fill="currentColor" />
       </span>
       <span>
-        {label} <span className="text-brand">Professor Messer: {v.n}</span>
+        {/* CompTIA video names don't carry a source prefix; AWS/Azure names do ("freeCodeCamp: ...", "John Savill: ..."). */}
+        {label} <span className="text-brand">{exam.vendor === "comptia" ? `Professor Messer: ${v.n}` : v.n}</span>
       </span>
     </a>
   )

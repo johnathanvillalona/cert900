@@ -224,6 +224,15 @@ export function mcAnswerBlank(sel: number | number[] | undefined): boolean {
   return sel === undefined || (Array.isArray(sel) && sel.length === 0)
 }
 
+/**
+ * Convert a raw interactive-item fraction into awarded credit under the
+ * vendor's scoring rule: CompTIA PBQs earn partial credit; AWS and Azure
+ * award credit only when the whole item is correct.
+ */
+export function pbqCredit(vendor: string, frac: number): number {
+  return vendor === "comptia" ? frac : frac === 1 ? 1 : 0
+}
+
 /** 0=unattempted, 1=struggling, 2=getting there, 3=solid, 4=mastered */
 export function masteryLevel(p: ExamProgress, topic: string): number {
   const s = topicStat(p, topic)
