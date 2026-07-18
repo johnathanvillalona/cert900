@@ -11,7 +11,7 @@ import { ReportButton } from "@/components/ReportButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import { pbqAnswerBlank, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, pbqAnswerBlank, type PBQAnswer } from "@/lib/engine"
 
 const LETTERS = "ABCDEF"
 
@@ -85,6 +85,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
       const cur = session.items[session.idx]
       const curGraded = session.graded[session.idx] !== undefined
       const k = e.key.toLowerCase()
+      const multi = cur.kind === "mc" && !!cur.q.as
 
       if (cur.kind === "mc" && (!curGraded || isExam)) {
         let pos = ["a", "b", "c", "d", "e", "f"].indexOf(k)
@@ -92,7 +93,8 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
         if (pos === -1) pos = ["1", "2", "3", "4", "5", "6"].indexOf(e.key)
         if (pos !== -1 && pos < cur.optOrder.length) {
           e.preventDefault()
-          session.gradePractice(cur.optOrder[pos])
+          if (multi) session.toggleMulti(cur.optOrder[pos])
+          else session.gradePractice(cur.optOrder[pos])
           return
         }
       }
@@ -106,6 +108,12 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
           e.preventDefault()
           if (session.idx === session.items.length - 1) session.finish()
           else session.nav(1)
+        } else if (e.key === "Enter" && multi && cur.kind === "mc") {
+          const sel = session.answers[session.idx] as number[] | undefined
+          if (sel && sel.length === cur.q.as!.length) {
+            e.preventDefault()
+            session.gradeMulti()
+          }
         }
       } else if (e.key === "ArrowLeft" && isExam) {
         e.preventDefault()
@@ -176,7 +184,11 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
           )
         ) : (
           <p className="text-muted-foreground text-sm">
-            {item.kind === "mc" ? "Select an answer to see the explanation." : "Set your answers, then check."}
+            {item.kind === "mc"
+              ? item.q.as
+                ? `Select ${CHOOSE_WORDS[item.q.as.length] ?? item.q.as.length} answers, then check.`
+                : "Select an answer to see the explanation."
+              : "Set your answers, then check."}
           </p>
         )}
       </div>
@@ -191,7 +203,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
               const a = session.answers[i]
               const answered =
                 it.kind === "mc"
-                  ? a !== undefined
+                  ? !mcAnswerBlank(a as number | number[] | undefined)
                   : a !== undefined && !pbqAnswerBlank(it.p, a as PBQAnswer)
               return (
                 <button
@@ -217,9 +229,13 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
 
       <p className="text-muted-foreground mt-5 hidden font-mono text-xs sm:block" data-testid="key-hints">
         {item.kind === "mc"
-          ? isExam
-            ? "Keys: A-D answer · ← → move · F flag"
-            : "Keys: A-D answer · Enter next"
+          ? item.q.as
+            ? isExam
+              ? "Keys: A-E toggle · ← → move · F flag"
+              : "Keys: A-E toggle · Enter check"
+            : isExam
+              ? "Keys: A-D answer · ← → move · F flag"
+              : "Keys: A-D answer · Enter next"
           : isExam
             ? "Keys: ← → move"
             : ""}
@@ -238,7 +254,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
             <DialogDescription>
               {session.unansweredCount() > 0
                 ? `${session.unansweredCount()} question(s) are unanswered or incomplete. End the exam anyway?`
-                : "Your answers will be scored on the 900-point scale."}
+                : `Your answers will be scored on the 100 to ${exam.scale.max} scale.`}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -264,27 +280,50 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
   )
 }
 
+const CHOOSE_WORDS: Record<number, string> = { 2: "two", 3: "three", 4: "four" }
+
 function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "mc" }>; isExam: boolean }) {
   const q = item.q
-  const sel = session.answers[session.idx] as number | undefined
+  const multi = !!q.as
+  const raw = session.answers[session.idx] as number | number[] | undefined
+  const selSet = multi ? new Set((raw as number[] | undefined) ?? []) : undefined
+  const sel = multi ? undefined : (raw as number | undefined)
   const graded = !isExam && session.graded[session.idx] !== undefined
-  const ok = graded && sel === q.a
+  const ok = graded && session.graded[session.idx] === 1
+  const isCorrectOpt = (oi: number) => (multi ? q.as!.includes(oi) : oi === q.a)
+  const isSelected = (oi: number) => (multi ? selSet!.has(oi) : oi === sel)
+  const need = multi ? q.as!.length : 1
+  const picked = multi ? selSet!.size : sel !== undefined ? 1 : 0
 
   return (
     <div>
-      <p className="mb-3 inline-block rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+      <p className="mb-3 mr-2 inline-block rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
         {exam.domains[q.d]} · {exam.videos[q.t].n}
       </p>
+      {multi && (
+        <p className="mb-3 inline-block rounded bg-foreground px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-background" data-testid="choose-n">
+          Choose {CHOOSE_WORDS[need] ?? need}
+        </p>
+      )}
       <p className="whitespace-pre-line text-lg font-semibold leading-relaxed" data-testid="qtext">{q.x}</p>
       <div className="mt-4 flex flex-col gap-2">
         {item.optOrder.map((oi, pos) => {
-          const state = graded ? (oi === q.a ? "correct" : oi === sel ? "wrong" : "idle") : oi === sel ? "selected" : "idle"
+          const state = graded
+            ? isCorrectOpt(oi)
+              ? "correct"
+              : isSelected(oi)
+                ? "wrong"
+                : "idle"
+            : isSelected(oi)
+              ? "selected"
+              : "idle"
           return (
             <button
               key={oi}
               disabled={graded}
               data-testid="option"
-              onClick={() => session.gradePractice(oi)}
+              aria-pressed={multi ? isSelected(oi) : undefined}
+              onClick={() => (multi ? session.toggleMulti(oi) : session.gradePractice(oi))}
               className={cn(
                 "pressable flex w-full items-start gap-3 rounded-md border p-3 text-left text-sm transition-[color,background-color,border-color,transform]",
                 state === "idle" && "hover:border-primary",
@@ -295,7 +334,8 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
             >
               <span
                 className={cn(
-                  "flex size-6 shrink-0 items-center justify-center rounded border font-mono text-xs font-bold",
+                  "flex size-6 shrink-0 items-center justify-center border font-mono text-xs font-bold",
+                  multi ? "rounded-sm" : "rounded",
                   state === "selected" && "border-primary bg-primary text-primary-foreground",
                   state === "correct" && "border-success bg-success text-success-foreground",
                   state === "wrong" && "border-destructive bg-destructive text-white",
@@ -308,13 +348,23 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
           )
         })}
       </div>
+      {multi && !graded && !isExam && (
+        <div className="mt-4 flex items-center gap-3">
+          <Button disabled={picked !== need} onClick={session.gradeMulti} data-testid="check-multi">
+            Check answer
+          </Button>
+          <p className="text-muted-foreground text-sm">
+            {picked} of {need} selected
+          </p>
+        </div>
+      )}
       {graded && (
         <div
           className={cn("enter-fade-rise mt-4 rounded-md border p-4", ok ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
           <p className={cn("font-semibold", ok ? "text-success" : "text-destructive")}>
-            {ok ? "Correct" : "Incorrect. The answer is highlighted above"}
+            {ok ? "Correct" : multi ? "Incorrect. The correct answers are highlighted above" : "Incorrect. The answer is highlighted above"}
           </p>
           <p className="mt-1 text-sm">{q.e}</p>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2">

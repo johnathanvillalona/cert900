@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
-import { EXAMS } from "@/data/index"
+import { EXAMS, EXAM_ORDER } from "@/data/index"
+import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
@@ -10,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { ArrowRight, Check, Plus, X } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
+import { ExamsMenu } from "@/components/ExamsMenu"
 import { SiteFooter } from "@/components/SiteFooter"
 import { Wordmark } from "@/components/Wordmark"
 import { GUIDE_META } from "@/screens/Guides"
@@ -116,8 +118,8 @@ const FAQ: [string, string][] = [
     "Yes. Every question, every simulated exam, every PBQ, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
   ],
   [
-    "How does the 100 to 900 scoring work?",
-    "CompTIA reports exams on a scaled range from 100 to 900 with a pass line around 675 to 720 depending on the exam. Simulated exams here use the same scale with the pass line at 700, so a score here reads like the real thing.",
+    "How does scaled scoring work?",
+    "Certification exams report scaled scores, not percentages. CompTIA uses 100 to 900 with pass lines from 675 to 720. Simulated exams here score on each exam's real scale and pass line, so a score here reads like the real thing.",
   ],
   [
     "Do I need an account?",
@@ -148,9 +150,10 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
   const store = useProgress()
   const { toggle } = useTheme()
 
-  const exams = useMemo(() => ["220-1201", "220-1202", "n10-009"].map((id) => EXAMS[id]), [])
+  const exams = useMemo(() => EXAM_ORDER.map((id) => EXAMS[id]), [])
   const totalQ = exams.reduce((a, e) => a + e.questions.length, 0)
   const totalPBQ = exams.reduce((a, e) => a + e.pbqs.length, 0)
+  const totalVideos = useMemo(() => new Set(exams.flatMap((e) => Object.values(e.videos).map((v) => v.u))).size, [exams])
 
   const started = exams
     .map((exam) => {
@@ -195,18 +198,8 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
               <ThemeIcon />
             </Button>
             <AccountMenu />
-            <span className="ml-1 hidden items-center gap-1 sm:flex" data-testid="nav-exam-chips">
-              {exams.map((ex) => (
-                <button
-                  key={ex.id}
-                  onClick={() => onChooseExam(ex.id)}
-                  aria-label={`Start ${ex.cert} ${ex.name}`}
-                  title={`${ex.cert} ${ex.name} (${ex.code})`}
-                  className="pressable flex size-9 cursor-pointer items-center justify-center rounded-md border font-mono text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:border-primary hover:bg-accent hover:text-brand"
-                >
-                  {ex.id === "220-1201" ? "C1" : ex.id === "220-1202" ? "C2" : "N+"}
-                </button>
-              ))}
+            <span className="ml-1 hidden sm:block" data-testid="nav-exam-chips">
+              <ExamsMenu currentId={null} onChoose={onChooseExam} />
             </span>
           </div>
         </nav>
@@ -223,7 +216,8 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
                 The practice exam that studies&nbsp;you&nbsp;back.
               </h1>
               <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">
-                {totalQ} original A+ and Network+ questions that adapt to your weak spots. Free, no sign-up.
+                {totalQ} original questions across {exams.length} certification exams, adapting to your weak spots.
+                Free, no sign-up.
               </p>
               <div className="mt-7">
                 <Button size="lg" onClick={() => scrollTo("exams")} className="active:scale-[0.98]" data-testid="hero-cta">
@@ -244,8 +238,8 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
           {[
             [String(totalQ), "original questions"],
             [String(totalPBQ), "performance-based questions"],
-            ["3", "certifications covered"],
-            ["214", "video links, all verified"],
+            [String(exams.length), "certifications covered"],
+            [String(totalVideos), "video links, all verified"],
           ].map(([n, label]) => (
             <div key={label}>
               <p className="font-heading text-3xl font-semibold tabular-nums">{n}</p>
@@ -261,33 +255,44 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
         <p className="text-muted-foreground mt-2 max-w-lg">
           Progress is tracked separately for each. Start with the one on your calendar.
         </p>
-        <div className="mt-8 border-t">
-          {exams.map((ex) => {
-            const p = store.all[ex.id]
-            const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
+        <div className="mt-8">
+          {VENDOR_ORDER.map((v) => {
+            const group = exams.filter((ex) => ex.vendor === v)
+            if (group.length === 0) return null
             return (
-              <button
-                key={ex.id}
-                onClick={() => onChooseExam(ex.id)}
-                data-testid="exam-row"
-                className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-colors duration-200 hover:bg-accent sm:grid-cols-12 sm:gap-4"
-              >
-                <span className="font-mono text-sm text-muted-foreground sm:col-span-2">{ex.code}</span>
-                <span className="sm:col-span-6">
-                  <span className="font-heading text-xl font-semibold md:text-2xl">
-                    {ex.cert} {ex.name}
-                  </span>
-                  <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
-                </span>
-                <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
-                  {ex.questions.length} questions · {ex.pbqs.length} PBQs
-                  <span className="block">
-                    {Object.keys(ex.domains).length} domains
-                    {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
-                  </span>
-                </span>
-                <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
-              </button>
+              <div key={v} className="mb-8 last:mb-0">
+                <p className="text-muted-foreground border-b pb-2 font-mono text-[11px] font-semibold tracking-wider uppercase">
+                  {VENDORS[v].name}
+                </p>
+                {group.map((ex) => {
+                  const p = store.all[ex.id]
+                  const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
+                  return (
+                    <button
+                      key={ex.id}
+                      onClick={() => onChooseExam(ex.id)}
+                      data-testid="exam-row"
+                      className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-colors duration-200 hover:bg-accent sm:grid-cols-12 sm:gap-4"
+                    >
+                      <span className="font-mono text-sm text-muted-foreground sm:col-span-2">{ex.code}</span>
+                      <span className="sm:col-span-6">
+                        <span className="font-heading text-xl font-semibold md:text-2xl">
+                          {ex.cert} {ex.name}
+                        </span>
+                        <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
+                      </span>
+                      <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
+                        {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} PBQs`}
+                        <span className="block">
+                          {Object.keys(ex.domains).length} domains
+                          {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
+                        </span>
+                      </span>
+                      <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
+                    </button>
+                  )
+                })}
+              </div>
             )
           })}
         </div>
@@ -299,15 +304,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
           <div className="lg:col-span-5">
             <h2 className="font-heading text-3xl font-semibold tracking-tight">Built the way the real exam works.</h2>
             <p className="text-muted-foreground mt-3 max-w-sm leading-relaxed">
-              Not flashcards. Timed simulations on the 900-point scale, performance-based questions, and drills that
-              weight what you keep missing.
+              Not flashcards. Timed simulations on each exam's real scoring scale, performance-based questions, and
+              drills that weight what you keep missing.
             </p>
           </div>
           <div className="flex flex-col gap-8 lg:col-span-7">
             {[
               ["Drill", "Short adaptive rounds with an explanation after every answer. Weak topics come back more often until they stick."],
-              ["Simulate", "Full 90-minute exams with PBQs, flagging, and a question palette. Scored 100 to 900, pass line at 700."],
-              ["Review", "Every miss links to the exact Professor Messer video for that topic. Watch, then drill it again."],
+              ["Simulate", "Full timed exams with PBQs, flagging, and a question palette. Scored on the real exam's scale with its pass line."],
+              ["Review", "Every miss links to the exact free training video for that topic. Watch, then drill it again."],
             ].map(([verb, body]) => (
               <div key={verb} className="grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">
                 <p className="col-span-12 font-heading text-xl font-semibold sm:col-span-3">{verb}</p>

@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { pbqAnswerBlank, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
 import type { ExamProgress } from "@/lib/progress"
 
 export type QuizMode = "practice" | "exam" | "pbq"
@@ -9,8 +9,8 @@ export type QuizItem =
   | { kind: "mc"; q: Question; optOrder: number[] }
   | { kind: "pbq"; p: PBQ }
 
-/** MC answer: option index. PBQ answers: see PBQAnswer in lib/engine. */
-export type Answer = number | PBQAnswer
+/** MC answer: option index (single) or indices (multiple-response). PBQ answers: see PBQAnswer in lib/engine. */
+export type Answer = number | number[] | PBQAnswer
 
 export interface QuizConfig {
   mode: QuizMode
@@ -31,6 +31,8 @@ interface State {
 
 type Action =
   | { type: "answer-mc"; oi: number; grade: boolean }
+  | { type: "toggle-mc"; oi: number; max: number }
+  | { type: "grade-mc" }
   | { type: "set-match"; itemIdx: number; choice: number }
   | { type: "set-terminal"; taskIdx: number; command: string }
   | { type: "set-config-field"; fieldIdx: number; value: number | boolean | string }
@@ -46,7 +48,7 @@ type Action =
 export interface MCReviewEntry {
   kind: "mc"
   q: Question
-  sel: number | undefined
+  sel: number | number[] | undefined
   ok: boolean
 }
 export interface PBQReviewEntry {
@@ -89,6 +91,8 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
 }
 
 function initialAnswerFor(item: QuizItem): Answer | undefined {
+  // Multiple-response MC starts as an empty selection set.
+  if (item.kind === "mc") return item.q.as ? [] : undefined
   if (item.kind !== "pbq") return undefined
   const p = item.p
   switch (p.kind) {
@@ -113,11 +117,28 @@ function reducer(state: State, action: Action): State {
     case "answer-mc": {
       if (state.graded[idx] !== undefined) return state
       const item = state.items[idx]
-      if (item.kind !== "mc") return state
+      if (item.kind !== "mc" || item.q.as) return state
       const graded = action.grade
         ? { ...state.graded, [idx]: action.oi === item.q.a ? 1 : 0 }
         : state.graded
       return { ...state, answers: { ...state.answers, [idx]: action.oi }, graded }
+    }
+    case "toggle-mc": {
+      if (state.graded[idx] !== undefined) return state
+      const item = state.items[idx]
+      if (item.kind !== "mc" || !item.q.as) return state
+      const cur = ((state.answers[idx] as number[] | undefined) ?? []).slice()
+      const at = cur.indexOf(action.oi)
+      if (at !== -1) cur.splice(at, 1)
+      else if (cur.length < action.max) cur.push(action.oi)
+      else return state
+      return { ...state, answers: { ...state.answers, [idx]: cur } }
+    }
+    case "grade-mc": {
+      const item = state.items[idx]
+      if (item.kind !== "mc" || state.graded[idx] !== undefined) return state
+      const ok = mcCorrect(item.q, state.answers[idx] as number[] | undefined)
+      return { ...state, graded: { ...state.graded, [idx]: ok ? 1 : 0 } }
     }
     case "set-match": {
       const cur = (state.answers[idx] as number[]).slice()
@@ -194,6 +215,8 @@ export interface QuizSession {
   remaining: number
   finished: boolean
   gradePractice(oi: number): void
+  toggleMulti(oi: number): void
+  gradeMulti(): void
   setMatch(itemIdx: number, choice: number): void
   setTerminal(taskIdx: number, command: string): void
   setConfigField(fieldIdx: number, value: number | boolean | string): void
@@ -259,11 +282,22 @@ export function useQuizSession(
     item: state.items[state.idx],
     gradePractice(oi: number) {
       const item = state.items[state.idx]
-      if (item.kind !== "mc" || state.graded[state.idx] !== undefined) return
+      if (item.kind !== "mc" || item.q.as || state.graded[state.idx] !== undefined) return
       dispatch({ type: "answer-mc", oi, grade: cfg.mode === "practice" })
       if (cfg.mode === "practice") {
         callbacks.onResult(item.q.t, oi === item.q.a ? 1 : 0)
       }
+    },
+    toggleMulti(oi: number) {
+      const item = state.items[state.idx]
+      if (item.kind !== "mc" || !item.q.as || state.graded[state.idx] !== undefined) return
+      dispatch({ type: "toggle-mc", oi, max: item.q.as.length })
+    },
+    gradeMulti() {
+      const item = state.items[state.idx]
+      if (item.kind !== "mc" || !item.q.as || state.graded[state.idx] !== undefined) return
+      dispatch({ type: "grade-mc" })
+      callbacks.onResult(item.q.t, mcCorrect(item.q, state.answers[state.idx] as number[] | undefined) ? 1 : 0)
     },
     setMatch: (itemIdx, choice) => dispatch({ type: "set-match", itemIdx, choice }),
     setTerminal: (taskIdx, command) => dispatch({ type: "set-terminal", taskIdx, command }),
@@ -285,8 +319,8 @@ export function useQuizSession(
     unansweredCount() {
       return state.items.filter((it, i) => {
         const a = state.answers[i]
+        if (it.kind === "mc") return mcAnswerBlank(a as number | number[] | undefined)
         if (a === undefined) return true
-        if (it.kind !== "pbq") return false
         return pbqAnswerBlank(it.p, a as PBQAnswer)
       }).length
     },
@@ -296,7 +330,7 @@ export function useQuizSession(
           .map((it, i): ReviewEntry | null => {
             if (state.graded[i] === undefined) return null
             if (it.kind === "mc")
-              return { kind: "mc", q: it.q, sel: state.answers[i] as number, ok: state.graded[i] === 1 }
+              return { kind: "mc", q: it.q, sel: state.answers[i] as number | number[], ok: state.graded[i] === 1 }
             return { kind: "pbq", p: it.p, frac: state.graded[i], ok: state.graded[i] >= 0.8 }
           })
           .filter((x): x is ReviewEntry => x !== null)
@@ -308,8 +342,8 @@ export function useQuizSession(
       for (const d of Object.keys(exam.domains).map(Number)) domainScores[d] = { pts: 0, max: 0 }
       const review: ReviewEntry[] = state.items.map((it, i): ReviewEntry => {
         if (it.kind === "mc") {
-          const sel = state.answers[i] as number | undefined
-          const ok = sel === it.q.a ? 1 : 0
+          const sel = state.answers[i] as number | number[] | undefined
+          const ok = mcCorrect(it.q, sel) ? 1 : 0
           pts += ok
           max += 1
           domainScores[it.q.d].pts += ok
@@ -325,7 +359,7 @@ export function useQuizSession(
         return { kind: "pbq", p: it.p, frac, ok: frac >= 0.8 }
       })
       const pct = max ? pts / max : 0
-      const { scaled, pass } = scaledScore(pct)
+      const { scaled, pass } = scaledScore(pct, exam.scale)
       return { mode: "exam", scaled, pass, pct, timeUp: state.remaining === 0, domainScores, review }
     },
   }

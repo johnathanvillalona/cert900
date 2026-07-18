@@ -26,13 +26,30 @@ for (const q of add.questions ?? []) {
   if (!Array.isArray(q.o) || q.o.length < 2 || q.a < 0 || q.a >= q.o.length) {
     errors.push(`bad options/answer for: ${q.x.slice(0, 60)}`); continue
   }
+  if (q.as !== undefined) {
+    // multiple-response: 2+ unique valid indices; `a` must be one of them
+    const bad =
+      !Array.isArray(q.as) || q.as.length < 2 || q.as.length >= q.o.length ||
+      new Set(q.as).size !== q.as.length ||
+      q.as.some((i) => !Number.isInteger(i) || i < 0 || i >= q.o.length) ||
+      !q.as.includes(q.a)
+    if (bad) { errors.push(`bad multi-response 'as' for: ${q.x.slice(0, 60)}`); continue }
+  }
   if (exam.questions.some((e) => e.x === q.x)) { errors.push(`duplicate stem: ${q.x.slice(0, 60)}`); continue }
-  exam.questions.push({ id: nextId++, t: q.t, x: q.x, o: q.o, a: q.a, e: q.e, d: v.d })
+  const entry = { id: nextId++, t: q.t, x: q.x, o: q.o, a: q.a, e: q.e, d: v.d }
+  if (q.as !== undefined) entry.as = q.as
+  exam.questions.push(entry)
 }
 
-const GLYPHS = new Set(["rj45","rj11","usb-a","usb-c","hdmi","vga","dp","audio","coax","lc-fiber","power","lock","shield","badge","blocker"])
+// Keep these in sync with src/data/types.ts (ConnectorGlyph, HotspotIcon,
+// PBQDragConnect scene union) — the source-of-truth unions.
+const GLYPHS = new Set([
+  "rj45","rj11","usb-a","usb-c","hdmi","vga","dp","audio","coax","lc-fiber","power","lock","shield","badge","blocker",
+  "keypad","sata","sata-pwr","usb3-header","fp-leads","fan","molex","dac","strap","mat","bag","air","vacuum","bubble",
+  "toner","punchdown","crimper","tester","loopback","multimeter","nettap",
+])
 const ICONS = new Set(["router","switch","firewall","ap","pc","server","printer","cloud","phone"])
-const SCENES = new Set(["pc-rear","patch-panel","rack","desk"])
+const SCENES = new Set(["pc-rear","patch-panel","rack","desk","mobo","bench"])
 
 for (const p of add.pbqs ?? []) {
   if (!exam.videos[p.t]) { errors.push(`unknown PBQ topic "${p.t}" (${p.title})`); continue }

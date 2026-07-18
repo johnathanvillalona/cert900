@@ -15,8 +15,14 @@ export interface Question {
   x: string
   /** options */
   o: string[]
-  /** index of the correct option */
+  /** index of the correct option (single-answer questions) */
   a: number
+  /**
+   * multiple-response questions only: ALL correct option indices ("Choose
+   * TWO/THREE"). When present, `a` is ignored and grading is exact-set,
+   * all-or-nothing (AWS/Azure rule). Absent on single-answer questions.
+   */
+  as?: number[]
   /** explanation */
   e: string
   /** domain number */
@@ -201,8 +207,18 @@ export interface PBQDragConnect {
 
 export type PBQ = PBQMatch | PBQOrder | PBQTerminal | PBQConfig | PBQHotspot | PBQDragConnect
 
+export type Vendor = "comptia" | "aws" | "azure"
+
+/** Scaled-score shape; min is always 100. CompTIA tops out at 900, AWS/Azure at 1000. */
+export interface ScoreScale {
+  max: number
+  pass: number
+}
+
 export interface ExamDef {
   id: string
+  vendor: Vendor
+  scale: ScoreScale
   cert: string
   name: string
   code: string

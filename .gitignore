@@ -17,3 +17,4 @@ dist/
 .playwright-mcp/
 
 mobile/store-assets/*.aab
+tsconfig.tsbuildinfo

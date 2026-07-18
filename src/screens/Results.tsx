@@ -1,12 +1,21 @@
-import type { ExamDef } from "@/data/types"
+import type { ExamDef, Question } from "@/data/types"
 import type { QuizOutcome } from "@/hooks/useQuizSession"
-import { PASS_SCALED } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"
 import { ReportButton } from "@/components/ReportButton"
 import { AdSlot } from "@/components/AdSlot"
 import { cn } from "@/lib/utils"
+
+function fmtSelection(q: Question, sel: number | number[] | undefined): string {
+  if (sel === undefined || (Array.isArray(sel) && sel.length === 0)) return "(none)"
+  if (Array.isArray(sel)) return sel.map((i) => q.o[i]).join(" · ")
+  return q.o[sel]
+}
+
+function fmtCorrect(q: Question): string {
+  return q.as ? q.as.map((i) => q.o[i]).join(" · ") : q.o[q.a]
+}
 
 export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onHome }: {
   exam: ExamDef
@@ -68,7 +77,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           {outcome.pass && <span className="ring-pulse" aria-hidden />}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">
-          scaled 100 to 900, pass line {PASS_SCALED}. Raw score {Math.round(outcome.pct * 100)}%
+          scaled 100 to {exam.scale.max}, pass line {exam.scale.pass}. Raw score {Math.round(outcome.pct * 100)}%
           {outcome.timeUp && " · time expired"}
         </p>
         <p className={cn("verdict-line mt-3 text-lg font-bold", outcome.pass ? "text-success" : "text-destructive")} data-testid="verdict">
@@ -103,7 +112,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
 
       <Card className="mt-4 p-6">
         <h2 className="text-lg font-semibold">Review: {misses.length} to study</h2>
-        <p className="text-muted-foreground text-sm">Every miss links to the Professor Messer video for that topic.</p>
+        <p className="text-muted-foreground text-sm">Every miss links to the free training video for that topic.</p>
         {misses.length === 0 && <p className="mt-3">Nothing missed. Seriously impressive.</p>}
         <div className="mt-3 flex flex-col gap-3">
           {misses.map((r, i) =>
@@ -111,10 +120,10 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
               <div key={i} className="rounded-md border p-4">
                 <p className="font-medium">{r.q.x}</p>
                 <p className="mt-2 text-sm">
-                  Your answer: <span className="text-destructive">{r.sel === undefined ? "(none)" : r.q.o[r.sel]}</span>
+                  Your answer: <span className="text-destructive">{fmtSelection(r.q, r.sel)}</span>
                 </p>
                 <p className="text-sm">
-                  Correct: <b className="text-success">{r.q.o[r.q.a]}</b>
+                  Correct: <b className="text-success">{fmtCorrect(r.q)}</b>
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm">{r.q.e}</p>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">

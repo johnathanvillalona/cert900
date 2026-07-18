@@ -189,9 +189,39 @@ export function pbqScore(p: PBQ, ans: PBQAnswer | undefined): number {
 
 export const PASS_SCALED = 700
 
-export function scaledScore(pct: number): { scaled: number; pass: boolean } {
-  const scaled = Math.round(100 + pct * 800)
-  return { scaled, pass: scaled >= PASS_SCALED }
+/**
+ * Convert a raw fraction to the exam's scaled score. All supported vendors
+ * report on a 100-to-max scale (CompTIA max 900; AWS/Azure max 1000) with a
+ * per-exam pass mark. Defaults preserve the original CompTIA behavior.
+ */
+export function scaledScore(
+  pct: number,
+  scale: { max: number; pass: number } = { max: 900, pass: PASS_SCALED },
+): { scaled: number; pass: boolean } {
+  const scaled = Math.round(100 + pct * (scale.max - 100))
+  return { scaled, pass: scaled >= scale.pass }
+}
+
+/**
+ * Grade a multiple-choice selection. Single-answer: index equality.
+ * Multiple-response (`q.as`): exact-set match, all-or-nothing — the
+ * AWS/Azure scoring rule ("you must select all correct responses").
+ */
+export function mcCorrect(
+  q: { a: number; as?: number[] },
+  sel: number | number[] | undefined,
+): boolean {
+  if (q.as && q.as.length > 0) {
+    if (!Array.isArray(sel) || sel.length !== q.as.length) return false
+    const want = new Set(q.as)
+    return sel.every((i) => want.has(i))
+  }
+  return sel === q.a
+}
+
+/** Has the candidate committed an answer to this MC question? */
+export function mcAnswerBlank(sel: number | number[] | undefined): boolean {
+  return sel === undefined || (Array.isArray(sel) && sel.length === 0)
 }
 
 /** 0=unattempted, 1=struggling, 2=getting there, 3=solid, 4=mastered */

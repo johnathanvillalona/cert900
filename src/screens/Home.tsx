@@ -4,8 +4,8 @@ import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
 
 const MODES = [
-  { key: "exam", icon: Timer, title: "Full Exam", desc: "90 timed minutes, PBQs plus multiple choice, scored 100 to 900. No feedback until you finish, just like the real thing." },
-  { key: "drill", icon: ListChecks, title: "Question Drill", desc: "Short adaptive rounds with an explanation and the matching Professor Messer video after every answer." },
+  { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // desc computed per exam below
+  { key: "drill", icon: ListChecks, title: "Question Drill", desc: "Short adaptive rounds with an explanation and the matching free training video after every answer." },
   { key: "pbq", icon: Puzzle, title: "PBQ Lab", desc: "Just the performance-based questions: matching and ordering scenarios with full feedback." },
   { key: "progress", icon: ChartLine, title: "Detailed Progress", desc: "Mastery map by topic, weak areas to review, and your exam score history." },
 ] as const
@@ -48,7 +48,11 @@ export function Home(props: {
               <ArrowRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brand" strokeWidth={2} />
             </span>
             <span className="font-heading mt-3 block text-lg font-semibold">{m.title}</span>
-            <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">{m.desc}</span>
+            <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
+              {m.key === "exam"
+                ? `${exam.examMinutes} timed minutes, scored 100 to ${exam.scale.max}. No feedback until you finish, just like the real thing.`
+                : m.desc}
+            </span>
           </button>
         ))}
       </div>

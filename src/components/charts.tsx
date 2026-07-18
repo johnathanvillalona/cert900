@@ -44,26 +44,27 @@ export function AccuracyTrendChart({ trend }: { trend: TrendPoint[] }) {
   )
 }
 
-/** Exam scaled scores against the pass line. Position vs the 700 line carries pass/fail. */
-export function ExamScoreChart({ exams }: { exams: ExamRecord[] }) {
-  if (exams.length === 0) return <EmptyChart>Take a full exam simulation and your scaled scores plot here against the 700 pass line.</EmptyChart>
+/** Exam scaled scores against the exam's pass line. Position vs the line carries pass/fail. */
+export function ExamScoreChart({ exams, scale = { max: 900, pass: PASS_SCALED } }: { exams: ExamRecord[]; scale?: { max: number; pass: number } }) {
+  if (exams.length === 0)
+    return <EmptyChart>{`Take a full exam simulation and your scaled scores plot here against the ${scale.pass} pass line.`}</EmptyChart>
   const data = exams.map((e, i) => ({ n: i + 1, date: e.date, scaled: e.scaled, pct: e.pct }))
   return (
     <ChartContainer config={oneSeries} className="h-[220px] w-full">
       <LineChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
         <CartesianGrid vertical={false} strokeOpacity={0.35} />
         <XAxis dataKey="n" tickLine={false} axisLine={false} tickMargin={8} className="font-mono" fontSize={11} tickFormatter={(v: number) => `#${v}`} />
-        <YAxis domain={[100, 900]} ticks={[300, 500, 700, 900]} tickLine={false} axisLine={false} width={34} className="font-mono" fontSize={11} />
+        <YAxis domain={[100, scale.max]} ticks={[300, 500, scale.pass, scale.max]} tickLine={false} axisLine={false} width={34} className="font-mono" fontSize={11} />
         <ReferenceLine
-          y={PASS_SCALED}
+          y={scale.pass}
           stroke="var(--muted-foreground)"
           strokeDasharray="4 4"
           strokeOpacity={0.6}
-          label={{ value: "pass 700", position: "insideBottomRight", fontSize: 10, fill: "var(--muted-foreground)", fontFamily: "var(--font-mono)" }}
+          label={{ value: `pass ${scale.pass}`, position: "insideBottomRight", fontSize: 10, fill: "var(--muted-foreground)", fontFamily: "var(--font-mono)" }}
         />
         <ChartTooltip
           cursor={{ strokeOpacity: 0.4 }}
-          content={<ChartTooltipContent labelFormatter={(_, payload) => `Exam ${payload?.[0]?.payload.n} · ${payload?.[0]?.payload.date}`} formatter={(value, _n, item) => [`${value} scaled · ${item?.payload.pct}% raw · ${(item?.payload.scaled ?? 0) >= PASS_SCALED ? "pass" : "below pass line"}`, ""]} />}
+          content={<ChartTooltipContent labelFormatter={(_, payload) => `Exam ${payload?.[0]?.payload.n} · ${payload?.[0]?.payload.date}`} formatter={(value, _n, item) => [`${value} scaled · ${item?.payload.pct}% raw · ${(item?.payload.scaled ?? 0) >= scale.pass ? "pass" : "below pass line"}`, ""]} />}
         />
         <Line dataKey="scaled" type="monotone" stroke="var(--chart-1)" strokeWidth={2} dot={{ r: 4, fill: "var(--chart-1)", strokeWidth: 0 }} activeDot={{ r: 5.5 }} />
       </LineChart>

@@ -76,8 +76,8 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
         </Card>
         <Card className="p-5">
           <h2 className="text-base font-semibold">Exam scores</h2>
-          <p className="text-muted-foreground mb-3 text-xs">Scaled 100 to 900. The dashed line is the pass mark.</p>
-          <ExamScoreChart exams={p.exams} />
+          <p className="text-muted-foreground mb-3 text-xs">Scaled 100 to {exam.scale.max}. The dashed line is the pass mark.</p>
+          <ExamScoreChart exams={p.exams} scale={exam.scale} />
         </Card>
       </div>
 

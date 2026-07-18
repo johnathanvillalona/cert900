@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { EXAMS, EXAM_ORDER } from "./index"
+import { VENDORS } from "./vendors"
 
 // Parity contract with the legacy app (the source of truth at extraction time).
 const EXPECTED = {
@@ -7,6 +8,15 @@ const EXPECTED = {
   "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
   "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
 } as const
+
+// Per-vendor video-link contract: CompTIA topics link Professor Messer pages;
+// AWS/Azure topics link YouTube videos (freeCodeCamp / John Savill), often
+// with a &t= timestamp into a full course.
+const VIDEO_URL_RULES: Record<string, RegExp> = {
+  comptia: /^https:\/\/www\.professormesser\.com\/.+\/$/,
+  aws: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
+  azure: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
+}
 
 describe("exam data integrity", () => {
   it("has exactly the expected exams, all in EXAM_ORDER", () => {
@@ -33,12 +43,31 @@ describe("exam data integrity", () => {
         }
       })
 
+      it("has a valid vendor and score scale", () => {
+        expect(VENDORS[ex.vendor], `vendor "${ex.vendor}"`).toBeDefined()
+        expect(ex.scale.max).toBeGreaterThan(100)
+        expect(ex.scale.pass).toBeGreaterThan(100)
+        expect(ex.scale.pass).toBeLessThanOrEqual(ex.scale.max)
+      })
+
       it("every question has a valid answer index and 2+ options", () => {
         for (const q of ex.questions) {
           expect(q.o.length, `question ${q.id}`).toBeGreaterThanOrEqual(2)
           expect(q.a, `question ${q.id}`).toBeGreaterThanOrEqual(0)
           expect(q.a, `question ${q.id}`).toBeLessThan(q.o.length)
           expect(q.e.length, `question ${q.id} explanation`).toBeGreaterThan(0)
+          if (q.as) {
+            // multiple-response: 2+ unique valid indices, and `a` stays
+            // consistent as the first correct index for legacy readers
+            expect(q.as.length, `question ${q.id} as`).toBeGreaterThanOrEqual(2)
+            expect(q.as.length, `question ${q.id} as`).toBeLessThan(q.o.length)
+            expect(new Set(q.as).size, `question ${q.id} as dupes`).toBe(q.as.length)
+            for (const i of q.as) {
+              expect(i, `question ${q.id} as index`).toBeGreaterThanOrEqual(0)
+              expect(i, `question ${q.id} as index`).toBeLessThan(q.o.length)
+            }
+            expect(q.as, `question ${q.id} a/as consistency`).toContain(q.a)
+          }
         }
       })
 
@@ -97,9 +126,11 @@ describe("exam data integrity", () => {
         expect(Math.abs(sum - 1)).toBeLessThan(0.001)
       })
 
-      it("every video URL is a well-formed Professor Messer link", () => {
+      it("every video URL matches the vendor's link contract", () => {
+        const rule = VIDEO_URL_RULES[ex.vendor]
+        expect(rule, `no URL rule for vendor "${ex.vendor}"`).toBeDefined()
         for (const [key, v] of Object.entries(ex.videos)) {
-          expect(v.u, `video "${key}"`).toMatch(/^https:\/\/www\.professormesser\.com\/.+\/$/)
+          expect(v.u, `video "${key}"`).toMatch(rule)
           expect(v.n.length, `video "${key}" title`).toBeGreaterThan(0)
           expect(ex.domains[v.d], `video "${key}" domain ${v.d}`).toBeDefined()
         }

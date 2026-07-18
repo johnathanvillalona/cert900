@@ -13,9 +13,12 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
       <div className="mx-auto max-w-6xl px-4 py-10">
         {full && (
           <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
-            A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA or Professor
-            Messer. CompTIA A+<sup>®</sup> and Network+<sup>®</sup> are registered trademarks of CompTIA, Inc. All
-            practice questions are original. Video links open Professor Messer's free official training courses.
+            A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA, Amazon Web
+            Services, Microsoft, Professor Messer, or any video creator linked here. CompTIA A+<sup>®</sup> and
+            Network+<sup>®</sup> are registered trademarks of CompTIA, Inc. AWS<sup>®</sup> is a trademark of
+            Amazon.com, Inc. or its affiliates. Microsoft<sup>®</sup> and Azure<sup>®</sup> are trademarks of the
+            Microsoft group of companies. All practice questions are original. Video links open each creator's free
+            training content.
           </p>
         )}
         <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
