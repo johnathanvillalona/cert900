@@ -145,6 +145,20 @@ export type ConnectorGlyph =
   | "shield"
   | "badge"
   | "blocker"
+  | "keypad"
+  | "sata"
+  | "sata-pwr"
+  | "usb3-header"
+  | "fp-leads"
+  | "fan"
+  | "molex"
+  | "dac"
+  | "strap"
+  | "mat"
+  | "bag"
+  | "air"
+  | "vacuum"
+  | "bubble"
 
 export interface DragZone {
   id: string
@@ -170,7 +184,7 @@ export interface PBQDragConnect {
   title: string
   scen: string
   prompt: string
-  scene: "pc-rear" | "patch-panel" | "rack" | "desk"
+  scene: "pc-rear" | "patch-panel" | "rack" | "desk" | "mobo" | "bench"
   zones: DragZone[]
   /** may include distractors that belong to no zone */
   items: DragItem[]

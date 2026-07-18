@@ -131,6 +131,117 @@ export function Glyph({ g, className }: { g: ConnectorGlyph; className?: string 
           <line {...stroke} x1={7} y1={17.5} x2={17} y2={6.5} />
         </svg>
       )
+    case "keypad":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={7} y={4.5} width={10} height={15} rx={1.5} />
+          {[9.7, 12, 14.3].flatMap((x) => [8, 10.5, 13].map((y) => <circle key={`${x}${y}`} cx={x} cy={y} r={0.7} fill="currentColor" />))}
+          <line {...stroke} strokeWidth={1} x1={9.5} y1={16.5} x2={14.5} y2={16.5} />
+        </svg>
+      )
+    case "sata":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path {...stroke} fill={body} d="M5 9h10v2.5h4V15H5z" />
+          <line {...stroke} strokeWidth={1} x1={7} y1={12} x2={13} y2={12} />
+        </svg>
+      )
+    case "sata-pwr":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path {...stroke} fill={body} d="M3.5 9.5h13v2h4v3.5h-17z" />
+          <line {...stroke} strokeWidth={1} x1={5.5} y1={12} x2={14.5} y2={12} />
+        </svg>
+      )
+    case "usb3-header":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={4.5} y={8} width={15} height={8} rx={1} />
+          {[7, 9, 11, 13, 15, 17].map((x) => (
+            <g key={x}>
+              <circle cx={x} cy={10.5} r={0.5} fill="currentColor" />
+              <circle cx={x} cy={13.5} r={0.5} fill="currentColor" />
+            </g>
+          ))}
+        </svg>
+      )
+    case "fp-leads":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={5} y={11} width={4} height={6} />
+          <rect {...stroke} fill={body} x={10} y={11} width={4} height={6} />
+          <rect {...stroke} fill={body} x={15} y={11} width={4} height={6} />
+          <path {...stroke} strokeWidth={1} d="M7 11V6m5 5V6m5 5V6" />
+        </svg>
+      )
+    case "fan":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <circle {...stroke} fill={body} cx={12} cy={12} r={7} />
+          <path {...stroke} strokeWidth={1} d="M12 12c-1-2.5 0-4.5 2-5.5M12 12c2.5-1 4.5 0 5.5 2M12 12c-1.5 2.5-3.5 3-6 2" />
+          <circle cx={12} cy={12} r={1.2} fill="currentColor" />
+        </svg>
+      )
+    case "molex":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path {...stroke} fill={body} d="M4.5 9h15v6h-15z" />
+          {[7.5, 10.5, 13.5, 16.5].map((x) => (
+            <circle key={x} {...stroke} strokeWidth={1} cx={x} cy={12} r={1.1} />
+          ))}
+        </svg>
+      )
+    case "dac":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={3.5} y={7} width={6} height={4} rx={0.5} />
+          <rect {...stroke} fill={body} x={14.5} y={13} width={6} height={4} rx={0.5} />
+          <path {...stroke} d="M9.5 9c5 0 3 6 8 6" />
+        </svg>
+      )
+    case "strap":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <circle {...stroke} fill={body} cx={9} cy={12} r={4.5} />
+          <path {...stroke} strokeWidth={1} d="M13.5 12h1.5m0 0c1.5 0 1.5 1.5 3 1.5s1.5-1.5 3-1.5" />
+        </svg>
+      )
+    case "mat":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={4} y={8} width={16} height={9} rx={1.5} />
+          <circle {...stroke} strokeWidth={1} cx={7} cy={10.5} r={1} />
+        </svg>
+      )
+    case "bag":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={6} y={7} width={12} height={12} rx={1} />
+          <line {...stroke} strokeWidth={1} x1={6} y1={10} x2={18} y2={10} />
+          <line {...stroke} strokeWidth={1} x1={9} y1={13} x2={13} y2={17} />
+        </svg>
+      )
+    case "air":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={8} y={8} width={6} height={12} rx={1} />
+          <path {...stroke} d="M10 8V6h2v2" />
+          <line {...stroke} strokeWidth={1} x1={12} y1={5.5} x2={19} y2={4} />
+        </svg>
+      )
+    case "vacuum":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path {...stroke} fill={body} d="M5 15a5 5 0 0 1 10 0v2H5z" />
+          <path {...stroke} d="M13 11l5-4h1.5" />
+        </svg>
+      )
+    case "bubble":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          {[7.5, 12, 16.5].flatMap((x) => [8, 12.5, 17].map((y) => <circle key={`${x}${y}`} {...stroke} strokeWidth={1} cx={x} cy={y} r={1.9} fill={body} />))}
+        </svg>
+      )
   }
 }
 
@@ -142,6 +253,8 @@ export const SCENE_HEIGHT: Record<string, number> = {
   "patch-panel": 42,
   rack: 66,
   desk: 56,
+  mobo: 100,
+  bench: 52,
 }
 
 const line = { stroke: "var(--border)", strokeWidth: 0.6, fill: "none" }
@@ -203,6 +316,20 @@ export function Scene({ scene }: { scene: string }) {
         {/* door */}
         <rect x={84} y={10} width={12} height={30} rx={1} {...dark} />
         <text x={90} y={26} textAnchor="middle" {...label}>DOOR</text>
+      </g>
+    )
+  if (scene === "mobo")
+    return (
+      <g>
+        <rect x={4} y={4} width={92} height={92} rx={2} {...panel} />
+        <text x={50} y={10} textAnchor="middle" {...label}>MOTHERBOARD</text>
+      </g>
+    )
+  if (scene === "bench")
+    return (
+      <g>
+        <rect x={2} y={20} width={96} height={28} rx={2} {...panel} />
+        <text x={50} y={10} textAnchor="middle" {...label}>REPAIR BENCH</text>
       </g>
     )
   return null

@@ -5762,9 +5762,9 @@ export const exam: ExamDef = {
   {
    "kind": "dragconnect",
    "t": "physical-security",
-   "title": "Secure the Front Desk",
-   "scen": "The lobby workstation faces the public. Place each physical security control where it belongs.",
-   "prompt": "Place each control on its labeled spot: laptop, monitor, doorway, or the exposed USB cabling.",
+   "title": "Walk-Through Audit Findings",
+   "scen": "Your physical-security walkthrough of the lobby desk logged four findings. F1: customers waiting in line can read the account screen from the side. F2: a docked laptop disappeared overnight last month. F3: policy says the back-office door must log each entry by employee ID, but nothing enforces it. F4: staff charge personal phones on the till PC's exposed USB cabling.",
+   "prompt": "Place the one control that closes each finding. Two controls in the tray don't address any of them.",
    "scene": "desk",
    "zones": [
     {
@@ -5817,9 +5817,19 @@ export const exam: ExamDef = {
      "glyph": "badge"
     },
     {
+     "id": "keypad",
+     "label": "PIN keypad (shared code)",
+     "glyph": "keypad"
+    },
+    {
      "id": "blocker",
      "label": "USB data blocker",
      "glyph": "blocker"
+    },
+    {
+     "id": "pwr",
+     "label": "Spare power cord",
+     "glyph": "power"
     }
    ],
    "answer": {
@@ -5827,6 +5837,86 @@ export const exam: ExamDef = {
     "zmon": "filter",
     "zdoor": "badge",
     "zusb": "blocker"
+   }
+  },
+  {
+   "kind": "dragconnect",
+   "t": "esd",
+   "title": "Prep the ESD-Safe Bench",
+   "scen": "You're about to swap DIMMs at the depot's shared bench, and it is not ESD-ready: the work surface is bare laminate, none of the ESD protections are set up yet, the pulled module has to ship back for RMA, and the rig you're opening has dust-caked vents. Stage each protection where it belongs. Two items in the tray would make things worse, not safer.",
+   "prompt": "Stage each item at the right spot. Two items have no place at an ESD-safe bench.",
+   "scene": "bench",
+   "zones": [
+    {
+     "id": "zsurf",
+     "x": 63,
+     "y": 21,
+     "w": 16,
+     "h": 6.5,
+     "label": "Bench work surface"
+    },
+    {
+     "id": "zclip",
+     "x": 84.5,
+     "y": 30.5,
+     "w": 9,
+     "h": 6,
+     "label": "Grounded bench frame"
+    },
+    {
+     "id": "zship",
+     "x": 46,
+     "y": 1.5,
+     "w": 20,
+     "h": 10,
+     "label": "Outbound RMA shelf"
+    },
+    {
+     "id": "zvent",
+     "x": 52,
+     "y": 25,
+     "w": 9.5,
+     "h": 7,
+     "label": "Dust-caked vents"
+    }
+   ],
+   "items": [
+    {
+     "id": "mat",
+     "label": "Antistatic mat",
+     "glyph": "mat"
+    },
+    {
+     "id": "strap",
+     "label": "ESD wrist strap",
+     "glyph": "strap"
+    },
+    {
+     "id": "bag",
+     "label": "Antistatic bag",
+     "glyph": "bag"
+    },
+    {
+     "id": "air",
+     "label": "Compressed-air duster",
+     "glyph": "air"
+    },
+    {
+     "id": "vac",
+     "label": "Household vacuum",
+     "glyph": "vacuum"
+    },
+    {
+     "id": "bub",
+     "label": "Bubble-wrap pouch",
+     "glyph": "bubble"
+    }
+   ],
+   "answer": {
+    "zsurf": "mat",
+    "zclip": "strap",
+    "zship": "bag",
+    "zvent": "air"
    }
   }
  ]
