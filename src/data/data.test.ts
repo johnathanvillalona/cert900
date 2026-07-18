@@ -2,11 +2,13 @@ import { describe, it, expect } from "vitest"
 import { EXAMS, EXAM_ORDER } from "./index"
 import { VENDORS } from "./vendors"
 
-// Parity contract with the legacy app (the source of truth at extraction time).
+// Minimum-count contract per exam (legacy parity for CompTIA; launch floors
+// for newer exams). Counts only grow.
 const EXPECTED = {
   "220-1202": { questions: 281, pbqs: 8, videos: 74, domains: 4 },
   "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
   "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
+  "aif-c01": { questions: 155, pbqs: 8, videos: 33, domains: 5 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;

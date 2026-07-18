@@ -22,14 +22,14 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
           </p>
         )}
         <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
-          {(["aplus", "nplus", "pbq"] as const).map((k) => (
+          {(["aplus", "nplus", "pbq", "aif"] as const).map((k) => (
             <a
               key={k}
               href={GUIDE_META[k].path}
               onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_META[k].path) }}
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
-              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : "PBQ practice"}
+              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : k === "pbq" ? "PBQ practice" : "AWS AI Practitioner practice"}
             </a>
           ))}
         </nav>

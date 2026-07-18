@@ -14,7 +14,6 @@ import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
 import { SiteFooter } from "@/components/SiteFooter"
 import { Wordmark } from "@/components/Wordmark"
-import { GUIDE_META } from "@/screens/Guides"
 
 /** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
@@ -182,17 +181,8 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
             <Wordmark className="text-sm" />
           </button>
           <div className="flex items-center gap-1 sm:gap-2">
-            <button onClick={() => scrollTo("exams")} className="hidden cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:block">
-              Exams
-            </button>
-            <button onClick={() => scrollTo("how")} className="hidden cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:block">
-              How it works
-            </button>
             <button onClick={onOpenDashboard} data-testid="landing-progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               Progress
-            </button>
-            <button onClick={() => onNavigate(GUIDE_META.pbq.path)} data-testid="landing-pbqs" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-              PBQs
             </button>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               <ThemeIcon />

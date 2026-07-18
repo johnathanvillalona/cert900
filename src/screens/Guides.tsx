@@ -16,7 +16,32 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif", GuideMeta> = {
+  aif: {
+    path: "/aws-ai-practitioner-practice-test",
+    title: "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900",
+    description:
+      "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+    h1: "Free AWS Certified AI Practitioner (AIF-C01) practice test",
+    faq: [
+      [
+        "How many questions are on the AIF-C01 exam?",
+        "65 questions in 90 minutes: 50 scored plus 15 unscored questions AWS evaluates for future exams. Formats include multiple choice, multiple response, ordering, and matching. Our simulator mirrors all four.",
+      ],
+      [
+        "What score do I need to pass?",
+        "AWS reports a scaled score from 100 to 1,000 with a minimum passing score of 700. Scoring is compensatory: you pass on the overall exam, not on each section.",
+      ],
+      [
+        "Do I need AWS experience first?",
+        "AWS recommends up to six months of exposure to AI and ML workloads on AWS. The target candidate uses AI services rather than builds models; no coding or data-science background is required.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question, the exam simulator, and progress tracking are free with no account. Topic reviews link to Andrew Brown's free 15-hour AIF-C01 course on freeCodeCamp's YouTube channel.",
+      ],
+    ],
+  },
   aplus: {
     path: "/comptia-a-plus-practice-test",
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
@@ -227,6 +252,50 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
           official domain split, plus simulated PBQs: terminals, configuration panels, and drag-to-connect cabling.
         </p>
         <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.aif
+  const ex = EXAMS["aif-c01"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          The AWS Certified AI Practitioner (AIF-C01) validates a foundational understanding of AI, machine learning,
+          and generative AI on AWS: what the technologies are, when to apply them, and how to use them responsibly and
+          securely. This site gives you {ex.questions.length} original practice questions plus {ex.pbqs.length} interactive
+          items in the exam's own formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          AIF-C01 is not just multiple choice: the real exam also uses multiple-response ("Select TWO"), ordering, and
+          matching questions. Our simulator reproduces all four formats, runs {ex.examMinutes} timed minutes, and scores
+          on the real 100 to 1,000 scale with the 700 pass line. Every topic links into the free 15-hour freeCodeCamp
+          course at the matching chapter.
+        </p>
+        <Cta label="Start the free AIF-C01 practice test" onGo={() => onStart("aif-c01")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What AIF-C01 covers</h2>
+        <DomainTable examId="aif-c01" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: 65 questions (50 scored, 15 unscored), 90 minutes, scaled 100 to 1,000, passing score 700.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "AIF-C01 · Generative AI", stem: "A chatbot confidently describes a product feature that has never existed. What is this failure mode called?", options: ["Hallucination", "Overfitting", "Data drift", "Underfitting"], answer: 0, why: "Hallucination is a generative model producing fluent, confident output that is factually wrong; it is a core limitation the exam expects you to recognize." }} />
+        <Sample n={2} q={{ code: "AIF-C01 · Foundation Models", stem: "A support assistant must answer from internal policy documents that change weekly, without retraining the model. Which approach fits best?", options: ["Retrieval-Augmented Generation", "Fine-tuning", "Continued pre-training", "Raising the temperature"], answer: 0, why: "RAG retrieves current documents at query time and grounds the response in them; fine-tuning and pre-training bake knowledge into weights and would need constant retraining." }} />
+        <Sample n={3} q={{ code: "AIF-C01 · Security & Governance", stem: "A compliance officer needs AWS's SOC and ISO audit reports for a vendor review. Which service provides them on demand?", options: ["AWS Artifact", "AWS Config", "Amazon Inspector", "AWS CloudTrail"], answer: 0, why: "AWS Artifact is the self-service portal for AWS compliance reports and agreements; Config tracks resource configuration and CloudTrail records API activity." }} />
+        <p className="text-muted-foreground text-sm">
+          The full bank is weighted to the official domain split and includes multiple-response, ordering, and matching
+          items just like the real exam.
+        </p>
+        <Cta label="Practice all of them free" onGo={() => onStart("aif-c01")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

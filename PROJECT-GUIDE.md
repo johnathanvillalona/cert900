@@ -1,9 +1,11 @@
 # CompTIA Practice Trainer v2 — Project Context
 
 ## What this is
-A free practice-exam platform for **three CompTIA certifications** — A+ Core 1
+A free practice-exam platform for **four certifications** — CompTIA A+ Core 1
 (220-1201, 291 Q / 21 PBQs), A+ Core 2 (220-1202, 330 Q / 21 PBQs), Network+
-(N10-009, 315 Q / 20 PBQs). PBQs span six interaction kinds: match, order, and
+(N10-009, 315 Q / 20 PBQs), and AWS AI Practitioner (AIF-C01, 161 Q incl. 21%
+multiple-response / 8 sim items, scale 1000/700, topics -> freeCodeCamp
+course timestamps). CLF-C02, AZ-900, AI-900 are planned next (same recipe). PBQs span six interaction kinds: match, order, and
 CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
 **config** (device settings panels), **hotspot** (network-diagram selection),
 **dragconnect** (photoreal "bench": Wikimedia-Commons photo scenes + connector
