@@ -4,6 +4,11 @@ import type { ExamDef } from "./types"
 
 export const exam: ExamDef = {
  "id": "220-1201",
+ "vendor": "comptia",
+ "scale": {
+  "max": 900,
+  "pass": 700
+ },
  "cert": "CompTIA A+",
  "name": "Core 1",
  "code": "220-1201",

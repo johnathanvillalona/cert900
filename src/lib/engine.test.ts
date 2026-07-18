@@ -10,6 +10,8 @@ import {
   pbqAnswerBlank,
   pbqScore,
   scaledScore,
+  mcCorrect,
+  mcAnswerBlank,
   masteryLevel,
   weakTopics,
   type Rng,
@@ -31,7 +33,7 @@ const core2 = EXAMS["220-1202"]
 const core1 = EXAMS["220-1201"]
 
 describe("scaledScore", () => {
-  it("maps 0% to 100 and 100% to 900", () => {
+  it("maps 0% to 100 and 100% to 900 by default (CompTIA)", () => {
     expect(scaledScore(0)).toEqual({ scaled: 100, pass: false })
     expect(scaledScore(1)).toEqual({ scaled: 900, pass: true })
   })
@@ -40,6 +42,38 @@ describe("scaledScore", () => {
     // 0.7499 rounds UP to 700 (legacy parity); clearly-below stays failing
     expect(scaledScore(0.7499)).toMatchObject({ scaled: 700, pass: true })
     expect(scaledScore(0.7493)).toMatchObject({ scaled: 699, pass: false })
+  })
+  it("supports per-exam scales (AWS/Azure 100-1000, pass 700)", () => {
+    const aws = { max: 1000, pass: 700 }
+    expect(scaledScore(0, aws)).toEqual({ scaled: 100, pass: false })
+    expect(scaledScore(1, aws)).toEqual({ scaled: 1000, pass: true })
+    expect(scaledScore(2 / 3, aws)).toEqual({ scaled: 700, pass: true })
+    expect(scaledScore(0.66, aws)).toMatchObject({ scaled: 694, pass: false })
+  })
+})
+
+describe("mcCorrect / mcAnswerBlank", () => {
+  const single = { a: 2 }
+  const multi = { a: 1, as: [1, 3] }
+  it("grades single-answer by index equality", () => {
+    expect(mcCorrect(single, 2)).toBe(true)
+    expect(mcCorrect(single, 0)).toBe(false)
+    expect(mcCorrect(single, undefined)).toBe(false)
+  })
+  it("grades multiple-response as exact set, all-or-nothing", () => {
+    expect(mcCorrect(multi, [1, 3])).toBe(true)
+    expect(mcCorrect(multi, [3, 1])).toBe(true)
+    expect(mcCorrect(multi, [1])).toBe(false)
+    expect(mcCorrect(multi, [1, 2])).toBe(false)
+    expect(mcCorrect(multi, [1, 2, 3])).toBe(false)
+    expect(mcCorrect(multi, undefined)).toBe(false)
+    expect(mcCorrect(multi, 1)).toBe(false)
+  })
+  it("treats empty selections as blank", () => {
+    expect(mcAnswerBlank(undefined)).toBe(true)
+    expect(mcAnswerBlank([])).toBe(true)
+    expect(mcAnswerBlank(0)).toBe(false)
+    expect(mcAnswerBlank([0])).toBe(false)
   })
 })
 

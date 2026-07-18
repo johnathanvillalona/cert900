@@ -10,9 +10,10 @@ import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
-import { ArrowLeftRight, ChartLine, SquareMousePointer } from "lucide-react"
+import { ChartLine, SquareMousePointer } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
+import { ExamsMenu } from "@/components/ExamsMenu"
 import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
@@ -178,21 +179,13 @@ export default function App() {
                 <SquareMousePointer className="size-4 sm:hidden" strokeWidth={2} />
                 <span className="hidden sm:inline">PBQs</span>
               </Button>
-              {exam && screen.kind !== "picker" && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  data-testid="switch-exam"
-                  aria-label="Switch exam"
-                  onClick={() => {
-                    setExamId(null)
-                    setScreen({ kind: "picker" })
-                  }}
-                >
-                  <ArrowLeftRight className="size-4 sm:hidden" strokeWidth={2} />
-                  <span className="hidden sm:inline">Switch exam</span>
-                </Button>
-              )}
+              <ExamsMenu
+                currentId={examId}
+                onChoose={(id) => {
+                  setExamId(id)
+                  setScreen({ kind: "home" })
+                }}
+              />
               <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
                 <ThemeIcon />
               </Button>
