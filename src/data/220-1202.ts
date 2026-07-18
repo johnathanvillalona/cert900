@@ -5764,7 +5764,7 @@ export const exam: ExamDef = {
    "t": "physical-security",
    "title": "Walk-Through Audit Findings",
    "scen": "Your physical-security walkthrough of the lobby desk logged four findings. F1: customers waiting in line can read the account screen from the side. F2: a docked laptop disappeared overnight last month. F3: policy says the back-office door must log each entry by employee ID, but nothing enforces it. F4: staff charge personal phones on the till PC's exposed USB cabling.",
-   "prompt": "Place the one control that closes each finding. Two controls in the tray don't address any of them.",
+   "prompt": "Place the one control that closes each finding. Not all controls will be used.",
    "scene": "desk",
    "zones": [
     {
@@ -5843,8 +5843,8 @@ export const exam: ExamDef = {
    "kind": "dragconnect",
    "t": "esd",
    "title": "Prep the ESD-Safe Bench",
-   "scen": "You're about to swap DIMMs at the depot's shared bench, and it is not ESD-ready: the work surface is bare laminate, none of the ESD protections are set up yet, the pulled module has to ship back for RMA, and the rig you're opening has dust-caked vents. Stage each protection where it belongs. Two items in the tray would make things worse, not safer.",
-   "prompt": "Stage each item at the right spot. Two items have no place at an ESD-safe bench.",
+   "scen": "You're about to swap DIMMs at the depot's shared bench, and it is not ESD-ready: the work surface is bare laminate, none of the ESD protections are set up yet, the pulled module has to ship back for RMA, and the rig you're opening has dust-caked vents. Stage each protection where it belongs. Some of what's in the tray would make things worse, not safer.",
+   "prompt": "Stage each item at the right spot. Not all items belong at an ESD-safe bench.",
    "scene": "bench",
    "zones": [
     {

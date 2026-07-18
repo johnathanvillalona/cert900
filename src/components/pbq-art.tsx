@@ -242,6 +242,65 @@ export function Glyph({ g, className }: { g: ConnectorGlyph; className?: string 
           {[7.5, 12, 16.5].flatMap((x) => [8, 12.5, 17].map((y) => <circle key={`${x}${y}`} {...stroke} strokeWidth={1} cx={x} cy={y} r={1.9} fill={body} />))}
         </svg>
       )
+    case "toner":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={4} y={8} width={7} height={11} rx={1} />
+          <path {...stroke} fill={body} d="M15 8h4l1.5 6H17z" />
+          <path {...stroke} strokeWidth={1} d="M11 10c1.5 0 2.5 1 4 1" />
+        </svg>
+      )
+    case "punchdown":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={4} y={10} width={10} height={4.5} rx={1.5} />
+          <path {...stroke} fill={body} d="M14 11h4v2.5h-4z" />
+          <path {...stroke} d="M18 11.5h2.5v1.5H18" />
+        </svg>
+      )
+    case "crimper":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path {...stroke} fill={body} d="M6 6l6 5-6 5" />
+          <path {...stroke} fill={body} d="M12 11h6v2h-6" />
+          <circle cx={12} cy={12} r={1} fill="currentColor" />
+        </svg>
+      )
+    case "tester":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={6} y={5} width={12} height={14} rx={1.5} />
+          {[9, 12, 15].map((x) => (
+            <circle key={x} cx={x} cy={9} r={0.8} fill="currentColor" />
+          ))}
+          <rect {...stroke} strokeWidth={1} x={10} y={13} width={4} height={3.5} />
+        </svg>
+      )
+    case "loopback":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={5} y={9} width={8} height={6} rx={1} />
+          <path {...stroke} d="M13 10.5h4a2.5 2.5 0 0 1 0 5h-4" />
+        </svg>
+      )
+    case "multimeter":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={7} y={4.5} width={10} height={15} rx={1.5} />
+          <rect {...stroke} strokeWidth={1} x={9} y={6.5} width={6} height={3} />
+          <circle {...stroke} strokeWidth={1} cx={12} cy={14} r={2.5} />
+          <line {...stroke} strokeWidth={1} x1={12} y1={14} x2={13.6} y2={12.4} />
+        </svg>
+      )
+    case "nettap":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect {...stroke} fill={body} x={4.5} y={8} width={15} height={8} rx={1.5} />
+          <rect {...stroke} strokeWidth={1} x={6.5} y={10.5} width={3} height={3} />
+          <rect {...stroke} strokeWidth={1} x={14.5} y={10.5} width={3} height={3} />
+          <path {...stroke} strokeWidth={1} d="M12 16v3m0 0h-1.5m1.5 0h1.5" />
+        </svg>
+      )
   }
 }
 

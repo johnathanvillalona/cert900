@@ -18,8 +18,8 @@ export const SCENE_IMG: Record<string, { src: string; w: number; h: number }> = 
 
 /**
  * Connector/item thumbnails by glyph key. Any glyph missing here (shield,
- * usb3-header, mat) falls back to the illustrated SVG <Glyph>, so a missing
- * photo can never break a PBQ.
+ * usb3-header, mat, nettap) falls back to the illustrated SVG <Glyph>, so a
+ * missing photo can never break a PBQ.
  */
 export const GLYPH_IMG: Partial<Record<ConnectorGlyph, string>> = {
   rj45: "/pbq/rj45.jpg",
@@ -47,4 +47,10 @@ export const GLYPH_IMG: Partial<Record<ConnectorGlyph, string>> = {
   air: "/pbq/air.jpg",
   vacuum: "/pbq/vacuum.jpg",
   bubble: "/pbq/bubble.jpg",
+  toner: "/pbq/toner.jpg",
+  punchdown: "/pbq/punchdown.jpg",
+  crimper: "/pbq/crimper.jpg",
+  tester: "/pbq/tester.jpg",
+  loopback: "/pbq/loopback.jpg",
+  multimeter: "/pbq/multimeter.jpg",
 }
