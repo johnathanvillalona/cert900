@@ -31,9 +31,20 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 
 ## Layout
 - `src/data/` — question banks as typed modules (`220-1201.ts`, `220-1202.ts`,
-  `n10-009.ts`, `types.ts`, `index.ts`). **These are the source of truth now**;
-  edit them directly for content work. `legacy/index.html` is the frozen v1 app
-  (was the extraction source; don't grow it).
+  `n10-009.ts`, `types.ts`, `index.ts`, `vendors.ts`). **These are the source
+  of truth now**; edit them directly for content work. `legacy/index.html` is
+  the frozen v1 app (was the extraction source; don't grow it). **index.ts is
+  hand-maintained — NEVER re-run tools/extract-data.mjs (retired); it would
+  clobber non-CompTIA exams.** Multi-vendor platform (2026-07-18): ExamDef
+  carries `vendor` ("comptia"|"aws"|"azure") + `scale` {max, pass} (CompTIA
+  900/700; AWS/Azure exams will use 1000/700); Question carries optional
+  `as?: number[]` for multiple-response ("Choose TWO", graded exact-set
+  all-or-nothing via engine `mcCorrect`; `a` must equal one of `as`). Video
+  URL contract is per-vendor (data.test): comptia -> professormesser.com;
+  aws/azure -> youtube watch URLs (freeCodeCamp timestamps / John Savill).
+  linkcheck v2 probes YouTube via oEmbed (dead videos 404 there). Exams nav =
+  `ExamsMenu` (vendor-grouped dropdown, both headers; trigger keeps the
+  `switch-exam` testid, items `exams-item-{id}`).
 - `src/lib/` — `engine.ts` (adaptive selection, PBQ scoring, 900-scale),
   `progress.ts` (localStorage, key `comptia-trainer-v1`, legacy migration),
   `sync.ts` (cloud merge rules), `stats.ts` (dashboard aggregations), `auth-client.ts`.
