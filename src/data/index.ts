@@ -6,11 +6,13 @@ import type { ExamDef } from "./types"
 import { exam as e0 } from "./220-1202"
 import { exam as e1 } from "./220-1201"
 import { exam as e2 } from "./n10-009"
+import { exam as e3 } from "./aif-c01"
 
 export const EXAMS: Record<string, ExamDef> = {
  "220-1202": e0,
  "220-1201": e1,
  "n10-009": e2,
+ "aif-c01": e3,
 }
 
-export const EXAM_ORDER: string[] = ["220-1201", "220-1202", "n10-009"]
+export const EXAM_ORDER: string[] = ["220-1201", "220-1202", "n10-009", "aif-c01"]

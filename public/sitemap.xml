@@ -21,6 +21,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://cert900.com/aws-ai-practitioner-practice-test</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://cert900.com/privacy</loc>
     <changefreq>yearly</changefreq>
   </url>

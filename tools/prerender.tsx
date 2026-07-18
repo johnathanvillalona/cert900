@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
-import { APlusGuide, NPlusGuide, PbqGuide, GUIDE_META, type GuideMeta } from "../src/screens/Guides"
+import { AifGuide, APlusGuide, NPlusGuide, PbqGuide, GUIDE_META, type GuideMeta } from "../src/screens/Guides"
 import { qotdPool } from "../src/lib/qotd"
 import { SITE_URL } from "../src/lib/site"
 
@@ -51,6 +51,7 @@ const pages: [GuideMeta, React.ReactElement][] = [
   [GUIDE_META.aplus, <APlusGuide onStart={noop} />],
   [GUIDE_META.nplus, <NPlusGuide onStart={noop} />],
   [GUIDE_META.pbq, <PbqGuide onStart={noop} />],
+  [GUIDE_META.aif, <AifGuide onStart={noop} />],
 ]
 
 for (const [meta, el] of pages) {

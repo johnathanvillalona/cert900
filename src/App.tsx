@@ -10,7 +10,7 @@ import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
-import { ChartLine, SquareMousePointer } from "lucide-react"
+import { ChartLine } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
@@ -20,7 +20,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { Privacy, Terms } from "@/screens/Legal"
-import { APlusGuide, NPlusGuide, PbqGuide, GUIDE_META } from "@/screens/Guides"
+import { AifGuide, APlusGuide, NPlusGuide, PbqGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -42,6 +42,7 @@ export type Screen =
   | { kind: "guide-aplus" }
   | { kind: "guide-nplus" }
   | { kind: "guide-pbq" }
+  | { kind: "guide-aif" }
 
 /** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
@@ -50,6 +51,7 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   [GUIDE_META.aplus.path]: "guide-aplus",
   [GUIDE_META.nplus.path]: "guide-nplus",
   [GUIDE_META.pbq.path]: "guide-pbq",
+  [GUIDE_META.aif.path]: "guide-aif",
 }
 const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
@@ -58,6 +60,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-nplus": GUIDE_META.nplus.title,
   "guide-pbq": GUIDE_META.pbq.title,
+  "guide-aif": GUIDE_META.aif.title,
 }
 const DEFAULT_TITLE = "Cert900 — Free CompTIA A+ & Network+ Practice Exams"
 
@@ -169,16 +172,6 @@ export default function App() {
                 <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
                 <span className="hidden sm:inline">Progress</span>
               </Button>
-              <Button
-                variant={screen.kind === "guide-pbq" ? "secondary" : "ghost"}
-                size="sm"
-                data-testid="nav-pbqs"
-                aria-label="PBQ practice"
-                onClick={() => openPath(GUIDE_META.pbq.path)}
-              >
-                <SquareMousePointer className="size-4 sm:hidden" strokeWidth={2} />
-                <span className="hidden sm:inline">PBQs</span>
-              </Button>
               <ExamsMenu
                 currentId={examId}
                 onChoose={(id) => {
@@ -278,6 +271,7 @@ export default function App() {
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-aif" && <AifGuide onStart={startExamFromGuide} />}
         </div>
         <SiteFooter onNavigate={openPath} />
       </div>

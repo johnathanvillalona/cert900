@@ -17,7 +17,7 @@ const marker = "export const exam: ExamDef = "
 const head = src.slice(0, src.indexOf(marker) + marker.length)
 const exam = JSON.parse(src.slice(src.indexOf(marker) + marker.length))
 
-let nextId = Math.max(...exam.questions.map((q) => q.id)) + 1
+let nextId = exam.questions.length ? Math.max(...exam.questions.map((q) => q.id)) + 1 : 1
 const errors = []
 
 for (const q of add.questions ?? []) {
