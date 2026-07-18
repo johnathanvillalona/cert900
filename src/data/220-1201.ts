@@ -5096,18 +5096,18 @@ export const exam: ExamDef = {
   {
    "kind": "dragconnect",
    "t": "peripheral-cables",
-   "title": "Cable the New Workstation",
-   "scen": "A new desktop just came out of the box. Connect each cable to the correct port on the rear I/O panel. Two of the cables in the tray do not plug into this panel at all.",
-   "prompt": "Connect each cable to its labeled port. Two connectors do not belong on this panel.",
+   "title": "Provision the Sales Workstation",
+   "scen": "Deployment ticket #4412: the sales rep keeps the analog monitor from the old fleet, needs the wired office LAN drop live, copies files to a flash drive nightly, and uses powered speakers. The tray the mover packed also holds the desk's DSL line cord, an HDMI cable, and the PC power cord.",
+   "prompt": "Connect each item to the port it should plug into. Three of the seven have no correct connection on this panel.",
    "scene": "pc-rear",
    "zones": [
     {
-     "id": "zhdmi",
+     "id": "zvga",
      "x": 29,
      "y": 17.5,
      "w": 17.5,
      "h": 8.2,
-     "label": "Monitor out"
+     "label": "Blue 15-pin port"
     },
     {
      "id": "zlan",
@@ -5115,7 +5115,7 @@ export const exam: ExamDef = {
      "y": 5.5,
      "w": 10.5,
      "h": 9.5,
-     "label": "Gigabit LAN"
+     "label": "8-pin modular jack"
     },
     {
      "id": "zusb",
@@ -5123,7 +5123,7 @@ export const exam: ExamDef = {
      "y": 15.3,
      "w": 10,
      "h": 10.6,
-     "label": "USB-A"
+     "label": "Rectangular ports"
     },
     {
      "id": "zaud",
@@ -5131,43 +5131,48 @@ export const exam: ExamDef = {
      "y": 18.2,
      "w": 21.5,
      "h": 7.4,
-     "label": "Line out"
+     "label": "Round 3.5 mm jacks"
     }
    ],
    "items": [
     {
+     "id": "vga",
+     "label": "Analog monitor cable",
+     "glyph": "vga"
+    },
+    {
      "id": "hdmi",
-     "label": "Monitor cable",
+     "label": "HDMI cable",
      "glyph": "hdmi"
     },
     {
      "id": "rj45",
-     "label": "Network cable",
+     "label": "Office LAN drop",
      "glyph": "rj45"
     },
     {
+     "id": "rj11",
+     "label": "DSL line cord",
+     "glyph": "rj11"
+    },
+    {
      "id": "usb",
-     "label": "Keyboard",
+     "label": "USB flash drive",
      "glyph": "usb-a"
     },
     {
      "id": "aud",
-     "label": "Speakers",
+     "label": "Powered speakers",
      "glyph": "audio"
     },
     {
      "id": "pwr",
-     "label": "Power cord",
+     "label": "PC power cord",
      "glyph": "power"
-    },
-    {
-     "id": "rj11",
-     "label": "Phone cord",
-     "glyph": "rj11"
     }
    ],
    "answer": {
-    "zhdmi": "hdmi",
+    "zvga": "vga",
     "zlan": "rj45",
     "zusb": "usb",
     "zaud": "aud"
@@ -5176,9 +5181,9 @@ export const exam: ExamDef = {
   {
    "kind": "dragconnect",
    "t": "network-tools",
-   "title": "Patch the Panel",
-   "scen": "The wiring chart says: Reception -> port 1, Office A -> port 2, Office B -> port 3, Conference -> port 4. The four patch cables are labeled by room.",
-   "prompt": "Drag each room's patch cable to its assigned panel port.",
+   "title": "Tone Out the Panel",
+   "scen": "The wiring chart for this strip is missing, so you toned out each drop. Your notes read: the Conference drop lands immediately left of Office A's. Office A's drop lands immediately left of Reception's. Office B's drop is NOT next to Conference's. The Break Room drop was never punched down at this panel.",
+   "prompt": "Deduce each cable's port from the toner notes. One cable doesn't terminate here at all.",
    "scene": "patch-panel",
    "zones": [
     {
@@ -5217,30 +5222,115 @@ export const exam: ExamDef = {
    "items": [
     {
      "id": "rec",
-     "label": "Reception",
+     "label": "Reception drop",
      "glyph": "rj45"
     },
     {
      "id": "offa",
-     "label": "Office A",
+     "label": "Office A drop",
      "glyph": "rj45"
     },
     {
      "id": "offb",
-     "label": "Office B",
+     "label": "Office B drop",
      "glyph": "rj45"
     },
     {
      "id": "conf",
-     "label": "Conference",
+     "label": "Conference drop",
+     "glyph": "rj45"
+    },
+    {
+     "id": "brk",
+     "label": "Break Room drop",
      "glyph": "rj45"
     }
    ],
    "answer": {
-    "p1": "rec",
+    "p1": "conf",
     "p2": "offa",
-    "p3": "offb",
-    "p4": "conf"
+    "p3": "rec",
+    "p4": "offb"
+   }
+  },
+  {
+   "kind": "dragconnect",
+   "t": "motherboard-connections",
+   "title": "Inside the Case",
+   "scen": "Build sheet for a customer PC: the 2.5-inch SSD needs its data link to the board, the case's front USB 3.0 ports need their internal lead seated, the power button and HDD light must work, and the rear case fan runs off board power. The PSU's main 24-pin is already in. Two leads in your hand belong to the power supply's drive harness and never touch a board header.",
+   "prompt": "Seat each lead on the correct board location. Two leads don't connect to the board at all.",
+   "scene": "mobo",
+   "zones": [
+    {
+     "id": "zsata",
+     "x": 55.5,
+     "y": 42,
+     "w": 9.5,
+     "h": 9,
+     "label": "Thin L-shaped ports"
+    },
+    {
+     "id": "zusb3h",
+     "x": 89.5,
+     "y": 25,
+     "w": 8,
+     "h": 9.5,
+     "label": "2-row header"
+    },
+    {
+     "id": "zfp",
+     "x": 86.5,
+     "y": 89.5,
+     "w": 10,
+     "h": 5.5,
+     "label": "Pin block, corner"
+    },
+    {
+     "id": "zfan",
+     "x": 10.5,
+     "y": 33,
+     "w": 7,
+     "h": 8,
+     "label": "4-pin header, left"
+    }
+   ],
+   "items": [
+    {
+     "id": "sata",
+     "label": "SSD data cable",
+     "glyph": "sata"
+    },
+    {
+     "id": "usb3",
+     "label": "Front USB 3.0 lead",
+     "glyph": "usb3-header"
+    },
+    {
+     "id": "fp",
+     "label": "Power & HDD LED leads",
+     "glyph": "fp-leads"
+    },
+    {
+     "id": "fan",
+     "label": "Rear case fan lead",
+     "glyph": "fan"
+    },
+    {
+     "id": "satap",
+     "label": "SATA power lead",
+     "glyph": "sata-pwr"
+    },
+    {
+     "id": "molex",
+     "label": "Molex peripheral plug",
+     "glyph": "molex"
+    }
+   ],
+   "answer": {
+    "zsata": "sata",
+    "zusb3h": "usb3",
+    "zfp": "fp",
+    "zfan": "fan"
    }
   }
  ]

@@ -12,12 +12,14 @@ export const SCENE_IMG: Record<string, { src: string; w: number; h: number }> = 
   "patch-panel": { src: "/pbq/scene-patch-panel.jpg", w: 920, h: 267 },
   rack: { src: "/pbq/scene-rack.jpg", w: 1053, h: 880 },
   desk: { src: "/pbq/scene-desk.jpg", w: 960, h: 640 },
+  mobo: { src: "/pbq/scene-mobo.jpg", w: 1000, h: 1002 },
+  bench: { src: "/pbq/scene-bench.jpg", w: 1100, h: 575 },
 }
 
 /**
- * Connector/item thumbnails by glyph key. Any glyph missing here (shield)
- * falls back to the illustrated SVG <Glyph>, so a missing photo can never
- * break a PBQ.
+ * Connector/item thumbnails by glyph key. Any glyph missing here (shield,
+ * usb3-header, mat) falls back to the illustrated SVG <Glyph>, so a missing
+ * photo can never break a PBQ.
  */
 export const GLYPH_IMG: Partial<Record<ConnectorGlyph, string>> = {
   rj45: "/pbq/rj45.jpg",
@@ -25,6 +27,7 @@ export const GLYPH_IMG: Partial<Record<ConnectorGlyph, string>> = {
   "usb-a": "/pbq/usb-a.jpg",
   "usb-c": "/pbq/usb-c.jpg",
   hdmi: "/pbq/hdmi.jpg",
+  vga: "/pbq/vga.jpg",
   audio: "/pbq/audio.jpg",
   coax: "/pbq/coax.jpg",
   "lc-fiber": "/pbq/lc-fiber.jpg",
@@ -32,4 +35,16 @@ export const GLYPH_IMG: Partial<Record<ConnectorGlyph, string>> = {
   lock: "/pbq/lock.jpg",
   badge: "/pbq/badge.jpg",
   blocker: "/pbq/blocker.jpg",
+  keypad: "/pbq/keypad.jpg",
+  sata: "/pbq/sata.jpg",
+  "sata-pwr": "/pbq/sata-pwr.jpg",
+  "fp-leads": "/pbq/fp-leads.jpg",
+  fan: "/pbq/fan.jpg",
+  molex: "/pbq/molex.jpg",
+  dac: "/pbq/dac.jpg",
+  strap: "/pbq/strap.jpg",
+  bag: "/pbq/bag.jpg",
+  air: "/pbq/air.jpg",
+  vacuum: "/pbq/vacuum.jpg",
+  bubble: "/pbq/bubble.jpg",
 }

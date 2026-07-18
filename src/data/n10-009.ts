@@ -5594,9 +5594,9 @@ export const exam: ExamDef = {
   {
    "kind": "dragconnect",
    "t": "network-transceivers",
-   "title": "Wire the Rack",
-   "scen": "Finish cabling the branch rack: fiber uplink into the top switch's SFP+ bay, copper into an access port, coax to the internet gateway at the bottom, and power for the second switch.",
-   "prompt": "Connect each cable to its labeled target on the rack.",
+   "title": "Light Up the Branch Rack",
+   "scen": "Branch work order: bring up the 10 Gbps uplink from Switch 1 to the core, a 40 m riser run. Patch the new Wi-Fi 7 AP's 5 Gbps multi-gig uplink into Switch 1's access ports. The branch internet is DOCSIS cable service; connect the incoming service line. Finally, you need out-of-band CLI access to Switch 2 from the crash cart before it goes live.",
+   "prompt": "Pick the right cable for each task. Two cables in the tray fit none of them.",
    "scene": "rack",
    "zones": [
     {
@@ -5624,46 +5624,131 @@ export const exam: ExamDef = {
      "label": "Internet gateway (bottom)"
     },
     {
-     "id": "zpdu",
+     "id": "zcon",
      "x": 80.5,
      "y": 61,
      "w": 9,
      "h": 7,
-     "label": "Switch 2 power inlet"
+     "label": "Switch 2 console port"
     }
    ],
    "items": [
     {
-     "id": "fiber",
-     "label": "LC fiber pair",
+     "id": "om4",
+     "label": "LC multimode pair (OM4)",
+     "glyph": "lc-fiber"
+    },
+    {
+     "id": "cat6a",
+     "label": "Cat 6a patch cable",
+     "glyph": "rj45"
+    },
+    {
+     "id": "cat5e",
+     "label": "Cat 5e patch cable",
+     "glyph": "rj45"
+    },
+    {
+     "id": "rg6",
+     "label": "RG-6 coax (F-connector)",
+     "glyph": "coax"
+    },
+    {
+     "id": "roll",
+     "label": "Rollover cable (RJ45 to DB-9)",
+     "glyph": "rj45"
+    },
+    {
+     "id": "rj11",
+     "label": "RJ11 line cord",
+     "glyph": "rj11"
+    }
+   ],
+   "answer": {
+    "zsfp": "om4",
+    "zcopper": "cat6a",
+    "zcoax": "rg6",
+    "zcon": "roll"
+   }
+  },
+  {
+   "kind": "dragconnect",
+   "t": "ethernet-standards",
+   "title": "Choose the Media",
+   "scen": "Patch plan for the MDF: the campus link to Building B runs 550 m through underground conduit at 10 Gbps. Switch 1 and Switch 2 interconnect inside this same rack, 2 m apart, at 25 Gbps and lowest cost. The riser trunk to the IDF two floors up is a 60 m run reusing the aqua-jacketed fiber pairs already terminated in the panel. And a 10 Gbps in-wall copper drop goes to the storage server one room over, 45 m.",
+   "prompt": "Choose the medium for each run. Two cables in the tray fit none of them.",
+   "scene": "rack",
+   "zones": [
+    {
+     "id": "zb2",
+     "x": 15,
+     "y": 3.5,
+     "w": 25,
+     "h": 7,
+     "label": "Building B tie-in (top panel)"
+    },
+    {
+     "id": "zstack",
+     "x": 72,
+     "y": 53,
+     "w": 15,
+     "h": 11,
+     "label": "Switch 1 to Switch 2 bays"
+    },
+    {
+     "id": "zriser",
+     "x": 76,
+     "y": 21.5,
+     "w": 12,
+     "h": 5.5,
+     "label": "Riser trunk (2nd panel)"
+    },
+    {
+     "id": "zdrop",
+     "x": 36,
+     "y": 36,
+     "w": 46,
+     "h": 5,
+     "label": "Copper field (T ports)"
+    }
+   ],
+   "items": [
+    {
+     "id": "os2",
+     "label": "Single-mode LC pair (OS2)",
+     "glyph": "lc-fiber"
+    },
+    {
+     "id": "dac",
+     "label": "SFP28 DAC (twinax)",
+     "glyph": "dac"
+    },
+    {
+     "id": "om4",
+     "label": "Multimode LC pair (OM4)",
      "glyph": "lc-fiber"
     },
     {
      "id": "cat6",
-     "label": "Cat 6 patch",
+     "label": "Cat 6 cable",
      "glyph": "rj45"
     },
     {
-     "id": "coax",
-     "label": "Coax feed",
+     "id": "cat5e",
+     "label": "Cat 5e cable",
+     "glyph": "rj45"
+    },
+    {
+     "id": "rg6",
+     "label": "RG-6 coax",
      "glyph": "coax"
-    },
-    {
-     "id": "pwr",
-     "label": "Switch power",
-     "glyph": "power"
-    },
-    {
-     "id": "usbc",
-     "label": "USB-C cable",
-     "glyph": "usb-c"
     }
    ],
    "answer": {
-    "zsfp": "fiber",
-    "zcopper": "cat6",
-    "zcoax": "coax",
-    "zpdu": "pwr"
+    "zb2": "os2",
+    "zstack": "dac",
+    "zriser": "om4",
+    "zdrop": "cat6"
    }
   }
  ]

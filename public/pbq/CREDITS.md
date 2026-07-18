@@ -19,5 +19,21 @@ licenses, cropped/scaled for display. Thank you to the photographers.
 - **scene-patch-panel**: [Flanschplatte.jpg](https://commons.wikimedia.org/wiki/File:Flanschplatte.jpg) — Agent Gii · CC BY-SA 4.0
 - **scene-rack**: [Computer rack with switches and cables.jpg](https://commons.wikimedia.org/wiki/File:Computer_rack_with_switches_and_cables.jpg) — Yann · CC BY-SA 3.0
 - **scene-desk**: [My view 090909,09 09 (3902571235).jpg](https://commons.wikimedia.org/wiki/File:My_view_090909,09_09_(3902571235).jpg) — Håkan Dahlström from Malmö, Sweden · CC BY 2.0
+- **vga**: [Vga-cable.jpg](https://commons.wikimedia.org/wiki/File:Vga-cable.jpg) — Evan-Amos · Public domain
+- **keypad**: [Key code lock.jpg](https://commons.wikimedia.org/wiki/File:Key_code_lock.jpg) — Khrystinasnell · CC0
+- **sata**: [Serial ATA hard disk connected.jpg](https://commons.wikimedia.org/wiki/File:Serial_ATA_hard_disk_connected.jpg) — Thomas Rosenau, User:Pumbaa80 · CC BY-SA 2.5
+- **sata-pwr**: [SATA Power Plug.jpg](https://commons.wikimedia.org/wiki/File:SATA_Power_Plug.jpg) — Afrank99 · CC BY-SA 3.0
+- **fan**: [2006 0703molex0002.JPG](https://commons.wikimedia.org/wiki/File:2006_0703molex0002.JPG) — Pidol at it.wikipedia · Public domain
+- **molex**: [Molex female connector.jpg](https://commons.wikimedia.org/wiki/File:Molex_female_connector.jpg) — w:es:Usuario:Barcex · CC BY-SA 2.5
+- **dac**: [SFP 1.JPG](https://commons.wikimedia.org/wiki/File:SFP_1.JPG) — Christophe.Finot · CC BY-SA 3.0
+- **strap**: [Antistatic wrist strap.jpg](https://commons.wikimedia.org/wiki/File:Antistatic_wrist_strap.jpg) — Kms · CC BY 3.0
+- **bag**: [WDC WD1500HLFS-01G6U1 in original pack.jpg](https://commons.wikimedia.org/wiki/File:WDC_WD1500HLFS-01G6U1_in_original_pack.jpg) — George Shuklin · CC BY-SA 1.0
+- **air**: [Canned-air.jpg](https://commons.wikimedia.org/wiki/File:Canned-air.jpg) — Although · Public domain
+- **vacuum**: [Kruimeldief.JPG](https://commons.wikimedia.org/wiki/File:Kruimeldief.JPG) — Maniago · Public domain
+- **bubble**: [Bubble Wrap.jpg](https://commons.wikimedia.org/wiki/File:Bubble_Wrap.jpg) — Consequencefree on en.wikipedia · CC BY-SA 3.0
+- **fp-leads**: [JPANEL MB IMG 1121.JPG](https://commons.wikimedia.org/wiki/File:JPANEL_MB_IMG_1121.JPG) — Hans Haase · CC BY-SA 4.0
+- **scene-mobo**: [Asus M5-A99 FX PRO 2,0 motherboard.jpg](https://commons.wikimedia.org/wiki/File:Asus_M5-A99_FX_PRO_2,0_motherboard.jpg) — Elijah K Jewell · CC BY-SA 4.0 (cropped)
+- **scene-bench**: [Reparieren und Basteln (29983460260).jpg](https://commons.wikimedia.org/wiki/File:Reparieren_und_Basteln_(29983460260).jpg) — Wolfgang Stief · CC0 (cropped)
 
-The privacy-filter (shield) item uses original illustrated art, not a photograph.
+The privacy-filter (shield), USB 3.0 internal-header, and antistatic-mat items
+use original illustrated art, not photographs.

@@ -34,7 +34,7 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
       ],
       [
         "Is this actually free?",
-        "Yes. All 621 A+ questions, all 40 PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional Google sign-in syncs it across devices.",
+        "Yes. All 621 A+ questions, all 42 PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional Google sign-in syncs it across devices.",
       ],
     ],
   },
@@ -42,7 +42,7 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
     path: "/network-plus-practice-test",
     title: "Free CompTIA Network+ Practice Test (N10-009) | Cert900",
     description:
-      "Free CompTIA Network+ N10-009 practice: 315 original questions, 19 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.",
+      "Free CompTIA Network+ N10-009 practice: 315 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.",
     h1: "Free CompTIA Network+ (N10-009) practice test",
     faq: [
       [
@@ -63,7 +63,7 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq", GuideMeta> = {
     path: "/comptia-pbq-practice",
     title: "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900",
     description:
-      "Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. 59 PBQs, no signup.",
+      "Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. 62 PBQs, no signup.",
     h1: "CompTIA PBQ practice: real simulations, free",
     faq: [
       [
