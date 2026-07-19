@@ -7,7 +7,7 @@ export const exam: ExamDef = {
  "vendor": "comptia",
  "scale": {
   "max": 900,
-  "pass": 700
+  "pass": 720
  },
  "cert": "CompTIA",
  "name": "Network+",

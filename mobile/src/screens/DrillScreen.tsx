@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { EXAMS } from "@/data/index"
-import { pickMC } from "@/lib/engine"
+import { pickMC, shuffle } from "@/lib/engine"
 import type { Question } from "@/data/types"
 import { useProgress } from "../progress-store"
 import { colors, radius, space } from "../theme"
@@ -13,7 +13,13 @@ export function DrillScreen({ examId, onExit }: { examId: string; onExit: () => 
   const store = useProgress()
   const exam = EXAMS[examId]
   // Build the set once, weighted by the user's current progress (shared engine).
-  const [questions] = useState<Question[]>(() => pickMC(exam, store.get(examId), COUNT))
+  // Multiple-response ("Choose TWO") questions are excluded until the mobile UI
+  // can grade them; this screen is strictly single-answer.
+  const [questions] = useState<Question[]>(() =>
+    pickMC({ ...exam, questions: exam.questions.filter((qq) => !qq.as) }, store.get(examId), COUNT),
+  )
+  // Per-session option order so the correct answer moves around (mirrors web optOrder).
+  const [orders] = useState<number[][]>(() => questions.map((qq) => shuffle(qq.o.map((_, i) => i))))
 
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
@@ -61,15 +67,16 @@ export function DrillScreen({ examId, onExit }: { examId: string; onExit: () => 
       <Text style={styles.stem}>{q.x}</Text>
 
       <View style={{ gap: space.sm, marginTop: space.md }}>
-        {q.o.map((opt, i) => {
+        {orders[index].map((oi) => {
+          const opt = q.o[oi]
           const graded = selected !== null
-          const isAnswer = i === q.a
-          const isChosen = i === selected
+          const isAnswer = oi === q.a
+          const isChosen = oi === selected
           const state = !graded ? "idle" : isAnswer ? "correct" : isChosen ? "wrong" : "idle"
           return (
             <Pressable
-              key={i}
-              onPress={() => choose(i)}
+              key={oi}
+              onPress={() => choose(oi)}
               disabled={graded}
               testID="option"
               accessibilityRole="button"
@@ -140,7 +147,11 @@ function Summary({
                 onPress={() => video && Linking.openURL(video.u)}
               >
                 <Text style={styles.reviewTopic}>{t}</Text>
-                {video ? <Text style={styles.reviewLink}>Watch the Professor Messer video →</Text> : null}
+                {video ? (
+                  <Text style={styles.reviewLink}>
+                    {exam.vendor === "comptia" ? "Watch the Professor Messer video →" : "Watch the free video →"}
+                  </Text>
+                ) : null}
               </Pressable>
             )
           })}

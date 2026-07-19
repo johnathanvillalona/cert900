@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, shuffledIndices, type PBQAnswer } from "@/lib/engine"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import type { ExamProgress } from "@/lib/progress"
 
@@ -8,7 +8,7 @@ export type QuizMode = "practice" | "exam" | "pbq"
 
 export type QuizItem =
   | { kind: "mc"; q: Question; optOrder: number[] }
-  | { kind: "pbq"; p: PBQ }
+  | { kind: "pbq"; p: PBQ; choiceOrder?: number[] }
 
 /** MC answer: option index (single) or indices (multiple-response). PBQ answers: see PBQAnswer in lib/engine. */
 export type Answer = number | number[] | PBQAnswer
@@ -75,9 +75,13 @@ export interface PracticeOutcome {
 }
 export type QuizOutcome = ExamOutcome | PracticeOutcome
 
+function toPBQItem(p: PBQ): QuizItem {
+  return p.kind === "match" ? { kind: "pbq", p, choiceOrder: shuffledIndices(p.choices.length) } : { kind: "pbq", p }
+}
+
 function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): QuizItem[] {
   if (cfg.mode === "exam") {
-    const pbqs = pickExamPBQs(exam).map((p): QuizItem => ({ kind: "pbq", p }))
+    const pbqs = pickExamPBQs(exam).map(toPBQItem)
     const mcs = pickExamMC(exam, progress).map(
       (q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }),
     )
@@ -85,7 +89,7 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
     return VENDOR_FORMATS[exam.vendor].interleave ? shuffle([...pbqs, ...mcs]) : [...pbqs, ...mcs]
   }
   if (cfg.mode === "pbq") {
-    return shuffle(exam.pbqs).map((p): QuizItem => ({ kind: "pbq", p }))
+    return shuffle(exam.pbqs).map(toPBQItem)
   }
   return pickMC(exam, progress, cfg.n ?? 10, { focusWeak: cfg.focusWeak, domain: cfg.domain }).map(
     (q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }),
@@ -101,7 +105,7 @@ function initialAnswerFor(item: QuizItem): Answer | undefined {
     case "match":
       return p.items.map(() => -1)
     case "order":
-      return shuffle(p.steps.map((_, i) => i))
+      return shuffledIndices(p.steps.length)
     case "terminal":
       return p.tasks.map(() => "")
     case "config":
