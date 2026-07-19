@@ -9,6 +9,8 @@ const EXPECTED = {
   "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
   "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
   "aif-c01": { questions: 155, pbqs: 8, videos: 33, domains: 5 },
+  "clf-c02": { questions: 155, pbqs: 0, videos: 27, domains: 4 },
+  "az-900": { questions: 155, pbqs: 6, videos: 41, domains: 3 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;

@@ -16,7 +16,49 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif" | "clf" | "az900", GuideMeta> = {
+  clf: {
+    path: "/aws-cloud-practitioner-practice-test",
+    title: "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900",
+    description:
+      "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+    h1: "Free AWS Cloud Practitioner (CLF-C02) practice test",
+    faq: [
+      [
+        "How many questions are on the CLF-C02 exam?",
+        "65 questions in 90 minutes: 50 scored plus 15 unscored. The exam uses multiple-choice and multiple-response questions, and passing requires a scaled score of 700 on a 100 to 1,000 range.",
+      ],
+      [
+        "Is Cloud Practitioner worth it before an associate cert?",
+        "It's the standard on-ramp: it proves cloud literacy for less technical roles and builds the vocabulary the associate exams assume. If you already administer AWS daily, some people skip straight to Solutions Architect Associate.",
+      ],
+      [
+        "What are the CLF-C02 domains?",
+        "Cloud Concepts (24%), Security and Compliance (30%), Cloud Technology and Services (34%), and Billing, Pricing, and Support (12%). Our drills track your accuracy in each domain separately.",
+      ],
+    ],
+  },
+  az900: {
+    path: "/azure-fundamentals-practice-test",
+    title: "Free Azure Fundamentals Practice Test (AZ-900) | Cert900",
+    description:
+      "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+    h1: "Free Microsoft Azure Fundamentals (AZ-900) practice test",
+    faq: [
+      [
+        "How many questions are on the AZ-900 exam?",
+        "Typically 40 to 60 questions with about 85 minutes of exam time. Most are multiple choice and multiple select, with occasional drag-and-drop and build-list items. Passing requires 700 on a scale up to 1,000.",
+      ],
+      [
+        "Does AZ-900 expire?",
+        "No. Fundamentals certifications like AZ-900 don't expire, so it's a one-time investment that stays on your transcript.",
+      ],
+      [
+        "What does AZ-900 cover?",
+        "Three skill areas: cloud concepts (25-30%), Azure architecture and services (35-40%), and Azure management and governance (30-35%). Every topic here links to the matching video in John Savill's free AZ-900 course.",
+      ],
+    ],
+  },
   aif: {
     path: "/aws-ai-practitioner-practice-test",
     title: "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900",
@@ -296,6 +338,84 @@ export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
           items just like the real exam.
         </p>
         <Cta label="Practice all of them free" onGo={() => onStart("aif-c01")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.clf
+  const ex = EXAMS["clf-c02"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          The AWS Certified Cloud Practitioner (CLF-C02) validates cloud literacy: what the cloud is good for, how AWS
+          secures and prices it, and which core services solve which problems. This site gives you{" "}
+          {ex.questions.length} original practice questions in the exam's real formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          The real exam is multiple choice and multiple response only, and so is our simulator: {ex.examMC} questions in{" "}
+          {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 700 pass line. Every topic
+          links into the free 13-hour freeCodeCamp course at the matching chapter.
+        </p>
+        <Cta label="Start the free CLF-C02 practice test" onGo={() => onStart("clf-c02")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What CLF-C02 covers</h2>
+        <DomainTable examId="clf-c02" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: 65 questions (50 scored, 15 unscored), 90 minutes, scaled 100 to 1,000, passing score 700.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "CLF-C02 · Security", stem: "A company wants continuous monitoring of its AWS accounts for malicious activity and unauthorized behavior, using a managed threat-detection service. Which service fits?", options: ["Amazon GuardDuty", "AWS WAF", "Amazon Inspector", "AWS Shield"], answer: 0, why: "GuardDuty analyzes CloudTrail, VPC Flow Logs, and DNS logs for threats. WAF filters web requests, Inspector scans workloads for vulnerabilities, and Shield mitigates DDoS." }} />
+        <Sample n={2} q={{ code: "CLF-C02 · Billing", stem: "A workload runs steadily around the clock for the next three years. Which purchasing option offers the largest discount over on-demand?", options: ["A three-year Savings Plan or Reserved Instances", "Spot Instances", "A second on-demand instance", "The AWS Free Tier"], answer: 0, why: "Long-term commitments trade flexibility for the deepest discounts on steady workloads. Spot is cheap but interruptible, which doesn't suit an always-on system." }} />
+        <Sample n={3} q={{ code: "CLF-C02 · Cloud Concepts", stem: "Which advantage of cloud computing lets a startup provision resources in minutes and stop paying the moment it deletes them?", options: ["Agility with pay-as-you-go pricing", "Data sovereignty", "Vendor lock-in", "Colocation"], answer: 0, why: "On-demand self-service plus consumption-based billing means capacity appears in minutes and costs stop when usage stops - a core cloud value proposition." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("clf-c02")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.az900
+  const ex = EXAMS["az-900"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          Microsoft Azure Fundamentals (AZ-900) proves you can describe cloud concepts, core Azure architecture and
+          services, and the tools Azure gives you for management and governance. This site gives you{" "}
+          {ex.questions.length} original questions plus {ex.pbqs.length} drag-and-drop and build-list items in
+          Microsoft's own interactive formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
+          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching video in John
+          Savill's free per-topic AZ-900 course.
+        </p>
+        <Cta label="Start the free AZ-900 practice test" onGo={() => onStart("az-900")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What AZ-900 covers</h2>
+        <DomainTable examId="az-900" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: typically 40-60 questions, about 85 minutes, scaled to 1,000 with a 700 pass line. The
+          certification never expires.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "AZ-900 · Cloud Concepts", stem: "A retailer wants to keep its steady baseline workloads on-premises but burst into Azure during holiday traffic spikes. Which cloud model is this?", options: ["Hybrid cloud", "Public cloud", "Private cloud", "Community cloud"], answer: 0, why: "Combining on-premises infrastructure with public cloud capacity, and moving load between them, is the defining hybrid pattern." }} />
+        <Sample n={2} q={{ code: "AZ-900 · Architecture & Services", stem: "An auditor asks which construct guarantees that resources in one Azure datacenter failing won't take down the copies running in another datacenter in the same region. What provides this?", options: ["Availability zones", "Resource groups", "Region pairs", "Management groups"], answer: 0, why: "Availability zones are physically separate datacenters within a region; spreading instances across them protects against a single-datacenter failure. Region pairs protect against whole-region loss." }} />
+        <Sample n={3} q={{ code: "AZ-900 · Management & Governance", stem: "A governance lead must prevent any team from creating virtual machines in unapproved regions, across every current and future subscription. Which tool enforces this?", options: ["Azure Policy assigned at a management group", "Role-based access control", "Resource locks", "Azure Advisor"], answer: 0, why: "Policy evaluates and blocks non-compliant deployments, and assigning it at a management group cascades the rule to every subscription beneath it. RBAC controls who can act, not what configurations are allowed." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("az-900")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
