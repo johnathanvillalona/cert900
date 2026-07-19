@@ -1,11 +1,17 @@
 # CompTIA Practice Trainer v2 — Project Context
 
 ## What this is
-A free practice-exam platform for **four certifications** — CompTIA A+ Core 1
-(220-1201, 291 Q / 21 PBQs), A+ Core 2 (220-1202, 330 Q / 21 PBQs), Network+
-(N10-009, 315 Q / 20 PBQs), and AWS AI Practitioner (AIF-C01, 161 Q incl. 21%
-multiple-response / 8 sim items, scale 1000/700, topics -> freeCodeCamp
-course timestamps). CLF-C02, AZ-900, AI-900 are planned next (same recipe). PBQs span six interaction kinds: match, order, and
+A free practice-exam platform for **six certifications** - CompTIA A+ Core 1
+(220-1201), A+ Core 2 (220-1202), Network+ (N10-009) with Messer videos and
+PBQs; AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02) with
+freeCodeCamp chapter-timestamp videos; Azure Fundamentals (AZ-900) with John
+Savill per-topic videos. Vendor-native formats per vendors.ts VENDOR_FORMATS
+(AWS: ordering/matching all-or-nothing weight-1 interleaved; Azure: drag-and-
+drop/build-list, 85-min fundamentals sims; CompTIA: PBQs, partial credit,
+2x, fronted). AI-900 NOT built: Microsoft retired it Apr 2026 (AI-901).
+Content pipeline: author agents (anti-test-wiseness rules) -> exam-assemble
+-> add-content -> adversarial verify workflow -> fixes. All banks fully
+refuter-verified. PBQs span six interaction kinds: match, order, and
 CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
 **config** (device settings panels), **hotspot** (network-diagram selection),
 **dragconnect** (photoreal "bench": Wikimedia-Commons photo scenes + connector
