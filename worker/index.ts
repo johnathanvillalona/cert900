@@ -114,48 +114,92 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
 
 const CANONICAL_HOST = "cert900.com"
 
+// CSP allows exactly what index.html ships: self-hosted assets, the two inline
+// scripts (theme boot + beacon loader), and Cloudflare Web Analytics.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self' https://cloudflareinsights.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://accounts.google.com",
+  "object-src 'none'",
+].join("; ")
+
+/** Security headers on every response; CSP only on HTML documents. */
+function withSecurityHeaders(res: Response): Response {
+  const out = new Response(res.body, res)
+  out.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+  out.headers.set("X-Content-Type-Options", "nosniff")
+  out.headers.set("X-Frame-Options", "DENY")
+  out.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
+  out.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+  if ((out.headers.get("content-type") ?? "").includes("text/html")) {
+    out.headers.set("Content-Security-Policy", CSP)
+  }
+  return out
+}
+
+async function route(req: Request, env: Env): Promise<Response> {
+  const url = new URL(req.url)
+
+  // Canonical-host + TLS redirect: http, old workers.dev links, and www all
+  // land on https://cert900.com. The http check reads CF-Visitor (set only by
+  // the Cloudflare edge) because wrangler dev simulates the route host in
+  // request.url, which would loop local dev if we trusted url.protocol.
+  const wrongHost = url.hostname === `www.${CANONICAL_HOST}` || url.hostname.endsWith(".workers.dev")
+  let visitorScheme: string | undefined
+  try {
+    visitorScheme = JSON.parse(req.headers.get("cf-visitor") ?? "{}").scheme
+  } catch {
+    /* malformed header: treat as unknown */
+  }
+  const wrongProto = visitorScheme === "http" && url.hostname === CANONICAL_HOST
+  if (wrongHost || wrongProto) {
+    url.hostname = CANONICAL_HOST
+    url.protocol = "https:"
+    const status = req.method === "GET" || req.method === "HEAD" ? 301 : 308
+    return Response.redirect(url.toString(), status)
+  }
+
+  if (url.pathname.startsWith("/api/auth/")) {
+    return createAuth(env).handler(req)
+  }
+  if (url.pathname === "/api/progress") {
+    return handleProgress(req, env)
+  }
+  if (url.pathname === "/api/report") {
+    return handleReport(req, env)
+  }
+  if (url.pathname.startsWith("/api/")) {
+    return json({ error: "not found" }, 404)
+  }
+  // Vite content-hashes everything under /assets/ (js, css, fonts), so those
+  // files never change in place: let browsers keep them for a year instead of
+  // revalidating on every visit. HTML keeps the platform default
+  // (max-age=0, must-revalidate) so deploys land on the next navigation.
+  // The text/html guard matters: missing asset paths fall through to the SPA
+  // index.html with a 200, which must never be cached as immutable.
+  const res = await env.ASSETS.fetch(req)
+  const type = res.headers.get("content-type") ?? ""
+  if (
+    url.pathname.startsWith("/assets/") &&
+    (res.ok || res.status === 304) &&
+    !type.includes("text/html")
+  ) {
+    const out = new Response(res.body, res)
+    out.headers.set("cache-control", "public, max-age=31536000, immutable")
+    return out
+  }
+  return res
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    const url = new URL(req.url)
-
-    // Canonical-host redirect: old workers.dev links and www land on the apex.
-    // (Allowlist keeps local dev hosts untouched.)
-    if (url.hostname === `www.${CANONICAL_HOST}` || url.hostname.endsWith(".workers.dev")) {
-      url.hostname = CANONICAL_HOST
-      const status = req.method === "GET" || req.method === "HEAD" ? 301 : 308
-      return Response.redirect(url.toString(), status)
-    }
-
-    if (url.pathname.startsWith("/api/auth/")) {
-      return createAuth(env).handler(req)
-    }
-    if (url.pathname === "/api/progress") {
-      return handleProgress(req, env)
-    }
-    if (url.pathname === "/api/report") {
-      return handleReport(req, env)
-    }
-    if (url.pathname.startsWith("/api/")) {
-      return json({ error: "not found" }, 404)
-    }
-    // Vite content-hashes everything under /assets/ (js, css, fonts), so those
-    // files never change in place: let browsers keep them for a year instead of
-    // revalidating on every visit. HTML keeps the platform default
-    // (max-age=0, must-revalidate) so deploys land on the next navigation.
-    // The text/html guard matters: missing asset paths fall through to the SPA
-    // index.html with a 200, which must never be cached as immutable.
-    const res = await env.ASSETS.fetch(req)
-    const type = res.headers.get("content-type") ?? ""
-    if (
-      url.pathname.startsWith("/assets/") &&
-      (res.ok || res.status === 304) &&
-      !type.includes("text/html")
-    ) {
-      const out = new Response(res.body, res)
-      out.headers.set("cache-control", "public, max-age=31536000, immutable")
-      return out
-    }
-    return res
+    return withSecurityHeaders(await route(req, env))
   },
 
   // Marketing automation. "30 14 * * *" = daily question-of-the-day post;
