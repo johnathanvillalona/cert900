@@ -68,7 +68,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-clf": GUIDE_META.clf.title,
   "guide-az900": GUIDE_META.az900.title,
 }
-const DEFAULT_TITLE = "Cert900 — Free CompTIA A+ & Network+ Practice Exams"
+const DEFAULT_TITLE = "Cert900 — Free CompTIA, AWS & Azure Practice Exams"
 
 function screenForPath(path: string): Screen {
   const kind = PATH_SCREENS[path]

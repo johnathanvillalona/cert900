@@ -1,7 +1,7 @@
 {
-  "name": "Cert900 — CompTIA Practice Trainer",
+  "name": "Cert900 — CompTIA, AWS & Azure Practice Exams",
   "short_name": "Cert900",
-  "description": "Free practice exams for CompTIA A+ Core 1, A+ Core 2, and Network+ with adaptive drills, PBQs, and full exam simulation.",
+  "description": "Free practice exams for CompTIA A+, Network+, AWS AI Practitioner, AWS Cloud Practitioner, and Azure Fundamentals with adaptive drills, labs, and full exam simulation.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",

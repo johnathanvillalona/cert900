@@ -103,6 +103,13 @@ describe("exam data integrity", () => {
               for (const pat of task.accept) expect(() => new RegExp(pat, "i"), `pbq "${p.title}" pattern ${pat}`).not.toThrow()
             }
           } else if (p.kind === "config") {
+            // The panel must require real work: at least 2 fields whose start
+            // state differs from the answer. (Fields that start correct are
+            // allowed as keep-as-is decoys, but the item must never open solved.)
+            const needWork = p.fields.filter((f) =>
+              f.type === "toggle" ? (f.initial ?? false) !== f.answer : true,
+            ).length
+            expect(needWork, `pbq "${p.title}" opens nearly solved`).toBeGreaterThanOrEqual(2)
             for (const f of p.fields) {
               if (f.type === "select") {
                 expect(f.options?.length, `pbq "${p.title}" field ${f.id}`).toBeGreaterThan(1)

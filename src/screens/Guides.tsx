@@ -47,7 +47,7 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif" | "clf" | "az9
     faq: [
       [
         "How many questions are on the AZ-900 exam?",
-        "Typically 40 to 60 questions with about 85 minutes of exam time. Most are multiple choice and multiple select, with occasional drag-and-drop and build-list items. Passing requires 700 on a scale up to 1,000.",
+        "Typically 40 to 60 questions with about 45 minutes of exam time. Most are multiple choice and multiple select, with occasional drag-and-drop and build-list items. Passing requires 700 on a scale up to 1,000.",
       ],
       [
         "Does AZ-900 expire?",
@@ -88,7 +88,7 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif" | "clf" | "az9
     path: "/comptia-a-plus-practice-test",
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
     description:
-      "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 621 original questions, 40 performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+      "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 621 original questions, 42 performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
     faq: [
       [
@@ -286,9 +286,9 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
-        <Sample n={1} q={{ code: "220-1201 · Hardware", stem: "A technician is upgrading a laptop's mechanical hard drive to a faster component that has no moving parts. Which drive is being installed?", options: ["An SSD", "A second HDD", "An optical drive", "A power supply"], answer: 0, why: "A solid-state drive (SSD) has no moving parts, is faster and more shock-resistant than an HDD, and is a common laptop upgrade." }} />
-        <Sample n={2} q={{ code: "220-1201 · Mobile Devices", stem: "An organization needs to enforce passcodes and remotely wipe company smartphones if they are lost. Which solution provides this?", options: ["MDM", "DHCP", "NAT", "RAID"], answer: 0, why: "Mobile device management (MDM) centrally enforces policy, deploys apps, and can remotely lock or wipe enrolled devices." }} />
-        <Sample n={3} q={{ code: "220-1202 · Operating Systems", stem: "Which partition style must be used on a boot drive larger than 2 TB with a UEFI system?", options: ["MBR", "GPT", "Dynamic", "Extended"], answer: 1, why: "GPT (GUID Partition Table) supports drives over 2 TB and is required for UEFI booting; MBR is limited to 2 TB and 4 primary partitions." }} />
+        <Sample n={1} q={{ code: "220-1201 · Hardware", stem: "A technician is upgrading a laptop's mechanical hard drive to a faster component that has no moving parts. Which drive is being installed?", options: ["A second HDD", "An optical drive", "An SSD", "A power supply"], answer: 2, why: "A solid-state drive (SSD) has no moving parts, is faster and more shock-resistant than an HDD, and is a common laptop upgrade." }} />
+        <Sample n={2} q={{ code: "220-1201 · Mobile Devices", stem: "An organization needs to enforce passcodes and remotely wipe company smartphones if they are lost. Which solution provides this?", options: ["DHCP", "MDM", "NAT", "RAID"], answer: 1, why: "Mobile device management (MDM) centrally enforces policy, deploys apps, and can remotely lock or wipe enrolled devices." }} />
+        <Sample n={3} q={{ code: "220-1202 · Operating Systems", stem: "Which partition style must be used on a boot drive larger than 2 TB with a UEFI system?", options: ["MBR", "Dynamic", "Extended", "GPT"], answer: 3, why: "GPT (GUID Partition Table) supports drives over 2 TB and is required for UEFI booting; MBR is limited to 2 TB and 4 primary partitions." }} />
         <p className="text-muted-foreground text-sm">
           The full bank has {c1.questions.length} Core 1 and {c2.questions.length} Core 2 questions, weighted to the
           official domain split, plus simulated PBQs: terminals, configuration panels, and drag-to-connect cabling.
@@ -330,9 +330,9 @@ export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
-        <Sample n={1} q={{ code: "AIF-C01 · Generative AI", stem: "A chatbot confidently describes a product feature that has never existed. What is this failure mode called?", options: ["Hallucination", "Overfitting", "Data drift", "Underfitting"], answer: 0, why: "Hallucination is a generative model producing fluent, confident output that is factually wrong; it is a core limitation the exam expects you to recognize." }} />
-        <Sample n={2} q={{ code: "AIF-C01 · Foundation Models", stem: "A support assistant must answer from internal policy documents that change weekly, without retraining the model. Which approach fits best?", options: ["Retrieval-Augmented Generation", "Fine-tuning", "Continued pre-training", "Raising the temperature"], answer: 0, why: "RAG retrieves current documents at query time and grounds the response in them; fine-tuning and pre-training bake knowledge into weights and would need constant retraining." }} />
-        <Sample n={3} q={{ code: "AIF-C01 · Security & Governance", stem: "A compliance officer needs AWS's SOC and ISO audit reports for a vendor review. Which service provides them on demand?", options: ["AWS Artifact", "AWS Config", "Amazon Inspector", "AWS CloudTrail"], answer: 0, why: "AWS Artifact is the self-service portal for AWS compliance reports and agreements; Config tracks resource configuration and CloudTrail records API activity." }} />
+        <Sample n={1} q={{ code: "AIF-C01 · Generative AI", stem: "A chatbot confidently describes a product feature that has never existed. What is this failure mode called?", options: ["Overfitting", "Hallucination", "Data drift", "Underfitting"], answer: 1, why: "Hallucination is a generative model producing fluent, confident output that is factually wrong; it is a core limitation the exam expects you to recognize." }} />
+        <Sample n={2} q={{ code: "AIF-C01 · Foundation Models", stem: "A support assistant must answer from internal policy documents that change weekly, without retraining the model. Which approach fits best?", options: ["Fine-tuning", "Continued pre-training", "Retrieval-Augmented Generation", "Raising the temperature"], answer: 2, why: "RAG retrieves current documents at query time and grounds the response in them; fine-tuning and pre-training bake knowledge into weights and would need constant retraining." }} />
+        <Sample n={3} q={{ code: "AIF-C01 · Security & Governance", stem: "A compliance officer needs AWS's SOC and ISO audit reports for a vendor review. Which service provides them on demand?", options: ["AWS Config", "Amazon Inspector", "AWS CloudTrail", "AWS Artifact"], answer: 3, why: "AWS Artifact is the self-service portal for AWS compliance reports and agreements; Config tracks resource configuration and CloudTrail records API activity." }} />
         <p className="text-muted-foreground text-sm">
           The full bank is weighted to the official domain split and includes multiple-response, ordering, and matching
           items just like the real exam.
@@ -372,9 +372,9 @@ export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
-        <Sample n={1} q={{ code: "CLF-C02 · Security", stem: "A company wants continuous monitoring of its AWS accounts for malicious activity and unauthorized behavior, using a managed threat-detection service. Which service fits?", options: ["Amazon GuardDuty", "AWS WAF", "Amazon Inspector", "AWS Shield"], answer: 0, why: "GuardDuty analyzes CloudTrail, VPC Flow Logs, and DNS logs for threats. WAF filters web requests, Inspector scans workloads for vulnerabilities, and Shield mitigates DDoS." }} />
-        <Sample n={2} q={{ code: "CLF-C02 · Billing", stem: "A workload runs steadily around the clock for the next three years. Which purchasing option offers the largest discount over on-demand?", options: ["A three-year Savings Plan or Reserved Instances", "Spot Instances", "A second on-demand instance", "The AWS Free Tier"], answer: 0, why: "Long-term commitments trade flexibility for the deepest discounts on steady workloads. Spot is cheap but interruptible, which doesn't suit an always-on system." }} />
-        <Sample n={3} q={{ code: "CLF-C02 · Cloud Concepts", stem: "Which advantage of cloud computing lets a startup provision resources in minutes and stop paying the moment it deletes them?", options: ["Agility with pay-as-you-go pricing", "Data sovereignty", "Vendor lock-in", "Colocation"], answer: 0, why: "On-demand self-service plus consumption-based billing means capacity appears in minutes and costs stop when usage stops - a core cloud value proposition." }} />
+        <Sample n={1} q={{ code: "CLF-C02 · Security", stem: "A company wants continuous monitoring of its AWS accounts for malicious activity and unauthorized behavior, using a managed threat-detection service. Which service fits?", options: ["AWS WAF", "Amazon Inspector", "AWS Shield", "Amazon GuardDuty"], answer: 3, why: "GuardDuty analyzes CloudTrail, VPC Flow Logs, and DNS logs for threats. WAF filters web requests, Inspector scans workloads for vulnerabilities, and Shield mitigates DDoS." }} />
+        <Sample n={2} q={{ code: "CLF-C02 · Billing", stem: "A workload runs steadily around the clock for the next three years. Which purchasing option offers the largest discount over on-demand?", options: ["Spot Instances", "A three-year Savings Plan", "A second on-demand instance", "The AWS Free Tier"], answer: 1, why: "Long-term commitments trade flexibility for the deepest discounts on steady workloads. Spot is cheap but interruptible, which doesn't suit an always-on system." }} />
+        <Sample n={3} q={{ code: "CLF-C02 · Cloud Concepts", stem: "Which advantage of cloud computing lets a startup provision resources in minutes and stop paying the moment it deletes them?", options: ["Data sovereignty", "Vendor lock-in", "Pay-as-you-go agility", "Colocation"], answer: 2, why: "On-demand self-service plus consumption-based billing means capacity appears in minutes and costs stop when usage stops - a core cloud value proposition." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("clf-c02")} testid="guide-cta-2" />
       </section>
     </GuideShell>
@@ -405,16 +405,16 @@ export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What AZ-900 covers</h2>
         <DomainTable examId="az-900" />
         <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: typically 40-60 questions, about 85 minutes, scaled to 1,000 with a 700 pass line. The
+          Real exam facts: typically 40-60 questions, about 45 minutes, scaled to 1,000 with a 700 pass line. The
           certification never expires.
         </p>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
-        <Sample n={1} q={{ code: "AZ-900 · Cloud Concepts", stem: "A retailer wants to keep its steady baseline workloads on-premises but burst into Azure during holiday traffic spikes. Which cloud model is this?", options: ["Hybrid cloud", "Public cloud", "Private cloud", "Community cloud"], answer: 0, why: "Combining on-premises infrastructure with public cloud capacity, and moving load between them, is the defining hybrid pattern." }} />
-        <Sample n={2} q={{ code: "AZ-900 · Architecture & Services", stem: "An auditor asks which construct guarantees that resources in one Azure datacenter failing won't take down the copies running in another datacenter in the same region. What provides this?", options: ["Availability zones", "Resource groups", "Region pairs", "Management groups"], answer: 0, why: "Availability zones are physically separate datacenters within a region; spreading instances across them protects against a single-datacenter failure. Region pairs protect against whole-region loss." }} />
-        <Sample n={3} q={{ code: "AZ-900 · Management & Governance", stem: "A governance lead must prevent any team from creating virtual machines in unapproved regions, across every current and future subscription. Which tool enforces this?", options: ["Azure Policy assigned at a management group", "Role-based access control", "Resource locks", "Azure Advisor"], answer: 0, why: "Policy evaluates and blocks non-compliant deployments, and assigning it at a management group cascades the rule to every subscription beneath it. RBAC controls who can act, not what configurations are allowed." }} />
+        <Sample n={1} q={{ code: "AZ-900 · Cloud Concepts", stem: "A retailer wants to keep its steady baseline workloads on-premises but burst into Azure during holiday traffic spikes. Which cloud model is this?", options: ["Public cloud", "Private cloud", "Hybrid cloud", "Community cloud"], answer: 2, why: "Combining on-premises infrastructure with public cloud capacity, and moving load between them, is the defining hybrid pattern." }} />
+        <Sample n={2} q={{ code: "AZ-900 · Architecture & Services", stem: "An auditor asks which construct guarantees that resources in one Azure datacenter failing won't take down the copies running in another datacenter in the same region. What provides this?", options: ["Resource groups", "Availability zones", "Region pairs", "Management groups"], answer: 1, why: "Availability zones are physically separate datacenters within a region; spreading instances across them protects against a single-datacenter failure. Region pairs protect against whole-region loss." }} />
+        <Sample n={3} q={{ code: "AZ-900 · Management & Governance", stem: "A governance lead must prevent any team from creating virtual machines in unapproved regions, across every current and future subscription. Which tool enforces this?", options: ["Role-based access control", "Resource locks", "Azure Advisor", "Management-group Azure Policy"], answer: 3, why: "Policy evaluates and blocks non-compliant deployments, and assigning it at a management group cascades the rule to every subscription beneath it. RBAC controls who can act, not what configurations are allowed." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("az-900")} testid="guide-cta-2" />
       </section>
     </GuideShell>
@@ -452,9 +452,9 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
-        <Sample n={1} q={{ code: "N10-009 · Concepts", stem: "Which OSI layer is responsible for logical addressing and routing between different networks?", options: ["Layer 3 (Network)", "Layer 2 (Data Link)", "Layer 4 (Transport)", "Layer 7 (Application)"], answer: 0, why: "Layer 3, the Network layer, handles logical (IP) addressing and routing between networks." }} />
-        <Sample n={2} q={{ code: "N10-009 · Ports", stem: "Which port does HTTPS use for encrypted web traffic?", options: ["443", "80", "22", "25"], answer: 0, why: "HTTPS uses TCP port 443; HTTP uses port 80." }} />
-        <Sample n={3} q={{ code: "N10-009 · Standards", stem: "Which Ethernet standard provides 1 Gbps over twisted-pair copper?", options: ["1000BASE-T", "10BASE-T", "100BASE-TX", "10GBASE-SR"], answer: 0, why: "1000BASE-T delivers 1 Gbps over Cat 5e or better copper up to 100 meters." }} />
+        <Sample n={1} q={{ code: "N10-009 · Concepts", stem: "Which OSI layer is responsible for logical addressing and routing between different networks?", options: ["Layer 2 (Data Link)", "Layer 3 (Network)", "Layer 4 (Transport)", "Layer 7 (Application)"], answer: 1, why: "Layer 3, the Network layer, handles logical (IP) addressing and routing between networks." }} />
+        <Sample n={2} q={{ code: "N10-009 · Ports", stem: "Which port does HTTPS use for encrypted web traffic?", options: ["80", "22", "443", "25"], answer: 2, why: "HTTPS uses TCP port 443; HTTP uses port 80." }} />
+        <Sample n={3} q={{ code: "N10-009 · Standards", stem: "Which Ethernet standard provides 1 Gbps over twisted-pair copper?", options: ["10BASE-T", "100BASE-TX", "10GBASE-SR", "1000BASE-T"], answer: 3, why: "1000BASE-T delivers 1 Gbps over Cat 5e or better copper up to 100 meters." }} />
         <Cta label="Practice all 315 free" onGo={() => onStart("n10-009")} testid="guide-cta-2" />
       </section>
     </GuideShell>

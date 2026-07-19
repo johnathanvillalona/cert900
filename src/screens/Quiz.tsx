@@ -395,7 +395,7 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       <p className="text-lg font-semibold">{p.title}</p>
       <p className="mt-2 whitespace-pre-line rounded-md border bg-muted/40 p-3 text-sm">{p.scen}</p>
 
-      {p.kind === "match" && <MatchView p={p} session={session} graded={graded} />}
+      {p.kind === "match" && <MatchView p={p} session={session} graded={graded} choiceOrder={item.choiceOrder} />}
       {p.kind === "order" && <OrderView p={p} session={session} graded={graded} />}
       {p.kind === "terminal" && <TerminalView p={p} session={session} graded={graded} />}
       {p.kind === "config" && <ConfigView p={p} session={session} graded={graded} />}
@@ -442,8 +442,10 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
   )
 }
 
-function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; graded: boolean }) {
+function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: QuizSession; graded: boolean; choiceOrder?: number[] }) {
   const ans = session.answers[session.idx] as number[]
+  // Session-shuffled dropdown order; authored order would mirror the answer key.
+  const order = choiceOrder ?? p.choices.map((_, ci) => ci)
   return (
     <div className="mt-3 flex flex-col gap-2">
       {p.items.map((item, i) => (
@@ -464,9 +466,9 @@ function MatchView({ p, session, graded }: { p: PBQMatch; session: QuizSession; 
               <SelectValue placeholder="Choose" />
             </SelectTrigger>
             <SelectContent>
-              {p.choices.map((c, ci) => (
+              {order.map((ci) => (
                 <SelectItem key={ci} value={String(ci)}>
-                  {c}
+                  {p.choices[ci]}
                 </SelectItem>
               ))}
             </SelectContent>

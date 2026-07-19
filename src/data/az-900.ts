@@ -29,7 +29,7 @@ export const exam: ExamDef = {
  },
  "examMC": 40,
  "examPBQ": 5,
- "examMinutes": 85,
+ "examMinutes": 45,
  "videos": {
   "cloud-benefits": {
    "n": "John Savill: High Availability and Scalability",

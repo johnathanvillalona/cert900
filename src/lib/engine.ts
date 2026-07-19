@@ -55,6 +55,19 @@ export function weightedSample(
   return out
 }
 
+/**
+ * Shuffle 0..n-1 but never the identity order. Identity would present an
+ * order PBQ already solved, and would list a match dropdown's choices in the
+ * authored answer order (authors key items sequentially).
+ */
+export function shuffledIndices(n: number, rng: Rng = Math.random): number[] {
+  const ids = Array.from({ length: n }, (_, i) => i)
+  if (n < 2) return ids
+  let out = shuffle(ids, rng)
+  while (out.every((v, i) => v === i)) out = shuffle(ids, rng)
+  return out
+}
+
 export function pickMC(
   exam: ExamDef,
   p: ExamProgress,

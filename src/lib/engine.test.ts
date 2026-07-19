@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest"
 import {
   commandMatches,
   shuffle,
+  shuffledIndices,
   weightFor,
   weightedSample,
   pickMC,
@@ -266,5 +267,22 @@ describe("shuffle", () => {
   it("permutes without loss", () => {
     const out = shuffle([1, 2, 3, 4, 5], seeded(5))
     expect(out.slice().sort()).toEqual([1, 2, 3, 4, 5])
+  })
+})
+
+describe("shuffledIndices", () => {
+  it("is a full permutation and never the identity (no pre-solved order PBQs)", () => {
+    for (let n = 2; n <= 6; n++) {
+      for (let draw = 0; draw < 200; draw++) {
+        const out = shuffledIndices(n)
+        expect([...out].sort((a, b) => a - b)).toEqual(Array.from({ length: n }, (_, k) => k))
+        expect(out.some((v, k) => v !== k)).toBe(true)
+      }
+    }
+  })
+
+  it("passes degenerate sizes through", () => {
+    expect(shuffledIndices(0)).toEqual([])
+    expect(shuffledIndices(1)).toEqual([0])
   })
 })

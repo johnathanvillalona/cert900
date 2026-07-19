@@ -8,7 +8,7 @@ import { shuffle } from "@/lib/engine"
 import { questionOfTheDay } from "@/lib/qotd"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowRight, Check, Plus, X } from "lucide-react"
+import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
@@ -63,7 +63,7 @@ function LiveQuestion() {
             rel="noopener noreferrer"
             className="mt-2 inline-flex items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
           >
-            Watch: Professor Messer, {exam.videos[q.t].n}
+            Watch: {exam.vendor === "comptia" ? `Professor Messer, ${exam.videos[q.t].n}` : exam.videos[q.t].n}
             <ArrowRight className="size-3.5" strokeWidth={2} />
           </a>
           <p className="text-muted-foreground mt-2 font-mono text-xs">
@@ -114,11 +114,15 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
 const FAQ: [string, string][] = [
   [
     "Is this really free?",
-    "Yes. Every question, every simulated exam, every PBQ, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
+    "Yes. Every question, every simulated exam, every PBQ and lab item across the CompTIA, AWS, and Azure tracks, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
+  ],
+  [
+    "Which exams are covered?",
+    "Six so far: CompTIA A+ Core 1 (220-1201), A+ Core 2 (220-1202), and Network+ (N10-009); AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02); and Microsoft Azure Fundamentals (AZ-900). Each one follows its real exam's question formats, length, and scoring.",
   ],
   [
     "How does scaled scoring work?",
-    "Certification exams report scaled scores, not percentages. CompTIA uses 100 to 900 with pass lines from 675 to 720. Simulated exams here score on each exam's real scale and pass line, so a score here reads like the real thing.",
+    "Certification exams report scaled scores, not percentages. CompTIA scores 100 to 900 with pass lines from 675 to 720; AWS and Azure report scores up to 1,000 with 700 to pass. Simulated exams here score on each exam's real scale and pass line, so a score here reads like the real thing.",
   ],
   [
     "Do I need an account?",
@@ -181,16 +185,17 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
             <Wordmark className="text-sm" />
           </button>
           <div className="flex items-center gap-1 sm:gap-2">
-            <button onClick={onOpenDashboard} data-testid="landing-progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-              Progress
+            <button onClick={onOpenDashboard} data-testid="landing-progress" aria-label="Progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
+              <span className="hidden sm:inline">Progress</span>
             </button>
+            <span data-testid="nav-exam-chips">
+              <ExamsMenu currentId={null} onChoose={onChooseExam} />
+            </span>
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               <ThemeIcon />
             </Button>
             <AccountMenu />
-            <span className="ml-1 hidden sm:block" data-testid="nav-exam-chips">
-              <ExamsMenu currentId={null} onChoose={onChooseExam} />
-            </span>
           </div>
         </nav>
       </header>
@@ -294,14 +299,14 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
           <div className="lg:col-span-5">
             <h2 className="font-heading text-3xl font-semibold tracking-tight">Built the way the real exam works.</h2>
             <p className="text-muted-foreground mt-3 max-w-sm leading-relaxed">
-              Not flashcards. Timed simulations on each exam's real scoring scale, performance-based questions, and
-              drills that weight what you keep missing.
+              Not flashcards. Timed simulations in each exam's real format and scoring scale, interactive lab
+              questions, and drills that weight what you keep missing.
             </p>
           </div>
           <div className="flex flex-col gap-8 lg:col-span-7">
             {[
               ["Drill", "Short adaptive rounds with an explanation after every answer. Weak topics come back more often until they stick."],
-              ["Simulate", "Full timed exams with PBQs, flagging, and a question palette. Scored on the real exam's scale with its pass line."],
+              ["Simulate", "Full timed exams in each certification's real format, question mix, and time limit, with flagging and a question palette. Scored on the real exam's scale with its pass line."],
               ["Review", "Every miss links to the exact free training video for that topic. Watch, then drill it again."],
             ].map(([verb, body]) => (
               <div key={verb} className="grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">
