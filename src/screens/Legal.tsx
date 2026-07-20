@@ -1,6 +1,6 @@
-import { CONTACT_EMAIL, SITE_NAME } from "@/lib/site"
+import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site"
 
-const EFFECTIVE = "July 14, 2026"
+const EFFECTIVE = "July 20, 2026"
 
 function LegalShell({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -21,9 +21,10 @@ export function Privacy() {
         <h2>The short version</h2>
         <p className="mt-2">
           You can use everything here without an account, and in that case your practice progress
-          never leaves your browser. If you sign in with Google, we store your basic profile and
-          your progress so it can follow you across devices. We do not sell data, we do not run
-          tracking cookies, and you can delete everything yourself at any time.
+          never leaves your device. If you sign in with Google, or with Apple in our iOS app, we
+          store your basic profile and your progress so it can follow you across devices. We do not
+          sell data, we do not run tracking cookies, and you can delete everything yourself at any
+          time.
         </p>
       </section>
 
@@ -32,14 +33,18 @@ export function Privacy() {
         <ul className="mt-2 list-disc space-y-2 pl-5">
           <li>
             <b className="text-foreground">Without an account:</b> your answers, scores, and
-            settings are saved in your browser's local storage on your device. They are not sent to
-            our servers. Clearing your browser data removes them.
+            settings are saved on your own device, in your browser's local storage on the web and in
+            the app's local storage on your phone. They are not sent to our servers. Clearing your
+            browser's site data removes them on the web; in the app, use Erase progress on this
+            device on the Account screen.
           </li>
           <li>
-            <b className="text-foreground">With a Google account:</b> we store the name, email
-            address, and profile picture Google shares at sign-in, plus your practice progress, in
-            our database (Cloudflare D1, hosted in the United States) so your progress syncs across
-            devices.
+            <b className="text-foreground">With an account:</b> we store the name and email address
+            your sign-in provider shares, a profile picture if it provides one, plus your practice
+            progress, in our database (Cloudflare D1, hosted in the United States) so your progress
+            syncs across devices. Google shares a name, email address, and profile picture. Apple
+            shares an email address and, only on the first sign-in, a name; if you choose Hide My
+            Email, the address we receive is Apple's private relay address, not your real one.
           </li>
           <li>
             <b className="text-foreground">Question reports:</b> if you report a question, we store
@@ -50,10 +55,12 @@ export function Privacy() {
       </section>
 
       <section>
-        <h2>Cookies</h2>
+        <h2>Cookies and the app session</h2>
         <p className="mt-2">
           Signed-in users get one session cookie so you stay signed in. That is the only cookie we
-          set. There are no advertising or cross-site tracking cookies.
+          set. There are no advertising or cross-site tracking cookies. The app has no browser and
+          no cookies: it keeps the same session in your device's secure storage, the keychain on iOS
+          and the keystore on Android, and signing out removes it.
         </p>
       </section>
 
@@ -68,9 +75,10 @@ export function Privacy() {
       <section>
         <h2>Third parties</h2>
         <p className="mt-2">
-          Sign-in is handled by Google (their privacy policy applies to the sign-in step). The site
-          is served by Cloudflare. Video links open Professor Messer's site in a new tab; we learn
-          nothing about what you do there. We never sell or share your data for advertising.
+          Sign-in is handled by Google, or by Apple in our iOS app; the provider's own privacy
+          policy applies to the sign-in step. The site is served by Cloudflare. Video links open
+          Professor Messer's site or YouTube in your browser; we learn nothing about what you do
+          there. We never sell or share your data for advertising.
         </p>
       </section>
 
@@ -78,8 +86,14 @@ export function Privacy() {
         <h2>Deleting your data</h2>
         <p className="mt-2">
           Open the account menu and choose Delete account. That permanently removes your account and
-          all synced progress from our servers, immediately. Progress stored locally in a browser is
-          removed by clearing that browser's site data.
+          all synced progress from our servers, immediately. Progress stored locally is removed by
+          clearing that browser's site data, or, in the app, with Erase progress on this device.
+          Full instructions, including the mobile app and what to do if you cannot sign in, are on
+          the{" "}
+          <a className="text-brand underline underline-offset-2" href="/delete-account">
+            delete your account
+          </a>{" "}
+          page.
         </p>
       </section>
 
@@ -92,6 +106,75 @@ export function Privacy() {
             {CONTACT_EMAIL}
           </a>
           .
+        </p>
+      </section>
+    </LegalShell>
+  )
+}
+
+/**
+ * Standalone deletion instructions. Google Play's Data safety form requires a
+ * public web URL for account deletion that a reviewer can open without
+ * installing the app, so this has to be its own page and not a paragraph inside
+ * the privacy policy.
+ */
+export function DeleteAccount() {
+  return (
+    <LegalShell title="Delete your account">
+      <section>
+        <h2>Delete it yourself, in seconds</h2>
+        <ul className="mt-2 list-disc space-y-2 pl-5">
+          <li>
+            <b className="text-foreground">On the web:</b> sign in at{" "}
+            <a className="text-brand underline underline-offset-2" href={SITE_URL}>
+              {SITE_URL.replace("https://", "")}
+            </a>
+            , open the account menu in the top right, and choose Delete account.
+          </li>
+          <li>
+            <b className="text-foreground">In the mobile app:</b> tap Account in the top right of the
+            exam list, then Delete account.
+          </li>
+        </ul>
+        <p className="mt-2">
+          Both ask you to confirm once, then delete immediately. There is nothing to wait for and no
+          request to file.
+        </p>
+      </section>
+
+      <section>
+        <h2>What deletion removes</h2>
+        <ul className="mt-2 list-disc space-y-2 pl-5">
+          <li>Your account, including the name, email address, and any profile picture your sign-in provider shared.</li>
+          <li>All practice progress synced to our servers: answers, scores, exam history, and review queues.</li>
+          <li>Your sign-in session, including the copy the app keeps in your device's secure storage. You are signed out everywhere.</li>
+        </ul>
+        <p className="mt-2">
+          This is immediate and permanent. We keep no backup copy of a deleted account, so there is
+          no way to restore it afterward.
+        </p>
+      </section>
+
+      <section>
+        <h2>What stays behind</h2>
+        <p className="mt-2">
+          Progress saved locally in a browser or app you used stays on that device, because it never
+          left it. Clear it by clearing that browser's site data, or, in the mobile app, by choosing
+          "Also erase progress on this device" after deleting, or "Erase progress on this device"
+          from the Account screen. Anonymous question reports are not tied to an account and are not
+          affected.
+        </p>
+      </section>
+
+      <section>
+        <h2>If you cannot sign in</h2>
+        <p className="mt-2">
+          Email{" "}
+          <a className="text-brand underline underline-offset-2" href={`mailto:${CONTACT_EMAIL}?subject=Delete%20my%20account`}>
+            {CONTACT_EMAIL}
+          </a>{" "}
+          from the address you signed up with and ask us to delete the account. We will confirm once
+          it is done.
         </p>
       </section>
     </LegalShell>

@@ -48,4 +48,8 @@
     <loc>https://cert900.com/terms</loc>
     <changefreq>yearly</changefreq>
   </url>
+  <url>
+    <loc>https://cert900.com/delete-account</loc>
+    <changefreq>yearly</changefreq>
+  </url>
 </urlset>

@@ -50,6 +50,15 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             >
               Terms
             </button>
+            {/* Public deletion URL; Google Play's Data safety form requires one
+                reachable without installing the app. */}
+            <button
+              onClick={() => onNavigate("/delete-account")}
+              data-testid="footer-delete-account"
+              className="text-muted-foreground cursor-pointer underline-offset-2 transition-colors hover:text-foreground hover:underline"
+            >
+              Delete account
+            </button>
             <a
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
               href={`mailto:${CONTACT_EMAIL}?subject=cert900%20feedback`}
