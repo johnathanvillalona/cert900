@@ -18,14 +18,19 @@ function fmtCorrect(q: Question): string {
   return q.as ? q.as.map((i) => q.o[i]).join(" · ") : q.o[q.a]
 }
 
-export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onHome }: {
+export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onHome, onReview }: {
   exam: ExamDef
   outcome: QuizOutcome
   onRetake: () => void
   onDrillAgain: () => void
   onProgress: () => void
   onHome: () => void
+  onReview: (ids: number[]) => void
 }) {
+  // PBQs are excluded: the review queue serves MC only, since PBQ history has
+  // no per-question id to schedule against.
+  const missedIds = outcome.review.flatMap((r) => (!r.ok && r.kind === "mc" ? [r.q.id] : []))
+
   if (outcome.mode !== "exam") {
     const correct = outcome.review.filter((r) => r.ok).length
     const missedByTopic = new Map<string, number>()
@@ -59,7 +64,14 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           </Card>
         )}
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button onClick={onDrillAgain}>Another drill</Button>
+          {missedIds.length > 0 && (
+            <Button onClick={() => onReview(missedIds)} data-testid="redo-misses">
+              Redo the {missedIds.length} you missed
+            </Button>
+          )}
+          <Button variant={missedIds.length > 0 ? "outline" : "default"} onClick={onDrillAgain}>
+            Another drill
+          </Button>
           <Button variant="outline" onClick={onProgress}>My progress</Button>
           <Button variant="outline" onClick={onHome}>Home</Button>
         </div>
@@ -152,7 +164,14 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
       </Card>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        <Button onClick={onRetake}>Retake with fresh questions</Button>
+        {missedIds.length > 0 && (
+          <Button onClick={() => onReview(missedIds)} data-testid="redo-misses">
+            Redo the {missedIds.length} you missed
+          </Button>
+        )}
+        <Button variant={missedIds.length > 0 ? "outline" : "default"} onClick={onRetake}>
+          Retake with fresh questions
+        </Button>
         <Button variant="outline" onClick={onProgress}>My progress</Button>
         <Button variant="outline" onClick={onHome}>Home</Button>
       </div>

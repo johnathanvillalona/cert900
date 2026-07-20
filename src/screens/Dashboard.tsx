@@ -4,7 +4,7 @@ import type { ExamMeta } from "@/data/types"
 import { VENDORS } from "@/data/vendors"
 import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
-import { domainAccuracy, studyStreak, allSessions } from "@/lib/stats"
+import { domainAccuracy, readiness, studyStreak, allSessions, type Readiness } from "@/lib/stats"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { AdSlot } from "@/components/AdSlot"
@@ -27,7 +27,15 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
     const lastExam = p?.exams.length ? p.exams[p.exams.length - 1] : null
     const domains = p ? domainAccuracy(exam, p).filter((d) => d.attempts >= 3) : []
     const weakest = domains.length ? domains.reduce((a, b) => (b.pct < a.pct ? b : a)) : null
-    return { exam, answered: totals.q, accuracy: totals.q ? Math.round((totals.c / totals.q) * 100) : null, lastExam, weakest }
+    const ready = p ? readiness(exam, p) : null
+    return {
+      exam,
+      answered: totals.q,
+      accuracy: totals.q ? Math.round((totals.c / totals.q) * 100) : null,
+      lastExam,
+      weakest,
+      ready,
+    }
   })
 
   const totalAnswered = perExam.reduce((a, x) => a + x.answered, 0)
@@ -81,7 +89,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       </div>
 
       <div className="mt-3 flex flex-col gap-3">
-        {perExam.map(({ exam, answered, accuracy, lastExam, weakest }, i) => (
+        {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready }, i) => (
           <ExamSummaryCard
             style={{ "--i": i + 3 } as React.CSSProperties}
             key={exam.id}
@@ -89,6 +97,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
             answered={answered}
             accuracy={accuracy}
             lastExam={lastExam}
+            ready={ready}
             weakest={weakest}
             onContinue={() => onContinue(exam.id)}
             onDetails={() => onDetails(exam.id)}
@@ -100,11 +109,12 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   )
 }
 
-function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContinue, onDetails, style }: {
+function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, onContinue, onDetails, style }: {
   exam: ExamMeta
   answered: number
   accuracy: number | null
   lastExam: { scaled: number; date: string } | null
+  ready: Readiness | null
   weakest: { name: string; pct: number } | null
   onContinue: () => void
   onDetails: () => void
@@ -140,6 +150,12 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContin
                   )}
                 >
                   last exam {lastExam.scaled}
+                </span>
+              )}
+              {/* Only once the estimate has cleared its evidence gate. */}
+              {ready?.band && (
+                <span className="text-muted-foreground font-mono text-xs tabular-nums" data-testid="dash-readiness">
+                  tracking {ready.band.low}-{ready.band.high}
                 </span>
               )}
               {weakest && weakest.pct < 70 && (

@@ -22,12 +22,36 @@ export interface SessionRecord {
   correct: number
 }
 
+/**
+ * Per-question history. Additive optional v3 field, absent from every blob
+ * written before it shipped; `sessions?` is the precedent.
+ *
+ * A fixed tuple rather than an object because this syncs: JSON repeats every
+ * key NAME per entry, so positions cost that once instead of per question
+ * (~20 bytes vs ~36). The largest bank is 345 questions, so a fully swept exam
+ * costs ~7KB against the worker's 512KB per-exam cap.
+ *
+ *   [0] right    cumulative correct
+ *   [1] wrong    cumulative incorrect
+ *   [2] lastDay  UTC day index of the last graded answer
+ *   [3] box      Leitner box 1..5 (5 = retired)
+ *
+ * Readers must tolerate short tuples (`s[3] ?? 1`) so a fifth slot can be
+ * appended later without a migration.
+ */
+export type QStat = [right: number, wrong: number, lastDay: number, box: number]
+
 export interface ExamProgress {
   topics: Record<string, TopicStat>
   exams: ExamRecord[]
   seen: Record<string, number>
   sessions?: SessionRecord[]
+  /** key = String(Question["id"]). MC only; PBQs are keyed by title, not id. */
+  q?: Record<string, QStat>
 }
+
+/** UTC day index. Same epoch arithmetic qotd.ts uses for the daily rotation. */
+export const dayNumber = (t = Date.now()): number => Math.floor(t / 86_400_000)
 
 export type ProgressAll = Record<string, ExamProgress>
 

@@ -2,23 +2,60 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, useCal
 import {
   blankProgress,
   createLocalStorage,
+  dayNumber,
   validateProgressAll,
   type ExamProgress,
   type ExamRecord,
   type ProgressAll,
   type SessionRecord,
 } from "@/lib/progress"
+import { applyAnswer } from "@/lib/review"
 import { fetchCloud, mergeCloudLocal, pushExam, UPDATED_AT_KEY, type UpdatedAtMap } from "@/lib/sync"
 import { useSession } from "@/lib/auth-client"
 
 export type SyncStatus = "local" | "syncing" | "synced" | "error"
+
+export interface AnswerEntry {
+  topic: string
+  /** Credit earned: 1/0 for MC, fractional for partial-credit PBQs. */
+  frac: number
+  /** MC only. PBQs have no numeric id, so they contribute topic stats alone. */
+  questionId?: number
+}
+
+/**
+ * Fold answers into topic counters and per-question history.
+ *
+ * PBQs count as correct at the same 0.8 threshold Results uses for its verdict,
+ * so a question does not sit in the review queue over a rounding difference.
+ */
+function foldAnswers(p: ExamProgress, entries: AnswerEntry[]): ExamProgress {
+  const topics = { ...p.topics }
+  const q = { ...(p.q ?? {}) }
+  const today = dayNumber()
+  for (const e of entries) {
+    const s = topics[e.topic] ?? { c: 0, t: 0 }
+    topics[e.topic] = { c: s.c + e.frac, t: s.t + 1 }
+    if (e.questionId !== undefined) {
+      const key = String(e.questionId)
+      q[key] = applyAnswer(q[key], e.frac >= 0.8, today)
+    }
+  }
+  return { ...p, topics, q }
+}
 
 export interface ProgressStore {
   all: ProgressAll
   storageAvailable: boolean
   syncStatus: SyncStatus
   get(examId: string): ExamProgress
-  recordResult(examId: string, topic: string, frac: number): void
+  recordResult(examId: string, topic: string, frac: number, questionId?: number): void
+  /**
+   * Fold a whole batch of answers in ONE update. Finishing a 90-question exam
+   * used to call recordResult 90 times, and each one re-serialized the entire
+   * progress blob to localStorage.
+   */
+  recordAnswers(examId: string, entries: AnswerEntry[]): void
   markSeen(examId: string, questionId: number): void
   recordExam(examId: string, rec: ExamRecord): void
   logSession(examId: string, s: SessionRecord): void
@@ -143,11 +180,10 @@ export function useProgressStore(): ProgressStore {
     storageAvailable: storage.available,
     syncStatus: signedIn ? syncStatus : "local",
     get: (examId) => all[examId] ?? blankProgress(),
-    recordResult: (examId, topic, frac) =>
-      update(examId, (p) => {
-        const s = p.topics[topic] ?? { c: 0, t: 0 }
-        return { ...p, topics: { ...p.topics, [topic]: { c: s.c + frac, t: s.t + 1 } } }
-      }),
+    recordResult: (examId, topic, frac, questionId) =>
+      update(examId, (p) => foldAnswers(p, [{ topic, frac, questionId }])),
+    recordAnswers: (examId, entries) =>
+      entries.length ? update(examId, (p) => foldAnswers(p, entries)) : undefined,
     markSeen: (examId, qid) =>
       update(examId, (p) => ({ ...p, seen: { ...p.seen, [qid]: (p.seen[qid] ?? 0) + 1 } })),
     recordExam: (examId, rec) => update(examId, (p) => ({ ...p, exams: [...p.exams, rec] })),

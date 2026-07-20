@@ -1,9 +1,11 @@
-import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight } from "lucide-react"
+import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight, RotateCcw } from "lucide-react"
 import type { ExamDef } from "@/data/types"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
+import { dayNumber } from "@/lib/progress"
+import { isDue, reviewQueue } from "@/lib/review"
 
 const MODES = [
   { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // computed per exam below
@@ -18,12 +20,16 @@ export function Home(props: {
   onDrill: () => void
   onPbqLab: () => void
   onProgress: () => void
+  onReview: (ids: number[]) => void
 }) {
   const { exam } = props
   const store = useProgress()
   const p = store.get(exam.id)
   const totals = Object.values(p.topics).reduce((acc, s) => ({ q: acc.q + s.t, c: acc.c + s.c }), { q: 0, c: 0 })
   const weak = weakTopics(exam, p).length
+  const today = dayNumber()
+  const queue = reviewQueue(exam, p, today, 20)
+  const dueNow = queue.filter((x) => isDue(p.q![String(x.q.id)], today)).length
   const handlers: Record<(typeof MODES)[number]["key"], () => void> = {
     exam: props.onFullExam,
     drill: props.onDrill,
@@ -38,7 +44,36 @@ export function Home(props: {
         {exam.cert} {exam.name} · {exam.code}
       </p>
       <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Practice like it's exam day</h1>
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+
+      {/* Only rendered once there is something to redo, so it never sits empty. */}
+      {queue.length > 0 && (
+        <button
+          data-testid="mode-review"
+          onClick={() => props.onReview(queue.map((x) => x.q.id))}
+          className="pressable group border-primary bg-primary/5 mt-6 flex w-full cursor-pointer items-center gap-4 rounded-lg border p-5 text-left transition-[background-color,transform] duration-200 hover:bg-primary/10"
+        >
+          <RotateCcw className="text-brand size-5 shrink-0" strokeWidth={2} />
+          <span className="min-w-0 flex-1">
+            <span className="font-heading block text-lg font-semibold">Review your misses</span>
+            <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
+              <span className="font-mono font-semibold tabular-nums">{queue.length}</span>{" "}
+              {queue.length === 1 ? "question is" : "questions are"} waiting to be re-earned
+              {dueNow > 0 && dueNow < queue.length ? (
+                <>
+                  , <span className="font-mono tabular-nums">{dueNow}</span> due today
+                </>
+              ) : null}
+              . Each one leaves the queue after you get it right twice.
+            </span>
+          </span>
+          <ArrowRight
+            className="text-muted-foreground size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brand"
+            strokeWidth={2}
+          />
+        </button>
+      )}
+
+      <div className={`${queue.length > 0 ? "mt-3" : "mt-6"} grid gap-3 sm:grid-cols-2`}>
         {MODES.filter((m) => m.key !== "pbq" || exam.pbqs.length > 0).map((m) => (
           <button
             key={m.key}

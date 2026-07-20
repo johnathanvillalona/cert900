@@ -29,7 +29,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
 }) {
   const store = useProgress()
   const session = useQuizSession(exam, store.get(exam.id), cfg, {
-    onResult: (topic, frac) => store.recordResult(exam.id, topic, frac),
+    onResult: (topic, frac, questionId) => store.recordResult(exam.id, topic, frac, questionId),
     onSeen: (qid) => store.markSeen(exam.id, qid),
   })
   const [confirmEnd, setConfirmEnd] = useState(false)
@@ -42,10 +42,16 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
     finishedRef.current = true
     const outcome = session.outcome()
     if (outcome.mode === "exam") {
-      for (const r of outcome.review) {
-        if (r.kind === "mc") store.recordResult(exam.id, r.q.t, r.ok ? 1 : 0)
-        else store.recordResult(exam.id, r.p.t, r.frac)
-      }
+      // One batched write: this loop used to re-serialize the whole progress
+      // blob to localStorage once per question.
+      store.recordAnswers(
+        exam.id,
+        outcome.review.map((r) =>
+          r.kind === "mc"
+            ? { topic: r.q.t, frac: r.ok ? 1 : 0, questionId: r.q.id }
+            : { topic: r.p.t, frac: r.frac },
+        ),
+      )
       store.recordExam(exam.id, {
         date: new Date().toISOString().slice(0, 10),
         scaled: outcome.scaled,

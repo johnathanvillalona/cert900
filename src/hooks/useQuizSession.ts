@@ -20,6 +20,11 @@ export interface QuizConfig {
   domain?: number
   /** Narrow a drill to one video topic (search's "drill this topic"). */
   topic?: string
+  /**
+   * Exact questions to serve, in order, bypassing adaptive selection.
+   * Set by the review queue, which has already decided what is due.
+   */
+  ids?: number[]
 }
 
 interface State {
@@ -93,6 +98,14 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
   }
   if (cfg.mode === "pbq") {
     return shuffle(exam.pbqs).map(toPBQItem)
+  }
+  if (cfg.ids?.length) {
+    // Preserve the queue's ordering (worst first); only the options shuffle.
+    const byId = new Map(exam.questions.map((q) => [q.id, q]))
+    return cfg.ids
+      .map((id) => byId.get(id))
+      .filter((q): q is Question => !!q)
+      .map((q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }))
   }
   return pickMC(exam, progress, cfg.n ?? 10, { focusWeak: cfg.focusWeak, domain: cfg.domain, topic: cfg.topic }).map(
     (q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }),
@@ -255,7 +268,8 @@ export function useQuizSession(
   progress: ExamProgress,
   cfg: QuizConfig,
   callbacks: {
-    onResult: (topic: string, frac: number) => void
+    /** `questionId` is present for MC only; PBQ history is keyed by topic. */
+    onResult: (topic: string, frac: number, questionId?: number) => void
     onSeen: (questionId: number) => void
   },
 ): QuizSession {
@@ -303,7 +317,7 @@ export function useQuizSession(
       if (item.kind !== "mc" || item.q.as || state.graded[state.idx] !== undefined) return
       dispatch({ type: "answer-mc", oi, grade: cfg.mode === "practice" })
       if (cfg.mode === "practice") {
-        callbacks.onResult(item.q.t, oi === item.q.a ? 1 : 0)
+        callbacks.onResult(item.q.t, oi === item.q.a ? 1 : 0, item.q.id)
       }
     },
     toggleMulti(oi: number) {
@@ -315,7 +329,11 @@ export function useQuizSession(
       const item = state.items[state.idx]
       if (item.kind !== "mc" || !item.q.as || state.graded[state.idx] !== undefined) return
       dispatch({ type: "grade-mc" })
-      callbacks.onResult(item.q.t, mcCorrect(item.q, state.answers[state.idx] as number[] | undefined) ? 1 : 0)
+      callbacks.onResult(
+        item.q.t,
+        mcCorrect(item.q, state.answers[state.idx] as number[] | undefined) ? 1 : 0,
+        item.q.id,
+      )
     },
     setMatch: (itemIdx, choice) => dispatch({ type: "set-match", itemIdx, choice }),
     setTerminal: (taskIdx, command) => dispatch({ type: "set-terminal", taskIdx, command }),
