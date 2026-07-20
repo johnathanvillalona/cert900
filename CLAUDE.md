@@ -14,11 +14,30 @@ drop/build-list, 45-min fundamentals sims (Microsoft Learn 2026 duration; the
 CompTIA scale.pass is per-exam REAL pass lines: Core 1 675, Core 2 700,
 N10-009 720. AI-900 NOT built: Microsoft retired it Apr 2026 (AI-901
 deferred until good free resources exist - user decision 2026-07-19).
-Content pipeline: author agents (anti-test-wiseness rules) -> exam-assemble
--> add-content -> adversarial verify workflow -> fixes. All banks fully
-refuter-verified. Anti-tell lint: `node tools/content-lint.mjs` (long-answer,
+**Bank sizes (2026-07-20)**: 220-1201 291+21, 220-1202 330+21, n10-009 315+20,
+sy0-701 331+16, aif-c01 321+16, clf-c02 319+0, az-900 279+12 = **2,270 items**.
+**clf-c02 has zero interactive items ON PURPOSE** - the real CLF-C02 uses only
+MC and multiple-response (AWS shipped ordering/matching to AI Practitioner and
+ML Engineer Associate, not the foundational exam). Do not "fix" it.
+Content pipeline: author agents (anti-test-wiseness rules, one per exam domain,
+briefed with the domain's existing stems) -> `tools/prep-batch.mjs` (checks
+EVERY build-failing rule before a bank is touched, since add-content is
+all-or-nothing) -> `tools/add-content.mjs` -> `npm test` -> content-lint ->
+**`tools/gen-meta.mjs` (mandatory, data.test fails on drift)** -> linkcheck ->
+adversarial refuter agents -> `tools/apply-fixes.mjs`. All banks fully
+refuter-verified. Topics are added with `tools/add-topics.mjs` (validates the
+per-vendor URL contract; run linkcheck after). `tools/replace-pbqs.mjs` swaps
+already-merged PBQs by title, since add-content only ever appends.
+Anti-tell lint: `node tools/content-lint.mjs` (long-answer,
 lone-parenthetical acronym, near-dupe stems, config freebies) must report 0
 flags; `tools/apply-fixes.mjs` merges agent fix batches by question id.
+**Explanations must never name an option by position** ("the second option") -
+every runtime path shuffles, so the reference points at a random distractor.
+**Stored answer keys must stay positionally unbiased**: authors default to
+putting the key first (one batch landed 127/127 at index 0), so run
+`tools/debias-answers.mjs <exam> <minId> --apply` after a batch. Nothing leaks
+today (web/mobile/QOTD all shuffle) but `worker/social.ts` renders options in
+stored order.
 Answer randomization contract: MC options shuffle per session (optOrder),
 match dropdowns shuffle via choiceOrder, order items start deranged
 (engine `shuffledIndices` never returns identity), config panels open with
@@ -223,3 +242,11 @@ url.protocol (wrangler dev simulates the route host and would loop).
 - Security+ (SY0-701) SHIPPED 2026-07-20. AI-901 still deferred. Future exam
   ideas welcome; the pipeline (scaffold -> author agents -> assemble ->
   add-content -> content-lint -> refuter verify -> integrate) is repeatable.
+- Done 2026-07-20 (bank expansion): the four thin banks roughly doubled to
+  ~2,270 items total. Topic maps grew first (sy0-701 63->120 from unused Messer
+  lessons, az-900 41->62 from the Savill playlist, clf-c02 27->71 and aif-c01
+  33->61 as sub-topics anchored to freeCodeCamp chapter starts - both AWS
+  courses are chapter-exhausted, so do NOT go hunting for a second channel).
+  Fixed a LIVE account-deletion bug: better-auth's default `freshAge` (24h)
+  blocked delete-user for Google-only accounts older than a day, forever;
+  `worker/auth.ts` now sets `freshAge: 0` and `worker/auth.test.ts` guards it.
