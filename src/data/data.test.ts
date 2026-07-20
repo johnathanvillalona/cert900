@@ -10,10 +10,13 @@ const EXPECTED = {
   "220-1202": { questions: 281, pbqs: 8, videos: 74, domains: 4 },
   "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
   "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
-  "sy0-701": { questions: 160, pbqs: 8, videos: 63, domains: 5 },
-  "aif-c01": { questions: 155, pbqs: 8, videos: 33, domains: 5 },
-  "clf-c02": { questions: 155, pbqs: 0, videos: 27, domains: 4 },
-  "az-900": { questions: 155, pbqs: 6, videos: 41, domains: 3 },
+  "sy0-701": { questions: 325, pbqs: 16, videos: 120, domains: 5 },
+  "aif-c01": { questions: 315, pbqs: 16, videos: 61, domains: 5 },
+  // clf-c02 has no interactive items ON PURPOSE. The real CLF-C02 uses only
+  // multiple choice and multiple response -- no ordering, matching, or labs --
+  // so a nonzero floor here would invite someone to "fix" a correct bank.
+  "clf-c02": { questions: 315, pbqs: 0, videos: 71, domains: 4 },
+  "az-900": { questions: 275, pbqs: 12, videos: 62, domains: 3 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;
