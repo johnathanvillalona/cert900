@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { cn } from "@/lib/utils"
 import { mcAnswerBlank, pbqAnswerBlank, pbqScore, type PBQAnswer } from "@/lib/engine"
 import { VENDOR_FORMATS } from "@/data/vendors"
+import { GripVertical } from "lucide-react"
 
 const LETTERS = "ABCDEF"
 
@@ -493,41 +494,143 @@ function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: 
 
 function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; graded: boolean }) {
   const ord = session.answers[session.idx] as number[]
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([])
+  // Live drag: `from` is the grabbed row, `over` where it would land, `dy` how
+  // far the finger/cursor has moved, `step` the distance other rows shift.
+  const [drag, setDrag] = useState<{ from: number; over: number; dy: number; step: number } | null>(null)
+  const meta = useRef<{ startY: number; centers: number[]; from: number } | null>(null)
+
+  const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
   // Motion explains the swap: View Transitions where supported, instant otherwise.
   const moveWithTransition = (pos: number, dir: -1 | 1) => {
     const apply = () => session.moveStep(pos, dir)
-    if (document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.startViewTransition && !reduced()) {
       document.startViewTransition(() => flushSync(apply))
     } else {
       apply()
     }
   }
+
+  const startDrag = (pos: number, e: React.PointerEvent) => {
+    if (graded) return
+    const rects = rowRefs.current.map((el) => el?.getBoundingClientRect()).filter(Boolean) as DOMRect[]
+    if (rects.length !== ord.length) return
+    const gap = rects.length > 1 ? Math.max(0, rects[1].top - rects[0].bottom) : 8
+    // Capture keeps move/up on the handle once the pointer leaves it. Guarded:
+    // it throws if the pointer is no longer active (and for synthetic events).
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {
+      /* drag still works via the handler chain */
+    }
+    meta.current = { startY: e.clientY, centers: rects.map((r) => r.top + r.height / 2), from: pos }
+    setDrag({ from: pos, over: pos, dy: 0, step: rects[pos].height + gap })
+  }
+
+  const onDragMove = (e: React.PointerEvent) => {
+    const m = meta.current
+    if (!m || !drag) return
+    const dy = e.clientY - m.startY
+    const center = m.centers[m.from] + dy
+    let over = m.from
+    m.centers.forEach((c, i) => {
+      if (i === m.from) return
+      if (i > m.from && center > c) over = Math.max(over, i)
+      if (i < m.from && center < c) over = Math.min(over, i)
+    })
+    setDrag({ ...drag, dy, over })
+  }
+
+  const endDrag = () => {
+    if (drag && drag.from !== drag.over) session.reorderStep(drag.from, drag.over)
+    meta.current = null
+    setDrag(null)
+  }
+
+  // While dragging: the grabbed row tracks the pointer; rows it has passed
+  // shift by one slot to open the gap it will drop into.
+  const offsetFor = (pos: number) => {
+    if (!drag) return 0
+    if (pos === drag.from) return drag.dy
+    if (drag.over > drag.from && pos > drag.from && pos <= drag.over) return -drag.step
+    if (drag.over < drag.from && pos >= drag.over && pos < drag.from) return drag.step
+    return 0
+  }
+
+  // The number a row would carry if dropped now, so the ordinals stay coherent
+  // mid-drag instead of showing the pre-drag order.
+  const previewPos = (pos: number) => {
+    if (!drag) return pos
+    if (pos === drag.from) return drag.over
+    if (drag.over > drag.from && pos > drag.from && pos <= drag.over) return pos - 1
+    if (drag.over < drag.from && pos >= drag.over && pos < drag.from) return pos + 1
+    return pos
+  }
+
   return (
     <div className="mt-3">
+      {!graded && (
+        <p className="text-muted-foreground mb-2 text-xs">
+          Drag a row by its handle to reorder, or use the arrows.
+        </p>
+      )}
       <div className="flex flex-col gap-2">
-        {ord.map((si, pos) => (
-          <div
-            key={si}
-            style={{ viewTransitionName: `pbq-row-${si}` }}
-            className={cn(
-              "flex items-center gap-3 rounded-md border p-3",
-              graded && (si === pos ? "border-success bg-success/10" : "border-destructive bg-destructive/10"),
-            )}
-          >
-            <span className="min-w-6 font-mono text-sm font-bold text-muted-foreground">{pos + 1}</span>
-            <span className="flex-1 text-sm">{p.steps[si]}</span>
-            {!graded && (
-              <span className="flex gap-1">
-                <Button variant="outline" size="icon" className="size-8" aria-label="Move up" onClick={() => moveWithTransition(pos, -1)}>
-                  ↑
-                </Button>
-                <Button variant="outline" size="icon" className="size-8" aria-label="Move down" onClick={() => moveWithTransition(pos, 1)}>
-                  ↓
-                </Button>
-              </span>
-            )}
-          </div>
-        ))}
+        {ord.map((si, pos) => {
+          const dragging = drag?.from === pos
+          return (
+            <div
+              key={si}
+              ref={(el) => { rowRefs.current[pos] = el }}
+              data-testid="order-row"
+              style={{
+                // No viewTransitionName mid-drag: the row is already where the
+                // pointer put it, so a transition would double-animate the drop.
+                viewTransitionName: drag ? undefined : `pbq-row-${si}`,
+                transform: offsetFor(pos) ? `translateY(${offsetFor(pos)}px)` : undefined,
+                transition: dragging || reduced() ? "none" : "transform 180ms var(--ease-out-strong)",
+                zIndex: dragging ? 10 : undefined,
+                position: dragging ? "relative" : undefined,
+              }}
+              className={cn(
+                "flex items-center gap-3 rounded-md border bg-card p-3",
+                dragging && "select-none shadow-lg",
+                graded && (si === pos ? "border-success bg-success/10" : "border-destructive bg-destructive/10"),
+              )}
+            >
+              {!graded && (
+                <button
+                  type="button"
+                  data-testid="order-handle"
+                  aria-label={`Drag to reorder: ${p.steps[si]}`}
+                  // touch-none only on the handle, so the list still scrolls on phones.
+                  className={cn(
+                    "text-muted-foreground -m-1 touch-none rounded p-1 transition-colors hover:text-foreground",
+                    dragging ? "cursor-grabbing" : "cursor-grab",
+                  )}
+                  onPointerDown={(e) => { e.preventDefault(); startDrag(pos, e) }}
+                  onPointerMove={onDragMove}
+                  onPointerUp={endDrag}
+                  onPointerCancel={endDrag}
+                >
+                  <GripVertical className="size-4" strokeWidth={2} />
+                </button>
+              )}
+              <span className="min-w-6 font-mono text-sm font-bold text-muted-foreground">{previewPos(pos) + 1}</span>
+              <span className="flex-1 text-sm">{p.steps[si]}</span>
+              {!graded && (
+                <span className="flex gap-1">
+                  <Button variant="outline" size="icon" className="size-8" aria-label="Move up" onClick={() => moveWithTransition(pos, -1)}>
+                    ↑
+                  </Button>
+                  <Button variant="outline" size="icon" className="size-8" aria-label="Move down" onClick={() => moveWithTransition(pos, 1)}>
+                    ↓
+                  </Button>
+                </span>
+              )}
+            </div>
+          )
+        })}
       </div>
       {graded && (
         <div className="mt-3 text-sm text-muted-foreground">

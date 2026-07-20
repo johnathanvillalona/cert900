@@ -40,6 +40,7 @@ type Action =
   | { type: "toggle-hotspot"; nodeId: string; max: number }
   | { type: "place-item"; zoneId: string | null; itemId: string }
   | { type: "move-step"; pos: number; dir: -1 | 1 }
+  | { type: "reorder-step"; from: number; to: number }
   | { type: "grade-pbq"; frac: number }
   | { type: "nav"; to: number }
   | { type: "toggle-flag" }
@@ -183,6 +184,15 @@ function reducer(state: State, action: Action): State {
       ;[ord[action.pos], ord[np]] = [ord[np], ord[action.pos]]
       return { ...state, answers: { ...state.answers, [idx]: ord } }
     }
+    case "reorder-step": {
+      // Lift one step out and re-insert it at `to` (drag-and-drop reorder).
+      const ord = (state.answers[idx] as number[]).slice()
+      const { from, to } = action
+      if (from === to || from < 0 || from >= ord.length || to < 0 || to >= ord.length) return state
+      const [moved] = ord.splice(from, 1)
+      ord.splice(to, 0, moved)
+      return { ...state, answers: { ...state.answers, [idx]: ord } }
+    }
     case "grade-pbq": {
       const item = state.items[idx]
       if (item.kind !== "pbq") return state
@@ -228,6 +238,7 @@ export interface QuizSession {
   toggleHotspot(nodeId: string, max: number): void
   placeItem(zoneId: string | null, itemId: string): void
   moveStep(pos: number, dir: -1 | 1): void
+  reorderStep(from: number, to: number): void
   gradePbq(): void
   nav(delta: number): void
   jump(to: number): void
@@ -310,6 +321,7 @@ export function useQuizSession(
     toggleHotspot: (nodeId, max) => dispatch({ type: "toggle-hotspot", nodeId, max }),
     placeItem: (zoneId, itemId) => dispatch({ type: "place-item", zoneId, itemId }),
     moveStep: (pos, dir) => dispatch({ type: "move-step", pos, dir }),
+    reorderStep: (from, to) => dispatch({ type: "reorder-step", from, to }),
     gradePbq() {
       const item = state.items[state.idx]
       if (item.kind !== "pbq" || state.graded[state.idx] !== undefined) return
