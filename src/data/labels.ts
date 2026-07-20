@@ -1,4 +1,3 @@
-import type { ExamDef } from "./types"
 
 /**
  * Short display name per exam, for dense surfaces (menu rows, cards, chips).
@@ -20,4 +19,5 @@ export const EXAM_SHORT: Record<string, string> = {
   "az-900": "Azure Fundamentals",
 }
 
-export const examShortName = (ex: ExamDef): string => EXAM_SHORT[ex.id] ?? ex.name
+/** Accepts ExamDef or ExamMeta — only id/name are needed. */
+export const examShortName = (ex: { id: string; name: string }): string => EXAM_SHORT[ex.id] ?? ex.name

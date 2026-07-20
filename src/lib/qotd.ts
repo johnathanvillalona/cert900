@@ -1,28 +1,20 @@
-import { EXAMS, EXAM_ORDER } from "@/data/index"
-import type { ExamDef, Question } from "@/data/types"
+import { QOTD_POOL, type QotdEntry } from "@/data/qotd-pool"
 
-export interface DailyPick {
-  exam: ExamDef
-  q: Question
-}
+export type DailyPick = QotdEntry
 
-/** MCQs that fit the landing hero card: short stem, four short options. */
+/**
+ * The landing hero's daily question.
+ *
+ * Reads a generated, sampled pool rather than scanning every bank: this runs on
+ * the landing page, and importing the banks for it is what used to drag ~846KB
+ * of question JSON into the entry chunk for every visitor.
+ */
 export function qotdPool(): DailyPick[] {
-  const pool: DailyPick[] = []
-  for (const id of EXAM_ORDER) {
-    const exam = EXAMS[id]
-    if (!exam) continue
-    for (const q of exam.questions) {
-      if (q.x.length <= 130 && q.o.length === 4 && q.o.every((o) => o.length <= 42)) {
-        pool.push({ exam, q })
-      }
-    }
-  }
-  return pool
+  return QOTD_POOL
 }
 
 /** Same question for everyone on a given UTC day; rotates at midnight UTC. */
 export function questionOfTheDay(dayIndex = Math.floor(Date.now() / 86_400_000)): DailyPick {
-  const pool = qotdPool()
+  const pool = QOTD_POOL
   return pool[((dayIndex % pool.length) + pool.length) % pool.length]
 }

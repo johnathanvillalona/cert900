@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
-import { EXAMS, EXAM_ORDER } from "@/data/index"
+import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
-import type { ExamDef } from "@/data/types"
+import type { ExamMeta } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
@@ -18,7 +18,8 @@ import { Wordmark } from "@/components/Wordmark"
 
 /** Real product in the hero: the question of the day, fully answerable. */
 function LiveQuestion() {
-  const { exam, q } = useMemo(() => questionOfTheDay(), [])
+  const pick = useMemo(() => questionOfTheDay(), [])
+  const q = pick.q
   const order = useMemo(() => shuffle(q.o.map((_, i) => i)), [q])
   const [sel, setSel] = useState<number | null>(null)
   const graded = sel !== null
@@ -28,7 +29,7 @@ function LiveQuestion() {
     <div className="rounded-lg border bg-card p-5 shadow-sm" data-testid="live-question">
       <p className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
         <span className="text-brand">Question of the day</span>
-        <span>{exam.code} · {exam.domains[q.d]}</span>
+        <span>{pick.code} · {pick.domain}</span>
       </p>
       <p className="mt-2 font-medium leading-snug">{q.x}</p>
       <div className="mt-3 flex flex-col gap-1.5">
@@ -59,12 +60,12 @@ function LiveQuestion() {
           <p className="font-semibold">{ok ? "Correct." : "Not quite."}</p>
           <p className="text-muted-foreground mt-1">{q.e}</p>
           <a
-            href={exam.videos[q.t].u}
+            href={pick.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 inline-flex items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
           >
-            Watch: {exam.vendor === "comptia" ? `Professor Messer, ${exam.videos[q.t].n}` : exam.videos[q.t].n}
+            Watch: {pick.vendor === "comptia" ? `Professor Messer, ${pick.videoName}` : pick.videoName}
             <ArrowRight className="size-3.5" strokeWidth={2} />
           </a>
           <p className="text-muted-foreground mt-2 font-mono text-xs">
@@ -76,7 +77,7 @@ function LiveQuestion() {
   )
 }
 
-function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answered: number; lastScaled: number | null }[]; onChoose: (id: string) => void }) {
+function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answered: number; lastScaled: number | null }[]; onChoose: (id: string) => void }) {
   return (
     <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-5">
@@ -154,9 +155,9 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
   const store = useProgress()
   const { toggle } = useTheme()
 
-  const exams = useMemo(() => EXAM_ORDER.map((id) => EXAMS[id]), [])
-  const totalQ = exams.reduce((a, e) => a + e.questions.length, 0)
-  const totalPBQ = exams.reduce((a, e) => a + e.pbqs.length, 0)
+  const exams = useMemo(() => EXAM_ORDER.map((id) => EXAM_META[id]), [])
+  const totalQ = exams.reduce((a, e) => a + e.questionCount, 0)
+  const totalPBQ = exams.reduce((a, e) => a + e.pbqCount, 0)
   const totalVideos = useMemo(() => new Set(exams.flatMap((e) => Object.values(e.videos).map((v) => v.u))).size, [exams])
 
   const started = exams
@@ -281,7 +282,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
                         <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
                       </span>
                       <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
-                        {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
+                        {ex.questionCount} questions{ex.pbqCount > 0 && ` · ${ex.pbqCount} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
                         <span className="block">
                           {Object.keys(ex.domains).length} domains
                           {answered > 0 && <span className="text-brand"> · {answered} answered</span>}

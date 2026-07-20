@@ -1,7 +1,8 @@
 import { Suspense, lazy, startTransition, useEffect, useMemo, useState } from "react"
 import { LoaderCircle } from "lucide-react"
-import { EXAMS, EXAM_ORDER } from "@/data/index"
-import type { ExamDef } from "@/data/types"
+import { EXAM_META, EXAM_ORDER } from "@/data/meta"
+import { useExamBank } from "@/hooks/useExamBank"
+
 import { ProgressContext, useProgressStore } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { Button } from "@/components/ui/button"
@@ -73,6 +74,9 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
 }
 const DEFAULT_TITLE = "Cert900: Free CompTIA, AWS & Azure Practice Exams"
 
+/** Screens that need the exam's question bank, so they wait on its chunk. */
+const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress"])
+
 function screenForPath(path: string): Screen {
   const kind = PATH_SCREENS[path]
   return kind ? ({ kind } as Screen) : { kind: "landing" }
@@ -112,13 +116,16 @@ export default function App() {
   // current screen up while the chunk loads instead of aborting the render.
   const openProgress = () => startTransition(() => setScreen({ kind: "progress" }))
 
-  const exam: ExamDef | null = examId ? EXAMS[examId] : null
+  // Chrome (header, picker) renders from metadata only; the heavy bank loads
+  // on demand so a visitor never downloads all seven.
+  const meta = examId ? EXAM_META[examId] : null
+  const { exam, loading: examLoading, error: examError, retry: retryExam } = useExamBank(examId)
 
   const orderedExams = useMemo(
     () =>
-      EXAM_ORDER.filter((id) => EXAMS[id])
-        .concat(Object.keys(EXAMS).filter((id) => !EXAM_ORDER.includes(id)))
-        .map((id) => EXAMS[id]),
+      EXAM_ORDER.filter((id) => EXAM_META[id])
+        .concat(Object.keys(EXAM_META).filter((id) => !EXAM_ORDER.includes(id)))
+        .map((id) => EXAM_META[id]),
     [],
   )
 
@@ -168,9 +175,10 @@ export default function App() {
               title="Home"
             >
               <Wordmark className="text-sm" />
-              {exam && (
+              {/* meta, not the bank: the header must never wait on a chunk. */}
+              {meta && (
                 <span className="text-muted-foreground hidden font-mono text-xs font-normal sm:inline">
-                  · {exam.code}
+                  · {meta.code}
                 </span>
               )}
             </button>
@@ -226,6 +234,24 @@ export default function App() {
               setScreen({ kind: "home" })
             }}
           />
+        )}
+
+        {/* The bank for this exam is still downloading. Chrome above stays
+            interactive; only the exam body waits. */}
+        {examLoading && EXAM_SCREENS.has(screen.kind) && (
+          <div className="flex justify-center py-24" aria-label="Loading exam" role="status">
+            <LoaderCircle className="size-6 animate-spin text-muted-foreground" strokeWidth={2} />
+          </div>
+        )}
+
+        {examError && EXAM_SCREENS.has(screen.kind) && (
+          <div className="flex flex-col items-start gap-3 py-16">
+            <p className="font-medium">That exam didn't load.</p>
+            <p className="text-muted-foreground max-w-md text-sm">
+              Usually a dropped connection, or a new version shipped mid-session. Your progress is safe.
+            </p>
+            <Button onClick={retryExam}>Try again</Button>
+          </div>
         )}
 
         {exam && screen.kind === "home" && (

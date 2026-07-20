@@ -1,11 +1,10 @@
 import { ArrowRight, Flame } from "lucide-react"
-import { EXAMS, EXAM_ORDER } from "@/data/index"
-import type { ExamDef } from "@/data/types"
+import { EXAM_META, EXAM_ORDER } from "@/data/meta"
+import type { ExamMeta } from "@/data/types"
 import { VENDORS } from "@/data/vendors"
 import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
 import { domainAccuracy, studyStreak, allSessions } from "@/lib/stats"
-import { PASS_SCALED } from "@/lib/engine"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { AdSlot } from "@/components/AdSlot"
@@ -18,7 +17,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   onBrowseExams: () => void
 }) {
   const store = useProgress()
-  const exams = EXAM_ORDER.map((id) => EXAMS[id])
+  const exams = EXAM_ORDER.map((id) => EXAM_META[id])
 
   const perExam = exams.map((exam) => {
     const p = store.all[exam.id]
@@ -102,7 +101,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
 }
 
 function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContinue, onDetails, style }: {
-  exam: ExamDef
+  exam: ExamMeta
   answered: number
   accuracy: number | null
   lastExam: { scaled: number; date: string } | null
@@ -135,7 +134,9 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContin
                 <span
                   className={cn(
                     "rounded-md border px-2 py-0.5 font-mono text-xs font-semibold tabular-nums",
-                    lastExam.scaled >= PASS_SCALED ? "border-success/50 text-success" : "border-destructive/40 text-destructive",
+                    // Per-exam cut score, not a flat 700: Core 1 passes at 675
+                    // and Security+ at 750, so a global constant mislabels both.
+                    lastExam.scaled >= exam.scale.pass ? "border-success/50 text-success" : "border-destructive/40 text-destructive",
                   )}
                 >
                   last exam {lastExam.scaled}

@@ -66,11 +66,11 @@ for (const [meta, el] of pages) {
 
 // QOTD feed for the worker's daily social post: same pool + order as
 // src/lib/qotd.ts (dayIndex % length). No answers or explanations included.
-const feed = qotdPool().map(({ exam, q }) => ({
-  code: exam.code,
-  cert: exam.cert,
-  stem: q.x,
-  options: q.o,
+const feed = qotdPool().map((p) => ({
+  code: p.code,
+  cert: p.cert,
+  stem: p.q.x,
+  options: p.q.o,
 }))
 writeFileSync(resolve(dist, "qotd-feed.json"), JSON.stringify(feed))
 console.log(`qotd-feed.json: ${feed.length} entries`)

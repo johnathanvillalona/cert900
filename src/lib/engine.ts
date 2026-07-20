@@ -1,4 +1,4 @@
-import type { ExamDef, PBQ, Question } from "@/data/types"
+import type { ExamDef, ExamTopics, PBQ, Question } from "@/data/types"
 import type { ExamProgress } from "./progress"
 
 export type Rng = () => number
@@ -257,7 +257,7 @@ export function masteryLevel(p: ExamProgress, topic: string): number {
   return 1
 }
 
-export function weakTopics(exam: ExamDef, p: ExamProgress): string[] {
+export function weakTopics(exam: ExamTopics, p: ExamProgress): string[] {
   return Object.keys(exam.videos)
     .filter((t) => {
       const s = topicStat(p, t)
@@ -266,6 +266,6 @@ export function weakTopics(exam: ExamDef, p: ExamProgress): string[] {
     .sort((a, b) => (accuracy(p, a) ?? 0) - (accuracy(p, b) ?? 0))
 }
 
-export function domainNumbers(exam: ExamDef): number[] {
+export function domainNumbers(exam: ExamTopics): number[] {
   return Object.keys(exam.domains).map(Number)
 }
