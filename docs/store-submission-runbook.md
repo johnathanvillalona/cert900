@@ -7,6 +7,54 @@ physical device and can't be scripted here; everything else is already done in t
 
 ---
 
+## What's left — your checklist
+
+Everything below is on you (accounts, credentials, a device). All app/worker code,
+listing text, icons, and the feature graphic are already committed. Do these in
+order; each links to its detailed phase.
+
+- [ ] **1. Verify the Google OAuth consent screen is in Production** — Google Cloud
+  Console → APIs & Services → OAuth consent screen. **Do this first.** If it is still
+  in "Testing," Google sign-in fails for everyone outside your ~100 test users, which
+  breaks sync on both apps. (Scopes are only `openid`/`email`/`profile`, so
+  verification is light: verified domain + the privacy URL + homepage.)
+- [ ] **2. Apple — confirm the Free Apps agreement is Active** (App Store Connect →
+  Agreements, Tax, and Banking). A pending agreement blocks release even for free apps.
+- [ ] **3. Google Play — complete identity verification** (Play Console). 1–3 days;
+  blocks publishing, so start it early. [§Accounts](#accounts--costs)
+- [ ] **4. EAS one-time setup** — `eas login`; `eas init` if not done; commit the
+  `projectId` it writes into `app.json`. [§B](#phase-b--eas-one-time-setup-you)
+- [ ] **5. Build the binaries** — `eas build --profile production --platform android`
+  (say **yes** to the EAS keystore and **back it up** — losing it means you can never
+  update the app) and `--platform ios`. [§C](#phase-c--build-the-binaries-you)
+- [ ] **6. Set the Sign in with Apple secrets** — App ID capability → Sign In with Apple
+  key `.p8` → ES256 client-secret JWT → `wrangler secret put APPLE_CLIENT_ID` and
+  `APPLE_CLIENT_SECRET`. **The Apple button is dead until these exist.**
+  [§E1b](#e1b-sign-in-with-apple-provider-secrets--blocker-the-button-is-dead-until-these-are-set)
+- [ ] **7. Google Play — create the app and upload the first `.aab` manually** to a
+  Closed testing track (the Play API can't create the first release). [§D1–D2](#phase-d--google-play-start-this-first-its-the-long-pole-you)
+- [ ] **8. Start the 12-tester / 14-day clock immediately** — the bottleneck. Recruit
+  15+ (using [`tester-recruitment.md`](./tester-recruitment.md)); real devices, unique
+  Google accounts, continuously opted in. [§D3](#d3-start-the-12-tester--14-day-clock-the-bottleneck--do-it-now)
+- [ ] **9. Play — clear "App content"** (privacy policy, Data safety with
+  deletion = Yes + the `/delete-account` URL, content rating, target audience, no ads,
+  app access). [§D4](#d4-clear-app-content-required-before-production)
+- [ ] **10. Play — store listing** — paste from
+  [`store-listing-copy.md`](./store-listing-copy.md); upload the feature graphic, the
+  512 icon, and **fresh** screenshots (the committed set is stale). [§D5](#d5-store-listing), [§F](#phase-f--screenshots-both-stores-need-these-you--needs-a-device)
+- [ ] **11. iOS (during the Android wait)** — ASC API key `.p8`, create the app record,
+  wire `eas.json` submit creds, `eas submit`, test in TestFlight. [§E](#phase-e--apple-app-store-do-this-during-the-android-14-day-wait-you)
+- [ ] **12. iOS — fill the listing, privacy, rating, pricing, fresh screenshots, submit.**
+  [§E4–E5](#e4-fill-the-listing), [§F](#phase-f--screenshots-both-stores-need-these-you--needs-a-device)
+- [ ] **13. ~Day 15 — apply for Play production**, then promote the tested build. [§D](#phase-d--google-play-start-this-first-its-the-long-pole-you)
+- [ ] **14. Later — Play service-account JSON** so releases 2+ can `eas submit`. [§D6](#d6-service-account-for-future-automated-submits)
+
+Two device-side prerequisites feed several steps: capture **fresh screenshots** and
+rebuild a **fresh production `.aab`** — the committed set predates four of the seven
+exams. See [§F](#phase-f--screenshots-both-stores-need-these-you--needs-a-device).
+
+---
+
 ## TL;DR — the one thing that drives your timeline
 
 **Google Play is the long pole, not the code.** A *personal* Play developer account

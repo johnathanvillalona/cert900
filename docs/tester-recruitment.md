@@ -7,8 +7,9 @@ track -> "Copy link").
 
 ---
 
-Hey! I built a free app for studying CompTIA certifications (A+ and
-Network+) and I need testers before Google lets me launch it publicly.
+Hey! I built a free app for studying IT certifications (CompTIA A+,
+Network+, and Security+, plus AWS and Azure) and I need testers before
+Google lets me launch it publicly.
 
 The ask: tap this link on your Android phone, install the app, and just
 KEEP IT INSTALLED for 2 weeks. Open it once in a while if you're curious

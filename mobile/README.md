@@ -1,9 +1,8 @@
 # cert900 mobile (Expo / React Native)
 
-Companion app for [cert900.com](https://cert900.com). This is the first scaffold:
-multiple-choice drills that work offline today, progress saved on-device, and the
-sync + Google sign-in wiring in place against the same Cloudflare Worker + D1
-backend the web app uses.
+Companion app for [cert900.com](https://cert900.com): all seven certification
+banks with timed exams and drills, offline, progress synced across devices
+against the same Cloudflare Worker + D1 backend the web app uses.
 
 ## Run it (Expo Go)
 
@@ -21,14 +20,23 @@ emulator/simulator if you have one.
 
 ## What works now
 
-- **Pick an exam** (A+ Core 1 / Core 2, Network+) and run a 10-question drill.
-- **Adaptive selection + scoring** use the exact same engine as the web app
-  (`@/lib/engine`), so weak topics surface more often.
+- **All seven exams** — CompTIA A+ Core 1 / Core 2, Network+, Security+; AWS
+  Cloud Practitioner and AI Practitioner; Azure Fundamentals.
+- **Timed full-exam mode** scored on each exam's real scale and cut line, plus
+  short adaptive drills. Multiple-response questions and match/order
+  performance-based questions are graded natively.
+- **Review-your-misses queue** with spaced repetition, and a **progress screen**
+  with a readiness estimate and per-domain accuracy — all on the same shared
+  engine as the web (`@/lib/engine`, `@/lib/quiz-session`, `@/lib/stats`,
+  `@/lib/review`), so scoring never forks.
 - **Progress persists** on the device (AsyncStorage) with the same
-  `comptia-trainer-v1` shape as the web, and missed topics link to the
-  Professor Messer video.
-- **Sync + sign-in are wired** (`@better-auth/expo` + SecureStore). The data path
-  (`/api/progress` with the session cookie) is verified end-to-end.
+  `comptia-trainer-v1` shape as the web, and every question links to its free
+  training video.
+- **Sign-in + sync** via `@better-auth/expo` + SecureStore: **Google** on both
+  platforms, **Sign in with Apple** on iOS. The data path (`/api/progress` with
+  the session cookie) is verified end-to-end. Sign-in is optional; anonymous use
+  stays fully local, exactly like the web.
+- **In-app account deletion** on the Account screen, as both stores require.
 
 ## Google sign-in
 
@@ -61,22 +69,32 @@ re-syncs first.
 
 ```
 mobile/
-  App.tsx              root: progress provider + Home/Drill switch
+  App.tsx              root: progress provider + React Navigation stack
   src/
     config.ts          API base URL + app scheme
     auth.ts            Better Auth Expo client (SecureStore session)
+    apple-auth.tsx     Sign in with Apple (native idToken, iOS-only)
     api.ts             /api/progress transport (cookie from getCookie())
     storage.ts         AsyncStorage-backed progress persistence
-    progress-store.ts  sync lifecycle hook (port of the web useProgress)
-    ui.tsx             shared button/pill
+    progress-store.ts  sync lifecycle hook (writes the shared foldAnswers)
+    navigation.ts      typed stack param list
+    ErrorBoundary.tsx  recoverable error screen
+    ui.tsx             shared button/pill/brand
     screens/
-      HomeScreen.tsx   exam picker, sign-in, sync status
-      DrillScreen.tsx  MC drill + per-set summary
+      HomeScreen.tsx        exam list
+      ExamHomeScreen.tsx    per-exam menu (review / drill / exam / progress)
+      DrillScreen.tsx       adaptive drill (MC + multiple-response)
+      ExamScreen.tsx        timed full exam (+ match/order PBQs)
+      ResultsScreen.tsx     scored results, redo-your-misses
+      ProgressScreen.tsx    readiness band + per-domain accuracy
+      AccountScreen.tsx     sign-in, sync status, account deletion
   scripts/sync-shared.js
   vendor/              generated copy of ../src/{lib,data}
 ```
 
-## Next
+## Submitting to the stores
 
-EAS build config + store submission, then native PBQ simulations. See
-`../docs/mobile-app-roadmap.md`.
+The full ordered path (EAS builds, listings, screenshots, the 12-tester Play
+requirement, Apple sign-in secrets) is in
+[`../docs/store-submission-runbook.md`](../docs/store-submission-runbook.md) —
+its checklist at the top lists everything that is still left to do.
