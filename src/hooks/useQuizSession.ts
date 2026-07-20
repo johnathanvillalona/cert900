@@ -18,6 +18,8 @@ export interface QuizConfig {
   n?: number
   focusWeak?: boolean
   domain?: number
+  /** Narrow a drill to one video topic (search's "drill this topic"). */
+  topic?: string
 }
 
 interface State {
@@ -92,7 +94,7 @@ function buildItems(exam: ExamDef, progress: ExamProgress, cfg: QuizConfig): Qui
   if (cfg.mode === "pbq") {
     return shuffle(exam.pbqs).map(toPBQItem)
   }
-  return pickMC(exam, progress, cfg.n ?? 10, { focusWeak: cfg.focusWeak, domain: cfg.domain }).map(
+  return pickMC(exam, progress, cfg.n ?? 10, { focusWeak: cfg.focusWeak, domain: cfg.domain, topic: cfg.topic }).map(
     (q): QuizItem => ({ kind: "mc", q, optOrder: shuffle(q.o.map((_, i) => i)) }),
   )
 }

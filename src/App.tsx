@@ -15,6 +15,7 @@ import { ChartLine } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
+import { SearchPalette } from "@/components/SearchPalette"
 import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
@@ -129,6 +130,20 @@ export default function App() {
     [],
   )
 
+  const chooseExam = (id: string) => {
+    setExamId(id)
+    setScreen({ kind: "home" })
+    window.scrollTo(0, 0)
+  }
+
+  /** Search's "drill this topic": switch exam if needed, then start a focused drill. */
+  const drillTopic = (id: string, topic: string) => {
+    setExamId(id)
+    setSessionCounter((c) => c + 1)
+    setScreen({ kind: "quiz", cfg: { mode: "practice", n: 10, topic }, sessionKey: sessionCounter + 1 })
+    window.scrollTo(0, 0)
+  }
+
   const startQuiz = (cfg: QuizConfig) => {
     setSessionCounter((c) => c + 1)
     setScreen({ kind: "quiz", cfg, sessionKey: sessionCounter + 1 })
@@ -138,6 +153,7 @@ export default function App() {
     return (
       <ProgressContext.Provider value={store}>
         <Landing
+          onDrillTopic={drillTopic}
           onChooseExam={(id) => {
             setExamId(id)
             setScreen({ kind: "home" })
@@ -183,6 +199,7 @@ export default function App() {
               )}
             </button>
             <div className="flex items-center gap-1.5">
+              <SearchPalette onChooseExam={chooseExam} onNavigate={openPath} onDrillTopic={drillTopic} />
               <Button
                 variant={screen.kind === "dashboard" ? "secondary" : "ghost"}
                 size="sm"

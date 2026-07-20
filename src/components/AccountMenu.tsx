@@ -48,11 +48,14 @@ export function AccountMenu() {
         variant="outline"
         size="sm"
         data-testid="sign-in"
+        aria-label="Sign in with Google"
         onClick={() => signIn.social({ provider: "google" })}
         className="gap-2"
       >
         <GoogleMark />
-        Sign in
+        {/* Label drops below sm: with search added, five controls plus a worded
+            button overflowed the landing header at 360px. */}
+        <span className="hidden sm:inline">Sign in</span>
       </Button>
     )
   }
