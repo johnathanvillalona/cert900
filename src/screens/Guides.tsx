@@ -16,7 +16,32 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "aif" | "clf" | "az900", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900", GuideMeta> = {
+  secplus: {
+    path: "/comptia-security-plus-practice-test",
+    title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
+    description:
+      "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup.",
+    h1: "Free CompTIA Security+ (SY0-701) practice test",
+    faq: [
+      [
+        "How many questions are on the Security+ exam?",
+        "The SY0-701 exam has a maximum of 90 questions in 90 minutes, mixing multiple choice with performance-based questions. The passing score is 750 on a 100 to 900 scale.",
+      ],
+      [
+        "Do I need Network+ before Security+?",
+        "No, but CompTIA recommends Network+ plus about two years of IT administration with a security focus. Security+ leans on networking fundamentals, so comfort with ports, protocols, and topologies helps a lot.",
+      ],
+      [
+        "What does SY0-701 cover?",
+        "Five domains: General Security Concepts (12%), Threats, Vulnerabilities & Mitigations (22%), Security Architecture (18%), Security Operations (28%), and Security Program Management & Oversight (20%). Our drills track your accuracy in each domain separately.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free SY0-701 course.",
+      ],
+    ],
+  },
   clf: {
     path: "/aws-cloud-practitioner-practice-test",
     title: "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900",
@@ -456,6 +481,48 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "N10-009 · Ports", stem: "Which port does HTTPS use for encrypted web traffic?", options: ["80", "22", "443", "25"], answer: 2, why: "HTTPS uses TCP port 443; HTTP uses port 80." }} />
         <Sample n={3} q={{ code: "N10-009 · Standards", stem: "Which Ethernet standard provides 1 Gbps over twisted-pair copper?", options: ["10BASE-T", "100BASE-TX", "10GBASE-SR", "1000BASE-T"], answer: 3, why: "1000BASE-T delivers 1 Gbps over Cat 5e or better copper up to 100 meters." }} />
         <Cta label="Practice all 315 free" onGo={() => onStart("n10-009")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function SecplusGuide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.secplus
+  const sx = EXAMS["sy0-701"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          The CompTIA Security+ (SY0-701) is the standard entry-level security certification: it covers core security
+          concepts, threats and mitigations, security architecture, day-to-day operations, and governance. This site
+          gives you {sx.questions.length} original practice questions and {sx.pbqs.length} performance-based questions
+          for it, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a full
+          {" "}{sx.examMinutes}-minute exam simulation with {sx.examMC} questions plus {sx.examPBQ} PBQs, scored on the
+          real 100 to 900 scale. The PBQ lab simulates the exam's hands-on formats: hardening configuration panels,
+          incident-response ordering, and clickable network diagrams. Every topic links to the matching free Professor
+          Messer video.
+        </p>
+        <Cta label="Start the free Security+ practice test" onGo={() => onStart("sy0-701")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What SY0-701 covers</h2>
+        <DomainTable examId="sy0-701" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: up to 90 questions, 90 minutes, passing score 750 on the 100 to 900 scale. CompTIA recommends
+          Network+ and about two years of security-focused IT administration.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "SY0-701 · General Security Concepts", stem: "A company posts warning signs and installs visible cameras at its entrances to discourage tailgating. Which control type do these represent?", options: ["Preventive", "Deterrent", "Corrective", "Compensating"], answer: 1, why: "A deterrent control discourages an attacker without physically stopping them; signage and visible cameras are the classic examples. A preventive control (like a locked door) actually blocks the action." }} />
+        <Sample n={2} q={{ code: "SY0-701 · Threats & Mitigations", stem: "An attacker registers a domain that differs from a bank's real domain by a single character, hoping users mistype it. Which technique is this?", options: ["Typosquatting", "Pretexting", "Watering hole", "Credential stuffing"], answer: 0, why: "Typosquatting (URL hijacking) registers look-alike domains to catch users who mistype an address. A watering hole compromises a site the target already visits." }} />
+        <Sample n={3} q={{ code: "SY0-701 · Security Operations", stem: "During a response, the team disconnects an infected host from the network to stop the malware spreading before removing it. Which phase is this?", options: ["Eradication", "Recovery", "Containment", "Preparation"], answer: 2, why: "Containment limits the damage and stops the spread; isolating the host fits here. Eradication (removing the malware) and recovery (restoring service) come afterward." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("sy0-701")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

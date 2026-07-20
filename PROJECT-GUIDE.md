@@ -1,17 +1,28 @@
 # CompTIA Practice Trainer v2 — Project Context
 
 ## What this is
-A free practice-exam platform for **six certifications** - CompTIA A+ Core 1
-(220-1201), A+ Core 2 (220-1202), Network+ (N10-009) with Messer videos and
-PBQs; AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02) with
-freeCodeCamp chapter-timestamp videos; Azure Fundamentals (AZ-900) with John
-Savill per-topic videos. Vendor-native formats per vendors.ts VENDOR_FORMATS
+A free practice-exam platform for **seven certifications** - CompTIA A+ Core 1
+(220-1201), A+ Core 2 (220-1202), Network+ (N10-009), and Security+ (SY0-701)
+with Messer videos and PBQs; AWS AI Practitioner (AIF-C01) and Cloud
+Practitioner (CLF-C02) with freeCodeCamp chapter-timestamp videos; Azure
+Fundamentals (AZ-900) with John Savill per-topic videos. Security+ scale.pass
+= 750 (its real cut score); SY0-701 targeted because SY0-801 doesn't reach GA
+until ~Nov 2026 and 701 stays valid into 2027. Vendor-native formats per vendors.ts VENDOR_FORMATS
 (AWS: ordering/matching all-or-nothing weight-1 interleaved; Azure: drag-and-
-drop/build-list, 85-min fundamentals sims; CompTIA: PBQs, partial credit,
-2x, fronted). AI-900 NOT built: Microsoft retired it Apr 2026 (AI-901).
+drop/build-list, 45-min fundamentals sims (Microsoft Learn 2026 duration; the
+85-min figure was pre-2021); CompTIA: PBQs, partial credit, 2x, fronted).
+CompTIA scale.pass is per-exam REAL pass lines: Core 1 675, Core 2 700,
+N10-009 720. AI-900 NOT built: Microsoft retired it Apr 2026 (AI-901
+deferred until good free resources exist - user decision 2026-07-19).
 Content pipeline: author agents (anti-test-wiseness rules) -> exam-assemble
 -> add-content -> adversarial verify workflow -> fixes. All banks fully
-refuter-verified. PBQs span six interaction kinds: match, order, and
+refuter-verified. Anti-tell lint: `node tools/content-lint.mjs` (long-answer,
+lone-parenthetical acronym, near-dupe stems, config freebies) must report 0
+flags; `tools/apply-fixes.mjs` merges agent fix batches by question id.
+Answer randomization contract: MC options shuffle per session (optOrder),
+match dropdowns shuffle via choiceOrder, order items start deranged
+(engine `shuffledIndices` never returns identity), config panels open with
+>=2 fields needing work (decoy keep-as-is fields allowed, data.test rule). PBQs span six interaction kinds: match, order, and
 CompTIA-simulation styles **terminal** (CLI tasks with regex-accepted commands),
 **config** (device settings panels), **hotspot** (network-diagram selection),
 **dragconnect** (photoreal "bench": Wikimedia-Commons photo scenes + connector
@@ -36,10 +47,15 @@ as a **Cloudflare Worker with static assets**: `worker/index.ts` serves `/api/*`
 (Better Auth at `/api/auth/*`, progress sync at `/api/progress`, anonymous
 question reports at `/api/report`) and falls through to `dist/` assets (SPA
 mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
+Every response gets security headers (HSTS 1y incl. subdomains, nosniff,
+X-Frame DENY, Referrer-Policy, Permissions-Policy; CSP on HTML only -
+allows self + inline scripts + static.cloudflareinsights.com; update CSP if
+index.html gains external resources). http->https 301 reads CF-Visitor, NOT
+url.protocol (wrangler dev simulates the route host and would loop).
 
 ## Layout
 - `src/data/` — question banks as typed modules (`220-1201.ts`, `220-1202.ts`,
-  `n10-009.ts`, `types.ts`, `index.ts`, `vendors.ts`). **These are the source
+  `n10-009.ts`, `sy0-701.ts`, `types.ts`, `index.ts`, `vendors.ts`). **These are the source
   of truth now**; edit them directly for content work. `legacy/index.html` is
   the frozen v1 app (was the extraction source; don't grow it). **index.ts is
   hand-maintained — NEVER re-run tools/extract-data.mjs (retired); it would
@@ -136,7 +152,8 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 ## Conventions / gotchas
 - Every question/PBQ topic key MUST exist in its exam's `videos` map (Vitest
   enforces). Answer index `a` must be valid into `o`. `examSplit` sums to 1.0.
-- Content batch flow: edit `src/data/*.ts` → `npm test` → `node tools/linkcheck.js`
+- Content batch flow: edit `src/data/*.ts` → `npm test` →
+  `node tools/content-lint.mjs` (must be 0 flags) → `node tools/linkcheck.js`
   (spot-check new slugs) → commit → push (CI deploys).
 - Professor Messer slugs: verify against the live course index before adding.
 - Progress shape is backward-compatible with v1; never break `comptia-trainer-v1`.
@@ -160,9 +177,25 @@ mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
 - Done 2026-07-14: cert900.com cutover, reports migration, donate link,
   analytics beacon (prod-hostname gated), cert900 wordmark rebrand, SEO
   guides + prerender, worker cron automation scaffold.
+- Done 2026-07-19: answer-randomization fixes (match choiceOrder, order
+  derangement), landing header Exams+Progress on phones, six-exam copy
+  (FAQ/how-it-works/meta/manifest/og), security headers + TLS redirect,
+  content-lint + acronym pre-pass + long-answer/dupe sweep across all banks,
+  real CompTIA pass lines, AZ-900 45-min timer, mobile drill shuffle +
+  MR-question exclusion.
+- Done 2026-07-20: Security+ SY0-701 added as the 7th exam (166 original Q +
+  8 PBQs: 2 match / 2 order / 2 config hardening panels / 2 network hotspots;
+  63 Messer video topics; scale 900/750). Authored via 10 domain-scoped
+  agents -> assemble -> add-content -> content-lint (0 tells) -> 8-agent
+  refuter verify (0 rejects). Full integration: registry, ExamsMenu (CompTIA
+  group), guide /comptia-security-plus-practice-test, sitemap, footer,
+  prerender, EXPECTED floor. data.test now enforces anti-tell rules
+  (long-answer, lone-parenthetical, near-dupe) on every bank.
 - Monetization ladder (decided 2026-07-14): donate link → EthicalAds/Carbon
   single unit → affiliates on Results. AdSlot placements are already scaffolded;
   never add slots inside quiz/landing hero.
 - Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
   topics/ids/duplicates, derives id and d automatically).
-- Consider Security+ (SY0-701) as a fourth exam using the same data shape.
+- Security+ (SY0-701) SHIPPED 2026-07-20. AI-901 still deferred. Future exam
+  ideas welcome; the pipeline (scaffold -> author agents -> assemble ->
+  add-content -> content-lint -> refuter verify -> integrate) is repeatable.
