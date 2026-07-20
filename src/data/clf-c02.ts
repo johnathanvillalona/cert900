@@ -203,7 +203,7 @@ export const exam: ExamDef = {
    "o": [
     "Private cloud",
     "Multicloud",
-    "Cloud-native (all-in cloud)",
+    "Cloud-native",
     "Hybrid cloud"
    ],
    "a": 3,
@@ -414,7 +414,7 @@ export const exam: ExamDef = {
    "o": [
     "AWS Well-Architected Framework",
     "AWS Pricing Calculator",
-    "AWS Cloud Adoption Framework (AWS CAF)",
+    "AWS Cloud Adoption Framework",
     "AWS Trusted Advisor"
    ],
    "a": 2,
@@ -499,7 +499,7 @@ export const exam: ExamDef = {
   {
    "id": 23,
    "t": "cloud-architecture",
-   "x": "Which statement describes elasticity in the AWS Cloud?",
+   "x": "An application adds servers during peak traffic and releases them when demand falls. Which cloud characteristic does this demonstrate?",
    "o": [
     "Resources are added and released automatically as demand rises and falls",
     "Workloads continue operating when an individual component fails",
@@ -982,7 +982,7 @@ export const exam: ExamDef = {
   {
    "id": 55,
    "t": "identity-iam",
-   "x": "Which statement best describes an IAM role?",
+   "x": "What is an IAM role in AWS identity management?",
    "o": [
     "A collection of IAM users that receive permissions through a single attachment",
     "A JSON document that lists allowed and denied actions on specified resources",
@@ -1228,7 +1228,7 @@ export const exam: ExamDef = {
     "AWS Shield Advanced",
     "Amazon Macie",
     "AWS WAF",
-    "AWS Key Management Service (AWS KMS)"
+    "AWS Key Management Service"
    ],
    "a": 1,
    "e": "Shield Advanced adds expanded DDoS mitigation, attack diagnostics, and response support beyond the free standard tier, while WAF blocks web requests that match rules such as bot signatures. Inspector and Macie find vulnerabilities and sensitive data; neither one filters or absorbs attack traffic.",
@@ -1319,12 +1319,12 @@ export const exam: ExamDef = {
    "x": "A company wants a managed service for creating and controlling the encryption material that integrated services such as Amazon S3 and Amazon EBS use to protect stored data. Which service should it choose?",
    "o": [
     "AWS Secrets Manager",
-    "AWS Certificate Manager (ACM)",
-    "AWS Key Management Service (AWS KMS)",
+    "AWS Certificate Manager",
+    "AWS Key Management Service",
     "Amazon Macie"
    ],
    "a": 2,
-   "e": "KMS creates and manages the cryptographic keys that many AWS services use for server-side encryption. Secrets Manager stores and rotates credentials rather than supplying keys to other services, and ACM handles TLS certificates for encrypting connections.",
+   "e": "KMS creates and manages the cryptographic keys that many AWS services use for server-side encryption. Secrets Manager stores and rotates credentials rather than supplying keys to other services, and ACM handles TLS certificates for encrypting connections. In other words: AWS KMS.",
    "d": 2
   },
   {
@@ -1600,7 +1600,7 @@ export const exam: ExamDef = {
    "x": "Which component supplies the operating system and preinstalled software that an EC2 instance starts from when it launches?",
    "o": [
     "An instance type",
-    "An Amazon Machine Image (AMI)",
+    "An Amazon Machine Image",
     "An EC2 launch template",
     "An Amazon EBS snapshot"
    ],
@@ -1663,7 +1663,7 @@ export const exam: ExamDef = {
     "AWS CodeArtifact",
     "Amazon ECS",
     "Amazon S3",
-    "Amazon Elastic Container Registry (ECR)"
+    "Amazon Elastic Container Registry"
    ],
    "a": 3,
    "e": "ECR stores, versions, and serves container images to ECS, EKS, and other runtimes, with tight IAM integration for push and pull permissions. CodeArtifact holds language package dependencies such as npm and Maven artifacts, and ECS runs containers rather than storing their images.",
@@ -1839,7 +1839,7 @@ export const exam: ExamDef = {
    "x": "During traffic spikes, an e-commerce site's product pages repeatedly issue the same reads against a relational product database, and page latency is rising. The team wants an in-memory layer that serves these repeated reads in microseconds. Which service fits?",
    "o": [
     "Amazon ElastiCache",
-    "Amazon DynamoDB Accelerator (DAX)",
+    "Amazon DynamoDB Accelerator",
     "Amazon RDS read replicas",
     "Amazon Redshift"
    ],
@@ -2455,16 +2455,16 @@ export const exam: ExamDef = {
   {
    "id": 153,
    "t": "billing-tools",
-   "x": "A company manages 15 AWS accounts under AWS Organizations with consolidated billing enabled. Which billing outcomes does this arrangement provide? (Select TWO.)",
+   "x": "A finance team wants to analyze last year's AWS spending and estimate what the next quarter will cost. Which capabilities does Cost Explorer provide? (Select TWO.)",
    "o": [
-    "The management account receives a single bill covering every member account",
-    "Each member account inherits the management account's support plan",
-    "Combined usage across accounts reaches volume pricing tiers sooner",
-    "Member accounts are blocked from using services outside an approved list",
-    "Inter-Region data transfer charges are waived across the organization"
+    "Visualizing historical spend with filtering and grouping",
+    "Automatically stopping resources that exceed a threshold",
+    "Forecasting future costs from past usage patterns",
+    "Negotiating custom pricing with AWS on your behalf",
+    "Applying spending caps that block new resource launches"
    ],
    "a": 0,
-   "e": "Consolidated billing rolls every member account's charges into one invoice for the management account and aggregates usage so tiered volume discounts apply across the organization. Restricting services is the job of service control policies, and support plans are purchased separately for each account.",
+   "e": "Cost Explorer is the visualization and analysis tool: it charts historical usage and spend with filters and grouping, and produces forecasts from past patterns. It never takes enforcement actions; AWS Budgets sends alerts, and nothing in the billing tools stops or blocks resources on its own.",
    "d": 4,
    "as": [
     0,

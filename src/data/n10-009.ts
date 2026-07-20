@@ -792,10 +792,10 @@ export const exam: ExamDef = {
    "t": "networking-functions",
    "x": "What is the difference between a forward proxy and a reverse proxy?",
    "o": [
-    "A forward proxy acts for clients going out; a reverse proxy acts for servers receiving requests",
-    "They are identical",
-    "A reverse proxy only handles email",
-    "A forward proxy encrypts disks"
+    "A forward proxy acts for clients; a reverse proxy acts for servers",
+    "A forward proxy and a reverse proxy do the same job",
+    "A reverse proxy only relays inbound email messages",
+    "A forward proxy encrypts the client's local disks"
    ],
    "a": 0,
    "e": "Forward proxies intermediate outbound client traffic; reverse proxies front inbound traffic for servers.",
@@ -806,13 +806,13 @@ export const exam: ExamDef = {
    "t": "designing-the-cloud",
    "x": "Which cloud design concept runs network services like routers and firewalls as software instances instead of physical boxes?",
    "o": [
-    "NFV (network function virtualization)",
+    "NFV",
     "RAID",
     "PoE",
     "CSMA/CD"
    ],
    "a": 0,
-   "e": "NFV virtualizes network functions — firewalls, routers, load balancers — as deployable software instances in the cloud.",
+   "e": "NFV virtualizes network functions — firewalls, routers, load balancers — as deployable software instances in the cloud. NFV = network function virtualization.",
    "d": 1
   },
   {
@@ -820,10 +820,10 @@ export const exam: ExamDef = {
    "t": "designing-the-cloud",
    "x": "A cloud VPC is divided into a public subnet for web servers and a private subnet for databases. What is the purpose of this design?",
    "o": [
-    "Segmentation — internet-facing systems are isolated from internal data tiers",
-    "Faster DNS resolution",
-    "Cheaper storage",
-    "Prettier dashboards"
+    "Isolating internet-facing systems from internal data tiers",
+    "It speeds up DNS resolution for clients",
+    "It provides cheaper object storage",
+    "It produces prettier monitoring dashboards"
    ],
    "a": 0,
    "e": "Public/private subnet separation limits exposure: only the web tier is internet-reachable, while data stays on private addressing.",
@@ -876,10 +876,10 @@ export const exam: ExamDef = {
    "t": "introduction-to-ip",
    "x": "What is the primary role of port numbers in TCP/IP?",
    "o": [
-    "They identify which application or service the data belongs to",
-    "They encrypt the payload",
-    "They set the cable speed",
-    "They replace IP addresses"
+    "They identify the destination application or service",
+    "They encrypt the packet's payload",
+    "They set the physical cable speed",
+    "They replace the host's IP address"
    ],
    "a": 0,
    "e": "Ports multiplex many conversations on one IP address, steering data to the right application (web, mail, SSH…).",
@@ -946,13 +946,13 @@ export const exam: ExamDef = {
    "t": "common-ports",
    "x": "Which ports does SIP use for VoIP call signaling?",
    "o": [
-    "5060 (and 5061 for TLS)",
+    "5060",
     "80 and 443",
     "20 and 21",
     "67 and 68"
    ],
    "a": 0,
-   "e": "The Session Initiation Protocol signals VoIP calls on 5060, with 5061 for TLS-encrypted signaling.",
+   "e": "The Session Initiation Protocol signals VoIP calls on 5060, with 5061 for TLS-encrypted signaling. 5060 = and 5061 for TLS.",
    "d": 1
   },
   {
@@ -1014,7 +1014,7 @@ export const exam: ExamDef = {
   {
    "id": 42,
    "t": "ethernet-standards",
-   "x": "Which standard defines 10 Gbps Ethernet over twisted-pair copper?",
+   "x": "A switch uplink to the core runs on Cat 6a cabling at 10 Gbps. Which IEEE physical-layer spec is in use on that copper run?",
    "o": [
     "10GBASE-T",
     "1000BASE-T",
@@ -1059,9 +1059,9 @@ export const exam: ExamDef = {
    "x": "Why is fiber preferred over copper in electrically noisy industrial environments?",
    "o": [
     "Fiber is immune to electromagnetic interference",
-    "Fiber is cheaper to terminate",
-    "Fiber carries PoE",
-    "Fiber cannot break"
+    "Fiber is cheaper to terminate than copper",
+    "Fiber can deliver Power over Ethernet",
+    "Fiber cabling is physically unbreakable"
    ],
    "a": 0,
    "e": "Light in glass is unaffected by EMI/RFI, making fiber ideal near motors, welders, and power equipment.",
@@ -1101,7 +1101,7 @@ export const exam: ExamDef = {
    "x": "Which hot-swappable transceiver form factor is standard for 10 Gbps switch uplinks?",
    "o": [
     "SFP+",
-    "SFP (1 Gbps)",
+    "SFP",
     "QSFP28 only",
     "RJ45 DIMM"
    ],
@@ -1114,10 +1114,10 @@ export const exam: ExamDef = {
    "t": "network-transceivers",
    "x": "A fiber link won't come up. The two transceivers are the same speed but one is -SR (multimode) and the other -LR (single-mode). What is the problem?",
    "o": [
-    "Mismatched transceiver/fiber types on the two ends",
-    "The switch needs a reboot",
-    "Fiber cannot connect switches",
-    "The VLAN is wrong"
+    "Mismatched transceiver and fiber types",
+    "The switch simply needs a reboot",
+    "Fiber cannot connect two switches",
+    "The VLAN assignment is wrong"
    ],
    "a": 0,
    "e": "Both ends of a fiber link must match in wavelength, fiber type, and standard; SR and LR optics are incompatible.",
@@ -1198,10 +1198,10 @@ export const exam: ExamDef = {
    "t": "ipv4-addressing",
    "x": "A device shows the address 169.254.100.7. What does this tell the technician?",
    "o": [
-    "DHCP failed and the host self-assigned an APIPA address",
-    "It has a valid public address",
-    "The DNS server assigned it",
-    "It is a multicast group"
+    "The host self-assigned an APIPA link-local address",
+    "The host has a valid public IP address",
+    "A DNS server assigned this address",
+    "It belongs to a multicast group"
    ],
    "a": 0,
    "e": "169.254.0.0/16 is APIPA/link-local — self-configured when no DHCP server answers; only same-segment communication works.",
@@ -1296,10 +1296,10 @@ export const exam: ExamDef = {
    "t": "ipv6-addressing",
    "x": "A dual-stack network runs which combination?",
    "o": [
-    "IPv4 and IPv6 simultaneously on the same interfaces",
-    "Two IPv4 addresses per host",
-    "Two default gateways",
-    "Wired and wireless only"
+    "IPv4 and IPv6 on the same interfaces",
+    "Two IPv4 addresses on every host",
+    "Two default gateways per subnet",
+    "Only wired and wireless links"
    ],
    "a": 0,
    "e": "Dual stack gives hosts both IPv4 and IPv6 addresses during the long transition between protocols.",
@@ -1325,7 +1325,7 @@ export const exam: ExamDef = {
    "x": "In SDN, which plane makes forwarding decisions and is separated from the devices that move packets?",
    "o": [
     "The control plane",
-    "The data (forwarding) plane",
+    "The data plane",
     "The power plane",
     "The physical plane"
    ],
@@ -1436,7 +1436,7 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "Which protocol prevents switching loops in a network that has redundant links?",
    "o": [
-    "Spanning Tree Protocol (STP)",
+    "Spanning Tree Protocol",
     "NAT",
     "OSPF",
     "DHCP"
@@ -1562,13 +1562,13 @@ export const exam: ExamDef = {
    "t": "dynamic-routing",
    "x": "A router learns the same destination from OSPF and from a static route. Which one goes into the routing table, and why?",
    "o": [
-    "The static route — lower administrative distance (1 vs 110)",
+    "The static route — lower administrative distance",
     "The OSPF route — dynamic always wins",
     "Both are load-balanced",
     "Neither is installed"
    ],
    "a": 0,
-   "e": "Administrative distance ranks route sources by trustworthiness: connected 0, static 1, eBGP 20, OSPF 110, RIP 120.",
+   "e": "Administrative distance ranks route sources by trustworthiness: connected 0, static 1, eBGP 20, OSPF 110, RIP 120. In other words: 1 vs 110.",
    "d": 2
   },
   {
@@ -1576,10 +1576,10 @@ export const exam: ExamDef = {
    "t": "dynamic-routing",
    "x": "What does 'convergence' mean in a dynamically routed network?",
    "o": [
-    "All routers have a consistent view of the topology after a change",
-    "All cables are the same length",
-    "All switches share one VLAN",
-    "The DNS zone has replicated"
+    "All routers share a consistent view of the topology",
+    "All cables are cut to the same length",
+    "All switches belong to one VLAN",
+    "The DNS zone has finished replicating"
    ],
    "a": 0,
    "e": "After a link change, routing protocols exchange updates until every router agrees on the new best paths — that settling is convergence.",
@@ -1618,13 +1618,13 @@ export const exam: ExamDef = {
    "t": "routing-technologies",
    "x": "What happens to a packet when no route in the table matches and no default route exists?",
    "o": [
-    "The router drops it (and may send an ICMP unreachable)",
+    "The router drops it",
     "It is broadcast everywhere",
     "It loops forever",
     "It queues until a route appears"
    ],
    "a": 0,
-   "e": "Unroutable packets are discarded; a default route is what prevents this for internet-bound traffic.",
+   "e": "Unroutable packets are discarded; a default route is what prevents this for internet-bound traffic. In other words: and may send an ICMP unreachable.",
    "d": 2
   },
   {
@@ -1632,7 +1632,7 @@ export const exam: ExamDef = {
    "t": "routing-technologies",
    "x": "Each hop a packet crosses decrements which IP header field, preventing endless routing loops?",
    "o": [
-    "TTL (time to live) / hop limit",
+    "The TTL field",
     "The checksum",
     "The MTU",
     "The DSCP value"
@@ -1646,13 +1646,13 @@ export const exam: ExamDef = {
    "t": "network-address-translation",
    "x": "Which NAT variant maps many private IPs to one public IP by tracking port numbers?",
    "o": [
-    "PAT (NAT overload)",
+    "PAT",
     "Static NAT",
     "1:1 DMZ NAT",
     "DNS64 only"
    ],
    "a": 0,
-   "e": "Port Address Translation multiplexes many internal hosts through one public address using unique source ports.",
+   "e": "Port Address Translation multiplexes many internal hosts through one public address using unique source ports. PAT = NAT overload.",
    "d": 2
   },
   {
@@ -1660,10 +1660,10 @@ export const exam: ExamDef = {
    "t": "network-address-translation",
    "x": "A game server inside a home network must accept connections from the internet on TCP 25565. What is configured on the router?",
    "o": [
-    "Port forwarding to the server's internal IP",
-    "A DHCP reservation only",
-    "A new SSID",
-    "MAC filtering"
+    "Port forwarding to the internal host",
+    "A DHCP reservation for the server",
+    "A new wireless SSID",
+    "MAC address filtering"
    ],
    "a": 0,
    "e": "Port forwarding maps inbound public-port traffic to a chosen internal host and port through NAT.",
@@ -1730,13 +1730,13 @@ export const exam: ExamDef = {
    "t": "vlans-and-trunking",
    "x": "Hosts on VLAN 10 need to reach servers on VLAN 20. What is required?",
    "o": [
-    "A Layer 3 device routing between the VLANs (SVI or router-on-a-stick)",
+    "A Layer 3 device routing between the VLANs",
     "A longer trunk",
     "The same SSID",
     "Nothing — VLANs talk by default"
    ],
    "a": 0,
-   "e": "VLANs are separate broadcast domains; traffic between them must be routed by an SVI, L3 switch, or router subinterface.",
+   "e": "VLANs are separate broadcast domains; traffic between them must be routed by an SVI, L3 switch, or router subinterface. In other words: SVI or router-on-a-stick.",
    "d": 2
   },
   {
@@ -1744,10 +1744,10 @@ export const exam: ExamDef = {
    "t": "interface-configurations",
    "x": "One side of a link is set to full duplex, the other autonegotiates to half. What symptoms result?",
    "o": [
-    "Late collisions, CRC errors, and terrible throughput",
-    "Nothing — duplex does not matter",
+    "Late collisions, CRC errors, and poor throughput",
+    "Nothing, because duplex does not matter",
     "The port shuts down permanently",
-    "IP conflicts"
+    "Frequent IP address conflicts"
    ],
    "a": 0,
    "e": "Duplex mismatch produces collisions/errors under load and drastic slowdowns — set both ends to auto (or match manually).",
@@ -1758,13 +1758,13 @@ export const exam: ExamDef = {
    "t": "interface-configurations",
    "x": "Which technology bundles multiple physical switch links into one logical high-bandwidth link?",
    "o": [
-    "LACP link aggregation (port channel)",
+    "LACP link aggregation",
     "Spanning tree",
     "NAT",
     "Split tunneling"
    ],
    "a": 0,
-   "e": "LACP (802.3ad/802.1AX) aggregates links for combined bandwidth and redundancy between switches or to servers.",
+   "e": "LACP (802.3ad/802.1AX) aggregates links for combined bandwidth and redundancy between switches or to servers. In other words: port channel.",
    "d": 2
   },
   {
@@ -1772,10 +1772,10 @@ export const exam: ExamDef = {
    "t": "interface-configurations",
    "x": "A storage network enables 9000-byte 'jumbo frames.' What must be true for this to work reliably?",
    "o": [
-    "Every device in the path must support the same larger MTU",
-    "Only the server needs the setting",
-    "Jumbo frames work over any path",
-    "The DNS server must approve it"
+    "Every device in the path must use the same MTU",
+    "Only the storage server needs the setting",
+    "Jumbo frames work over any network path",
+    "The DNS server must approve the change"
    ],
    "a": 0,
    "e": "MTU must match end-to-end; a smaller-MTU hop causes fragmentation or silent drops of jumbo frames.",
@@ -1786,13 +1786,13 @@ export const exam: ExamDef = {
    "t": "interface-configurations",
    "x": "Where should QoS classification and marking ideally happen for VoIP traffic?",
    "o": [
-    "As close to the source as possible (access edge)",
+    "As close to the source as possible",
     "Only at the ISP",
     "On the DNS server",
     "Nowhere — VoIP self-prioritizes"
    ],
    "a": 0,
-   "e": "Marking traffic at the network edge lets every downstream hop honor the priority queue for latency-sensitive voice.",
+   "e": "Marking traffic at the network edge lets every downstream hop honor the priority queue for latency-sensitive voice. In other words: access edge.",
    "d": 2
   },
   {
@@ -1800,10 +1800,10 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "How is the root bridge chosen in a spanning-tree network?",
    "o": [
-    "The switch with the lowest bridge priority (then lowest MAC) wins",
-    "The newest switch wins",
+    "The switch with the lowest bridge priority wins",
+    "The most recently installed switch wins",
     "The switch with the most ports wins",
-    "It is random each hour"
+    "A random switch is picked each hour"
    ],
    "a": 0,
    "e": "STP elects the lowest bridge ID (priority + MAC) as root; admins set priority so the core switch wins deliberately.",
@@ -1814,10 +1814,10 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "What does spanning tree do with redundant paths that would create a loop?",
    "o": [
-    "Places those ports in a blocking state until needed",
-    "Deletes their VLANs",
-    "Converts them to trunks",
-    "Reboots the switch"
+    "Puts those ports into a blocking state",
+    "Deletes the VLANs on those ports",
+    "Converts those ports to trunk links",
+    "Reboots the affected switch"
    ],
    "a": 0,
    "e": "STP blocks redundant ports, keeping one loop-free active topology; blocked ports activate if the primary path fails.",
@@ -1828,13 +1828,13 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "Which STP improvement converges in seconds rather than the classic 30-50 seconds?",
    "o": [
-    "Rapid Spanning Tree (RSTP, 802.1w)",
+    "Rapid Spanning Tree",
     "RIP version 2",
     "CSMA/CD",
     "Half duplex"
    ],
    "a": 0,
-   "e": "RSTP (802.1w) redesigned port roles and handshakes for much faster convergence after topology changes.",
+   "e": "RSTP (802.1w) redesigned port roles and handshakes for much faster convergence after topology changes. In other words: RSTP, 802.1w.",
    "d": 2
   },
   {
@@ -1842,10 +1842,10 @@ export const exam: ExamDef = {
    "t": "wireless-technologies",
    "x": "Doubling a Wi-Fi channel from 20 MHz to 40 MHz width has what effect?",
    "o": [
-    "More throughput, but greater spectrum use and overlap risk",
-    "Less throughput",
-    "No change",
-    "It disables 2.4 GHz"
+    "More throughput but greater overlap risk",
+    "Less throughput than a 20 MHz channel",
+    "No change in throughput at all",
+    "It disables the 2.4 GHz band"
    ],
    "a": 0,
    "e": "Wider channels carry more data but consume more spectrum — a congestion tradeoff, especially at 2.4 GHz.",
@@ -1912,10 +1912,10 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "Which authentication approach does WPA2/WPA3-Enterprise add compared with the Personal versions?",
    "o": [
-    "802.1X per-user authentication against a RADIUS server",
-    "A longer shared passphrase",
-    "MAC filtering",
-    "Hidden SSIDs"
+    "802.1X authentication with a RADIUS server",
+    "A longer shared Wi-Fi passphrase",
+    "MAC address filtering rules",
+    "A hidden broadcast SSID"
    ],
    "a": 0,
    "e": "Enterprise mode authenticates each user/device individually via 802.1X/RADIUS, replacing the single shared passphrase.",
@@ -1926,13 +1926,13 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "Which WPA3 feature replaces the WPA2 pre-shared-key handshake and resists offline dictionary attacks?",
    "o": [
-    "SAE (Simultaneous Authentication of Equals)",
+    "SAE",
     "WEP keys",
     "TKIP",
     "MAC cloning"
    ],
    "a": 0,
-   "e": "SAE's password-authenticated key exchange prevents captured handshakes from being brute-forced offline.",
+   "e": "SAE's password-authenticated key exchange prevents captured handshakes from being brute-forced offline. SAE = Simultaneous Authentication of Equals.",
    "d": 2
   },
   {
@@ -1940,13 +1940,13 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "A coffee shop wants an open network but with each customer's traffic encrypted. Which standard provides this?",
    "o": [
-    "OWE (Enhanced Open)",
+    "OWE",
     "WEP",
     "Hidden SSID",
     "MAC allow-list"
    ],
    "a": 0,
-   "e": "Opportunistic Wireless Encryption gives open networks individualized encryption without a password.",
+   "e": "Opportunistic Wireless Encryption gives open networks individualized encryption without a password. OWE = Enhanced Open.",
    "d": 2
   },
   {
@@ -1996,7 +1996,7 @@ export const exam: ExamDef = {
    "t": "installing-networks",
    "x": "Which facility houses the building's main network equipment, with smaller closets on each floor feeding back to it?",
    "o": [
-    "The MDF (main distribution frame), fed by IDFs",
+    "The MDF",
     "The DMZ",
     "The demarc extension",
     "The UPS room"
@@ -2024,10 +2024,10 @@ export const exam: ExamDef = {
    "t": "power",
    "x": "What does a UPS provide that a surge protector alone cannot?",
    "o": [
-    "Battery power to ride through outages and brownouts",
-    "More outlets",
-    "Faster Ethernet",
-    "Lower electric bills"
+    "Battery backup during a power outage",
+    "More electrical outlets",
+    "Faster Ethernet speeds",
+    "Lower monthly electric bills"
    ],
    "a": 0,
    "e": "A UPS conditions power and bridges outages long enough for graceful shutdown or generator start; a surge strip only clamps spikes.",
@@ -2038,13 +2038,13 @@ export const exam: ExamDef = {
    "t": "power",
    "x": "Which device distributes and often remotely monitors power to individual outlets in a server rack?",
    "o": [
-    "A PDU (power distribution unit)",
+    "A PDU",
     "A patch panel",
     "A KVM",
     "A media converter"
    ],
    "a": 0,
-   "e": "Rack PDUs distribute power to equipment; managed PDUs add per-outlet monitoring and remote switching.",
+   "e": "Rack PDUs distribute power to equipment; managed PDUs add per-outlet monitoring and remote switching. A PDU = power distribution unit.",
    "d": 2
   },
   {
@@ -2052,10 +2052,10 @@ export const exam: ExamDef = {
    "t": "power",
    "x": "A data center needs to survive a multi-hour utility outage. Which combination is correct?",
    "o": [
-    "UPS for instant ride-through plus a generator for sustained power",
-    "A bigger UPS only",
-    "Two surge protectors",
-    "Solar calculators"
+    "A UPS for ride-through plus a generator",
+    "Simply a larger UPS on its own",
+    "Two surge protectors in series",
+    "A bank of solar calculators"
    ],
    "a": 0,
    "e": "The UPS carries the load for seconds-to-minutes until the generator starts and stabilizes for long outages.",
@@ -2066,10 +2066,10 @@ export const exam: ExamDef = {
    "t": "environmental-factors",
    "x": "Why is humidity control important in a server room?",
    "o": [
-    "Too low causes static discharge; too high causes condensation and corrosion",
-    "Humidity only affects comfort",
-    "Servers need 100% humidity",
-    "It only matters for printers"
+    "Too low causes static, too high causes condensation",
+    "Humidity only affects staff comfort",
+    "Servers require 100% humidity",
+    "It only matters for laser printers"
    ],
    "a": 0,
    "e": "Data centers target roughly 40-60% relative humidity to avoid ESD at the low end and condensation at the high end.",
@@ -2080,13 +2080,13 @@ export const exam: ExamDef = {
    "t": "environmental-factors",
    "x": "Which fire-suppression approach is appropriate for a room full of energized electronics?",
    "o": [
-    "A clean-agent gas system (with wet pipe as a last resort)",
+    "A clean-agent gas system",
     "A garden hose",
     "Foam on live servers first",
     "Disabling all alarms"
    ],
    "a": 0,
-   "e": "Clean-agent systems (FM-200/Novec/inert gas) extinguish fires without destroying electronics or endangering staff like water does.",
+   "e": "Clean-agent systems (FM-200/Novec/inert gas) extinguish fires without destroying electronics or endangering staff like water does. In other words: with wet pipe as a last resort.",
    "d": 2
   },
   {
@@ -2108,10 +2108,10 @@ export const exam: ExamDef = {
    "t": "dhcp",
    "x": "What does a DHCP reservation do?",
    "o": [
-    "Always assigns the same IP address to a specific device by its MAC",
+    "Assigns a fixed IP to a device by its MAC",
     "Blocks a device from the network",
     "Shortens every lease to one minute",
-    "Encrypts DHCP traffic"
+    "Encrypts all DHCP traffic"
    ],
    "a": 0,
    "e": "A reservation binds a MAC address to a fixed IP within the DHCP scope, so that device always receives the same address.",
@@ -2148,7 +2148,7 @@ export const exam: ExamDef = {
   {
    "id": 123,
    "t": "dns-records",
-   "x": "Which DNS record maps a hostname to an IPv6 address?",
+   "x": "A web server must be reachable over IPv6 by name. Which entry gets added to the DNS zone?",
    "o": [
     "AAAA",
     "A",
@@ -2192,13 +2192,13 @@ export const exam: ExamDef = {
    "t": "network-redundancy",
    "x": "Which type of protocol provides gateway redundancy so hosts keep a working default gateway if one router fails?",
    "o": [
-    "A first-hop redundancy protocol (VRRP/HSRP)",
+    "A first-hop redundancy protocol",
     "Spanning Tree Protocol",
     "NAT",
     "SNMP"
    ],
    "a": 0,
-   "e": "First-hop redundancy protocols such as VRRP and HSRP present a virtual gateway, so failover is transparent to hosts.",
+   "e": "First-hop redundancy protocols such as VRRP and HSRP present a virtual gateway, so failover is transparent to hosts. In other words: VRRP/HSRP.",
    "d": 3
   },
   {
@@ -2206,13 +2206,13 @@ export const exam: ExamDef = {
    "t": "disaster-recovery",
    "x": "Which metric defines the maximum acceptable amount of data loss, measured in time?",
    "o": [
-    "RPO (Recovery Point Objective)",
-    "RTO (Recovery Time Objective)",
+    "RPO",
+    "RTO",
     "MTBF",
     "MTTR"
    ],
    "a": 0,
-   "e": "RPO is how far back your last good recovery point is — the maximum tolerable amount of data loss.",
+   "e": "RPO is how far back your last good recovery point is — the maximum tolerable amount of data loss. RPO = Recovery Point Objective.",
    "d": 3
   },
   {
@@ -2220,13 +2220,13 @@ export const exam: ExamDef = {
    "t": "disaster-recovery",
    "x": "Which metric defines the target time to restore a service after an outage?",
    "o": [
-    "RTO (Recovery Time Objective)",
-    "RPO (Recovery Point Objective)",
+    "RTO",
+    "RPO",
     "MTBF",
     "SLA"
    ],
    "a": 0,
-   "e": "RTO is the maximum acceptable time to bring a system back online after a failure.",
+   "e": "RTO is the maximum acceptable time to bring a system back online after a failure. RTO = Recovery Time Objective.",
    "d": 3
   },
   {
@@ -2248,10 +2248,10 @@ export const exam: ExamDef = {
    "t": "network-documentation",
    "x": "What is the difference between a physical and a logical network diagram?",
    "o": [
-    "Physical shows actual devices/cabling and locations; logical shows IP subnets, VLANs, and traffic flows",
-    "They are identical documents",
-    "Logical diagrams show rack screws",
-    "Physical diagrams show only software"
+    "Physical maps devices, cabling, and locations; logical maps subnets and VLANs",
+    "Physical maps IP subnets; logical maps cable runs and port labels",
+    "Physical lists software versions; logical lists rack and floor positions",
+    "Physical and logical diagrams hold the same information"
    ],
    "a": 0,
    "e": "Physical diagrams map hardware, ports, and cable paths; logical diagrams map addressing, VLANs, and routing relationships.",
@@ -2276,13 +2276,13 @@ export const exam: ExamDef = {
    "t": "network-documentation",
    "x": "Which system tracks which IP addresses and subnets are allocated, reserved, and free across the organization?",
    "o": [
-    "IPAM (IP address management)",
+    "IPAM",
     "A DHCP client list only",
     "The browser history",
     "Spanning tree"
    ],
    "a": 0,
-   "e": "IPAM centralizes address planning and allocation, preventing overlaps and exhaustion as networks grow.",
+   "e": "IPAM centralizes address planning and allocation, preventing overlaps and exhaustion as networks grow. IPAM = IP address management.",
    "d": 3
   },
   {
@@ -2290,10 +2290,10 @@ export const exam: ExamDef = {
    "t": "network-documentation",
    "x": "Why capture a performance baseline when the network is healthy?",
    "o": [
-    "Future problems are found by comparing current metrics against the baseline",
-    "Baselines make the network faster",
-    "Auditors require screenshots",
-    "It disables alerts"
+    "It gives a normal reference to compare later metrics against",
+    "It raises the network's overall throughput and speed",
+    "It satisfies an auditor's request for network screenshots",
+    "It turns off alerting so the network stays quiet"
    ],
    "a": 0,
    "e": "A baseline defines 'normal' — without it, deciding whether current utilization or latency is abnormal is guesswork.",
@@ -2302,15 +2302,15 @@ export const exam: ExamDef = {
   {
    "id": 134,
    "t": "life-cycle-management",
-   "x": "A switch vendor announces the device will no longer receive security patches. What has the device reached?",
+   "x": "Within software life-cycle management, what is the primary purpose of applying a vendor security patch to a switch firmware image?",
    "o": [
-    "End of support / end of life",
-    "Peak performance",
-    "The refresh point for cables only",
-    "A warranty extension"
+    "To close known vulnerabilities and fix defects",
+    "To deliver brand-new product features",
+    "To reset the device to its factory defaults",
+    "To renew the hardware warranty period"
    ],
    "a": 0,
-   "e": "EOS/EOL hardware no longer gets fixes — a security and compliance risk that drives replacement planning.",
+   "e": "A security patch exists to remediate discovered vulnerabilities and correct bugs; adding major features is the job of a version upgrade, and patching neither wipes configuration nor extends warranty coverage.",
    "d": 3
   },
   {
@@ -2318,10 +2318,10 @@ export const exam: ExamDef = {
    "t": "life-cycle-management",
    "x": "What must happen to a decommissioned firewall before it is recycled or resold?",
    "o": [
-    "Its configuration and credentials must be securely wiped",
-    "Nothing — configs expire",
-    "Only the stickers are removed",
-    "The fans must be cleaned"
+    "Its stored configuration and credentials must be securely wiped",
+    "Its asset tags and inventory stickers must be peeled off",
+    "Its cooling fans and dust filters must be cleaned first",
+    "Nothing needs doing, since the configs expire on power-off"
    ],
    "a": 0,
    "e": "Device configs contain credentials, keys, and network detail; sanitize storage before disposal to prevent leaks.",
@@ -2332,10 +2332,10 @@ export const exam: ExamDef = {
    "t": "life-cycle-management",
    "x": "Which practice keeps network device software current in a controlled way?",
    "o": [
-    "A scheduled patch/firmware management process with testing and rollback plans",
-    "Updating everything the minute it releases, untested",
-    "Never updating anything",
-    "Only updating after breaches"
+    "Scheduling tested firmware updates with documented rollback plans",
+    "Applying every update the moment it releases, without testing",
+    "Leaving device software untouched until the hardware is replaced",
+    "Waiting to patch only after a breach has been detected"
    ],
    "a": 0,
    "e": "Lifecycle management schedules tested firmware updates in maintenance windows with rollback plans — balancing security and stability.",
@@ -2346,10 +2346,10 @@ export const exam: ExamDef = {
    "t": "configuration-management",
    "x": "A 'golden configuration' serves what purpose?",
    "o": [
-    "It is the approved baseline config that devices are compared against",
-    "It is a config written in gold ink",
-    "It is the fastest possible config",
-    "It disables logging"
+    "It is the approved baseline that running configs are compared to",
+    "It is a premium license tier that unlocks extra features",
+    "It is the highest-throughput template a vendor ships",
+    "It is a config that turns off logging to save space"
    ],
    "a": 0,
    "e": "Golden configs are validated baselines; comparing running configs against them reveals unauthorized or accidental drift.",
@@ -2388,10 +2388,10 @@ export const exam: ExamDef = {
    "t": "snmp",
    "x": "What is the difference between SNMP polling and SNMP traps?",
    "o": [
-    "Polling is the manager asking on a schedule; traps are devices pushing alerts immediately",
-    "Traps are slower than polling",
-    "Polling requires no network",
-    "They are identical"
+    "Polling has the manager query on a schedule; traps are agent-pushed alerts",
+    "Traps are queried by the manager; polling is pushed by the agent",
+    "Polling runs over UDP while traps require a TCP session",
+    "Both send the same data, just on different port numbers"
    ],
    "a": 0,
    "e": "Managers poll agents periodically for metrics; agents send traps (or informs) the moment something notable happens.",
@@ -2402,10 +2402,10 @@ export const exam: ExamDef = {
    "t": "snmp",
    "x": "Why is SNMPv3 strongly preferred over v1 and v2c?",
    "o": [
-    "It adds authentication and encryption instead of plain-text community strings",
-    "It is easier to type",
-    "It uses less RAM",
-    "It removes the need for monitoring"
+    "It adds user authentication and encryption for management traffic",
+    "It replaces UDP transport with a faster TCP connection",
+    "It compresses SNMP messages to use less bandwidth",
+    "It removes the need for a monitoring server entirely"
    ],
    "a": 0,
    "e": "v1/v2c 'secure' access with cleartext community strings; v3 adds real user authentication and privacy (encryption).",
@@ -2458,7 +2458,7 @@ export const exam: ExamDef = {
    "t": "logs-and-monitoring",
    "x": "A technician needs to capture packets from one switch port's traffic for analysis. Which switch feature sends a copy of that traffic to the analyzer's port?",
    "o": [
-    "Port mirroring (SPAN)",
+    "Port mirroring",
     "Port security",
     "PoE",
     "BPDU guard"
@@ -2472,13 +2472,13 @@ export const exam: ExamDef = {
    "t": "logs-and-monitoring",
    "x": "Which technology summarizes WHO is talking to WHOM and how much, without capturing full packets?",
    "o": [
-    "Flow data (NetFlow/IPFIX/sFlow)",
+    "Flow data",
     "Full disk encryption",
     "MAC filtering",
     "STP"
    ],
    "a": 0,
-   "e": "Flow export records conversation metadata (addresses, ports, bytes) — lightweight visibility into traffic patterns.",
+   "e": "Flow export records conversation metadata (addresses, ports, bytes) — lightweight visibility into traffic patterns. Flow data = NetFlow/IPFIX/sFlow.",
    "d": 3
   },
   {
@@ -2486,10 +2486,10 @@ export const exam: ExamDef = {
    "t": "network-solutions",
    "x": "A NAS differs from a SAN in which key way?",
    "o": [
-    "NAS serves files over the LAN; a SAN provides block-level storage over a dedicated fabric",
-    "NAS is always faster",
-    "SAN uses USB",
-    "They are the same"
+    "NAS serves files over the LAN; a SAN presents block storage over a fabric",
+    "NAS presents raw block volumes; a SAN shares files over SMB",
+    "NAS attaches by USB; a SAN attaches by a parallel port",
+    "NAS and SAN are two names for the same technology"
    ],
    "a": 0,
    "e": "NAS presents file shares (SMB/NFS); SANs present raw block devices over Fibre Channel or iSCSI that servers format themselves.",
@@ -2514,10 +2514,10 @@ export const exam: ExamDef = {
    "t": "disaster-recovery",
    "x": "In an active-passive high-availability pair, what does the passive node do?",
    "o": [
-    "Stands by, taking over only when the active node fails",
-    "Serves half the traffic",
-    "Runs backups only",
-    "Nothing — it is powered off forever"
+    "Stays on standby and takes over if the active node fails",
+    "Serves roughly half the client traffic in parallel",
+    "Runs scheduled backups while the active node serves",
+    "Sits fully powered off until the hardware is replaced"
    ],
    "a": 0,
    "e": "Active-passive keeps a standby synchronized and idle until failover; active-active shares load across both.",
@@ -2570,10 +2570,10 @@ export const exam: ExamDef = {
    "t": "network-redundancy",
    "x": "A business wants internet service to survive an ISP outage. Which design achieves this?",
    "o": [
-    "Dual WAN links from different providers over diverse paths",
-    "Two routers on the same ISP line",
-    "A longer contract",
-    "A bigger router"
+    "Two WAN links from different ISPs over separate paths",
+    "Two routers sharing the same single ISP circuit",
+    "A longer service contract with the current ISP",
+    "A higher-capacity router on the existing line"
    ],
    "a": 0,
    "e": "Provider and path diversity means one carrier's failure doesn't sever connectivity; routing or SD-WAN handles failover.",
@@ -2598,13 +2598,13 @@ export const exam: ExamDef = {
    "t": "dhcp",
    "x": "Clients on a subnet with no local DHCP server still receive addresses from a central server. Which router feature makes this work?",
    "o": [
-    "A DHCP relay (IP helper address)",
+    "A DHCP relay",
     "NAT overload",
     "Port mirroring",
     "A longer lease"
    ],
    "a": 0,
-   "e": "The relay forwards local DHCP broadcasts as unicast to the central server, allowing one server to serve many subnets.",
+   "e": "The relay forwards local DHCP broadcasts as unicast to the central server, allowing one server to serve many subnets. In other words: IP helper address.",
    "d": 3
   },
   {
@@ -2626,10 +2626,10 @@ export const exam: ExamDef = {
    "t": "configuring-dhcp",
    "x": "A few devices on the subnet use static IPs within the DHCP scope's range. How should the scope be configured to avoid conflicts?",
    "o": [
-    "Add exclusion ranges covering the static addresses",
-    "Shorten the lease to one minute",
-    "Delete the scope",
-    "Enable jumbo frames"
+    "Add exclusion ranges that cover the static addresses",
+    "Shorten the lease time to one minute per client",
+    "Delete the scope and assign every host by hand",
+    "Enable jumbo frames on the DHCP server interface"
    ],
    "a": 0,
    "e": "Exclusions tell the server never to lease those addresses, preventing conflicts with statically configured hosts.",
@@ -2640,10 +2640,10 @@ export const exam: ExamDef = {
    "t": "ipv6-and-slaac",
    "x": "How does a host build its own IPv6 address using SLAAC?",
    "o": [
-    "It combines the router-advertised prefix with a self-generated interface identifier",
-    "A DHCPv4 server assigns it",
-    "The DNS server assigns it",
-    "It copies a neighbor's address"
+    "It joins the router-advertised prefix to a self-made interface ID",
+    "A DHCPv4 server hands the host a full address",
+    "The DNS server allocates it during name lookup",
+    "It copies the address from a neighboring host"
    ],
    "a": 0,
    "e": "Stateless address autoconfiguration: the router advertises the /64 prefix; the host appends its own interface ID and verifies uniqueness.",
@@ -2654,7 +2654,7 @@ export const exam: ExamDef = {
    "t": "ipv6-and-slaac",
    "x": "Which protocol message do IPv6 routers send to announce prefixes and gateway information for SLAAC?",
    "o": [
-    "Router Advertisements (ICMPv6)",
+    "Router Advertisements",
     "ARP broadcasts",
     "DHCPDISCOVER",
     "Spanning-tree BPDUs"
@@ -2710,13 +2710,13 @@ export const exam: ExamDef = {
    "t": "dns-records",
    "x": "Which record in a zone defines its serial number, refresh timers, and primary server?",
    "o": [
-    "SOA (start of authority)",
+    "SOA",
     "TXT",
     "AAAA",
     "SRV"
    ],
    "a": 0,
-   "e": "The SOA record anchors the zone with its primary name server, contact, serial, and timing parameters used by secondaries.",
+   "e": "The SOA record anchors the zone with its primary name server, contact, serial, and timing parameters used by secondaries. SOA = start of authority.",
    "d": 3
   },
   {
@@ -2724,7 +2724,7 @@ export const exam: ExamDef = {
    "t": "time-protocols",
    "x": "In NTP, what does a server's stratum number indicate?",
    "o": [
-    "Its distance from the reference clock (stratum 0)",
+    "Its distance from the reference clock",
     "Its CPU speed",
     "Its port number",
     "Its VLAN"
@@ -2738,10 +2738,10 @@ export const exam: ExamDef = {
    "t": "time-protocols",
    "x": "Authentication failures across a domain spike, and investigators notice server clocks differ by 20 minutes. Why does this matter?",
    "o": [
-    "Time-sensitive protocols like Kerberos reject authentication when clocks drift too far",
-    "Clocks only matter for screensavers",
-    "Time cannot affect security",
-    "Logs ignore time"
+    "Kerberos rejects authentication when clocks drift beyond its tolerance",
+    "Clock accuracy only affects screensaver and display timing",
+    "Server time has no bearing on security or authentication",
+    "Log entries record events without using any timestamps"
    ],
    "a": 0,
    "e": "Kerberos tolerates ~5 minutes of skew by default; drifted clocks break authentication and make log correlation impossible.",
@@ -2752,10 +2752,10 @@ export const exam: ExamDef = {
    "t": "remote-access",
    "x": "Why should SSH always replace Telnet for managing network devices?",
    "o": [
-    "SSH encrypts the session; Telnet sends everything including passwords in cleartext",
-    "Telnet is faster",
-    "SSH needs no network",
-    "Telnet uses port 22"
+    "SSH encrypts the session while Telnet sends passwords in cleartext",
+    "Telnet encrypts traffic while SSH sends it in the clear",
+    "SSH can manage a device without any network connectivity",
+    "Telnet listens on port 22 and SSH listens on port 23"
    ],
    "a": 0,
    "e": "Telnet exposes credentials to anyone capturing traffic; SSH encrypts the entire management session.",
@@ -2780,13 +2780,13 @@ export const exam: ExamDef = {
    "t": "remote-access",
    "x": "The network team can still reach switch consoles during a total network outage. Which capability makes this possible?",
    "o": [
-    "Out-of-band management (console/serial or a separate management path)",
+    "Out-of-band management",
     "In-band SSH over the failed network",
     "A faster browser",
     "Port forwarding"
    ],
    "a": 0,
-   "e": "Out-of-band access (console servers, cellular/serial paths) works independently of the production network — essential when it's down.",
+   "e": "Out-of-band access (console servers, cellular/serial paths) works independently of the production network — essential when it's down. Out-of-band management = console/serial or a separate management path.",
    "d": 3
   },
   {
@@ -2808,13 +2808,13 @@ export const exam: ExamDef = {
    "t": "authentication",
    "x": "Which framework provides centralized Authentication, Authorization, and Accounting for network access?",
    "o": [
-    "AAA (RADIUS/TACACS+)",
+    "AAA",
     "DNS",
     "DHCP",
     "NAT"
    ],
    "a": 0,
-   "e": "AAA services such as RADIUS and TACACS+ centrally authenticate users, authorize access, and log activity.",
+   "e": "AAA services such as RADIUS and TACACS+ centrally authenticate users, authorize access, and log activity. AAA = RADIUS/TACACS+.",
    "d": 4
   },
   {
@@ -2834,15 +2834,15 @@ export const exam: ExamDef = {
   {
    "id": 172,
    "t": "denial-of-service",
-   "x": "An attack that floods a server with traffic from many compromised hosts at once is called what?",
+   "x": "Which technique exhausts a server by opening many TCP sessions that are never completed, filling its connection table?",
    "o": [
-    "A DDoS attack",
-    "A phishing attack",
-    "SQL injection",
-    "A replay attack"
+    "A SYN flood",
+    "A brute-force login",
+    "A ping sweep",
+    "A port scan"
    ],
    "a": 0,
-   "e": "A distributed denial-of-service (DDoS) attack uses many compromised systems (a botnet) to overwhelm a target.",
+   "e": "A SYN flood sends a barrage of TCP SYN packets without finishing the three-way handshake, leaving half-open connections that consume the server state table until it can no longer accept legitimate sessions.",
    "d": 4
   },
   {
@@ -2850,13 +2850,13 @@ export const exam: ExamDef = {
    "t": "arp-and-dns-poisoning",
    "x": "An attacker sends forged ARP replies to associate their MAC address with the gateway's IP. What is this attack?",
    "o": [
-    "ARP poisoning (an on-path attack)",
+    "ARP poisoning",
     "DNS tunneling",
     "MAC filtering",
     "Port mirroring"
    ],
    "a": 0,
-   "e": "ARP poisoning tricks hosts into sending traffic to the attacker, enabling on-path (man-in-the-middle) interception.",
+   "e": "ARP poisoning tricks hosts into sending traffic to the attacker, enabling on-path (man-in-the-middle) interception. ARP poisoning = an on-path attack.",
    "d": 4
   },
   {
@@ -2906,10 +2906,10 @@ export const exam: ExamDef = {
    "t": "security-concepts",
    "x": "What is the relationship between a vulnerability, an exploit, and a threat?",
    "o": [
-    "A vulnerability is a weakness, an exploit takes advantage of it, and a threat is the potential actor/event",
-    "They are three words for the same thing",
-    "Exploits are always physical",
-    "Threats only apply to servers"
+    "A vulnerability is a weakness, an exploit abuses it, a threat is the actor",
+    "The three terms are interchangeable names for one idea",
+    "An exploit is the human attacker and a threat is the code",
+    "A threat is a software bug and a vulnerability is the attacker"
    ],
    "a": 0,
    "e": "Weakness (vulnerability) + a way to abuse it (exploit) + someone/something to do so (threat) = risk to manage.",
@@ -2990,13 +2990,13 @@ export const exam: ExamDef = {
    "t": "security-technologies",
    "x": "Which technology checks a connecting device's identity and health posture before granting network access?",
    "o": [
-    "NAC (network access control, often 802.1X)",
+    "NAC",
     "NTP",
     "RAID",
     "QoS"
    ],
    "a": 0,
-   "e": "NAC gates network admission: 802.1X authenticates, and posture checks verify patching/AV before the port or SSID opens.",
+   "e": "NAC gates network admission: 802.1X authenticates, and posture checks verify patching/AV before the port or SSID opens. NAC = network access control, often 802.1X.",
    "d": 4
   },
   {
@@ -3004,10 +3004,10 @@ export const exam: ExamDef = {
    "t": "security-technologies",
    "x": "What does a PKI certificate bind together?",
    "o": [
-    "A public key and a verified identity, signed by a certificate authority",
-    "Two passwords",
-    "A MAC and an IP",
-    "A port and a VLAN"
+    "A public key and a verified identity, signed by a CA",
+    "Two shared passwords held by the client and server",
+    "A device MAC address and its assigned IP address",
+    "A switch port number and its access VLAN ID"
    ],
    "a": 0,
    "e": "Certificates attest that a public key belongs to an identity, with a CA's signature making the binding trustworthy.",
@@ -3046,10 +3046,10 @@ export const exam: ExamDef = {
    "t": "segmentation-enforcement",
    "x": "Why should IoT devices like cameras and sensors be placed on their own network segment?",
    "o": [
-    "They are hard to patch and a compromise there cannot reach business systems",
-    "IoT devices require faster cables",
-    "It makes them cheaper",
-    "DNS requires it"
+    "They are hard to patch, so a breach there cannot reach business systems",
+    "The devices need faster cabling than business systems",
+    "Grouping them together lowers their purchase cost",
+    "The DNS protocol requires them on a separate subnet"
    ],
    "a": 0,
    "e": "Segmenting IoT limits blast radius: weakly secured devices get contained, with ACLs controlling any cross-segment access.",
@@ -3060,13 +3060,13 @@ export const exam: ExamDef = {
    "t": "segmentation-enforcement",
    "x": "Which network zone hosts public-facing servers, isolated from the internal LAN by firewall rules?",
    "o": [
-    "A screened subnet (DMZ)",
+    "A screened subnet",
     "The management VLAN",
     "The loopback network",
     "The native VLAN"
    ],
    "a": 0,
-   "e": "The screened subnet exposes web/mail servers to the internet while firewalls block them from initiating into the LAN.",
+   "e": "The screened subnet exposes web/mail servers to the internet while firewalls block them from initiating into the LAN. In other words: DMZ.",
    "d": 4
   },
   {
@@ -3074,10 +3074,10 @@ export const exam: ExamDef = {
    "t": "segmentation-enforcement",
    "x": "Which mechanism enforces which segments may talk to which, at routed boundaries?",
    "o": [
-    "Access control lists (ACLs) on routers/firewalls",
-    "Longer cables",
-    "SSID names",
-    "NTP stratum"
+    "ACLs applied on routers or firewalls",
+    "Longer patch cables between segments",
+    "Descriptive SSID naming conventions",
+    "A lower NTP stratum on the core"
    ],
    "a": 0,
    "e": "ACLs (and firewall policies) are the enforcement mechanism that turns segmentation design into actual traffic control.",
@@ -3102,10 +3102,10 @@ export const exam: ExamDef = {
    "t": "denial-of-service",
    "x": "What distinguishes a DDoS from a simple DoS attack?",
    "o": [
-    "The traffic comes from many distributed sources, typically a botnet",
-    "It only targets databases",
-    "It is always slower",
-    "It requires physical access"
+    "Attack traffic arrives from many distributed hosts, often a botnet",
+    "The attack is aimed solely at database servers",
+    "The attack floods the target more slowly than a DoS",
+    "The attacker needs physical access to the target"
    ],
    "a": 0,
    "e": "Distribution across thousands of compromised hosts makes DDoS attacks far harder to filter by source.",
@@ -3130,10 +3130,10 @@ export const exam: ExamDef = {
    "t": "vlan-hopping",
    "x": "Which configurations mitigate VLAN hopping? (Choose the BEST set.)",
    "o": [
-    "Disable auto-trunking (DTP), set unused ports to access mode, and avoid VLAN 1 as native",
-    "Enable every port as a trunk",
-    "Use the default native VLAN everywhere",
-    "Turn off all VLANs"
+    "Disable auto-trunking and set unused ports to access mode",
+    "Configure every switch port as a trunk",
+    "Use the default native VLAN on all trunks",
+    "Remove all VLANs and use one flat network"
    ],
    "a": 0,
    "e": "Hardening: no dynamic trunk negotiation, explicit access ports, and a dedicated unused native VLAN defeat both hopping techniques.",
@@ -3144,10 +3144,10 @@ export const exam: ExamDef = {
    "t": "mac-flooding",
    "x": "An attacker blasts a switch with thousands of fake source MAC addresses. What is the goal?",
    "o": [
-    "Overflow the CAM table so the switch floods traffic like a hub, enabling sniffing",
-    "Speed up the switch",
-    "Assign themselves an IP",
-    "Break the fiber"
+    "Overflow the CAM table, making the switch flood all frames",
+    "Speed up the switch's frame forwarding",
+    "Assign the attacker a routable IP address",
+    "Physically sever the fiber uplink cable"
    ],
    "a": 0,
    "e": "When the MAC table fills, switches flood unknown traffic out all ports — letting the attacker capture other hosts' frames.",
@@ -3172,13 +3172,13 @@ export const exam: ExamDef = {
    "t": "arp-and-dns-poisoning",
    "x": "Which switch security feature validates ARP replies against known IP-MAC bindings, blocking ARP spoofing?",
    "o": [
-    "Dynamic ARP inspection (with DHCP snooping)",
+    "Dynamic ARP inspection",
     "Jumbo frames",
     "Link aggregation",
     "Half duplex"
    ],
    "a": 0,
-   "e": "DAI checks ARP packets against the DHCP-snooping binding table and drops forged replies.",
+   "e": "DAI checks ARP packets against the DHCP-snooping binding table and drops forged replies. In other words: with DHCP snooping.",
    "d": 4
   },
   {
@@ -3200,10 +3200,10 @@ export const exam: ExamDef = {
    "t": "rogue-services",
    "x": "Users report getting wrong IP settings, and traffic is being routed through an unknown device. An unauthorized DHCP server is found. Which defense prevents this?",
    "o": [
-    "DHCP snooping — only trusted ports may answer DHCP",
-    "More DNS servers",
-    "Bigger leases",
-    "Spanning tree"
+    "DHCP snooping",
+    "Additional DNS servers",
+    "Longer DHCP lease times",
+    "Spanning Tree Protocol"
    ],
    "a": 0,
    "e": "DHCP snooping marks legitimate server ports as trusted and drops DHCP offers arriving on any other port.",
@@ -3228,10 +3228,10 @@ export const exam: ExamDef = {
    "t": "rogue-services",
    "x": "An employee plugs a personal Wi-Fi router into their desk port 'for convenience.' What is this device, and why is it dangerous?",
    "o": [
-    "A rogue access point — it bypasses network security controls",
+    "A rogue access point — it bypasses security controls",
     "A honeypot — it traps attackers",
     "A print server — it is harmless",
-    "A UPS — it protects power"
+    "A UPS — it only protects power"
    ],
    "a": 0,
    "e": "Unauthorized APs create unmonitored entry points into the LAN; wireless scans and NAC detect and block them.",
@@ -3242,13 +3242,13 @@ export const exam: ExamDef = {
    "t": "social-engineering",
    "x": "A targeted, personalized phishing email is sent specifically to a company's CFO. What is this attack called?",
    "o": [
-    "Whaling (executive spear phishing)",
+    "Whaling",
     "Mass phishing",
     "Tailgating",
     "War driving"
    ],
    "a": 0,
-   "e": "Whaling targets high-value executives with researched, personalized lures — the payoff justifies the attacker's effort.",
+   "e": "Whaling targets high-value executives with researched, personalized lures — the payoff justifies the attacker's effort. Whaling = executive spear phishing.",
    "d": 4
   },
   {
@@ -3256,7 +3256,7 @@ export const exam: ExamDef = {
    "t": "social-engineering",
    "x": "An attacker follows an employee through a badge-controlled door while carrying boxes. Which attack is this, and what stops it?",
    "o": [
-    "Tailgating — stopped by mantraps, turnstiles, and a challenge culture",
+    "Tailgating — stopped by mantraps and turnstiles",
     "Vishing — stopped by call filtering",
     "Smishing — stopped by SMS blocking",
     "Typosquatting — stopped by DNS"
@@ -3284,10 +3284,10 @@ export const exam: ExamDef = {
    "t": "device-security",
    "x": "Management access to switches and routers should be restricted how?",
    "o": [
-    "Via a dedicated management VLAN/network with ACLs and SSH-only access",
-    "Open Telnet from anywhere",
+    "Via a dedicated management VLAN with SSH-only access",
+    "Open Telnet from any subnet",
     "Shared admin passwords on a sticky note",
-    "HTTP on the guest Wi-Fi"
+    "Plain HTTP over the guest Wi-Fi"
    ],
    "a": 0,
    "e": "Isolating and ACL-restricting the management plane — with encrypted protocols and unique credentials — is core device hardening.",
@@ -3298,13 +3298,13 @@ export const exam: ExamDef = {
    "t": "device-security",
    "x": "What is the FIRST security task when deploying any new network device?",
    "o": [
-    "Change default credentials (and update firmware)",
+    "Change default credentials",
     "Enable every service",
     "Post the IP publicly",
     "Disable logging"
    ],
    "a": 0,
-   "e": "Default passwords are in every attacker's playbook; changing them and patching firmware precede production use.",
+   "e": "Default passwords are in every attacker's playbook; changing them and patching firmware precede production use. In other words: and update firmware.",
    "d": 4
   },
   {
@@ -3326,10 +3326,10 @@ export const exam: ExamDef = {
    "t": "security-rules",
    "x": "Firewall rules are evaluated top-down, first match wins. A broad ALLOW sits above a specific DENY. What results?",
    "o": [
-    "The specific deny never fires — rule order must be corrected",
-    "Both rules apply",
-    "The deny always wins anyway",
-    "The firewall averages them"
+    "The specific deny is shadowed by the broad allow",
+    "Both rules apply together",
+    "The deny still overrides the allow",
+    "The firewall averages the two rules"
    ],
    "a": 0,
    "e": "First-match processing means specific rules must precede broad ones; misordering silently disables intended blocks.",
@@ -3464,15 +3464,15 @@ export const exam: ExamDef = {
   {
    "id": 217,
    "t": "routing-and-ip-issues",
-   "x": "A client displays a 169.254.x.x address and cannot reach the network. Which service most likely failed?",
+   "x": "A traceroute to an internal server repeats the same two router hops over and over until it times out. What condition does this reveal?",
    "o": [
-    "DHCP",
-    "DNS",
-    "SNMP",
-    "NTP"
+    "A routing loop between those two routers",
+    "A DNS server misconfiguration",
+    "An MTU set too large on the path",
+    "A duplicate MAC address on the segment"
    ],
    "a": 0,
-   "e": "A 169.254 APIPA address means the client could not reach a DHCP server to obtain valid configuration.",
+   "e": "When two routers hold inconsistent routes they hand the packet back and forth; each pass decrements the TTL until it dies, so a traceroute that cycles the same hops is the signature of a routing loop.",
    "d": 5
   },
   {
@@ -3481,9 +3481,9 @@ export const exam: ExamDef = {
    "x": "Users far from the access point report slow speeds and frequent drops. What is the MOST likely cause?",
    "o": [
     "Low signal strength from distance and attenuation",
-    "An incorrect DNS server",
-    "An expired DHCP scope",
-    "A duplex mismatch"
+    "An incorrect DNS server address",
+    "An expired DHCP lease scope",
+    "A switch-port duplex mismatch"
    ],
    "a": 0,
    "e": "Weak signal from distance or obstructions reduces throughput and causes drops; closer placement or additional APs helps.",
@@ -3492,15 +3492,15 @@ export const exam: ExamDef = {
   {
    "id": 219,
    "t": "wireless-issues",
-   "x": "Two nearby access points using overlapping channels cause degraded Wi-Fi. What is this problem called?",
+   "x": "Two nearby access points on the same channel cause degraded Wi-Fi as clients contend for airtime. What is this problem called?",
    "o": [
-    "Channel (co-channel) interference",
+    "Co-channel interference",
     "A broadcast storm",
     "An IP conflict",
     "A routing loop"
    ],
    "a": 0,
-   "e": "Overlapping channels create interference; using non-overlapping channels (1, 6, 11 in 2.4 GHz) reduces it.",
+   "e": "Co-channel interference happens when access points share the same channel and must take turns transmitting, cutting throughput. Assigning neighboring APs to non-overlapping channels (1, 6, and 11 in 2.4 GHz) avoids it.",
    "d": 5
   },
   {
@@ -3508,10 +3508,10 @@ export const exam: ExamDef = {
    "t": "network-troubleshooting-methodology",
    "x": "While identifying a problem, which activities are appropriate? (Choose the BEST set.)",
    "o": [
-    "Question users, identify symptoms, determine what changed, and duplicate the issue if possible",
-    "Immediately reboot everything",
-    "Replace hardware at random",
-    "Close the ticket"
+    "Question users, identify symptoms, and note what changed",
+    "Immediately reboot every affected device",
+    "Randomly replace suspect hardware first",
+    "Close the ticket without any diagnosis"
    ],
    "a": 0,
    "e": "Step 1 is information gathering: user reports, symptom scope, recent changes, and reproduction — before theorizing.",
@@ -3536,10 +3536,10 @@ export const exam: ExamDef = {
    "t": "network-troubleshooting-methodology",
    "x": "After implementing a fix, what must happen BEFORE closing the ticket?",
    "o": [
-    "Verify full functionality, apply preventives, and document findings and actions",
-    "Nothing — the fix speaks for itself",
-    "Delete the logs",
-    "Uninstall the monitoring"
+    "Verify functionality, add preventives, and document",
+    "Nothing further — the fix speaks for itself",
+    "Delete the diagnostic logs",
+    "Uninstall the monitoring agent"
    ],
    "a": 0,
    "e": "Verification confirms the fix worked system-wide; documentation captures the knowledge for next time.",
@@ -3550,10 +3550,10 @@ export const exam: ExamDef = {
    "t": "cable-issues",
    "x": "A 150-meter Ethernet run between switches has intermittent connectivity. What is the fundamental problem?",
    "o": [
-    "The run exceeds the 100 m twisted-pair limit — attenuation degrades the signal",
-    "The cable color is wrong",
-    "The VLAN is misnumbered",
-    "The DNS suffix is missing"
+    "The run exceeds the 100 m twisted-pair limit",
+    "The cable jacket color is wrong",
+    "The VLAN is misnumbered on the port",
+    "The DNS search suffix is missing"
    ],
    "a": 0,
    "e": "Copper Ethernet is specified to 100 meters; beyond that, attenuation causes errors — use fiber or an intermediate switch.",
@@ -3564,10 +3564,10 @@ export const exam: ExamDef = {
    "t": "cable-issues",
    "x": "A cable tester reports an 'open' on pin 3 of a new cable run. What does this mean?",
    "o": [
-    "The conductor is broken or unterminated somewhere along the run",
-    "The cable is too fast",
-    "Pin 3 carries PoE only",
-    "The jack is upside down"
+    "The conductor is broken or unterminated",
+    "That conductor runs too fast",
+    "Pin 3 carries only PoE power",
+    "The jack was wired upside down"
    ],
    "a": 0,
    "e": "An open is a break in continuity — typically a bad punch-down or damaged conductor; re-terminate and retest.",
@@ -3620,10 +3620,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "A switch interface shows rapidly incrementing CRC errors. Which causes are MOST likely?",
    "o": [
-    "A bad cable, failing transceiver, or duplex mismatch",
-    "Too many VLANs",
-    "A DNS outage",
-    "An expired certificate"
+    "A faulty cable, transceiver, or duplex mismatch",
+    "Too many VLANs on the trunk",
+    "A brief DNS resolution outage",
+    "An expired TLS certificate"
    ],
    "a": 0,
    "e": "CRC errors mean corrupted frames — physical-layer faults (cabling, optics, duplex mismatch) are the usual culprits.",
@@ -3634,10 +3634,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "A port repeatedly goes up and down ('flapping'). What should the technician examine FIRST?",
    "o": [
-    "The cable, connector seating, and transceiver on that link",
-    "The DNS zone",
-    "The DHCP scope",
-    "The firewall GUI"
+    "The cable, connector, and transceiver",
+    "The DNS zone records",
+    "The DHCP scope options",
+    "The firewall rule GUI"
    ],
    "a": 0,
    "e": "Link flapping is physical until proven otherwise: reseat/replace the cable and optic, then check the far-end device.",
@@ -3648,10 +3648,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "A switch port entered the err-disabled state. What does this indicate, and how is it resolved?",
    "o": [
-    "A protection feature (port security, BPDU guard) triggered; fix the cause and re-enable the port",
-    "The port is broken forever",
-    "The VLAN was deleted",
-    "The cable is too short"
+    "A protection feature disabled the port automatically",
+    "The port hardware has failed permanently",
+    "The VLAN assigned to the port was deleted",
+    "The attached cable is below minimum length"
    ],
    "a": 0,
    "e": "Err-disable is deliberate: a violation tripped a guard feature. Resolve the trigger, then 'shutdown/no shutdown' (or auto-recovery) restores it.",
@@ -3662,10 +3662,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "An interface shows many 'runts' — frames smaller than 64 bytes. What commonly causes this?",
    "o": [
-    "Collisions from a duplex mismatch or a faulty NIC",
-    "Jumbo frames",
-    "Correct operation",
-    "DNS misconfiguration"
+    "Collisions from a duplex mismatch or a bad NIC",
+    "Enabled jumbo frames on the port",
+    "Completely normal operation",
+    "A DNS server misconfiguration"
    ],
    "a": 0,
    "e": "Runts usually come from collisions (mismatched duplex) or defective hardware corrupting transmissions.",
@@ -3674,15 +3674,15 @@ export const exam: ExamDef = {
   {
    "id": 232,
    "t": "hardware-issues",
-   "x": "Cameras connected to a PoE switch randomly reboot after more cameras were added. What is the MOST likely cause?",
+   "x": "A router forwards traffic but its web console barely responds and it intermittently drops packets; monitoring shows the device processor pinned near 100 percent. What class of problem is this?",
    "o": [
-    "The switch's PoE power budget is exceeded",
-    "The cameras dislike VLANs",
-    "DNS is slow",
-    "The cables are too colorful"
+    "Resource exhaustion on the device itself",
+    "Duplicate IP addressing on the segment",
+    "Name resolution failure at the DNS server",
+    "Certificate expiry on the management interface"
    ],
    "a": 0,
-   "e": "Each PoE switch has a total wattage budget; oversubscribing it causes devices to brown-out — check power draw per port.",
+   "e": "A processor stuck near 100 percent that starves the management plane and forwarding is a resource-exhaustion problem on the device; check for a runaway process, a software bug, or a traffic pattern overwhelming its capacity.",
    "d": 5
   },
   {
@@ -3690,10 +3690,10 @@ export const exam: ExamDef = {
    "t": "hardware-issues",
    "x": "A switch in a hot wiring closet reboots on summer afternoons. Which is the MOST likely cause?",
    "o": [
-    "Overheating from inadequate ventilation/cooling",
-    "Too much bandwidth",
-    "A bad password",
-    "Excess VLANs"
+    "Overheating from inadequate cooling",
+    "Too much bandwidth usage",
+    "A weak admin password",
+    "Too many VLANs configured"
    ],
    "a": 0,
    "e": "Network gear thermal-protects itself; closets need airflow or AC, and clogged fans/vents should be cleaned.",
@@ -3704,10 +3704,10 @@ export const exam: ExamDef = {
    "t": "hardware-issues",
    "x": "After a power blip, a switch boots but its configuration is gone. What likely failed or was skipped?",
    "o": [
-    "The startup configuration was never saved to non-volatile storage",
-    "The MAC table aged out",
-    "The uplink was too fast",
-    "The DNS cache cleared"
+    "The config was not saved to non-volatile storage",
+    "The MAC address table aged out",
+    "The uplink negotiated too fast",
+    "The DNS cache was cleared"
    ],
    "a": 0,
    "e": "Running config lives in RAM; unless saved to NVRAM/flash ('write memory'), it vanishes on reboot.",
@@ -3774,10 +3774,10 @@ export const exam: ExamDef = {
    "t": "routing-and-ip-issues",
    "x": "A host at 192.168.1.50 with mask 255.255.255.0 cannot reach a server at 192.168.2.10 that shares the same switch. Why?",
    "o": [
-    "They are on different subnets, so traffic must be routed",
-    "The switch is too small",
-    "The server needs Wi-Fi",
-    "The mask is illegal"
+    "They are on different subnets and must be routed",
+    "The switch port is too small",
+    "The server needs a Wi-Fi card",
+    "The subnet mask is illegal"
    ],
    "a": 0,
    "e": "Different subnets require a Layer 3 hop even on shared hardware — or correcting the addressing if they were meant to be one subnet.",
@@ -3802,10 +3802,10 @@ export const exam: ExamDef = {
    "t": "performance-issues",
    "x": "Users complain the network is slow every day at 2 PM when backups run. Monitoring shows the WAN at 100% use. What is the problem?",
    "o": [
-    "Bandwidth saturation — schedule backups off-hours or apply QoS/rate limits",
-    "DNS poisoning",
-    "A bad patch cable",
-    "MAC flooding"
+    "Bandwidth saturation from the backup jobs",
+    "DNS cache poisoning",
+    "A single faulty patch cable",
+    "MAC address table flooding"
    ],
    "a": 0,
    "e": "Link saturation queues and drops everyone's traffic; reschedule bulk transfers, add capacity, or prioritize interactive traffic.",
@@ -3830,10 +3830,10 @@ export const exam: ExamDef = {
    "t": "performance-issues",
    "x": "File transfers to one branch office keep stalling, and pings show 5% packet loss. What effect does loss have on TCP transfers?",
    "o": [
-    "TCP retransmits and shrinks its window, collapsing throughput",
-    "No effect — TCP ignores loss",
-    "Files arrive corrupted",
-    "Loss only affects UDP"
+    "TCP retransmits and its throughput drops sharply",
+    "No real effect, since TCP ignores loss",
+    "Files arrive silently corrupted",
+    "Loss only affects UDP flows"
    ],
    "a": 0,
    "e": "Even small loss rates devastate TCP throughput because congestion control backs off sharply — find and fix the lossy hop.",
@@ -3858,10 +3858,10 @@ export const exam: ExamDef = {
    "t": "wireless-issues",
    "x": "A laptop shows full Wi-Fi bars but cannot authenticate after a recent password change. What is the MOST likely fix?",
    "o": [
-    "Forget the network and rejoin with the new passphrase",
-    "Replace the antenna",
-    "Move closer",
-    "Disable DHCP"
+    "Forget the network and rejoin it",
+    "Replace the wireless antenna",
+    "Move closer to the access point",
+    "Disable DHCP on the laptop"
    ],
    "a": 0,
    "e": "Saved credentials go stale after a passphrase change; forgetting and rejoining refreshes the stored key.",
@@ -3914,13 +3914,13 @@ export const exam: ExamDef = {
    "t": "software-tools",
    "x": "Which tool captures and decodes individual packets for deep protocol analysis?",
    "o": [
-    "A protocol analyzer (e.g., Wireshark)",
+    "A protocol analyzer",
     "A crimper",
     "An OTDR",
     "A PDU"
    ],
    "a": 0,
-   "e": "Protocol analyzers show exactly what's on the wire, frame by frame — the definitive troubleshooting evidence.",
+   "e": "Protocol analyzers show exactly what's on the wire, frame by frame — the definitive troubleshooting evidence. In other words: e.g., Wireshark.",
    "d": 5
   },
   {
@@ -3942,13 +3942,13 @@ export const exam: ExamDef = {
    "t": "software-tools",
    "x": "Which tool discovers live hosts and open ports across a subnet?",
    "o": [
-    "A port scanner (e.g., Nmap)",
+    "A port scanner",
     "A toner probe",
     "A loopback plug",
     "A UPS"
    ],
    "a": 0,
-   "e": "Port scanners map the network's attack surface — which hosts answer and which services listen.",
+   "e": "Port scanners map the network's attack surface — which hosts answer and which services listen. In other words: e.g., Nmap.",
    "d": 5
   },
   {
@@ -3956,10 +3956,10 @@ export const exam: ExamDef = {
    "t": "software-tools",
    "x": "A technician wants to verify DNS, DHCP, and gateway reachability from a wall jack quickly. Which purpose-built tool does this?",
    "o": [
-    "A network tester/validator that plugs into the jack",
-    "A spudger",
-    "A cable stripper",
-    "An anti-static mat"
+    "A network validator that tests the link",
+    "A spudger for prying open cases",
+    "A cable stripper for jacket removal",
+    "An anti-static mat for the bench"
    ],
    "a": 0,
    "e": "Link/network validators confirm PoE, DHCP, DNS, and gateway reachability in seconds from any jack.",
@@ -4026,13 +4026,13 @@ export const exam: ExamDef = {
    "t": "hardware-tools",
    "x": "Which instrument locates the exact distance to a break in a fiber-optic cable?",
    "o": [
-    "An OTDR (optical time-domain reflectometer)",
+    "An OTDR",
     "A crimper",
     "A multimeter",
     "A PoE injector"
    ],
    "a": 0,
-   "e": "An OTDR sends light pulses and times reflections, pinpointing breaks, splices, and loss along the fiber.",
+   "e": "An OTDR sends light pulses and times reflections, pinpointing breaks, splices, and loss along the fiber. An OTDR = optical time-domain reflectometer.",
    "d": 5
   },
   {
@@ -4112,8 +4112,8 @@ export const exam: ExamDef = {
    "o": [
     "copy running-config startup-config",
     "reload",
-    "show version",
-    "ping"
+    "show running-config",
+    "configure terminal"
    ],
    "a": 0,
    "e": "Saving the running config to startup (write memory) persists changes to non-volatile storage.",
@@ -4152,10 +4152,10 @@ export const exam: ExamDef = {
    "t": "ipv6-addressing",
    "x": "An IPv6 packet is sent to ff02::1. What kind of address is this?",
    "o": [
-    "A link-local multicast reaching all nodes on the segment",
-    "A global unicast host",
-    "A loopback",
-    "An anycast DNS root"
+    "A link-local multicast to all nodes",
+    "A global unicast host address",
+    "A loopback address",
+    "An anycast DNS root server"
    ],
    "a": 0,
    "e": "ff00::/8 is multicast; ff02::1 is the well-known all-nodes link-local group, IPv6's replacement for broadcast.",
@@ -4166,7 +4166,7 @@ export const exam: ExamDef = {
    "t": "network-types",
    "x": "A university connects the networks of a dozen buildings it owns across adjacent city blocks. Which network type best describes this?",
    "o": [
-    "CAN (campus area network)",
+    "CAN",
     "PAN",
     "WLAN",
     "SAN"
@@ -4180,13 +4180,13 @@ export const exam: ExamDef = {
    "t": "other-useful-protocols",
    "x": "In IPv6 networks, which protocol replaces ARP for discovering neighbors' MAC addresses?",
    "o": [
-    "NDP (Neighbor Discovery Protocol, via ICMPv6)",
+    "NDP",
     "GRE",
     "IGMP",
     "STP"
    ],
    "a": 0,
-   "e": "IPv6 has no ARP; Neighbor Discovery (ICMPv6 neighbor solicitation/advertisement) resolves link-layer addresses.",
+   "e": "IPv6 has no ARP; Neighbor Discovery (ICMPv6 neighbor solicitation/advertisement) resolves link-layer addresses. NDP = Neighbor Discovery Protocol, via ICMPv6.",
    "d": 1
   },
   {
@@ -4208,9 +4208,9 @@ export const exam: ExamDef = {
    "t": "dynamic-routing",
    "x": "A growing OSPF network is being split into areas connected to area 0. What is the purpose of this design?",
    "o": [
-    "Limit LSA flooding and shrink per-router topology databases",
-    "Encrypt routing updates",
-    "Replace IP addressing",
+    "Limit LSA flooding within each area",
+    "Encrypt all routing updates",
+    "Replace IP addressing entirely",
     "Slow convergence intentionally"
    ],
    "a": 0,
@@ -4222,13 +4222,13 @@ export const exam: ExamDef = {
    "t": "routing-technologies",
    "x": "Instead of advertising 16 /24 networks individually, a router advertises one /20 covering them all. What is this practice?",
    "o": [
-    "Route summarization (aggregation)",
+    "Route summarization",
     "Load balancing",
     "Tunneling",
     "Poison reverse"
    ],
    "a": 0,
-   "e": "Summarization shrinks routing tables and dampens instability by hiding detail behind one aggregate prefix.",
+   "e": "Summarization shrinks routing tables and dampens instability by hiding detail behind one aggregate prefix. Route summarization = aggregation.",
    "d": 2
   },
   {
@@ -4236,7 +4236,7 @@ export const exam: ExamDef = {
    "t": "network-address-translation",
    "x": "An ISP short on public IPv4 space deploys NAT inside its own network using the 100.64.0.0/10 range. What is this called?",
    "o": [
-    "CGNAT (carrier-grade NAT)",
+    "CGNAT",
     "Port forwarding",
     "Static NAT",
     "DNS64"
@@ -4250,9 +4250,9 @@ export const exam: ExamDef = {
    "t": "vlans-and-trunking",
    "x": "Why do hardening guides say to move management traffic OFF VLAN 1?",
    "o": [
-    "VLAN 1 is the default for every port and untagged traffic, making it the most exposed",
-    "VLAN 1 is the slowest VLAN",
-    "VLAN 1 cannot carry IP",
+    "VLAN 1 is the untagged default on every port",
+    "VLAN 1 is the slowest VLAN available",
+    "VLAN 1 cannot carry IP traffic",
     "Switches reserve VLAN 1 for voice"
    ],
    "a": 0,
@@ -4264,10 +4264,10 @@ export const exam: ExamDef = {
    "t": "interface-configurations",
    "x": "One side of a link is hardcoded to 1000/full while the other is left on auto. The link runs but with errors. Why?",
    "o": [
-    "Autonegotiation fails against a hardcoded port and can fall back to half duplex",
-    "Full duplex is not real",
-    "The cable must be crossover",
-    "DNS mismatch"
+    "Autonegotiation falls back to half duplex",
+    "Full duplex is not a real mode",
+    "The cable must be a crossover",
+    "A DNS setting is mismatched"
    ],
    "a": 0,
    "e": "Best practice is auto/auto or hardcode BOTH ends; mixing breaks negotiation and produces duplex mismatch errors.",
@@ -4278,13 +4278,13 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "Which STP feature lets an access port skip listening/learning and forward immediately for end devices?",
    "o": [
-    "PortFast (edge port)",
+    "PortFast",
     "Root guard",
     "Backbone fast",
     "VTP pruning"
    ],
    "a": 0,
-   "e": "PortFast marks a port as edge so PCs get instant connectivity; pair it with BPDU guard in case a switch appears.",
+   "e": "PortFast marks a port as edge so PCs get instant connectivity; pair it with BPDU guard in case a switch appears. PortFast = edge port.",
    "d": 2
   },
   {
@@ -4306,10 +4306,10 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "In 802.1X wireless authentication, which THREE roles are involved?",
    "o": [
-    "Supplicant (client), authenticator (AP/switch), authentication server (RADIUS)",
-    "Modem, router, firewall",
-    "SSID, BSSID, ESSID",
-    "Hub, bridge, repeater"
+    "Supplicant, authenticator, and authentication server",
+    "Modem, router, and perimeter firewall",
+    "SSID, BSSID, and ESSID identifiers",
+    "Hub, bridge, and repeater devices"
    ],
    "a": 0,
    "e": "The supplicant requests access, the authenticator relays, and the RADIUS server decides, the standard 802.1X triangle.",
@@ -4334,9 +4334,9 @@ export const exam: ExamDef = {
    "t": "power",
    "x": "A rack's equipment must keep running when one power feed fails. Which power design provides this?",
    "o": [
-    "Dual power supplies fed from independent A/B power circuits",
-    "One bigger PSU",
-    "A surge protector per device",
+    "Dual power supplies on independent A/B feeds",
+    "A single larger power supply unit",
+    "A surge protector for each device",
     "Daisy-chained power strips"
    ],
    "a": 0,
@@ -4346,15 +4346,15 @@ export const exam: ExamDef = {
   {
    "id": 280,
    "t": "snmp",
-   "x": "Why is SNMPv2c considered insecure for management networks?",
+   "x": "In an SNMP deployment, which component runs on each monitored network device and answers requests from the monitoring station?",
    "o": [
-    "Community strings act as passwords but travel in cleartext",
-    "It cannot read interface counters",
-    "It requires IPv6",
-    "It only works on hubs"
+    "The SNMP agent",
+    "The SNMP manager",
+    "The syslog collector",
+    "The trap receiver"
    ],
    "a": 0,
-   "e": "v2c 'authentication' is a plaintext community string visible to any sniffer; SNMPv3 adds real auth and encryption.",
+   "e": "The agent is the software on each managed device that exposes MIB data and replies to the manager (NMS); the manager and its trap receiver run centrally on the monitoring station.",
    "d": 3
   },
   {
@@ -4362,10 +4362,10 @@ export const exam: ExamDef = {
    "t": "logs-and-monitoring",
    "x": "A monitoring system alerts that a switch interface's error counters have risen steadily above its recorded baseline. Why does the baseline matter?",
    "o": [
-    "Without knowing normal levels, you cannot tell whether current counts indicate a problem",
-    "Baselines make errors disappear",
-    "Counters reset hourly anyway",
-    "Alerts require SNMPv1"
+    "Normal levels show whether counts signal a problem",
+    "Baselines make error counts disappear",
+    "Counters reset themselves hourly",
+    "Alerts require the SNMPv1 protocol"
    ],
    "a": 0,
    "e": "Counters only mean something relative to normal behavior; baselines turn raw numbers into signal.",
@@ -4404,10 +4404,10 @@ export const exam: ExamDef = {
    "t": "configuration-management",
    "x": "A network team stores device configs in a version-controlled repository. Which benefit does this provide during an outage?",
    "o": [
-    "Instant diff against the last known-good config to spot what changed",
-    "Faster cables",
-    "Lower power draw",
-    "Bigger MAC tables"
+    "A diff against the last known-good config",
+    "Faster cable throughput speeds",
+    "Lower overall device power draw",
+    "Larger MAC address tables"
    ],
    "a": 0,
    "e": "Version control shows exactly what changed and when, and provides a known-good config to roll back to.",
@@ -4418,10 +4418,10 @@ export const exam: ExamDef = {
    "t": "configuring-dhcp",
    "x": "A conference network serves hundreds of short-visit devices. Which DHCP lease duration makes sense?",
    "o": [
-    "Short (hours), so addresses recycle quickly",
-    "30 days",
-    "Infinite",
-    "One year"
+    "A few hours, so addresses recycle quickly",
+    "A 30-day lease for every client",
+    "An infinite lease that never expires",
+    "A one-year lease renewed annually"
    ],
    "a": 0,
    "e": "Short leases return addresses to the pool quickly in high-turnover environments; long leases suit stable offices.",
@@ -4432,10 +4432,10 @@ export const exam: ExamDef = {
    "t": "ipv6-and-slaac",
    "x": "What is the difference between stateful and stateless DHCPv6?",
    "o": [
-    "Stateful assigns and tracks addresses; stateless only supplies options like DNS while SLAAC assigns addresses",
-    "Stateless is IPv4-only",
-    "Stateful requires NAT",
-    "They are identical"
+    "Stateful assigns addresses; stateless sets options",
+    "Stateless works only with IPv4 hosts",
+    "Stateful relies on NAT translation",
+    "The two modes are effectively identical"
    ],
    "a": 0,
    "e": "With SLAAC handling addressing, stateless DHCPv6 fills in options only; stateful DHCPv6 manages the addresses themselves.",
@@ -4460,10 +4460,10 @@ export const exam: ExamDef = {
    "t": "dns-records",
    "x": "What does a DNS record's TTL control?",
    "o": [
-    "How long resolvers may cache the record before re-querying",
+    "How long resolvers may cache the record",
     "The record's security level",
     "The number of allowed lookups",
-    "Packet time-to-live"
+    "The packet's time-to-live hops"
    ],
    "a": 0,
    "e": "TTL is cache lifetime; lowering it before a planned change makes cutovers propagate quickly.",
@@ -4474,10 +4474,10 @@ export const exam: ExamDef = {
    "t": "remote-access",
    "x": "A change will be made to the core switch's management interface itself. Why schedule out-of-band console access before starting?",
    "o": [
-    "If the change severs in-band connectivity, the console path still reaches the device",
-    "Consoles are faster",
-    "SSH forbids config changes",
-    "It avoids DNS"
+    "Console access still works if in-band fails",
+    "The console path is much faster",
+    "SSH forbids making config changes",
+    "It avoids all DNS lookups"
    ],
    "a": 0,
    "e": "Changes to the management plane can cut off your own access; OOB console access is the safety line.",
@@ -4530,10 +4530,10 @@ export const exam: ExamDef = {
    "t": "segmentation-enforcement",
    "x": "A switch port stays shut until the connecting device authenticates with credentials or a certificate. Which standard enforces this?",
    "o": [
-    "802.1X port-based network access control",
-    "802.3af",
-    "802.1Q",
-    "802.11ac"
+    "802.1X network access control",
+    "802.3af Power over Ethernet",
+    "802.1Q VLAN tagging",
+    "802.11ac wireless networking"
    ],
    "a": 0,
    "e": "802.1X gates the physical port itself: no successful authentication, no network access.",
@@ -4544,10 +4544,10 @@ export const exam: ExamDef = {
    "t": "device-security",
    "x": "Security policy replaces password logins on network devices with SSH key pairs. What is the main benefit?",
    "o": [
-    "Keys resist brute-force and phishing far better than passwords",
-    "Keys make sessions faster",
+    "Keys resist brute-force and phishing attacks",
+    "Keys make login sessions faster",
     "Keys remove the need for accounts",
-    "Keys work without SSH"
+    "Keys work even without SSH"
    ],
    "a": 0,
    "e": "Private-key authentication eliminates guessable/reused passwords; keys are long, unique, and never typed where they can be phished.",
@@ -4586,10 +4586,10 @@ export const exam: ExamDef = {
    "t": "cable-issues",
    "x": "A contractor certifies new cabling with a cable certifier rather than a simple continuity tester. What does certification add?",
    "o": [
-    "Measured performance (attenuation, crosstalk, return loss) against the category standard",
-    "Only wire-map checks",
-    "A prettier report",
-    "PoE injection"
+    "Measured performance against the category standard",
+    "A wire-map check of pin connections only",
+    "A nicer-looking report for the customer",
+    "Verification that the run can carry PoE"
    ],
    "a": 0,
    "e": "Certifiers verify the run meets Cat 6/6A electrical specs at frequency, not just that pins connect.",
@@ -4600,10 +4600,10 @@ export const exam: ExamDef = {
    "t": "cable-issues",
    "x": "A 10GBASE-T link between servers only negotiates 1 Gbps. The patch cords are old Cat 5e. What is the likely limit?",
    "o": [
-    "Cat 5e cannot reliably carry 10GBASE-T; Cat 6A is the standard choice",
-    "The NICs are broken",
-    "10G requires fiber only",
-    "The switch needs a reboot"
+    "Cat 5e cannot sustain 10GBASE-T reliably",
+    "The server NICs are faulty",
+    "10GBASE-T needs fiber, not copper",
+    "The switch needs a full reboot"
    ],
    "a": 0,
    "e": "10GBASE-T needs Cat 6A (or short Cat 6) to meet crosstalk specs; links fall back or error on lesser cable.",
@@ -4614,10 +4614,10 @@ export const exam: ExamDef = {
    "t": "cable-issues",
    "x": "A technician accidentally uses a crossover cable between a modern switch and a PC. The link still works. Which feature explains this?",
    "o": [
-    "Auto-MDI/MDI-X detects and corrects the pair reversal",
-    "Half duplex",
-    "STP",
-    "QoS"
+    "Auto-MDI-X pair reassignment",
+    "Half-duplex negotiation",
+    "Spanning Tree Protocol",
+    "Quality of Service"
    ],
    "a": 0,
    "e": "Auto-MDI-X (standard with gigabit) swaps transmit/receive pairs automatically, making cable type irrelevant.",
@@ -4628,10 +4628,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "An interface shows thousands of 'giants'. The switch port has default MTU while servers send jumbo frames. What are giants?",
    "o": [
-    "Frames larger than the interface's maximum size",
-    "Corrupted runts",
-    "Broadcast storms",
-    "PoE faults"
+    "Frames exceeding the port's maximum size",
+    "Runt frames truncated below minimum",
+    "Broadcast storms flooding the segment",
+    "PoE faults on the powered port"
    ],
    "a": 0,
    "e": "Giants exceed the configured MTU, classic sign of a jumbo-frame mismatch along the path.",
@@ -4642,10 +4642,10 @@ export const exam: ExamDef = {
    "t": "interface-issues",
    "x": "A port shows increasing late collisions. The network is switched full-duplex everywhere. What does this indicate?",
    "o": [
-    "A duplex mismatch (one side half duplex) or cabling beyond spec",
-    "Normal operation",
-    "DNS failure",
-    "A strong signal"
+    "A duplex mismatch on that link",
+    "Completely normal switched operation",
+    "A DNS resolution failure upstream",
+    "An unusually strong received signal"
    ],
    "a": 0,
    "e": "Collisions shouldn't exist on full-duplex links; late collisions mean a mismatched half-duplex side or out-of-spec cabling.",
@@ -4656,10 +4656,10 @@ export const exam: ExamDef = {
    "t": "hardware-issues",
    "x": "A fiber link is down. The transceiver's diagnostics (DOM) show receive power at -30 dBm while the far end transmits normally. What does this suggest?",
    "o": [
-    "A break, dirty connector, or failed fiber path attenuating the signal",
-    "Perfect health",
-    "A software bug",
-    "Wrong VLAN"
+    "A break or dirty connector on the fiber path",
+    "A perfectly healthy optical link",
+    "A software bug in the transceiver",
+    "A VLAN misconfiguration on the port"
    ],
    "a": 0,
    "e": "-30 dBm is effectively no light; the transmit side is fine, so the path (or connectors) between is the fault.",
@@ -4670,10 +4670,10 @@ export const exam: ExamDef = {
    "t": "hardware-issues",
    "x": "Half the PoE phones in a wing reboot when the other half power on each morning. Switch logs show power denials. What is the root cause?",
    "o": [
-    "The switch's PoE budget is oversubscribed for the connected device classes",
-    "Bad phone firmware",
-    "DNS overload",
-    "Spanning tree"
+    "An exceeded PoE power budget on the switch",
+    "Faulty firmware on the phones",
+    "DNS overload at the server",
+    "A spanning tree recalculation"
    ],
    "a": 0,
    "e": "Each switch has a finite PoE wattage budget; when demand exceeds it, lower-priority ports are denied or dropped.",
@@ -4684,10 +4684,10 @@ export const exam: ExamDef = {
    "t": "switching-issues",
    "x": "Users in one department lose connectivity whenever a specific uplink flaps, and MAC flapping alerts appear. A second uplink was recently patched in without configuration. What happened?",
    "o": [
-    "A switching loop formed because STP was disabled or misconfigured on the new link",
-    "DHCP ran out",
-    "DNS moved",
-    "The VLAN renamed itself"
+    "A switching loop formed on the unmanaged link",
+    "The DHCP pool ran out of leases",
+    "A DNS server was relocated",
+    "The VLAN database was renamed"
    ],
    "a": 0,
    "e": "An unmanaged redundant path without functioning STP creates a loop: MAC flapping and broadcast storms follow.",
@@ -4698,10 +4698,10 @@ export const exam: ExamDef = {
    "t": "switching-issues",
    "x": "A new VLAN 60 works between hosts on the same switch but not across the trunk to the next switch. Which trunk setting should be checked?",
    "o": [
-    "That VLAN 60 is in the trunk's allowed VLAN list",
-    "The cable color",
-    "Port speed",
-    "The DNS suffix"
+    "VLAN 60 in the trunk's allowed list",
+    "The cable color at each end",
+    "The port's configured speed",
+    "The DNS search suffix"
    ],
    "a": 0,
    "e": "Trunks can prune/limit VLANs; a VLAN missing from the allowed list is silently dropped at the trunk.",
@@ -4726,10 +4726,10 @@ export const exam: ExamDef = {
    "t": "routing-and-ip-issues",
    "x": "A host was configured with mask /25 on a /24 network. It can reach some local hosts but not others. Why?",
    "o": [
-    "Addresses in the other half of the /24 appear remote to it, so it wrongly sends them to the gateway",
-    "The NIC is broken",
-    "DNS is down",
-    "The switch blocks odd IPs"
+    "The /25 mask makes half the /24 look remote",
+    "The NIC hardware has failed",
+    "The DNS resolver is offline",
+    "The switch filters odd-numbered IPs"
    ],
    "a": 0,
    "e": "The wrong mask splits the network in the host's view; 'local' destinations beyond its subnet boundary get misrouted.",
@@ -4740,10 +4740,10 @@ export const exam: ExamDef = {
    "t": "routing-and-ip-issues",
    "x": "A new branch subnet can reach headquarters, but replies never come back. HQ's core has no entry for the new subnet. What is missing?",
    "o": [
-    "A return route to the branch subnet on the HQ side",
-    "A bigger MTU",
-    "Faster fiber",
-    "A DNS record"
+    "A return route to the branch subnet",
+    "A larger MTU on the link",
+    "A faster fiber uplink",
+    "A new DNS record for HQ"
    ],
    "a": 0,
    "e": "Routing must work in both directions; without a return route (static or advertised), replies are dropped at HQ.",
@@ -4754,13 +4754,13 @@ export const exam: ExamDef = {
    "t": "routing-and-ip-issues",
    "x": "Users can browse by IP address but every name lookup fails. Which server should the technician check?",
    "o": [
-    "The DNS server (or the clients' configured DNS addresses)",
+    "The DNS server",
     "The NTP server",
     "The print server",
     "The proxy ARP table"
    ],
    "a": 0,
-   "e": "IP connectivity with failing name resolution isolates the problem to DNS configuration or the resolver itself.",
+   "e": "IP connectivity with failing name resolution isolates the problem to DNS configuration or the resolver itself. In other words: or the clients' configured DNS addresses.",
    "d": 5
   },
   {
@@ -4768,10 +4768,10 @@ export const exam: ExamDef = {
    "t": "performance-issues",
    "x": "Speed tests show full bandwidth, yet video calls lag badly whenever large uploads run. Ping times jump from 15 ms to 800 ms under load. What is this?",
    "o": [
-    "Bufferbloat: oversized queues adding latency under saturation",
-    "A DNS loop",
-    "Low disk space",
-    "MAC flapping"
+    "Bufferbloat from oversized queues",
+    "A DNS resolution loop",
+    "Low disk space on the host",
+    "MAC address flapping"
    ],
    "a": 0,
    "e": "Deep buffers hide packet loss but add huge queuing delay under load; QoS/AQM (fq_codel, etc.) is the fix.",
@@ -4782,10 +4782,10 @@ export const exam: ExamDef = {
    "t": "performance-issues",
    "x": "A crowded lecture-hall AP shows low throughput per client though signal strength is excellent. Channel utilization reads 95%. What is the constraint?",
    "o": [
-    "Airtime saturation: too many clients sharing one channel",
-    "Weak signal",
-    "Wrong passwords",
-    "DHCP exhaustion"
+    "Airtime saturation on the shared channel",
+    "Weak signal reaching the clients",
+    "Wrong passwords on the clients",
+    "DHCP pool exhaustion on the AP"
    ],
    "a": 0,
    "e": "Wi-Fi is shared airtime; at high utilization, adding APs on different channels (or 5/6 GHz) matters more than signal bars.",
@@ -4796,10 +4796,10 @@ export const exam: ExamDef = {
    "t": "wireless-issues",
    "x": "An outdoor AP on a DFS channel drops all clients at random moments and switches channels. What triggers this?",
    "o": [
-    "Radar detection forces DFS channels to vacate immediately",
-    "Clients with weak batteries",
-    "Too-short SSIDs",
-    "PoE flaps"
+    "Radar detected on the DFS channel",
+    "Clients low on battery power",
+    "An SSID that is too short",
+    "Intermittent PoE power flaps"
    ],
    "a": 0,
    "e": "DFS rules require APs to abandon a channel when radar signatures appear, causing sudden disconnects; use non-DFS channels where radar is common.",

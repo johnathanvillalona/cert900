@@ -20,7 +20,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { Privacy, Terms } from "@/screens/Legal"
-import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, GUIDE_META } from "@/screens/Guides"
+import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -42,6 +42,7 @@ export type Screen =
   | { kind: "guide-aplus" }
   | { kind: "guide-nplus" }
   | { kind: "guide-pbq" }
+  | { kind: "guide-secplus" }
   | { kind: "guide-aif" }
   | { kind: "guide-clf" }
   | { kind: "guide-az900" }
@@ -53,6 +54,7 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   [GUIDE_META.aplus.path]: "guide-aplus",
   [GUIDE_META.nplus.path]: "guide-nplus",
   [GUIDE_META.pbq.path]: "guide-pbq",
+  [GUIDE_META.secplus.path]: "guide-secplus",
   [GUIDE_META.aif.path]: "guide-aif",
   [GUIDE_META.clf.path]: "guide-clf",
   [GUIDE_META.az900.path]: "guide-az900",
@@ -64,6 +66,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-nplus": GUIDE_META.nplus.title,
   "guide-pbq": GUIDE_META.pbq.title,
+  "guide-secplus": GUIDE_META.secplus.title,
   "guide-aif": GUIDE_META.aif.title,
   "guide-clf": GUIDE_META.clf.title,
   "guide-az900": GUIDE_META.az900.title,
@@ -277,6 +280,7 @@ export default function App() {
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-secplus" && <SecplusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aif" && <AifGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-clf" && <ClfGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-az900" && <Az900Guide onStart={startExamFromGuide} />}

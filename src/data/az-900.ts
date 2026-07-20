@@ -907,7 +907,7 @@ export const exam: ExamDef = {
    "x": "A company weighs hosting a private cloud in a third-party provider’s facility instead of its own datacenter. Which cost effect should it expect from that choice?",
    "o": [
     "The environment becomes free once hardware is amortized",
-    "Facility and hardware operating burdens shift to the hosting provider, typically for a contracted fee",
+    "The provider takes on facility and hardware operations for a contracted fee",
     "Costs become identical to consumption-based public cloud pricing",
     "All security responsibilities transfer to the hosting provider"
    ],
@@ -2539,7 +2539,7 @@ export const exam: ExamDef = {
   {
    "id": 154,
    "t": "advisor",
-   "x": "Which statements accurately describe Azure Advisor? (Select TWO.)",
+   "x": "How does Azure Advisor behave? (Select TWO.)",
    "o": [
     "It requires an agent on each virtual machine before analysis can begin",
     "It bills the subscription a fee for each recommendation it generates",

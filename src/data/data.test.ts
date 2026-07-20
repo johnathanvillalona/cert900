@@ -8,6 +8,7 @@ const EXPECTED = {
   "220-1202": { questions: 281, pbqs: 8, videos: 74, domains: 4 },
   "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
   "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
+  "sy0-701": { questions: 160, pbqs: 8, videos: 63, domains: 5 },
   "aif-c01": { questions: 155, pbqs: 8, videos: 33, domains: 5 },
   "clf-c02": { questions: 155, pbqs: 0, videos: 27, domains: 4 },
   "az-900": { questions: 155, pbqs: 6, videos: 41, domains: 3 },
@@ -81,6 +82,36 @@ describe("exam data integrity", () => {
               expect(i, `question ${q.id} as index`).toBeLessThan(q.o.length)
             }
             expect(q.as, `question ${q.id} a/as consistency`).toContain(q.a)
+          }
+        }
+      })
+
+      it("options carry no test-wiseness tells and stems are not near-duplicates", () => {
+        for (const q of ex.questions) {
+          // Long-answer tell: the keyed option must not be conspicuously longest.
+          const keys = q.as ?? [q.a]
+          const dis = q.o.filter((_, i) => !keys.includes(i)).map((o) => o.length)
+          const mean = dis.reduce((a, b) => a + b, 0) / dis.length
+          for (const k of keys) {
+            expect(
+              q.o[k].length > mean * 1.6 && q.o[k].length > mean + 25,
+              `q${q.id} long-answer tell (key ${q.o[k].length} chars vs mean ${Math.round(mean)})`,
+            ).toBe(false)
+          }
+          // Acronym tell: parenthetical on some options but not all.
+          const withParen = q.o.filter((o) => /\([^)]{3,}\)/.test(o)).length
+          expect(withParen === 0 || withParen === q.o.length, `q${q.id} lone parenthetical`).toBe(true)
+        }
+        // Near-duplicate stems (same threshold as tools/content-lint.mjs).
+        const norm = (s: string) =>
+          s.toLowerCase().replace(/[^a-z0-9 ]/g, "").split(/\s+/).filter((w) => w.length > 3)
+        const sets = ex.questions.map((q) => new Set(norm(q.x)))
+        for (let i = 0; i < sets.length; i++) {
+          for (let j = i + 1; j < sets.length; j++) {
+            const inter = [...sets[i]].filter((w) => sets[j].has(w)).length
+            const dup =
+              inter / Math.max(sets[i].size, 1) > 0.62 && inter / Math.max(sets[j].size, 1) > 0.62
+            expect(dup, `q${ex.questions[i].id} near-duplicates q${ex.questions[j].id}`).toBe(false)
           }
         }
       })

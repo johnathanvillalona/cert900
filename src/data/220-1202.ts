@@ -421,7 +421,7 @@ export const exam: ExamDef = {
    "x": "A user needs an operating system for a workstation that must run vendor-specific engineering software available only for Microsoft platforms. Which OS category fits best?",
    "o": [
     "Mobile OS",
-    "Workstation OS (Windows)",
+    "Workstation OS",
     "Embedded OS",
     "Network OS"
    ],
@@ -449,12 +449,12 @@ export const exam: ExamDef = {
    "x": "A company still runs an application on an OS version that no longer receives security patches from the vendor. What is this situation called?",
    "o": [
     "Zero-day",
-    "End-of-life (EOL)",
+    "End-of-life",
     "Sandboxing",
     "Downgrade rights"
    ],
    "a": 1,
-   "e": "An end-of-life OS no longer receives vendor updates or security patches, creating significant security risk.",
+   "e": "An end-of-life OS no longer receives vendor updates or security patches, creating significant security risk. End-of-life = EOL.",
    "d": 1
   },
   {
@@ -520,7 +520,7 @@ export const exam: ExamDef = {
    "o": [
     "Clean install from USB",
     "In-place upgrade",
-    "Zero-touch / image deployment (PXE)",
+    "Zero-touch / image deployment",
     "Repair installation"
    ],
    "a": 2,
@@ -560,10 +560,10 @@ export const exam: ExamDef = {
    "t": "installing-os",
    "x": "What is the difference between a quick format and a full format?",
    "o": [
-    "A quick format checks the disk for bad sectors",
-    "A full format writes zeros to the disk and scans for bad sectors",
-    "A quick format is more secure",
-    "There is no difference"
+    "A quick format scans the entire disk surface for bad sectors",
+    "A full format writes zeros to the disk and checks for bad sectors",
+    "A quick format erases data more securely than a full format",
+    "The two format types perform the same operations on the disk"
    ],
    "a": 1,
    "e": "A full format overwrites the disk and checks for bad sectors; a quick format only rebuilds the file table, leaving old data recoverable.",
@@ -659,7 +659,7 @@ export const exam: ExamDef = {
    "x": "A user on Windows Home wants to connect to their office PC using the built-in Windows graphical remote-control protocol. Why does the office PC need Pro?",
    "o": [
     "Home has no network stack",
-    "Only Pro can host Remote Desktop (RDP) sessions",
+    "Only Pro can host Remote Desktop sessions",
     "Home cannot install RDP clients",
     "Pro is required to use a VPN"
    ],
@@ -702,11 +702,11 @@ export const exam: ExamDef = {
    "o": [
     "Services",
     "Users",
-    "Startup (Startup apps)",
+    "Startup",
     "Details"
    ],
    "a": 2,
-   "e": "The Startup tab lets you enable or disable programs that run at sign-in and shows their startup impact.",
+   "e": "The Startup tab lets you enable or disable programs that run at sign-in and shows their startup impact. Startup = Startup apps.",
    "d": 1
   },
   {
@@ -812,7 +812,7 @@ export const exam: ExamDef = {
    "t": "windows-tools",
    "x": "A technician needs to see a summary of installed hardware, OS version, and system resources in one place. Which tool provides this?",
    "o": [
-    "msinfo32 (System Information)",
+    "msinfo32",
     "regedit",
     "msconfig",
     "cleanmgr"
@@ -826,7 +826,7 @@ export const exam: ExamDef = {
    "t": "windows-tools",
    "x": "Which tool is used to change how Windows boots, such as enabling Safe boot or diagnostic startup?",
    "o": [
-    "msconfig (System Configuration)",
+    "msconfig",
     "Disk Cleanup",
     "Resource Monitor",
     "Device Manager"
@@ -1162,10 +1162,10 @@ export const exam: ExamDef = {
    "t": "win-networking",
    "x": "What is the key difference between a Windows workgroup and a domain?",
    "o": [
-    "Workgroups require a server",
-    "Domains use centralized authentication; workgroups are peer-to-peer",
-    "Workgroups support more computers",
-    "Domains cannot share printers"
+    "Workgroups require a dedicated server for sign-ins",
+    "Domains authenticate centrally; workgroups are peer-to-peer",
+    "Workgroups support a larger number of computers",
+    "Domains prevent members from sharing printers"
    ],
    "a": 1,
    "e": "A domain centralizes accounts and policy on domain controllers; a workgroup is decentralized with local accounts on each PC.",
@@ -1219,7 +1219,7 @@ export const exam: ExamDef = {
    "x": "A Windows PC shows an IP address of 169.254.44.17 and cannot reach the internet. What does this indicate?",
    "o": [
     "A static address was set",
-    "The DHCP server could not be reached (APIPA)",
+    "The DHCP server could not be reached",
     "The DNS server is down",
     "The default gateway is misconfigured"
    ],
@@ -1232,10 +1232,10 @@ export const exam: ExamDef = {
    "t": "ip-config",
    "x": "Which settings are required for a functional static IP configuration on a workstation that needs internet access? (Choose the best set.)",
    "o": [
-    "IP address only",
-    "IP address and subnet mask only",
-    "IP address, subnet mask, default gateway, and DNS server",
-    "MAC address and hostname"
+    "An IP address with no other settings",
+    "An IP address and a subnet mask only",
+    "An IP address, subnet mask, default gateway, and DNS server",
+    "A MAC address, a hostname, and a workgroup name"
    ],
    "a": 2,
    "e": "A complete static configuration needs the address, mask, gateway for off-network traffic, and DNS for name resolution.",
@@ -1303,7 +1303,7 @@ export const exam: ExamDef = {
    "x": "Where does a user configure displays, printers, and network adapters on a Mac?",
    "o": [
     "Control Panel",
-    "System Settings (System Preferences)",
+    "System Settings",
     "Finder Preferences",
     "Mission Control"
    ],
@@ -1372,10 +1372,10 @@ export const exam: ExamDef = {
    "t": "linux",
    "x": "What is the role of systemd on modern Linux distributions?",
    "o": [
-    "Kernel compilation",
-    "System and service manager that starts services at boot",
-    "Package management",
-    "Display server"
+    "Compiling the kernel and its modules",
+    "Starting and supervising system services",
+    "Installing and updating software packages",
+    "Rendering the graphical desktop display"
    ],
    "a": 1,
    "e": "systemd initializes the system and manages services (units), replacing older init systems.",
@@ -1429,7 +1429,7 @@ export const exam: ExamDef = {
    "x": "What does the sudo command do in Linux?",
    "o": [
     "Switches the shell",
-    "Runs a command with elevated (root) privileges",
+    "Runs a command with root privileges",
     "Shuts the system down",
     "Displays user documentation"
    ],
@@ -1526,10 +1526,10 @@ export const exam: ExamDef = {
    "t": "installing-apps",
    "x": "A downloaded application ships as an .iso file. What must a technician do to install from it in Windows?",
    "o": [
-    "Rename it to .exe",
-    "Mount the ISO as a virtual drive and run the installer",
-    "Extract it with Notepad",
-    "Flash it to the BIOS"
+    "Rename the file extension to .exe",
+    "Mount it as a virtual drive and run the installer",
+    "Open it in Notepad and extract the contents",
+    "Flash the image to the BIOS firmware"
    ],
    "a": 1,
    "e": "Windows can mount ISO images as virtual optical drives; the installer is then run from the mounted drive.",
@@ -1540,10 +1540,10 @@ export const exam: ExamDef = {
    "t": "installing-apps",
    "x": "What is the risk of installing an application that requires local administrator rights on all user machines?",
    "o": [
-    "Applications cannot use admin rights",
-    "It increases the attack surface and potential for system-wide impact",
-    "Admin rights slow the CPU",
-    "It disables the firewall automatically"
+    "Applications cannot be granted local admin rights",
+    "It increases the attack surface and potential impact",
+    "Elevated rights degrade CPU performance over time",
+    "It turns off the local firewall automatically"
    ],
    "a": 1,
    "e": "Apps demanding elevated rights can affect system stability and security; a compromised app then has admin-level access.",
@@ -1555,7 +1555,7 @@ export const exam: ExamDef = {
    "x": "A company moves from a locally installed office suite to Microsoft 365 web apps with cloud file storage. Which category of solution is this?",
    "o": [
     "On-premises software",
-    "Cloud-based productivity tools (SaaS)",
+    "Cloud-based productivity tools",
     "Virtual desktop infrastructure",
     "Embedded software"
    ],
@@ -1569,12 +1569,12 @@ export const exam: ExamDef = {
    "x": "Which technology keeps one set of usernames and passwords working across both on-premises Active Directory and cloud services?",
    "o": [
     "Port forwarding",
-    "Identity synchronization (e.g., directory sync)",
+    "Identity synchronization",
     "DHCP reservations",
     "RAID mirroring"
    ],
    "a": 1,
-   "e": "Directory/identity synchronization replicates accounts to the cloud identity provider so users keep a single credential set.",
+   "e": "Directory/identity synchronization replicates accounts to the cloud identity provider so users keep a single credential set. Identity synchronization = e.g., directory sync.",
    "d": 1
   },
   {
@@ -1582,10 +1582,10 @@ export const exam: ExamDef = {
    "t": "cloud-tools",
    "x": "A team in three cities needs to edit the same document at the same time and see each other's changes live. Which tool category enables this?",
    "o": [
-    "Local file shares",
-    "Real-time cloud collaboration/file sharing",
-    "FTP server",
-    "Screen savers"
+    "A local file share on one office server",
+    "A real-time cloud collaboration suite",
+    "An FTP server with individual accounts",
+    "A screen saver package for shared PCs"
    ],
    "a": 1,
    "e": "Cloud collaboration suites support simultaneous multi-user editing with live syncing and version history.",
@@ -1654,11 +1654,11 @@ export const exam: ExamDef = {
    "o": [
     "Something you know",
     "Something you have",
-    "Biometrics (something you are)",
+    "Biometrics",
     "Somewhere you are"
    ],
    "a": 2,
-   "e": "Biometric factors are unique physical characteristics: fingerprints, retina, face, palmprint.",
+   "e": "Biometric factors are unique physical characteristics: fingerprints, retina, face, palmprint. Biometrics = something you are.",
    "d": 2
   },
   {
@@ -1737,12 +1737,12 @@ export const exam: ExamDef = {
    "x": "Which standard allows a user to log in once and access multiple third-party web applications using a single identity provider?",
    "o": [
     "SNMP",
-    "SAML (with SSO)",
+    "SAML",
     "SMTP",
     "RDP"
    ],
    "a": 1,
-   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services.",
+   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services. SAML = with SSO.",
    "d": 2
   },
   {
@@ -1765,12 +1765,12 @@ export const exam: ExamDef = {
    "x": "Which system lets IT centrally enforce security policies, push apps, and remotely wipe corporate smartphones?",
    "o": [
     "RDP",
-    "MDM (mobile device management)",
+    "MDM",
     "DHCP",
     "NAS"
    ],
    "a": 1,
-   "e": "MDM platforms manage mobile fleets: policy enforcement, app deployment, encryption requirements, and remote wipe.",
+   "e": "MDM platforms manage mobile fleets: policy enforcement, app deployment, encryption requirements, and remote wipe. MDM = mobile device management.",
    "d": 2
   },
   {
@@ -1778,10 +1778,10 @@ export const exam: ExamDef = {
    "t": "defender-av",
    "x": "A third-party antivirus was removed from a Windows PC. What happens with Microsoft Defender Antivirus?",
    "o": [
-    "It must be purchased",
-    "It automatically re-enables to provide protection",
-    "It only works on Windows Server",
-    "It requires a domain"
+    "It must be purchased separately from Microsoft",
+    "It re-enables itself and resumes protection",
+    "It only functions on Windows Server editions",
+    "It requires the PC to be joined to a domain"
    ],
    "a": 1,
    "e": "Defender Antivirus is built into Windows and automatically activates when no other AV is registered.",
@@ -1792,10 +1792,10 @@ export const exam: ExamDef = {
    "t": "defender-av",
    "x": "Why is it critical that antivirus signature definitions stay updated?",
    "o": [
-    "Old signatures slow the CPU",
-    "New malware cannot be detected without current signatures",
-    "Updates renew the license",
-    "Signatures expire the OS"
+    "Outdated definitions slow down CPU performance",
+    "Newly released malware goes undetected by scans",
+    "Updates are required to renew the product license",
+    "Expired definitions deactivate the operating system"
    ],
    "a": 1,
    "e": "Signature-based detection only recognizes known threats; outdated definitions miss newer malware.",
@@ -1806,10 +1806,10 @@ export const exam: ExamDef = {
    "t": "windows-firewall",
    "x": "A technician needs to temporarily disable Windows Firewall to test whether it is blocking an application. What is the BEST practice afterward?",
    "o": [
-    "Leave it off if the app works",
-    "Re-enable the firewall and create a specific allow rule for the app",
-    "Uninstall the firewall",
-    "Block all traffic"
+    "Leave it disabled if the application works",
+    "Re-enable it and add an allow rule for the app",
+    "Uninstall the built-in firewall service",
+    "Create a rule blocking all network traffic"
    ],
    "a": 1,
    "e": "Never leave the firewall disabled; identify the needed port/program and create a targeted exception rule.",
@@ -1820,10 +1820,10 @@ export const exam: ExamDef = {
    "t": "windows-firewall",
    "x": "In Windows Firewall, what is the difference between blocking a port and blocking an application?",
    "o": [
-    "They are identical",
-    "Port rules filter by network port number; application rules filter by program regardless of port",
-    "Applications cannot be blocked",
-    "Ports only apply to outbound traffic"
+    "The two rule types behave identically in practice",
+    "Port rules filter by number; application rules filter by program",
+    "Only ports, not applications, can be blocked",
+    "Port rules apply solely to outbound traffic"
    ],
    "a": 1,
    "e": "Rules can match a specific TCP/UDP port or an executable; app rules follow the program even if ports change.",
@@ -1848,10 +1848,10 @@ export const exam: ExamDef = {
    "t": "win-security",
    "x": "A file is moved from an NTFS folder to a different folder on a DIFFERENT NTFS volume. Which permissions does it have?",
    "o": [
-    "It keeps its original permissions",
-    "It inherits the permissions of the destination folder",
-    "It loses all permissions",
-    "It becomes read-only"
+    "It keeps the permissions it had originally",
+    "It inherits the destination folder's permissions",
+    "It loses all of its assigned permissions",
+    "It becomes read-only for every user"
    ],
    "a": 1,
    "e": "Copies and moves to a different volume always inherit destination permissions; only a move within the same volume preserves them.",
@@ -1918,10 +1918,10 @@ export const exam: ExamDef = {
    "t": "active-directory",
    "x": "In Active Directory, what is an Organizational Unit (OU) used for?",
    "o": [
-    "Encrypting the domain",
-    "Grouping objects like users and computers so policies and administration can be applied to them",
-    "Hosting DNS zones",
-    "Storing DHCP leases"
+    "Encrypting traffic within the domain",
+    "Grouping users and computers to apply policies",
+    "Hosting the zone records for domain DNS",
+    "Storing the lease database for DHCP"
    ],
    "a": 1,
    "e": "OUs are containers that organize AD objects and are the scope at which Group Policy Objects are commonly linked.",
@@ -1932,10 +1932,10 @@ export const exam: ExamDef = {
    "t": "active-directory",
    "x": "A technician must add a Windows Pro workstation to the corporate domain. Where is this configured?",
    "o": [
-    "Settings > Accounts > Access work or school / System Properties > Computer Name",
+    "System Properties > Computer Name",
     "Control Panel > Internet Options",
-    "BIOS setup",
-    "Device Manager"
+    "BIOS setup > Security settings",
+    "Device Manager > System devices"
    ],
    "a": 0,
    "e": "Domain join is performed from the computer name/domain settings; credentials with join rights are required.",
@@ -1961,7 +1961,7 @@ export const exam: ExamDef = {
    "x": "Which encryption cipher is used by WPA2?",
    "o": [
     "RC4",
-    "AES (CCMP)",
+    "AES",
     "DES",
     "3DES"
    ],
@@ -1974,10 +1974,10 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "What is the difference between WPA2-Personal and WPA2-Enterprise?",
    "o": [
-    "Enterprise uses a pre-shared key",
-    "Personal uses a pre-shared key; Enterprise authenticates each user via 802.1X and a RADIUS server",
-    "Personal is for 5 GHz only",
-    "There is no difference"
+    "Enterprise relies on a single pre-shared key",
+    "Personal uses a shared key; Enterprise uses per-user 802.1X",
+    "Personal is limited to the 5 GHz band",
+    "The two modes differ in name but not function"
    ],
    "a": 1,
    "e": "Personal mode uses one shared passphrase; Enterprise mode authenticates individual users against an authentication server (802.1X/RADIUS).",
@@ -2072,10 +2072,10 @@ export const exam: ExamDef = {
    "t": "malware",
    "x": "What distinguishes a worm from a virus?",
    "o": [
-    "Worms need user interaction; viruses do not",
-    "Worms self-replicate across networks without user action; viruses attach to files and need to be executed",
-    "Viruses only affect Linux",
-    "Worms cannot carry payloads"
+    "Worms need user interaction to spread; viruses do not",
+    "Worms spread on their own; viruses need a host file to run",
+    "Viruses infect Linux systems rather than Windows",
+    "Worms are unable to carry a malicious payload"
    ],
    "a": 1,
    "e": "Worms spread autonomously over networks; viruses require a host file and user execution to propagate.",
@@ -2087,7 +2087,7 @@ export const exam: ExamDef = {
    "x": "A Windows PC will not boot after a malware infection. Which built-in environment provides recovery tools like Startup Repair and System Restore?",
    "o": [
     "Safe Mode only",
-    "Windows Recovery Environment (WinRE)",
+    "Windows Recovery Environment",
     "BIOS setup",
     "Task Manager"
    ],
@@ -2100,13 +2100,13 @@ export const exam: ExamDef = {
    "t": "anti-malware",
    "x": "Which security tool goes beyond signature antivirus by monitoring endpoint behavior and enabling investigation and response to threats?",
    "o": [
-    "EDR (Endpoint Detection and Response)",
+    "EDR",
     "Screen saver",
     "Disk Cleanup",
     "Print spooler"
    ],
    "a": 0,
-   "e": "EDR platforms monitor behavior, detect suspicious activity, and support remediation across endpoints.",
+   "e": "EDR platforms monitor behavior, detect suspicious activity, and support remediation across endpoints. EDR = Endpoint Detection and Response.",
    "d": 2
   },
   {
@@ -2282,10 +2282,10 @@ export const exam: ExamDef = {
    "t": "password-attacks",
    "x": "Why do systems store password hashes instead of the passwords themselves?",
    "o": [
-    "Hashes use less disk space",
-    "A hash cannot be directly reversed to reveal the original password",
-    "Hashes are easier to email",
-    "Passwords cannot be typed"
+    "Hashes consume far less space on disk",
+    "A hash cannot be reversed to reveal the password",
+    "Hashes are easier to transmit by email",
+    "Passwords cannot be stored as typed text"
    ],
    "a": 1,
    "e": "Hashing is one-way; even if the database leaks, attackers must crack hashes rather than read passwords directly.",
@@ -2353,7 +2353,7 @@ export const exam: ExamDef = {
    "x": "An attacker injects malicious JavaScript into a website's comment section, and the script runs in every visitor's browser. What is this attack?",
    "o": [
     "SQL injection",
-    "Cross-site scripting (XSS)",
+    "Cross-site scripting",
     "ARP poisoning",
     "Vishing"
    ],
@@ -2394,10 +2394,10 @@ export const exam: ExamDef = {
    "t": "vulnerabilities",
    "x": "A production server runs an OS version that reached end of service life last year. Why is this a security risk?",
    "o": [
-    "It uses more electricity",
-    "No security patches are released for newly discovered vulnerabilities",
-    "EOSL systems cannot run antivirus",
-    "It voids the network warranty"
+    "It draws more electricity than supported systems",
+    "Newly found vulnerabilities no longer receive patches",
+    "Antivirus software refuses to run on EOSL systems",
+    "It voids the warranty on connected network gear"
    ],
    "a": 1,
    "e": "After EOSL, vendors stop patching — every new vulnerability remains permanently exploitable.",
@@ -2409,7 +2409,7 @@ export const exam: ExamDef = {
    "x": "An organization defines one approved, hardened configuration of OS and applications that all workstations must match. What is this called?",
    "o": [
     "BYOD",
-    "Standard operating environment (SOE)",
+    "Standard operating environment",
     "Zero trust",
     "Sandbox"
    ],
@@ -2422,10 +2422,10 @@ export const exam: ExamDef = {
    "t": "vulnerabilities",
    "x": "A technician discovers several workstations have not installed updates in over a year. What is the FIRST step to reduce this risk?",
    "o": [
-    "Replace the hardware",
-    "Apply the outstanding OS and application patches",
-    "Disable the antivirus",
-    "Reformat all machines"
+    "Replace each workstation with new hardware",
+    "Apply the missing OS and application patches",
+    "Disable the antivirus before updating",
+    "Reformat every machine and reinstall Windows"
    ],
    "a": 1,
    "e": "Unpatched systems are a leading attack vector; bringing them current with tested patches is the immediate fix.",
@@ -2450,10 +2450,10 @@ export const exam: ExamDef = {
    "t": "malware-removal",
    "x": "During malware removal, why is System Restore disabled before remediation on a Windows PC?",
    "o": [
-    "Restore slows scanning",
-    "Restore points may contain the malware and could reinfect the system",
-    "It frees the CPU",
-    "Restore blocks antivirus updates"
+    "Restore points slow down antivirus scanning",
+    "Restore points may harbor malware and reinfect the PC",
+    "Disabling it frees CPU cycles for scanning",
+    "Restore points block antivirus definition updates"
    ],
    "a": 1,
    "e": "Infected restore points can reintroduce malware; they are removed by disabling System Restore, then recreated clean afterward.",
@@ -2506,10 +2506,10 @@ export const exam: ExamDef = {
    "t": "best-practices",
    "x": "Users keep leaving workstations unlocked when stepping away. Which policy or setting BEST mitigates this?",
    "o": [
-    "Longer passwords",
-    "Automatic screen lock with a short inactivity timeout",
-    "Larger monitors",
-    "Weekly reboots"
+    "A longer minimum password length",
+    "An automatic screen lock after brief inactivity",
+    "A privacy filter on each monitor",
+    "A scheduled weekly reboot of each workstation"
    ],
    "a": 1,
    "e": "Auto-lock (plus training to lock with Win+L) protects unattended sessions from passersby.",
@@ -2520,10 +2520,10 @@ export const exam: ExamDef = {
    "t": "best-practices",
    "x": "Why should default administrator account names and passwords be changed on new equipment?",
    "o": [
-    "Defaults are hard to remember",
-    "Default credentials are publicly known and are the first thing attackers try",
-    "It improves performance",
-    "Vendors require it for support"
+    "The factory names are difficult to remember",
+    "The factory credentials are publicly documented",
+    "The change improves system performance",
+    "Vendors demand the change before honoring support"
    ],
    "a": 1,
    "e": "Default credentials are documented online; leaving them in place effectively leaves the door unlocked.",
@@ -2592,7 +2592,7 @@ export const exam: ExamDef = {
    "o": [
     "Quick format",
     "Deleting all files",
-    "Physical destruction (shredding)",
+    "Physical destruction",
     "Moving files to the Recycle Bin"
    ],
    "a": 2,
@@ -2633,12 +2633,12 @@ export const exam: ExamDef = {
    "x": "A drive will be reused inside the company after storing sensitive data. Which is the BEST way to sanitize it for reuse?",
    "o": [
     "Quick format",
-    "Standard erase/overwrite of the entire drive (e.g., zero-fill or secure erase)",
+    "Standard erase/overwrite of the entire drive",
     "Delete the partition only",
     "Empty the Recycle Bin"
    ],
    "a": 1,
-   "e": "Overwriting/secure erase sanitizes the drive while leaving it usable; quick formats and deletions leave data recoverable.",
+   "e": "Overwriting/secure erase sanitizes the drive while leaving it usable; quick formats and deletions leave data recoverable. In other words: e.g., zero-fill or secure erase.",
    "d": 2
   },
   {
@@ -2716,10 +2716,10 @@ export const exam: ExamDef = {
    "t": "browser-security",
    "x": "A user wants to verify that a downloaded installer was not corrupted or tampered with. The vendor publishes a SHA-256 value. What should the user do?",
    "o": [
-    "Check the file size only",
-    "Compute the file's hash and compare it to the published value",
-    "Rename the file",
-    "Open it in a text editor"
+    "Compare the file's size to the size on the vendor site",
+    "Compute the file's hash and compare the result",
+    "Rename the file to match the vendor's file name",
+    "Open the file in a text editor to check the contents"
    ],
    "a": 1,
    "e": "Comparing the computed hash to the vendor's published hash verifies file integrity — any change produces a different hash.",
@@ -2744,10 +2744,10 @@ export const exam: ExamDef = {
    "t": "browser-security",
    "x": "What does the padlock icon and https:// in a browser address bar indicate?",
    "o": [
-    "The site is guaranteed safe and legitimate",
-    "Traffic between the browser and site is encrypted with a valid certificate",
-    "No ads will appear",
-    "The site passed antivirus scanning"
+    "The site is verified as safe and legitimate",
+    "The connection to the site is encrypted",
+    "The site does not serve advertisements",
+    "The site has passed an antivirus scan"
    ],
    "a": 1,
    "e": "HTTPS means encrypted transport with a valid certificate — it does NOT guarantee the site itself is trustworthy.",
@@ -2772,10 +2772,10 @@ export const exam: ExamDef = {
    "t": "browser-security",
    "x": "Why is a password manager considered a security best practice?",
    "o": [
-    "It removes the need for passwords",
-    "It generates and stores strong, unique passwords for every site",
-    "It shares passwords with coworkers",
-    "It blocks phishing entirely"
+    "It removes the need to use passwords at all",
+    "It generates a unique password for every site",
+    "It makes passwords easy to share with coworkers",
+    "It blocks phishing attempts before they load"
    ],
    "a": 1,
    "e": "Password managers enable unique, complex credentials per site so a breach at one service does not compromise others.",
@@ -2786,10 +2786,10 @@ export const exam: ExamDef = {
    "t": "browser-security",
    "x": "A user is browsing in 'private' or 'incognito' mode. What protection does this actually provide?",
    "o": [
-    "Complete anonymity online",
-    "No local history, cookies, or form data is saved after the session",
-    "Encryption of all traffic",
-    "Protection from malware"
+    "Complete anonymity from websites and networks",
+    "No browsing data saved on the device afterward",
+    "Encryption of all traffic leaving the device",
+    "Protection from malware on visited pages"
    ],
    "a": 1,
    "e": "Private browsing only avoids saving local data; websites, employers, and ISPs can still observe traffic.",
@@ -2800,10 +2800,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A Windows PC displays a blue screen (BSOD) immediately after a new video driver was installed. What is the BEST first step?",
    "o": [
-    "Reinstall Windows",
+    "Reinstall the operating system from media",
     "Boot into Safe Mode and roll back the driver",
-    "Replace the GPU",
-    "Run Disk Cleanup"
+    "Replace the graphics card with a spare",
+    "Run Disk Cleanup on the system drive"
    ],
    "a": 1,
    "e": "Safe Mode loads minimal drivers, letting you roll back or remove the faulty driver via Device Manager.",
@@ -2814,10 +2814,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A computer takes several minutes to reach the desktop after sign-in. Which is the BEST first troubleshooting step?",
    "o": [
-    "Replace the motherboard",
-    "Review and disable unnecessary startup applications",
-    "Reinstall the OS",
-    "Disable the page file"
+    "Replace the system motherboard",
+    "Disable unnecessary startup applications",
+    "Reinstall the operating system",
+    "Disable the system page file"
    ],
    "a": 1,
    "e": "Excessive startup apps are the most common cause of slow boots; Task Manager's Startup tab shows impact per app.",
@@ -2842,10 +2842,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "An application crashes repeatedly on one PC but runs fine on others. Windows logs show faulting module details. Where would a technician find those application error logs?",
    "o": [
-    "Device Manager",
+    "Device Manager > System devices",
     "Event Viewer > Windows Logs > Application",
-    "Disk Management",
-    "Credential Manager"
+    "Disk Management > Disk properties",
+    "Credential Manager > Windows Credentials"
    ],
    "a": 1,
    "e": "Application crashes are recorded in the Application log in Event Viewer, including the faulting module.",
@@ -2856,10 +2856,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A PC shows 'Operating System Not Found' at boot. Which is a likely cause?",
    "o": [
-    "Corrupted boot configuration or failed storage drive",
-    "Wrong wallpaper",
-    "Outdated antivirus",
-    "Too many browser tabs"
+    "A corrupted boot record or a failed drive",
+    "An incorrect desktop wallpaper file",
+    "An outdated antivirus program",
+    "Too many browser tabs open at shutdown"
    ],
    "a": 0,
    "e": "Missing OS errors point to boot record/BCD corruption, incorrect boot order, or a failed drive — WinRE Startup Repair is a first step.",
@@ -2870,10 +2870,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "After a monthly update, several PCs experience the same new problem. What should the technician do?",
    "o": [
-    "Ignore it until next month",
-    "Roll back or uninstall the problematic update, then test",
-    "Reformat every machine",
-    "Disable Windows Update permanently forever"
+    "Wait for the next monthly update to fix it",
+    "Uninstall the update and retest the systems",
+    "Reformat each affected machine",
+    "Disable Windows Update on the fleet"
    ],
    "a": 1,
    "e": "When an update causes issues, uninstalling/rolling it back restores service; the update can be deferred until a fix ships.",
@@ -2884,13 +2884,13 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A user's system is sluggish and Task Manager shows disk usage constantly at 100%. Which is a reasonable step?",
    "o": [
-    "Check for runaway processes, malware, and drive health (S.M.A.R.T.)",
-    "Add a second monitor",
-    "Increase mouse sensitivity",
-    "Change the theme"
+    "Check for runaway processes and drive errors",
+    "Add a second monitor to spread the load",
+    "Increase the mouse pointer sensitivity",
+    "Change the desktop theme to a lighter one"
    ],
    "a": 0,
-   "e": "Constant 100% disk usage suggests a runaway process, malware, or a failing drive — investigate processes and drive health.",
+   "e": "Constant 100% disk usage suggests a runaway process, malware, or a failing drive — investigate processes and drive health. In other words: S.M.A.R.T..",
    "d": 3
   },
   {
@@ -2912,13 +2912,13 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A user reports their PC reboots spontaneously with no error message. Which sequence of checks is most appropriate?",
    "o": [
-    "Check Event Viewer, then hardware (heat, PSU, RAM)",
+    "Check Event Viewer, then hardware",
     "Reinstall the browser",
     "Delete temp files",
     "Change DNS servers"
    ],
    "a": 0,
-   "e": "Random reboots suggest system-level faults: review logs first, then investigate overheating, power supply, and memory.",
+   "e": "Random reboots suggest system-level faults: review logs first, then investigate overheating, power supply, and memory. In other words: heat, PSU, RAM.",
    "d": 3
   },
   {
@@ -2926,10 +2926,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A smartphone battery drains much faster than usual. Which is the MOST likely software cause?",
    "o": [
-    "A cracked screen",
-    "Apps running in the background or misbehaving after an update",
-    "A dirty charging port",
-    "Bluetooth headphones"
+    "A hairline crack in the display glass",
+    "Apps running constantly in the background",
+    "Debris inside the charging port",
+    "A paired set of Bluetooth headphones"
    ],
    "a": 1,
    "e": "Background app activity, poor cell signal searching, and buggy apps are the primary software causes of rapid drain.",
@@ -2940,10 +2940,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A mobile app crashes every time it opens, even after restarting the phone. Which sequence of fixes is the standard escalation?",
    "o": [
-    "Factory reset immediately",
-    "Force stop, clear the app cache/data, update or reinstall the app",
-    "Replace the SIM card",
-    "Disable Wi-Fi"
+    "Factory reset the phone, then restore a backup",
+    "Force stop, clear the app cache, then reinstall",
+    "Replace the SIM card, then re-register the phone",
+    "Disable Wi-Fi, then reopen the app on cellular"
    ],
    "a": 1,
    "e": "Escalate gradually: force stop, clear cache/data, update the app, reinstall — a reset is the last resort.",
@@ -2954,10 +2954,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A phone fails to install an OS update, reporting insufficient space. What is the FIRST step?",
    "o": [
-    "Buy a new phone",
-    "Free up storage by removing unused apps and media",
-    "Root the device",
-    "Remove the battery"
+    "Replace the phone with a newer model",
+    "Remove unused apps and media files",
+    "Root the device to bypass the check",
+    "Remove and reseat the battery"
    ],
    "a": 1,
    "e": "OS updates need free space to download and stage; clearing storage typically resolves the failure.",
@@ -2968,10 +2968,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "After an OS update, a phone runs very slowly for a day and then returns to normal. What is the likely explanation?",
    "o": [
-    "The battery is failing",
-    "Post-update indexing and app optimization temporarily uses extra resources",
-    "Malware installed itself",
-    "The screen needs recalibration"
+    "A battery that is starting to fail",
+    "Background indexing and app optimization",
+    "Malware bundled into the update package",
+    "A touchscreen in need of recalibration"
    ],
    "a": 1,
    "e": "After major updates, devices reindex and re-optimize apps in the background, causing temporary slowness.",
@@ -2982,10 +2982,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A user cannot hear callers unless using speakerphone. Apps and volume settings are fine. What kind of issue is likely?",
    "o": [
-    "A malware infection",
-    "A hardware problem with the earpiece speaker",
-    "An expired certificate",
-    "A DNS problem"
+    "A malware infection on the device",
+    "A failure in the earpiece speaker",
+    "An expired security certificate",
+    "A DNS resolution problem"
    ],
    "a": 1,
    "e": "When software settings check out and one output works, the failing component (earpiece) points to hardware.",
@@ -3010,10 +3010,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A corporate phone shows signs of jailbreaking/rooting. Why is this a security concern for the organization?",
    "o": [
-    "It voids the case warranty",
-    "It bypasses built-in OS protections and can defeat MDM policy enforcement",
-    "It uses more data",
-    "It disables the camera"
+    "It voids the manufacturer's warranty",
+    "It bypasses OS protections and MDM controls",
+    "It consumes far more cellular data",
+    "It disables the built-in camera app"
    ],
    "a": 1,
    "e": "Jailbroken/rooted devices lose OS security guarantees and can evade MDM controls, exposing corporate data.",
@@ -3038,10 +3038,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "An employee reports their phone shows a fake antivirus warning in the browser demanding immediate app installation. What should they do?",
    "o": [
-    "Install the app quickly",
-    "Close the page without tapping the prompt and report it to IT",
-    "Enter their password to verify",
-    "Restart into recovery"
+    "Install the app before the deadline shown",
+    "Close the page and report it to IT",
+    "Enter their password to verify the alert",
+    "Restart the phone into recovery mode"
    ],
    "a": 1,
    "e": "Fake AV pop-ups are social engineering; do not interact, close the page/tab, and report per policy.",
@@ -3080,10 +3080,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Users report a valid website shows a certificate warning on one specific PC, and the system clock shows last year's date. What is the likely cause?",
    "o": [
-    "The website is down",
-    "The incorrect system date makes valid certificates appear expired or not yet valid",
-    "The GPU is failing",
-    "DNS is too fast"
+    "The website's hosting server is offline",
+    "The wrong date makes valid certificates fail validation",
+    "The graphics card is beginning to fail",
+    "The DNS server is responding too quickly"
    ],
    "a": 1,
    "e": "Certificate validity is checked against the system clock; a wrong date breaks HTTPS validation.",
@@ -3094,10 +3094,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A user reports files on their desktop have strange new extensions and a text file demands payment. What should the technician do FIRST?",
    "o": [
-    "Pay the ransom",
-    "Disconnect the machine from the network to prevent spread",
-    "Delete the note",
-    "Run defrag"
+    "Pay the ransom to recover the files",
+    "Disconnect the machine from the network",
+    "Delete the note and keep working",
+    "Run a disk defragmentation"
    ],
    "a": 1,
    "e": "Ransomware response starts with isolation to stop encryption of network shares, then follow incident response and restore from backups.",
@@ -3108,10 +3108,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Windows Update repeatedly fails on one PC while others update fine. Which is a reasonable troubleshooting step?",
    "o": [
-    "Disable updates permanently",
-    "Run the Windows Update troubleshooter and check for malware or corrupted system files",
-    "Replace the keyboard",
-    "Downgrade to an unsupported OS"
+    "Disable Windows Update to stop the errors",
+    "Run the Update troubleshooter and repair system files",
+    "Replace the keyboard and mouse",
+    "Downgrade to an older unsupported OS"
    ],
    "a": 1,
    "e": "Persistent update failures are addressed via the troubleshooter, sfc/DISM, disk space checks, and malware scans.",
@@ -3122,10 +3122,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A user gets constant desktop notification spam from a website they accidentally allowed. Where is this fixed?",
    "o": [
-    "Reinstall the OS",
-    "Remove the site's notification permission in browser settings",
-    "Buy a new monitor",
-    "Disable the NIC"
+    "Reinstall the operating system",
+    "Revoke the site's notification permission",
+    "Buy a new external monitor",
+    "Disable the network adapter"
    ],
    "a": 1,
    "e": "Browser site permissions control notifications; removing the site's permission stops the spam.",
@@ -3137,9 +3137,9 @@ export const exam: ExamDef = {
    "x": "A PC boots to a black screen with only a movable mouse cursor. Which recovery step is MOST appropriate first?",
    "o": [
     "Reinstall Windows from scratch",
-    "Launch Task Manager (Ctrl+Shift+Esc) and start explorer.exe, or roll back recent updates from WinRE",
-    "Replace the monitor",
-    "Update the BIOS"
+    "Start explorer.exe from Task Manager",
+    "Swap the monitor for a known-good one",
+    "Flash the BIOS to the latest version"
    ],
    "a": 1,
    "e": "A black screen with cursor often means the Explorer shell failed to start — relaunch it, and if an update caused it, roll back from recovery.",
@@ -3150,13 +3150,13 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A machine displays 'BOOTMGR is missing' at power-on. Which repair approach is correct?",
    "o": [
-    "Boot WinRE and run Startup Repair (or bootrec /fixboot and /rebuildbcd)",
+    "Boot WinRE and run Startup Repair",
     "Replace the RAM",
     "Reinstall the browser",
     "Clear the print queue"
    ],
    "a": 0,
-   "e": "Missing boot manager errors are repaired from Windows RE with Startup Repair or bootrec commands against the boot record/BCD.",
+   "e": "Missing boot manager errors are repaired from Windows RE with Startup Repair or bootrec commands against the boot record/BCD. In other words: or bootrec /fixboot and /rebuildbcd.",
    "d": 3
   },
   {
@@ -3164,10 +3164,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A PC blue-screens with MEMORY_MANAGEMENT errors at random intervals. Which diagnostic should run FIRST?",
    "o": [
-    "Windows Memory Diagnostic (or MemTest86) to test the RAM",
-    "Disk Cleanup",
-    "A browser update",
-    "gpupdate /force"
+    "Windows Memory Diagnostic",
+    "Disk Cleanup on the system drive",
+    "An update to the default browser",
+    "gpupdate /force from a command prompt"
    ],
    "a": 0,
    "e": "Memory-related stop codes call for a RAM test before software fixes — failing modules cause exactly this pattern.",
@@ -3178,10 +3178,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A standard user tries to install approved software and is blocked by a User Account Control prompt requesting credentials. What is happening?",
    "o": [
-    "The installer requires elevation, which needs an administrator's approval",
-    "The PC is infected",
-    "The download is corrupt",
-    "Windows is unlicensed"
+    "The action requires administrator elevation",
+    "The PC is infected with malware",
+    "The download file is corrupt",
+    "The Windows license has expired"
    ],
    "a": 0,
    "e": "UAC gates administrative actions; a standard user needs an admin to authorize system-wide installs — by design, not an error.",
@@ -3206,10 +3206,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A laptop enters an endless cycle: it boots, shows the spinner, crashes, and restarts. Windows never loads. What should the technician try FIRST?",
    "o": [
-    "Enter WinRE (auto-launches after failed boots) and use Startup Repair or uninstall recent updates",
-    "Replace the keyboard",
-    "Buy a new SSD immediately",
-    "Remove the CMOS battery"
+    "Run Startup Repair from the recovery environment",
+    "Replace the laptop keyboard",
+    "Install a brand-new SSD right away",
+    "Remove the CMOS battery overnight"
    ],
    "a": 0,
    "e": "After repeated failed boots Windows offers the Recovery Environment — Startup Repair, safe mode, or update rollback usually break the loop.",
@@ -3220,10 +3220,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A USB device shows as 'Unknown device' in Device Manager on one PC but works elsewhere. Which sequence is the correct escalation?",
    "o": [
-    "Try another port and cable, then uninstall/reinstall the device and update the driver",
-    "Reformat the PC",
-    "Replace the PSU",
-    "Disable USB in BIOS"
+    "Try another port and cable, then reinstall the driver",
+    "Reformat the whole PC and start over",
+    "Replace the computer's power supply",
+    "Disable all USB ports in the BIOS"
    ],
    "a": 0,
    "e": "Work the physical path first (port/cable), then the driver stack — most USB detection failures resolve there.",
@@ -3234,13 +3234,13 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "Launching an application fails with 'The program can't start because a .dll file is missing.' Which fixes are appropriate?",
    "o": [
-    "Reinstall/repair the application, or restore the runtime it depends on (e.g., Visual C++ redistributable)",
-    "Delete more DLLs",
-    "Turn off the firewall",
-    "Lower the resolution"
+    "Reinstall or repair the app, or restore its runtime",
+    "Delete the remaining DLL files",
+    "Turn off the Windows firewall",
+    "Lower the screen resolution"
    ],
    "a": 0,
-   "e": "Missing-DLL errors mean a broken installation or absent shared runtime; repair-install the app or its dependency package.",
+   "e": "Missing-DLL errors mean a broken installation or absent shared runtime; repair-install the app or its dependency package. In other words: e.g., Visual C++ redistributable.",
    "d": 3
   },
   {
@@ -3248,10 +3248,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A critical service is set to Automatic but fails to start at boot with a dependency error. Where should the technician investigate?",
    "o": [
-    "The service's dependencies in services.msc and the System event log",
-    "The desktop wallpaper",
-    "The mouse DPI",
-    "The Recycle Bin"
+    "The service dependencies and the System log",
+    "The desktop wallpaper settings",
+    "The mouse pointer DPI setting",
+    "The Recycle Bin contents"
    ],
    "a": 0,
    "e": "Dependency failures cascade: identify the upstream service that failed in the System log and fix that first.",
@@ -3262,9 +3262,9 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A phone's touchscreen responds erratically after a cheap screen protector was applied. What is the FIRST thing to try?",
    "o": [
-    "Remove the screen protector, clean the screen, and restart",
-    "Replace the digitizer immediately",
-    "Factory reset",
+    "Peel off the protector and restart the phone",
+    "Replace the digitizer right away",
+    "Perform a full factory reset",
     "Disable the touchscreen driver"
    ],
    "a": 0,
@@ -3276,10 +3276,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "App store downloads sit at 'pending' forever on one phone. Which checks are reasonable? (Choose the BEST set.)",
    "o": [
-    "Check connectivity and storage space, restart, and sign out/in of the store account",
-    "Replace the SIM",
-    "Disable the lock screen",
-    "Turn off dark mode"
+    "Check connectivity and storage, then re-sign in",
+    "Replace the phone's SIM card",
+    "Disable the lock-screen PIN",
+    "Switch off the dark-mode theme"
    ],
    "a": 0,
    "e": "Stuck store downloads are almost always connectivity, storage, or account-session issues — the basics resolve them.",
@@ -3290,13 +3290,13 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A phone shuts down abruptly whenever the battery indicator reaches about 30%. What does this suggest?",
    "o": [
-    "The battery has degraded and misreports capacity — replace it (or check battery health)",
-    "The charger is too fast",
-    "The OS needs more apps",
-    "Airplane mode is on"
+    "The cell has degraded and misreports its charge",
+    "The charger delivers too much power",
+    "The OS needs more apps installed",
+    "Airplane mode is turned on"
    ],
    "a": 0,
-   "e": "Sudden shutdowns at nonzero percentages indicate a worn battery whose voltage collapses under load; health diagnostics confirm.",
+   "e": "Sudden shutdowns at nonzero percentages indicate a worn battery whose voltage collapses under load; health diagnostics confirm. In other words: or check battery health.",
    "d": 3
   },
   {
@@ -3304,10 +3304,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "Bluetooth audio stutters only in one room of the office. What is the MOST likely cause?",
    "o": [
-    "RF interference or distance/obstruction between phone and headset",
-    "The playlist",
-    "The phone case color",
-    "Low storage"
+    "RF interference or an obstruction in that spot",
+    "The chosen music playlist",
+    "The color of the phone case",
+    "Low internal storage space"
    ],
    "a": 0,
    "e": "Bluetooth shares 2.4 GHz with Wi-Fi and other devices; interference or attenuation in that spot causes dropouts.",
@@ -3318,13 +3318,13 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A phone reports storage full, but the user's apps and photos don't account for it. What is the usual fix?",
    "o": [
-    "Clear app caches and offloaded data (the 'other'/system data category)",
+    "Clear app caches and offloaded data",
     "Delete the OS",
     "Remove the battery",
     "Disable mobile data"
    ],
    "a": 0,
-   "e": "Cached and temporary data accumulate as 'other' storage; clearing caches (or offloading big apps) reclaims the space.",
+   "e": "Cached and temporary data accumulate as 'other' storage; clearing caches (or offloading big apps) reclaims the space. In other words: the 'other'/system data category.",
    "d": 3
   },
   {
@@ -3332,13 +3332,13 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "Media apps play with no sound, but ringtones and alarms are loud. What should be checked?",
    "o": [
-    "The separate media volume channel (and mute/Do Not Disturb state)",
+    "The separate media volume channel",
     "The SIM card",
     "The charging cable",
     "The GPS"
    ],
    "a": 0,
-   "e": "Phones keep independent volume channels — ringer, media, alarms; only the media channel being muted causes exactly this.",
+   "e": "Phones keep independent volume channels — ringer, media, alarms; only the media channel being muted causes exactly this. In other words: and mute/Do Not Disturb state.",
    "d": 3
   },
   {
@@ -3346,10 +3346,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A phone drops one specific Wi-Fi network repeatedly but works fine on others. Which steps target the problem?",
    "o": [
-    "Forget and rejoin the network, and check that router/AP for issues",
-    "Factory reset the phone first",
+    "Forget and rejoin the network, then check the AP",
+    "Factory reset the entire phone",
     "Replace the phone antenna",
-    "Disable Bluetooth permanently"
+    "Disable Bluetooth on the phone"
    ],
    "a": 0,
    "e": "Per-network problems point at that network: refresh the saved profile and investigate the AP (band steering, DHCP, firmware).",
@@ -3360,10 +3360,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "After a phone OS upgrade, an older app crashes on launch every time. The developer's page says an update is 'in review.' What is the BEST advice?",
    "o": [
-    "Wait for the compatibility update (or roll back if the data matters); the app is incompatible with the new OS",
-    "Root the phone to force it",
-    "Buy a new phone",
-    "Clear the wallpaper"
+    "Wait for the developer's compatibility update",
+    "Root the phone and force the install",
+    "Replace the phone with a newer model",
+    "Reset the wallpaper and lock screen"
    ],
    "a": 0,
    "e": "Major OS updates break older apps until developers ship compatibility fixes — a known and temporary condition.",
@@ -3374,13 +3374,13 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "Which Android setting, when disabled, blocks installation of apps from outside the official store?",
    "o": [
-    "Install unknown apps (sideloading permission)",
+    "Install unknown apps",
     "Airplane mode",
     "Battery saver",
     "Auto-rotate"
    ],
    "a": 0,
-   "e": "Blocking 'unknown sources' forces installs through the vetted store, cutting off the main malware delivery path.",
+   "e": "Blocking 'unknown sources' forces installs through the vetted store, cutting off the main malware delivery path. In other words: sideloading permission.",
    "d": 3
   },
   {
@@ -3388,10 +3388,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A flashlight app requests access to contacts, microphone, and location. What should the user do?",
    "o": [
-    "Deny the permissions and uninstall the app — the requests far exceed its function",
+    "Deny the permissions and uninstall the app",
     "Grant everything for best performance",
-    "Only grant microphone",
-    "Leave a good review"
+    "Grant only the microphone",
+    "Leave a five-star review"
    ],
    "a": 0,
    "e": "Permissions should match function; wildly excessive requests are a hallmark of data-harvesting apps.",
@@ -3402,10 +3402,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A user reports their email account sent messages they never wrote, and their phone shows sign-ins from another country. What is the response?",
    "o": [
-    "Change the password immediately, enable MFA, and review/revoke active sessions",
-    "Ignore it",
-    "Delete the email app",
-    "Turn off Wi-Fi"
+    "Change the password, enable MFA, and revoke sessions",
+    "Ignore the foreign sign-in alerts",
+    "Delete the email app entirely",
+    "Turn off the phone's Wi-Fi"
    ],
    "a": 0,
    "e": "Compromised-account response: rotate credentials, add MFA, kill unknown sessions, and check forwarding rules.",
@@ -3416,10 +3416,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "An employee worries an app is tracking their location constantly. Where can this be confirmed and controlled?",
    "o": [
-    "The OS privacy/location permission settings, which show per-app access",
-    "The wallpaper settings",
-    "The keyboard settings",
-    "The ringtone menu"
+    "The OS location and privacy settings",
+    "The device wallpaper settings",
+    "The on-screen keyboard settings",
+    "The ringtone selection menu"
    ],
    "a": 0,
    "e": "Modern mobile OSes expose per-app location access (with 'always' vs 'while using') and recent-access indicators.",
@@ -3431,9 +3431,9 @@ export const exam: ExamDef = {
    "x": "MDM marks a phone non-compliant and blocks corporate email because its OS is outdated. What restores access?",
    "o": [
     "Updating the device OS to the required version",
-    "Deleting the MDM profile",
-    "Rooting the phone",
-    "Complaining to HR"
+    "Deleting the MDM enrollment profile",
+    "Rooting the phone's operating system",
+    "Complaining to the HR department"
    ],
    "a": 0,
    "e": "Compliance policies gate access on patch level; updating the OS returns the device to compliance and restores access.",
@@ -3444,10 +3444,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "Why should travelers avoid public USB charging kiosks, and what is the safe alternative?",
    "o": [
-    "Kiosks can attempt data connections ('juice jacking'); use an AC adapter or a power-only/data-blocker cable",
-    "USB power is weaker in airports",
-    "Kiosks overcharge batteries",
-    "There is no risk"
+    "Data theft over the cable; use an AC wall adapter instead",
+    "USB power is weaker in airport terminals",
+    "Public kiosks overcharge phone batteries",
+    "There is no risk in using public kiosks"
    ],
    "a": 0,
    "e": "Unknown USB ports may negotiate data access; AC wall power or charge-only adapters eliminate the risk.",
@@ -3458,10 +3458,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "An employee loses a personal phone that had corporate email under BYOD. What is the FIRST required action?",
    "o": [
-    "Report it to IT immediately so the corporate profile/data can be remotely wiped",
-    "Wait to see if it turns up",
-    "Buy a replacement first",
-    "Post about it on social media"
+    "Report it to IT so the corporate data can be remotely wiped",
+    "Wait a few days to see whether the phone turns up",
+    "Buy a replacement handset before doing anything else",
+    "Post about the lost phone on social media to find it"
    ],
    "a": 0,
    "e": "Fast reporting lets IT wipe corporate data (full or selective) before it is extracted; time is the critical factor.",
@@ -3472,10 +3472,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Colleagues receive suspicious links from a user's email account, which the user never sent. What has MOST likely happened, and what is step one?",
    "o": [
-    "The account is compromised — reset the password, enable MFA, and check mailbox rules",
-    "The mail server is down — reboot it",
-    "The user's monitor is failing",
-    "DNS needs flushing"
+    "The account is compromised — reset the password and enable MFA",
+    "The mail server is down — reboot it to restore service",
+    "The user's monitor is failing — replace the display",
+    "DNS is stale — flush the resolver cache to fix it"
    ],
    "a": 0,
    "e": "Outbound spam from an account means credential compromise; secure the account and hunt for attacker-added forwarding rules.",
@@ -3486,10 +3486,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Antivirus repeatedly removes the same threat, which returns after every reboot. What does this indicate?",
    "o": [
-    "A persistence mechanism survives cleaning — follow the full malware-removal procedure (isolate, disable System Restore, offline/boot-time scans)",
-    "The AV is working perfectly",
-    "The file is harmless",
-    "The user needs a new mouse"
+    "A persistence mechanism is restoring the malware",
+    "The antivirus program is working perfectly",
+    "The detected file is a harmless false positive",
+    "The mouse drivers need to be reinstalled"
    ],
    "a": 0,
    "e": "Recurring detections mean the dropper persists (services, tasks, registry run keys); structured removal, not repeated quick scans, is required.",
@@ -3500,10 +3500,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Every HTTPS site on one PC shows certificate warnings naming an unfamiliar issuer. Other devices are fine. What should be investigated?",
    "o": [
-    "An unexpected root certificate or interception software (or malware) on that PC",
-    "The websites are all down",
-    "The router needs a reboot",
-    "The monitor cable"
+    "An untrusted root certificate installed on that PC",
+    "Every website is having an outage at once",
+    "The router needs a firmware reboot",
+    "A loose monitor cable on that PC"
    ],
    "a": 0,
    "e": "A rogue trusted root or local TLS interception rewrites every site's certificate chain — audit the trusted root store and installed software.",
@@ -3514,10 +3514,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A PC is slow, its antivirus is mysteriously disabled, and unknown processes run at startup. What is the correct response?",
    "o": [
-    "Isolate the machine and begin the malware-removal procedure",
-    "Just re-enable the AV and move on",
-    "Defragment the disk",
-    "Update the wallpaper"
+    "Isolate the machine and run the malware-removal steps",
+    "Re-enable the antivirus software and carry on working",
+    "Defragment the disk to speed the machine back up",
+    "Change the desktop wallpaper and restart the PC"
    ],
    "a": 0,
    "e": "Malware commonly disables protection first; treat the machine as compromised and remediate methodically, not cosmetically.",
@@ -3528,10 +3528,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Advertising pop-ups appear on the desktop even when no browser is open. What does this indicate?",
    "o": [
-    "Adware/a PUP is installed at the system level — remove it via installed-apps review and AV scans",
-    "Normal Windows behavior",
-    "A failing GPU",
-    "The ISP injected them"
+    "System-level adware or a PUP is installed on the machine",
+    "This is normal Windows notification behavior",
+    "The graphics card is beginning to fail",
+    "The internet provider is injecting the ads"
    ],
    "a": 0,
    "e": "System-level pop-ups (not browser tabs) mean installed adware; uninstall suspicious programs and scan.",
@@ -3542,10 +3542,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A user types a bank's correct URL but lands on a lookalike site. Their hosts file contains an entry for the bank's domain. What happened?",
    "o": [
-    "Malware poisoned local name resolution via the hosts file — remove the entry and remediate the infection",
-    "The bank moved",
-    "The keyboard is faulty",
-    "The certificate expired"
+    "Malware poisoned local name resolution to redirect the domain",
+    "The bank relocated its website to a new domain",
+    "The keyboard is faulty and mistyped the address",
+    "The site's TLS certificate has recently expired"
    ],
    "a": 0,
    "e": "The hosts file overrides DNS; malware plants entries to redirect victims — clean it and find what wrote it.",
@@ -3556,10 +3556,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A domain account locks out repeatedly even though the user isn't mistyping their password. What is a common benign cause to check FIRST?",
    "o": [
-    "A stale saved credential on another device or service retrying with the old password",
-    "The account is cursed",
-    "The domain controller dislikes the user",
-    "Too many browser tabs"
+    "A stale saved credential on a device keeps retrying the old password",
+    "The account is affected by a temporary directory glitch",
+    "The domain controller is misconfigured for this one user",
+    "Too many browser tabs are open on the workstation"
    ],
    "a": 0,
    "e": "Old credentials cached on phones, mapped drives, or scheduled tasks hammer the DC with bad logins — audit lockout sources before assuming attack.",
@@ -3570,10 +3570,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A help desk technician resolves an issue. What information is MOST important to add to the ticket before closing it?",
    "o": [
-    "Only the ticket number",
-    "A clear description of the problem, steps taken, and the resolution",
-    "The user's password",
-    "Nothing — closing is enough"
+    "Only the ticket reference number and nothing more",
+    "The problem, the steps taken, and the resolution",
+    "The user's account password for future reference",
+    "Nothing further, since closing is enough by itself"
    ],
    "a": 1,
    "e": "Clear problem/progress/resolution notes make tickets useful for the user, future technicians, and the knowledge base.",
@@ -3598,10 +3598,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A technician cannot resolve a complex network issue at the help desk level. What is the proper ticketing action?",
    "o": [
-    "Close the ticket as unresolvable",
-    "Escalate to the appropriate higher-tier team with full documentation",
-    "Delete the ticket",
-    "Tell the user to resubmit weekly"
+    "Close the ticket and mark it unresolvable",
+    "Escalate to a higher-tier team with full notes",
+    "Delete the ticket to clear it from the queue",
+    "Tell the user to resubmit it every week"
    ],
    "a": 1,
    "e": "Escalation moves tickets to specialized tiers; complete notes prevent the user from repeating information.",
@@ -3627,12 +3627,12 @@ export const exam: ExamDef = {
    "x": "Which database stores information about hardware, software, and the relationships between configuration items in an IT environment?",
    "o": [
     "DHCP scope",
-    "CMDB (configuration management database)",
+    "CMDB",
     "DNS zone file",
     "Print queue"
    ],
    "a": 1,
-   "e": "A CMDB holds configuration items and their relationships, supporting asset and change management.",
+   "e": "A CMDB holds configuration items and their relationships, supporting asset and change management. CMDB = configuration management database.",
    "d": 4
   },
   {
@@ -3641,7 +3641,7 @@ export const exam: ExamDef = {
    "x": "New employees must read and sign a document defining allowed use of company computers and internet. What is this document?",
    "o": [
     "SLA",
-    "AUP (acceptable use policy)",
+    "AUP",
     "MSDS",
     "EULA"
    ],
@@ -3655,7 +3655,7 @@ export const exam: ExamDef = {
    "x": "A vendor contract guarantees 99.9% uptime and four-hour response to outages. What document defines these commitments?",
    "o": [
     "AUP",
-    "SLA (service level agreement)",
+    "SLA",
     "SOP",
     "NDA only"
    ],
@@ -3669,7 +3669,7 @@ export const exam: ExamDef = {
    "x": "A checklist describes the exact standard steps for imaging and deploying a new workstation. What type of document is this?",
    "o": [
     "Incident report",
-    "Standard operating procedure (SOP)",
+    "Standard operating procedure",
     "Network topology diagram",
     "Splash screen"
    ],
@@ -3711,12 +3711,12 @@ export const exam: ExamDef = {
    "x": "Who typically reviews and approves significant infrastructure changes before implementation?",
    "o": [
     "The end users",
-    "The change advisory board (CAB)",
+    "The change advisory board",
     "The janitorial staff",
     "The ISP"
    ],
    "a": 1,
-   "e": "A change board reviews proposed changes for risk, scheduling, and business impact before approval.",
+   "e": "A change board reviews proposed changes for risk, scheduling, and business impact before approval. In other words: CAB.",
    "d": 4
   },
   {
@@ -3738,10 +3738,10 @@ export const exam: ExamDef = {
    "t": "change-mgmt",
    "x": "Why are major changes typically tested in a sandbox environment first?",
    "o": [
-    "Sandboxes are faster",
-    "Testing in an isolated environment reveals problems without impacting production",
-    "It is legally required everywhere",
-    "Sandboxes are cheaper than paper"
+    "Sandbox environments run noticeably faster",
+    "Isolation surfaces problems before they reach production",
+    "Isolated testing is legally required in every industry",
+    "Sandboxes cost far less to run than production"
    ],
    "a": 1,
    "e": "Sandbox testing validates changes safely; issues are found before they can affect live systems.",
@@ -3752,10 +3752,10 @@ export const exam: ExamDef = {
    "t": "change-mgmt",
    "x": "What is the purpose of a maintenance window in change management?",
    "o": [
-    "A time to clean monitors",
-    "A scheduled low-impact period during which approved changes are performed",
-    "The wait time for new hardware",
-    "Lunch breaks for admins"
+    "A set time to clean the monitors and desks",
+    "A scheduled low-impact period for approved changes",
+    "The waiting time for new hardware to arrive",
+    "The scheduled lunch break for the admin team"
    ],
    "a": 1,
    "e": "Maintenance windows schedule disruptive work during agreed low-usage periods to minimize business impact.",
@@ -3794,10 +3794,10 @@ export const exam: ExamDef = {
    "t": "backups",
    "x": "What does the 3-2-1 backup rule specify?",
    "o": [
-    "3 admins, 2 servers, 1 site",
-    "3 copies of data, on 2 different media types, with 1 copy off-site",
-    "3 backups per day, 2 restores, 1 test",
-    "3 disks in RAID, 2 spares, 1 hot"
+    "3 administrators, 2 servers, and 1 data center site",
+    "3 copies of data, on 2 media types, with 1 off-site",
+    "3 backups per day, 2 restores, and 1 weekly test",
+    "3 disks in RAID, 2 hot spares, and 1 cold spare"
    ],
    "a": 1,
    "e": "3-2-1: keep three copies of data, across two media types, with at least one copy off-site.",
@@ -3808,10 +3808,10 @@ export const exam: ExamDef = {
    "t": "backups",
    "x": "Why must backups be periodically test-restored?",
    "o": [
-    "To use spare tapes",
-    "A backup is only proven good if data can actually be recovered from it",
-    "Testing extends media life",
-    "Regulators require daily restores"
+    "To make use of otherwise spare backup tapes",
+    "A backup is only proven good if data can be recovered",
+    "Regular testing noticeably extends the media life",
+    "Regulators mandate a full restore every single day"
    ],
    "a": 1,
    "e": "Untested backups fail surprisingly often; recovery testing validates that data is actually restorable.",
@@ -3823,7 +3823,7 @@ export const exam: ExamDef = {
    "x": "Which backup rotation scheme keeps daily, weekly, and monthly backup sets, often described with a family metaphor?",
    "o": [
     "Tower of Hanoi",
-    "Grandfather-father-son (GFS)",
+    "Grandfather-father-son",
     "Round robin",
     "FIFO stack"
    ],
@@ -3878,10 +3878,10 @@ export const exam: ExamDef = {
    "t": "safety",
    "x": "A technician must move a 60-pound server. What is the proper technique?",
    "o": [
-    "Bend at the waist and lift quickly",
-    "Lift with the legs, keep the back straight, and get help for heavy items",
-    "Drag it by the power cord",
-    "Carry it above the head"
+    "Bend at the waist and lift the server quickly",
+    "Lift with the legs and get help for heavy loads",
+    "Drag the server along the floor by its power cord",
+    "Carry the server balanced above your head"
    ],
    "a": 1,
    "e": "Lift with the legs, keep loads close, and team-lift heavy equipment to avoid injury.",
@@ -3892,10 +3892,10 @@ export const exam: ExamDef = {
    "t": "safety",
    "x": "Which fire extinguisher class is appropriate for electrical equipment fires?",
    "o": [
-    "Class A (water)",
-    "Class C (in the US) — non-conductive agents like CO2",
+    "Class A",
+    "Class C",
     "Class K",
-    "A garden hose"
+    "Class D"
    ],
    "a": 1,
    "e": "Electrical fires require non-conductive suppression (Class C in the US); water conducts electricity and must not be used.",
@@ -3921,7 +3921,7 @@ export const exam: ExamDef = {
    "x": "Which document describes safe handling, storage, and disposal procedures for chemicals such as cleaning solvents or toner?",
    "o": [
     "SLA",
-    "MSDS/SDS (safety data sheet)",
+    "MSDS/SDS",
     "EULA",
     "RFC"
    ],
@@ -3932,15 +3932,15 @@ export const exam: ExamDef = {
   {
    "id": 252,
    "t": "environment",
-   "x": "How should old UPS batteries and laptop batteries be disposed of?",
+   "x": "A desktop's interior has accumulated heavy dust and lint. What is the recommended way to clear it out safely?",
    "o": [
-    "Regular trash",
-    "Taken to battery recycling per local regulations",
-    "Burned on-site",
-    "Buried"
+    "Blow it out with compressed air in a ventilated area",
+    "Wipe the boards with a lightly dampened cloth",
+    "Press a household vacuum against the components",
+    "Loosen it with a stiff metal brush"
    ],
-   "a": 1,
-   "e": "Batteries contain hazardous materials and must be recycled through approved programs per local regulations.",
+   "a": 0,
+   "e": "Compressed air used in a ventilated space removes dust without moisture or static. Damp cloths, brushes, and household vacuums can damage boards or cause ESD.",
    "d": 4
   },
   {
@@ -3948,10 +3948,10 @@ export const exam: ExamDef = {
    "t": "environment",
    "x": "Why should server rooms control both temperature AND humidity?",
    "o": [
-    "Only temperature matters",
-    "Heat damages components; low humidity risks ESD and high humidity risks condensation",
-    "Humidity affects Wi-Fi",
-    "OSHA requires 50% exactly"
+    "Only the room temperature actually matters here",
+    "Heat harms parts, dry air raises ESD, damp air condenses",
+    "Humidity mainly affects the Wi-Fi signal strength",
+    "OSHA requires exactly fifty percent relative humidity"
    ],
    "a": 1,
    "e": "Climate control protects equipment: overheating causes failures, low humidity raises ESD risk, high humidity causes condensation and corrosion.",
@@ -3974,15 +3974,15 @@ export const exam: ExamDef = {
   {
    "id": 255,
    "t": "incident-response",
-   "x": "When collecting digital evidence, why is data captured from RAM and running processes before powering off the machine?",
+   "x": "Investigators create a bit-for-bit image of a seized hard drive and examine that copy rather than the source. What is the main reason?",
    "o": [
-    "RAM is larger",
-    "Order of volatility — volatile data is lost at power-off",
-    "It is faster",
-    "Disks cannot be copied"
+    "A copied image can be searched faster than a physical disk",
+    "Imaging the drive also removes any malware present",
+    "It keeps the original drive unaltered so the evidence stays admissible",
+    "The original drive can be read only one time"
    ],
-   "a": 1,
-   "e": "Evidence is collected most-volatile first (RAM, network state) because it disappears when the system powers down.",
+   "a": 2,
+   "e": "Analysts work from a bit-for-bit forensic image so the original evidence is never modified, preserving its integrity and admissibility in court.",
    "d": 4
   },
   {
@@ -3990,10 +3990,10 @@ export const exam: ExamDef = {
    "t": "incident-response",
    "x": "A technician discovers prohibited content on a company PC. What is the correct FIRST action?",
    "o": [
-    "Delete the content",
-    "Report through proper channels and preserve the system",
-    "Confront the user angrily",
-    "Post about it online"
+    "Delete the content so no one else can access it",
+    "Report it through proper channels and preserve the system",
+    "Confront the user and ask them to explain the content",
+    "Post about the discovery in a public forum for advice"
    ],
    "a": 1,
    "e": "Follow incident response policy: report to the appropriate authority and preserve evidence — never alter or delete it.",
@@ -4060,10 +4060,10 @@ export const exam: ExamDef = {
    "t": "professionalism",
    "x": "A technician arrives at a user's desk and the user is visibly frustrated about lost work. What is the BEST professional response?",
    "o": [
-    "Blame the user's habits",
-    "Listen actively, avoid interrupting, and acknowledge the frustration before troubleshooting",
-    "Say it happens to everyone and leave",
-    "Start lecturing about backups immediately"
+    "Explain that the user's own habits caused the loss",
+    "Listen without interrupting and acknowledge the frustration",
+    "Reassure the user that lost work happens to everyone",
+    "Begin a lecture on proper backup practices right away"
    ],
    "a": 1,
    "e": "Actively listen, take the problem seriously, and avoid dismissing the user — professionalism builds trust.",
@@ -4074,10 +4074,10 @@ export const exam: ExamDef = {
    "t": "professionalism",
    "x": "While fixing a PC, a technician notices private financial documents open on screen. What should they do?",
    "o": [
-    "Read them for context",
-    "Treat them as confidential and avoid viewing or discussing them",
-    "Copy them for the ticket",
-    "Share with a coworker"
+    "Read through them for troubleshooting context",
+    "Treat them as confidential and avoid viewing them",
+    "Attach copies to the ticket for documentation",
+    "Mention the documents to a coworker for advice"
    ],
    "a": 1,
    "e": "Deal appropriately with confidential material: do not view, use, or disclose it.",
@@ -4088,10 +4088,10 @@ export const exam: ExamDef = {
    "t": "professionalism",
    "x": "A technician realizes a repair will take two days longer than promised. What should they do?",
    "o": [
-    "Say nothing and hope",
-    "Proactively contact the user, explain the delay, and set a new expectation",
-    "Close the ticket",
-    "Blame the vendor in writing"
+    "Wait for the user to notice and ask about it",
+    "Contact the user, explain the delay, and set a new timeline",
+    "Close the ticket and open a fresh one later",
+    "Send a written note attributing the delay to the vendor"
    ],
    "a": 1,
    "e": "Set and manage expectations: communicate status changes promptly and offer options where possible.",
@@ -4102,10 +4102,10 @@ export const exam: ExamDef = {
    "t": "communication",
    "x": "A user does not understand the technician's explanation full of acronyms. What should the technician change?",
    "o": [
-    "Speak louder",
-    "Avoid jargon and explain in plain terms matched to the user's knowledge",
-    "Use more acronyms",
-    "Email a manual"
+    "Repeat the same explanation more slowly and loudly",
+    "Explain in plain terms matched to the user's knowledge",
+    "Define each acronym in more technical depth",
+    "Email the user a product manual to read instead"
    ],
    "a": 1,
    "e": "Adapt communication to the audience: avoid jargon and confirm the user understands.",
@@ -4116,10 +4116,10 @@ export const exam: ExamDef = {
    "t": "communication",
    "x": "During a support call, a user goes off-topic about unrelated complaints. What is the professional approach?",
    "o": [
-    "Hang up",
-    "Politely refocus the conversation on the issue while remaining respectful",
-    "Argue each point",
-    "Transfer randomly"
+    "End the call once the user drifts off-topic",
+    "Politely steer the conversation back to the issue",
+    "Respond to each complaint with a counterpoint",
+    "Transfer the call to another queue to move on"
    ],
    "a": 1,
    "e": "Stay on task with courtesy: acknowledge, then steer the conversation back to resolving the problem.",
@@ -4200,10 +4200,10 @@ export const exam: ExamDef = {
    "t": "scripting-uses",
    "x": "What is a key RISK of running an unfamiliar script pulled from the internet on production systems?",
    "o": [
-    "Scripts cannot cause harm",
-    "It may change settings, install malware, or consume resources in unintended ways",
-    "Scripts expire",
-    "It voids the mouse warranty"
+    "Scripts are sandboxed and cannot harm the system",
+    "It may change settings or install unwanted software",
+    "The script will expire before it finishes running",
+    "Running it voids the hardware warranty on the device"
    ],
    "a": 1,
    "e": "Scripts run with the user's privileges and can misconfigure systems or introduce malware — always review and test first.",
@@ -4257,12 +4257,12 @@ export const exam: ExamDef = {
    "x": "An MSP needs continuous monitoring, patching, and remote control across hundreds of client machines. Which tool category fits?",
    "o": [
     "A single VNC install",
-    "RMM (remote monitoring and management)",
+    "RMM",
     "A KVM switch",
     "FTP scripts"
    ],
    "a": 1,
-   "e": "RMM platforms give managed service providers fleet-wide monitoring, patching, alerting, and remote access.",
+   "e": "RMM platforms give managed service providers fleet-wide monitoring, patching, alerting, and remote access. RMM = remote monitoring and management.",
    "d": 4
   },
   {
@@ -4270,10 +4270,10 @@ export const exam: ExamDef = {
    "t": "remote-access",
    "x": "A vendor needs temporary access to one internal server. Which is the MOST secure approach?",
    "o": [
-    "Give them full VPN access forever",
-    "Provide time-limited, least-privilege access to only that system, with logging",
-    "Share the domain admin password",
-    "Open RDP to the internet"
+    "Grant standing VPN access to the entire network",
+    "Provide time-limited, logged access to that one system",
+    "Share a domain administrator account's credentials",
+    "Expose the server's RDP port directly to the internet"
    ],
    "a": 1,
    "e": "Third-party access should be scoped, time-boxed, logged, and revoked when work completes.",
@@ -4284,10 +4284,10 @@ export const exam: ExamDef = {
    "t": "ai",
    "x": "A company allows staff to use an AI chatbot for drafting documents. Which practice is MOST important in the usage policy?",
    "o": [
-    "Type faster prompts",
-    "Never paste confidential or regulated data into public AI services",
-    "Use AI for everything",
-    "Disable spell check"
+    "Require staff to write shorter, faster prompts",
+    "Keep confidential and regulated data out of the chatbot",
+    "Encourage staff to route all work through the chatbot",
+    "Have staff disable spell check before drafting"
    ],
    "a": 1,
    "e": "Data entered into public AI tools may be stored or used for training — confidential data must be kept out of unapproved services.",
@@ -4312,10 +4312,10 @@ export const exam: ExamDef = {
    "t": "ai",
    "x": "What is a key difference between a public AI service and a private AI deployment for a business?",
    "o": [
-    "Private AI has no hardware",
-    "Private deployments keep data within the organization's control",
-    "Public AI is always more accurate",
-    "Private AI cannot be updated"
+    "Private deployments require no dedicated hardware",
+    "Private deployments keep data under company control",
+    "Public services produce more accurate model output",
+    "Private deployments cannot receive model updates"
    ],
    "a": 1,
    "e": "Private/self-hosted AI keeps prompts and data inside company boundaries, at higher cost; public services are shared infrastructure.",
@@ -4354,10 +4354,10 @@ export const exam: ExamDef = {
    "t": "cmd",
    "x": "Why is diskpart considered dangerous compared with Disk Management?",
    "o": [
-    "Its clean command instantly wipes a disk's partition table without confirmation prompts",
-    "It cannot format disks",
-    "It only works on USB drives",
-    "It requires internet access"
+    "Its clean command wipes a disk's partition table immediately",
+    "It cannot format disks larger than 32 GB",
+    "It works only with removable USB storage",
+    "It requires an active internet connection to run"
    ],
    "a": 0,
    "e": "diskpart executes destructive commands like clean immediately; selecting the wrong disk destroys its layout with no undo.",
@@ -4368,13 +4368,13 @@ export const exam: ExamDef = {
    "t": "windows-tools",
    "x": "Task Manager shows high disk usage but not which files are being touched. Which tool shows per-process disk, network, and file-handle activity in detail?",
    "o": [
-    "Resource Monitor (resmon)",
+    "Resource Monitor",
     "Notepad",
     "Disk Cleanup",
     "Character Map"
    ],
    "a": 0,
-   "e": "Resource Monitor breaks out per-process disk I/O with file names, plus network and memory detail beyond Task Manager.",
+   "e": "Resource Monitor breaks out per-process disk I/O with file names, plus network and memory detail beyond Task Manager. Resource Monitor = resmon.",
    "d": 1
   },
   {
@@ -4382,7 +4382,7 @@ export const exam: ExamDef = {
    "t": "mmc",
    "x": "A technician wants CPU and memory statistics logged every 15 seconds for a week to diagnose intermittent slowdowns. Which tool does this?",
    "o": [
-    "Performance Monitor data collector sets",
+    "Performance Monitor",
     "Task Manager",
     "Disk Management",
     "Device Manager"
@@ -4396,10 +4396,10 @@ export const exam: ExamDef = {
    "t": "task-manager",
    "x": "Which Task Manager information helps decide which startup programs to disable first?",
    "o": [
-    "The measured 'startup impact' rating per program",
-    "The process ID",
-    "The window title",
-    "The icon color"
+    "The startup impact rating shown for each program",
+    "The process ID assigned to each program",
+    "The window title of each program",
+    "The icon color of each program"
    ],
    "a": 0,
    "e": "The Startup tab's impact column ranks how much each program slows sign-in, prioritizing what to disable.",
@@ -4467,9 +4467,9 @@ export const exam: ExamDef = {
    "x": "IT wants Windows installs that configure themselves: partitioning, locale, and account, with no clicking. Which mechanism does this?",
    "o": [
     "An unattended installation answer file",
-    "Safe Mode",
-    "A repair install",
-    "Fast startup"
+    "A Safe Mode boot configuration",
+    "A repair install from setup media",
+    "The fast startup power feature"
    ],
    "a": 0,
    "e": "Answer files (unattend.xml) script setup decisions for hands-free, consistent deployments.",
@@ -4480,10 +4480,10 @@ export const exam: ExamDef = {
    "t": "upgrading-windows",
    "x": "Two weeks after an upgrade to a new Windows version, a user wants to roll back to the previous one, but the option is gone. Why?",
    "o": [
-    "The rollback window expired and Windows removed the old installation files",
-    "Rollback requires a Microsoft account",
-    "The BIOS blocks it",
-    "Antivirus removed it"
+    "The rollback window expired and the old files were removed",
+    "Rollback is available only with a Microsoft account",
+    "The BIOS blocks downgrades to older Windows versions",
+    "The antivirus software quarantined the rollback option"
    ],
    "a": 0,
    "e": "Windows keeps windows.old for a limited period (10 days by default); after cleanup, rollback requires a clean reinstall.",
@@ -4536,10 +4536,10 @@ export const exam: ExamDef = {
    "t": "linux-cmd2",
    "x": "A Linux process is unresponsive. Which command sequence finds its process ID and stops it?",
    "o": [
-    "ps (or pgrep) to find the PID, then kill <PID>",
-    "ls then rm",
-    "df then du",
-    "cat then grep"
+    "ps to find the PID, then kill <PID>",
+    "ls to locate the file, then rm to delete it",
+    "df to check usage, then du to free the space",
+    "cat to open the log, then grep to search it"
    ],
    "a": 0,
    "e": "ps/pgrep locate the process; kill sends SIGTERM (kill -9 as last resort for a stuck process).",
@@ -4564,13 +4564,13 @@ export const exam: ExamDef = {
    "t": "win-firewall-cfg",
    "x": "An application cannot receive connections, and policy says do NOT open raw ports. What is the Windows Firewall alternative?",
    "o": [
-    "Allow the application itself through the firewall (program rule)",
+    "Allow the application itself through the firewall",
     "Disable the firewall",
     "Enable every inbound port",
     "Use public profile everywhere"
    ],
    "a": 0,
-   "e": "Program-based rules permit a specific executable to listen regardless of port, tighter than blanket port openings.",
+   "e": "Program-based rules permit a specific executable to listen regardless of port, tighter than blanket port openings. In other words: program rule.",
    "d": 1
   },
   {
@@ -4578,13 +4578,13 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A user signs in and gets a desktop with none of their files; Windows says they are on a temporary profile. What should the technician do?",
    "o": [
-    "Fix or restore the user's profile (registry ProfileList repair or profile recreation); files are still on disk",
-    "Wipe the PC",
-    "Create a new Microsoft account",
-    "Replace the drive"
+    "Repair or recreate the user's profile",
+    "Wipe the PC and reinstall Windows",
+    "Create a new Microsoft account for the user",
+    "Replace the drive and restore from backup"
    ],
    "a": 0,
-   "e": "Temp-profile logons mean the real profile failed to load; the data remains under C:\\Users and the profile can be repaired or relinked.",
+   "e": "Temp-profile logons mean the real profile failed to load; files remain under C:\\Users, and the profile can be repaired via the registry ProfileList key or recreated.",
    "d": 3
   },
   {
@@ -4593,9 +4593,9 @@ export const exam: ExamDef = {
    "x": "sfc /scannow reports corrupt files it could not fix. Which command repairs the component store so sfc can succeed?",
    "o": [
     "DISM /Online /Cleanup-Image /RestoreHealth, then rerun sfc",
-    "chkdsk /f",
-    "defrag C:",
-    "gpupdate /force"
+    "chkdsk /f on the boot volume, then rerun sfc",
+    "defrag C: to consolidate files, then rerun sfc",
+    "gpupdate /force to refresh policy, then rerun sfc"
    ],
    "a": 0,
    "e": "DISM repairs the source store that sfc pulls from; the standard order is DISM RestoreHealth, then sfc /scannow.",
@@ -4607,9 +4607,9 @@ export const exam: ExamDef = {
    "x": "Immediately after a monthly update, a PC blue-screens on every boot. Which recovery path removes the cause without losing data?",
    "o": [
     "Boot WinRE and uninstall the latest quality update",
-    "Format and reinstall",
-    "Replace the RAM",
-    "Disable the firewall"
+    "Format the drive and reinstall Windows",
+    "Replace the RAM modules with new ones",
+    "Boot to Safe Mode and disable the firewall"
    ],
    "a": 0,
    "e": "WinRE includes 'Uninstall Updates' precisely for update-induced boot failures; data is untouched.",
@@ -4620,10 +4620,10 @@ export const exam: ExamDef = {
    "t": "ts-windows",
    "x": "A legacy business app crashes on a new Windows version but ran fine on an older one. Which quick mitigation should be tried first?",
    "o": [
-    "Run the app in compatibility mode for the older Windows version",
-    "Reinstall Windows",
-    "Buy new hardware",
-    "Disable antivirus permanently"
+    "Run the app in compatibility mode",
+    "Reinstall Windows on the PC",
+    "Purchase newer hardware for the user",
+    "Disable the antivirus software on the PC"
    ],
    "a": 0,
    "e": "Compatibility mode shims the environment (version checks, paths) and often gets legacy apps working immediately.",
@@ -4635,9 +4635,9 @@ export const exam: ExamDef = {
    "x": "A service crashes every few minutes; the technician needs the exact error and faulting module. Where do they look?",
    "o": [
     "Event Viewer's System and Application logs",
-    "The Recycle Bin",
-    "Task Scheduler",
-    "The hosts file"
+    "The Recycle Bin's list of deleted files",
+    "Task Scheduler's library of active jobs",
+    "The hosts file's name-to-IP entries"
    ],
    "a": 0,
    "e": "Service failures log event IDs, error codes, and faulting modules in Event Viewer, the starting point for a crash loop.",
@@ -4648,10 +4648,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "On Android, what is the difference between clearing an app's cache and clearing its data (storage)?",
    "o": [
-    "Cache removes temporary files only; clearing data resets the app to fresh-install state",
-    "They are identical",
-    "Cache deletes the app",
-    "Data only removes icons"
+    "Clearing cache removes temp files; clearing data resets app state",
+    "They are identical operations with the same result",
+    "Clearing cache deletes the entire app from disk",
+    "Clearing data only removes the app's icon"
    ],
    "a": 0,
    "e": "Cache clearing is safe and non-destructive; clearing data wipes logins and settings, a bigger hammer for deeper problems.",
@@ -4662,10 +4662,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A user gets no notifications from a messaging app until they open it manually. Which settings should be checked first?",
    "o": [
-    "Notification permissions and battery optimization exemptions for that app",
-    "Screen resolution",
-    "SIM PIN",
-    "Storage encryption"
+    "Notification permissions and battery optimization settings",
+    "Screen resolution and display scaling settings",
+    "The SIM card PIN and lock code",
+    "The device's storage encryption status"
    ],
    "a": 0,
    "e": "Aggressive battery optimization suspends background delivery; exempting the app (and allowing notifications) restores real-time alerts.",
@@ -4676,10 +4676,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A user can send individual texts but group messages and picture messages fail. Which configuration is involved?",
    "o": [
-    "MMS settings / APN configuration on the cellular connection",
-    "Bluetooth",
-    "The flashlight",
-    "NFC"
+    "MMS and APN settings on the cellular connection",
+    "Bluetooth pairing and device settings",
+    "The camera flash and flashlight toggle",
+    "NFC tap-to-pay configuration"
    ],
    "a": 0,
    "e": "Group and media messages ride MMS, which depends on correct APN data settings from the carrier.",
@@ -4690,10 +4690,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "After a phone OS update, its Bluetooth no longer auto-connects to the user's car. What is the standard first fix?",
    "o": [
-    "Forget the pairing on both phone and car, then pair fresh",
-    "Factory reset the car",
-    "Replace the phone battery",
-    "Disable Wi-Fi"
+    "Forget the pairing on phone and car, then re-pair",
+    "Factory reset the car's entire infotainment system",
+    "Replace the phone's battery and charging port",
+    "Disable Wi-Fi and mobile data on the phone"
    ],
    "a": 0,
    "e": "Updates can invalidate stored pairing keys; re-pairing from scratch on both ends re-establishes a clean bond.",
@@ -4704,10 +4704,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A user tapped a link that installed a 'settings profile' on their iPhone, and now web traffic behaves oddly. What should the technician do?",
    "o": [
-    "Remove the unknown configuration profile in Settings and check for a rogue VPN/proxy",
-    "Charge the phone fully",
-    "Rotate the wallpaper",
-    "Toggle airplane mode"
+    "Remove the unknown configuration profile and check for a rogue proxy",
+    "Charge the phone fully and restart it twice",
+    "Rotate the wallpaper and rebuild the icon cache",
+    "Toggle airplane mode on and off a few times"
    ],
    "a": 0,
    "e": "Malicious configuration profiles can add proxies, VPNs, or certificates that intercept traffic; removing the profile removes the control.",
@@ -4718,10 +4718,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "MDM flags a corporate phone as rooted. Per best practice, what happens next?",
    "o": [
-    "The device is quarantined from corporate resources until wiped/reimaged and verified",
-    "Nothing; rooting is cosmetic",
-    "It gets more access for testing",
-    "Only the wallpaper is reset"
+    "The device is quarantined from corporate access until remediated",
+    "Nothing changes, since rooting is only a cosmetic tweak",
+    "The device is granted more access for developer testing",
+    "Only the wallpaper and lock screen are reset"
    ],
    "a": 0,
    "e": "Rooted devices cannot be trusted to enforce policy; compliance systems block corporate access until remediated.",
@@ -4732,10 +4732,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "On hotel Wi-Fi, a phone shows certificate warnings on every site until the user opens a login page. What explains this?",
    "o": [
-    "A captive portal intercepts traffic until sign-in; warnings on sites are expected before authenticating",
-    "The phone is broken",
-    "Every website is down",
-    "The SIM expired"
+    "A captive portal intercepts traffic until you sign in",
+    "The phone's Wi-Fi radio is physically broken",
+    "Every website the user visits is down at once",
+    "The SIM card has expired and lost service"
    ],
    "a": 0,
    "e": "Captive portals redirect all requests, which trips HTTPS warnings; complete the portal login, and stop if warnings persist afterward.",
@@ -4746,10 +4746,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "An app from the official store requests device-admin rights and floods the phone with ads. What should the user do?",
    "o": [
-    "Revoke its admin rights, uninstall it, and report it to the store",
-    "Grant the rights to stop the ads",
-    "Root the phone",
-    "Clear the wallpaper"
+    "Revoke its admin rights, uninstall it, and report it",
+    "Grant the admin rights it asks for to stop the ads",
+    "Root the phone to remove the app manually",
+    "Clear the wallpaper and restart the launcher"
    ],
    "a": 0,
    "e": "Store vetting is imperfect; revoke elevated rights first (or uninstall may be blocked), remove the app, and report it.",
@@ -4760,10 +4760,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A user's search results now route through an unknown search site, and an unfamiliar browser extension keeps reappearing. What class of software is this?",
    "o": [
-    "A browser hijacker / potentially unwanted program",
-    "A device driver",
-    "A codec pack",
-    "Firmware"
+    "A browser hijacker program",
+    "A hardware device driver",
+    "A media codec pack",
+    "A firmware update package"
    ],
    "a": 0,
    "e": "Search redirection plus a persistent extension is hijacker behavior; remove the PUP, reset browser settings, and scan.",
@@ -4774,10 +4774,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "EDR alerts that a workstation is scanning neighboring systems and attempting logons with harvested credentials. What is the FIRST response action?",
    "o": [
-    "Isolate the machine from the network, then begin incident response",
-    "Reboot it and wait",
-    "Uninstall the EDR agent",
-    "Email all staff"
+    "Isolate the machine from the network, then investigate",
+    "Reboot the machine and wait to see if it recurs",
+    "Uninstall the EDR agent that raised the alert",
+    "Email all staff to warn them about it"
    ],
    "a": 0,
    "e": "Lateral movement means active compromise; containment (isolation) comes before analysis and eradication.",
@@ -4788,10 +4788,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "An employee reports they clicked a phishing link and entered their password before realizing. What must happen immediately?",
    "o": [
-    "Change the password, revoke active sessions, enable/verify MFA, and report per policy",
-    "Nothing if the site looked real",
-    "Delete the email only",
-    "Run defrag"
+    "Change the password, revoke active sessions, and report per policy",
+    "Nothing, as long as the site looked legitimate",
+    "Delete the phishing email and take no further action",
+    "Run a disk defragmentation and cleanup"
    ],
    "a": 0,
    "e": "Credential exposure requires immediate rotation and session revocation; speed determines whether attackers get in first.",
@@ -4802,10 +4802,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A technician finds an unfamiliar folder excluded from antivirus scans on a compromised PC. Why would malware add this?",
    "o": [
-    "Exclusions create a scan-proof hiding place; audit and remove unauthorized exclusions",
-    "Exclusions speed up the mouse",
-    "Exclusions are cosmetic",
-    "Antivirus requires them"
+    "Exclusions create a scan-proof hiding place for files",
+    "Exclusions speed up the computer's mouse and cursor",
+    "Exclusions are purely cosmetic and change nothing",
+    "Antivirus software requires at least one exclusion"
    ],
    "a": 0,
    "e": "Adding itself to AV exclusions is a common persistence trick; exclusion lists deserve review during any cleanup.",
@@ -4830,10 +4830,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A ticket system distinguishes 'severity' from 'priority'. What is the difference?",
    "o": [
-    "Severity measures technical impact; priority sets the order work happens based on business needs",
-    "They are synonyms",
-    "Priority is set by the user only",
-    "Severity applies to hardware only"
+    "Severity rates technical impact; priority sets the work order",
+    "They are two synonyms for the same measurement",
+    "Priority is decided by the reporting user alone",
+    "Severity applies only to hardware-related faults"
    ],
    "a": 0,
    "e": "A high-severity lab outage may still be lower priority than a low-severity issue blocking payroll; business context sets priority.",
@@ -4842,15 +4842,15 @@ export const exam: ExamDef = {
   {
    "id": 317,
    "t": "asset-mgmt",
-   "x": "New laptops receive barcode tags tied to records of owner, location, purchase date, and warranty. What is this practice?",
+   "x": "An IT team records how many valid software licenses it owns and compares that to the number installed across the fleet. Which asset-management goal does this support?",
    "o": [
-    "Asset tagging and inventory management",
-    "Change management",
-    "Sandboxing",
-    "Escalation"
+    "Speeding up application performance",
+    "Avoiding penalties during a vendor compliance audit",
+    "Reducing the volume of help desk tickets",
+    "Extending the hardware warranty period"
    ],
-   "a": 0,
-   "e": "Asset tags link physical devices to lifecycle records, enabling audits, warranty recovery, and loss tracking.",
+   "a": 1,
+   "e": "Tracking license entitlements versus installations keeps the organization compliant and avoids fines or true-up costs during a software audit.",
    "d": 4
   },
   {
@@ -4870,15 +4870,15 @@ export const exam: ExamDef = {
   {
    "id": 319,
    "t": "documents",
-   "x": "Which document tells new employees what they may and may not do with company computers and internet access?",
+   "x": "A new administrator needs a document showing how the company's routers, switches, and servers connect to one another. Which document is this?",
    "o": [
-    "The acceptable use policy (AUP)",
-    "The MSDS",
-    "A network diagram",
-    "The chain of custody form"
+    "An acceptable use policy",
+    "A service level agreement",
+    "A network topology diagram",
+    "An end user license agreement"
    ],
-   "a": 0,
-   "e": "The AUP defines permitted use of company IT resources and the consequences of misuse.",
+   "a": 2,
+   "e": "A network topology diagram maps how devices are physically and logically connected, helping staff understand and troubleshoot the infrastructure.",
    "d": 4
   },
   {
@@ -4886,7 +4886,7 @@ export const exam: ExamDef = {
    "t": "change-mgmt",
    "x": "A change request must include a plan for undoing the change if it fails. What is this called?",
    "o": [
-    "A rollback (backout) plan",
+    "A backout plan",
     "A sandbox",
     "A hotfix",
     "An SLA"
@@ -4914,41 +4914,41 @@ export const exam: ExamDef = {
    "t": "backups",
    "x": "Management asks: 'If we restore from backup, how much recent data are we willing to lose?' Which metric answers this?",
    "o": [
-    "RPO (recovery point objective)",
+    "RPO",
     "RTO",
     "MTBF",
     "SLA"
    ],
    "a": 0,
-   "e": "RPO is maximum tolerable data loss (time since last backup); RTO is how fast service must be restored.",
+   "e": "RPO is maximum tolerable data loss (time since last backup); RTO is how fast service must be restored. RPO = recovery point objective.",
    "d": 4
   },
   {
    "id": 323,
    "t": "safety",
-   "x": "A technician must move a 25 kg UPS from the floor to a rack shelf. Which technique prevents injury?",
+   "x": "A user asks a technician to open a power supply and an old CRT monitor to clean inside them. Why should the technician decline to open these enclosures?",
    "o": [
-    "Lift with the legs, keep the back straight, and get help for heavy items",
-    "Bend at the waist and lift fast",
-    "Carry it above the head",
-    "Drag it by the cable"
+    "Its capacitors can hold a dangerous charge after being unplugged",
+    "The casing is held on with tamper-proof screws",
+    "Dust inside will ignite when exposed to air",
+    "The warranty label must stay unbroken for support"
    ],
    "a": 0,
-   "e": "Proper lifting uses leg muscles with a neutral spine; team-lift anything awkward or heavy.",
+   "e": "Power supplies and CRT monitors contain capacitors that store a high-voltage charge even after being unplugged, so opening them risks a serious shock; leave that work to trained specialists.",
    "d": 4
   },
   {
    "id": 324,
    "t": "safety",
-   "x": "Which fire extinguisher class is safe for energized electrical equipment?",
+   "x": "During lunch, grease in a countertop fryer in the company kitchen ignites. Which class of extinguisher is designed for this type of fire?",
    "o": [
-    "Class C (CO2 or dry chemical)",
-    "Class A water",
+    "Class A",
+    "Class B",
     "Class K",
-    "A garden hose"
+    "Class C"
    ],
-   "a": 0,
-   "e": "Class C agents don't conduct electricity; water-based Class A on live equipment risks electrocution.",
+   "a": 2,
+   "e": "Class K extinguishers use a wet chemical agent that saponifies burning cooking oils and fats, forming a foam layer that smothers the fire. Class B covers flammable liquids such as gasoline and solvents, Class C is for energized electrical equipment, and Class A is for ordinary combustibles like wood and paper.",
    "d": 4
   },
   {
@@ -4956,10 +4956,10 @@ export const exam: ExamDef = {
    "t": "environment",
    "x": "How should a box of used toner cartridges and old UPS batteries be handled?",
    "o": [
-    "Recycle through manufacturer or certified e-waste programs per local regulations",
-    "Regular trash",
-    "Burn them",
-    "Bury them"
+    "Recycle through a certified e-waste program",
+    "Throw them in the regular office trash",
+    "Burn them in an outdoor fire",
+    "Bury them in the ground outside"
    ],
    "a": 0,
    "e": "Batteries and toner contain regulated materials; vendor take-back and certified recyclers handle them legally and safely.",
@@ -4970,10 +4970,10 @@ export const exam: ExamDef = {
    "t": "incident-response",
    "x": "When capturing evidence from a live compromised machine, why is RAM collected before imaging the disk?",
    "o": [
-    "Order of volatility: memory contents vanish at power-off while disks persist",
-    "RAM is larger",
-    "Disks cannot be copied",
-    "RAM holds the OS license"
+    "Order of volatility: memory is lost at power-off",
+    "RAM is physically larger than the disk",
+    "Disks cannot be copied while powered on",
+    "RAM stores the operating system license key"
    ],
    "a": 0,
    "e": "Evidence is collected most-volatile first: registers/RAM/network state before storage, or it is lost forever.",
@@ -4984,41 +4984,41 @@ export const exam: ExamDef = {
    "t": "licensing",
    "x": "A team bundles an open-source library into a commercial product. What must they check first?",
    "o": [
-    "The library's license terms and their obligations (attribution, copyleft, redistribution)",
+    "The library's license terms and their obligations",
     "The library's file size",
     "The author's location",
     "Nothing; open source is unrestricted"
    ],
    "a": 0,
-   "e": "Open source is licensed, not public domain; GPL-family licenses especially carry obligations that affect commercial use.",
+   "e": "Open source is licensed, not public domain; GPL-family licenses especially carry obligations that affect commercial use. In other words: attribution, copyleft, redistribution.",
    "d": 4
   },
   {
    "id": 328,
    "t": "professionalism",
-   "x": "A repair will take three days longer than promised. What does professional communication require?",
+   "x": "While repairing a manager's workstation, a technician's personal phone keeps buzzing with text messages. What is the professional way to handle this?",
    "o": [
-    "Contact the customer proactively, explain, and set a new realistic expectation",
-    "Stay silent and hope",
-    "Blame the parts supplier in writing",
-    "Close the ticket"
+    "Silence the phone and stay focused on the task",
+    "Reply to each text so senders are not left waiting",
+    "Step out briefly to answer the messages in private",
+    "Ask the manager to wait while the texts are handled"
    ],
    "a": 0,
-   "e": "Setting and resetting expectations honestly preserves trust; surprises destroy it.",
+   "e": "Avoiding distractions such as personal calls and texts while with a customer shows respect for their time and keeps attention on the work.",
    "d": 4
   },
   {
    "id": 329,
    "t": "scripting",
-   "x": "A technician automates Windows administration tasks: user creation, service restarts, and registry edits. Which scripting language is the native fit?",
+   "x": "A legacy automation file on a Windows machine carries the .vbs extension. Which language is the file written in?",
    "o": [
-    "PowerShell (.ps1)",
-    "Bash (.sh)",
-    "JavaScript (.js)",
-    "Python only"
+    "Bash",
+    "Python",
+    "PowerShell",
+    "VBScript"
    ],
-   "a": 0,
-   "e": "PowerShell is Windows' native automation shell with direct access to system cmdlets, AD, and the registry.",
+   "a": 3,
+   "e": "The .vbs extension marks a VBScript file, a legacy Microsoft scripting language once widely used for Windows automation and login scripts.",
    "d": 4
   }
  ],

@@ -9,14 +9,16 @@ import { exam as e2 } from "./n10-009"
 import { exam as e3 } from "./aif-c01"
 import { exam as e4 } from "./clf-c02"
 import { exam as e5 } from "./az-900"
+import { exam as e6 } from "./sy0-701"
 
 export const EXAMS: Record<string, ExamDef> = {
  "220-1202": e0,
  "220-1201": e1,
  "n10-009": e2,
+ "sy0-701": e6,
  "aif-c01": e3,
  "clf-c02": e4,
  "az-900": e5,
 }
 
-export const EXAM_ORDER: string[] = ["220-1201", "220-1202", "n10-009", "aif-c01", "clf-c02", "az-900"]
+export const EXAM_ORDER: string[] = ["220-1201", "220-1202", "n10-009", "sy0-701", "aif-c01", "clf-c02", "az-900"]

@@ -232,10 +232,10 @@ export const exam: ExamDef = {
    "t": "ai-ml-basics",
    "x": "What distinguishes deep learning from most traditional machine learning approaches?",
    "o": [
-    "It requires labeled data, while traditional approaches never do",
-    "It always produces more interpretable results than simpler models",
-    "It only works with image inputs, while traditional approaches handle any data type",
-    "It learns useful representations directly from raw data through layered neural networks, reducing manual feature engineering"
+    "It requires labeled data, whereas traditional approaches can use unlabeled data",
+    "It tends to produce more interpretable results than simpler statistical models",
+    "It works only with image inputs, while traditional approaches handle any data type",
+    "It learns useful representations directly from raw data through layered neural networks"
    ],
    "a": 3,
    "e": "The defining trait of deep learning is that stacked neural network layers extract features automatically from raw inputs, whereas traditional approaches usually depend on hand-crafted features. It is generally less interpretable than simpler models, works on many data types, and labeled data is a property of supervised learning, not of deep learning specifically.",
@@ -383,9 +383,9 @@ export const exam: ExamDef = {
    "x": "A finance team needs software that computes sales tax for invoices using published government rates that change only when new legislation passes. Why is machine learning a poor fit for this requirement?",
    "o": [
     "Machine learning models cannot process numeric inputs such as currency amounts",
-    "A trained model could never be updated when tax rates change",
-    "Historical invoices could not serve as labeled training data",
-    "The logic is fully specified by known rules, so a deterministic implementation is simpler and guarantees exact results"
+    "A trained model could not be retrained after new tax rates take effect",
+    "Historical invoices could not be labeled to serve as training data",
+    "The rules are fully known and fixed, so a deterministic program is simpler and stays exact"
    ],
    "a": 3,
    "e": "When correct behavior can be written down as exact rules, a rule-based system is cheaper to build and never approximates, while an ML model would add cost and occasional error for no benefit. The other claims are simply false: models handle numeric inputs, can be retrained, and past invoices could easily be labeled.",
@@ -518,10 +518,10 @@ export const exam: ExamDef = {
    "t": "model-evaluation",
    "x": "A regression model scores poorly on the training data and roughly equally poorly on the validation data. Which change is most likely to improve its performance?",
    "o": [
-    "Use a more complex model or add informative input variables",
-    "Apply stronger regularization",
-    "Stop training after fewer epochs",
-    "Gather a larger test set"
+    "Use a higher-capacity model or add informative input features",
+    "Apply stronger regularization to the model weights",
+    "Stop training earlier, after fewer epochs",
+    "Gather a substantially larger test set"
    ],
    "a": 0,
    "e": "Poor results on both training and validation data indicate underfitting: the model is too simple to capture the underlying pattern, so more capacity or better inputs helps. Stronger regularization and early stopping are the tempting traps because they are remedies for overfitting, and they would constrain an already-too-simple model even further.",
@@ -626,7 +626,7 @@ export const exam: ExamDef = {
    "t": "sagemaker",
    "x": "A computer-vision team has two million unlabeled product photos and needs bounding-box annotations. They want to route the work to a human workforce while automatically annotating the easier images to cut cost. Which SageMaker capability should they use?",
    "o": [
-    "Amazon Augmented AI (A2I)",
+    "Amazon Augmented AI",
     "SageMaker Ground Truth",
     "SageMaker Feature Store",
     "SageMaker Data Wrangler"
@@ -759,8 +759,8 @@ export const exam: ExamDef = {
    "o": [
     "The model retrains itself slightly after every request it serves",
     "The context window shrinks with each successive request",
-    "The model samples from a probability distribution over possible next tokens, so wording can differ between runs",
-    "The model's weights are randomly re-initialized at the start of each session"
+    "The model samples each token from a probability distribution, so its outputs differ between runs",
+    "The model weights are randomly re-initialized at the start of each session"
    ],
    "a": 2,
    "e": "Text generation samples each token from a probability distribution, so identical prompts can yield different wording. The retraining option confuses inference with training; model weights stay frozen while serving requests.",
@@ -825,7 +825,7 @@ export const exam: ExamDef = {
   {
    "id": 43,
    "t": "tokens-embeddings",
-   "x": "Which statements accurately describe embeddings in a generative AI system? (Select TWO.)",
+   "x": "In a generative AI pipeline, what is true of the embeddings it produces? (Select TWO.)",
    "o": [
     "They represent content as arrays of numbers in a high-dimensional space",
     "They store the original text in an encrypted format that can be decrypted on demand",
@@ -1044,10 +1044,10 @@ export const exam: ExamDef = {
    "t": "genai-lifecycle",
    "x": "A product team has just finished defining the business problem and success criteria for a new generative AI feature. Following the foundation model lifecycle, which activity comes next?",
    "o": [
-    "Choosing a candidate model that matches the task, cost, and latency needs",
-    "Running a fine-tuning job on domain data",
-    "Provisioning production inference endpoints",
-    "Collecting end-user feedback on responses"
+    "Selecting a candidate model suited to the task and constraints",
+    "Running a fine-tuning job on curated domain data",
+    "Provisioning production inference endpoints at scale",
+    "Collecting end-user feedback on early responses"
    ],
    "a": 0,
    "e": "Once the use case is defined, the lifecycle moves to model selection, comparing candidates on capability, modality, cost, latency, and customization options. Fine-tuning, deployment, and feedback all presume a model has already been chosen, so jumping straight to a fine-tuning job skips the decision that determines everything downstream.",
@@ -1059,7 +1059,7 @@ export const exam: ExamDef = {
    "x": "Which statement correctly distinguishes pre-training a foundation model from fine-tuning one?",
    "o": [
     "Pre-training adjusts a small set of weights while fine-tuning rebuilds the model from scratch",
-    "Pre-training uses massive unlabeled corpora with self-supervised learning, while fine-tuning adapts an existing model's weights using a smaller task-specific dataset",
+    "Pre-training uses massive unlabeled corpora with self-supervised learning, while fine-tuning adapts the model on a smaller task-specific dataset",
     "Pre-training happens after deployment, while fine-tuning happens before any data is collected",
     "Pre-training requires labeled examples, while fine-tuning works only on raw unlabeled text"
    ],
@@ -1106,9 +1106,9 @@ export const exam: ExamDef = {
    "x": "A deployed generative assistant lets users rate each response with a thumbs up or thumbs down. Within the foundation model lifecycle, what is the primary purpose of gathering these ratings?",
    "o": [
     "To retrain the tokenizer used during pre-training",
-    "To calculate the per-token inference bill",
+    "To calculate the per-token inference bill for users",
     "To replace formal evaluation benchmarks entirely",
-    "To drive continuous improvement, guiding further fine-tuning, prompt revisions, or a model swap"
+    "To guide further fine-tuning, prompt revisions, or a model swap"
    ],
    "a": 3,
    "e": "The lifecycle ends in a feedback loop: production signals like ratings reveal where quality falls short and inform the next iteration of prompts, customization, or model choice. Feedback complements structured benchmark evaluation rather than replacing it, and it plays no role in billing or tokenizer construction.",
@@ -1269,9 +1269,9 @@ export const exam: ExamDef = {
    "t": "rag",
    "x": "Which statement best describes what Retrieval Augmented Generation adds to a foundation model?",
    "o": [
-    "It permanently updates the model's weights with domain knowledge",
+    "It permanently updates the model weights with domain knowledge",
     "It compresses the model so inference can run on smaller hardware",
-    "It looks up related information from an external data source and passes it to the model along with the user's question",
+    "It retrieves related information from an external source and passes it to the model",
     "It screens generated responses for harmful or restricted content"
    ],
    "a": 2,
@@ -1405,9 +1405,9 @@ export const exam: ExamDef = {
    "t": "fine-tuning",
    "x": "A startup wants better outputs from a foundation model for its use case but has almost no budget and no ML staff. Which customization approach should it try first because it is the cheapest and fastest to iterate?",
    "o": [
-    "Continued pre-training on a domain corpus",
-    "Training a new model from scratch",
-    "Rewriting and refining the instructions and examples included in the prompt",
+    "Continued pre-training on a large domain corpus",
+    "Training an entirely new model from scratch",
+    "Refining the instructions and examples in the prompt",
     "Full fine-tuning with thousands of labeled pairs"
    ],
    "a": 2,
@@ -1767,11 +1767,11 @@ export const exam: ExamDef = {
    "t": "inference-params",
    "x": "An engineering team wants a summarization model to behave as predictably as possible across repeated runs of the same input. Which parameter changes push the output in that direction? (Select TWO.)",
    "o": [
-    "Raise top-p toward 1.0",
+    "Raise top-p toward its maximum of 1.0",
     "Increase the maximum response length",
-    "Decrease the temperature value",
-    "Remove all stop sequences",
-    "Reduce top-k so fewer candidate tokens are considered"
+    "Decrease the temperature setting",
+    "Remove all configured stop sequences",
+    "Reduce top-k to fewer candidate tokens"
    ],
    "a": 2,
    "e": "Lowering temperature sharpens the distribution toward the most likely tokens, and a small top-k shrinks the candidate pool, so both reduce randomness. Raising top-p does the opposite by expanding the sampling pool, while response length and stop sequences control where output ends, not how variable it is.",
@@ -1856,11 +1856,11 @@ export const exam: ExamDef = {
    "t": "prompt-engineering",
    "x": "A team is hardening a public chatbot against users who try to trick the model into abandoning its configured behavior. Which measures directly reduce this risk? (Select TWO.)",
    "o": [
-    "Raise the temperature so responses vary more",
-    "Apply Amazon Bedrock Guardrails to screen inputs and responses against policy",
-    "Increase the maximum output token allowance",
-    "Clearly delimit user-supplied text from the system instructions in the template",
-    "Move the model to Provisioned Throughput"
+    "Raise the temperature so responses vary more widely",
+    "Apply Amazon Bedrock Guardrails to screen inputs and outputs",
+    "Increase the maximum output token allowance per response",
+    "Separate user-supplied text from system instructions in the template",
+    "Move the model to Provisioned Throughput capacity"
    ],
    "a": 1,
    "e": "Guardrails add an enforcement layer that screens both inputs and outputs against defined policies, and separating untrusted user text from system instructions makes injected commands easier for the model to disregard. Temperature, token limits, and throughput mode affect style, length, and capacity, not security.",
@@ -2011,10 +2011,10 @@ export const exam: ExamDef = {
    "t": "bias-fairness",
    "x": "A fraud-detection model was trained on records in which fewer than 1 percent of transactions were fraudulent, and in production it almost never flags fraud. Which data-level change addresses the root cause?",
    "o": [
-    "Rebalance training by oversampling the rare positive examples or collecting more of them",
-    "Train for additional epochs on the unchanged records",
+    "Oversample the rare positive cases or gather more of them",
+    "Train for additional epochs on the same records",
     "Move the endpoint to a larger instance type",
-    "Remove features to shrink the input dimension"
+    "Remove input features to shrink the dimension"
    ],
    "a": 0,
    "e": "Severe class imbalance teaches a model that predicting the majority class is almost always safe, so rebalancing through oversampling, augmentation, or new collection fixes the underlying data problem. Extra epochs on the same skewed records simply reinforce the imbalance.",
@@ -2040,7 +2040,7 @@ export const exam: ExamDef = {
    "x": "Which statement correctly distinguishes interpretability from explainability?",
    "o": [
     "Explainability requires direct access to a model's internal weights, while interpretability applies only to black-box models",
-    "Interpretability means humans can understand a model's inner workings directly, while explainability provides understandable reasons for outputs even when the internals remain opaque",
+    "Interpretability means humans can understand a model's mechanics, while explainability gives understandable reasons for outputs from opaque models",
     "The two terms refer to the same capability and are fully interchangeable",
     "Interpretability measures how accurate a model is, while explainability measures how quickly it responds"
    ],
@@ -2100,10 +2100,10 @@ export const exam: ExamDef = {
    "t": "explainability",
    "x": "Hospital compliance rules require that clinicians be able to follow exactly how a triage system reached each recommendation. A neural network scores slightly higher offline than a decision-tree alternative. Why might the team still choose the tree?",
    "o": [
-    "Its decision path can be inspected step by step, satisfying the transparency obligation",
-    "Tree-based models always generalize better on clinical data",
+    "Its decision path can be traced step by step for full transparency",
+    "Tree-based models generalize better on clinical data than neural networks",
     "Neural networks cannot be hosted on real-time endpoints",
-    "Simpler models are automatically free of bias"
+    "Simpler models are inherently free of bias"
    ],
    "a": 0,
    "e": "In regulated, high-stakes settings, an inherently interpretable model can be worth a small accuracy sacrifice because its logic can be traced directly. Simplicity does not guarantee fairness, so the claim that simpler models are bias-free is false: bias comes from data, not model size alone.",
@@ -2192,7 +2192,7 @@ export const exam: ExamDef = {
    "o": [
     "SageMaker Ground Truth",
     "AWS Step Functions",
-    "Amazon Augmented AI (Amazon A2I)",
+    "Amazon Augmented AI",
     "Amazon Textract"
    ],
    "a": 2,
@@ -2204,8 +2204,8 @@ export const exam: ExamDef = {
    "t": "responsible-practices",
    "x": "A startup plans to release an AI hiring screener without evaluating outcomes across applicant populations or documenting its limitations. Which business risk does this decision most directly create?",
    "o": [
-    "Regulatory penalties and reputational harm if the tool produces discriminatory decisions",
-    "Gradual model drift that slowly reduces accuracy",
+    "Regulatory penalties and reputational harm from discriminatory decisions",
+    "Gradual model drift that slowly reduces accuracy over time",
     "Higher inference costs from running an oversized model",
     "Vendor lock-in to a single foundation model provider"
    ],
@@ -2340,9 +2340,9 @@ export const exam: ExamDef = {
    "t": "ai-security",
    "x": "A machine learning team keeps proprietary fine-tuning datasets in an Amazon S3 bucket. Which actions most directly reduce the risk of unauthorized parties reading this data? (Select TWO.)",
    "o": [
-    "Turn on S3 Versioning for the bucket",
+    "Turn on S3 Versioning to preserve object history",
     "Enable the Block Public Access settings on the bucket",
-    "Scope IAM policies so each workload can reach only the specific prefixes it needs",
+    "Scope IAM policies to the specific prefixes each workload needs",
     "Enable S3 Transfer Acceleration for faster uploads",
     "Replicate the objects to a bucket in a second Region"
    ],
