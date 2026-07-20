@@ -16,7 +16,9 @@ export default {
           accept: [
             "(?:sudo )?ss -(?=[tulpn]*l)(?=[tulpn]*p)[tulpn]{2,6}",
             "(?:sudo )?netstat -(?=[tulpn]*l)(?=[tulpn]*p)[tulpn]{2,6}",
-            "(?:sudo )?lsof -i(?: -[a-zA-Z]+)*",
+            // Must accept the canonical listening-socket form, which carries a
+            // protocol suffix and a colon: lsof -nP -iTCP -sTCP:LISTEN
+            "(?:sudo )?lsof(?: -[a-zA-Z]+)* -i(?:TCP)?(?: -sTCP:LISTEN)?(?: -[a-zA-Z]+)*",
           ],
           hint: "You need the listening sockets plus the owning process, not just the ports.",
           output:
@@ -31,7 +33,11 @@ export default {
             "Show the currently established TCP connections and their remote peers, so the suspect listener's session can be traced.",
           accept: [
             "(?:sudo )?ss -(?=[tanpu]*t)(?=[tanpu]*n)[tanpu]{2,5}(?: state established)?",
-            "(?:sudo )?netstat -(?=[antpu]*a)(?=[antpu]*n)[antpu]{2,5}",
+            // Require numeric output plus either -a or -t. Demanding -a would
+            // reject `netstat -tnp`, which shows established connections only
+            // and is arguably the better answer here; the sibling ss pattern
+            // already accepts the equivalent `ss -tnp`.
+            "(?:sudo )?netstat -(?=[antpu]*n)(?=[antpu]*[at])[antpu]{2,5}",
             "(?:sudo )?(?:ss|netstat) -[a-z]{2,6} \\| grep -i (?:established|estab)",
           ],
           output:
@@ -111,10 +117,12 @@ export default {
           prompt:
             "Have OpenSSL build and check the chain for payments.pem using intermediate.pem as the untrusted link.",
           accept: [
-            "openssl verify -untrusted intermediate\\.pem payments\\.pem",
+            // The task is to build the chain THROUGH the intermediate, so
+            // -untrusted is mandatory. Accepting bare `openssl verify
+            // payments.pem` graded a command that does not do the task.
             "openssl verify -untrusted [\\w./-]+ payments\\.pem",
-            "openssl verify -CAfile [\\w./-]+ (?:-untrusted [\\w./-]+ )?payments\\.pem",
-            "openssl verify payments\\.pem",
+            "openssl verify -CAfile [\\w./-]+ -untrusted [\\w./-]+ payments\\.pem",
+            "openssl verify -untrusted [\\w./-]+ -CAfile [\\w./-]+ payments\\.pem",
           ],
           output:
             "C = US, O = Example Trust CA, CN = Example Trust TLS RSA CA G2\n" +
@@ -184,10 +192,13 @@ export default {
       title: "Pick the Cryptographic Tool",
       scen:
         "An architect is annotating a design document with the cryptographic capability that satisfies each requirement. Not all capabilities will be used.",
+      // "Key stretching" was removed from this list. PBKDF2, bcrypt and Argon2
+      // are also irreversible, so it was a defensible second answer to the
+      // password-storage item below, and match PBQs grade per item with no
+      // room for two right answers. Two decoys remain.
       choices: [
         "Digital signature",
         "Symmetric encryption",
-        "Key stretching",
         "Hashing",
         "Steganography",
         "Certificate pinning",
@@ -200,7 +211,7 @@ export default {
         },
         {
           l: "A web application must verify a returning user's password without ever holding a stored value that can be turned back into that password",
-          a: 3,
+          a: 2,
         },
         {
           l: "A 40 TB nightly archive must be written to tape fast enough to finish before morning, readable only by holders of a shared secret",
@@ -208,7 +219,7 @@ export default {
         },
         {
           l: "Recorded TLS sessions must stay unreadable even if the server's long-term private key is stolen two years from now",
-          a: 6,
+          a: 5,
         },
       ],
     },

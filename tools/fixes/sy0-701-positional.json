@@ -1,0 +1,16 @@
+{
+  "_note": "Explanations that named an option by POSITION. Every runtime path shuffles options (web optOrder, mobile drill, landing QOTD), so these pointed at a random distractor for the reader. Id 35 predates this batch and was live. Rewritten to name the option by content, which survives any shuffle.",
+  "examId": "sy0-701",
+  "fixes": [
+    {
+      "id": 35,
+      "e": "A zero-day vulnerability is one that is unknown to the vendor or has no available patch, so defenders have had zero days to prepare when it is first exploited. The choice describing a flaw that has been patched but not yet deployed is a patch-deployment gap, not a zero-day.",
+      "_why": "said 'The last option' but options shuffle at runtime"
+    },
+    {
+      "id": 240,
+      "e": "Containers isolate processes but share one kernel, so a kernel escape or privilege escalation defect has a blast radius covering every container on that host. The choice about each instance carrying its own kernel to patch describes virtual machines, where each guest runs its own kernel and patching is handled per guest.",
+      "_why": "said 'The second option' but options shuffle at runtime"
+    }
+  ]
+}

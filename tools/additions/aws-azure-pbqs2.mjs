@@ -179,7 +179,10 @@ export const az = {
         "A Conditional Access policy evaluates the sign-in signals and demands a second factor",
         "The employee approves the multifactor prompt on a registered device",
         "Microsoft Entra ID issues a token carrying the employee's group memberships",
-        "Azure RBAC checks that token against the role assignment on the finance resources",
+        // Azure RBAC authorizes operations on Azure resources through Resource
+        // Manager; it does not gate access to an application. App-level access
+        // comes from the roles carried in the token.
+        "The application grants access based on the roles carried in that token",
       ],
     },
     {
@@ -187,11 +190,15 @@ export const az = {
       t: "arm-templates",
       title: "Deploy the Web Tier",
       scen: "A team is deploying its first Azure web application into a fresh environment and wants it repeatable. Put the deployment steps in order.",
+      // Every step consumes the previous one's result. An earlier draft opened
+      // with "create a resource group" then "author a template", which are
+      // genuinely interchangeable -- authoring a file offline does not depend
+      // on the group existing -- and these grade all-or-nothing.
       steps: [
-        "Create a resource group in the region where the application will run",
         "Author a template describing the web app and its database",
-        "Submit the template to Azure Resource Manager, targeting that resource group",
-        "Azure Resource Manager validates the request against the policies assigned to the scope",
+        "Submit the template to Azure Resource Manager, naming a new resource group as the target",
+        "Azure Resource Manager validates the request against the policies assigned to that scope",
+        "Azure Resource Manager creates the resources in dependency order",
         "Apply a delete lock to the resource group once the resources are running",
       ],
     },
@@ -245,7 +252,10 @@ export const az = {
       scen: "Five cost questions arrive from different parts of the business. Match each to the Azure tool or feature that answers it. Not every option will be used.",
       choices: [
         "Azure pricing calculator",
-        "Total Cost of Ownership calculator",
+        // Microsoft retired the standalone TCO Calculator in July 2025; the
+        // documented replacement for on-premises vs Azure comparison is the
+        // Azure Migrate business case, which is still a named AZ-900 objective.
+        "Azure Migrate business case",
         "Microsoft Cost Management",
         "Azure Advisor",
         "Azure reservations",

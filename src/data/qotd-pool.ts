@@ -2645,12 +2645,12 @@ export const QOTD_POOL: QotdEntry[] = [
    "d": 3,
    "x": "A team is formatting its fine-tuning dataset for Amazon Bedrock. What must each training record carry?",
    "o": [
-    "A prompt and its desired completion",
     "A prompt and a numeric quality score",
-    "An unlabeled paragraph of source text",
-    "A ranked list of three candidate replies"
+    "A ranked list of three candidate replies",
+    "A prompt and its desired completion",
+    "An unlabeled paragraph of source text"
    ],
-   "a": 0,
+   "a": 2,
    "e": "Supervised fine-tuning learns from paired input and target output, so every record supplies the request and the response the model should have produced. Unlabeled passages feed continued pre-training, while scores and rankings feed preference-based training methods."
   }
  }
