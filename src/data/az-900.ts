@@ -31,19 +31,14 @@ export const exam: ExamDef = {
  "examPBQ": 5,
  "examMinutes": 45,
  "videos": {
-  "cloud-benefits": {
-   "n": "John Savill: High Availability and Scalability",
-   "u": "https://www.youtube.com/watch?v=JRbhGzGzoOA",
-   "d": 1
-  },
   "capex-opex": {
    "n": "John Savill: CapEx, OpEx, and Consumption-Based",
    "u": "https://www.youtube.com/watch?v=WiwV9wb0GMo",
    "d": 1
   },
-  "service-types": {
-   "n": "John Savill: Cloud Service Categories (IaaS, PaaS, SaaS)",
-   "u": "https://www.youtube.com/watch?v=IqQC1EOQqeU",
+  "cloud-benefits": {
+   "n": "John Savill: High Availability and Scalability",
+   "u": "https://www.youtube.com/watch?v=JRbhGzGzoOA",
    "d": 1
   },
   "cloud-models": {
@@ -56,9 +51,24 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=kD2YqdDaO1w",
    "d": 1
   },
-  "regions": {
-   "n": "John Savill: Regions and Region Pairs",
-   "u": "https://www.youtube.com/watch?v=4RjPOAN54AE",
+  "service-type-selection": {
+   "n": "John Savill: Identify the Right Service Type",
+   "u": "https://www.youtube.com/watch?v=KH8NH76h2vc",
+   "d": 1
+  },
+  "service-types": {
+   "n": "John Savill: Cloud Service Categories (IaaS, PaaS, SaaS)",
+   "u": "https://www.youtube.com/watch?v=IqQC1EOQqeU",
+   "d": 1
+  },
+  "ai-services": {
+   "n": "John Savill: Azure AI Services",
+   "u": "https://www.youtube.com/watch?v=lgcpRpV3HPc",
+   "d": 2
+  },
+  "authentication-authorization": {
+   "n": "John Savill: Authentication and Authorization",
+   "u": "https://www.youtube.com/watch?v=GA-yNu6aFMk",
    "d": 2
   },
   "availability-zones": {
@@ -66,24 +76,14 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=h0enGb17lnw",
    "d": 2
   },
-  "resource-groups": {
-   "n": "John Savill: Resource Groups",
-   "u": "https://www.youtube.com/watch?v=g6thrYZhPZY",
+  "azure-firewall": {
+   "n": "John Savill: Azure Firewall",
+   "u": "https://www.youtube.com/watch?v=1-_cqpUISg4",
    "d": 2
   },
-  "subscriptions": {
-   "n": "John Savill: Subscriptions",
-   "u": "https://www.youtube.com/watch?v=9vKAYW_WkLo",
-   "d": 2
-  },
-  "management-groups": {
-   "n": "John Savill: Management Groups",
-   "u": "https://www.youtube.com/watch?v=bPdDiEtCVhM",
-   "d": 2
-  },
-  "vm-resources": {
-   "n": "John Savill: Resources Required for Virtual Machines",
-   "u": "https://www.youtube.com/watch?v=PP5BWZ0cAJo",
+  "big-data-analytics": {
+   "n": "John Savill: Big Data and Analytics Services",
+   "u": "https://www.youtube.com/watch?v=LSVewE4mKfE",
    "d": 2
   },
   "compute-resources": {
@@ -91,24 +91,9 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=yKDSAYDLGrI",
    "d": 2
   },
-  "networking-resources": {
-   "n": "John Savill: Core Network Resources",
-   "u": "https://www.youtube.com/watch?v=aNK0C9Oj2sg",
-   "d": 2
-  },
-  "endpoints": {
-   "n": "John Savill: Public and Private Endpoints",
-   "u": "https://www.youtube.com/watch?v=bPNkXwRFsek",
-   "d": 2
-  },
-  "storage-accounts": {
-   "n": "John Savill: Storage Account Resources",
-   "u": "https://www.youtube.com/watch?v=AI2XoRFwqYE",
-   "d": 2
-  },
-  "databases": {
-   "n": "John Savill: Database Resources",
-   "u": "https://www.youtube.com/watch?v=4sQOF9fSOAU",
+  "conditional-access-mfa": {
+   "n": "John Savill: Conditional Access, MFA, and SSO",
+   "u": "https://www.youtube.com/watch?v=DFwERh9Xxk0",
    "d": 2
   },
   "data-migration": {
@@ -116,44 +101,19 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=jNBcXnMTo9s",
    "d": 2
   },
-  "serverless": {
-   "n": "John Savill: Serverless Technologies",
-   "u": "https://www.youtube.com/watch?v=-xeJGiMw5OE",
+  "databases": {
+   "n": "John Savill: Database Resources",
+   "u": "https://www.youtube.com/watch?v=4sQOF9fSOAU",
    "d": 2
   },
-  "entra-id": {
-   "n": "John Savill: Microsoft Entra Overview",
-   "u": "https://www.youtube.com/watch?v=bSIF_GjaCmo",
+  "ddos-protection": {
+   "n": "John Savill: Azure DDoS Protection",
+   "u": "https://www.youtube.com/watch?v=6cv-wdo9TJw",
    "d": 2
   },
-  "directory-services": {
-   "n": "John Savill: Azure Directory Services",
-   "u": "https://www.youtube.com/watch?v=E4__JBVE25I",
-   "d": 2
-  },
-  "external-identities": {
-   "n": "John Savill: Azure External Identities",
-   "u": "https://www.youtube.com/watch?v=G5_z4PFgn2o",
-   "d": 2
-  },
-  "conditional-access-mfa": {
-   "n": "John Savill: Conditional Access, MFA, and SSO",
-   "u": "https://www.youtube.com/watch?v=DFwERh9Xxk0",
-   "d": 2
-  },
-  "rbac": {
-   "n": "John Savill: Role-Based Access Control",
-   "u": "https://www.youtube.com/watch?v=0iVyJBG06fM",
-   "d": 2
-  },
-  "zero-trust": {
-   "n": "John Savill: The Concept of Zero Trust",
-   "u": "https://www.youtube.com/watch?v=JX3w4to-qgo",
-   "d": 2
-  },
-  "defense-in-depth": {
-   "n": "John Savill: Defense in Depth",
-   "u": "https://www.youtube.com/watch?v=CHKS2FcEMek",
+  "dedicated-hosts": {
+   "n": "John Savill: Azure Dedicated Hosts",
+   "u": "https://www.youtube.com/watch?v=RnNqmTH9xok",
    "d": 2
   },
   "defender-cloud": {
@@ -161,44 +121,109 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=eWcoMi_nQt4",
    "d": 2
   },
-  "cost-factors": {
-   "n": "John Savill: Factors That Affect Costs",
-   "u": "https://www.youtube.com/watch?v=fMShW_RGcxY",
-   "d": 3
+  "defense-in-depth": {
+   "n": "John Savill: Defense in Depth",
+   "u": "https://www.youtube.com/watch?v=CHKS2FcEMek",
+   "d": 2
   },
-  "cost-reduction": {
-   "n": "John Savill: Factors to Reduce Cost",
-   "u": "https://www.youtube.com/watch?v=B5yiKE2DLH8",
-   "d": 3
+  "directory-services": {
+   "n": "John Savill: Azure Directory Services",
+   "u": "https://www.youtube.com/watch?v=E4__JBVE25I",
+   "d": 2
   },
-  "pricing-calculator": {
-   "n": "John Savill: Pricing and TCO Calculators",
-   "u": "https://www.youtube.com/watch?v=pE-bf8i5blU",
-   "d": 3
+  "endpoints": {
+   "n": "John Savill: Public and Private Endpoints",
+   "u": "https://www.youtube.com/watch?v=bPNkXwRFsek",
+   "d": 2
   },
-  "cost-management": {
-   "n": "John Savill: Azure Cost Management",
-   "u": "https://www.youtube.com/watch?v=FoBjC9CAF08",
-   "d": 3
+  "entra-id": {
+   "n": "John Savill: Microsoft Entra Overview",
+   "u": "https://www.youtube.com/watch?v=bSIF_GjaCmo",
+   "d": 2
   },
-  "tags": {
-   "n": "John Savill: Tags",
-   "u": "https://www.youtube.com/watch?v=eaf63hE_6SQ",
-   "d": 3
+  "external-identities": {
+   "n": "John Savill: Azure External Identities",
+   "u": "https://www.youtube.com/watch?v=G5_z4PFgn2o",
+   "d": 2
   },
-  "azure-policy": {
-   "n": "John Savill: Azure Policy",
-   "u": "https://www.youtube.com/watch?v=z7WMqHE3R8g",
-   "d": 3
+  "iot-services": {
+   "n": "John Savill: Azure IoT Services",
+   "u": "https://www.youtube.com/watch?v=22z9ARaKlbU",
+   "d": 2
   },
-  "resource-locks": {
-   "n": "John Savill: Resource Locks",
-   "u": "https://www.youtube.com/watch?v=eF_KilJRxbE",
-   "d": 3
+  "key-vault": {
+   "n": "John Savill: Azure Key Vault",
+   "u": "https://www.youtube.com/watch?v=ZBXVAD4S0Tc",
+   "d": 2
   },
-  "purview": {
-   "n": "John Savill: Microsoft Purview",
-   "u": "https://www.youtube.com/watch?v=nfP7t8jy0aE",
+  "management-groups": {
+   "n": "John Savill: Management Groups",
+   "u": "https://www.youtube.com/watch?v=bPdDiEtCVhM",
+   "d": 2
+  },
+  "marketplace": {
+   "n": "John Savill: Azure Marketplace",
+   "u": "https://www.youtube.com/watch?v=b7RuB4Bymgc",
+   "d": 2
+  },
+  "networking-resources": {
+   "n": "John Savill: Core Network Resources",
+   "u": "https://www.youtube.com/watch?v=aNK0C9Oj2sg",
+   "d": 2
+  },
+  "nsgs": {
+   "n": "John Savill: Network Security Groups",
+   "u": "https://www.youtube.com/watch?v=flCoRc1uv9o",
+   "d": 2
+  },
+  "rbac": {
+   "n": "John Savill: Role-Based Access Control",
+   "u": "https://www.youtube.com/watch?v=0iVyJBG06fM",
+   "d": 2
+  },
+  "regions": {
+   "n": "John Savill: Regions and Region Pairs",
+   "u": "https://www.youtube.com/watch?v=4RjPOAN54AE",
+   "d": 2
+  },
+  "resource-groups": {
+   "n": "John Savill: Resource Groups",
+   "u": "https://www.youtube.com/watch?v=g6thrYZhPZY",
+   "d": 2
+  },
+  "sentinel": {
+   "n": "John Savill: Microsoft Sentinel",
+   "u": "https://www.youtube.com/watch?v=xaqiPXL6tz0",
+   "d": 2
+  },
+  "serverless": {
+   "n": "John Savill: Serverless Technologies",
+   "u": "https://www.youtube.com/watch?v=-xeJGiMw5OE",
+   "d": 2
+  },
+  "storage-accounts": {
+   "n": "John Savill: Storage Account Resources",
+   "u": "https://www.youtube.com/watch?v=AI2XoRFwqYE",
+   "d": 2
+  },
+  "subscriptions": {
+   "n": "John Savill: Subscriptions",
+   "u": "https://www.youtube.com/watch?v=9vKAYW_WkLo",
+   "d": 2
+  },
+  "vm-resources": {
+   "n": "John Savill: Resources Required for Virtual Machines",
+   "u": "https://www.youtube.com/watch?v=PP5BWZ0cAJo",
+   "d": 2
+  },
+  "zero-trust": {
+   "n": "John Savill: The Concept of Zero Trust",
+   "u": "https://www.youtube.com/watch?v=JX3w4to-qgo",
+   "d": 2
+  },
+  "advisor": {
+   "n": "John Savill: Azure Advisor",
+   "u": "https://www.youtube.com/watch?v=nqH4NboyEl0",
    "d": 3
   },
   "arm": {
@@ -216,14 +241,44 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=cW6_rvDYSHg",
    "d": 3
   },
-  "advisor": {
-   "n": "John Savill: Azure Advisor",
-   "u": "https://www.youtube.com/watch?v=nqH4NboyEl0",
+  "azure-policy": {
+   "n": "John Savill: Azure Policy",
+   "u": "https://www.youtube.com/watch?v=z7WMqHE3R8g",
    "d": 3
   },
-  "service-health": {
-   "n": "John Savill: Azure Service Health",
-   "u": "https://www.youtube.com/watch?v=M1xPK4T4Vls",
+  "blueprints": {
+   "n": "John Savill: Azure Blueprints",
+   "u": "https://www.youtube.com/watch?v=SJbDcvkySCY",
+   "d": 3
+  },
+  "cloud-adoption-framework": {
+   "n": "John Savill: Cloud Adoption Framework",
+   "u": "https://www.youtube.com/watch?v=VHQxbIynlN4",
+   "d": 3
+  },
+  "cost-factors": {
+   "n": "John Savill: Factors That Affect Costs",
+   "u": "https://www.youtube.com/watch?v=fMShW_RGcxY",
+   "d": 3
+  },
+  "cost-management": {
+   "n": "John Savill: Azure Cost Management",
+   "u": "https://www.youtube.com/watch?v=FoBjC9CAF08",
+   "d": 3
+  },
+  "cost-reduction": {
+   "n": "John Savill: Factors to Reduce Cost",
+   "u": "https://www.youtube.com/watch?v=B5yiKE2DLH8",
+   "d": 3
+  },
+  "devops-technologies": {
+   "n": "John Savill: DevOps Technologies",
+   "u": "https://www.youtube.com/watch?v=-acpNiCa0qY",
+   "d": 3
+  },
+  "governance-hierarchy": {
+   "n": "John Savill: Governance Hierarchy Constructs",
+   "u": "https://www.youtube.com/watch?v=ge8r_Z0LKxM",
    "d": 3
   },
   "monitor": {
@@ -234,6 +289,56 @@ export const exam: ExamDef = {
   "portal-tools": {
    "n": "John Savill: Azure Management Solutions (Portal, CLI, PowerShell)",
    "u": "https://www.youtube.com/watch?v=6xp-K60ChAk",
+   "d": 3
+  },
+  "pricing-calculator": {
+   "n": "John Savill: Pricing and TCO Calculators",
+   "u": "https://www.youtube.com/watch?v=pE-bf8i5blU",
+   "d": 3
+  },
+  "privacy-statement": {
+   "n": "John Savill: Privacy Statement, OST, and DPA",
+   "u": "https://www.youtube.com/watch?v=5mqroH3E3gw",
+   "d": 3
+  },
+  "purview": {
+   "n": "John Savill: Microsoft Purview",
+   "u": "https://www.youtube.com/watch?v=nfP7t8jy0aE",
+   "d": 3
+  },
+  "resource-locks": {
+   "n": "John Savill: Resource Locks",
+   "u": "https://www.youtube.com/watch?v=eF_KilJRxbE",
+   "d": 3
+  },
+  "service-health": {
+   "n": "John Savill: Azure Service Health",
+   "u": "https://www.youtube.com/watch?v=M1xPK4T4Vls",
+   "d": 3
+  },
+  "service-level-agreements": {
+   "n": "John Savill: Service Level Agreements",
+   "u": "https://www.youtube.com/watch?v=3QIVbgnNrR0",
+   "d": 3
+  },
+  "service-lifecycle": {
+   "n": "John Savill: Service Lifecycle in Azure",
+   "u": "https://www.youtube.com/watch?v=NJ9-S7C0pY4",
+   "d": 3
+  },
+  "sovereign-regions": {
+   "n": "John Savill: Azure Sovereign Regions",
+   "u": "https://www.youtube.com/watch?v=PdAEPAnT2uI",
+   "d": 3
+  },
+  "tags": {
+   "n": "John Savill: Tags",
+   "u": "https://www.youtube.com/watch?v=eaf63hE_6SQ",
+   "d": 3
+  },
+  "trust-center": {
+   "n": "John Savill: Trust Center and Compliance Documentation",
+   "u": "https://www.youtube.com/watch?v=QkVlogulVX4",
    "d": 3
   }
  },

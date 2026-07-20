@@ -31,9 +31,84 @@ export const exam: ExamDef = {
  "examPBQ": 4,
  "examMinutes": 90,
  "videos": {
+  "authentication-authorization-and-accounting": {
+   "n": "Authentication, Authorization, and Accounting",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/authentication-authorization-and-accounting-sy0-701/",
+   "d": 1
+  },
+  "blockchain-technology": {
+   "n": "Blockchain Technology",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/blockchain-technology-sy0-701/",
+   "d": 1
+  },
+  "certificates": {
+   "n": "Certificates",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/certificates-sy0-701/",
+   "d": 1
+  },
+  "change-management": {
+   "n": "Change Management",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/change-management-sy0-701/",
+   "d": 1
+  },
+  "deception-and-disruption": {
+   "n": "Deception and Disruption",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/deception-and-disruption-sy0-701/",
+   "d": 1
+  },
+  "encrypting-data": {
+   "n": "Encrypting Data",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encrypting-data-sy0-701/",
+   "d": 1
+  },
+  "encryption-technologies": {
+   "n": "Encryption Technologies",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encryption-technologies-sy0-701/",
+   "d": 1
+  },
+  "gap-analysis": {
+   "n": "Gap Analysis",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/gap-analysis-sy0-701/",
+   "d": 1
+  },
+  "hashing-and-digital-signatures": {
+   "n": "Hashing and Digital Signatures",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hashing-and-digital-signatures-sy0-701/",
+   "d": 1
+  },
+  "key-exchange": {
+   "n": "Key Exchange",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/key-exchange-sy0-701/",
+   "d": 1
+  },
+  "non-repudiation": {
+   "n": "Non-repudiation",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/non-repudiation-sy0-701/",
+   "d": 1
+  },
+  "obfuscation": {
+   "n": "Obfuscation",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/obfuscation-sy0-701/",
+   "d": 1
+  },
+  "physical-security": {
+   "n": "Physical Security",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-security-sy0-701/",
+   "d": 1
+  },
+  "public-key-infrastructure": {
+   "n": "Public Key Infrastructure",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/public-key-infrastructure-sy0-701/",
+   "d": 1
+  },
   "security-controls": {
    "n": "Security Controls",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-controls-sy0-701/",
+   "d": 1
+  },
+  "technical-change-management": {
+   "n": "Technical Change Management",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/technical-change-management-sy0-701/",
    "d": 1
   },
   "the-cia-triad": {
@@ -46,39 +121,24 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-trust-sy0-701/",
    "d": 1
   },
-  "physical-security": {
-   "n": "Physical Security",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-security-sy0-701/",
-   "d": 1
+  "an-overview-of-malware": {
+   "n": "An Overview of Malware",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/an-overview-of-malware-sy0-701/",
+   "d": 2
   },
-  "change-management": {
-   "n": "Change Management",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/change-management-sy0-701/",
-   "d": 1
+  "application-attacks": {
+   "n": "Application Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/application-attacks-sy0-701/",
+   "d": 2
   },
-  "public-key-infrastructure": {
-   "n": "Public Key Infrastructure",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/public-key-infrastructure-sy0-701/",
-   "d": 1
+  "buffer-overflows": {
+   "n": "Buffer Overflows",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/buffer-overflows-sy0-701/",
+   "d": 2
   },
-  "encrypting-data": {
-   "n": "Encrypting Data",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encrypting-data-sy0-701/",
-   "d": 1
-  },
-  "hashing-and-digital-signatures": {
-   "n": "Hashing and Digital Signatures",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hashing-and-digital-signatures-sy0-701/",
-   "d": 1
-  },
-  "certificates": {
-   "n": "Certificates",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/certificates-sy0-701/",
-   "d": 1
-  },
-  "threat-actors": {
-   "n": "Threat Actors",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-actors-sy0-701/",
+  "cloud-specific-vulnerabilities": {
+   "n": "Cloud-specific Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cloud-specific-vulnerabilities-sy0-701/",
    "d": 2
   },
   "common-threat-vectors": {
@@ -86,44 +146,14 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/common-threat-vectors-sy0-701/",
    "d": 2
   },
-  "phishing": {
-   "n": "Phishing",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/phishing-sy0-701/",
-   "d": 2
-  },
-  "other-social-engineering-attacks": {
-   "n": "Other Social Engineering Attacks",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-social-engineering-attacks-sy0-701/",
-   "d": 2
-  },
-  "sql-injection": {
-   "n": "SQL Injection",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sql-injection-sy0-701/",
-   "d": 2
-  },
   "cross-site-scripting": {
    "n": "Cross-site Scripting",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cross-site-scripting-sy0-701/",
    "d": 2
   },
-  "zero-day-vulnerabilities": {
-   "n": "Zero-day Vulnerabilities",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-day-vulnerabilities-sy0-701/",
-   "d": 2
-  },
-  "supply-chain-vulnerabilities": {
-   "n": "Supply Chain Vulnerabilities",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/supply-chain-vulnerabilities-sy0-701/",
-   "d": 2
-  },
-  "an-overview-of-malware": {
-   "n": "An Overview of Malware",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/an-overview-of-malware-sy0-701/",
-   "d": 2
-  },
-  "other-malware-types": {
-   "n": "Other Malware Types",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-malware-types-sy0-701/",
+  "cryptographic-attacks": {
+   "n": "Cryptographic Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cryptographic-attacks-sy0-701/",
    "d": 2
   },
   "denial-of-service": {
@@ -131,19 +161,9 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/denial-of-service-sy0-701/",
    "d": 2
   },
-  "on-path-attacks": {
-   "n": "On-path Attacks",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/on-path-attacks-sy0-701/",
-   "d": 2
-  },
-  "password-attacks": {
-   "n": "Password Attacks",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-attacks-sy0-701/",
-   "d": 2
-  },
-  "indicators-of-compromise": {
-   "n": "Indicators of Compromise",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/indicators-of-compromise-sy0-701/",
+  "dns-attacks": {
+   "n": "DNS Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/dns-attacks-sy0-701/",
    "d": 2
   },
   "hardening-techniques": {
@@ -151,19 +171,174 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-techniques-sy0-701/",
    "d": 2
   },
+  "hardware-vulnerabilities": {
+   "n": "Hardware Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardware-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "impersonation": {
+   "n": "Impersonation",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/impersonation-sy0-701/",
+   "d": 2
+  },
+  "indicators-of-compromise": {
+   "n": "Indicators of Compromise",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/indicators-of-compromise-sy0-701/",
+   "d": 2
+  },
+  "malicious-code": {
+   "n": "Malicious Code",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/malicious-code-sy0-701/",
+   "d": 2
+  },
+  "malicious-updates": {
+   "n": "Malicious Updates",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/malicious-updates-sy0-701/",
+   "d": 2
+  },
+  "memory-injections": {
+   "n": "Memory Injections",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/memory-injections-sy0-701/",
+   "d": 2
+  },
+  "misconfiguration-vulnerabilities": {
+   "n": "Misconfiguration Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/misconfiguration-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "mitigation-techniques": {
+   "n": "Mitigation Techniques",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/mitigation-techniques-sy0-701/",
+   "d": 2
+  },
+  "mobile-device-vulnerabilities": {
+   "n": "Mobile Device Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/mobile-device-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "on-path-attacks": {
+   "n": "On-path Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/on-path-attacks-sy0-701/",
+   "d": 2
+  },
+  "operating-system-vulnerabilities": {
+   "n": "Operating System Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/operating-system-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "other-malware-types": {
+   "n": "Other Malware Types",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-malware-types-sy0-701/",
+   "d": 2
+  },
+  "other-social-engineering-attacks": {
+   "n": "Other Social Engineering Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-social-engineering-attacks-sy0-701/",
+   "d": 2
+  },
+  "password-attacks": {
+   "n": "Password Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-attacks-sy0-701/",
+   "d": 2
+  },
+  "phishing": {
+   "n": "Phishing",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/phishing-sy0-701/",
+   "d": 2
+  },
+  "physical-attacks": {
+   "n": "Physical Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-attacks-sy0-701/",
+   "d": 2
+  },
+  "race-conditions": {
+   "n": "Race Conditions",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/race-conditions-sy0-701/",
+   "d": 2
+  },
+  "replay-attacks": {
+   "n": "Replay Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/replay-attacks-sy0-701/",
+   "d": 2
+  },
+  "segmentation-and-access-control": {
+   "n": "Segmentation and Access Control",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/segmentation-and-access-control-sy0-701/",
+   "d": 2
+  },
+  "spyware-and-bloatware": {
+   "n": "Spyware and Bloatware",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/spyware-and-bloatware-sy0-701/",
+   "d": 2
+  },
+  "sql-injection": {
+   "n": "SQL Injection",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sql-injection-sy0-701/",
+   "d": 2
+  },
+  "supply-chain-vulnerabilities": {
+   "n": "Supply Chain Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/supply-chain-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "threat-actors": {
+   "n": "Threat Actors",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-actors-sy0-701/",
+   "d": 2
+  },
+  "virtualization-vulnerabilities": {
+   "n": "Virtualization Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/virtualization-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "viruses-and-worms": {
+   "n": "Viruses and Worms",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/viruses-and-worms-sy0-701/",
+   "d": 2
+  },
+  "watering-hole-attacks": {
+   "n": "Watering Hole Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/watering-hole-attacks-sy0-701/",
+   "d": 2
+  },
+  "wireless-attacks": {
+   "n": "Wireless Attacks",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-attacks-sy0-701/",
+   "d": 2
+  },
+  "zero-day-vulnerabilities": {
+   "n": "Zero-day Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-day-vulnerabilities-sy0-701/",
+   "d": 2
+  },
+  "backups": {
+   "n": "Backups",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/backups-sy0-701/",
+   "d": 3
+  },
+  "capacity-planning": {
+   "n": "Capacity Planning",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/capacity-planning-sy0-701/",
+   "d": 3
+  },
   "cloud-infrastructures": {
    "n": "Cloud Infrastructures",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cloud-infrastructures-sy0-701/",
    "d": 3
   },
-  "network-infrastructure-concepts": {
-   "n": "Network Infrastructure Concepts",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-infrastructure-concepts-sy0-701/",
+  "data-types-and-classifications": {
+   "n": "Data Types and Classifications",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-types-and-classifications-sy0-701/",
    "d": 3
   },
-  "secure-infrastructures": {
-   "n": "Secure Infrastructures",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-infrastructures-sy0-701/",
+  "firewall-types": {
+   "n": "Firewall Types",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewall-types-sy0-701/",
+   "d": 3
+  },
+  "infrastructure-considerations": {
+   "n": "Infrastructure Considerations",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/infrastructure-considerations-sy0-701/",
    "d": 3
   },
   "intrusion-prevention": {
@@ -176,19 +351,24 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-appliances-sy0-701/",
    "d": 3
   },
-  "firewall-types": {
-   "n": "Firewall Types",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewall-types-sy0-701/",
+  "network-infrastructure-concepts": {
+   "n": "Network Infrastructure Concepts",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-infrastructure-concepts-sy0-701/",
    "d": 3
   },
-  "secure-communication": {
-   "n": "Secure Communication",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-communication-sy0-701/",
+  "other-infrastructure-concepts": {
+   "n": "Other Infrastructure Concepts",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-infrastructure-concepts-sy0-701/",
    "d": 3
   },
-  "data-types-and-classifications": {
-   "n": "Data Types and Classifications",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-types-and-classifications-sy0-701/",
+  "port-security": {
+   "n": "Port Security",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/port-security-sy0-701/",
+   "d": 3
+  },
+  "power-resiliency": {
+   "n": "Power Resiliency",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/power-resiliency-sy0-701/",
    "d": 3
   },
   "protecting-data": {
@@ -196,29 +376,39 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/protecting-data-sy0-701/",
    "d": 3
   },
+  "recovery-testing": {
+   "n": "Recovery Testing",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/recovery-testing-sy0-701/",
+   "d": 3
+  },
   "resiliency": {
    "n": "Resiliency",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/resiliency-sy0-701/",
    "d": 3
   },
-  "backups": {
-   "n": "Backups",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/backups-sy0-701/",
+  "secure-communication": {
+   "n": "Secure Communication",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-communication-sy0-701/",
    "d": 3
   },
-  "secure-baselines": {
-   "n": "Secure Baselines",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-baselines-sy0-701/",
+  "secure-infrastructures": {
+   "n": "Secure Infrastructures",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-infrastructures-sy0-701/",
+   "d": 3
+  },
+  "states-of-data": {
+   "n": "States of Data",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/states-of-data-sy0-701/",
+   "d": 3
+  },
+  "access-controls": {
+   "n": "Access Controls",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/access-controls-sy0-701/",
    "d": 4
   },
-  "hardening-targets": {
-   "n": "Hardening Targets",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-targets-sy0-701/",
-   "d": 4
-  },
-  "wireless-security-settings": {
-   "n": "Wireless Security Settings",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-security-settings-sy0-701/",
+  "analyzing-vulnerabilities": {
+   "n": "Analyzing Vulnerabilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/analyzing-vulnerabilities-sy0-701/",
    "d": 4
   },
   "application-security": {
@@ -226,29 +416,14 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/application-security-sy0-701/",
    "d": 4
   },
-  "vulnerability-scanning": {
-   "n": "Vulnerability Scanning",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-scanning-sy0-701/",
+  "asset-management": {
+   "n": "Asset Management",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/asset-management-sy0-701/",
    "d": 4
   },
-  "penetration-testing": {
-   "n": "Penetration Testing",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-testing-sy0-701/",
-   "d": 4
-  },
-  "security-monitoring": {
-   "n": "Security Monitoring",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-monitoring-sy0-701/",
-   "d": 4
-  },
-  "firewalls": {
-   "n": "Firewalls",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewalls-sy0-701/",
-   "d": 4
-  },
-  "secure-protocols": {
-   "n": "Secure Protocols",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-protocols-sy0-701/",
+  "digital-forensics": {
+   "n": "Digital Forensics",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/digital-forensics-sy0-701/",
    "d": 4
   },
   "email-security": {
@@ -261,19 +436,24 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/endpoint-security-sy0-701/",
    "d": 4
   },
+  "firewalls": {
+   "n": "Firewalls",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewalls-sy0-701/",
+   "d": 4
+  },
+  "hardening-targets": {
+   "n": "Hardening Targets",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-targets-sy0-701/",
+   "d": 4
+  },
   "identity-and-access-management": {
    "n": "Identity and Access Management",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/identity-and-access-management-sy0-701/",
    "d": 4
   },
-  "access-controls": {
-   "n": "Access Controls",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/access-controls-sy0-701/",
-   "d": 4
-  },
-  "multifactor-authentication": {
-   "n": "Multifactor Authentication",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/multifactor-authentication-sy0-701/",
+  "incident-planning": {
+   "n": "Incident Planning",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/incident-planning-sy0-701/",
    "d": 4
   },
   "incident-response": {
@@ -281,59 +461,94 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/incident-response-sy0-701/",
    "d": 4
   },
-  "digital-forensics": {
-   "n": "Digital Forensics",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/digital-forensics-sy0-701/",
-   "d": 4
-  },
   "log-data": {
    "n": "Log Data",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/log-data-sy0-701/",
    "d": 4
   },
-  "security-policies": {
-   "n": "Security Policies",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-policies-sy0-701/",
-   "d": 5
+  "monitoring-data": {
+   "n": "Monitoring Data",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/monitoring-data-sy0-701/",
+   "d": 4
   },
-  "security-standards": {
-   "n": "Security Standards",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-standards-sy0-701/",
-   "d": 5
+  "multifactor-authentication": {
+   "n": "Multifactor Authentication",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/multifactor-authentication-sy0-701/",
+   "d": 4
   },
-  "data-roles-and-responsibilities": {
-   "n": "Data Roles and Responsibilities",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-roles-and-responsibilities-sy0-701/",
-   "d": 5
+  "operating-system-security": {
+   "n": "Operating System Security",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/operating-system-security-sy0-701/",
+   "d": 4
   },
-  "risk-management": {
-   "n": "Risk Management",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-sy0-701/",
-   "d": 5
+  "password-security": {
+   "n": "Password Security",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-security-sy0-701/",
+   "d": 4
   },
-  "risk-analysis": {
-   "n": "Risk Analysis",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-analysis-sy0-701/",
-   "d": 5
+  "penetration-testing": {
+   "n": "Penetration Testing",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-testing-sy0-701/",
+   "d": 4
   },
-  "business-impact-analysis": {
-   "n": "Business Impact Analysis",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/business-impact-analysis-sy0-701/",
-   "d": 5
+  "scripting-and-automation": {
+   "n": "Scripting and Automation",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/scripting-and-automation-sy0-701/",
+   "d": 4
   },
-  "third-party-risk-assessment": {
-   "n": "Third-party Risk Assessment",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/third-party-risk-assessment-sy0-701/",
-   "d": 5
+  "secure-baselines": {
+   "n": "Secure Baselines",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-baselines-sy0-701/",
+   "d": 4
+  },
+  "secure-protocols": {
+   "n": "Secure Protocols",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-protocols-sy0-701/",
+   "d": 4
+  },
+  "securing-wireless-and-mobile": {
+   "n": "Securing Wireless and Mobile",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/securing-wireless-and-mobile-sy0-701/",
+   "d": 4
+  },
+  "security-monitoring": {
+   "n": "Security Monitoring",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-monitoring-sy0-701/",
+   "d": 4
+  },
+  "security-tools": {
+   "n": "Security Tools",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-tools-sy0-701/",
+   "d": 4
+  },
+  "threat-intelligence": {
+   "n": "Threat Intelligence",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-intelligence-sy0-701/",
+   "d": 4
+  },
+  "vulnerability-remediation": {
+   "n": "Vulnerability Remediation",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-remediation-sy0-701/",
+   "d": 4
+  },
+  "vulnerability-scanning": {
+   "n": "Vulnerability Scanning",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-scanning-sy0-701/",
+   "d": 4
+  },
+  "web-filtering": {
+   "n": "Web Filtering",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/web-filtering-sy0-701/",
+   "d": 4
+  },
+  "wireless-security-settings": {
+   "n": "Wireless Security Settings",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-security-settings-sy0-701/",
+   "d": 4
   },
   "agreement-types": {
    "n": "Agreement Types",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/agreement-types-sy0-701/",
-   "d": 5
-  },
-  "compliance": {
-   "n": "Compliance",
-   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/compliance-sy0-701/",
    "d": 5
   },
   "audits-and-assessments": {
@@ -341,9 +556,79 @@ export const exam: ExamDef = {
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/audits-and-assessments-sy0-701/",
    "d": 5
   },
+  "business-impact-analysis": {
+   "n": "Business Impact Analysis",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/business-impact-analysis-sy0-701/",
+   "d": 5
+  },
+  "compliance": {
+   "n": "Compliance",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/compliance-sy0-701/",
+   "d": 5
+  },
+  "data-roles-and-responsibilities": {
+   "n": "Data Roles and Responsibilities",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-roles-and-responsibilities-sy0-701/",
+   "d": 5
+  },
+  "penetration-tests": {
+   "n": "Penetration Tests",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-tests-sy0-701/",
+   "d": 5
+  },
+  "privacy": {
+   "n": "Privacy",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/privacy-sy0-701/",
+   "d": 5
+  },
+  "risk-analysis": {
+   "n": "Risk Analysis",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-analysis-sy0-701/",
+   "d": 5
+  },
+  "risk-management": {
+   "n": "Risk Management",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-sy0-701/",
+   "d": 5
+  },
+  "risk-management-strategies": {
+   "n": "Risk Management Strategies",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-strategies-sy0-701/",
+   "d": 5
+  },
   "security-awareness": {
    "n": "Security Awareness",
    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-awareness-sy0-701/",
+   "d": 5
+  },
+  "security-considerations": {
+   "n": "Security Considerations",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-considerations-sy0-701/",
+   "d": 5
+  },
+  "security-policies": {
+   "n": "Security Policies",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-policies-sy0-701/",
+   "d": 5
+  },
+  "security-procedures": {
+   "n": "Security Procedures",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-procedures-sy0-701/",
+   "d": 5
+  },
+  "security-standards": {
+   "n": "Security Standards",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-standards-sy0-701/",
+   "d": 5
+  },
+  "third-party-risk-assessment": {
+   "n": "Third-party Risk Assessment",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/third-party-risk-assessment-sy0-701/",
+   "d": 5
+  },
+  "user-training": {
+   "n": "User Training",
+   "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/user-training-sy0-701/",
    "d": 5
   }
  },

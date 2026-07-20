@@ -1203,9 +1203,84 @@ export const EXAM_META: Record<string, ExamMeta> = {
   "examPBQ": 4,
   "examMinutes": 90,
   "videos": {
+   "authentication-authorization-and-accounting": {
+    "n": "Authentication, Authorization, and Accounting",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/authentication-authorization-and-accounting-sy0-701/",
+    "d": 1
+   },
+   "blockchain-technology": {
+    "n": "Blockchain Technology",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/blockchain-technology-sy0-701/",
+    "d": 1
+   },
+   "certificates": {
+    "n": "Certificates",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/certificates-sy0-701/",
+    "d": 1
+   },
+   "change-management": {
+    "n": "Change Management",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/change-management-sy0-701/",
+    "d": 1
+   },
+   "deception-and-disruption": {
+    "n": "Deception and Disruption",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/deception-and-disruption-sy0-701/",
+    "d": 1
+   },
+   "encrypting-data": {
+    "n": "Encrypting Data",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encrypting-data-sy0-701/",
+    "d": 1
+   },
+   "encryption-technologies": {
+    "n": "Encryption Technologies",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encryption-technologies-sy0-701/",
+    "d": 1
+   },
+   "gap-analysis": {
+    "n": "Gap Analysis",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/gap-analysis-sy0-701/",
+    "d": 1
+   },
+   "hashing-and-digital-signatures": {
+    "n": "Hashing and Digital Signatures",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hashing-and-digital-signatures-sy0-701/",
+    "d": 1
+   },
+   "key-exchange": {
+    "n": "Key Exchange",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/key-exchange-sy0-701/",
+    "d": 1
+   },
+   "non-repudiation": {
+    "n": "Non-repudiation",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/non-repudiation-sy0-701/",
+    "d": 1
+   },
+   "obfuscation": {
+    "n": "Obfuscation",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/obfuscation-sy0-701/",
+    "d": 1
+   },
+   "physical-security": {
+    "n": "Physical Security",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-security-sy0-701/",
+    "d": 1
+   },
+   "public-key-infrastructure": {
+    "n": "Public Key Infrastructure",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/public-key-infrastructure-sy0-701/",
+    "d": 1
+   },
    "security-controls": {
     "n": "Security Controls",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-controls-sy0-701/",
+    "d": 1
+   },
+   "technical-change-management": {
+    "n": "Technical Change Management",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/technical-change-management-sy0-701/",
     "d": 1
    },
    "the-cia-triad": {
@@ -1218,39 +1293,24 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-trust-sy0-701/",
     "d": 1
    },
-   "physical-security": {
-    "n": "Physical Security",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-security-sy0-701/",
-    "d": 1
+   "an-overview-of-malware": {
+    "n": "An Overview of Malware",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/an-overview-of-malware-sy0-701/",
+    "d": 2
    },
-   "change-management": {
-    "n": "Change Management",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/change-management-sy0-701/",
-    "d": 1
+   "application-attacks": {
+    "n": "Application Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/application-attacks-sy0-701/",
+    "d": 2
    },
-   "public-key-infrastructure": {
-    "n": "Public Key Infrastructure",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/public-key-infrastructure-sy0-701/",
-    "d": 1
+   "buffer-overflows": {
+    "n": "Buffer Overflows",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/buffer-overflows-sy0-701/",
+    "d": 2
    },
-   "encrypting-data": {
-    "n": "Encrypting Data",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/encrypting-data-sy0-701/",
-    "d": 1
-   },
-   "hashing-and-digital-signatures": {
-    "n": "Hashing and Digital Signatures",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hashing-and-digital-signatures-sy0-701/",
-    "d": 1
-   },
-   "certificates": {
-    "n": "Certificates",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/certificates-sy0-701/",
-    "d": 1
-   },
-   "threat-actors": {
-    "n": "Threat Actors",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-actors-sy0-701/",
+   "cloud-specific-vulnerabilities": {
+    "n": "Cloud-specific Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cloud-specific-vulnerabilities-sy0-701/",
     "d": 2
    },
    "common-threat-vectors": {
@@ -1258,44 +1318,14 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/common-threat-vectors-sy0-701/",
     "d": 2
    },
-   "phishing": {
-    "n": "Phishing",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/phishing-sy0-701/",
-    "d": 2
-   },
-   "other-social-engineering-attacks": {
-    "n": "Other Social Engineering Attacks",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-social-engineering-attacks-sy0-701/",
-    "d": 2
-   },
-   "sql-injection": {
-    "n": "SQL Injection",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sql-injection-sy0-701/",
-    "d": 2
-   },
    "cross-site-scripting": {
     "n": "Cross-site Scripting",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cross-site-scripting-sy0-701/",
     "d": 2
    },
-   "zero-day-vulnerabilities": {
-    "n": "Zero-day Vulnerabilities",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-day-vulnerabilities-sy0-701/",
-    "d": 2
-   },
-   "supply-chain-vulnerabilities": {
-    "n": "Supply Chain Vulnerabilities",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/supply-chain-vulnerabilities-sy0-701/",
-    "d": 2
-   },
-   "an-overview-of-malware": {
-    "n": "An Overview of Malware",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/an-overview-of-malware-sy0-701/",
-    "d": 2
-   },
-   "other-malware-types": {
-    "n": "Other Malware Types",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-malware-types-sy0-701/",
+   "cryptographic-attacks": {
+    "n": "Cryptographic Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cryptographic-attacks-sy0-701/",
     "d": 2
    },
    "denial-of-service": {
@@ -1303,19 +1333,9 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/denial-of-service-sy0-701/",
     "d": 2
    },
-   "on-path-attacks": {
-    "n": "On-path Attacks",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/on-path-attacks-sy0-701/",
-    "d": 2
-   },
-   "password-attacks": {
-    "n": "Password Attacks",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-attacks-sy0-701/",
-    "d": 2
-   },
-   "indicators-of-compromise": {
-    "n": "Indicators of Compromise",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/indicators-of-compromise-sy0-701/",
+   "dns-attacks": {
+    "n": "DNS Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/dns-attacks-sy0-701/",
     "d": 2
    },
    "hardening-techniques": {
@@ -1323,19 +1343,174 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-techniques-sy0-701/",
     "d": 2
    },
+   "hardware-vulnerabilities": {
+    "n": "Hardware Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardware-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "impersonation": {
+    "n": "Impersonation",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/impersonation-sy0-701/",
+    "d": 2
+   },
+   "indicators-of-compromise": {
+    "n": "Indicators of Compromise",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/indicators-of-compromise-sy0-701/",
+    "d": 2
+   },
+   "malicious-code": {
+    "n": "Malicious Code",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/malicious-code-sy0-701/",
+    "d": 2
+   },
+   "malicious-updates": {
+    "n": "Malicious Updates",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/malicious-updates-sy0-701/",
+    "d": 2
+   },
+   "memory-injections": {
+    "n": "Memory Injections",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/memory-injections-sy0-701/",
+    "d": 2
+   },
+   "misconfiguration-vulnerabilities": {
+    "n": "Misconfiguration Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/misconfiguration-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "mitigation-techniques": {
+    "n": "Mitigation Techniques",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/mitigation-techniques-sy0-701/",
+    "d": 2
+   },
+   "mobile-device-vulnerabilities": {
+    "n": "Mobile Device Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/mobile-device-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "on-path-attacks": {
+    "n": "On-path Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/on-path-attacks-sy0-701/",
+    "d": 2
+   },
+   "operating-system-vulnerabilities": {
+    "n": "Operating System Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/operating-system-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "other-malware-types": {
+    "n": "Other Malware Types",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-malware-types-sy0-701/",
+    "d": 2
+   },
+   "other-social-engineering-attacks": {
+    "n": "Other Social Engineering Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-social-engineering-attacks-sy0-701/",
+    "d": 2
+   },
+   "password-attacks": {
+    "n": "Password Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-attacks-sy0-701/",
+    "d": 2
+   },
+   "phishing": {
+    "n": "Phishing",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/phishing-sy0-701/",
+    "d": 2
+   },
+   "physical-attacks": {
+    "n": "Physical Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/physical-attacks-sy0-701/",
+    "d": 2
+   },
+   "race-conditions": {
+    "n": "Race Conditions",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/race-conditions-sy0-701/",
+    "d": 2
+   },
+   "replay-attacks": {
+    "n": "Replay Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/replay-attacks-sy0-701/",
+    "d": 2
+   },
+   "segmentation-and-access-control": {
+    "n": "Segmentation and Access Control",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/segmentation-and-access-control-sy0-701/",
+    "d": 2
+   },
+   "spyware-and-bloatware": {
+    "n": "Spyware and Bloatware",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/spyware-and-bloatware-sy0-701/",
+    "d": 2
+   },
+   "sql-injection": {
+    "n": "SQL Injection",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sql-injection-sy0-701/",
+    "d": 2
+   },
+   "supply-chain-vulnerabilities": {
+    "n": "Supply Chain Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/supply-chain-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "threat-actors": {
+    "n": "Threat Actors",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-actors-sy0-701/",
+    "d": 2
+   },
+   "virtualization-vulnerabilities": {
+    "n": "Virtualization Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/virtualization-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "viruses-and-worms": {
+    "n": "Viruses and Worms",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/viruses-and-worms-sy0-701/",
+    "d": 2
+   },
+   "watering-hole-attacks": {
+    "n": "Watering Hole Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/watering-hole-attacks-sy0-701/",
+    "d": 2
+   },
+   "wireless-attacks": {
+    "n": "Wireless Attacks",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-attacks-sy0-701/",
+    "d": 2
+   },
+   "zero-day-vulnerabilities": {
+    "n": "Zero-day Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/zero-day-vulnerabilities-sy0-701/",
+    "d": 2
+   },
+   "backups": {
+    "n": "Backups",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/backups-sy0-701/",
+    "d": 3
+   },
+   "capacity-planning": {
+    "n": "Capacity Planning",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/capacity-planning-sy0-701/",
+    "d": 3
+   },
    "cloud-infrastructures": {
     "n": "Cloud Infrastructures",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/cloud-infrastructures-sy0-701/",
     "d": 3
    },
-   "network-infrastructure-concepts": {
-    "n": "Network Infrastructure Concepts",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-infrastructure-concepts-sy0-701/",
+   "data-types-and-classifications": {
+    "n": "Data Types and Classifications",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-types-and-classifications-sy0-701/",
     "d": 3
    },
-   "secure-infrastructures": {
-    "n": "Secure Infrastructures",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-infrastructures-sy0-701/",
+   "firewall-types": {
+    "n": "Firewall Types",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewall-types-sy0-701/",
+    "d": 3
+   },
+   "infrastructure-considerations": {
+    "n": "Infrastructure Considerations",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/infrastructure-considerations-sy0-701/",
     "d": 3
    },
    "intrusion-prevention": {
@@ -1348,19 +1523,24 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-appliances-sy0-701/",
     "d": 3
    },
-   "firewall-types": {
-    "n": "Firewall Types",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewall-types-sy0-701/",
+   "network-infrastructure-concepts": {
+    "n": "Network Infrastructure Concepts",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-infrastructure-concepts-sy0-701/",
     "d": 3
    },
-   "secure-communication": {
-    "n": "Secure Communication",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-communication-sy0-701/",
+   "other-infrastructure-concepts": {
+    "n": "Other Infrastructure Concepts",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/other-infrastructure-concepts-sy0-701/",
     "d": 3
    },
-   "data-types-and-classifications": {
-    "n": "Data Types and Classifications",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-types-and-classifications-sy0-701/",
+   "port-security": {
+    "n": "Port Security",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/port-security-sy0-701/",
+    "d": 3
+   },
+   "power-resiliency": {
+    "n": "Power Resiliency",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/power-resiliency-sy0-701/",
     "d": 3
    },
    "protecting-data": {
@@ -1368,29 +1548,39 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/protecting-data-sy0-701/",
     "d": 3
    },
+   "recovery-testing": {
+    "n": "Recovery Testing",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/recovery-testing-sy0-701/",
+    "d": 3
+   },
    "resiliency": {
     "n": "Resiliency",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/resiliency-sy0-701/",
     "d": 3
    },
-   "backups": {
-    "n": "Backups",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/backups-sy0-701/",
+   "secure-communication": {
+    "n": "Secure Communication",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-communication-sy0-701/",
     "d": 3
    },
-   "secure-baselines": {
-    "n": "Secure Baselines",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-baselines-sy0-701/",
+   "secure-infrastructures": {
+    "n": "Secure Infrastructures",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-infrastructures-sy0-701/",
+    "d": 3
+   },
+   "states-of-data": {
+    "n": "States of Data",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/states-of-data-sy0-701/",
+    "d": 3
+   },
+   "access-controls": {
+    "n": "Access Controls",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/access-controls-sy0-701/",
     "d": 4
    },
-   "hardening-targets": {
-    "n": "Hardening Targets",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-targets-sy0-701/",
-    "d": 4
-   },
-   "wireless-security-settings": {
-    "n": "Wireless Security Settings",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-security-settings-sy0-701/",
+   "analyzing-vulnerabilities": {
+    "n": "Analyzing Vulnerabilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/analyzing-vulnerabilities-sy0-701/",
     "d": 4
    },
    "application-security": {
@@ -1398,29 +1588,14 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/application-security-sy0-701/",
     "d": 4
    },
-   "vulnerability-scanning": {
-    "n": "Vulnerability Scanning",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-scanning-sy0-701/",
+   "asset-management": {
+    "n": "Asset Management",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/asset-management-sy0-701/",
     "d": 4
    },
-   "penetration-testing": {
-    "n": "Penetration Testing",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-testing-sy0-701/",
-    "d": 4
-   },
-   "security-monitoring": {
-    "n": "Security Monitoring",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-monitoring-sy0-701/",
-    "d": 4
-   },
-   "firewalls": {
-    "n": "Firewalls",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewalls-sy0-701/",
-    "d": 4
-   },
-   "secure-protocols": {
-    "n": "Secure Protocols",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-protocols-sy0-701/",
+   "digital-forensics": {
+    "n": "Digital Forensics",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/digital-forensics-sy0-701/",
     "d": 4
    },
    "email-security": {
@@ -1433,19 +1608,24 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/endpoint-security-sy0-701/",
     "d": 4
    },
+   "firewalls": {
+    "n": "Firewalls",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/firewalls-sy0-701/",
+    "d": 4
+   },
+   "hardening-targets": {
+    "n": "Hardening Targets",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/hardening-targets-sy0-701/",
+    "d": 4
+   },
    "identity-and-access-management": {
     "n": "Identity and Access Management",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/identity-and-access-management-sy0-701/",
     "d": 4
    },
-   "access-controls": {
-    "n": "Access Controls",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/access-controls-sy0-701/",
-    "d": 4
-   },
-   "multifactor-authentication": {
-    "n": "Multifactor Authentication",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/multifactor-authentication-sy0-701/",
+   "incident-planning": {
+    "n": "Incident Planning",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/incident-planning-sy0-701/",
     "d": 4
    },
    "incident-response": {
@@ -1453,59 +1633,94 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/incident-response-sy0-701/",
     "d": 4
    },
-   "digital-forensics": {
-    "n": "Digital Forensics",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/digital-forensics-sy0-701/",
-    "d": 4
-   },
    "log-data": {
     "n": "Log Data",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/log-data-sy0-701/",
     "d": 4
    },
-   "security-policies": {
-    "n": "Security Policies",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-policies-sy0-701/",
-    "d": 5
+   "monitoring-data": {
+    "n": "Monitoring Data",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/monitoring-data-sy0-701/",
+    "d": 4
    },
-   "security-standards": {
-    "n": "Security Standards",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-standards-sy0-701/",
-    "d": 5
+   "multifactor-authentication": {
+    "n": "Multifactor Authentication",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/multifactor-authentication-sy0-701/",
+    "d": 4
    },
-   "data-roles-and-responsibilities": {
-    "n": "Data Roles and Responsibilities",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-roles-and-responsibilities-sy0-701/",
-    "d": 5
+   "operating-system-security": {
+    "n": "Operating System Security",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/operating-system-security-sy0-701/",
+    "d": 4
    },
-   "risk-management": {
-    "n": "Risk Management",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-sy0-701/",
-    "d": 5
+   "password-security": {
+    "n": "Password Security",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/password-security-sy0-701/",
+    "d": 4
    },
-   "risk-analysis": {
-    "n": "Risk Analysis",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-analysis-sy0-701/",
-    "d": 5
+   "penetration-testing": {
+    "n": "Penetration Testing",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-testing-sy0-701/",
+    "d": 4
    },
-   "business-impact-analysis": {
-    "n": "Business Impact Analysis",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/business-impact-analysis-sy0-701/",
-    "d": 5
+   "scripting-and-automation": {
+    "n": "Scripting and Automation",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/scripting-and-automation-sy0-701/",
+    "d": 4
    },
-   "third-party-risk-assessment": {
-    "n": "Third-party Risk Assessment",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/third-party-risk-assessment-sy0-701/",
-    "d": 5
+   "secure-baselines": {
+    "n": "Secure Baselines",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-baselines-sy0-701/",
+    "d": 4
+   },
+   "secure-protocols": {
+    "n": "Secure Protocols",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-protocols-sy0-701/",
+    "d": 4
+   },
+   "securing-wireless-and-mobile": {
+    "n": "Securing Wireless and Mobile",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/securing-wireless-and-mobile-sy0-701/",
+    "d": 4
+   },
+   "security-monitoring": {
+    "n": "Security Monitoring",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-monitoring-sy0-701/",
+    "d": 4
+   },
+   "security-tools": {
+    "n": "Security Tools",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-tools-sy0-701/",
+    "d": 4
+   },
+   "threat-intelligence": {
+    "n": "Threat Intelligence",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/threat-intelligence-sy0-701/",
+    "d": 4
+   },
+   "vulnerability-remediation": {
+    "n": "Vulnerability Remediation",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-remediation-sy0-701/",
+    "d": 4
+   },
+   "vulnerability-scanning": {
+    "n": "Vulnerability Scanning",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/vulnerability-scanning-sy0-701/",
+    "d": 4
+   },
+   "web-filtering": {
+    "n": "Web Filtering",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/web-filtering-sy0-701/",
+    "d": 4
+   },
+   "wireless-security-settings": {
+    "n": "Wireless Security Settings",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/wireless-security-settings-sy0-701/",
+    "d": 4
    },
    "agreement-types": {
     "n": "Agreement Types",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/agreement-types-sy0-701/",
-    "d": 5
-   },
-   "compliance": {
-    "n": "Compliance",
-    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/compliance-sy0-701/",
     "d": 5
    },
    "audits-and-assessments": {
@@ -1513,9 +1728,79 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/audits-and-assessments-sy0-701/",
     "d": 5
    },
+   "business-impact-analysis": {
+    "n": "Business Impact Analysis",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/business-impact-analysis-sy0-701/",
+    "d": 5
+   },
+   "compliance": {
+    "n": "Compliance",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/compliance-sy0-701/",
+    "d": 5
+   },
+   "data-roles-and-responsibilities": {
+    "n": "Data Roles and Responsibilities",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/data-roles-and-responsibilities-sy0-701/",
+    "d": 5
+   },
+   "penetration-tests": {
+    "n": "Penetration Tests",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/penetration-tests-sy0-701/",
+    "d": 5
+   },
+   "privacy": {
+    "n": "Privacy",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/privacy-sy0-701/",
+    "d": 5
+   },
+   "risk-analysis": {
+    "n": "Risk Analysis",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-analysis-sy0-701/",
+    "d": 5
+   },
+   "risk-management": {
+    "n": "Risk Management",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-sy0-701/",
+    "d": 5
+   },
+   "risk-management-strategies": {
+    "n": "Risk Management Strategies",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/risk-management-strategies-sy0-701/",
+    "d": 5
+   },
    "security-awareness": {
     "n": "Security Awareness",
     "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-awareness-sy0-701/",
+    "d": 5
+   },
+   "security-considerations": {
+    "n": "Security Considerations",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-considerations-sy0-701/",
+    "d": 5
+   },
+   "security-policies": {
+    "n": "Security Policies",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-policies-sy0-701/",
+    "d": 5
+   },
+   "security-procedures": {
+    "n": "Security Procedures",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-procedures-sy0-701/",
+    "d": 5
+   },
+   "security-standards": {
+    "n": "Security Standards",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/security-standards-sy0-701/",
+    "d": 5
+   },
+   "third-party-risk-assessment": {
+    "n": "Third-party Risk Assessment",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/third-party-risk-assessment-sy0-701/",
+    "d": 5
+   },
+   "user-training": {
+    "n": "User Training",
+    "u": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/user-training-sy0-701/",
     "d": 5
    }
   },
@@ -1556,8 +1841,28 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
     "d": 1
    },
+   "data-prep": {
+    "n": "freeCodeCamp: Data Collection and Preparation",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+    "d": 1
+   },
+   "feature-engineering": {
+    "n": "freeCodeCamp: Feature Engineering",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+    "d": 1
+   },
+   "inferencing-types": {
+    "n": "freeCodeCamp: Batch and Real-Time Inferencing",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
+    "d": 1
+   },
    "learning-types": {
     "n": "freeCodeCamp: Supervised, Unsupervised, and Reinforcement Learning",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
+    "d": 1
+   },
+   "ml-algorithms": {
+    "n": "freeCodeCamp: Classification, Regression, and Clustering",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
     "d": 1
    },
@@ -1566,14 +1871,14 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
     "d": 1
    },
+   "ml-services": {
+    "n": "freeCodeCamp: AWS Managed AI Services",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=37814s",
+    "d": 1
+   },
    "ml-use-cases": {
     "n": "freeCodeCamp: When to Use AI and ML",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
-    "d": 1
-   },
-   "data-prep": {
-    "n": "freeCodeCamp: Data Collection and Preparation",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
     "d": 1
    },
    "model-evaluation": {
@@ -1581,9 +1886,9 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
     "d": 1
    },
-   "ml-services": {
-    "n": "freeCodeCamp: AWS Managed AI Services",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=37814s",
+   "overfitting-underfitting": {
+    "n": "freeCodeCamp: Overfitting, Underfitting, and Bias-Variance",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
     "d": 1
    },
    "sagemaker": {
@@ -1591,13 +1896,23 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=29326s",
     "d": 1
    },
-   "genai-basics": {
-    "n": "freeCodeCamp: Generative AI Concepts",
+   "training-data-types": {
+    "n": "freeCodeCamp: Labeled, Unlabeled, and Structured Data",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+    "d": 1
+   },
+   "amazon-q": {
+    "n": "freeCodeCamp: Amazon Q",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=36398s",
+    "d": 2
+   },
+   "context-windows": {
+    "n": "freeCodeCamp: Context Windows and Chunking",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
     "d": 2
    },
-   "tokens-embeddings": {
-    "n": "freeCodeCamp: Tokens, Embeddings, and Vectors",
+   "diffusion-models": {
+    "n": "freeCodeCamp: Diffusion and Multimodal Models",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
     "d": 2
    },
@@ -1606,13 +1921,33 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
     "d": 2
    },
-   "genai-use-cases": {
-    "n": "freeCodeCamp: GenAI Use Cases and Limitations",
+   "genai-aws-stack": {
+    "n": "freeCodeCamp: The AWS GenAI Stack",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 2
+   },
+   "genai-basics": {
+    "n": "freeCodeCamp: Generative AI Concepts",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+    "d": 2
+   },
+   "genai-cost-tradeoffs": {
+    "n": "freeCodeCamp: Cost and Latency Trade-offs",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
     "d": 2
    },
    "genai-lifecycle": {
     "n": "freeCodeCamp: The Foundation Model Lifecycle",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+    "d": 2
+   },
+   "genai-limitations": {
+    "n": "freeCodeCamp: Hallucination and Nondeterminism",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+    "d": 2
+   },
+   "genai-use-cases": {
+    "n": "freeCodeCamp: GenAI Use Cases and Limitations",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
     "d": 2
    },
@@ -1621,48 +1956,38 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=28338s",
     "d": 2
    },
-   "genai-aws-stack": {
-    "n": "freeCodeCamp: The AWS GenAI Stack",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "tokens-embeddings": {
+    "n": "freeCodeCamp: Tokens, Embeddings, and Vectors",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
     "d": 2
+   },
+   "transformer-architecture": {
+    "n": "freeCodeCamp: Transformers and Attention",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+    "d": 2
+   },
+   "agents": {
+    "n": "freeCodeCamp: Agents for Multi-Step Tasks",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
    },
    "bedrock": {
     "n": "freeCodeCamp: Amazon Bedrock",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
     "d": 3
    },
-   "inference-params": {
-    "n": "freeCodeCamp: Inference Parameters",
+   "bedrock-inference-modes": {
+    "n": "freeCodeCamp: On-Demand and Provisioned Throughput",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
     "d": 3
    },
-   "prompt-engineering": {
-    "n": "freeCodeCamp: Prompt Engineering Techniques",
+   "continued-pretraining": {
+    "n": "freeCodeCamp: Continued Pre-training and Domain Adaptation",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-    "d": 3
-   },
-   "rag": {
-    "n": "freeCodeCamp: Retrieval-Augmented Generation",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
-    "d": 3
-   },
-   "vector-databases": {
-    "n": "freeCodeCamp: Vector Databases and Knowledge Bases",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
     "d": 3
    },
    "fine-tuning": {
     "n": "freeCodeCamp: Fine-Tuning and Continued Pre-Training",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-    "d": 3
-   },
-   "model-selection": {
-    "n": "freeCodeCamp: Choosing a Foundation Model",
-    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-    "d": 3
-   },
-   "agents": {
-    "n": "freeCodeCamp: Agents for Multi-Step Tasks",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
     "d": 3
    },
@@ -1671,9 +1996,74 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
     "d": 3
    },
+   "human-evaluation": {
+    "n": "freeCodeCamp: Human Evaluation and Benchmarking",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+    "d": 3
+   },
+   "inference-params": {
+    "n": "freeCodeCamp: Inference Parameters",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
+   },
+   "knowledge-bases": {
+    "n": "freeCodeCamp: Bedrock Knowledge Bases",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
+    "d": 3
+   },
+   "model-metrics": {
+    "n": "freeCodeCamp: ROUGE, BLEU, and BERTScore",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+    "d": 3
+   },
+   "model-selection": {
+    "n": "freeCodeCamp: Choosing a Foundation Model",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
+   },
+   "prompt-engineering": {
+    "n": "freeCodeCamp: Prompt Engineering Techniques",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
+   },
+   "prompt-risks": {
+    "n": "freeCodeCamp: Prompt Injection and Jailbreaking",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
+   },
+   "prompt-techniques": {
+    "n": "freeCodeCamp: Zero-shot, Few-shot, and Chain-of-Thought",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+    "d": 3
+   },
+   "rag": {
+    "n": "freeCodeCamp: Retrieval-Augmented Generation",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
+    "d": 3
+   },
+   "rag-datastores": {
+    "n": "freeCodeCamp: Vector Stores for Retrieval",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
+    "d": 3
+   },
+   "vector-databases": {
+    "n": "freeCodeCamp: Vector Databases and Knowledge Bases",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
+    "d": 3
+   },
    "bias-fairness": {
     "n": "freeCodeCamp: Bias, Fairness, and Dataset Balance",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+    "d": 4
+   },
+   "dataset-bias": {
+    "n": "freeCodeCamp: Dataset Bias and Representativeness",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+    "d": 4
+   },
+   "environmental-impact": {
+    "n": "freeCodeCamp: Sustainability and Model Efficiency",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
     "d": 4
    },
    "explainability": {
@@ -1686,9 +2076,19 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
     "d": 4
    },
+   "human-centered-design": {
+    "n": "freeCodeCamp: Human-Centered Design and Oversight",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+    "d": 4
+   },
    "responsible-practices": {
     "n": "freeCodeCamp: Responsible AI Practices",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+    "d": 4
+   },
+   "transparency-tools": {
+    "n": "freeCodeCamp: Model Cards and AI Service Cards",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=29326s",
     "d": 4
    },
    "ai-security": {
@@ -1696,8 +2096,8 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
     "d": 5
    },
-   "shared-responsibility": {
-    "n": "freeCodeCamp: Shared Responsibility and Data Protection",
+   "audit-monitoring": {
+    "n": "freeCodeCamp: Auditing and Monitoring AI Workloads",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
     "d": 5
    },
@@ -1706,13 +2106,38 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
     "d": 5
    },
+   "data-cataloging": {
+    "n": "freeCodeCamp: Data Cataloging and Lineage",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=49875s",
+    "d": 5
+   },
+   "data-encryption-ai": {
+    "n": "freeCodeCamp: Encryption and Data Protection",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+    "d": 5
+   },
    "data-governance": {
     "n": "freeCodeCamp: Data Governance with Glue and Lake Formation",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=53772s",
     "d": 5
    },
-   "audit-monitoring": {
-    "n": "freeCodeCamp: Auditing and Monitoring AI Workloads",
+   "data-querying": {
+    "n": "freeCodeCamp: Querying Governed Data",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=48918s",
+    "d": 5
+   },
+   "iam-for-ai": {
+    "n": "freeCodeCamp: IAM for AI Workloads",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+    "d": 5
+   },
+   "regulatory-compliance": {
+    "n": "freeCodeCamp: Regulatory and Industry Compliance",
+    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+    "d": 5
+   },
+   "shared-responsibility": {
+    "n": "freeCodeCamp: Shared Responsibility and Data Protection",
     "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
     "d": 5
    }
@@ -1747,19 +2172,9 @@ export const EXAM_META: Record<string, ExamMeta> = {
   "examPBQ": 0,
   "examMinutes": 90,
   "videos": {
-   "cloud-concepts": {
-    "n": "freeCodeCamp: Cloud Concepts",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
-    "d": 1
-   },
    "benefits-of-cloud": {
     "n": "freeCodeCamp: The Benefits of Cloud",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5001s",
-    "d": 1
-   },
-   "digital-transformation": {
-    "n": "freeCodeCamp: Digital Transformation",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=4448s",
     "d": 1
    },
    "cloud-architecture": {
@@ -1767,9 +2182,24 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=7930s",
     "d": 1
    },
-   "well-architected": {
-    "n": "freeCodeCamp: AWS Well-Architected Framework",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+   "cloud-concepts": {
+    "n": "freeCodeCamp: Cloud Concepts",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
+    "d": 1
+   },
+   "cloud-deployment-models": {
+    "n": "freeCodeCamp: Cloud Deployment Models",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
+    "d": 1
+   },
+   "digital-transformation": {
+    "n": "freeCodeCamp: Digital Transformation",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=4448s",
+    "d": 1
+   },
+   "economies-of-scale": {
+    "n": "freeCodeCamp: Economies of Scale and Agility",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
     "d": 1
    },
    "migration-tco": {
@@ -1777,19 +2207,34 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=41662s",
     "d": 1
    },
-   "shared-responsibility": {
-    "n": "freeCodeCamp: Shared Responsibility Model",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=14492s",
+   "well-architected": {
+    "n": "freeCodeCamp: AWS Well-Architected Framework",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+    "d": 1
+   },
+   "well-architected-pillars": {
+    "n": "freeCodeCamp: Well-Architected Framework Pillars",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+    "d": 1
+   },
+   "artifact-compliance": {
+    "n": "freeCodeCamp: Artifact and Compliance Programs",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
     "d": 2
    },
-   "identity-iam": {
-    "n": "freeCodeCamp: Identity",
+   "cognito-directory": {
+    "n": "freeCodeCamp: Cognito and Directory Services",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
     "d": 2
    },
-   "security-services": {
-    "n": "freeCodeCamp: Security",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "config-cloudtrail": {
+    "n": "freeCodeCamp: Config and CloudTrail",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
+    "d": 2
+   },
+   "control-tower": {
+    "n": "freeCodeCamp: Control Tower and Landing Zones",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
     "d": 2
    },
    "governance": {
@@ -1797,49 +2242,64 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
     "d": 2
    },
-   "global-infrastructure": {
-    "n": "freeCodeCamp: AWS Global Infrastructure",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
-    "d": 3
+   "guardduty-inspector": {
+    "n": "freeCodeCamp: GuardDuty and Inspector",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
+   },
+   "iam-policies-roles": {
+    "n": "freeCodeCamp: IAM Policies and Roles",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+    "d": 2
+   },
+   "iam-root-mfa": {
+    "n": "freeCodeCamp: Root Account Protection and MFA",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+    "d": 2
+   },
+   "identity-iam": {
+    "n": "freeCodeCamp: Identity",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+    "d": 2
+   },
+   "kms-encryption": {
+    "n": "freeCodeCamp: KMS and Encryption at Rest",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
+   },
+   "macie-detective": {
+    "n": "freeCodeCamp: Macie and Detective",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
+   },
+   "organizations-scp": {
+    "n": "freeCodeCamp: Organizations and Service Control Policies",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
+    "d": 2
+   },
+   "secrets-manager": {
+    "n": "freeCodeCamp: Secrets Manager and Parameter Store",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
+   },
+   "security-services": {
+    "n": "freeCodeCamp: Security",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
+   },
+   "shared-responsibility": {
+    "n": "freeCodeCamp: Shared Responsibility Model",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=14492s",
+    "d": 2
+   },
+   "waf-shield": {
+    "n": "freeCodeCamp: WAF and Shield",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+    "d": 2
    },
    "account-basics": {
     "n": "freeCodeCamp: Getting Started",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=2663s",
-    "d": 3
-   },
-   "compute": {
-    "n": "freeCodeCamp: Compute",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
-    "d": 3
-   },
-   "ec2": {
-    "n": "freeCodeCamp: EC2",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=24619s",
-    "d": 3
-   },
-   "storage": {
-    "n": "freeCodeCamp: Storage",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
-    "d": 3
-   },
-   "databases": {
-    "n": "freeCodeCamp: Databases",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
-    "d": 3
-   },
-   "networking": {
-    "n": "freeCodeCamp: Networking",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
-    "d": 3
-   },
-   "containers": {
-    "n": "freeCodeCamp: Containers",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
-    "d": 3
-   },
-   "serverless": {
-    "n": "freeCodeCamp: Serverless Services",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
     "d": 3
    },
    "app-integration": {
@@ -1847,19 +2307,89 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
     "d": 3
    },
-   "ml-ai-analytics": {
-    "n": "freeCodeCamp: ML, AI, and Big Data",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37870s",
+   "auto-scaling": {
+    "n": "freeCodeCamp: Auto Scaling",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
     "d": 3
    },
-   "mgmt-dev-tools": {
-    "n": "freeCodeCamp: Management and Development Tools",
+   "cloudformation-iac": {
+    "n": "freeCodeCamp: CloudFormation and Infrastructure as Code",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
     "d": 3
    },
-   "provisioning": {
-    "n": "freeCodeCamp: Provisioning",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=34990s",
+   "cloudfront-cdn": {
+    "n": "freeCodeCamp: CloudFront and Edge Caching",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+    "d": 3
+   },
+   "compute": {
+    "n": "freeCodeCamp: Compute",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+    "d": 3
+   },
+   "containers": {
+    "n": "freeCodeCamp: Containers",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
+    "d": 3
+   },
+   "databases": {
+    "n": "freeCodeCamp: Databases",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+    "d": 3
+   },
+   "direct-connect-vpn": {
+    "n": "freeCodeCamp: Direct Connect and VPN",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+    "d": 3
+   },
+   "dynamodb-nosql": {
+    "n": "freeCodeCamp: DynamoDB and NoSQL",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+    "d": 3
+   },
+   "ebs-efs": {
+    "n": "freeCodeCamp: EBS and EFS",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+    "d": 3
+   },
+   "ec2": {
+    "n": "freeCodeCamp: EC2",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=24619s",
+    "d": 3
+   },
+   "ecs-eks-fargate": {
+    "n": "freeCodeCamp: ECS, EKS, and Fargate",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
+    "d": 3
+   },
+   "elastic-beanstalk": {
+    "n": "freeCodeCamp: Elastic Beanstalk",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+    "d": 3
+   },
+   "eventbridge-stepfunctions": {
+    "n": "freeCodeCamp: EventBridge and Step Functions",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
+    "d": 3
+   },
+   "global-infrastructure": {
+    "n": "freeCodeCamp: AWS Global Infrastructure",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+    "d": 3
+   },
+   "lambda": {
+    "n": "freeCodeCamp: Lambda and Event-Driven Compute",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
+    "d": 3
+   },
+   "lightsail": {
+    "n": "freeCodeCamp: Lightsail",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+    "d": 3
+   },
+   "load-balancing": {
+    "n": "freeCodeCamp: Elastic Load Balancing",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
     "d": 3
    },
    "logging-monitoring": {
@@ -1867,18 +2397,133 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37037s",
     "d": 3
    },
-   "pricing-models": {
-    "n": "freeCodeCamp: EC2 Pricing Models",
-    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=27721s",
-    "d": 4
+   "mgmt-dev-tools": {
+    "n": "freeCodeCamp: Management and Development Tools",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
+    "d": 3
+   },
+   "ml-ai-analytics": {
+    "n": "freeCodeCamp: ML, AI, and Big Data",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37870s",
+    "d": 3
+   },
+   "networking": {
+    "n": "freeCodeCamp: Networking",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+    "d": 3
+   },
+   "outposts-local-zones": {
+    "n": "freeCodeCamp: Outposts, Local Zones, and Wavelength",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+    "d": 3
+   },
+   "provisioning": {
+    "n": "freeCodeCamp: Provisioning",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=34990s",
+    "d": 3
+   },
+   "rds-aurora": {
+    "n": "freeCodeCamp: RDS and Aurora",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+    "d": 3
+   },
+   "redshift-warehousing": {
+    "n": "freeCodeCamp: Redshift and Data Warehousing",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+    "d": 3
+   },
+   "regions-az-edge": {
+    "n": "freeCodeCamp: Regions, Availability Zones, and Edge Locations",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+    "d": 3
+   },
+   "route53-dns": {
+    "n": "freeCodeCamp: Route 53 and DNS",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+    "d": 3
+   },
+   "s3-storage-classes": {
+    "n": "freeCodeCamp: S3 Storage Classes and Lifecycle",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+    "d": 3
+   },
+   "sdk-cli-console": {
+    "n": "freeCodeCamp: Console, CLI, and SDKs",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
+    "d": 3
+   },
+   "serverless": {
+    "n": "freeCodeCamp: Serverless Services",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
+    "d": 3
+   },
+   "snow-family": {
+    "n": "freeCodeCamp: Snow Family and Bulk Transfer",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+    "d": 3
+   },
+   "sqs-sns": {
+    "n": "freeCodeCamp: SQS and SNS",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
+    "d": 3
+   },
+   "storage": {
+    "n": "freeCodeCamp: Storage",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+    "d": 3
+   },
+   "storage-gateway": {
+    "n": "freeCodeCamp: Storage Gateway",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+    "d": 3
+   },
+   "vpc-subnets": {
+    "n": "freeCodeCamp: VPC, Subnets, and Security Groups",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+    "d": 3
+   },
+   "windows-on-aws": {
+    "n": "freeCodeCamp: Windows Workloads on AWS",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36515s",
+    "d": 3
    },
    "billing-tools": {
     "n": "freeCodeCamp: Billing, Pricing, and Support",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
     "d": 4
    },
+   "consolidated-billing": {
+    "n": "freeCodeCamp: Consolidated Billing",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+    "d": 4
+   },
+   "cost-explorer-budgets": {
+    "n": "freeCodeCamp: Cost Explorer and Budgets",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+    "d": 4
+   },
+   "free-tier": {
+    "n": "freeCodeCamp: AWS Free Tier",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+    "d": 4
+   },
+   "pricing-models": {
+    "n": "freeCodeCamp: EC2 Pricing Models",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=27721s",
+    "d": 4
+   },
+   "savings-plans-reserved": {
+    "n": "freeCodeCamp: Savings Plans and Reserved Instances",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+    "d": 4
+   },
    "support-plans": {
     "n": "freeCodeCamp: Billing, Pricing, and Support",
+    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+    "d": 4
+   },
+   "trusted-advisor": {
+    "n": "freeCodeCamp: Trusted Advisor",
     "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
     "d": 4
    }
@@ -1911,19 +2556,14 @@ export const EXAM_META: Record<string, ExamMeta> = {
   "examPBQ": 5,
   "examMinutes": 45,
   "videos": {
-   "cloud-benefits": {
-    "n": "John Savill: High Availability and Scalability",
-    "u": "https://www.youtube.com/watch?v=JRbhGzGzoOA",
-    "d": 1
-   },
    "capex-opex": {
     "n": "John Savill: CapEx, OpEx, and Consumption-Based",
     "u": "https://www.youtube.com/watch?v=WiwV9wb0GMo",
     "d": 1
    },
-   "service-types": {
-    "n": "John Savill: Cloud Service Categories (IaaS, PaaS, SaaS)",
-    "u": "https://www.youtube.com/watch?v=IqQC1EOQqeU",
+   "cloud-benefits": {
+    "n": "John Savill: High Availability and Scalability",
+    "u": "https://www.youtube.com/watch?v=JRbhGzGzoOA",
     "d": 1
    },
    "cloud-models": {
@@ -1936,9 +2576,24 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=kD2YqdDaO1w",
     "d": 1
    },
-   "regions": {
-    "n": "John Savill: Regions and Region Pairs",
-    "u": "https://www.youtube.com/watch?v=4RjPOAN54AE",
+   "service-type-selection": {
+    "n": "John Savill: Identify the Right Service Type",
+    "u": "https://www.youtube.com/watch?v=KH8NH76h2vc",
+    "d": 1
+   },
+   "service-types": {
+    "n": "John Savill: Cloud Service Categories (IaaS, PaaS, SaaS)",
+    "u": "https://www.youtube.com/watch?v=IqQC1EOQqeU",
+    "d": 1
+   },
+   "ai-services": {
+    "n": "John Savill: Azure AI Services",
+    "u": "https://www.youtube.com/watch?v=lgcpRpV3HPc",
+    "d": 2
+   },
+   "authentication-authorization": {
+    "n": "John Savill: Authentication and Authorization",
+    "u": "https://www.youtube.com/watch?v=GA-yNu6aFMk",
     "d": 2
    },
    "availability-zones": {
@@ -1946,24 +2601,14 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=h0enGb17lnw",
     "d": 2
    },
-   "resource-groups": {
-    "n": "John Savill: Resource Groups",
-    "u": "https://www.youtube.com/watch?v=g6thrYZhPZY",
+   "azure-firewall": {
+    "n": "John Savill: Azure Firewall",
+    "u": "https://www.youtube.com/watch?v=1-_cqpUISg4",
     "d": 2
    },
-   "subscriptions": {
-    "n": "John Savill: Subscriptions",
-    "u": "https://www.youtube.com/watch?v=9vKAYW_WkLo",
-    "d": 2
-   },
-   "management-groups": {
-    "n": "John Savill: Management Groups",
-    "u": "https://www.youtube.com/watch?v=bPdDiEtCVhM",
-    "d": 2
-   },
-   "vm-resources": {
-    "n": "John Savill: Resources Required for Virtual Machines",
-    "u": "https://www.youtube.com/watch?v=PP5BWZ0cAJo",
+   "big-data-analytics": {
+    "n": "John Savill: Big Data and Analytics Services",
+    "u": "https://www.youtube.com/watch?v=LSVewE4mKfE",
     "d": 2
    },
    "compute-resources": {
@@ -1971,24 +2616,9 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=yKDSAYDLGrI",
     "d": 2
    },
-   "networking-resources": {
-    "n": "John Savill: Core Network Resources",
-    "u": "https://www.youtube.com/watch?v=aNK0C9Oj2sg",
-    "d": 2
-   },
-   "endpoints": {
-    "n": "John Savill: Public and Private Endpoints",
-    "u": "https://www.youtube.com/watch?v=bPNkXwRFsek",
-    "d": 2
-   },
-   "storage-accounts": {
-    "n": "John Savill: Storage Account Resources",
-    "u": "https://www.youtube.com/watch?v=AI2XoRFwqYE",
-    "d": 2
-   },
-   "databases": {
-    "n": "John Savill: Database Resources",
-    "u": "https://www.youtube.com/watch?v=4sQOF9fSOAU",
+   "conditional-access-mfa": {
+    "n": "John Savill: Conditional Access, MFA, and SSO",
+    "u": "https://www.youtube.com/watch?v=DFwERh9Xxk0",
     "d": 2
    },
    "data-migration": {
@@ -1996,44 +2626,19 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=jNBcXnMTo9s",
     "d": 2
    },
-   "serverless": {
-    "n": "John Savill: Serverless Technologies",
-    "u": "https://www.youtube.com/watch?v=-xeJGiMw5OE",
+   "databases": {
+    "n": "John Savill: Database Resources",
+    "u": "https://www.youtube.com/watch?v=4sQOF9fSOAU",
     "d": 2
    },
-   "entra-id": {
-    "n": "John Savill: Microsoft Entra Overview",
-    "u": "https://www.youtube.com/watch?v=bSIF_GjaCmo",
+   "ddos-protection": {
+    "n": "John Savill: Azure DDoS Protection",
+    "u": "https://www.youtube.com/watch?v=6cv-wdo9TJw",
     "d": 2
    },
-   "directory-services": {
-    "n": "John Savill: Azure Directory Services",
-    "u": "https://www.youtube.com/watch?v=E4__JBVE25I",
-    "d": 2
-   },
-   "external-identities": {
-    "n": "John Savill: Azure External Identities",
-    "u": "https://www.youtube.com/watch?v=G5_z4PFgn2o",
-    "d": 2
-   },
-   "conditional-access-mfa": {
-    "n": "John Savill: Conditional Access, MFA, and SSO",
-    "u": "https://www.youtube.com/watch?v=DFwERh9Xxk0",
-    "d": 2
-   },
-   "rbac": {
-    "n": "John Savill: Role-Based Access Control",
-    "u": "https://www.youtube.com/watch?v=0iVyJBG06fM",
-    "d": 2
-   },
-   "zero-trust": {
-    "n": "John Savill: The Concept of Zero Trust",
-    "u": "https://www.youtube.com/watch?v=JX3w4to-qgo",
-    "d": 2
-   },
-   "defense-in-depth": {
-    "n": "John Savill: Defense in Depth",
-    "u": "https://www.youtube.com/watch?v=CHKS2FcEMek",
+   "dedicated-hosts": {
+    "n": "John Savill: Azure Dedicated Hosts",
+    "u": "https://www.youtube.com/watch?v=RnNqmTH9xok",
     "d": 2
    },
    "defender-cloud": {
@@ -2041,44 +2646,109 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=eWcoMi_nQt4",
     "d": 2
    },
-   "cost-factors": {
-    "n": "John Savill: Factors That Affect Costs",
-    "u": "https://www.youtube.com/watch?v=fMShW_RGcxY",
-    "d": 3
+   "defense-in-depth": {
+    "n": "John Savill: Defense in Depth",
+    "u": "https://www.youtube.com/watch?v=CHKS2FcEMek",
+    "d": 2
    },
-   "cost-reduction": {
-    "n": "John Savill: Factors to Reduce Cost",
-    "u": "https://www.youtube.com/watch?v=B5yiKE2DLH8",
-    "d": 3
+   "directory-services": {
+    "n": "John Savill: Azure Directory Services",
+    "u": "https://www.youtube.com/watch?v=E4__JBVE25I",
+    "d": 2
    },
-   "pricing-calculator": {
-    "n": "John Savill: Pricing and TCO Calculators",
-    "u": "https://www.youtube.com/watch?v=pE-bf8i5blU",
-    "d": 3
+   "endpoints": {
+    "n": "John Savill: Public and Private Endpoints",
+    "u": "https://www.youtube.com/watch?v=bPNkXwRFsek",
+    "d": 2
    },
-   "cost-management": {
-    "n": "John Savill: Azure Cost Management",
-    "u": "https://www.youtube.com/watch?v=FoBjC9CAF08",
-    "d": 3
+   "entra-id": {
+    "n": "John Savill: Microsoft Entra Overview",
+    "u": "https://www.youtube.com/watch?v=bSIF_GjaCmo",
+    "d": 2
    },
-   "tags": {
-    "n": "John Savill: Tags",
-    "u": "https://www.youtube.com/watch?v=eaf63hE_6SQ",
-    "d": 3
+   "external-identities": {
+    "n": "John Savill: Azure External Identities",
+    "u": "https://www.youtube.com/watch?v=G5_z4PFgn2o",
+    "d": 2
    },
-   "azure-policy": {
-    "n": "John Savill: Azure Policy",
-    "u": "https://www.youtube.com/watch?v=z7WMqHE3R8g",
-    "d": 3
+   "iot-services": {
+    "n": "John Savill: Azure IoT Services",
+    "u": "https://www.youtube.com/watch?v=22z9ARaKlbU",
+    "d": 2
    },
-   "resource-locks": {
-    "n": "John Savill: Resource Locks",
-    "u": "https://www.youtube.com/watch?v=eF_KilJRxbE",
-    "d": 3
+   "key-vault": {
+    "n": "John Savill: Azure Key Vault",
+    "u": "https://www.youtube.com/watch?v=ZBXVAD4S0Tc",
+    "d": 2
    },
-   "purview": {
-    "n": "John Savill: Microsoft Purview",
-    "u": "https://www.youtube.com/watch?v=nfP7t8jy0aE",
+   "management-groups": {
+    "n": "John Savill: Management Groups",
+    "u": "https://www.youtube.com/watch?v=bPdDiEtCVhM",
+    "d": 2
+   },
+   "marketplace": {
+    "n": "John Savill: Azure Marketplace",
+    "u": "https://www.youtube.com/watch?v=b7RuB4Bymgc",
+    "d": 2
+   },
+   "networking-resources": {
+    "n": "John Savill: Core Network Resources",
+    "u": "https://www.youtube.com/watch?v=aNK0C9Oj2sg",
+    "d": 2
+   },
+   "nsgs": {
+    "n": "John Savill: Network Security Groups",
+    "u": "https://www.youtube.com/watch?v=flCoRc1uv9o",
+    "d": 2
+   },
+   "rbac": {
+    "n": "John Savill: Role-Based Access Control",
+    "u": "https://www.youtube.com/watch?v=0iVyJBG06fM",
+    "d": 2
+   },
+   "regions": {
+    "n": "John Savill: Regions and Region Pairs",
+    "u": "https://www.youtube.com/watch?v=4RjPOAN54AE",
+    "d": 2
+   },
+   "resource-groups": {
+    "n": "John Savill: Resource Groups",
+    "u": "https://www.youtube.com/watch?v=g6thrYZhPZY",
+    "d": 2
+   },
+   "sentinel": {
+    "n": "John Savill: Microsoft Sentinel",
+    "u": "https://www.youtube.com/watch?v=xaqiPXL6tz0",
+    "d": 2
+   },
+   "serverless": {
+    "n": "John Savill: Serverless Technologies",
+    "u": "https://www.youtube.com/watch?v=-xeJGiMw5OE",
+    "d": 2
+   },
+   "storage-accounts": {
+    "n": "John Savill: Storage Account Resources",
+    "u": "https://www.youtube.com/watch?v=AI2XoRFwqYE",
+    "d": 2
+   },
+   "subscriptions": {
+    "n": "John Savill: Subscriptions",
+    "u": "https://www.youtube.com/watch?v=9vKAYW_WkLo",
+    "d": 2
+   },
+   "vm-resources": {
+    "n": "John Savill: Resources Required for Virtual Machines",
+    "u": "https://www.youtube.com/watch?v=PP5BWZ0cAJo",
+    "d": 2
+   },
+   "zero-trust": {
+    "n": "John Savill: The Concept of Zero Trust",
+    "u": "https://www.youtube.com/watch?v=JX3w4to-qgo",
+    "d": 2
+   },
+   "advisor": {
+    "n": "John Savill: Azure Advisor",
+    "u": "https://www.youtube.com/watch?v=nqH4NboyEl0",
     "d": 3
    },
    "arm": {
@@ -2096,14 +2766,44 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "u": "https://www.youtube.com/watch?v=cW6_rvDYSHg",
     "d": 3
    },
-   "advisor": {
-    "n": "John Savill: Azure Advisor",
-    "u": "https://www.youtube.com/watch?v=nqH4NboyEl0",
+   "azure-policy": {
+    "n": "John Savill: Azure Policy",
+    "u": "https://www.youtube.com/watch?v=z7WMqHE3R8g",
     "d": 3
    },
-   "service-health": {
-    "n": "John Savill: Azure Service Health",
-    "u": "https://www.youtube.com/watch?v=M1xPK4T4Vls",
+   "blueprints": {
+    "n": "John Savill: Azure Blueprints",
+    "u": "https://www.youtube.com/watch?v=SJbDcvkySCY",
+    "d": 3
+   },
+   "cloud-adoption-framework": {
+    "n": "John Savill: Cloud Adoption Framework",
+    "u": "https://www.youtube.com/watch?v=VHQxbIynlN4",
+    "d": 3
+   },
+   "cost-factors": {
+    "n": "John Savill: Factors That Affect Costs",
+    "u": "https://www.youtube.com/watch?v=fMShW_RGcxY",
+    "d": 3
+   },
+   "cost-management": {
+    "n": "John Savill: Azure Cost Management",
+    "u": "https://www.youtube.com/watch?v=FoBjC9CAF08",
+    "d": 3
+   },
+   "cost-reduction": {
+    "n": "John Savill: Factors to Reduce Cost",
+    "u": "https://www.youtube.com/watch?v=B5yiKE2DLH8",
+    "d": 3
+   },
+   "devops-technologies": {
+    "n": "John Savill: DevOps Technologies",
+    "u": "https://www.youtube.com/watch?v=-acpNiCa0qY",
+    "d": 3
+   },
+   "governance-hierarchy": {
+    "n": "John Savill: Governance Hierarchy Constructs",
+    "u": "https://www.youtube.com/watch?v=ge8r_Z0LKxM",
     "d": 3
    },
    "monitor": {
@@ -2114,6 +2814,56 @@ export const EXAM_META: Record<string, ExamMeta> = {
    "portal-tools": {
     "n": "John Savill: Azure Management Solutions (Portal, CLI, PowerShell)",
     "u": "https://www.youtube.com/watch?v=6xp-K60ChAk",
+    "d": 3
+   },
+   "pricing-calculator": {
+    "n": "John Savill: Pricing and TCO Calculators",
+    "u": "https://www.youtube.com/watch?v=pE-bf8i5blU",
+    "d": 3
+   },
+   "privacy-statement": {
+    "n": "John Savill: Privacy Statement, OST, and DPA",
+    "u": "https://www.youtube.com/watch?v=5mqroH3E3gw",
+    "d": 3
+   },
+   "purview": {
+    "n": "John Savill: Microsoft Purview",
+    "u": "https://www.youtube.com/watch?v=nfP7t8jy0aE",
+    "d": 3
+   },
+   "resource-locks": {
+    "n": "John Savill: Resource Locks",
+    "u": "https://www.youtube.com/watch?v=eF_KilJRxbE",
+    "d": 3
+   },
+   "service-health": {
+    "n": "John Savill: Azure Service Health",
+    "u": "https://www.youtube.com/watch?v=M1xPK4T4Vls",
+    "d": 3
+   },
+   "service-level-agreements": {
+    "n": "John Savill: Service Level Agreements",
+    "u": "https://www.youtube.com/watch?v=3QIVbgnNrR0",
+    "d": 3
+   },
+   "service-lifecycle": {
+    "n": "John Savill: Service Lifecycle in Azure",
+    "u": "https://www.youtube.com/watch?v=NJ9-S7C0pY4",
+    "d": 3
+   },
+   "sovereign-regions": {
+    "n": "John Savill: Azure Sovereign Regions",
+    "u": "https://www.youtube.com/watch?v=PdAEPAnT2uI",
+    "d": 3
+   },
+   "tags": {
+    "n": "John Savill: Tags",
+    "u": "https://www.youtube.com/watch?v=eaf63hE_6SQ",
+    "d": 3
+   },
+   "trust-center": {
+    "n": "John Savill: Trust Center and Compliance Documentation",
+    "u": "https://www.youtube.com/watch?v=QkVlogulVX4",
     "d": 3
    }
   },
