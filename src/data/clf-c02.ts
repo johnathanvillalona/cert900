@@ -31,19 +31,9 @@ export const exam: ExamDef = {
  "examPBQ": 0,
  "examMinutes": 90,
  "videos": {
-  "cloud-concepts": {
-   "n": "freeCodeCamp: Cloud Concepts",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
-   "d": 1
-  },
   "benefits-of-cloud": {
    "n": "freeCodeCamp: The Benefits of Cloud",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5001s",
-   "d": 1
-  },
-  "digital-transformation": {
-   "n": "freeCodeCamp: Digital Transformation",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=4448s",
    "d": 1
   },
   "cloud-architecture": {
@@ -51,9 +41,24 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=7930s",
    "d": 1
   },
-  "well-architected": {
-   "n": "freeCodeCamp: AWS Well-Architected Framework",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+  "cloud-concepts": {
+   "n": "freeCodeCamp: Cloud Concepts",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
+   "d": 1
+  },
+  "cloud-deployment-models": {
+   "n": "freeCodeCamp: Cloud Deployment Models",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
+   "d": 1
+  },
+  "digital-transformation": {
+   "n": "freeCodeCamp: Digital Transformation",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=4448s",
+   "d": 1
+  },
+  "economies-of-scale": {
+   "n": "freeCodeCamp: Economies of Scale and Agility",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=530s",
    "d": 1
   },
   "migration-tco": {
@@ -61,19 +66,34 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=41662s",
    "d": 1
   },
-  "shared-responsibility": {
-   "n": "freeCodeCamp: Shared Responsibility Model",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=14492s",
+  "well-architected": {
+   "n": "freeCodeCamp: AWS Well-Architected Framework",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+   "d": 1
+  },
+  "well-architected-pillars": {
+   "n": "freeCodeCamp: Well-Architected Framework Pillars",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=40360s",
+   "d": 1
+  },
+  "artifact-compliance": {
+   "n": "freeCodeCamp: Artifact and Compliance Programs",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
    "d": 2
   },
-  "identity-iam": {
-   "n": "freeCodeCamp: Identity",
+  "cognito-directory": {
+   "n": "freeCodeCamp: Cognito and Directory Services",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
    "d": 2
   },
-  "security-services": {
-   "n": "freeCodeCamp: Security",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+  "config-cloudtrail": {
+   "n": "freeCodeCamp: Config and CloudTrail",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
+   "d": 2
+  },
+  "control-tower": {
+   "n": "freeCodeCamp: Control Tower and Landing Zones",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
    "d": 2
   },
   "governance": {
@@ -81,49 +101,64 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
    "d": 2
   },
-  "global-infrastructure": {
-   "n": "freeCodeCamp: AWS Global Infrastructure",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
-   "d": 3
+  "guardduty-inspector": {
+   "n": "freeCodeCamp: GuardDuty and Inspector",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
+  },
+  "iam-policies-roles": {
+   "n": "freeCodeCamp: IAM Policies and Roles",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+   "d": 2
+  },
+  "iam-root-mfa": {
+   "n": "freeCodeCamp: Root Account Protection and MFA",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+   "d": 2
+  },
+  "identity-iam": {
+   "n": "freeCodeCamp: Identity",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=28860s",
+   "d": 2
+  },
+  "kms-encryption": {
+   "n": "freeCodeCamp: KMS and Encryption at Rest",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
+  },
+  "macie-detective": {
+   "n": "freeCodeCamp: Macie and Detective",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
+  },
+  "organizations-scp": {
+   "n": "freeCodeCamp: Organizations and Service Control Policies",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=33232s",
+   "d": 2
+  },
+  "secrets-manager": {
+   "n": "freeCodeCamp: Secrets Manager and Parameter Store",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
+  },
+  "security-services": {
+   "n": "freeCodeCamp: Security",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
+  },
+  "shared-responsibility": {
+   "n": "freeCodeCamp: Shared Responsibility Model",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=14492s",
+   "d": 2
+  },
+  "waf-shield": {
+   "n": "freeCodeCamp: WAF and Shield",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=45785s",
+   "d": 2
   },
   "account-basics": {
    "n": "freeCodeCamp: Getting Started",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=2663s",
-   "d": 3
-  },
-  "compute": {
-   "n": "freeCodeCamp: Compute",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
-   "d": 3
-  },
-  "ec2": {
-   "n": "freeCodeCamp: EC2",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=24619s",
-   "d": 3
-  },
-  "storage": {
-   "n": "freeCodeCamp: Storage",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
-   "d": 3
-  },
-  "databases": {
-   "n": "freeCodeCamp: Databases",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
-   "d": 3
-  },
-  "networking": {
-   "n": "freeCodeCamp: Networking",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
-   "d": 3
-  },
-  "containers": {
-   "n": "freeCodeCamp: Containers",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
-   "d": 3
-  },
-  "serverless": {
-   "n": "freeCodeCamp: Serverless Services",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
    "d": 3
   },
   "app-integration": {
@@ -131,19 +166,89 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
    "d": 3
   },
-  "ml-ai-analytics": {
-   "n": "freeCodeCamp: ML, AI, and Big Data",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37870s",
+  "auto-scaling": {
+   "n": "freeCodeCamp: Auto Scaling",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
    "d": 3
   },
-  "mgmt-dev-tools": {
-   "n": "freeCodeCamp: Management and Development Tools",
+  "cloudformation-iac": {
+   "n": "freeCodeCamp: CloudFormation and Infrastructure as Code",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
    "d": 3
   },
-  "provisioning": {
-   "n": "freeCodeCamp: Provisioning",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=34990s",
+  "cloudfront-cdn": {
+   "n": "freeCodeCamp: CloudFront and Edge Caching",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+   "d": 3
+  },
+  "compute": {
+   "n": "freeCodeCamp: Compute",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+   "d": 3
+  },
+  "containers": {
+   "n": "freeCodeCamp: Containers",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
+   "d": 3
+  },
+  "databases": {
+   "n": "freeCodeCamp: Databases",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+   "d": 3
+  },
+  "direct-connect-vpn": {
+   "n": "freeCodeCamp: Direct Connect and VPN",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+   "d": 3
+  },
+  "dynamodb-nosql": {
+   "n": "freeCodeCamp: DynamoDB and NoSQL",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+   "d": 3
+  },
+  "ebs-efs": {
+   "n": "freeCodeCamp: EBS and EFS",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+   "d": 3
+  },
+  "ec2": {
+   "n": "freeCodeCamp: EC2",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=24619s",
+   "d": 3
+  },
+  "ecs-eks-fargate": {
+   "n": "freeCodeCamp: ECS, EKS, and Fargate",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=32583s",
+   "d": 3
+  },
+  "elastic-beanstalk": {
+   "n": "freeCodeCamp: Elastic Beanstalk",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+   "d": 3
+  },
+  "eventbridge-stepfunctions": {
+   "n": "freeCodeCamp: EventBridge and Step Functions",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
+   "d": 3
+  },
+  "global-infrastructure": {
+   "n": "freeCodeCamp: AWS Global Infrastructure",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+   "d": 3
+  },
+  "lambda": {
+   "n": "freeCodeCamp: Lambda and Event-Driven Compute",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
+   "d": 3
+  },
+  "lightsail": {
+   "n": "freeCodeCamp: Lightsail",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=15629s",
+   "d": 3
+  },
+  "load-balancing": {
+   "n": "freeCodeCamp: Elastic Load Balancing",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
    "d": 3
   },
   "logging-monitoring": {
@@ -151,18 +256,133 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37037s",
    "d": 3
   },
-  "pricing-models": {
-   "n": "freeCodeCamp: EC2 Pricing Models",
-   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=27721s",
-   "d": 4
+  "mgmt-dev-tools": {
+   "n": "freeCodeCamp: Management and Development Tools",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
+   "d": 3
+  },
+  "ml-ai-analytics": {
+   "n": "freeCodeCamp: ML, AI, and Big Data",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=37870s",
+   "d": 3
+  },
+  "networking": {
+   "n": "freeCodeCamp: Networking",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+   "d": 3
+  },
+  "outposts-local-zones": {
+   "n": "freeCodeCamp: Outposts, Local Zones, and Wavelength",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+   "d": 3
+  },
+  "provisioning": {
+   "n": "freeCodeCamp: Provisioning",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=34990s",
+   "d": 3
+  },
+  "rds-aurora": {
+   "n": "freeCodeCamp: RDS and Aurora",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+   "d": 3
+  },
+  "redshift-warehousing": {
+   "n": "freeCodeCamp: Redshift and Data Warehousing",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=21167s",
+   "d": 3
+  },
+  "regions-az-edge": {
+   "n": "freeCodeCamp: Regions, Availability Zones, and Edge Locations",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=5214s",
+   "d": 3
+  },
+  "route53-dns": {
+   "n": "freeCodeCamp: Route 53 and DNS",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+   "d": 3
+  },
+  "s3-storage-classes": {
+   "n": "freeCodeCamp: S3 Storage Classes and Lifecycle",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+   "d": 3
+  },
+  "sdk-cli-console": {
+   "n": "freeCodeCamp: Console, CLI, and SDKs",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=9332s",
+   "d": 3
+  },
+  "serverless": {
+   "n": "freeCodeCamp: Serverless Services",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36245s",
+   "d": 3
+  },
+  "snow-family": {
+   "n": "freeCodeCamp: Snow Family and Bulk Transfer",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+   "d": 3
+  },
+  "sqs-sns": {
+   "n": "freeCodeCamp: SQS and SNS",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=31562s",
+   "d": 3
+  },
+  "storage": {
+   "n": "freeCodeCamp: Storage",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+   "d": 3
+  },
+  "storage-gateway": {
+   "n": "freeCodeCamp: Storage Gateway",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=18736s",
+   "d": 3
+  },
+  "vpc-subnets": {
+   "n": "freeCodeCamp: VPC, Subnets, and Security Groups",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=23311s",
+   "d": 3
+  },
+  "windows-on-aws": {
+   "n": "freeCodeCamp: Windows Workloads on AWS",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=36515s",
+   "d": 3
   },
   "billing-tools": {
    "n": "freeCodeCamp: Billing, Pricing, and Support",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
    "d": 4
   },
+  "consolidated-billing": {
+   "n": "freeCodeCamp: Consolidated Billing",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+   "d": 4
+  },
+  "cost-explorer-budgets": {
+   "n": "freeCodeCamp: Cost Explorer and Budgets",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+   "d": 4
+  },
+  "free-tier": {
+   "n": "freeCodeCamp: AWS Free Tier",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+   "d": 4
+  },
+  "pricing-models": {
+   "n": "freeCodeCamp: EC2 Pricing Models",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=27721s",
+   "d": 4
+  },
+  "savings-plans-reserved": {
+   "n": "freeCodeCamp: Savings Plans and Reserved Instances",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+   "d": 4
+  },
   "support-plans": {
    "n": "freeCodeCamp: Billing, Pricing, and Support",
+   "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
+   "d": 4
+  },
+  "trusted-advisor": {
+   "n": "freeCodeCamp: Trusted Advisor",
    "u": "https://www.youtube.com/watch?v=7HKot-brXFE&t=42476s",
    "d": 4
   }

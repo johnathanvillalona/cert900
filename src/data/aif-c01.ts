@@ -37,8 +37,28 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
    "d": 1
   },
+  "data-prep": {
+   "n": "freeCodeCamp: Data Collection and Preparation",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+   "d": 1
+  },
+  "feature-engineering": {
+   "n": "freeCodeCamp: Feature Engineering",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+   "d": 1
+  },
+  "inferencing-types": {
+   "n": "freeCodeCamp: Batch and Real-Time Inferencing",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
+   "d": 1
+  },
   "learning-types": {
    "n": "freeCodeCamp: Supervised, Unsupervised, and Reinforcement Learning",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
+   "d": 1
+  },
+  "ml-algorithms": {
+   "n": "freeCodeCamp: Classification, Regression, and Clustering",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
    "d": 1
   },
@@ -47,14 +67,14 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
    "d": 1
   },
+  "ml-services": {
+   "n": "freeCodeCamp: AWS Managed AI Services",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=37814s",
+   "d": 1
+  },
   "ml-use-cases": {
    "n": "freeCodeCamp: When to Use AI and ML",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=1068s",
-   "d": 1
-  },
-  "data-prep": {
-   "n": "freeCodeCamp: Data Collection and Preparation",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
    "d": 1
   },
   "model-evaluation": {
@@ -62,9 +82,9 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
    "d": 1
   },
-  "ml-services": {
-   "n": "freeCodeCamp: AWS Managed AI Services",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=37814s",
+  "overfitting-underfitting": {
+   "n": "freeCodeCamp: Overfitting, Underfitting, and Bias-Variance",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
    "d": 1
   },
   "sagemaker": {
@@ -72,13 +92,23 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=29326s",
    "d": 1
   },
-  "genai-basics": {
-   "n": "freeCodeCamp: Generative AI Concepts",
+  "training-data-types": {
+   "n": "freeCodeCamp: Labeled, Unlabeled, and Structured Data",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=4607s",
+   "d": 1
+  },
+  "amazon-q": {
+   "n": "freeCodeCamp: Amazon Q",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=36398s",
+   "d": 2
+  },
+  "context-windows": {
+   "n": "freeCodeCamp: Context Windows and Chunking",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
    "d": 2
   },
-  "tokens-embeddings": {
-   "n": "freeCodeCamp: Tokens, Embeddings, and Vectors",
+  "diffusion-models": {
+   "n": "freeCodeCamp: Diffusion and Multimodal Models",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
    "d": 2
   },
@@ -87,13 +117,33 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
    "d": 2
   },
-  "genai-use-cases": {
-   "n": "freeCodeCamp: GenAI Use Cases and Limitations",
+  "genai-aws-stack": {
+   "n": "freeCodeCamp: The AWS GenAI Stack",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 2
+  },
+  "genai-basics": {
+   "n": "freeCodeCamp: Generative AI Concepts",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+   "d": 2
+  },
+  "genai-cost-tradeoffs": {
+   "n": "freeCodeCamp: Cost and Latency Trade-offs",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
    "d": 2
   },
   "genai-lifecycle": {
    "n": "freeCodeCamp: The Foundation Model Lifecycle",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+   "d": 2
+  },
+  "genai-limitations": {
+   "n": "freeCodeCamp: Hallucination and Nondeterminism",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+   "d": 2
+  },
+  "genai-use-cases": {
+   "n": "freeCodeCamp: GenAI Use Cases and Limitations",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
    "d": 2
   },
@@ -102,48 +152,38 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=28338s",
    "d": 2
   },
-  "genai-aws-stack": {
-   "n": "freeCodeCamp: The AWS GenAI Stack",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+  "tokens-embeddings": {
+   "n": "freeCodeCamp: Tokens, Embeddings, and Vectors",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
    "d": 2
+  },
+  "transformer-architecture": {
+   "n": "freeCodeCamp: Transformers and Attention",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=5508s",
+   "d": 2
+  },
+  "agents": {
+   "n": "freeCodeCamp: Agents for Multi-Step Tasks",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
   },
   "bedrock": {
    "n": "freeCodeCamp: Amazon Bedrock",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
    "d": 3
   },
-  "inference-params": {
-   "n": "freeCodeCamp: Inference Parameters",
+  "bedrock-inference-modes": {
+   "n": "freeCodeCamp: On-Demand and Provisioned Throughput",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
    "d": 3
   },
-  "prompt-engineering": {
-   "n": "freeCodeCamp: Prompt Engineering Techniques",
+  "continued-pretraining": {
+   "n": "freeCodeCamp: Continued Pre-training and Domain Adaptation",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-   "d": 3
-  },
-  "rag": {
-   "n": "freeCodeCamp: Retrieval-Augmented Generation",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
-   "d": 3
-  },
-  "vector-databases": {
-   "n": "freeCodeCamp: Vector Databases and Knowledge Bases",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
    "d": 3
   },
   "fine-tuning": {
    "n": "freeCodeCamp: Fine-Tuning and Continued Pre-Training",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-   "d": 3
-  },
-  "model-selection": {
-   "n": "freeCodeCamp: Choosing a Foundation Model",
-   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
-   "d": 3
-  },
-  "agents": {
-   "n": "freeCodeCamp: Agents for Multi-Step Tasks",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
    "d": 3
   },
@@ -152,9 +192,74 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
    "d": 3
   },
+  "human-evaluation": {
+   "n": "freeCodeCamp: Human Evaluation and Benchmarking",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+   "d": 3
+  },
+  "inference-params": {
+   "n": "freeCodeCamp: Inference Parameters",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
+  },
+  "knowledge-bases": {
+   "n": "freeCodeCamp: Bedrock Knowledge Bases",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
+   "d": 3
+  },
+  "model-metrics": {
+   "n": "freeCodeCamp: ROUGE, BLEU, and BERTScore",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+   "d": 3
+  },
+  "model-selection": {
+   "n": "freeCodeCamp: Choosing a Foundation Model",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
+  },
+  "prompt-engineering": {
+   "n": "freeCodeCamp: Prompt Engineering Techniques",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
+  },
+  "prompt-risks": {
+   "n": "freeCodeCamp: Prompt Injection and Jailbreaking",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
+  },
+  "prompt-techniques": {
+   "n": "freeCodeCamp: Zero-shot, Few-shot, and Chain-of-Thought",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
+   "d": 3
+  },
+  "rag": {
+   "n": "freeCodeCamp: Retrieval-Augmented Generation",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=26160s",
+   "d": 3
+  },
+  "rag-datastores": {
+   "n": "freeCodeCamp: Vector Stores for Retrieval",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
+   "d": 3
+  },
+  "vector-databases": {
+   "n": "freeCodeCamp: Vector Databases and Knowledge Bases",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=52386s",
+   "d": 3
+  },
   "bias-fairness": {
    "n": "freeCodeCamp: Bias, Fairness, and Dataset Balance",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+   "d": 4
+  },
+  "dataset-bias": {
+   "n": "freeCodeCamp: Dataset Bias and Representativeness",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=34904s",
+   "d": 4
+  },
+  "environmental-impact": {
+   "n": "freeCodeCamp: Sustainability and Model Efficiency",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
    "d": 4
   },
   "explainability": {
@@ -167,9 +272,19 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=7342s",
    "d": 4
   },
+  "human-centered-design": {
+   "n": "freeCodeCamp: Human-Centered Design and Oversight",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+   "d": 4
+  },
   "responsible-practices": {
    "n": "freeCodeCamp: Responsible AI Practices",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+   "d": 4
+  },
+  "transparency-tools": {
+   "n": "freeCodeCamp: Model Cards and AI Service Cards",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=29326s",
    "d": 4
   },
   "ai-security": {
@@ -177,8 +292,8 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
    "d": 5
   },
-  "shared-responsibility": {
-   "n": "freeCodeCamp: Shared Responsibility and Data Protection",
+  "audit-monitoring": {
+   "n": "freeCodeCamp: Auditing and Monitoring AI Workloads",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
    "d": 5
   },
@@ -187,13 +302,38 @@ export const exam: ExamDef = {
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
    "d": 5
   },
+  "data-cataloging": {
+   "n": "freeCodeCamp: Data Cataloging and Lineage",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=49875s",
+   "d": 5
+  },
+  "data-encryption-ai": {
+   "n": "freeCodeCamp: Encryption and Data Protection",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+   "d": 5
+  },
   "data-governance": {
    "n": "freeCodeCamp: Data Governance with Glue and Lake Formation",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=53772s",
    "d": 5
   },
-  "audit-monitoring": {
-   "n": "freeCodeCamp: Auditing and Monitoring AI Workloads",
+  "data-querying": {
+   "n": "freeCodeCamp: Querying Governed Data",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=48918s",
+   "d": 5
+  },
+  "iam-for-ai": {
+   "n": "freeCodeCamp: IAM for AI Workloads",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+   "d": 5
+  },
+  "regulatory-compliance": {
+   "n": "freeCodeCamp: Regulatory and Industry Compliance",
+   "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
+   "d": 5
+  },
+  "shared-responsibility": {
+   "n": "freeCodeCamp: Shared Responsibility and Data Protection",
    "u": "https://www.youtube.com/watch?v=WZeZZ8_W-M4&t=47970s",
    "d": 5
   }
