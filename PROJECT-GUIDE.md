@@ -234,9 +234,15 @@ url.protocol (wrangler dev simulates the route host and would loop).
   group), guide /comptia-security-plus-practice-test, sitemap, footer,
   prerender, EXPECTED floor. data.test now enforces anti-tell rules
   (long-answer, lone-parenthetical, near-dupe) on every bank.
-- Monetization ladder (decided 2026-07-14): donate link → EthicalAds/Carbon
-  single unit → affiliates on Results. AdSlot placements are already scaffolded;
-  never add slots inside quiz/landing hero.
+- Monetization (as built 2026-07-20): **donate** (Buy Me a Coffee, live in
+  footer + a soft nudge on Results); **affiliate** study-guide link on Results
+  (`src/lib/affiliate.ts` + `StudyGuideLink.tsx`, Amazon Associates, inert until
+  `AFFILIATE.amazonTag` set in `site.ts`, FTC disclosure in footer + block);
+  **EthicalAds** on the **Dashboard only** (`AdSlot`, inert until `ADS.enabled` +
+  `publisherId`; CSP in `worker/index.ts` already allows media/server
+  .ethicalads.io; they require ~50k views/mo). One monetization unit per page,
+  NEVER in the quiz or landing hero. Results = affiliate + donate; Dashboard =
+  EthicalAds.
 - Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
   topics/ids/duplicates, derives id and d automatically).
 - Security+ (SY0-701) SHIPPED 2026-07-20. AI-901 still deferred. Future exam

@@ -115,14 +115,20 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
 const CANONICAL_HOST = "cert900.com"
 
 // CSP allows exactly what index.html ships: self-hosted assets, the two inline
-// scripts (theme boot + beacon loader), and Cloudflare Web Analytics.
+// scripts (theme boot + beacon loader), and Cloudflare Web Analytics. The
+// media.ethicalads.io / server.ethicalads.io hosts pre-authorize EthicalAds
+// (script + creative + ad-decision fetch) so the ad unit works the moment
+// ADS.enabled flips in site.ts -- no worker change needed then. Harmless while
+// ads are off: with an empty publisherId the script is never loaded, so these
+// hosts are never contacted. Confirm the decision host in DevTools when first
+// enabling, in case EthicalAds changes it.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
+  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  "img-src 'self' data: https://media.ethicalads.io",
   "font-src 'self'",
-  "connect-src 'self' https://cloudflareinsights.com",
+  "connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self' https://accounts.google.com",
