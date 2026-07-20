@@ -99,9 +99,17 @@ export function Home(props: {
         ))}
       </div>
       <div className="mt-3 rounded-lg border bg-card p-5 text-sm leading-relaxed" data-testid="home-snapshot">
-        <span className="font-mono tabular-nums">{exam.questions.length}</span> questions and{" "}
-        <span className="font-mono tabular-nums">{exam.pbqs.length}</span> {VENDOR_FORMATS[exam.vendor].countNoun} in the {exam.cert} {exam.name} ({exam.code})
-        bank, covering all {Object.keys(exam.domains).length} exam domains.{" "}
+        <span className="font-mono tabular-nums">{exam.questions.length}</span> questions
+        {/* CLF-C02 has no interactive items because its real exam has none.
+            Printing "and 0 ordering & matching questions" reads as a gap. */}
+        {exam.pbqs.length > 0 && (
+          <>
+            {" "}and <span className="font-mono tabular-nums">{exam.pbqs.length}</span>{" "}
+            {VENDOR_FORMATS[exam.vendor].countNoun}
+          </>
+        )}{" "}
+        in the {exam.cert} {exam.name} ({exam.code}) bank, covering all{" "}
+        {Object.keys(exam.domains).length} exam domains.{" "}
         {totals.q === 0 ? (
           "Tracking starts with your first answer."
         ) : (
