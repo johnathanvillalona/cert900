@@ -1,4 +1,4 @@
-import type { ExamDef } from "@/data/types"
+import type { ExamTopics } from "@/data/types"
 import type { ExamProgress, ProgressAll, SessionRecord } from "./progress"
 import { domainNumbers } from "./engine"
 
@@ -66,7 +66,7 @@ export interface DomainStat {
 }
 
 /** Per-domain accuracy from topic stats. */
-export function domainAccuracy(exam: ExamDef, p: ExamProgress): DomainStat[] {
+export function domainAccuracy(exam: ExamTopics, p: ExamProgress): DomainStat[] {
   return domainNumbers(exam).map((d) => {
     let c = 0
     let t = 0

@@ -1,4 +1,4 @@
-import { EXAMS } from "@/data/index"
+import { EXAM_META } from "@/data/meta"
 import { ArrowRight, Check } from "lucide-react"
 
 /**
@@ -219,7 +219,7 @@ function Sample({ q, n }: { q: SampleQ; n: number }) {
 }
 
 function DomainTable({ examId }: { examId: string }) {
-  const exam = EXAMS[examId]
+  const exam = EXAM_META[examId]
   return (
     <div className="overflow-x-auto">
       <table className="mt-3 w-full min-w-105 border-collapse text-sm">
@@ -280,16 +280,16 @@ function Cta({ label, onGo, testid }: { label: string; onGo: () => void; testid:
 
 export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.aplus
-  const c1 = EXAMS["220-1201"]
-  const c2 = EXAMS["220-1202"]
+  const c1 = EXAM_META["220-1201"]
+  const c2 = EXAM_META["220-1202"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           The CompTIA A+ is two exams: Core 1 (220-1201) covers hardware, mobile devices, networking basics,
           virtualization, and troubleshooting; Core 2 (220-1202) covers operating systems, security, software
-          troubleshooting, and operational procedures. This site gives you {c1.questions.length + c2.questions.length} original
-          practice questions and {c1.pbqs.length + c2.pbqs.length} performance-based questions across both cores, free and
+          troubleshooting, and operational procedures. This site gives you {c1.questionCount + c2.questionCount} original
+          practice questions and {c1.pbqCount + c2.pbqCount} performance-based questions across both cores, free and
           without an account.
         </p>
         <p className="text-muted-foreground leading-relaxed">
@@ -315,7 +315,7 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "220-1201 · Mobile Devices", stem: "An organization needs to enforce passcodes and remotely wipe company smartphones if they are lost. Which solution provides this?", options: ["DHCP", "MDM", "NAT", "RAID"], answer: 1, why: "Mobile device management (MDM) centrally enforces policy, deploys apps, and can remotely lock or wipe enrolled devices." }} />
         <Sample n={3} q={{ code: "220-1202 · Operating Systems", stem: "Which partition style must be used on a boot drive larger than 2 TB with a UEFI system?", options: ["MBR", "Dynamic", "Extended", "GPT"], answer: 3, why: "GPT (GUID Partition Table) supports drives over 2 TB and is required for UEFI booting; MBR is limited to 2 TB and 4 primary partitions." }} />
         <p className="text-muted-foreground text-sm">
-          The full bank has {c1.questions.length} Core 1 and {c2.questions.length} Core 2 questions, weighted to the
+          The full bank has {c1.questionCount} Core 1 and {c2.questionCount} Core 2 questions, weighted to the
           official domain split, plus simulated PBQs: terminals, configuration panels, and drag-to-connect cabling.
         </p>
         <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
@@ -326,14 +326,14 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
 
 export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.aif
-  const ex = EXAMS["aif-c01"]
+  const ex = EXAM_META["aif-c01"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           The AWS Certified AI Practitioner (AIF-C01) validates a foundational understanding of AI, machine learning,
           and generative AI on AWS: what the technologies are, when to apply them, and how to use them responsibly and
-          securely. This site gives you {ex.questions.length} original practice questions plus {ex.pbqs.length} interactive
+          securely. This site gives you {ex.questionCount} original practice questions plus {ex.pbqCount} interactive
           items in the exam's own formats, free and without an account.
         </p>
         <p className="text-muted-foreground leading-relaxed">
@@ -370,14 +370,14 @@ export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
 
 export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.clf
-  const ex = EXAMS["clf-c02"]
+  const ex = EXAM_META["clf-c02"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           The AWS Certified Cloud Practitioner (CLF-C02) validates cloud literacy: what the cloud is good for, how AWS
           secures and prices it, and which core services solve which problems. This site gives you{" "}
-          {ex.questions.length} original practice questions in the exam's real formats, free and without an account.
+          {ex.questionCount} original practice questions in the exam's real formats, free and without an account.
         </p>
         <p className="text-muted-foreground leading-relaxed">
           The real exam is multiple choice and multiple response only, and so is our simulator: {ex.examMC} questions in{" "}
@@ -408,14 +408,14 @@ export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
 
 export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.az900
-  const ex = EXAMS["az-900"]
+  const ex = EXAM_META["az-900"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           Microsoft Azure Fundamentals (AZ-900) proves you can describe cloud concepts, core Azure architecture and
           services, and the tools Azure gives you for management and governance. This site gives you{" "}
-          {ex.questions.length} original questions plus {ex.pbqs.length} drag-and-drop and build-list items in
+          {ex.questionCount} original questions plus {ex.pbqCount} drag-and-drop and build-list items in
           Microsoft's own interactive formats, free and without an account.
         </p>
         <p className="text-muted-foreground leading-relaxed">
@@ -448,13 +448,13 @@ export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
 
 export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.nplus
-  const nx = EXAMS["n10-009"]
+  const nx = EXAM_META["n10-009"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           The CompTIA Network+ (N10-009) tests networking concepts, implementation, operations, security, and
-          troubleshooting. This site gives you {nx.questions.length} original practice questions and {nx.pbqs.length} performance-based
+          troubleshooting. This site gives you {nx.questionCount} original practice questions and {nx.pbqCount} performance-based
           questions for it, free and without an account: adaptive drills with an explanation after every answer, and a
           full {nx.examMinutes}-minute exam simulation with {nx.examMC} questions plus {nx.examPBQ} PBQs on the real 100
           to 900 scale.
@@ -488,14 +488,14 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
 
 export function SecplusGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.secplus
-  const sx = EXAMS["sy0-701"]
+  const sx = EXAM_META["sy0-701"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
           The CompTIA Security+ (SY0-701) is the standard entry-level security certification: it covers core security
           concepts, threats and mitigations, security architecture, day-to-day operations, and governance. This site
-          gives you {sx.questions.length} original practice questions and {sx.pbqs.length} performance-based questions
+          gives you {sx.questionCount} original practice questions and {sx.pbqCount} performance-based questions
           for it, free and without an account.
         </p>
         <p className="text-muted-foreground leading-relaxed">
@@ -539,7 +539,7 @@ const PBQ_KINDS: [string, string][] = [
 
 export function PbqGuide({ onStart }: { onStart: (examId: string) => void }) {
   const meta = GUIDE_META.pbq
-  const total = ["220-1201", "220-1202", "n10-009"].reduce((a, id) => a + EXAMS[id].pbqs.length, 0)
+  const total = ["220-1201", "220-1202", "n10-009"].reduce((a, id) => a + EXAM_META[id].pbqCount, 0)
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">

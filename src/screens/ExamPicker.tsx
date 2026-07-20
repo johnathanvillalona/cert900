@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react"
-import type { ExamDef } from "@/data/types"
+import type { ExamMeta } from "@/data/types"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import { useProgress } from "@/hooks/useProgress"
 import { ExamEmblem } from "@/components/exam-art"
 import { cn } from "@/lib/utils"
 
-export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (id: string) => void }) {
+export function ExamPicker({ exams, onChoose }: { exams: ExamMeta[]; onChoose: (id: string) => void }) {
   const store = useProgress()
   return (
     <main className="ambient">
@@ -43,7 +43,7 @@ export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (i
                       <span className="text-muted-foreground mt-0.5 block text-sm">{ex.blurb}</span>
                     </span>
                     <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
-                      {ex.questions.length} questions{ex.pbqs.length > 0 && ` · ${ex.pbqs.length} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
+                      {ex.questionCount} questions{ex.pbqCount > 0 && ` · ${ex.pbqCount} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
                       <span className="block">
                         {Object.keys(ex.domains).length} domains
                         {answered > 0 && <span className="text-brand"> · {answered} answered</span>}

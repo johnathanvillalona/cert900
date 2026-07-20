@@ -207,6 +207,23 @@ export interface PBQDragConnect {
 
 export type PBQ = PBQMatch | PBQOrder | PBQTerminal | PBQConfig | PBQHotspot | PBQDragConnect
 
+/**
+ * An exam minus its question/PBQ payload, plus the counts screens display.
+ * The app chrome (header, landing, picker, dashboard, guides) needs only this,
+ * which is what lets the heavy banks load on demand instead of shipping to
+ * every visitor. Generated into meta.ts by tools/gen-meta.mjs.
+ */
+export type ExamMeta = Omit<ExamDef, "questions" | "pbqs"> & {
+  questionCount: number
+  pbqCount: number
+}
+
+/**
+ * The slice topic/domain helpers actually need. Satisfied by both ExamDef and
+ * ExamMeta, so those helpers work before the heavy bank has loaded.
+ */
+export type ExamTopics = Pick<ExamDef, "videos" | "domains">
+
 export type Vendor = "comptia" | "aws" | "azure"
 
 /** Scaled-score shape; min is always 100. CompTIA tops out at 900, AWS/Azure at 1000. */

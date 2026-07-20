@@ -1,5 +1,5 @@
 import { Check, ChevronDown, GraduationCap } from "lucide-react"
-import { EXAMS, EXAM_ORDER } from "@/data/index"
+import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { examShortName } from "@/data/labels"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import { useProgress } from "@/hooks/useProgress"
@@ -28,7 +28,7 @@ export function ExamsMenu({ currentId, onChoose }: { currentId?: string | null; 
   const store = useProgress()
   const groups = VENDOR_ORDER.map((v) => ({
     v,
-    exams: EXAM_ORDER.map((id) => EXAMS[id]).filter((ex) => ex.vendor === v),
+    exams: EXAM_ORDER.map((id) => EXAM_META[id]).filter((ex) => ex.vendor === v),
   })).filter((g) => g.exams.length > 0)
 
   return (

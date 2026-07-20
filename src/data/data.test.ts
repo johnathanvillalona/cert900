@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest"
 import { EXAMS, EXAM_ORDER } from "./index"
 import { VENDORS } from "./vendors"
 import { EXAM_SHORT } from "./labels"
+import { EXAM_META } from "./meta"
 
 // Minimum-count contract per exam (legacy parity for CompTIA; launch floors
 // for newer exams). Counts only grow.
@@ -38,6 +39,24 @@ describe("exam data integrity", () => {
   it("has exactly the expected exams, all in EXAM_ORDER", () => {
     expect(Object.keys(EXAMS).sort()).toEqual(Object.keys(EXPECTED).sort())
     expect(EXAM_ORDER.slice().sort()).toEqual(Object.keys(EXPECTED).sort())
+  })
+
+  it("EXAM_META matches the banks (regenerate with tools/gen-meta.mjs)", () => {
+    // meta.ts is generated and checked in so the app chrome can render without
+    // loading ~846KB of questions. If it drifts, screens show stale counts.
+    expect(Object.keys(EXAM_META).sort()).toEqual(Object.keys(EXAMS).sort())
+    for (const id of EXAM_ORDER) {
+      const ex = EXAMS[id]
+      const m = EXAM_META[id]
+      expect(m.questionCount, `${id} questionCount`).toBe(ex.questions.length)
+      expect(m.pbqCount, `${id} pbqCount`).toBe(ex.pbqs.length)
+      expect(m.code, `${id} code`).toBe(ex.code)
+      expect(m.scale, `${id} scale`).toEqual(ex.scale)
+      expect(m.examMinutes, `${id} examMinutes`).toBe(ex.examMinutes)
+      expect(Object.keys(m.videos).sort(), `${id} videos`).toEqual(Object.keys(ex.videos).sort())
+      expect(m.domains, `${id} domains`).toEqual(ex.domains)
+      expect(m.examSplit, `${id} examSplit`).toEqual(ex.examSplit)
+    }
   })
 
   it("every exam has a short display name for dense surfaces", () => {
