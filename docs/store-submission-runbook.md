@@ -36,12 +36,17 @@ tester window. Nothing about the app blocks this — it's account/policy latency
   branded **splash screen**, `usesNonExemptEncryption: false` (skips the iOS export-compliance
   prompt), `supportsTablet: false` (so **no iPad screenshots are required** for v1).
 - **App icon** `mobile/assets/icon.png` — 1024, **no alpha** (App Store compliant).
-- **Play feature graphic** `mobile/assets/play-feature-graphic.png` — 1024×500, no alpha.
-- `mobile/store.config.json` — Apple listing text for `eas metadata:push`.
-- Listing copy for both stores — [`store-listing-copy.md`](./store-listing-copy.md).
-- Backend: worker already trusts the app scheme for Google sign-in.
+- **Play feature graphic** `mobile/assets/play-feature-graphic.png` — 1024×500, no alpha,
+  current (names all seven exams). **512px Play icon** `mobile/assets/play-icon-512.png`.
+- `mobile/store.config.json` — Apple listing text for `eas metadata:push`, current (seven exams,
+  both sign-in providers, within all character limits).
+- Listing copy for both stores — [`store-listing-copy.md`](./store-listing-copy.md), current.
+- Backend: worker already trusts the app scheme for Google sign-in, and registers the Apple
+  provider once its two secrets are set (§E1b).
 
-**You still must provide (needs a device):** phone **screenshots** (§F).
+**You still must provide (needs a device):** phone **screenshots** (§F — the committed set is
+STALE and must be replaced). A **fresh production `.aab`** (§C) — the one under
+`mobile/store-assets/cert900-v1.0.0.aab` predates four of the seven exams and must be rebuilt.
 
 ---
 
@@ -234,14 +239,29 @@ On approval, click **Release**.
 ---
 
 ## Phase F — screenshots (both stores need these) **(you — needs a device)**
-Capture on a phone or emulator/simulator running a **preview/production** build (or Expo Go):
+
+> **The screenshots committed under `mobile/store-assets/` are STALE — do not upload them.**
+> They predate Security+, AWS, and Azure and still show the "900+ A+ and Network+" caption and
+> the "first look / on the roadmap" footer that has since been removed from the app. Uploading
+> them invites a 2.1/4.2 rejection. Capture a fresh set from the current build.
+>
+> The old `qa/store-shots.js` web pipeline no longer works: the app moved to
+> `@react-navigation/native-stack`, which does not render under react-native-web. Capture on a
+> real device (or the iOS Simulator / Android emulator) instead — native shots look better anyway.
+
+Capture on a phone or emulator/simulator running a **preview/production** build:
 - **Apple:** **6.9" iPhone** is the required set. Any one of these portrait pixel sizes:
   **1290×2796**, 1260×2736, or 1320×2868 (e.g., iPhone 16 Pro Max / 15 Pro Max). Upload one
   6.9" set and Apple auto-scales the rest. 1–10 shots, **no transparency**. (No iPad set needed
   — `supportsTablet` is false.)
 - **Google Play:** **2–8 phone screenshots**, 16:9 or 9:16, each side 320–3840 px.
-- Good shots: the **Home** (exam picker) and **Drill** (question + graded answer) screens. Use
-  captions from [`store-listing-copy.md`](./store-listing-copy.md).
+- Capture five screens that show the app is more than a drill (this is what clears Guideline 4.2):
+  1. **Exams** list with all seven certifications visible
+  2. A **Drill** with a graded answer and its explanation showing
+  3. **Full exam** with the timer running
+  4. The **Progress** screen showing the readiness band
+  5. The **ExamHome** review-misses tile (drill a few wrong answers first so it appears)
+- Use the captions from [`store-listing-copy.md`](./store-listing-copy.md).
 
 > Tip: iOS Simulator (needs a Mac) or a physical iPhone gives exact 6.9" pixels; on Windows,
 > a physical iPhone 15/16 Pro Max screenshot is simplest. Android: any phone or the emulator.
