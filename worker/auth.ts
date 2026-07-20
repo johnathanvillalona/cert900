@@ -65,6 +65,20 @@ export function createAuth(env: Env) {
       },
     },
     session: {
+      /**
+       * Better Auth refuses a "sensitive" action (delete-user) on a session
+       * older than freshAge unless the request carries the account password,
+       * and its default freshAge is 24h while sessions live 7 days. Google is
+       * the only production provider, so those users have NO password to
+       * offer: anyone who signed in yesterday could never delete their
+       * account, and the UI reported only "Could not delete the account."
+       *
+       * 0 disables the freshness gate. Deleting still requires a valid
+       * session cookie plus an explicit in-app confirmation, and account
+       * deletion is a right we must not gate behind re-authentication we
+       * cannot offer (Apple Guideline 5.1.1(v) tests exactly this).
+       */
+      freshAge: 0,
       cookieCache: {
         enabled: true,
         maxAge: 60 * 5,
