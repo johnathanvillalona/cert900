@@ -3,7 +3,7 @@ import { flushSync } from "react-dom"
 import type { ExamDef, PBQMatch, PBQOrder } from "@/data/types"
 import { TerminalView, ConfigView, HotspotView, DragConnectView } from "@/components/pbq-sims"
 import { useProgress } from "@/hooks/useProgress"
-import { useQuizSession, type QuizConfig, type QuizItem, type QuizOutcome, type QuizSession } from "@/hooks/useQuizSession"
+import { useQuizSession, type QuizConfig, type QuizItem, type QuizOutcome, type QuizSession } from "@/lib/quiz-session"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"
@@ -30,7 +30,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
   const store = useProgress()
   const session = useQuizSession(exam, store.get(exam.id), cfg, {
     onResult: (topic, frac, questionId) => store.recordResult(exam.id, topic, frac, questionId),
-    onSeen: (qid) => store.markSeen(exam.id, qid),
+    onSeen: (ids) => store.markSeen(exam.id, ids),
   })
   const [confirmEnd, setConfirmEnd] = useState(false)
   const [confirmQuit, setConfirmQuit] = useState(false)

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { ExamDef } from "@/data/types"
-import type { QuizConfig } from "@/hooks/useQuizSession"
+import type { QuizConfig } from "@/lib/quiz-session"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"

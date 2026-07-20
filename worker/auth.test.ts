@@ -45,4 +45,39 @@ describe("auth config", () => {
     const local = createAuth(env({ BETTER_AUTH_URL: "http://localhost:8787" }))
     expect(local.options.emailAndPassword?.enabled).toBe(true)
   })
+
+  describe("sign in with apple", () => {
+    /**
+     * The Apple secrets are optional, so a deploy that has not had them set
+     * yet (or a contributor's local wrangler) must still boot with Google
+     * working. Registering a provider with an undefined clientId would take
+     * the whole worker down instead.
+     */
+    it("omits the provider entirely when the secrets are unset", () => {
+      expect(createAuth(env()).options.socialProviders?.apple).toBeUndefined()
+      expect(createAuth(env()).options.socialProviders?.google).toBeDefined()
+    })
+
+    it("omits the provider when only one of the two secrets is set", () => {
+      const idOnly = createAuth(env({ APPLE_CLIENT_ID: "com.cert900.service" }))
+      expect(idOnly.options.socialProviders?.apple).toBeUndefined()
+      const secretOnly = createAuth(env({ APPLE_CLIENT_SECRET: "jwt" }))
+      expect(secretOnly.options.socialProviders?.apple).toBeUndefined()
+    })
+
+    /**
+     * The native iOS token's `aud` is the bundle id, not the client id, so
+     * without appBundleIdentifier the apple provider validates `aud` against
+     * clientId and rejects every native sign-in.
+     */
+    it("validates native tokens against the iOS bundle id", () => {
+      const auth = createAuth(
+        env({ APPLE_CLIENT_ID: "com.cert900.service", APPLE_CLIENT_SECRET: "jwt" }),
+      )
+      expect(auth.options.socialProviders?.apple).toMatchObject({
+        clientId: "com.cert900.service",
+        appBundleIdentifier: "com.cert900.app",
+      })
+    })
+  })
 })

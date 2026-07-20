@@ -7,7 +7,7 @@ import { ProgressContext, useProgressStore } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
-import type { QuizConfig, QuizOutcome } from "@/hooks/useQuizSession"
+import type { QuizConfig, QuizOutcome } from "@/lib/quiz-session"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
@@ -21,7 +21,7 @@ import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
-import { Privacy, Terms } from "@/screens/Legal"
+import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
@@ -41,6 +41,7 @@ export type Screen =
   | { kind: "progress" }
   | { kind: "privacy" }
   | { kind: "terms" }
+  | { kind: "delete-account" }
   | { kind: "guide-aplus" }
   | { kind: "guide-nplus" }
   | { kind: "guide-pbq" }
@@ -53,6 +54,9 @@ export type Screen =
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
   "/privacy": "privacy",
   "/terms": "terms",
+  // Google Play's Data safety form requires a public deletion URL a reviewer
+  // can open without installing the app.
+  "/delete-account": "delete-account",
   [GUIDE_META.aplus.path]: "guide-aplus",
   [GUIDE_META.nplus.path]: "guide-nplus",
   [GUIDE_META.pbq.path]: "guide-pbq",
@@ -65,6 +69,7 @@ const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
+  "delete-account": "Delete your account | Cert900",
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-nplus": GUIDE_META.nplus.title,
   "guide-pbq": GUIDE_META.pbq.title,
@@ -326,6 +331,7 @@ export default function App() {
 
         {screen.kind === "privacy" && <Privacy />}
         {screen.kind === "terms" && <Terms />}
+        {screen.kind === "delete-account" && <DeleteAccount />}
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}

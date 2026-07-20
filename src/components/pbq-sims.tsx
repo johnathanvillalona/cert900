@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { Check, ChevronRight } from "lucide-react"
 import type { PBQConfig, PBQDragConnect, PBQHotspot, PBQTerminal, HotspotIcon, ConnectorGlyph } from "@/data/types"
-import type { QuizSession } from "@/hooks/useQuizSession"
+import type { QuizSession } from "@/lib/quiz-session"
 import { commandMatches } from "@/lib/engine"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"

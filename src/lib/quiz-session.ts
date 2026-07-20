@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
-import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, shuffledIndices, type PBQAnswer } from "@/lib/engine"
+import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, shuffledIndices, type PBQAnswer } from "./engine"
 import { VENDOR_FORMATS } from "@/data/vendors"
-import type { ExamProgress } from "@/lib/progress"
+import type { ExamProgress } from "./progress"
 
 export type QuizMode = "practice" | "exam" | "pbq"
 
@@ -34,6 +34,13 @@ interface State {
   graded: Record<number, number> // fraction correct (practice/pbq modes)
   flags: Set<number>
   remaining: number // seconds; -1 = untimed
+  /**
+   * Wall-clock deadline (epoch ms); 0 when untimed. `remaining` is derived from
+   * this on every tick rather than decremented, because a phone suspends JS
+   * timers when backgrounded -- a plain counter would freeze the exam clock for
+   * as long as the app is away.
+   */
+  endsAt: number
   finished: boolean
 }
 
@@ -224,8 +231,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, flags }
     }
     case "tick": {
-      if (state.remaining <= 0) return state
-      const remaining = state.remaining - 1
+      if (state.remaining <= 0 || !state.endsAt) return state
+      const remaining = Math.max(0, Math.ceil((state.endsAt - Date.now()) / 1000))
       return { ...state, remaining, finished: remaining <= 0 ? true : state.finished }
     }
     case "finish":
@@ -270,7 +277,12 @@ export function useQuizSession(
   callbacks: {
     /** `questionId` is present for MC only; PBQ history is keyed by topic. */
     onResult: (topic: string, frac: number, questionId?: number) => void
-    onSeen: (questionId: number) => void
+    /**
+     * The whole form's MC ids at once, not one per item: a store that persists
+     * on every call would otherwise re-serialize the entire progress blob 66
+     * times from the mount effect below.
+     */
+    onSeen: (questionIds: number[]) => void
   },
 ): QuizSession {
   // Build once per mount via the reducer's lazy initializer: unlike useMemo,
@@ -290,15 +302,15 @@ export function useQuizSession(
       graded: {},
       flags: new Set(),
       remaining: c.mode === "exam" ? exam.examMinutes * 60 : -1,
+      endsAt: c.mode === "exam" ? Date.now() + exam.examMinutes * 60_000 : 0,
       finished: false,
     }
   })
 
-  // mark questions seen once at session start
+  // mark questions seen once at session start, in one handoff
   useEffect(() => {
-    state.items.forEach((it) => {
-      if (it.kind === "mc") callbacks.onSeen(it.q.id)
-    })
+    const ids = state.items.flatMap((it) => (it.kind === "mc" ? [it.q.id] : []))
+    if (ids.length) callbacks.onSeen(ids)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

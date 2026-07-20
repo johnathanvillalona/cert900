@@ -1,6 +1,6 @@
 import type { ExamDef, Question } from "@/data/types"
 import { VENDOR_FORMATS } from "@/data/vendors"
-import type { QuizOutcome } from "@/hooks/useQuizSession"
+import type { QuizOutcome } from "@/lib/quiz-session"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { VideoLink } from "@/components/VideoLink"

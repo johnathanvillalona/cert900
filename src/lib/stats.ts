@@ -99,8 +99,9 @@ export interface Readiness {
 
 /** Enough attempts in a domain for its accuracy to mean anything. */
 const MIN_PER_DOMAIN = 3
-const MIN_ANSWERS = 25
-const MIN_COVERAGE = 0.5
+/** Evidence floors for a readiness band. Exported so UIs render the same gate. */
+export const MIN_ANSWERS = 25
+export const MIN_COVERAGE = 0.5
 /** 80% confidence. Wide enough to stay honest, tight enough to be useful. */
 const Z = 1.2816
 

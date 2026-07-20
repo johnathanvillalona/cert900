@@ -2,6 +2,7 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { CloudCheck, CloudOff, LoaderCircle, LogOut, Trash2 } from "lucide-react"
 import { useSession, signIn, signOut, deleteUser } from "@/lib/auth-client"
+import { CONTACT_EMAIL } from "@/lib/site"
 import { useProgress } from "@/hooks/useProgress"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -131,12 +132,42 @@ export function AccountMenu() {
               onClick={async () => {
                 setDeleting(true)
                 try {
-                  await fetch("/api/progress", { method: "DELETE", credentials: "include" })
-                  await deleteUser()
+                  // 1. Synced progress rows, while the session is still valid. 401 is
+                  // deliberately not fatal: it means this cookie can no longer reach the
+                  // account, and the delete-user step below cascades the same rows
+                  // (schema.sql declares progress.user_id ON DELETE CASCADE).
+                  const cleared = await fetch("/api/progress", {
+                    method: "DELETE",
+                    credentials: "include",
+                  })
+                  if (!cleared.ok && cleared.status !== 401) {
+                    throw new Error(`progress delete failed: ${cleared.status}`)
+                  }
+                  // 2. The account itself. deleteUser resolves { data, error } rather than
+                  // throwing, so leaving it unchecked reports success on every failure,
+                  // after step 1 already wiped the progress rows.
+                  const res = await deleteUser()
+                  if (res?.error) {
+                    const expired =
+                      res.error.code === "SESSION_EXPIRED" || res.error.status === 401
+                    toast(expired ? "Sign in again to delete" : "Could not delete the account", {
+                      description: expired
+                        ? "Your saved sign-in is no longer valid, so we could not confirm the account is yours. Sign out, sign back in, then delete from here."
+                        : `Your synced progress was cleared, but the account itself is still there. Try again, or email ${CONTACT_EMAIL}.`,
+                    })
+                    return
+                  }
                   toast("Account deleted.")
                   setConfirmDelete(false)
+                  try {
+                    await signOut()
+                  } catch {
+                    /* the account is already gone; a failed sign-out is cosmetic */
+                  }
                 } catch {
-                  toast("Could not delete the account. Try again.")
+                  toast("Could not delete the account", {
+                    description: `Something went wrong reaching the server. Check your connection and try again, or email ${CONTACT_EMAIL}.`,
+                  })
                 } finally {
                   setDeleting(false)
                 }

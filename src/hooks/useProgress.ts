@@ -2,47 +2,19 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, useCal
 import {
   blankProgress,
   createLocalStorage,
-  dayNumber,
   validateProgressAll,
   type ExamProgress,
   type ExamRecord,
   type ProgressAll,
   type SessionRecord,
 } from "@/lib/progress"
-import { applyAnswer } from "@/lib/review"
+import { foldAnswers, type AnswerEntry } from "@/lib/answers"
 import { fetchCloud, mergeCloudLocal, pushExam, UPDATED_AT_KEY, type UpdatedAtMap } from "@/lib/sync"
 import { useSession } from "@/lib/auth-client"
 
 export type SyncStatus = "local" | "syncing" | "synced" | "error"
 
-export interface AnswerEntry {
-  topic: string
-  /** Credit earned: 1/0 for MC, fractional for partial-credit PBQs. */
-  frac: number
-  /** MC only. PBQs have no numeric id, so they contribute topic stats alone. */
-  questionId?: number
-}
-
-/**
- * Fold answers into topic counters and per-question history.
- *
- * PBQs count as correct at the same 0.8 threshold Results uses for its verdict,
- * so a question does not sit in the review queue over a rounding difference.
- */
-function foldAnswers(p: ExamProgress, entries: AnswerEntry[]): ExamProgress {
-  const topics = { ...p.topics }
-  const q = { ...(p.q ?? {}) }
-  const today = dayNumber()
-  for (const e of entries) {
-    const s = topics[e.topic] ?? { c: 0, t: 0 }
-    topics[e.topic] = { c: s.c + e.frac, t: s.t + 1 }
-    if (e.questionId !== undefined) {
-      const key = String(e.questionId)
-      q[key] = applyAnswer(q[key], e.frac >= 0.8, today)
-    }
-  }
-  return { ...p, topics, q }
-}
+export type { AnswerEntry }
 
 export interface ProgressStore {
   all: ProgressAll
@@ -56,7 +28,9 @@ export interface ProgressStore {
    * progress blob to localStorage.
    */
   recordAnswers(examId: string, entries: AnswerEntry[]): void
-  markSeen(examId: string, questionId: number): void
+  /** Batched for the same reason as recordAnswers: one write per call, not per id. */
+  /** View-count a batch of questions in ONE write (a session marks all its items at once). */
+  markSeen(examId: string, questionIds: number[]): void
   recordExam(examId: string, rec: ExamRecord): void
   logSession(examId: string, s: SessionRecord): void
   resetExam(examId: string): void
@@ -184,8 +158,14 @@ export function useProgressStore(): ProgressStore {
       update(examId, (p) => foldAnswers(p, [{ topic, frac, questionId }])),
     recordAnswers: (examId, entries) =>
       entries.length ? update(examId, (p) => foldAnswers(p, entries)) : undefined,
-    markSeen: (examId, qid) =>
-      update(examId, (p) => ({ ...p, seen: { ...p.seen, [qid]: (p.seen[qid] ?? 0) + 1 } })),
+    markSeen: (examId, ids) =>
+      ids.length
+        ? update(examId, (p) => {
+            const seen = { ...p.seen }
+            for (const id of ids) seen[id] = (seen[id] ?? 0) + 1
+            return { ...p, seen }
+          })
+        : undefined,
     recordExam: (examId, rec) => update(examId, (p) => ({ ...p, exams: [...p.exams, rec] })),
     logSession: (examId, s) =>
       update(examId, (p) => ({ ...p, sessions: [...(p.sessions ?? []), s] })),
