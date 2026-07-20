@@ -250,3 +250,23 @@ url.protocol (wrangler dev simulates the route host and would loop).
   Fixed a LIVE account-deletion bug: better-auth's default `freshAge` (24h)
   blocked delete-user for Google-only accounts older than a day, forever;
   `worker/auth.ts` now sets `freshAge: 0` and `worker/auth.test.ts` guards it.
+- Done 2026-07-20 (mobile to store scope): the Expo app (`mobile/`) went from a
+  two-screen drill to submittable. `src/hooks/useQuizSession.ts` moved to
+  `src/lib/quiz-session.ts` and `foldAnswers` to `src/lib/answers.ts` so the
+  phone runs the SAME reducer/scoring (sync-shared only vendors `src/lib` +
+  `src/data`, never `src/hooks`). New: React Navigation native-stack (fixes
+  Android back killing a session), ErrorBoundary + deep-link exam-id guard,
+  timed exam mode + results, progress/readiness screen (band only, no chart
+  lib), multiple-response drills, match/order PBQs (keyed per question),
+  in-app account deletion (DELETE progress -> deleteUser -> signOut, the last
+  mandatory or the Expo session cache rehydrates a deleted user), and Sign in
+  with Apple (native idToken, iOS-only, worker provider spreads in only when
+  both APPLE_CLIENT_ID/SECRET set). The exam timer is now wall-clock (`endsAt`)
+  not a tick counter, because RN suspends timers when backgrounded. **native-
+  stack does NOT render under react-native-web, so the old `qa/store-shots.js`
+  web pipeline is dead - screenshots need a device.** Store metadata (name off
+  the trademarks, 7 exams, both providers) in `mobile/store.config.json` +
+  `docs/store-listing-copy.md`; blockers + Apple-secret steps in
+  `docs/store-submission-runbook.md`. User-side remaining: OAuth consent to
+  Production, `.p8` + Apple sign-in key/secret, Play service account, 12
+  testers/14 days, fresh screenshots + `.aab`.
