@@ -2142,8 +2142,8 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 5
    }
   },
-  "questionCount": 161,
-  "pbqCount": 8
+  "questionCount": 321,
+  "pbqCount": 16
  },
  "clf-c02": {
   "id": "clf-c02",
@@ -2528,7 +2528,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 4
    }
   },
-  "questionCount": 159,
+  "questionCount": 319,
   "pbqCount": 0
  },
  "az-900": {
@@ -2867,8 +2867,8 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 3
    }
   },
-  "questionCount": 159,
-  "pbqCount": 6
+  "questionCount": 279,
+  "pbqCount": 12
  }
 }
 
