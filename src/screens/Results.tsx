@@ -3,10 +3,40 @@ import { VENDOR_FORMATS } from "@/data/vendors"
 import type { QuizOutcome } from "@/lib/quiz-session"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { Heart } from "lucide-react"
 import { VideoLink } from "@/components/VideoLink"
 import { ReportButton } from "@/components/ReportButton"
-import { AdSlot } from "@/components/AdSlot"
+import { StudyGuideLink } from "@/components/StudyGuideLink"
+import { DONATE_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
+
+/**
+ * Everything below the score: a "prefer a book?" study-guide link (secondary to
+ * the free video, invisible until an affiliate tag is set) and a soft donate
+ * nudge. Display ads are deliberately NOT here -- EthicalAds lives on the
+ * Dashboard only, so a page never carries two monetization units.
+ */
+function ResultsSupport({ examId }: { examId: string }) {
+  return (
+    <>
+      <StudyGuideLink examId={examId} />
+      {DONATE_URL && (
+        <p className="text-muted-foreground mt-4 text-center text-sm">
+          Cert900 is free and always will be.{" "}
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="results-donate"
+            className="text-brand inline-flex items-center gap-1 underline-offset-2 hover:underline"
+          >
+            <Heart className="size-3" strokeWidth={2.5} /> Support the project
+          </a>
+        </p>
+      )}
+    </>
+  )
+}
 
 function fmtSelection(q: Question, sel: number | number[] | undefined): string {
   if (sel === undefined || (Array.isArray(sel) && sel.length === 0)) return "(none)"
@@ -75,6 +105,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           <Button variant="outline" onClick={onProgress}>My progress</Button>
           <Button variant="outline" onClick={onHome}>Home</Button>
         </div>
+        <ResultsSupport examId={exam.id} />
       </main>
     )
   }
@@ -175,7 +206,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
         <Button variant="outline" onClick={onProgress}>My progress</Button>
         <Button variant="outline" onClick={onHome}>Home</Button>
       </div>
-      <AdSlot slot="results" />
+      <ResultsSupport examId={exam.id} />
     </main>
   )
 }

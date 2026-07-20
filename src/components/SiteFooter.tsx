@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react"
-import { CONTACT_EMAIL, DONATE_URL } from "@/lib/site"
+import { AFFILIATE, CONTACT_EMAIL, DONATE_URL } from "@/lib/site"
+import { AMAZON_DISCLOSURE } from "@/lib/affiliate"
 import { Wordmark } from "@/components/Wordmark"
 import { GUIDE_META } from "@/screens/Guides"
 
@@ -86,6 +87,11 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             )}
           </nav>
         </div>
+        {/* Required whenever affiliate links are live; gated so it does not
+            appear before an Amazon tag is set. */}
+        {AFFILIATE.amazonTag && (
+          <p className="text-muted-foreground mt-4 text-xs">{AMAZON_DISCLOSURE}</p>
+        )}
       </div>
     </footer>
   )
