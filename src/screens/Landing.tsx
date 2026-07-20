@@ -9,6 +9,7 @@ import { questionOfTheDay } from "@/lib/qotd"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
+import { ExamEmblem } from "@/components/exam-art"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
@@ -67,7 +68,7 @@ function LiveQuestion() {
             <ArrowRight className="size-3.5" strokeWidth={2} />
           </a>
           <p className="text-muted-foreground mt-2 font-mono text-xs">
-            Every question works like this. New one tomorrow.
+            Every question works like this. A new one lands tomorrow.
           </p>
         </div>
       )}
@@ -79,9 +80,9 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
   return (
     <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-5">
-        <h1 className="font-heading text-4xl font-semibold tracking-tight md:text-5xl">Welcome back.</h1>
+        <h1 className="font-heading text-4xl font-semibold tracking-tight md:text-5xl">Welcome back</h1>
         <p className="text-muted-foreground mt-4 max-w-md text-lg">
-          Your progress is saved in this browser. Pick up where you left off.
+          Everything is where you left it.
         </p>
       </div>
       <div className="flex flex-col gap-3 lg:col-span-7">
@@ -114,26 +115,26 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamDef; answere
 const FAQ: [string, string][] = [
   [
     "Is this really free?",
-    "Yes. Every question, every simulated exam, every PBQ and lab item across the CompTIA, AWS, and Azure tracks, no paywall and no sign-up requirement. If it helps you pass, telling a friend or supporting the project is appreciated but never required.",
+    "Yes. Every question, every timed exam, every PBQ, across all three vendors. No paywall, no sign-up, no trial that expires. If it helps you pass, tell someone who is also studying.",
   ],
   [
     "Which exams are covered?",
-    "Six so far: CompTIA A+ Core 1 (220-1201), A+ Core 2 (220-1202), and Network+ (N10-009); AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02); and Microsoft Azure Fundamentals (AZ-900). Each one follows its real exam's question formats, length, and scoring.",
+    "Seven: CompTIA A+ Core 1 (220-1201), A+ Core 2 (220-1202), Network+ (N10-009), and Security+ (SY0-701); AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02); and Microsoft Azure Fundamentals (AZ-900). Each follows its real exam's formats, length, and scoring.",
   ],
   [
     "How does scaled scoring work?",
-    "Certification exams report scaled scores, not percentages. CompTIA scores 100 to 900 with pass lines from 675 to 720; AWS and Azure report scores up to 1,000 with 700 to pass. Simulated exams here score on each exam's real scale and pass line, so a score here reads like the real thing.",
+    "Certification exams report scaled scores, not percentages. CompTIA scores 100 to 900, with the pass line varying by exam from 675 to 750; AWS and Azure report up to 1,000 and need 700. Every simulation here uses its exam's real scale and cut score, so your practice score means what it says.",
   ],
   [
     "Do I need an account?",
-    "No. Progress saves in your browser automatically. Signing in with Google is optional and does one thing: it syncs progress across devices so you can drill on your phone and review at your desk.",
+    "No. Progress saves in this browser on its own. Signing in with Google only adds syncing, so you can drill on your phone and review the misses at your desk.",
   ],
 ]
 
 function FaqSection() {
   return (
     <section id="faq" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-      <h2 className="font-heading text-3xl font-semibold tracking-tight">Common questions.</h2>
+      <h2 className="font-heading text-3xl font-semibold tracking-tight">Common questions</h2>
       <div className="mt-8 max-w-3xl border-t">
         {FAQ.map(([q, a]) => (
           <details key={q} className="group border-b">
@@ -201,7 +202,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
       </header>
 
       {/* hero */}
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-20">
+      <section className="ambient mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-20">
         {returning ? (
           <ContinueHero started={started} onChoose={onChooseExam} />
         ) : (
@@ -246,7 +247,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
 
       {/* exam index */}
       <section id="exams" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-        <h2 className="font-heading text-3xl font-semibold tracking-tight">Pick your exam.</h2>
+        <h2 className="font-heading text-3xl font-semibold tracking-tight">Pick your exam</h2>
         <p className="text-muted-foreground mt-2 max-w-lg">
           Progress is tracked separately for each. Start with the one on your calendar.
         </p>
@@ -269,7 +270,10 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
                       data-testid="exam-row"
                       className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-colors duration-200 hover:bg-accent sm:grid-cols-12 sm:gap-4"
                     >
-                      <span className="font-mono text-sm text-muted-foreground sm:col-span-2">{ex.code}</span>
+                      <span className="flex items-center gap-2.5 sm:col-span-2">
+                        <ExamEmblem examId={ex.id} className={cn("size-7", VENDORS[ex.vendor].tintClass)} />
+                        <span className="font-mono text-sm text-muted-foreground">{ex.code}</span>
+                      </span>
                       <span className="sm:col-span-6">
                         <span className="font-heading text-xl font-semibold md:text-2xl">
                           {ex.cert} {ex.name}
@@ -297,10 +301,9 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
       <section id="how" className="border-t bg-card">
         <div className="mx-auto grid max-w-6xl scroll-mt-20 gap-10 px-4 py-20 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <h2 className="font-heading text-3xl font-semibold tracking-tight">Built the way the real exam works.</h2>
+            <h2 className="font-heading text-3xl font-semibold tracking-tight">How people actually use it</h2>
             <p className="text-muted-foreground mt-3 max-w-sm leading-relaxed">
-              Not flashcards. Timed simulations in each exam's real format and scoring scale, interactive lab
-              questions, and drills that weight what you keep missing.
+              Three ways in, depending on how much time you have and how close the test is.
             </p>
           </div>
           <div className="flex flex-col gap-8 lg:col-span-7">

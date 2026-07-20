@@ -71,7 +71,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-clf": GUIDE_META.clf.title,
   "guide-az900": GUIDE_META.az900.title,
 }
-const DEFAULT_TITLE = "Cert900 — Free CompTIA, AWS & Azure Practice Exams"
+const DEFAULT_TITLE = "Cert900: Free CompTIA, AWS & Azure Practice Exams"
 
 function screenForPath(path: string): Screen {
   const kind = PATH_SCREENS[path]
@@ -152,8 +152,12 @@ export default function App() {
       <div className="flex min-h-[100dvh] flex-col">
         <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+            {/* items-center, not items-baseline: Wordmark is a flex container whose
+                first item is the SVG mark, and a flex container exports its first
+                item's baseline. An SVG has no text baseline, so the UA synthesises
+                one from its bottom edge and the exam code lands ~5px low. */}
             <button
-              className="brand-link pressable flex cursor-pointer items-baseline gap-2 rounded-md text-sm transition-colors duration-200 hover:text-brand"
+              className="brand-link pressable flex cursor-pointer items-center gap-2 rounded-md text-sm transition-colors duration-200 hover:text-brand"
               onClick={() => {
                 setExamId(null)
                 setScreen({ kind: "landing" })

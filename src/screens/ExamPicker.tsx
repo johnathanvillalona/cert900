@@ -2,12 +2,14 @@ import { ArrowRight } from "lucide-react"
 import type { ExamDef } from "@/data/types"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import { useProgress } from "@/hooks/useProgress"
+import { ExamEmblem } from "@/components/exam-art"
+import { cn } from "@/lib/utils"
 
 export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (id: string) => void }) {
   const store = useProgress()
   return (
-    <main>
-      <h1 className="font-heading text-3xl font-semibold tracking-tight">Pick your exam.</h1>
+    <main className="ambient">
+      <h1 className="font-heading text-3xl font-semibold tracking-tight">Pick your exam</h1>
       <p className="text-muted-foreground mt-2 max-w-lg text-sm">
         Progress is tracked separately for each. Start with the one on your calendar.
       </p>
@@ -30,7 +32,10 @@ export function ExamPicker({ exams, onChoose }: { exams: ExamDef[]; onChoose: (i
                     data-testid="exam-card"
                     className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-5 text-left transition-colors duration-200 hover:bg-accent sm:grid-cols-12 sm:gap-4"
                   >
-                    <span className="font-mono text-sm text-muted-foreground sm:col-span-2">{ex.code}</span>
+                    <span className="flex items-center gap-2.5 sm:col-span-2">
+                      <ExamEmblem examId={ex.id} className={cn("size-6", VENDORS[ex.vendor].tintClass)} />
+                      <span className="font-mono text-sm text-muted-foreground">{ex.code}</span>
+                    </span>
                     <span className="sm:col-span-6">
                       <span className="font-heading text-lg font-semibold sm:text-xl">
                         {ex.cert} {ex.name}

@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { EXAMS, EXAM_ORDER } from "./index"
 import { VENDORS } from "./vendors"
+import { EXAM_SHORT } from "./labels"
 
 // Minimum-count contract per exam (legacy parity for CompTIA; launch floors
 // for newer exams). Counts only grow.
@@ -37,6 +38,14 @@ describe("exam data integrity", () => {
   it("has exactly the expected exams, all in EXAM_ORDER", () => {
     expect(Object.keys(EXAMS).sort()).toEqual(Object.keys(EXPECTED).sort())
     expect(EXAM_ORDER.slice().sort()).toEqual(Object.keys(EXPECTED).sort())
+  })
+
+  it("every exam has a short display name for dense surfaces", () => {
+    // The menu/cards show EXAM_SHORT, not `${cert} ${name}`. A missing entry
+    // silently falls back to ex.name, which reads wrong for the A+ cores.
+    for (const id of EXAM_ORDER) {
+      expect(EXAM_SHORT[id], `no EXAM_SHORT entry for ${id}`).toBeTruthy()
+    }
   })
 
   for (const [id, exp] of Object.entries(EXPECTED)) {

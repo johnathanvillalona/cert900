@@ -1,6 +1,8 @@
 import { ArrowRight, Flame } from "lucide-react"
 import { EXAMS, EXAM_ORDER } from "@/data/index"
 import type { ExamDef } from "@/data/types"
+import { VENDORS } from "@/data/vendors"
+import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
 import { domainAccuracy, studyStreak, allSessions } from "@/lib/stats"
 import { PASS_SCALED } from "@/lib/engine"
@@ -47,10 +49,9 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       <main>
         <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
         <Card className="mt-6 flex flex-col items-start gap-3 p-8">
-          <p className="font-medium">Nothing tracked yet.</p>
+          <p className="font-medium">Nothing tracked yet</p>
           <p className="text-muted-foreground max-w-md text-sm">
-            Answer your first question and this page starts tracking accuracy, streaks, and exam
-            scores for every certification, in one place.
+            Answer one question and this page starts keeping score, across every exam you touch.
           </p>
           <Button className="mt-2" onClick={onBrowseExams}>Pick an exam</Button>
         </Card>
@@ -114,11 +115,14 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, onContin
   return (
     <Card className="stagger-item p-5" style={style} data-testid="dash-exam-card">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
-        <div className="min-w-48">
-          <p className="font-mono text-xs text-muted-foreground">{exam.code}</p>
-          <p className="font-heading text-lg font-semibold">
-            {exam.cert} {exam.name}
-          </p>
+        <div className="flex min-w-48 items-center gap-3">
+          <ExamEmblem examId={exam.id} className={cn("size-6", VENDORS[exam.vendor].tintClass)} />
+          <span>
+            <p className="font-mono text-xs text-muted-foreground">{exam.code}</p>
+            <p className="font-heading text-lg font-semibold">
+              {exam.cert} {exam.name}
+            </p>
+          </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
