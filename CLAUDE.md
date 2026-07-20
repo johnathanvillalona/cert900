@@ -71,7 +71,23 @@ url.protocol (wrangler dev simulates the route host and would loop).
   `switch-exam` testid, items `exams-item-{id}`).
 - `src/lib/` — `engine.ts` (adaptive selection, PBQ scoring, 900-scale),
   `progress.ts` (localStorage, key `comptia-trainer-v1`, legacy migration),
-  `sync.ts` (cloud merge rules), `stats.ts` (dashboard aggregations), `auth-client.ts`.
+  `sync.ts` (cloud merge rules), `stats.ts` (dashboard aggregations +
+  `readiness()`), `review.ts` (Leitner), `auth-client.ts`.
+  **Per-question history** (2026-07-20): `ExamProgress.q?` maps question id ->
+  `[right, wrong, lastDay, box]`, additive and optional exactly like
+  `sessions?` (worker `isReasonableProgress` and `isExamProgress` are
+  presence-checks, so old blobs keep working and the field survives sync
+  untouched). Boxes 1-5, intervals `[_,0,1,3,7,21]` days INDEXED BY BOX. A
+  miss drops to box 1; a question leaves the review queue at box 3 (two
+  correct since the last miss). Readers must tolerate short tuples
+  (`s[3] ?? 1`). Written only by `store.recordAnswers()`, which folds a whole
+  batch in ONE update - finishing a 90-question exam used to re-serialize the
+  entire blob 90 times. MC only; PBQs have no numeric id.
+  **Readiness** = `examSplit`-weighted domain accuracy over *covered* domains,
+  RENORMALIZED not zero-filled (an unstudied domain is not a failed one),
+  through a Wilson interval (z=1.2816) and `scaledScore`. Gated at 25 answers
+  and 50% coverage. Always render the BAND, never a point; never say "ready",
+  "will pass", or "guaranteed".
 - `src/hooks/` — `useProgress` (store + cloud sync), `useQuizSession` (reducer),
   `useTheme` (`trainer-theme`, pre-paint boot script in `index.html`).
 - `src/screens/` — Landing (smart hero: new-visitor pitch with a LIVE answerable

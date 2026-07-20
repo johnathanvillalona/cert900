@@ -278,6 +278,7 @@ export default function App() {
             onDrill={() => setScreen({ kind: "setup" })}
             onPbqLab={() => startQuiz({ mode: "pbq" })}
             onProgress={openProgress}
+            onReview={(ids) => startQuiz({ mode: "practice", ids })}
           />
         )}
 
@@ -307,6 +308,7 @@ export default function App() {
             onDrillAgain={() => setScreen({ kind: "setup" })}
             onProgress={openProgress}
             onHome={() => setScreen({ kind: "home" })}
+            onReview={(ids) => startQuiz({ mode: "practice", ids })}
           />
         )}
 

@@ -3,7 +3,7 @@ import { toast } from "sonner"
 import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { accuracy, masteryLevel, topicStat, weakTopics, domainNumbers } from "@/lib/engine"
-import { domainAccuracy, recentAccuracy, sessionTrend, studyStreak } from "@/lib/stats"
+import { domainAccuracy, readiness, READINESS_COPY, recentAccuracy, sessionTrend, studyStreak } from "@/lib/stats"
 import { AccuracyTrendChart, DomainAccuracyChart, ExamScoreChart } from "@/components/charts"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -25,6 +25,8 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
   const trend = sessionTrend(p.sessions)
   const recent = recentAccuracy(p.sessions)
   const domains = domainAccuracy(exam, p)
+  const ready = readiness(exam, p)
+  const readyCopy = READINESS_COPY[ready.level]
 
   const exportProgress = () => {
     const blob = new Blob([store.exportJson()], { type: "application/json" })
@@ -53,6 +55,59 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
     <main>
       <p className="font-mono text-xs text-muted-foreground">{exam.cert} {exam.name} · {exam.code}</p>
       <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Detailed progress</h1>
+
+      <Card className="mt-4 p-6" data-testid="readiness">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 className="text-lg font-semibold">Where you'd land today</h2>
+          <span
+            className={cn(
+              "font-mono text-xs font-semibold tracking-wide uppercase",
+              ready.level === "on-track" && "text-success",
+              ready.level === "not-yet" && "text-destructive",
+              ready.level === "borderline" && "text-brand",
+              ready.level === "insufficient" && "text-muted-foreground",
+            )}
+            data-testid="readiness-level"
+          >
+            {readyCopy.label}
+          </span>
+        </div>
+
+        {ready.band ? (
+          <>
+            {/* A range, never a point: the underlying sample is far too small
+                to justify the precision a single number would imply. */}
+            <p className="mt-3 font-mono text-4xl font-bold tabular-nums" data-testid="readiness-band">
+              {ready.band.low}
+              <span className="text-muted-foreground mx-2 text-2xl font-normal">to</span>
+              {ready.band.high}
+            </p>
+            <p className="text-muted-foreground mt-1 text-sm">
+              estimated scaled score, pass line {exam.scale.pass}. Based on{" "}
+              <span className="font-mono tabular-nums">{ready.answers}</span> answers covering{" "}
+              <span className="font-mono tabular-nums">{Math.round(ready.coverage * 100)}%</span> of the exam weight.
+            </p>
+          </>
+        ) : (
+          <p className="text-muted-foreground mt-2 text-sm">
+            <span className="font-mono tabular-nums">{ready.answers}</span> answers so far, covering{" "}
+            <span className="font-mono tabular-nums">{Math.round(ready.coverage * 100)}%</span> of the exam weight.
+          </p>
+        )}
+
+        <p className="mt-3 text-sm leading-relaxed">{readyCopy.note}</p>
+
+        {ready.gaps.length > 0 && (
+          <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+            No estimate yet for {ready.gaps.map((g) => g.name).join(", ")}. A few questions in{" "}
+            {ready.gaps.length === 1 ? "it" : "each"} would sharpen this.
+          </p>
+        )}
+
+        <p className="text-muted-foreground mt-3 text-xs leading-relaxed">
+          An estimate from your practice answers here, not a prediction of your real exam result.
+        </p>
+      </Card>
 
       <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4" data-testid="statline">
         {[
