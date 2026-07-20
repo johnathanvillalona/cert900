@@ -1804,8 +1804,8 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 5
    }
   },
-  "questionCount": 166,
-  "pbqCount": 8
+  "questionCount": 331,
+  "pbqCount": 16
  },
  "aif-c01": {
   "id": "aif-c01",
