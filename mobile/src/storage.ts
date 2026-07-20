@@ -41,3 +41,15 @@ export async function saveUpdatedAt(m: UpdatedAtMap): Promise<void> {
     /* in-memory only */
   }
 }
+
+/**
+ * Removes both progress keys from the device. Only these two: other AsyncStorage
+ * keys are not ours, and the auth session lives in SecureStore, not here.
+ */
+export async function clearLocal(): Promise<void> {
+  try {
+    await AsyncStorage.multiRemove([STORE_KEY, UPDATED_AT_KEY])
+  } catch {
+    /* unavailable — the in-memory reset below is still what the user sees */
+  }
+}

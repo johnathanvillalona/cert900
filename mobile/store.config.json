@@ -4,23 +4,23 @@
   "apple": {
     "info": {
       "en-US": {
-        "title": "cert900: CompTIA Practice",
-        "subtitle": "Adaptive drills, free, offline",
-        "promoText": "900+ original CompTIA questions for A+ and Network+, scored on the real 100 to 900 scale. Adaptive drills run offline and every question links to a free Messer video.",
-        "description": "cert900 is a free CompTIA practice trainer for the A+ and Network+ exams. It gives you adaptive multiple-choice drills you can run anywhere, even offline, with every question linked to a free Professor Messer video so you always know where to review.\n\nWHAT YOU GET\n- 900+ original practice questions written for the current exams: A+ Core 1 (220-1201), A+ Core 2 (220-1202), and Network+ (N10-009).\n- Adaptive drills that focus your practice on the objectives you miss most.\n- Scoring on the real CompTIA 100 to 900 scale, so a practice score means what it will mean on exam day.\n- A free Professor Messer video link on every question for fast, targeted review.\n- Offline practice. Drills and your progress work without a connection.\n- Optional Google sign-in to sync progress across devices and with cert900.com.\n- No signup required and no paywall. The full question bank is free.\n\nSTRAIGHT ABOUT THIS VERSION\nThis app currently focuses on adaptive multiple-choice drills. The interactive performance-based question (PBQ) simulations that cert900 is known for on the web are not in the app yet. They are on the roadmap. For full PBQ practice today, open cert900.com in your browser.\n\nWHO IT IS FOR\nAnyone studying for CompTIA A+ or Network+ who wants honest, no-cost practice that mirrors the real scoring and points straight to trusted video explanations.\n\nStart practicing in seconds. No account, no cost, no catch.",
+        "title": "cert900: IT Cert Practice",
+        "subtitle": "A+, Net+, Sec+, AWS, Azure",
+        "promoText": "2,000+ original questions across 7 certs: CompTIA A+, Network+, Security+, AWS Cloud and AI Practitioner, and Azure Fundamentals. Adaptive drills and timed exams, offline",
+        "description": "cert900 is a free practice trainer for seven IT certifications, spanning CompTIA, AWS, and Azure. Practice anywhere, even offline, with every question written from the current exam objectives and linked to a free training video so you always know where to review.\n\nSEVEN EXAMS, ONE APP\n- CompTIA A+ Core 1 (220-1201) and Core 2 (220-1202)\n- CompTIA Network+ (N10-009)\n- CompTIA Security+ (SY0-701)\n- AWS Certified Cloud Practitioner (CLF-C02)\n- AWS Certified AI Practitioner (AIF-C01)\n- Microsoft Azure Fundamentals (AZ-900)\n\nWHAT YOU GET\n- More than 2,000 original practice questions, written for the current exam versions, never copied from real exams.\n- Timed full-exam mode that scores on each exam's real scale and cut line, plus short adaptive drills for daily practice.\n- Performance-based questions in each vendor's own format: CompTIA simulations, and AWS and Azure ordering and matching items.\n- A review queue with spaced repetition that brings back exactly the questions you got wrong.\n- A readiness estimate and per-domain accuracy so you can see where you stand.\n- A free training video link on every question: Professor Messer for CompTIA, and curated video for AWS and Azure.\n- Everything works offline. Your progress is saved on the device.\n- Optional sign-in with Google or Apple to sync progress across devices and with cert900.com. Sign-in is never required.\n- No signup wall and no paywall. The full question bank is free.\n\nWHO IT IS FOR\nAnyone studying for a CompTIA, AWS, or Azure certification who wants honest, no-cost practice that mirrors the real scoring and points straight to trusted video explanations.\n\ncert900 is an independent study tool and is not affiliated with, endorsed by, or sponsored by CompTIA, Amazon Web Services, or Microsoft. All trademarks belong to their respective owners.",
         "keywords": [
           "comptia",
-          "a+",
+          "security+",
           "network+",
-          "220-1201",
-          "220-1202",
+          "a+",
+          "sy0-701",
           "n10-009",
+          "aws",
+          "azure",
+          "az-900",
+          "clf-c02",
           "exam prep",
-          "practice test",
-          "it cert",
-          "quiz",
-          "study",
-          "messer"
+          "practice test"
         ],
         "marketingUrl": "https://cert900.com",
         "supportUrl": "https://cert900.com",
@@ -37,7 +37,7 @@
       "lastName": "Villalona",
       "email": "johnathanv16@gmail.com",
       "demoRequired": false,
-      "notes": "Free education app. No login or account is required to use any feature. All practice content is fully accessible anonymously; Google sign-in is optional and only syncs progress across devices. Every question links to a public Professor Messer video."
+      "notes": "This app has no user accounts and requires no credentials to review. Every question, drill, timed exam, and progress view is fully available without signing in, so the reviewer does not need a login. Sign in with Google or Apple is an optional convenience that mirrors on-device progress to the user's other devices; it is not used to set up or authenticate a primary account, and no feature is gated behind it. Account deletion is available in-app on the Account screen, opened from the header on the exams list, via Delete account. Every question links to a public, free training video. All practice content is original and written from the published exam objectives; it is not copied from real exams. cert900 is independent and not affiliated with CompTIA, AWS, or Microsoft."
     }
   }
 }

@@ -87,7 +87,7 @@ Each prints a build URL; download the `.aab` / `.ipa` from there. Optional: add
 ## Phase D — Google Play (START THIS FIRST; it's the long pole) **(you)**
 
 ### D1. Create the app
-Play Console → **All apps → Create app**. Name `cert900: CompTIA A+ Net+`, English (US),
+Play Console → **All apps → Create app**. Name `cert900: IT Cert Practice`, English (US),
 **App**, **Free** (⚠️ free→paid is not reversible later). Agree to the policy + export
 declarations → **Create app**.
 
@@ -120,7 +120,8 @@ Under **App content**, complete each:
   - **Email address** (only via optional Google sign-in): Collected **Yes**, Shared **No**,
     purpose **Account management / App functionality**, mark **Optional**.
   - Security: **encrypted in transit = Yes**, **users can request deletion = Yes** (in-app
-    account deletion exists).
+    account deletion exists). Play also demands a web URL for the deletion request:
+    `https://cert900.com/delete-account`.
   - Declare **No ads**, **no third-party sharing**, no location/financial/health/contacts,
     **no device IDs for tracking**.
 - **Content rating:** category **Reference/Education**; answer all content questions **No** →
@@ -135,7 +136,7 @@ Under **App content**, complete each:
 **Grow → Store presence → Main store listing.** Paste text from
 [`store-listing-copy.md`](./store-listing-copy.md). Upload:
 - **Feature graphic:** `mobile/assets/play-feature-graphic.png` (required).
-- **App icon:** a 512×512 PNG (you can downscale `mobile/assets/icon.png`).
+- **App icon:** `mobile/assets/play-icon-512.png` (512×512, no alpha, generated).
 - **Phone screenshots:** minimum 2 (see §F).
 
 ### D6. Service account for future automated submits
@@ -167,8 +168,30 @@ rollout**. Live at `https://play.google.com/store/apps/details?id=com.cert900.ap
 - Confirm **Agreements, Tax, and Banking** shows the **Free Apps** agreement **Active** (a
   pending agreement blocks release even for free apps).
 
+### E1b. Sign in with Apple provider secrets — **BLOCKER: the button is dead until these are set**
+The app ships an Apple sign-in button (Guideline 4.8 requires it alongside Google), but the
+worker only registers the Apple provider when both secrets below are present — and until then a
+tap fails. Set these **before** you submit for review, and before any public release:
+
+- Apple Developer → **Certificates, Identifiers & Profiles → Identifiers** → the `com.cert900.app`
+  App ID → enable the **Sign In with Apple** capability (save).
+- **Keys → +** → enable **Sign In with Apple**, register, and **download the key `.p8` once**
+  (unrepeatable); record the **Key ID** and your **Team ID**. This is a *different* key from the
+  App Store Connect API key in E1.
+- Build the **client secret**, an ES256 JWT signed with that `.p8` (`iss` = Team ID, `sub` =
+  `com.cert900.app`, `aud` = `https://appleid.apple.com`, ≤6 month expiry). **It expires and must
+  be regenerated on that cadence** — set a reminder.
+- Set both worker secrets, pasted (never printed):
+  ```powershell
+  npx wrangler secret put APPLE_CLIENT_ID     # com.cert900.app
+  npx wrangler secret put APPLE_CLIENT_SECRET  # the ES256 JWT
+  ```
+  With either unset the worker simply omits the Apple provider and Google keeps working, so this
+  never breaks a deploy — it just leaves the Apple button non-functional. Verify on the E3
+  TestFlight build that Apple sign-in completes end to end before submitting.
+
 ### E2. Create the app record
-App Store Connect → **Apps → + New App**: platform **iOS**, name `cert900: CompTIA Practice`,
+App Store Connect → **Apps → + New App**: platform **iOS**, name `cert900: IT Cert Practice`,
 primary language English (US), **Bundle ID = com.cert900.app** (appears because EAS registered
 it during the Phase C build), SKU e.g. `cert900-ios-001`. **App Information → Primary Category
 = Education.** Note the numeric **Apple ID** (App Information → General) for `eas.json`.
