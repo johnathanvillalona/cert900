@@ -152,6 +152,14 @@ url.protocol (wrangler dev simulates the route host and would loop).
 ## Conventions / gotchas
 - Every question/PBQ topic key MUST exist in its exam's `videos` map (Vitest
   enforces). Answer index `a` must be valid into `o`. `examSplit` sums to 1.0.
+- **PBQ view state must never outlive its question.** All six PBQ views carry
+  `key={session.idx}` (Quiz.tsx PBQView) and any `<Select>` bound to an
+  unanswered value uses `""`, NEVER `undefined` — `undefined` makes Radix
+  uncontrolled, so its internal selection persists into the next question and
+  displays an answer the reducer never recorded (shipped bug, fixed cf147f9:
+  match rows looked correctly answered but graded wrong). `src/screens/
+  pbq-bindings.test.ts` locks both invariants; `qa/match-repro.js` proves it
+  end-to-end by answering every match PBQ by visible label and asserting 100%.
 - Content batch flow: edit `src/data/*.ts` → `npm test` →
   `node tools/content-lint.mjs` (must be 0 flags) → `node tools/linkcheck.js`
   (spot-check new slugs) → commit → push (CI deploys).
