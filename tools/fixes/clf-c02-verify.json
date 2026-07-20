@@ -1,0 +1,33 @@
+{
+  "examId": "clf-c02",
+  "fixes": [
+    {
+      "id": 266,
+      "x": "A studio keeps rendering caches that are read a few times a month and can be regenerated from source if they are ever lost. Given that monthly read frequency, which class produces the lowest total bill while still returning objects in milliseconds?",
+      "e": "One Zone-Infrequent Access keeps a single Availability Zone copy and, for data read several times a month, comes out cheapest of the millisecond-retrieval classes once retrieval fees are counted; losing a zone is tolerable because the caches can be rebuilt. Glacier Instant Retrieval advertises a lower per-gigabyte storage rate, but it is priced for archives touched roughly once a quarter and its far higher retrieval charge swamps that saving at this read frequency.",
+      "_why": "Stem said only 'costs least', which on its face favors the unkeyed S3 Glacier Instant Retrieval option: GIR storage is $0.004/GB-month versus One Zone-IA at about $0.010/GB-month, and GIR also returns objects in milliseconds. The keyed answer is only right on TOTAL cost, where GIR's $0.03/GB retrieval fee dominates at several reads per month. Compare id 267, whose stem correctly says 'lowest storage price'. Reworded to 'lowest total bill' plus an explicit pointer to the read frequency so the intended discriminator actually discriminates, and rewrote the explanation to concede GIR's lower storage rate rather than leaving a candidate who knows the price sheet believing the key is wrong. Options and answer index unchanged."
+    },
+    {
+      "id": 318,
+      "o": [
+        "Every check that Trusted Advisor offers in all categories",
+        "No checks at all until a support plan is purchased",
+        "A limited set of core checks, including some security items",
+        "Only checks in the cost optimization category"
+      ],
+      "a": 2,
+      "e": "Basic and Developer Support include a core subset of Trusted Advisor checks, notably several security checks and the full set of service limit checks. Opening the complete catalogue of checks across every category requires Business Support or higher.",
+      "_why": "Both the distractor and the explanation asserted that Trusted Advisor has 'five categories'. AWS added Operational Excellence as a Trusted Advisor category in 2023, so the current set is cost optimization, performance, security, fault tolerance, service limits, and operational excellence. The keyed answer and the support-plan boundary it teaches are correct and unchanged; only the stale count is removed from option 0 and from the explanation so the item stops teaching a false fact in passing."
+    },
+    {
+      "id": 319,
+      "e": "Trusted Advisor reports on security and fault tolerance, alongside cost optimization, performance, service limits, and operational excellence. Staff training, vendor contract terms, and physical facility access are not things it can inspect inside an AWS account.",
+      "_why": "Explanation stated 'Trusted Advisor reports across five categories' and then enumerated five. That enumeration is now incomplete and therefore false: Operational Excellence has been a Trusted Advisor category since 2023, making six. Both keyed options (Security, Fault tolerance) remain correct, so options, a, and as are untouched; only the false count and enumeration in e are corrected."
+    },
+    {
+      "id": 274,
+      "e": "Snowcone is the smallest and most portable Snow Family device, rugged enough for field use and able to run edge computing before the data is shipped or synced to AWS. Snowball Edge devices hold far more data but are too large and heavy for one person to carry into the field. Snowcone remains CLF-C02 vocabulary, though AWS closed it to new orders in November 2024 and now steers field deployments toward Outposts or partner devices.",
+      "_why": "Currency, not grading. The keyed answer is correct against the CLF-C02 blueprint and is deliberately left unchanged, but AWS discontinued Snowcone effective 2024-11-12 (no new or existing customer can order one), and Snowball Edge went existing-customers-only on 2025-11-07. As written the explanation reads as a live purchasing recommendation for a retired product. Added one clause so a 2026 learner keeps the exam answer without believing the device is orderable. Same caveat applies informationally to id 273, which I left alone because Snowball Edge does still exist for current customers and the item's reasoning about network-versus-shipping still holds."
+    }
+  ]
+}

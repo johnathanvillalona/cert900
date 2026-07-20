@@ -1,0 +1,11 @@
+{
+  "_note": "See sy0-701-positional.json. Id 123 predates this batch and was live.",
+  "examId": "aif-c01",
+  "fixes": [
+    {
+      "id": 123,
+      "e": "Interpretability is a property of transparent models whose mechanics can be examined, such as a small decision tree, while explainability uses post-hoc techniques to justify outputs of complex or opaque models. The choice tying explainability to internal weights is tempting because it sounds technical, but it reverses the two concepts.",
+      "_why": "said 'The first option' but options shuffle at runtime"
+    }
+  ]
+}

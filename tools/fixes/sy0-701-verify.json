@@ -1,0 +1,23 @@
+{
+  "examId": "sy0-701",
+  "fixes": [
+    {
+      "id": 180,
+      "o": [
+        "Negotiating ephemeral keys discarded after each session",
+        "Increasing the certificate validity period",
+        "Switching to a cipher with a longer block",
+        "Storing the private key on the web server"
+      ],
+      "a": 0,
+      "e": "Keys that exist only for one session and are destroyed when it ends give forward secrecy, so stealing the server's long-term private key later reveals nothing about the archived conversations. A longer block size is a plausible-sounding strength upgrade, but it does not change the fact that a static key could still unlock every recorded session.",
+      "_why": "The keyed option read 'Generating a new session key per connection', which does NOT defeat harvest-now-decrypt-later. Classic RSA key transport also generates a fresh session key for every connection, but that key is delivered encrypted under the server's static private key, so an adversary who later steals that key decrypts every recorded session. Forward secrecy requires the session key to be EPHEMERAL (derived per session and discarded), not merely fresh. As written, all four options failed to defeat the attack. Option text now names ephemerality; the explanation already used the word 'ephemeral' and now matches the option it justifies."
+    },
+    {
+      "id": 192,
+      "x": "A hostile actor swaps the update image hosted on a network appliance vendor's public download mirror for a backdoored build, and administrators pull maintenance releases straight from that mirror. Which customer-side control would most likely have surfaced the tampering before installation?",
+      "e": "An image swapped on a download mirror cannot carry a valid signature, because the attacker does not hold the vendor's signing key, so verification fails before anything is written to the device. Automatic installation makes the situation worse by removing the human checkpoint entirely, pushing the tampered image out faster.",
+      "_why": "The keyed answer was factually wrong for the scenario as written. The old stem said the VENDOR'S BUILD SYSTEM was compromised, so the backdoored firmware is produced inside the vendor's own pipeline and is then signed with the vendor's genuine key. Signature validation therefore PASSES on the tampered image and surfaces nothing. This is exactly why signed-update verification did not stop SolarWinds, 3CX, or the XZ Utils backdoor. The old explanation was self-defeating: it justified the key by saying signature checking proves 'the image is the one the vendor actually produced' -- and under a build-system compromise, it is. The stem now places the compromise in the distribution channel (a swapped image on a download mirror), where the attacker has no access to the signing key, so signature validation is genuinely the control that catches it. Options and answer index are unchanged and remain correct under the new stem."
+    }
+  ]
+}

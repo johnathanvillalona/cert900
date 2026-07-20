@@ -1,0 +1,17 @@
+{
+  "examId": "az-900",
+  "fixes": [
+    {
+      "id": 279,
+      "o": [
+        "Microsoft Cost Management analysis",
+        "Azure Advisor cost recommendations",
+        "The Azure reservations dashboard",
+        "A business case built in Azure Migrate"
+      ],
+      "a": 3,
+      "e": "A business case in Azure Migrate models on-premises hardware refresh, electricity, cooling, and labor against the equivalent Azure spend across several years, which is exactly the comparison the CFO asked for. Microsoft retired the standalone total cost of ownership calculator in 2025 and moved that analysis into Azure Migrate. Microsoft Cost Management reports charges already incurred inside Azure and has no view of a physical datacenter, and Advisor only recommends savings on resources that are already deployed.",
+      "_why": "Keyed answer named the Total Cost of Ownership calculator, which Microsoft deprecated in July 2025 and has since removed; the AZ-900 skills-measured list as of July 20, 2026 now reads only 'Explore the pricing calculator' under Describe cost management in Azure, with no TCO calculator bullet. Keying a retired tool makes the item factually wrong and unanswerable against current Azure. Microsoft's documented replacement for on-premises-versus-Azure multi-year TCO comparison is the Azure Migrate business case, and Azure Migrate is still an explicit AZ-900 objective under Describe migration options. Stem left unchanged so the build's stem-overlap check is unaffected. Option lengths: keyed 38 chars vs distractor mean 33.3, well inside both the 1.6x and mean+25 limits; no parentheticals in any option; all four unique case-insensitively."
+    }
+  ]
+}

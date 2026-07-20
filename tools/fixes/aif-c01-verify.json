@@ -1,0 +1,39 @@
+{
+  "examId": "aif-c01",
+  "fixes": [
+    {
+      "id": 234,
+      "o": [
+        "Deploy the model on demand or purchase Provisioned Throughput",
+        "Submit the customized model to the provider for approval",
+        "Rebuild the dataset in Amazon Redshift and rerun the job",
+        "Enable cross-Region replication on the training bucket"
+      ],
+      "a": 0,
+      "e": "A customized model is private to the account and cannot serve traffic until inference is set up for it, either through a custom model deployment billed per token or through Provisioned Throughput that reserves dedicated capacity. No provider approval is involved, because the customized weights never leave the account or enter the shared catalog.",
+      "_why": "The old key was 'Provision throughput for the customized model before use', and the explanation asserted a customized model 'needs dedicated capacity allocated to it before it will serve inference requests'. That is no longer true. The Amazon Bedrock user guide page 'Set up inference for a custom model' now lists two independent options: purchase Provisioned Throughput, or 'Deploy custom model for on-demand inference - To set up on-demand inference, you deploy the model with a custom model deployment... With on-demand inference, you only pay for what you use and you don't need to set up provisioned compute resources.' So the keyed statement is factually wrong as of 2026 (defect categories 1 and 7). Rewritten key covers both supported paths; the three distractors are unchanged and remain clearly wrong."
+    },
+    {
+      "id": 264,
+      "o": [
+        "It is known as self-consistency",
+        "It raises inference cost per question",
+        "It selects the longest response as the answer",
+        "It lowers the number of output tokens used",
+        "It changes the model's underlying weights"
+      ],
+      "a": 0,
+      "as": [
+        0,
+        1
+      ],
+      "e": "Self-consistency samples multiple chains of reasoning and keeps the answer that the majority of paths agree on, trading extra invocations for steadier results. Because every path is generated in full, token usage and cost climb rather than fall; the winner is chosen by how often an answer recurs rather than by how long it is; and nothing about the model itself is modified.",
+      "_why": "Replaces the unkeyed option 'It removes the need for any reference data', which is arguably defensible: self-consistency is a pure inference-time prompting technique and does consume no labeled or reference data, so a well-prepared candidate could select it as a third true statement. Because this item is graded all-or-nothing, a defensible fifth option breaks it (defect category 2). The original explanation compounded the problem by rebutting only the 'fewer tokens' and 'changes weights' distractors and never addressing the reference-data option. Replacement distractor 'It selects the longest response as the answer' is unambiguously false, since the technique takes a majority vote, and it tests the same concept more sharply. New explanation now rebuts all three distractors."
+    },
+    {
+      "id": 263,
+      "e": "Prompting the model to work through intermediate steps before committing to a result reliably improves multi-step reasoning, at the cost of extra output tokens and latency. Capping the response length cuts off the very steps the task depends on, and top-k only narrows which tokens may be sampled at each position rather than making the model reason more carefully.",
+      "_why": "Explanation-only fix; the key stays correct. The old explanation justified eliminating the 'lower top-k to a single candidate token' distractor by claiming that 'narrowing sampling constrains the very reasoning the task depends on'. That conflates sampling diversity with reasoning capability and is not defensible: top-k = 1 is greedy decoding, which does not prevent chain-of-thought and is often preferred for deterministic logic tasks. It is self-consistency, not chain-of-thought, that depends on sampling diversity. Rewritten so the distractor is dismissed for the right reason: top-k governs token selection, not whether intermediate steps are produced."
+    }
+  ]
+}
