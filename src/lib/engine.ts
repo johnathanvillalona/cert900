@@ -72,11 +72,17 @@ export function pickMC(
   exam: ExamDef,
   p: ExamProgress,
   n: number,
-  opts: { focusWeak?: boolean; domain?: number } = {},
+  opts: { focusWeak?: boolean; domain?: number; topic?: string } = {},
   rng: Rng = Math.random,
 ): Question[] {
-  const { focusWeak = false, domain = 0 } = opts
-  const pool = domain ? exam.questions.filter((x) => x.d === domain) : exam.questions
+  const { focusWeak = false, domain = 0, topic } = opts
+  // `topic` narrows to a single video topic (search's "drill this topic");
+  // `domain` narrows to a whole exam domain. Topic wins when both are given.
+  const pool = topic
+    ? exam.questions.filter((x) => x.t === topic)
+    : domain
+      ? exam.questions.filter((x) => x.d === domain)
+      : exam.questions
   return weightedSample(pool, Math.min(n, pool.length), p, focusWeak, rng)
 }
 

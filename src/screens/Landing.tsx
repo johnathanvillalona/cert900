@@ -13,6 +13,7 @@ import { ExamEmblem } from "@/components/exam-art"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
+import { SearchPalette } from "@/components/SearchPalette"
 import { SiteFooter } from "@/components/SiteFooter"
 import { Wordmark } from "@/components/Wordmark"
 
@@ -151,7 +152,7 @@ function FaqSection() {
   )
 }
 
-export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onNavigate: (path: string) => void }) {
+export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopic }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onNavigate: (path: string) => void; onDrillTopic: (examId: string, topic: string) => void }) {
   const store = useProgress()
   const { toggle } = useTheme()
 
@@ -187,6 +188,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate }: { onChoos
             <Wordmark className="text-sm" />
           </button>
           <div className="flex items-center gap-1 sm:gap-2">
+            <SearchPalette onChooseExam={onChooseExam} onNavigate={onNavigate} onDrillTopic={onDrillTopic} />
             <button onClick={onOpenDashboard} data-testid="landing-progress" aria-label="Progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
               <span className="hidden sm:inline">Progress</span>
