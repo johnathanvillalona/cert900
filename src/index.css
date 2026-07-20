@@ -31,6 +31,9 @@
     --color-destructive: var(--destructive);
     --color-success: var(--success);
     --color-brand: var(--brand);
+    --color-vendor-comptia: var(--vendor-comptia);
+    --color-vendor-aws: var(--vendor-aws);
+    --color-vendor-azure: var(--vendor-azure);
     --color-success-foreground: var(--success-foreground);
     --color-accent-foreground: var(--accent-foreground);
     --color-accent: var(--accent);
@@ -84,6 +87,16 @@
     --chart-5: oklch(0.645 0.246 16.44);
     --success: oklch(0.527 0.154 150.1);
     --success-foreground: oklch(0.985 0.005 155);
+    /* Ambient surface tints. Decoration only, never carry meaning. */
+    --grid-line: oklch(0.208 0.042 265.8 / 0.045);
+    --aurora-1: oklch(0.80 0.13 70 / 0.10);
+    /* Vendor tints for exam emblems: three low-chroma steps of the house
+       slate ramp. Deliberately NOT the vendors brand colors (no AWS orange,
+       no Azure blue, no CompTIA red) - this is our grouping cue, not their
+       trade dress. Chroma stays <= 0.03 so they never rival --brand. */
+    --vendor-comptia: oklch(0.52 0.030 258);
+    --vendor-aws: oklch(0.58 0.024 246);
+    --vendor-azure: oklch(0.64 0.018 262);
     --brand: oklch(0.55 0.135 60);
     --radius: 0.5rem;
     --sidebar: oklch(0.995 0.002 247.9);
@@ -100,6 +113,11 @@
     color-scheme: dark;
     --success: oklch(0.723 0.192 149.6);
     --success-foreground: oklch(0.216 0.055 153);
+    --grid-line: oklch(1 0 0 / 0.035);
+    --aurora-1: oklch(0.85 0.115 75 / 0.085);
+    --vendor-comptia: oklch(0.78 0.028 258);
+    --vendor-aws: oklch(0.72 0.022 246);
+    --vendor-azure: oklch(0.66 0.016 262);
     --brand: oklch(0.85 0.115 75);
     --background: oklch(0.185 0.037 262);
     --foreground: oklch(0.951 0.007 247.9);
@@ -269,6 +287,101 @@
 ::view-transition-group(*) {
     animation-duration: 200ms;
     animation-timing-function: var(--ease-in-out-strong);
+}
+
+/* ---- Ambient surface ----------------------------------------------------
+   Marketing surfaces only (landing hero, exam picker, guides, results
+   reveal). Quiz and drill stay flat: it's a timed study tool and a moving
+   backdrop competes with the question.
+
+   Two inert decorative layers behind content:
+     ::before  a STATIC hairline grid (light = lab bench, dark = editor gutter)
+     ::after   ONE very slow amber drift, transform only
+   No canvas, no rAF, no library. Both layers are absolutely positioned at
+   z-index -1 inside an isolated stacking context, so they add zero layout
+   and zero CLS, and a CSS background-image is never LCP-eligible.
+
+   REDUCED MOTION: the global rule above collapses every animation to 0.01ms
+   with iteration-count 1, so an infinite loop would SNAP to its last frame.
+   The drift is therefore authored so 100% is byte-identical to 0% and to the
+   base rule, making that snap a no-op; the explicit `animation: none` below
+   then stops it outright. Decoration carries no information, so unlike the
+   spinner exemption it simply holds still. */
+.ambient {
+    position: relative;
+    isolation: isolate;
+    /* The drift layer is intentionally wider than its host so the wash has soft
+       edges; `clip` contains that bleed without it widening the page (it caused
+       a horizontal scrollbar at 360px) and, unlike `hidden`, does not create a
+       scroll container, so sticky/anchor behaviour is untouched. */
+    overflow: clip;
+}
+.ambient::before,
+.ambient::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    contain: layout paint;
+}
+/* Layer 1: static grid, no animation at all. */
+.ambient::before {
+    inset: 0 0 auto 0;
+    height: 420px;
+    background-image:
+        repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 96px),
+        repeating-linear-gradient(to bottom, var(--grid-line) 0 1px, transparent 1px 96px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%);
+}
+/* Layer 2: one slow amber drift. translate3d self-promotes; no will-change,
+   so we don't hold a full-viewport GPU layer for the life of the page. */
+.ambient::after {
+    inset: -30vh -20vw auto -20vw;
+    height: 110vh;
+    background-image: radial-gradient(
+        42rem 26rem at 50% 40%,
+        var(--aurora-1) 0%,
+        color-mix(in oklab, var(--aurora-1) 40%, transparent) 45%,
+        transparent 72%
+    );
+    transform: translate3d(0, 0, 0) scale(1);
+    animation: ambient-drift 64s var(--ease-in-out-strong) infinite;
+}
+@keyframes ambient-drift {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    25% { transform: translate3d(4%, 2%, 0) scale(1.06); }
+    50% { transform: translate3d(1%, 5%, 0) scale(1.02); }
+    75% { transform: translate3d(-3%, 2%, 0) scale(1.05); }
+    100% { transform: translate3d(0, 0, 0) scale(1); } /* == 0%, by contract */
+}
+/* Grid only, no drift. For long scrolling pages (guides). */
+.ambient-still::after {
+    content: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .ambient::after { animation: none !important; }
+}
+
+/* One-shot bloom behind a passing verdict. Base IS the end state, so the
+   global policy (opacity kept, transform dropped) degrades it to a plain
+   fade, same contract as .verdict-pop. */
+.ambient-bloom {
+    position: absolute;
+    inset: -25% -12%;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 9999px;
+    background-image: radial-gradient(closest-side, var(--aurora-1), transparent 72%);
+    opacity: 1;
+    transform: scale(1);
+    transition:
+        opacity 700ms var(--ease-out-strong) 120ms,
+        transform 700ms var(--ease-out-strong) 120ms;
+    @starting-style {
+        opacity: 0;
+        transform: scale(0.82);
+    }
 }
 
 @layer base {

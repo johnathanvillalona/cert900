@@ -255,7 +255,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
             <DialogTitle>End the exam?</DialogTitle>
             <DialogDescription>
               {session.unansweredCount() > 0
-                ? `${session.unansweredCount()} question(s) are unanswered or incomplete. End the exam anyway?`
+                ? `${session.unansweredCount()} ${session.unansweredCount() === 1 ? "question is" : "questions are"} unanswered or incomplete. End the exam anyway?`
                 : `Your answers will be scored on the 100 to ${exam.scale.max} scale.`}
             </DialogDescription>
           </DialogHeader>

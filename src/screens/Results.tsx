@@ -75,6 +75,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           <span className={cn("verdict-pop block font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
             {outcome.scaled}
           </span>
+          {outcome.pass && <span className="ambient-bloom" aria-hidden />}
           {outcome.pass && <span className="ring-pulse" aria-hidden />}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">
@@ -113,8 +114,8 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
 
       <Card className="mt-4 p-6">
         <h2 className="text-lg font-semibold">Review: {misses.length} to study</h2>
-        <p className="text-muted-foreground text-sm">Every miss links to the free training video for that topic.</p>
-        {misses.length === 0 && <p className="mt-3">Nothing missed. Seriously impressive.</p>}
+        <p className="text-muted-foreground text-sm">Each one links to the video that covers it.</p>
+        {misses.length === 0 && <p className="mt-3">A clean sweep. Nothing to review.</p>}
         <div className="mt-3 flex flex-col gap-3">
           {misses.map((r, i) =>
             r.kind === "mc" ? (

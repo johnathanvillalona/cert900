@@ -1,6 +1,7 @@
 import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight } from "lucide-react"
 import type { ExamDef } from "@/data/types"
 import { VENDOR_FORMATS } from "@/data/vendors"
+import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
 
@@ -32,10 +33,11 @@ export function Home(props: {
 
   return (
     <main>
-      <p className="font-mono text-xs text-muted-foreground">
+      <p className="text-muted-foreground flex items-center gap-2 font-mono text-xs">
+        <ExamEmblem examId={exam.id} className="text-brand size-5" />
         {exam.cert} {exam.name} · {exam.code}
       </p>
-      <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Practice like it's exam day.</h1>
+      <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Practice like it's exam day</h1>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {MODES.filter((m) => m.key !== "pbq" || exam.pbqs.length > 0).map((m) => (
           <button
@@ -66,7 +68,7 @@ export function Home(props: {
         <span className="font-mono tabular-nums">{exam.pbqs.length}</span> {VENDOR_FORMATS[exam.vendor].countNoun} in the {exam.cert} {exam.name} ({exam.code})
         bank, covering all {Object.keys(exam.domains).length} exam domains.{" "}
         {totals.q === 0 ? (
-          "Your progress will be tracked automatically from your first answer."
+          "Tracking starts with your first answer."
         ) : (
           <>
             You have answered <span className="font-mono font-semibold tabular-nums">{totals.q}</span> so far
@@ -76,7 +78,7 @@ export function Home(props: {
                 A weak-topics drill would hit those first.
               </>
             ) : (
-              " with no weak topics flagged. Keep it up."
+              " with nothing flagged as weak yet."
             )}
           </>
         )}

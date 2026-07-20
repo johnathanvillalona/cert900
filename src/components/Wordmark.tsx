@@ -5,6 +5,15 @@ import { cn } from "@/lib/utils"
  * perfect CompTIA score) + "cert900" wordmark ("900" set in Geist Mono).
  * Put `.brand-link` on the clickable parent to get the arc-draw hover; text
  * color follows the parent (hover:text-brand). Reduced-motion draws instantly.
+ *
+ * ALIGN CALLERS WITH `items-center`, NEVER `items-baseline`. This root is a
+ * flex container whose first item is the replaced <svg>, and a flex container
+ * exports its first item's baseline. An SVG has no text baseline, so the UA
+ * synthesises one from its bottom edge (~20px at size-5) rather than the
+ * wordmark's text baseline (~14px) — under `items-baseline` any adjacent text
+ * drops ~5px. (This shipped once, as the misaligned "· CLF-C02" in the app
+ * header.) Fixing it inside this component is worse: making the root
+ * `items-baseline` would shove the mark up instead.
  */
 export function Wordmark({ className, iconClassName }: { className?: string; iconClassName?: string }) {
   return (

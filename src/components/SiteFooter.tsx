@@ -14,8 +14,8 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
         {full && (
           <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
             A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA, Amazon Web
-            Services, Microsoft, Professor Messer, or any video creator linked here. CompTIA A+<sup>®</sup> and
-            Network+<sup>®</sup> are registered trademarks of CompTIA, Inc. AWS<sup>®</sup> is a trademark of
+            Services, Microsoft, Professor Messer, or any video creator linked here. CompTIA A+<sup>®</sup>,
+            Network+<sup>®</sup>, and Security+<sup>®</sup> are registered trademarks of CompTIA, Inc. AWS<sup>®</sup> is a trademark of
             Amazon.com, Inc. or its affiliates. Microsoft<sup>®</sup> and Azure<sup>®</sup> are trademarks of the
             Microsoft group of companies. All practice questions are original. Video links open each creator's free
             training content.
@@ -52,7 +52,7 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             </button>
             <a
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
-              href={`mailto:${CONTACT_EMAIL}?subject=CompTIA%20Practice%20Trainer%20feedback`}
+              href={`mailto:${CONTACT_EMAIL}?subject=cert900%20feedback`}
             >
               Contact
             </a>

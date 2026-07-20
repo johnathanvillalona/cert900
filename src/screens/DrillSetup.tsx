@@ -40,7 +40,8 @@ export function DrillSetup({ exam, onStart, onBack }: { exam: ExamDef; onStart: 
       <Card className="p-6">
         <h2 className="text-xl font-semibold">Question Drill</h2>
         <p className="text-muted-foreground mt-1 text-sm">
-          Feedback after every question, with a link to the Professor Messer video on that topic.
+          Feedback after every question, with a link to the{" "}
+          {exam.vendor === "comptia" ? "Professor Messer" : "training"} video for that topic.
         </p>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">

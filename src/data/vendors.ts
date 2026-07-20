@@ -1,10 +1,18 @@
 import type { Vendor } from "./types"
 
-/** Display metadata for exam vendors, in menu/picker order. */
-export const VENDORS: Record<Vendor, { name: string; short: string }> = {
-  comptia: { name: "CompTIA", short: "CompTIA" },
-  aws: { name: "Amazon Web Services", short: "AWS" },
-  azure: { name: "Microsoft Azure", short: "Azure" },
+/**
+ * Display metadata for exam vendors, in menu/picker order.
+ *
+ * `tintClass` groups exam emblems by vendor. These are three low-chroma steps
+ * of our own slate ramp, NOT the vendors' brand colors: cert900 is unaffiliated
+ * (see the footer disclaimer), so it keeps a deliberate distance from anyone's
+ * trade dress, and the house palette stays "one accent + reserved semantics".
+ * Keep them as literal class strings so Tailwind's scanner emits them.
+ */
+export const VENDORS: Record<Vendor, { name: string; short: string; tintClass: string }> = {
+  comptia: { name: "CompTIA", short: "CompTIA", tintClass: "text-vendor-comptia" },
+  aws: { name: "Amazon Web Services", short: "AWS", tintClass: "text-vendor-aws" },
+  azure: { name: "Microsoft Azure", short: "Azure", tintClass: "text-vendor-azure" },
 }
 
 export const VENDOR_ORDER: Vendor[] = ["comptia", "aws", "azure"]
@@ -37,7 +45,7 @@ export interface VendorFormats {
 export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
   comptia: {
     labTitle: "PBQ Lab",
-    labDesc: "Just the performance-based questions: matching and ordering scenarios with full feedback.",
+    labDesc: "Only the performance-based questions: simulated terminals, config panels, network diagrams, matching, ordering, and drag-to-connect, with feedback on every one.",
     countNoun: "PBQs",
     itemBadge: {
       match: "Performance-Based Question",

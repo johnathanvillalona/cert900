@@ -91,7 +91,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
         <h2 className="text-lg font-semibold">Needs work</h2>
         <p className="text-muted-foreground text-sm">Topics under 70% accuracy (3+ attempts). Watch the video, then run a weak-topics drill.</p>
         {weak.length === 0 ? (
-          <p className="text-muted-foreground mt-3 text-sm">Nothing here yet. Either you are crushing it, or you need more attempts for the data to show.</p>
+          <p className="text-muted-foreground mt-3 text-sm">Nothing here yet. Topics show up once you have a few attempts on them.</p>
         ) : (
           <div className="mt-2 divide-y">
             {weak.map((t) => (
@@ -111,7 +111,10 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
 
       <Card className="mt-4 p-6">
         <h2 className="text-lg font-semibold">Mastery map</h2>
-        <p className="text-muted-foreground text-sm">One block per exam topic. Cells fill as your accuracy climbs. Tap a block to open its Professor Messer video.</p>
+        <p className="text-muted-foreground text-sm">
+          One block per exam topic, filling in as your accuracy climbs. Tap any block to open its{" "}
+          {exam.vendor === "comptia" ? "Professor Messer" : "training"} video.
+        </p>
         {domainNumbers(exam).map((d) => (
           <div key={d}>
             <p className="text-muted-foreground mt-4 font-mono text-xs uppercase tracking-wider">{exam.domains[d]}</p>
@@ -153,7 +156,9 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
             {p.exams.slice().reverse().map((e, i) => (
               <div key={i} className="flex justify-between py-2 tabular-nums">
                 <span>{e.date}</span>
-                <span className={e.scaled >= 700 ? "text-success" : "text-destructive"}>
+                {/* Each exam has its own cut score (675/700/720/750); a flat 700
+                    mislabels Core 1 passes and Security+ fails. */}
+                <span className={e.scaled >= exam.scale.pass ? "text-success" : "text-destructive"}>
                   {e.scaled} ({e.pct}%)
                 </span>
               </div>
