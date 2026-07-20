@@ -395,12 +395,17 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       <p className="text-lg font-semibold">{p.title}</p>
       <p className="mt-2 whitespace-pre-line rounded-md border bg-muted/40 p-3 text-sm">{p.scen}</p>
 
-      {p.kind === "match" && <MatchView p={p} session={session} graded={graded} choiceOrder={item.choiceOrder} />}
-      {p.kind === "order" && <OrderView p={p} session={session} graded={graded} />}
-      {p.kind === "terminal" && <TerminalView p={p} session={session} graded={graded} />}
-      {p.kind === "config" && <ConfigView p={p} session={session} graded={graded} />}
-      {p.kind === "hotspot" && <HotspotView p={p} session={session} graded={graded} />}
-      {p.kind === "dragconnect" && <DragConnectView p={p} session={session} graded={graded} />}
+      {/* key={session.idx}: every PBQ view holds state that must not outlive its
+          question — Radix's internal Select value (match/config), the terminal
+          log, the drag-connect held item. Without a per-question key React
+          reconciles the same instances across questions and that state bleeds
+          forward, showing values the reducer never recorded. */}
+      {p.kind === "match" && <MatchView key={session.idx} p={p} session={session} graded={graded} choiceOrder={item.choiceOrder} />}
+      {p.kind === "order" && <OrderView key={session.idx} p={p} session={session} graded={graded} />}
+      {p.kind === "terminal" && <TerminalView key={session.idx} p={p} session={session} graded={graded} />}
+      {p.kind === "config" && <ConfigView key={session.idx} p={p} session={session} graded={graded} />}
+      {p.kind === "hotspot" && <HotspotView key={session.idx} p={p} session={session} graded={graded} />}
+      {p.kind === "dragconnect" && <DragConnectView key={session.idx} p={p} session={session} graded={graded} />}
 
       {!isExam && !graded && (
         <Button className="mt-4" onClick={session.gradePbq} data-testid="check-pbq">
@@ -459,7 +464,11 @@ function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: 
           <span className="min-w-44 flex-1 text-sm">{item.l}</span>
           <Select
             disabled={graded}
-            value={ans[i] === -1 ? undefined : String(ans[i])}
+            // "" (not undefined) keeps the Select CONTROLLED while unanswered:
+            // undefined hands control to Radix, whose internal selection then
+            // survives into the next question and shows a value the reducer
+            // never recorded. Radix still renders the placeholder for "".
+            value={ans[i] === -1 ? "" : String(ans[i])}
             onValueChange={(v) => session.setMatch(i, Number(v))}
           >
             <SelectTrigger className="w-56" aria-label={`Answer for: ${item.l}`} data-testid="match-select">

@@ -118,7 +118,9 @@ export function ConfigView({ p, session, graded }: { p: PBQConfig; session: Quiz
             {f.type === "select" && (
               <Select
                 disabled={graded}
-                value={values[i] === -1 ? undefined : String(values[i])}
+                // "" not undefined — see MatchView: undefined makes this
+                // uncontrolled and leaks Radix's selection into the next question.
+                value={values[i] === -1 ? "" : String(values[i])}
                 onValueChange={(v) => session.setConfigField(i, Number(v))}
               >
                 <SelectTrigger className="w-52" aria-label={f.label} data-testid="config-select">
