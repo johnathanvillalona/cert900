@@ -4,3 +4,9 @@ BETTER_AUTH_SECRET=any-long-random-string-for-local-dev
 BETTER_AUTH_URL=http://localhost:5173
 GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-google-client-secret
+# Sign in with Apple, used by the iOS app only. Both optional: leave them out
+# and the Apple provider is not registered, which is fine for web-only work.
+# The secret is a JWT you generate from an Apple .p8 key and it expires within
+# 6 months, so it has to be regenerated on a schedule.
+# APPLE_CLIENT_ID=com.cert900.app
+# APPLE_CLIENT_SECRET=your-generated-apple-client-secret-jwt
