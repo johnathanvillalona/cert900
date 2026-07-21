@@ -143,7 +143,7 @@ export async function dailySocialPost(env: Env): Promise<void> {
 
 // ---------- Weekly: Reddit opportunity scan (read-only) + IndexNow ----------
 
-const SCAN_SUBS = "CompTIA+ITCareerQuestions+CompTIA_Cert"
+const SCAN_SUBS = "CompTIA+ITCareerQuestions+CompTIA_Cert+ccna+AWSCertifications+AzureCertification"
 const SCAN_QUERY = '"practice test" OR "practice exam" OR PBQ OR "exam simulator"'
 const SCAN_UA = "web:com.cert900.lead-scan:v1.0 (free study site; contact johnathanv16@gmail.com)"
 
@@ -207,13 +207,18 @@ export async function weeklyIndexNow(): Promise<void> {
       host: "cert900.com",
       key: INDEXNOW_KEY,
       keyLocation: `${SITE}/${INDEXNOW_KEY}.txt`,
+      // Home + every prerendered guide slug. Keep in sync with the guide set
+      // (src/screens/Guides.tsx GUIDE_META) and public/sitemap.xml; each new
+      // exam's integration adds its slug here.
       urlList: [
         `${SITE}/`,
         `${SITE}/comptia-a-plus-practice-test`,
         `${SITE}/network-plus-practice-test`,
+        `${SITE}/comptia-security-plus-practice-test`,
         `${SITE}/comptia-pbq-practice`,
-        `${SITE}/privacy`,
-        `${SITE}/terms`,
+        `${SITE}/aws-ai-practitioner-practice-test`,
+        `${SITE}/aws-cloud-practitioner-practice-test`,
+        `${SITE}/azure-fundamentals-practice-test`,
       ],
     }),
   })

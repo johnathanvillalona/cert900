@@ -21,9 +21,9 @@ PBQs are usually 3 to 6 questions at the start, and partial credit is real,
 so do not panic-skip them; flag and come back if the timer worries you.
 
 For practice: I built a free site with simulated PBQs (working terminal,
-router config panels, drag-to-connect cabling, network diagram hotspots) for
-A+ and Network+: cert900.com. No signup. Full disclosure, it is my project,
-so feedback welcome.
+router and hardening config panels, drag-to-connect cabling, network diagram
+hotspots) for A+, Network+, and Security+: cert900.com. No signup. Full
+disclosure, it is my project, so feedback welcome.
 
 ## 2. "Best free practice tests for [exam]?"
 
@@ -31,9 +31,10 @@ The classics: Professor Messer's course + his pop quizzes, and ExamCompass
 for MCQs.
 
 Adding mine to the list with the disclosure that I built it: cert900.com.
-936 original questions across both A+ cores and Network+, adaptive drills
-that repeat what you miss, a 90-minute exam sim scored 100 to 900, and
-simulated PBQs, which is the part most free sites skip. Free, no account.
+More than 1,200 original questions across all four CompTIA exams (A+ Core 1/2,
+Network+, Security+), adaptive drills that repeat what you miss, a timed exam
+sim scored 100 to 900, and simulated PBQs, which is the part most free sites
+skip. Free, no account, and there is an iOS/Android app too.
 
 ## 3. "How do I know if I'm ready?"
 

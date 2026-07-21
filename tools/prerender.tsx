@@ -16,16 +16,35 @@ const template = readFileSync(resolve(dist, "index.html"), "utf8")
 const noop = () => {}
 
 function jsonLd(meta: GuideMeta): string {
-  const faq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: meta.faq.map(([q, a]) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  }
-  return `<script type="application/ld+json">${JSON.stringify(faq)}</script>`
+  const url = `${SITE_URL}${meta.path}`
+  // FAQPage + Course + BreadcrumbList in one @graph. Organization/WebSite come
+  // from the static template (index.html), deduped by @id.
+  const graph = [
+    {
+      "@type": "FAQPage",
+      mainEntity: meta.faq.map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    },
+    {
+      "@type": "Course",
+      name: meta.h1,
+      description: meta.description,
+      url,
+      provider: { "@type": "Organization", name: "Cert900", url: `${SITE_URL}/` },
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD", category: "Free" },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: meta.h1, item: url },
+      ],
+    },
+  ]
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
 }
 
 function esc(s: string): string {
@@ -38,11 +57,16 @@ function page(meta: GuideMeta, body: string): string {
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`)
     .replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(meta.title)}$2`)
+    .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`)
+    .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(meta.title)}$2`)
+    .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
     .replace("</head>", `${jsonLd(meta)}</head>`)
+    // Root now carries a <noscript> fallback (see index.html); match the whole
+    // block, not the old empty `<div id="root"></div>`.
     .replace(
-      '<div id="root"></div>',
+      /<div id="root">[\s\S]*?<\/div>/,
       `<div id="root"><div class="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">${body}</div></div>`,
     )
 }

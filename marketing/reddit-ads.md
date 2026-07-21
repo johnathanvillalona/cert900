@@ -1,4 +1,9 @@
-# The $20: Reddit Ads test (run in week 3)
+# The $20: Reddit Ads message test (run first)
+
+> This is the cheap message-validation test. Once a winning angle is known,
+> the scaled, multi-community paid plan (with budgets and kill/scale rules)
+> lives in `paid-growth.md`. Run this $20 test first; feed the winner into
+> that plan.
 
 Wait until the launch post + first auto-posts have run for ~2 weeks, then use
 whichever message earned the best engagement. Defaults below assume the PBQ
@@ -18,13 +23,13 @@ angle wins (it usually will; it is the pain point).
 ## Creative (free-form text ad, no image needed for v1)
 
 - **Headline**: Practice CompTIA PBQs free: simulated terminals, config
-  panels, drag-to-connect cabling. 936 original questions. No signup.
+  panels, drag-to-connect cabling. 1,200+ original questions. No signup.
 - **Destination**:
   https://cert900.com/comptia-pbq-practice?utm_source=reddit&utm_medium=cpc&utm_campaign=pbq-test
 - **CTA button**: Learn More
 - Alternate headline (if the launch post showed the exam-sim angle winning):
-  Free A+ and Network+ exam simulator, scored 100 to 900 like the real
-  thing. 936 questions + 59 PBQs. No signup.
+  Free A+, Network+, and Security+ exam simulator, scored 100 to 900 like the
+  real thing. 1,200+ questions plus simulated PBQs. No signup.
 
 ## What success looks like
 

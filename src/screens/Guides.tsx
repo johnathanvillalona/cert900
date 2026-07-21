@@ -261,6 +261,29 @@ function GuideShell({ meta, children }: { meta: GuideMeta; children: React.React
           ))}
         </div>
       </section>
+
+      {/* Crawlable internal links: guide -> sibling guides + home. Real <a>
+          hrefs (unlike the in-app CTA buttons) so search crawlers can walk the
+          whole guide set from any single page. */}
+      <section className="mt-12">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">More free practice tests</h2>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {Object.values(GUIDE_META)
+            .filter((g) => g.path !== meta.path)
+            .map((g) => (
+              <li key={g.path}>
+                <a href={g.path} className="text-brand underline-offset-4 hover:underline">
+                  {g.title.replace(" | Cert900", "")}
+                </a>
+              </li>
+            ))}
+        </ul>
+        <p className="mt-4 text-sm">
+          <a href="/" className="text-brand underline-offset-4 hover:underline">
+            Back to all cert900 exams
+          </a>
+        </p>
+      </section>
     </main>
   )
 }
