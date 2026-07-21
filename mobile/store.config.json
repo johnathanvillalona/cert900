@@ -1,7 +1,7 @@
 {
   "configVersion": 0,
-  "copyright": "2026 cert900",
   "apple": {
+    "copyright": "2026 cert900",
     "info": {
       "en-US": {
         "title": "cert900: IT Cert Practice",
@@ -36,6 +36,7 @@
       "firstName": "Johnathan",
       "lastName": "Villalona",
       "email": "johnathanv16@gmail.com",
+      "phone": "REPLACE_WITH_PHONE",
       "demoRequired": false,
       "notes": "This app has no user accounts and requires no credentials to review. Every question, drill, timed exam, and progress view is fully available without signing in, so the reviewer does not need a login. Sign in with Google or Apple is an optional convenience that mirrors on-device progress to the user's other devices; it is not used to set up or authenticate a primary account, and no feature is gated behind it. Account deletion is available in-app on the Account screen, opened from the header on the exams list, via Delete account. Every question links to a public, free training video. All practice content is original and written from the published exam objectives; it is not copied from real exams. cert900 is independent and not affiliated with CompTIA, AWS, or Microsoft."
     }
