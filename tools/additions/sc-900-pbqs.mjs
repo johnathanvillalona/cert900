@@ -1,0 +1,141 @@
+// SC-900 performance-based questions (azure vendor: match + order only).
+// 6 match + 2 order, per the authoring kit. Merged with tools/add-content.mjs.
+export default {
+  examId: "sc-900",
+  pbqs: [
+    {
+      kind: "match",
+      t: "microsoft-defender-xdr",
+      title: "Match each Defender XDR workload to what it protects",
+      scen: "Microsoft Defender XDR bundles several workloads, each defending a different part of the estate. Match each Defender service to the assets it primarily protects.",
+      choices: [
+        "Endpoints such as laptops and servers",
+        "Email and Microsoft 365 collaboration",
+        "SaaS cloud apps, as a CASB",
+        "On-premises Active Directory identity signals",
+      ],
+      items: [
+        { l: "Microsoft Defender for Endpoint", a: 0 },
+        { l: "Microsoft Defender for Office 365", a: 1 },
+        { l: "Microsoft Defender for Cloud Apps", a: 2 },
+        { l: "Microsoft Defender for Identity", a: 3 },
+      ],
+    },
+    {
+      kind: "match",
+      t: "microsoft-purview-portal",
+      title: "Match each Microsoft Purview solution to its purpose",
+      scen: "A compliance team is mapping Microsoft Purview solutions to the outcomes they deliver. Match each solution to what it does.",
+      choices: [
+        "Stops sensitive data from being shared inappropriately",
+        "Classifies and marks content by sensitivity",
+        "Finds and holds content for a legal case",
+        "Keeps or deletes content on a defined schedule",
+      ],
+      items: [
+        { l: "Data loss prevention (DLP)", a: 0 },
+        { l: "Sensitivity labels", a: 1 },
+        { l: "eDiscovery", a: 2 },
+        { l: "Records management", a: 3 },
+      ],
+    },
+    {
+      kind: "match",
+      t: "entra-id-governance",
+      title: "Match each Microsoft Entra capability to its scenario",
+      scen: "Match each Microsoft Entra identity-governance and protection capability to the scenario it best addresses.",
+      choices: [
+        "Grant access only when conditions like device or location are met",
+        "Give an admin role just-in-time and time-bound",
+        "Periodically recertify who still needs access",
+        "Detect and respond to risky sign-ins automatically",
+      ],
+      items: [
+        { l: "Conditional Access", a: 0 },
+        { l: "Privileged Identity Management", a: 1 },
+        { l: "Access reviews", a: 2 },
+        { l: "Microsoft Entra ID Protection", a: 3 },
+      ],
+    },
+    {
+      kind: "match",
+      t: "azure-firewall",
+      title: "Match each Azure network security service to its role",
+      scen: "An architect is documenting the Azure network security services in use. Match each service to its primary role.",
+      choices: [
+        "Filters traffic by allow and deny rules at a subnet or NIC",
+        "Stateful, centrally managed firewall for a virtual network",
+        "Protects web apps from exploits such as SQL injection",
+        "Absorbs volumetric attacks against public endpoints",
+        "Stores secrets, keys, and certificates with controlled access",
+        "Gives private RDP and SSH to VMs without public IP addresses",
+      ],
+      items: [
+        { l: "Network security group", a: 0 },
+        { l: "Azure Firewall", a: 1 },
+        { l: "Azure Web Application Firewall", a: 2 },
+        { l: "Azure DDoS Protection", a: 3 },
+        { l: "Azure Key Vault", a: 4 },
+        { l: "Azure Bastion", a: 5 },
+      ],
+    },
+    {
+      kind: "match",
+      t: "authentication",
+      title: "Match each core security concept to its definition",
+      scen: "Match each foundational security and identity concept to the statement that defines it.",
+      choices: [
+        "Proving who a user or service is",
+        "Determining what an identity is allowed to do",
+        "Layering controls so one failure is not fatal",
+        "Assuming no implicit trust and verifying every request",
+      ],
+      items: [
+        { l: "Authentication", a: 0 },
+        { l: "Authorization", a: 1 },
+        { l: "Defense in depth", a: 2 },
+        { l: "Zero Trust", a: 3 },
+      ],
+    },
+    {
+      kind: "match",
+      t: "zero-trust-model",
+      title: "Match each Zero Trust guiding principle to its meaning",
+      scen: "The Zero Trust model rests on three guiding principles. Match each principle to what it means in practice.",
+      choices: [
+        "Authenticate and authorize on all available signals",
+        "Limit access with just-enough and just-in-time rights",
+        "Minimize blast radius and verify end to end",
+      ],
+      items: [
+        { l: "Verify explicitly", a: 0 },
+        { l: "Use least privilege access", a: 1 },
+        { l: "Assume breach", a: 2 },
+      ],
+    },
+    {
+      kind: "order",
+      t: "data-classification",
+      title: "Order the Microsoft Purview information protection flow",
+      scen: "Microsoft describes protecting data as a lifecycle. Put the stages in the order Microsoft presents them.",
+      steps: [
+        "Know your data by discovering and classifying it",
+        "Protect your data by applying sensitivity labels",
+        "Prevent data loss with DLP policies",
+        "Govern your data with retention and records management",
+      ],
+    },
+    {
+      kind: "order",
+      t: "conditional-access",
+      title: "Order how a Conditional Access policy is evaluated",
+      scen: "A user signs in and a Conditional Access policy applies. Put the evaluation steps in the correct order.",
+      steps: [
+        "Collect signals such as user, location, device, and risk",
+        "Evaluate the policy conditions against those signals",
+        "Make a decision to allow, block, or grant with controls",
+        "Enforce the decision, for example by requiring MFA",
+      ],
+    },
+  ],
+}

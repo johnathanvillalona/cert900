@@ -23,14 +23,14 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
           </p>
         )}
         <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
-          {(["aplus", "nplus", "secplus", "pbq", "aif", "clf", "az900"] as const).map((k) => (
+          {(["aplus", "nplus", "secplus", "pbq", "aif", "clf", "az900", "sc900"] as const).map((k) => (
             <a
               key={k}
               href={GUIDE_META[k].path}
               onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_META[k].path) }}
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
-              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : k === "secplus" ? "Security+ practice test" : k === "pbq" ? "PBQ practice" : k === "aif" ? "AWS AI Practitioner practice" : k === "clf" ? "AWS Cloud Practitioner practice" : "Azure Fundamentals practice"}
+              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : k === "secplus" ? "Security+ practice test" : k === "pbq" ? "PBQ practice" : k === "aif" ? "AWS AI Practitioner practice" : k === "clf" ? "AWS Cloud Practitioner practice" : k === "az900" ? "Azure Fundamentals practice" : "SC-900 practice test"}
             </a>
           ))}
         </nav>

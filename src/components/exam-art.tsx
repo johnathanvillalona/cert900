@@ -120,6 +120,15 @@ export function ExamEmblem({ examId, className }: { examId: string; className?: 
         </svg>
       )
 
+    // SC-900 — security, compliance & identity: a shield with a compliance check.
+    case "sc-900":
+      return (
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden>
+          <path {...stroke} fill={body} d="M12 3l7 2.5v6c0 4.2-2.9 7.6-7 9.5-4.1-1.9-7-5.3-7-9.5v-6z" />
+          <path {...stroke} strokeWidth={1.3} d="M8.8 11.6l2.2 2.2 4.2-4.4" />
+        </svg>
+      )
+
     // Azure Fundamentals — a cloud over stacked resource blocks.
     case "az-900":
       return (

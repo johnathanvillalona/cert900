@@ -2869,8 +2869,329 @@ export const EXAM_META: Record<string, ExamMeta> = {
   },
   "questionCount": 279,
   "pbqCount": 12
+ },
+ "sc-900": {
+  "id": "sc-900",
+  "vendor": "azure",
+  "scale": {
+   "max": 1000,
+   "pass": 700
+  },
+  "cert": "Microsoft Certified",
+  "name": "Security, Compliance, and Identity Fundamentals",
+  "code": "SC-900",
+  "blurb": "Concepts of security, compliance, and identity, plus the capabilities of Microsoft Entra, Microsoft security solutions, and Microsoft compliance solutions.",
+  "domains": {
+   "1": "Describe security, compliance, and identity concepts",
+   "2": "Describe the capabilities of Microsoft Entra",
+   "3": "Describe the capabilities of Microsoft security solutions",
+   "4": "Describe the capabilities of Microsoft compliance solutions"
+  },
+  "examSplit": {
+   "1": 0.13,
+   "2": 0.274,
+   "3": 0.37,
+   "4": 0.226
+  },
+  "examMC": 40,
+  "examPBQ": 5,
+  "examMinutes": 45,
+  "videos": {
+   "shared-responsibility-model": {
+    "n": "SC-900 Study Cram V2: Shared responsibility",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=154s",
+    "d": 1
+   },
+   "defense-in-depth": {
+    "n": "SC-900 Study Cram V2: Defense in depth",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=459s",
+    "d": 1
+   },
+   "zero-trust-model": {
+    "n": "SC-900 Study Cram V2: Zero Trust",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=714s",
+    "d": 1
+   },
+   "encryption-and-hashing": {
+    "n": "SC-900 Study Cram V2: Encryption & hashing",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1008s",
+    "d": 1
+   },
+   "governance-risk-compliance": {
+    "n": "SC-900 Study Cram V2: GRC concepts",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1513s",
+    "d": 1
+   },
+   "identity-as-primary-perimeter": {
+    "n": "SC-900 Study Cram V2: Identity as the perimeter",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1629s",
+    "d": 1
+   },
+   "authentication": {
+    "n": "SC-900 Study Cram V2: Authentication",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1812s",
+    "d": 1
+   },
+   "authorization": {
+    "n": "SC-900 Study Cram V2: Authorization",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3079s",
+    "d": 1
+   },
+   "identity-providers": {
+    "n": "SC-900 Study Cram V2: Identity providers",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1812s",
+    "d": 1
+   },
+   "directory-services-active-directory": {
+    "n": "SC-900 Study Cram V2: Active Directory Domain Services",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2056s",
+    "d": 1
+   },
+   "federation": {
+    "n": "SC-900 Study Cram V2: Federation",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2177s",
+    "d": 1
+   },
+   "microsoft-entra-id": {
+    "n": "SC-900 Study Cram V2: Microsoft Entra ID",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1629s",
+    "d": 2
+   },
+   "identity-types-agent-id": {
+    "n": "SC-900 Study Cram V2: Types of identity",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2377s",
+    "d": 2
+   },
+   "hybrid-identity": {
+    "n": "SC-900 Study Cram V2: Hybrid identity",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2377s",
+    "d": 2
+   },
+   "authentication-methods": {
+    "n": "SC-900 Study Cram V2: Authentication methods",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2621s",
+    "d": 2
+   },
+   "multifactor-authentication": {
+    "n": "SC-900 Study Cram V2: MFA",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2712s",
+    "d": 2
+   },
+   "password-protection-management": {
+    "n": "SC-900 Study Cram V2: Password protection",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2712s",
+    "d": 2
+   },
+   "conditional-access": {
+    "n": "SC-900 Study Cram V2: Conditional Access",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3079s",
+    "d": 2
+   },
+   "entra-roles-rbac": {
+    "n": "SC-900 Study Cram V2: Entra roles & RBAC",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3079s",
+    "d": 2
+   },
+   "entra-id-governance": {
+    "n": "SC-900 Study Cram V2: Entra ID Governance",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3383s",
+    "d": 2
+   },
+   "access-reviews": {
+    "n": "SC-900 Study Cram V2: Access reviews",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3383s",
+    "d": 2
+   },
+   "privileged-identity-management": {
+    "n": "SC-900 Study Cram V2: Privileged Identity Management",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3383s",
+    "d": 2
+   },
+   "entra-id-protection": {
+    "n": "SC-900 Study Cram V2: Entra ID Protection",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3383s",
+    "d": 2
+   },
+   "azure-ddos-protection": {
+    "n": "SC-900 Study Cram V2: Azure DDoS Protection",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3963s",
+    "d": 3
+   },
+   "azure-firewall": {
+    "n": "SC-900 Study Cram V2: Azure Firewall",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4059s",
+    "d": 3
+   },
+   "azure-web-application-firewall": {
+    "n": "SC-900 Study Cram V2: Azure WAF",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4113s",
+    "d": 3
+   },
+   "network-segmentation-vnets": {
+    "n": "SC-900 Study Cram V2: VNet segmentation",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4219s",
+    "d": 3
+   },
+   "network-security-groups": {
+    "n": "SC-900 Study Cram V2: Network security groups",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4219s",
+    "d": 3
+   },
+   "azure-bastion": {
+    "n": "SC-900 Study Cram V2: Azure Bastion",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4459s",
+    "d": 3
+   },
+   "azure-key-vault": {
+    "n": "SC-900 Study Cram V2: Azure Key Vault",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4578s",
+    "d": 3
+   },
+   "microsoft-defender-for-cloud": {
+    "n": "SC-900 Study Cram V2: Defender for Cloud",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4700s",
+    "d": 3
+   },
+   "cloud-security-posture-management": {
+    "n": "SC-900 Study Cram V2: CSPM",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4700s",
+    "d": 3
+   },
+   "security-policies-recommendations": {
+    "n": "SC-900 Study Cram V2: Security policies & recommendations",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4700s",
+    "d": 3
+   },
+   "cloud-workload-protection": {
+    "n": "SC-900 Study Cram V2: Cloud workload protection",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4700s",
+    "d": 3
+   },
+   "siem-soar-concepts": {
+    "n": "SC-900 Study Cram V2: SIEM & SOAR",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4952s",
+    "d": 3
+   },
+   "sentinel-threat-detection": {
+    "n": "SC-900 Study Cram V2: Microsoft Sentinel",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4952s",
+    "d": 3
+   },
+   "microsoft-defender-xdr": {
+    "n": "SC-900 Study Cram V2: Microsoft Defender XDR",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-for-office-365": {
+    "n": "SC-900 Study Cram V2: Defender for Office 365",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-for-endpoint": {
+    "n": "SC-900 Study Cram V2: Defender for Endpoint",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-for-cloud-apps": {
+    "n": "SC-900 Study Cram V2: Defender for Cloud Apps",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-for-identity": {
+    "n": "SC-900 Study Cram V2: Defender for Identity",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-vulnerability-management": {
+    "n": "SC-900 Study Cram V2: Defender Vulnerability Management",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "defender-threat-intelligence": {
+    "n": "SC-900 Study Cram V2: Defender Threat Intelligence",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "microsoft-defender-portal": {
+    "n": "SC-900 Study Cram V2: Microsoft Defender portal",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
+    "d": 3
+   },
+   "service-trust-portal": {
+    "n": "SC-900 Study Cram V2: Service Trust Portal",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5387s",
+    "d": 4
+   },
+   "microsoft-privacy-principles": {
+    "n": "SC-900 Study Cram V2: Microsoft privacy principles",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5387s",
+    "d": 4
+   },
+   "microsoft-purview-portal": {
+    "n": "SC-900 Study Cram V2: Microsoft Purview portal",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5803s",
+    "d": 4
+   },
+   "compliance-manager": {
+    "n": "SC-900 Study Cram V2: Compliance Manager",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5880s",
+    "d": 4
+   },
+   "compliance-score": {
+    "n": "SC-900 Study Cram V2: Compliance score",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5880s",
+    "d": 4
+   },
+   "data-classification": {
+    "n": "SC-900 Study Cram V2: Data classification",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "content-and-activity-explorer": {
+    "n": "SC-900 Study Cram V2: Content & Activity explorer",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "sensitivity-labels-policies": {
+    "n": "SC-900 Study Cram V2: Sensitivity labels",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "data-loss-prevention": {
+    "n": "SC-900 Study Cram V2: Data loss prevention",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "records-management": {
+    "n": "SC-900 Study Cram V2: Records management",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "retention-policies-labels": {
+    "n": "SC-900 Study Cram V2: Retention policies & labels",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
+    "d": 4
+   },
+   "insider-risk-management": {
+    "n": "SC-900 Study Cram V2: Insider risk management",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6455s",
+    "d": 4
+   },
+   "ediscovery": {
+    "n": "SC-900 Study Cram V2: eDiscovery",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6524s",
+    "d": 4
+   },
+   "audit-solutions": {
+    "n": "SC-900 Study Cram V2: Audit solutions",
+    "u": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6629s",
+    "d": 4
+   }
+  },
+  "questionCount": 259,
+  "pbqCount": 8
  }
 }
 
 /** Display order: grouped by vendor (see vendors.ts VENDOR_ORDER). */
-export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","aif-c01","clf-c02","az-900"]
+export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","aif-c01","clf-c02","az-900","sc-900"]
