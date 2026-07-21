@@ -4,20 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cert900 — Free CompTIA, AWS & Azure Practice Exams</title>
-    <meta name="description" content="Free practice exams for CompTIA A+ (220-1201, 220-1202), Network+ (N10-009), AWS AI Practitioner (AIF-C01), AWS Cloud Practitioner (CLF-C02), and Azure Fundamentals (AZ-900). Timed simulations in each exam's real format, adaptive drills, and a free study video for every topic you miss." />
-    <meta property="og:title" content="Cert900 — Free CompTIA, AWS & Azure Practice Exams" />
-    <meta property="og:description" content="Six certification practice exams with timed simulations, interactive questions, adaptive drills, and per-topic study videos. No sign-up required, progress tracking built in." />
+    <meta name="description" content="Free practice exams for seven certifications: CompTIA A+ (220-1201, 220-1202), Network+ (N10-009), and Security+ (SY0-701); AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02); and Azure Fundamentals (AZ-900). Timed simulations in each exam's real format, adaptive drills, and a free study video for every topic you miss. No sign-up." />
+    <link rel="canonical" href="https://cert900.com/" />
+    <meta property="og:site_name" content="Cert900" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cert900.com/" />
+    <meta property="og:title" content="Cert900 — Free CompTIA, AWS & Azure Practice Exams" />
+    <meta property="og:description" content="Seven certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in." />
     <meta property="og:image" content="https://cert900.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href="https://cert900.com/" />
+    <meta name="twitter:title" content="Cert900 — Free CompTIA, AWS & Azure Practice Exams" />
+    <meta name="twitter:description" content="Seven certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up." />
+    <meta name="twitter:image" content="https://cert900.com/og.png" />
     <meta name="theme-color" content="#f8fafc" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- Site-wide structured data. Organization + WebSite are valid on every
+         page (deduped by @id), so they ride along on the prerendered guide
+         pages too. Guide-specific Course/BreadcrumbList/FAQ JSON-LD is injected
+         per page by tools/prerender.tsx. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://cert900.com/#org",
+            "name": "Cert900",
+            "url": "https://cert900.com/",
+            "logo": "https://cert900.com/icon-512.png",
+            "description": "Free practice exams for CompTIA, AWS, and Microsoft Azure certifications, with timed simulations and a study video for every topic."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://cert900.com/#website",
+            "name": "Cert900",
+            "url": "https://cert900.com/",
+            "publisher": { "@id": "https://cert900.com/#org" },
+            "inLanguage": "en-US"
+          }
+        ]
+      }
+    </script>
     <script data-boot>
       try {
         var t = localStorage.getItem("trainer-theme") || "light";
@@ -29,7 +61,28 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Crawlable fallback for non-JS crawlers. Googlebot executes JS and
+           sees the full app; this ensures the homepage is never an empty shell
+           to a crawler that doesn't. React replaces this on hydration. -->
+      <noscript>
+        <h1>Cert900 — free certification practice exams</h1>
+        <p>
+          Free, no-signup practice tests for seven IT certifications, each with timed
+          simulations in the exam's real format, adaptive drills, and a free study
+          video for every topic you miss.
+        </p>
+        <ul>
+          <li><a href="/comptia-a-plus-practice-test">CompTIA A+ practice test (220-1201 &amp; 220-1202)</a></li>
+          <li><a href="/network-plus-practice-test">CompTIA Network+ practice test (N10-009)</a></li>
+          <li><a href="/comptia-security-plus-practice-test">CompTIA Security+ practice test (SY0-701)</a></li>
+          <li><a href="/comptia-pbq-practice">CompTIA PBQ practice</a></li>
+          <li><a href="/aws-ai-practitioner-practice-test">AWS AI Practitioner practice test (AIF-C01)</a></li>
+          <li><a href="/aws-cloud-practitioner-practice-test">AWS Cloud Practitioner practice test (CLF-C02)</a></li>
+          <li><a href="/azure-fundamentals-practice-test">Azure Fundamentals practice test (AZ-900)</a></li>
+        </ul>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- Cloudflare Web Analytics (cookieless; disclosed in /privacy).
          Loaded only on the production host so dev/preview stay quiet. -->
