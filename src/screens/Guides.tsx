@@ -16,7 +16,7 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -81,6 +81,31 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | 
       [
         "What does AZ-900 cover?",
         "Three skill areas: cloud concepts (25-30%), Azure architecture and services (35-40%), and Azure management and governance (30-35%). Every topic here links to the matching video in John Savill's free AZ-900 course.",
+      ],
+    ],
+  },
+  sc900: {
+    path: "/microsoft-sc-900-practice-test",
+    title: "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900",
+    description:
+      "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+    h1: "Free Microsoft SC-900 (Security, Compliance, and Identity) practice test",
+    faq: [
+      [
+        "How many questions are on the SC-900 exam?",
+        "SC-900 typically has 40 to 60 questions in about 45 minutes, mostly multiple choice with some drag-and-drop and matching. Passing requires 700 on a scale up to 1,000.",
+      ],
+      [
+        "Is SC-900 worth taking?",
+        "It is the standard entry point for Microsoft security, compliance, and identity. Fundamentals certifications don't expire, and it builds the vocabulary the role-based SC-200 and SC-300 exams assume.",
+      ],
+      [
+        "What does SC-900 cover?",
+        "Four areas: security, compliance, and identity concepts (10-15%), the capabilities of Microsoft Entra (25-30%), Microsoft security solutions (35-40%), and Microsoft compliance solutions (20-25%). Our drills track your accuracy in each separately.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free SC-900 study video.",
       ],
     ],
   },
@@ -464,6 +489,46 @@ export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "AZ-900 · Architecture & Services", stem: "An auditor asks which construct guarantees that resources in one Azure datacenter failing won't take down the copies running in another datacenter in the same region. What provides this?", options: ["Resource groups", "Availability zones", "Region pairs", "Management groups"], answer: 1, why: "Availability zones are physically separate datacenters within a region; spreading instances across them protects against a single-datacenter failure. Region pairs protect against whole-region loss." }} />
         <Sample n={3} q={{ code: "AZ-900 · Management & Governance", stem: "A governance lead must prevent any team from creating virtual machines in unapproved regions, across every current and future subscription. Which tool enforces this?", options: ["Role-based access control", "Resource locks", "Azure Advisor", "Management-group Azure Policy"], answer: 3, why: "Policy evaluates and blocks non-compliant deployments, and assigning it at a management group cascades the rule to every subscription beneath it. RBAC controls who can act, not what configurations are allowed." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("az-900")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function Sc900Guide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.sc900
+  const ex = EXAM_META["sc-900"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) proves you can describe core security and
+          compliance concepts and the capabilities of Microsoft Entra, Microsoft security solutions, and Microsoft
+          compliance solutions. This site gives you {ex.questionCount} original questions plus {ex.pbqCount}{" "}
+          drag-and-drop and matching items in Microsoft's own interactive formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
+          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
+          Savill's free SC-900 study video.
+        </p>
+        <Cta label="Start the free SC-900 practice test" onGo={() => onStart("sc-900")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What SC-900 covers</h2>
+        <DomainTable examId="sc-900" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: typically 40-60 questions, about 45 minutes, scaled to 1,000 with a 700 pass line. The
+          certification never expires.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "SC-900 · Security concepts", stem: "Which Zero Trust guiding principle means you authenticate and authorize on every available signal for each request, rather than trusting anything by default?", options: ["Verify explicitly", "Assume breach", "Use least privilege access", "Defense in depth"], answer: 0, why: "Verify explicitly is the Zero Trust principle of always authenticating and authorizing on all available signals. Assume breach limits blast radius, and least privilege restricts access scope." }} />
+        <Sample n={2} q={{ code: "SC-900 · Microsoft Entra", stem: "An administrator wants to require multifactor authentication only when a user signs in from an unmanaged device. Which Microsoft Entra feature enforces that?", options: ["Access reviews", "Conditional Access", "Privileged Identity Management", "Microsoft Entra Connect"], answer: 1, why: "Conditional Access evaluates signals like device state and applies controls such as requiring MFA. PIM grants just-in-time admin roles, and access reviews recertify access over time." }} />
+        <Sample n={3} q={{ code: "SC-900 · Compliance solutions", stem: "Which Microsoft Purview capability blocks users from emailing documents that contain credit card numbers to external recipients?", options: ["Sensitivity labels", "eDiscovery", "Data loss prevention", "Records management"], answer: 2, why: "Data loss prevention inspects content and blocks or restricts sharing of sensitive information. Sensitivity labels classify and protect content, and eDiscovery finds content for legal cases." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("sc-900")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

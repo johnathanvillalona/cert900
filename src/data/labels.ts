@@ -17,6 +17,7 @@ export const EXAM_SHORT: Record<string, string> = {
   "aif-c01": "AI Practitioner",
   "clf-c02": "Cloud Practitioner",
   "az-900": "Azure Fundamentals",
+  "sc-900": "Security Fundamentals",
 }
 
 /** Accepts ExamDef or ExamMeta — only id/name are needed. */

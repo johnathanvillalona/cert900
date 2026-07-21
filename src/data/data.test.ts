@@ -17,6 +17,7 @@ const EXPECTED = {
   // so a nonzero floor here would invite someone to "fix" a correct bank.
   "clf-c02": { questions: 315, pbqs: 0, videos: 71, domains: 4 },
   "az-900": { questions: 275, pbqs: 12, videos: 62, domains: 3 },
+  "sc-900": { questions: 259, pbqs: 8, videos: 58, domains: 4 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;
