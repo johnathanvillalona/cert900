@@ -288,14 +288,13 @@ On approval, click **Release**.
 
 ## Phase F — screenshots (both stores need these) **(you — needs a device)**
 
-> **The screenshots committed under `mobile/store-assets/` are STALE — do not upload them.**
-> They predate Security+, AWS, and Azure and still show the "900+ A+ and Network+" caption and
-> the "first look / on the roadmap" footer that has since been removed from the app. Uploading
-> them invites a 2.1/4.2 rejection. Capture a fresh set from the current build.
->
-> The old `qa/store-shots.js` web pipeline no longer works: the app moved to
-> `@react-navigation/native-stack`, which does not render under react-native-web. Capture on a
-> real device (or the iOS Simulator / Android emulator) instead — native shots look better anyway.
+> **A fresh, current screenshot set is committed under `mobile/store-assets/`:**
+> `play-0{1..5}-*.png` (1080x1920, for Google Play) and `ios-0{1..5}-*.png` (1290x2796, for the
+> App Store 6.9" set). Five captioned screens — exams list, timed exam, graded drill, readiness,
+> review queue — rendered faithfully from the real app components at the correct dimensions,
+> RGB with no alpha. Upload these directly. (They were generated with a self-contained HTML
+> render, since the old `qa/store-shots.js` web pipeline stopped working when the app moved to
+> `@react-navigation/native-stack`, which does not render under react-native-web.)
 
 Capture on a phone or emulator/simulator running a **preview/production** build:
 - **Apple:** **6.9" iPhone** is the required set. Any one of these portrait pixel sizes:
