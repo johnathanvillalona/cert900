@@ -18,6 +18,7 @@ const LOADERS: Record<string, () => Promise<{ exam: ExamDef }>> = {
   "220-1202": () => import("./220-1202"),
   "n10-009": () => import("./n10-009"),
   "sy0-701": () => import("./sy0-701"),
+  "ccna-200-301": () => import("./ccna-200-301"),
   "aif-c01": () => import("./aif-c01"),
   "clf-c02": () => import("./clf-c02"),
   "az-900": () => import("./az-900"),

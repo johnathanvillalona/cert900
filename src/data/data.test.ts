@@ -18,6 +18,7 @@ const EXPECTED = {
   "clf-c02": { questions: 315, pbqs: 0, videos: 71, domains: 4 },
   "az-900": { questions: 275, pbqs: 12, videos: 62, domains: 3 },
   "sc-900": { questions: 259, pbqs: 8, videos: 58, domains: 4 },
+  "ccna-200-301": { questions: 328, pbqs: 12, videos: 58, domains: 6 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;
@@ -27,6 +28,7 @@ const VIDEO_URL_RULES: Record<string, RegExp> = {
   comptia: /^https:\/\/www\.professormesser\.com\/.+\/$/,
   aws: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
   azure: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
+  cisco: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
 }
 
 // Each vendor's interactive items must use only that vendor's REAL exam
@@ -37,6 +39,7 @@ const ALLOWED_PBQ_KINDS: Record<string, string[]> = {
   comptia: ["match", "order", "terminal", "config", "hotspot", "dragconnect"],
   aws: ["order", "match"],
   azure: ["order", "match"],
+  cisco: ["match", "order", "terminal", "hotspot"],
 }
 
 describe("exam data integrity", () => {

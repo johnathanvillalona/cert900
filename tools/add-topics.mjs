@@ -28,6 +28,7 @@ const URL_RULES = {
   comptia: /^https:\/\/www\.professormesser\.com\/.+\/$/,
   aws: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
   azure: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
+  cisco: /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}(&t=\d+s?)?$/,
 }
 
 const errors = []

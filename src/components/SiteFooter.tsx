@@ -14,23 +14,24 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
       <div className="mx-auto max-w-6xl px-4 py-10">
         {full && (
           <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed">
-            A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA, Amazon Web
-            Services, Microsoft, Professor Messer, or any video creator linked here. CompTIA A+<sup>®</sup>,
-            Network+<sup>®</sup>, and Security+<sup>®</sup> are registered trademarks of CompTIA, Inc. AWS<sup>®</sup> is a trademark of
+            A free community study resource. Not affiliated with, endorsed by, or sponsored by CompTIA, Cisco, Amazon
+            Web Services, Microsoft, Professor Messer, or any video creator linked here. CompTIA A+<sup>®</sup>,
+            Network+<sup>®</sup>, and Security+<sup>®</sup> are registered trademarks of CompTIA, Inc. Cisco<sup>®</sup>
+            and CCNA<sup>®</sup> are registered trademarks of Cisco Systems, Inc. AWS<sup>®</sup> is a trademark of
             Amazon.com, Inc. or its affiliates. Microsoft<sup>®</sup> and Azure<sup>®</sup> are trademarks of the
             Microsoft group of companies. All practice questions are original. Video links open each creator's free
             training content.
           </p>
         )}
         <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
-          {(["aplus", "nplus", "secplus", "pbq", "aif", "clf", "az900", "sc900"] as const).map((k) => (
+          {(["aplus", "nplus", "secplus", "pbq", "ccna", "aif", "clf", "az900", "sc900"] as const).map((k) => (
             <a
               key={k}
               href={GUIDE_META[k].path}
               onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_META[k].path) }}
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
-              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : k === "secplus" ? "Security+ practice test" : k === "pbq" ? "PBQ practice" : k === "aif" ? "AWS AI Practitioner practice" : k === "clf" ? "AWS Cloud Practitioner practice" : k === "az900" ? "Azure Fundamentals practice" : "SC-900 practice test"}
+              {k === "aplus" ? "A+ practice test" : k === "nplus" ? "Network+ practice test" : k === "secplus" ? "Security+ practice test" : k === "pbq" ? "PBQ practice" : k === "ccna" ? "CCNA practice test" : k === "aif" ? "AWS AI Practitioner practice" : k === "clf" ? "AWS Cloud Practitioner practice" : k === "az900" ? "Azure Fundamentals practice" : "SC-900 practice test"}
             </a>
           ))}
         </nav>

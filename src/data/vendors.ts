@@ -13,9 +13,10 @@ export const VENDORS: Record<Vendor, { name: string; short: string; tintClass: s
   comptia: { name: "CompTIA", short: "CompTIA", tintClass: "text-vendor-comptia" },
   aws: { name: "Amazon Web Services", short: "AWS", tintClass: "text-vendor-aws" },
   azure: { name: "Microsoft Azure", short: "Azure", tintClass: "text-vendor-azure" },
+  cisco: { name: "Cisco", short: "Cisco", tintClass: "text-vendor-cisco" },
 }
 
-export const VENDOR_ORDER: Vendor[] = ["comptia", "aws", "azure"]
+export const VENDOR_ORDER: Vendor[] = ["comptia", "cisco", "aws", "azure"]
 
 /**
  * Each vendor's interactive (non multiple-choice) question formats use that
@@ -81,5 +82,15 @@ export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
     partialCredit: false,
     itemWeight: 1,
     interleave: true,
+  },
+  cisco: {
+    labTitle: "Simulations & Labs",
+    labDesc: "Practice CCNA's hands-on formats: simulated device CLI, network-diagram selection, matching, and ordering, with feedback on every one.",
+    countNoun: "simulations",
+    itemBadge: { terminal: "Configuration sim", hotspot: "Diagram select", match: "Matching", order: "Ordering" },
+    itemSuffix: { terminal: "Sim", hotspot: "Hotspot", match: "Matching", order: "Ordering" },
+    partialCredit: true,
+    itemWeight: 2,
+    interleave: false,
   },
 }

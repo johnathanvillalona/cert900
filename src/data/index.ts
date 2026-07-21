@@ -16,12 +16,14 @@ import { exam as e4 } from "./clf-c02"
 import { exam as e5 } from "./az-900"
 import { exam as e6 } from "./sy0-701"
 import { exam as e7 } from "./sc-900"
+import { exam as e8 } from "./ccna-200-301"
 
 export const EXAMS: Record<string, ExamDef> = {
  "220-1202": e0,
  "220-1201": e1,
  "n10-009": e2,
  "sy0-701": e6,
+ "ccna-200-301": e8,
  "aif-c01": e3,
  "clf-c02": e4,
  "az-900": e5,

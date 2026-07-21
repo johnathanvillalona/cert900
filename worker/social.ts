@@ -216,6 +216,7 @@ export async function weeklyIndexNow(): Promise<void> {
         `${SITE}/network-plus-practice-test`,
         `${SITE}/comptia-security-plus-practice-test`,
         `${SITE}/comptia-pbq-practice`,
+        `${SITE}/cisco-ccna-practice-test`,
         `${SITE}/aws-ai-practitioner-practice-test`,
         `${SITE}/aws-cloud-practitioner-practice-test`,
         `${SITE}/azure-fundamentals-practice-test`,

@@ -22,7 +22,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
-import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, GUIDE_META } from "@/screens/Guides"
+import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -50,6 +50,7 @@ export type Screen =
   | { kind: "guide-clf" }
   | { kind: "guide-az900" }
   | { kind: "guide-sc900" }
+  | { kind: "guide-ccna" }
 
 /** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
@@ -66,6 +67,7 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   [GUIDE_META.clf.path]: "guide-clf",
   [GUIDE_META.az900.path]: "guide-az900",
   [GUIDE_META.sc900.path]: "guide-sc900",
+  [GUIDE_META.ccna.path]: "guide-ccna",
 }
 const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
@@ -80,6 +82,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-clf": GUIDE_META.clf.title,
   "guide-az900": GUIDE_META.az900.title,
   "guide-sc900": GUIDE_META.sc900.title,
+  "guide-ccna": GUIDE_META.ccna.title,
 }
 const DEFAULT_TITLE = "Cert900: Free CompTIA, AWS & Azure Practice Exams"
 
@@ -343,6 +346,7 @@ export default function App() {
         {screen.kind === "guide-clf" && <ClfGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-az900" && <Az900Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-sc900" && <Sc900Guide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-ccna" && <CcnaGuide onStart={startExamFromGuide} />}
         </div>
         <SiteFooter onNavigate={openPath} />
       </div>

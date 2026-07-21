@@ -77,6 +77,20 @@ export function ExamEmblem({ examId, className }: { examId: string; className?: 
         </svg>
       )
 
+    // CCNA — a router with bidirectional routing arrows and status LEDs.
+    case "ccna-200-301":
+      return (
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden>
+          <rect {...stroke} fill={body} x={3.5} y={10.5} width={17} height={7} rx={1.8} />
+          <path {...stroke} strokeWidth={1.3} d="M7.5 5.5l-2 2 2 2" />
+          <path {...stroke} strokeWidth={1.3} d="M5.5 7.5h6" />
+          <path {...stroke} strokeWidth={1.3} d="M16.5 4l2 2-2 2" />
+          <path {...stroke} strokeWidth={1.3} d="M18.5 6h-6" />
+          <circle fill="currentColor" cx={7} cy={14} r={0.8} />
+          <circle fill="currentColor" cx={10} cy={14} r={0.8} />
+        </svg>
+      )
+
     // Security+ — shield with a keyhole. Kept distinct from pbq-art's plain
     // `shield` glyph by the keyhole and the flatter shoulder line.
     case "sy0-701":
