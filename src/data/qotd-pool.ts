@@ -41,21 +41,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Mobile Devices",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/mobile-device-management-220-1201/",
-  "videoName": "Mobile Device Management",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/mobile-device-accessories-220-1201/",
+  "videoName": "Mobile Device Accessories",
   "q": {
-   "id": 6,
-   "t": "mobile-device-management",
+   "id": 7,
+   "t": "mobile-device-accessories",
    "d": 1,
-   "x": "An organization needs to enforce passcodes and remotely wipe company smartphones if they are lost. Which solution provides this?",
+   "x": "Which accessory lets a USB-C laptop connect to wired Ethernet, HDMI, and extra USB ports through a single connection?",
    "o": [
-    "MDM",
-    "DHCP",
-    "NAT",
-    "RAID"
+    "A docking station / USB-C hub",
+    "A stylus",
+    "A screen protector",
+    "A cable lock"
    ],
    "a": 0,
-   "e": "Mobile device management (MDM) centrally enforces policy, deploys apps, and can remotely lock or wipe enrolled devices."
+   "e": "A docking station or USB-C hub expands a mobile device's connectivity to wired networking, external displays, and peripherals."
   }
  },
  {
@@ -63,21 +63,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Mobile Devices",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/laptop-hardware-220-1201/",
-  "videoName": "Laptop Hardware",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/connecting-mobile-devices-220-1201/",
+  "videoName": "Connecting Mobile Devices",
   "q": {
-   "id": 13,
-   "t": "laptop-hardware",
+   "id": 16,
+   "t": "connecting-mobile-devices",
    "d": 1,
-   "x": "Several key caps have broken off a laptop keyboard. Which is generally the MOST cost-effective repair?",
+   "x": "During Bluetooth headset setup, the headset must be made visible to the phone. What is this mode called?",
    "o": [
-    "Replace the laptop's motherboard",
-    "Replace the key caps or keyboard assembly",
-    "Replace the laptop's display assembly",
-    "Attach an external monitor to the laptop"
+    "Airplane mode",
+    "Pairing mode",
+    "Tethering mode",
+    "Roaming mode"
    ],
    "a": 1,
-   "e": "Key caps and laptop keyboard assemblies are inexpensive, replaceable parts; individual caps often snap back onto the scissor mechanism."
+   "e": "To pair, the accessory is placed in discoverable/pairing mode so the phone can find it, then a PIN or confirmation completes the bond."
   }
  },
  {
@@ -88,40 +88,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/mobile-device-accessories-220-1201/",
   "videoName": "Mobile Device Accessories",
   "q": {
-   "id": 21,
+   "id": 24,
    "t": "mobile-device-accessories",
    "d": 1,
-   "x": "An artist wants precise pressure-sensitive input on a tablet. Which accessory provides this?",
+   "x": "Which port do most external microSD card readers use to connect to a modern laptop?",
    "o": [
-    "A stylus / touch pen",
-    "A trackball",
-    "A cable lock",
-    "A USB hub"
+    "USB / USB-C",
+    "RJ11",
+    "DisplayPort",
+    "PS/2"
    ],
    "a": 0,
-   "e": "A stylus (touch pen) provides precise, often pressure-sensitive input for drawing and note-taking on tablets."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "1.0 Mobile Devices",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/mobile-device-networks-220-1201/",
-  "videoName": "Mobile Device Networks",
-  "q": {
-   "id": 27,
-   "t": "mobile-device-networks",
-   "d": 1,
-   "x": "Enabling which mode disables all wireless radios — cellular, Wi-Fi, and Bluetooth — at once?",
-   "o": [
-    "Do Not Disturb",
-    "Airplane mode",
-    "Battery saver",
-    "Dark mode"
-   ],
-   "a": 1,
-   "e": "Airplane mode turns off all radios simultaneously; Wi-Fi or Bluetooth can then be re-enabled individually if needed."
+   "e": "External card readers typically connect over USB or USB-C, adding slots the laptop lacks."
   }
  },
  {
@@ -132,18 +110,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/common-ports-220-1201/",
   "videoName": "Common Ports",
   "q": {
-   "id": 38,
+   "id": 35,
    "t": "common-ports",
    "d": 2,
-   "x": "Which well-known port does DNS use for standard name-resolution queries?",
+   "x": "Which port is used by HTTPS for encrypted web traffic?",
    "o": [
-    "53",
-    "25",
-    "67",
-    "161"
+    "80",
+    "443",
+    "22",
+    "3389"
    ],
-   "a": 0,
-   "e": "DNS uses port 53 (UDP for most queries, TCP for zone transfers and large responses)."
+   "a": 1,
+   "e": "HTTPS uses TCP port 443; unencrypted HTTP uses port 80."
   }
  },
  {
@@ -151,21 +129,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Networking",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/wireless-network-technologies-220-1201/",
-  "videoName": "Wireless Network Technologies",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/network-devices-220-1201/",
+  "videoName": "Network Devices",
   "q": {
-   "id": 43,
-   "t": "wireless-network-technologies",
+   "id": 42,
+   "t": "network-devices",
    "d": 2,
-   "x": "Which Wi-Fi standard, also called Wi-Fi 6, operates in both the 2.4 GHz and 5 GHz bands?",
+   "x": "Which device connects multiple wired devices in a LAN and forwards frames using MAC addresses?",
    "o": [
-    "802.11ax",
-    "802.11g",
-    "802.11a",
-    "802.11b"
+    "A switch",
+    "A router",
+    "A modem",
+    "A firewall"
    ],
    "a": 0,
-   "e": "802.11ax (Wi-Fi 6) improves efficiency and throughput and works in the 2.4 GHz and 5 GHz bands; Wi-Fi 6E adds 6 GHz."
+   "e": "A switch forwards Ethernet frames only to the port of the destination MAC address, unlike a hub which floods every port."
   }
  },
  {
@@ -220,18 +198,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/wireless-network-technologies-220-1201/",
   "videoName": "Wireless Network Technologies",
   "q": {
-   "id": 60,
+   "id": 62,
    "t": "wireless-network-technologies",
    "d": 2,
-   "x": "Which three 2.4 GHz Wi-Fi channels do not overlap in North America?",
+   "x": "Which Wi-Fi generation added the exclusive 6 GHz band?",
    "o": [
-    "1, 6, and 11",
-    "1, 2, and 3",
-    "2, 7, and 9",
-    "5, 10, and 14"
+    "Wi-Fi 6E",
+    "Wi-Fi 4",
+    "Wi-Fi 5",
+    "802.11n"
    ],
    "a": 0,
-   "e": "Channels 1, 6, and 11 are the only non-overlapping 2.4 GHz channels, so neighboring APs should use them."
+   "e": "Wi-Fi 6E extends Wi-Fi 6 (802.11ax) into the uncongested 6 GHz spectrum."
   }
  },
  {
@@ -239,21 +217,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Networking",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/network-services-220-1201/",
-  "videoName": "Network Services",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/dns-configuration-220-1201/",
+  "videoName": "DNS Configuration",
   "q": {
-   "id": 67,
-   "t": "network-services",
+   "id": 69,
+   "t": "dns-configuration",
    "d": 2,
-   "x": "Which service centrally collects log messages from routers, switches, and servers?",
+   "x": "Which DNS record type maps a hostname to an IPv6 address?",
    "o": [
-    "Syslog",
-    "SMTP",
-    "FTP",
-    "NFC"
+    "AAAA",
+    "A",
+    "MX",
+    "CNAME"
    ],
    "a": 0,
-   "e": "A syslog server aggregates device logs for monitoring, alerting, and forensics."
+   "e": "AAAA records resolve names to IPv6 addresses; A records are IPv4."
   }
  },
  {
@@ -261,21 +239,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Networking",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/dhcp-220-1201/",
-  "videoName": "DHCP",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/network-devices-220-1201/",
+  "videoName": "Network Devices",
   "q": {
-   "id": 73,
-   "t": "dhcp",
+   "id": 77,
+   "t": "network-devices",
    "d": 2,
-   "x": "What defines the range of IP addresses a DHCP server can hand out on a subnet?",
+   "x": "Which device allows wireless clients to join a wired Ethernet network?",
    "o": [
-    "The scope",
-    "The lease clock",
-    "The MAC table",
-    "The hosts file"
+    "A wireless access point",
+    "A modem",
+    "A patch panel",
+    "A UPS"
    ],
    "a": 0,
-   "e": "A DHCP scope is the configured pool of addresses (plus options) available for a subnet. The scope = address pool."
+   "e": "An access point bridges 802.11 wireless clients onto the wired LAN."
   }
  },
  {
@@ -283,43 +261,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Networking",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/ipv4-and-ipv6-220-1201/",
-  "videoName": "IPv4 and IPv6",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/assigning-ip-addresses-220-1201/",
+  "videoName": "Assigning IP Addresses",
   "q": {
-   "id": 82,
-   "t": "ipv4-and-ipv6",
+   "id": 85,
+   "t": "assigning-ip-addresses",
    "d": 2,
-   "x": "Which of the following is a private IPv4 address?",
+   "x": "Besides the IP address itself, which setting tells a host where to send traffic destined for other networks?",
    "o": [
-    "172.16.50.4",
-    "172.32.1.1",
-    "11.0.0.5",
-    "224.0.0.9"
+    "The default gateway",
+    "The DNS suffix",
+    "The MAC address",
+    "The lease duration"
    ],
    "a": 0,
-   "e": "RFC 1918 private ranges are 10.0.0.0/8, 172.16.0.0-172.31.255.255, and 192.168.0.0/16. 172.32.x.x falls outside the range."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "2.0 Networking",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/internet-connection-types-220-1201/",
-  "videoName": "Internet Connection Types",
-  "q": {
-   "id": 87,
-   "t": "internet-connection-types",
-   "d": 2,
-   "x": "Which internet connection type historically suffers the highest latency, making it a poor fit for online gaming?",
-   "o": [
-    "Geostationary satellite",
-    "Fiber",
-    "Cable",
-    "DSL"
-   ],
-   "a": 0,
-   "e": "Geostationary satellites orbit ~35,000 km up, adding hundreds of milliseconds of round-trip delay (low-earth-orbit services improve this)."
+   "e": "The default gateway is the router address a host uses for any destination outside its own subnet."
   }
  },
  {
@@ -330,18 +286,40 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/network-types-220-1201/",
   "videoName": "Network Types",
   "q": {
-   "id": 93,
+   "id": 92,
    "t": "network-types",
    "d": 2,
-   "x": "A city government links buildings across town with its own high-speed network. Which term best describes this?",
+   "x": "Which network type provides block-level access to centralized storage over a dedicated high-speed network?",
    "o": [
-    "A MAN",
-    "A PAN",
     "A SAN",
-    "A WLAN"
+    "A PAN",
+    "A WLAN",
+    "A MAN"
    ],
    "a": 0,
-   "e": "A metropolitan area network (MAN) covers a city-sized area — larger than a LAN, smaller than a WAN."
+   "e": "A storage area network (SAN) presents block-level storage to servers, typically over Fibre Channel or iSCSI."
+  }
+ },
+ {
+  "code": "220-1201",
+  "cert": "CompTIA A+",
+  "vendor": "comptia",
+  "domain": "2.0 Networking",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/network-tools-220-1201/",
+  "videoName": "Network Tools",
+  "q": {
+   "id": 98,
+   "t": "network-tools",
+   "d": 2,
+   "x": "A technician suspects Wi-Fi congestion in an office. Which tool shows nearby SSIDs, their channels, and signal strength?",
+   "o": [
+    "A Wi-Fi analyzer",
+    "A punch-down tool",
+    "A crimper",
+    "A POST card"
+   ],
+   "a": 0,
+   "e": "Wi-Fi analyzer software maps surrounding networks by channel and signal strength, revealing congestion and guiding channel selection."
   }
  },
  {
@@ -349,21 +327,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/storage-devices-220-1201/",
-  "videoName": "Storage Devices",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/motherboard-form-factors-220-1201/",
+  "videoName": "Motherboard Form Factors",
   "q": {
-   "id": 99,
-   "t": "storage-devices",
+   "id": 105,
+   "t": "motherboard-form-factors",
    "d": 3,
-   "x": "Which drive interface uses the M.2 form factor with PCIe lanes to deliver the fastest consumer SSD performance?",
+   "x": "Which of these motherboard form factors is the smallest?",
    "o": [
-    "NVMe",
-    "A SATA hard drive",
-    "A SATA SSD",
-    "eMMC"
+    "ATX",
+    "microATX",
+    "Mini-ITX",
+    "Extended ATX"
    ],
-   "a": 0,
-   "e": "NVMe drives communicate over PCIe and are far faster than SATA-based SSDs or mechanical hard drives."
+   "a": 2,
+   "e": "Mini-ITX (170 mm square) is smaller than microATX and ATX, and is used in compact builds."
   }
  },
  {
@@ -371,21 +349,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/memory-technologies-220-1201/",
-  "videoName": "Memory Technologies",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/display-types-220-1201/",
+  "videoName": "Display Types",
   "q": {
-   "id": 104,
-   "t": "memory-technologies",
+   "id": 112,
+   "t": "display-types",
    "d": 3,
-   "x": "Which memory feature detects and corrects single-bit errors and is common in servers?",
+   "x": "Which display technology produces the deepest blacks because each pixel emits its own light and can switch off completely?",
    "o": [
-    "ECC",
-    "Dual-channel",
-    "CAS latency",
-    "Overclocking"
+    "OLED",
+    "TN LCD",
+    "IPS LCD",
+    "Plasma"
    ],
    "a": 0,
-   "e": "Error-correcting code (ECC) memory detects and corrects single-bit errors, improving reliability in servers."
+   "e": "OLED pixels are self-emissive, so black pixels turn fully off, yielding very high contrast and deep blacks."
   }
  },
  {
@@ -393,21 +371,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/cooling-220-1201/",
-  "videoName": "Cooling",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/laser-printer-maintenance-220-1201/",
+  "videoName": "Laser Printer Maintenance",
   "q": {
-   "id": 111,
-   "t": "cooling",
+   "id": 118,
+   "t": "laser-printer-maintenance",
    "d": 3,
-   "x": "Which cooling method circulates liquid through a block and radiator to remove heat from a high-performance CPU?",
+   "x": "Which laser printer component uses heat and pressure to bond toner permanently to the paper?",
    "o": [
-    "Water cooling",
-    "A passive heatsink only",
-    "A single case fan",
-    "Thermal paste alone"
+    "The fuser",
+    "The imaging drum",
+    "The pickup roller",
+    "The transfer belt"
    ],
    "a": 0,
-   "e": "Water cooling, also called liquid cooling, moves heat via coolant from a CPU block to a radiator, handling high thermal loads more effectively than air alone."
+   "e": "The fuser applies heat and pressure to melt and press toner into the paper as the final imaging step."
   }
  },
  {
@@ -415,21 +393,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/storage-cables-220-1201/",
-  "videoName": "Storage Cables",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/adapters-and-converters-220-1201/",
+  "videoName": "Adapters and Converters",
   "q": {
-   "id": 116,
-   "t": "storage-cables",
+   "id": 126,
+   "t": "adapters-and-converters",
    "d": 3,
-   "x": "Which interface is most commonly used to connect internal 2.5-inch and 3.5-inch drives in consumer desktops?",
+   "x": "A modern laptop with only HDMI output must present on an old projector with a VGA input. What is required?",
    "o": [
-    "SATA",
-    "PS/2",
-    "DisplayPort",
-    "RS-232"
+    "An active HDMI-to-VGA converter",
+    "A straight pin adapter with no electronics",
+    "A null modem cable",
+    "A crossover cable"
    ],
    "a": 0,
-   "e": "SATA is the standard interface for internal consumer hard drives and 2.5-inch SSDs."
+   "e": "HDMI is digital and VGA is analog, so an active converter with signal-conversion electronics is required — a passive adapter cannot work."
   }
  },
  {
@@ -437,43 +415,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/impact-printers-220-1201/",
-  "videoName": "Impact Printers",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/fiber-connectors-220-1201/",
+  "videoName": "Fiber Connectors",
   "q": {
-   "id": 121,
-   "t": "impact-printers",
+   "id": 132,
+   "t": "fiber-connectors",
    "d": 3,
-   "x": "Which printer type is required to print multipart carbon-copy forms?",
+   "x": "Which legacy fiber connector uses a bayonet twist-lock mechanism?",
    "o": [
-    "Impact",
-    "Inkjet",
-    "Laser",
-    "Thermal"
-   ],
-   "a": 0,
-   "e": "Impact printers strike the paper through a ribbon, so they can print through multipart carbon forms. Impact = dot-matrix."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/copper-connectors-220-1201/",
-  "videoName": "Copper Connectors",
-  "q": {
-   "id": 129,
-   "t": "copper-connectors",
-   "d": 3,
-   "x": "Which connector is used on coaxial cable for cable-modem and TV connections?",
-   "o": [
-    "F-type",
-    "RJ45",
+    "ST",
+    "LC",
     "SC",
-    "DB-9"
+    "MPO"
    ],
    "a": 0,
-   "e": "The threaded F-type connector terminates coax for cable TV and DOCSIS modems."
+   "e": "The ST connector twists and locks like a bayonet; SC snaps in; LC is the smaller modern standard."
   }
  },
  {
@@ -481,43 +437,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/motherboard-expansion-slots-220-1201/",
-  "videoName": "Motherboard Expansion Slots",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/motherboard-compatibility-220-1201/",
+  "videoName": "Motherboard Compatibility",
   "q": {
-   "id": 134,
-   "t": "motherboard-expansion-slots",
+   "id": 139,
+   "t": "motherboard-compatibility",
    "d": 3,
-   "x": "What does the number after 'x' in PCIe x1, x4, x8, and x16 indicate?",
+   "x": "Why can't a desktop ATX motherboard be used to repair a laptop?",
    "o": [
-    "The number of data lanes",
-    "The wattage drawn",
-    "The card's generation",
-    "The number of monitors supported"
+    "Laptop boards use proprietary form factors",
+    "ATX boards run too fast for laptop use",
+    "Laptops do not use a separate motherboard",
+    "Desktop boards do not include a CPU"
    ],
    "a": 0,
-   "e": "The multiplier is the lane count; more lanes mean more parallel bandwidth to the slot."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/bios-settings-220-1201/",
-  "videoName": "BIOS Settings",
-  "q": {
-   "id": 140,
-   "t": "bios-settings",
-   "d": 3,
-   "x": "A technician needs to boot a PC from a USB installer. Which BIOS/UEFI setting is changed?",
-   "o": [
-    "The boot order / boot priority",
-    "The fan curve",
-    "The SATA mode",
-    "The XMP profile"
-   ],
-   "a": 0,
-   "e": "Setting the USB device first in the boot order (or using the one-time boot menu) starts the machine from installation media."
+   "e": "Laptop motherboards are custom-shaped, integrated designs specific to each model; desktop form factors do not fit."
   }
  },
  {
@@ -568,22 +502,22 @@ export const QOTD_POOL: QotdEntry[] = [
   "code": "220-1201",
   "cert": "CompTIA A+",
   "vendor": "comptia",
-  "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/impact-printer-maintenance-220-1201/",
-  "videoName": "Impact Printer Maintenance",
+  "domain": "4.0 Virtualization & Cloud",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/virtualization-concepts-220-1201/",
+  "videoName": "Virtualization Concepts",
   "q": {
-   "id": 159,
-   "t": "impact-printer-maintenance",
-   "d": 3,
-   "x": "Output from a dot-matrix printer is getting progressively fainter. Which component should be replaced FIRST?",
+   "id": 160,
+   "t": "virtualization-concepts",
+   "d": 4,
+   "x": "Which software layer allows multiple virtual machines to share one physical host's hardware?",
    "o": [
-    "The ribbon",
-    "The fuser",
-    "The ink cartridge",
-    "The imaging drum"
+    "A hypervisor",
+    "A device driver",
+    "A bootloader",
+    "A container registry"
    ],
    "a": 0,
-   "e": "Fading impact output almost always means the inked ribbon is exhausted; the print head is checked after."
+   "e": "The hypervisor abstracts and allocates physical hardware (CPU, RAM, storage) to multiple guest VMs."
   }
  },
  {
@@ -591,87 +525,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "4.0 Virtualization & Cloud",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/virtualization-concepts-220-1201/",
-  "videoName": "Virtualization Concepts",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/virtualization-services-220-1201/",
+  "videoName": "Virtualization Services",
   "q": {
-   "id": 168,
-   "t": "virtualization-concepts",
+   "id": 172,
+   "t": "virtualization-services",
    "d": 4,
-   "x": "Which VM feature captures the machine's exact state so it can be restored after a failed experiment?",
+   "x": "Which term describes renting desktop environments as a subscription service from a cloud provider?",
    "o": [
-    "A snapshot",
-    "A quick format",
-    "A BIOS flash",
-    "Defragmentation"
+    "DaaS",
+    "NAS",
+    "POTS",
+    "BYOD"
    ],
    "a": 0,
-   "e": "Snapshots record VM state at a point in time; reverting undoes any changes made afterward."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "5.0 Hardware & Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-hardware-220-1201/",
-  "videoName": "Troubleshooting Hardware",
-  "q": {
-   "id": 183,
-   "t": "troubleshooting-hardware",
-   "d": 5,
-   "x": "A PC powers on with spinning fans but shows no display and emits a pattern of beeps at startup. What do the beep codes indicate?",
-   "o": [
-    "A hardware fault detected during POST",
-    "A hard drive that has run out of space",
-    "A software license that has expired",
-    "A wireless signal that is too weak"
-   ],
-   "a": 0,
-   "e": "Beep codes during POST report hardware faults such as bad RAM or a missing GPU before the OS loads."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "5.0 Hardware & Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-display-issues-220-1201/",
-  "videoName": "Troubleshooting Display Issues",
-  "q": {
-   "id": 188,
-   "t": "troubleshooting-display-issues",
-   "d": 5,
-   "x": "A laptop screen is extremely dim, but an external monitor connected to it displays normally. Which component is the likely cause?",
-   "o": [
-    "The display backlight",
-    "The graphics card",
-    "The system RAM",
-    "The CPU"
-   ],
-   "a": 0,
-   "e": "If an external display works, the GPU is fine; a very dim built-in panel points to a failing backlight or its power circuit."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "5.0 Hardware & Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-hardware-220-1201/",
-  "videoName": "Troubleshooting Hardware",
-  "q": {
-   "id": 197,
-   "t": "troubleshooting-hardware",
-   "d": 5,
-   "x": "After installing new RAM, a PC beeps continuously and will not display anything. What should the technician do FIRST?",
-   "o": [
-    "Reseat the new RAM modules in their slots",
-    "Replace the motherboard",
-    "Reinstall Windows",
-    "Update the GPU driver"
-   ],
-   "a": 0,
-   "e": "Continuous POST beeps after a RAM change usually mean a module is unseated or incompatible — reseat and retest first."
+   "e": "DaaS is provider-hosted VDI — the vendor runs the infrastructure and streams desktops to users. DaaS = Desktop as a Service."
   }
  },
  {
@@ -682,18 +550,62 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-storage-devices-220-1201/",
   "videoName": "Troubleshooting Storage Devices",
   "q": {
-   "id": 202,
+   "id": 186,
    "t": "troubleshooting-storage-devices",
    "d": 5,
-   "x": "At boot, a workstation displays a 'S.M.A.R.T. status bad' warning. What should the technician do?",
+   "x": "A hard drive is clicking and files are intermittently disappearing. What should the technician do FIRST?",
    "o": [
-    "Back up the data and replace the drive",
-    "Ignore it — it is cosmetic",
-    "Defragment the drive to clear it",
-    "Disable S.M.A.R.T. in BIOS"
+    "Back up the data immediately",
+    "Defragment the drive",
+    "Repeatedly run chkdsk",
+    "Update the drive firmware"
    ],
    "a": 0,
-   "e": "A SMART failure warning predicts imminent drive failure — back up immediately and replace the drive."
+   "e": "A clicking, failing drive can die at any moment; capture a backup before attempting any repair."
+  }
+ },
+ {
+  "code": "220-1201",
+  "cert": "CompTIA A+",
+  "vendor": "comptia",
+  "domain": "5.0 Hardware & Network Troubleshooting",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-hardware-220-1201/",
+  "videoName": "Troubleshooting Hardware",
+  "q": {
+   "id": 195,
+   "t": "troubleshooting-hardware",
+   "d": 5,
+   "x": "During an inspection, a technician notices several bulging, leaking cylindrical components on an old motherboard. What are these?",
+   "o": [
+    "Failed capacitors",
+    "Healthy fuses",
+    "RAM chips",
+    "BIOS batteries"
+   ],
+   "a": 0,
+   "e": "Bulging or leaking electrolytic capacitors indicate board failure — the classic cause of instability on aging motherboards."
+  }
+ },
+ {
+  "code": "220-1201",
+  "cert": "CompTIA A+",
+  "vendor": "comptia",
+  "domain": "5.0 Hardware & Network Troubleshooting",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-hardware-220-1201/",
+  "videoName": "Troubleshooting Hardware",
+  "q": {
+   "id": 201,
+   "t": "troubleshooting-hardware",
+   "d": 5,
+   "x": "A technician sees smoke coming from a workstation. What is the immediate FIRST action?",
+   "o": [
+    "Disconnect power to the system immediately",
+    "Run antivirus",
+    "Open Task Manager",
+    "Save open documents first"
+   ],
+   "a": 0,
+   "e": "Smoke is a safety issue: cut power immediately, then investigate — hardware is replaceable, people and buildings are not."
   }
  },
  {
@@ -726,40 +638,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-mobile-devices-220-1201/",
   "videoName": "Troubleshooting Mobile Devices",
   "q": {
-   "id": 222,
+   "id": 223,
    "t": "troubleshooting-mobile-devices",
    "d": 5,
-   "x": "A user's earbuds no longer connect to their phone. Which sequence is the BEST first attempt?",
+   "x": "A tablet's screen no longer rotates when turned sideways. What is the FIRST thing to check?",
    "o": [
-    "Cycle Bluetooth and re-pair the earbuds",
-    "Perform a factory reset on the phone",
-    "Replace the earbuds with a new pair",
-    "Reinstall the phone's operating system"
+    "Whether the rotation lock is enabled",
+    "The battery health",
+    "The SIM tray",
+    "The charging cable"
    ],
    "a": 0,
-   "e": "Most Bluetooth issues clear by cycling the radio and re-pairing; escalate only if that fails."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "5.0 Hardware & Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-networks-220-1201/",
-  "videoName": "Troubleshooting Networks",
-  "q": {
-   "id": 230,
-   "t": "troubleshooting-networks",
-   "d": 5,
-   "x": "2.4 GHz Wi-Fi in a break room drops every time the microwave runs. What is happening?",
-   "o": [
-    "RF interference in the 2.4 GHz band",
-    "A DNS outage",
-    "A DHCP lease expiry",
-    "Cable crosstalk"
-   ],
-   "a": 0,
-   "e": "Microwaves radiate in the 2.4 GHz range and interfere; move clients to 5 GHz or relocate the AP."
+   "e": "Rotation lock in quick settings is the usual culprit; only then suspect the accelerometer or software."
   }
  },
  {
@@ -770,18 +660,40 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-printers-220-1201/",
   "videoName": "Troubleshooting Printers",
   "q": {
-   "id": 238,
+   "id": 233,
    "t": "troubleshooting-printers",
    "d": 5,
-   "x": "An inkjet prints blank pages after sitting unused for two months. What is the MOST likely cause?",
+   "x": "Laser output shows a faint duplicate of the previous page's image ('ghosting'). Which component is MOST likely responsible?",
    "o": [
-    "A clog in the print-head nozzles",
-    "A failed fuser unit inside the printer",
-    "An incorrect paper size in the tray",
-    "A DNS lookup failure on the network"
+    "The imaging drum or cleaning blade",
+    "The paper tray",
+    "The USB cable",
+    "The duplexer"
    ],
    "a": 0,
-   "e": "Inkjet nozzles dry out with disuse; run cleaning cycles and, if needed, replace cartridges or soak the head."
+   "e": "Ghosting means residual toner or a damaged drum surface repeats the prior image; replace the drum/cartridge."
+  }
+ },
+ {
+  "code": "220-1201",
+  "cert": "CompTIA A+",
+  "vendor": "comptia",
+  "domain": "1.0 Mobile Devices",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/laptop-hardware-220-1201/",
+  "videoName": "Laptop Hardware",
+  "q": {
+   "id": 240,
+   "t": "laptop-hardware",
+   "d": 1,
+   "x": "A traveling executive wants people beside them on a plane to be unable to read the laptop screen. Which accessory addresses this?",
+   "o": [
+    "A privacy filter",
+    "A brighter panel",
+    "A matte case",
+    "A second battery"
+   ],
+   "a": 0,
+   "e": "Privacy filters narrow the viewing angle so the screen appears dark from the sides."
   }
  },
  {
@@ -789,43 +701,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Hardware",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/memory-technologies-220-1201/",
-  "videoName": "Memory Technologies",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/motherboard-expansion-slots-220-1201/",
+  "videoName": "Motherboard Expansion Slots",
   "q": {
-   "id": 247,
-   "t": "memory-technologies",
+   "id": 256,
+   "t": "motherboard-expansion-slots",
    "d": 3,
-   "x": "New RAM rated for 6000 MT/s runs at only 4800 MT/s after installation. What must be enabled in firmware to reach the rated speed?",
+   "x": "A PCIe 3.0 graphics card is installed in a motherboard's PCIe 4.0 x16 slot. What happens?",
    "o": [
-    "The XMP/EXPO memory profile",
-    "Secure Boot",
-    "Fast startup",
-    "Legacy boot mode"
+    "It works normally at PCIe 3.0 speeds",
+    "It is damaged by the faster slot",
+    "It runs at PCIe 4.0 speeds",
+    "It will not be detected"
    ],
    "a": 0,
-   "e": "DDR5 defaults to JEDEC speeds; the advertised speed is an overclock profile (Intel XMP / AMD EXPO) enabled in UEFI."
-  }
- },
- {
-  "code": "220-1201",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "4.0 Virtualization & Cloud",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/virtualization-concepts-220-1201/",
-  "videoName": "Virtualization Concepts",
-  "q": {
-   "id": 260,
-   "t": "virtualization-concepts",
-   "d": 4,
-   "x": "Over a year, a team spun up dozens of test VMs that nobody tracks or shuts down. What is this called?",
-   "o": [
-    "VM sprawl",
-    "Elasticity",
-    "High availability",
-    "Failover"
-   ],
-   "a": 0,
-   "e": "VM sprawl is unmanaged VM growth that wastes resources and creates unpatched, forgotten attack surfaces."
+   "e": "PCIe is forward and backward compatible; the link simply negotiates down to the highest generation both sides support."
   }
  },
  {
@@ -833,21 +723,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "5.0 Hardware & Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-storage-devices-220-1201/",
-  "videoName": "Troubleshooting Storage Devices",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1201/220-1201-video/troubleshooting-hardware-220-1201/",
+  "videoName": "Troubleshooting Hardware",
   "q": {
-   "id": 271,
-   "t": "troubleshooting-storage-devices",
+   "id": 267,
+   "t": "troubleshooting-hardware",
    "d": 5,
-   "x": "A drive's SMART report shows a rapidly increasing 'Reallocated Sector Count'. What does this mean?",
+   "x": "A system powers on but shows nothing, and the technician suspects the power supply. Which tool tests PSU output voltages directly?",
    "o": [
-    "The drive is remapping failing sectors",
-    "The drive was recently defragmented",
-    "The partition is nearly full",
-    "The drive is fully encrypted"
+    "A PSU tester or multimeter",
+    "A loopback plug",
+    "A toner probe",
+    "A cable crimper"
    ],
    "a": 0,
-   "e": "Growing reallocated sectors mean physical media failure in progress; back up and replace."
+   "e": "A PSU tester (or multimeter on the 24-pin connector) verifies each rail outputs correct voltage."
   }
  },
  {
@@ -902,18 +792,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/upgrading-windows-220-1202/",
   "videoName": "Upgrading Windows",
   "q": {
-   "id": 13,
+   "id": 14,
    "t": "upgrading-windows",
    "d": 1,
-   "x": "Which of these is a hardware requirement specific to Windows 11 that was not required for Windows 10?",
+   "x": "Before performing any OS upgrade, what should a technician always do first?",
    "o": [
-    "1 GB RAM",
-    "TPM 2.0",
-    "32-bit CPU support",
-    "Optical drive"
+    "Defragment the drive",
+    "Back up user data",
+    "Disable the firewall",
+    "Remove the antivirus"
    ],
    "a": 1,
-   "e": "Windows 11 requires TPM 2.0, UEFI with Secure Boot, 4 GB RAM, and a supported 64-bit CPU."
+   "e": "Always back up before an upgrade — if the upgrade fails, user data can be restored."
   }
  },
  {
@@ -924,18 +814,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/task-manager-220-1202/",
   "videoName": "Task Manager",
   "q": {
-   "id": 21,
+   "id": 22,
    "t": "task-manager",
    "d": 1,
-   "x": "Which Task Manager tab would you use to stop a program from launching automatically when Windows boots?",
+   "x": "In Task Manager, a technician needs to force-close an application that is not responding. Which tab and action accomplishes this?",
    "o": [
-    "Services",
-    "Users",
-    "Startup",
-    "Details"
+    "Performance > Reset",
+    "Processes > End task",
+    "Users > Disconnect",
+    "Startup > Disable"
    ],
-   "a": 2,
-   "e": "The Startup tab lets you enable or disable programs that run at sign-in and shows their startup impact. Startup = Startup apps."
+   "a": 1,
+   "e": "Select the hung app on the Processes tab and click End task to terminate it."
   }
  },
  {
@@ -943,43 +833,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/the-microsoft-management-console-220-1202/",
-  "videoName": "The Microsoft Management Console",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/additional-windows-tools-220-1202/",
+  "videoName": "Additional Windows Tools",
   "q": {
-   "id": 26,
-   "t": "mmc",
+   "id": 30,
+   "t": "windows-tools",
    "d": 1,
-   "x": "A technician wants a report to run automatically every night at 2 AM. Which built-in Windows tool schedules this?",
+   "x": "Which tool is used to change how Windows boots, such as enabling Safe boot or diagnostic startup?",
    "o": [
-    "Task Manager",
-    "Task Scheduler",
-    "Services console",
-    "Resource Monitor"
+    "msconfig",
+    "Disk Cleanup",
+    "Resource Monitor",
+    "Device Manager"
    ],
-   "a": 1,
-   "e": "Task Scheduler (taskschd.msc) runs programs or scripts on a schedule or in response to events."
-  }
- },
- {
-  "code": "220-1202",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/windows-command-line-tools-220-1202/",
-  "videoName": "Windows Command Line Tools",
-  "q": {
-   "id": 32,
-   "t": "cmd",
-   "d": 1,
-   "x": "Which command displays the contents of the current directory at a Windows command prompt?",
-   "o": [
-    "ls",
-    "dir",
-    "pwd",
-    "list"
-   ],
-   "a": 1,
-   "e": "dir lists files and folders in Windows; ls is the Linux/macOS equivalent."
+   "a": 0,
+   "e": "System Configuration (msconfig) controls boot options, including Safe boot, and selective startup."
   }
  },
  {
@@ -990,18 +858,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/windows-command-line-tools-220-1202/",
   "videoName": "Windows Command Line Tools",
   "q": {
-   "id": 38,
+   "id": 36,
    "t": "cmd",
    "d": 1,
-   "x": "Which command displays the Windows version in a small dialog window?",
+   "x": "Which command moves you up one directory level at the Windows command line?",
    "o": [
-    "ver /gui",
-    "winver",
-    "systeminfo /v",
-    "osver"
+    "cd ..",
+    "cd /up",
+    "dir ..",
+    "md .."
    ],
-   "a": 1,
-   "e": "winver opens the About Windows dialog with version and build information."
+   "a": 0,
+   "e": "cd .. changes to the parent directory. cd \\ goes to the root of the drive."
   }
  },
  {
@@ -1012,18 +880,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/the-windows-network-command-line-220-1202/",
   "videoName": "The Windows Network Command Line",
   "q": {
-   "id": 44,
+   "id": 43,
    "t": "net-cmd",
    "d": 1,
-   "x": "Which command displays active TCP connections and listening ports on a Windows machine?",
+   "x": "A user cannot reach a website by name but can reach it by IP address. Which command helps test name resolution?",
    "o": [
     "netstat",
-    "nbtstat",
-    "ipconfig /connections",
-    "tracert -p"
+    "nslookup",
+    "ipconfig /release",
+    "net use"
    ],
-   "a": 0,
-   "e": "netstat lists active connections and listening ports; netstat -a includes all listening sockets."
+   "a": 1,
+   "e": "nslookup queries DNS servers directly, confirming whether names resolve correctly."
   }
  },
  {
@@ -1034,18 +902,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/the-windows-control-panel-220-1202/",
   "videoName": "The Windows Control Panel",
   "q": {
-   "id": 50,
+   "id": 49,
    "t": "control-panel",
    "d": 1,
-   "x": "Which Control Panel applet lets you view and manage installed printers and their queues?",
+   "x": "Where in Control Panel would a technician configure what happens when a laptop lid is closed?",
    "o": [
-    "Devices and Printers",
-    "Programs and Features",
-    "Sound",
-    "Indexing Options"
+    "Device Manager",
+    "Power Options",
+    "System",
+    "Personalization"
    ],
-   "a": 0,
-   "e": "Devices and Printers shows connected devices and printers and provides access to queues and defaults."
+   "a": 1,
+   "e": "Power Options controls sleep, hibernate, power plans, and lid-close behavior."
   }
  },
  {
@@ -1075,43 +943,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/macos-system-preferences-220-1202/",
-  "videoName": "macOS System Preferences",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/macos-features-220-1202/",
+  "videoName": "macOS Features",
   "q": {
-   "id": 64,
-   "t": "macos-prefs",
+   "id": 65,
+   "t": "macos-features",
    "d": 1,
-   "x": "Where does a user configure displays, printers, and network adapters on a Mac?",
+   "x": "Which macOS feature stores website, Wi-Fi, and application passwords securely?",
    "o": [
-    "Control Panel",
-    "System Settings",
-    "Finder Preferences",
-    "Mission Control"
+    "Spotlight",
+    "Keychain",
+    "Gatekeeper",
+    "Boot Camp"
    ],
    "a": 1,
-   "e": "System Settings (formerly System Preferences) is the central macOS configuration app."
-  }
- },
- {
-  "code": "220-1202",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/linux-220-1202/",
-  "videoName": "Linux",
-  "q": {
-   "id": 69,
-   "t": "linux",
-   "d": 1,
-   "x": "What is the role of systemd on modern Linux distributions?",
-   "o": [
-    "Compiling the kernel and its modules",
-    "Starting and supervising system services",
-    "Installing and updating software packages",
-    "Rendering the graphical desktop display"
-   ],
-   "a": 1,
-   "e": "systemd initializes the system and manages services (units), replacing older init systems."
+   "e": "Keychain Access is the macOS credential manager for passwords and certificates."
   }
  },
  {
@@ -1122,18 +968,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/linux-commands-part-1-220-1202/",
   "videoName": "Linux Commands Part 1",
   "q": {
-   "id": 74,
+   "id": 71,
    "t": "linux-cmd1",
    "d": 1,
-   "x": "Which command copies a file in Linux, and which moves or renames it?",
+   "x": "A technician needs to change permissions on a Linux file so the owner can read, write, and execute it. Which command is used?",
    "o": [
-    "cp copies; mv moves/renames",
-    "mv copies; cp moves",
-    "dd copies; rm moves",
-    "cat copies; touch moves"
+    "chown",
+    "chmod",
+    "grep",
+    "sudo"
    ],
-   "a": 0,
-   "e": "cp duplicates files; mv relocates or renames them; rm deletes them."
+   "a": 1,
+   "e": "chmod changes file permissions (e.g., chmod 700 file); chown changes ownership."
   }
  },
  {
@@ -1141,21 +987,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/cloud-productivity-tools-220-1202/",
-  "videoName": "Cloud Productivity Tools",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/linux-commands-part-2-220-1202/",
+  "videoName": "Linux Commands Part 2",
   "q": {
-   "id": 83,
-   "t": "cloud-tools",
+   "id": 77,
+   "t": "linux-cmd2",
    "d": 1,
-   "x": "Which technology keeps one set of usernames and passwords working across both on-premises Active Directory and cloud services?",
+   "x": "Which command displays the contents of a text file directly to the terminal?",
    "o": [
-    "Port forwarding",
-    "Identity synchronization",
-    "DHCP reservations",
-    "RAID mirroring"
+    "cat",
+    "touch",
+    "nano --view",
+    "ls -f"
    ],
-   "a": 1,
-   "e": "Directory/identity synchronization replicates accounts to the cloud identity provider so users keep a single credential set. Identity synchronization = e.g., directory sync."
+   "a": 0,
+   "e": "cat prints file contents to standard output; less and more allow paging through longer files."
   }
  },
  {
@@ -1166,18 +1012,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/physical-access-security-220-1202/",
   "videoName": "Physical Access Security",
   "q": {
-   "id": 90,
+   "id": 88,
    "t": "physical-access",
    "d": 2,
-   "x": "A visitor needs temporary building access. Which is the BEST practice?",
+   "x": "An employee unlocks the office door by tapping a small device on their keyring against a reader. What is this device?",
    "o": [
-    "Lend them an employee badge",
-    "Issue a visitor badge and escort them",
-    "Prop the door open",
-    "Share the door PIN"
+    "Smart card",
+    "Key fob",
+    "Hardware token generator",
+    "Magnetic key"
    ],
    "a": 1,
-   "e": "Visitors should get distinct temporary badges and be escorted; sharing employee credentials breaks accountability."
+   "e": "A key fob contains an RFID/NFC credential read by proximity readers for door access."
   }
  },
  {
@@ -1185,21 +1031,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Security",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/windows-security-settings-220-1202/",
-  "videoName": "Windows Security Settings",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/authentication-and-access-220-1202/",
+  "videoName": "Authentication and Access",
   "q": {
-   "id": 104,
-   "t": "win-security",
+   "id": 95,
+   "t": "auth-access",
    "d": 2,
-   "x": "Which built-in Windows account type should everyday users have to reduce security risk?",
+   "x": "Which standard allows a user to log in once and access multiple third-party web applications using a single identity provider?",
    "o": [
-    "Administrator",
-    "Standard user",
-    "Guest",
-    "Power user"
+    "SNMP",
+    "SAML",
+    "SMTP",
+    "RDP"
    ],
    "a": 1,
-   "e": "Standard accounts cannot make system-wide changes, limiting damage from malware and mistakes; admin rights should be reserved for when needed."
+   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services. SAML = with SSO."
   }
  },
  {
@@ -1232,18 +1078,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/social-engineering-220-1202/",
   "videoName": "Social Engineering",
   "q": {
-   "id": 124,
+   "id": 126,
    "t": "social-engineering",
    "d": 2,
-   "x": "Someone in a delivery uniform follows an employee through a badge-secured door without scanning a badge. What is this?",
+   "x": "A user is watching someone enter their password by looking over their shoulder at the airport. Which control BEST mitigates this?",
    "o": [
-    "Shoulder surfing",
-    "Tailgating",
-    "Impersonation only",
-    "Phishing"
+    "Antivirus",
+    "Privacy screen",
+    "Firewall",
+    "Encryption at rest"
    ],
    "a": 1,
-   "e": "Tailgating (piggybacking) is following an authorized person through a controlled entrance."
+   "e": "Shoulder surfing is mitigated by privacy filters and awareness of surroundings."
   }
  },
  {
@@ -1251,21 +1097,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Security",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/password-attacks-220-1202/",
-  "videoName": "Password Attacks",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/insider-threats-220-1202/",
+  "videoName": "Insider Threats",
   "q": {
-   "id": 135,
-   "t": "password-attacks",
+   "id": 136,
+   "t": "insider",
    "d": 2,
-   "x": "An attacker uses a list of common words and known leaked passwords to guess a login. What attack is this?",
+   "x": "A disgruntled employee with legitimate access copies customer data before resigning. What type of threat is this?",
    "o": [
-    "Brute force",
-    "Dictionary attack",
-    "Shoulder surfing",
-    "Spraying only"
+    "External threat",
+    "Insider threat",
+    "Supply chain attack",
+    "Zero-day"
    ],
    "a": 1,
-   "e": "Dictionary attacks use wordlists of likely passwords rather than trying every combination."
+   "e": "Insider threats come from people with authorized access — employees, contractors, partners — misusing it."
   }
  },
  {
@@ -1273,21 +1119,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Security",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/removing-malware-220-1202/",
-  "videoName": "Removing Malware",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/security-best-practices-220-1202/",
+  "videoName": "Security Best Practices",
   "q": {
-   "id": 147,
-   "t": "malware-removal",
+   "id": 152,
+   "t": "best-practices",
    "d": 2,
-   "x": "What is the FINAL step in the standard malware removal process?",
+   "x": "Which practice enforces that critical actions require two different people to complete?",
    "o": [
-    "Quarantine the system",
-    "Educate the end user",
-    "Run one more scan",
-    "Update the ticket only"
+    "Least privilege",
+    "Separation of duties",
+    "Single sign-on",
+    "Password history"
    ],
    "a": 1,
-   "e": "Educating the user on how the infection happened helps prevent recurrence — it is the last step of the process."
+   "e": "Separation of duties splits sensitive processes so no single person can complete them alone, deterring fraud."
   }
  },
  {
@@ -1295,43 +1141,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "2.0 Security",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/data-destruction-220-1202/",
-  "videoName": "Data Destruction",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/securing-a-soho-network-220-1202/",
+  "videoName": "Securing a SOHO Network",
   "q": {
-   "id": 157,
-   "t": "data-destruction",
+   "id": 162,
+   "t": "soho",
    "d": 2,
-   "x": "Which method uses a powerful magnetic field to destroy data on magnetic hard drives (but does not work on SSDs)?",
+   "x": "Which SOHO router configuration reduces the attack surface by ensuring the router software has the latest security fixes?",
    "o": [
-    "Degaussing",
-    "Low-level formatting",
-    "TRIM",
-    "Incineration"
-   ],
-   "a": 0,
-   "e": "Degaussing scrambles magnetic domains, destroying HDD data and usually the drive; SSDs are unaffected by magnets."
-  }
- },
- {
-  "code": "220-1202",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "2.0 Security",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/browser-security-220-1202/",
-  "videoName": "Browser Security",
-  "q": {
-   "id": 166,
-   "t": "browser-security",
-   "d": 2,
-   "x": "Which browser feature should users be cautious about because malicious versions can read and modify web page data?",
-   "o": [
-    "Bookmarks",
-    "Extensions/add-ons",
-    "History",
-    "Zoom settings"
+    "Disabling DHCP",
+    "Updating the firmware",
+    "Changing the SSID color",
+    "Enabling WEP"
    ],
    "a": 1,
-   "e": "Extensions run with broad access to browsing data; install only trusted, necessary extensions from official stores."
+   "e": "Router firmware updates patch vulnerabilities; outdated firmware is a common compromise vector."
   }
  },
  {
@@ -1339,21 +1163,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "3.0 Software Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/troubleshooting-mobile-devices-220-1202/",
-  "videoName": "Troubleshooting Mobile Devices",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/troubleshooting-windows-220-1202/",
+  "videoName": "Troubleshooting Windows",
   "q": {
-   "id": 180,
-   "t": "ts-mobile",
+   "id": 175,
+   "t": "ts-windows",
    "d": 3,
-   "x": "A smartphone battery drains much faster than usual. Which is the MOST likely software cause?",
+   "x": "A PC shows 'Operating System Not Found' at boot. Which is a likely cause?",
    "o": [
-    "A hairline crack in the display glass",
-    "Apps running constantly in the background",
-    "Debris inside the charging port",
-    "A paired set of Bluetooth headphones"
+    "A corrupted boot record or a failed drive",
+    "An incorrect desktop wallpaper file",
+    "An outdated antivirus program",
+    "Too many browser tabs open at shutdown"
    ],
-   "a": 1,
-   "e": "Background app activity, poor cell signal searching, and buggy apps are the primary software causes of rapid drain."
+   "a": 0,
+   "e": "Missing OS errors point to boot record/BCD corruption, incorrect boot order, or a failed drive — WinRE Startup Repair is a first step."
   }
  },
  {
@@ -1364,18 +1188,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/troubleshooting-security-issues-220-1202/",
   "videoName": "Troubleshooting Security Issues",
   "q": {
-   "id": 194,
+   "id": 190,
    "t": "ts-security",
    "d": 3,
-   "x": "A user gets constant desktop notification spam from a website they accidentally allowed. Where is this fixed?",
+   "x": "A user's browser homepage changed on its own and searches are redirected through an unknown site. What do these symptoms indicate?",
    "o": [
-    "Reinstall the operating system",
-    "Revoke the site's notification permission",
-    "Buy a new external monitor",
-    "Disable the network adapter"
+    "A failing hard drive",
+    "Browser hijacking malware/PUPs",
+    "A DHCP failure",
+    "Normal updates"
    ],
    "a": 1,
-   "e": "Browser site permissions control notifications; removing the site's permission stops the spam."
+   "e": "Redirects and homepage changes indicate a browser hijacker or potentially unwanted program — begin malware remediation."
   }
  },
  {
@@ -1427,21 +1251,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "4.0 Operational Procedures",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/managing-electrostatic-discharge-220-1202/",
-  "videoName": "Managing Electrostatic Discharge",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/safety-procedures-220-1202/",
+  "videoName": "Safety Procedures",
   "q": {
-   "id": 246,
-   "t": "esd",
+   "id": 249,
+   "t": "safety",
    "d": 4,
-   "x": "How should spare motherboards and RAM be stored and transported?",
+   "x": "Which fire extinguisher class is appropriate for electrical equipment fires?",
    "o": [
-    "In plastic grocery bags",
-    "In anti-static bags",
-    "Loose in a cardboard box",
-    "Wrapped in wool"
+    "Class A",
+    "Class C",
+    "Class K",
+    "Class D"
    ],
    "a": 1,
-   "e": "Anti-static bags shield components from electrostatic fields and discharge during storage and transport."
+   "e": "Electrical fires require non-conductive suppression (Class C in the US); water conducts electricity and must not be used."
   }
  },
  {
@@ -1449,21 +1273,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "4.0 Operational Procedures",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/privacy-licensing-and-policies-220-1202/",
-  "videoName": "Privacy, Licensing, and Policies",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/scripting-languages-220-1202/",
+  "videoName": "Scripting Languages",
   "q": {
-   "id": 258,
-   "t": "licensing",
+   "id": 266,
+   "t": "scripting",
    "d": 4,
-   "x": "Which type of license allows software to be used, studied, modified, and redistributed, often at no cost?",
+   "x": "Which scripting language is native to Windows system administration, using cmdlets like Get-Process?",
    "o": [
-    "Personal/closed license",
-    "Open-source license",
-    "OEM license",
-    "Trial license"
+    "Bash",
+    "PowerShell",
+    "Python",
+    "JavaScript"
    ],
    "a": 1,
-   "e": "Open-source licenses grant rights to inspect, modify, and share source code under defined terms."
+   "e": "PowerShell (.ps1) is Microsoft's automation shell with cmdlets and deep Windows integration."
   }
  },
  {
@@ -1471,43 +1295,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "4.0 Operational Procedures",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/scripting-use-cases-220-1202/",
-  "videoName": "Scripting Use Cases",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/remote-access-220-1202/",
+  "videoName": "Remote Access",
   "q": {
-   "id": 270,
-   "t": "scripting-uses",
+   "id": 275,
+   "t": "remote-access",
    "d": 4,
-   "x": "A technician needs 500 workstations to map network drives automatically at every user login. What is the BEST approach?",
+   "x": "An MSP needs continuous monitoring, patching, and remote control across hundreds of client machines. Which tool category fits?",
    "o": [
-    "Visit each PC manually",
-    "Deploy a login script via Group Policy",
-    "Email users instructions",
-    "Use sticky notes"
+    "A single VNC install",
+    "RMM",
+    "A KVM switch",
+    "FTP scripts"
    ],
    "a": 1,
-   "e": "Login scripts (deployed via GPO) automate per-login tasks like drive mapping at scale."
-  }
- },
- {
-  "code": "220-1202",
-  "cert": "CompTIA A+",
-  "vendor": "comptia",
-  "domain": "4.0 Operational Procedures",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/managing-ai-220-1202/",
-  "videoName": "Managing AI",
-  "q": {
-   "id": 280,
-   "t": "ai",
-   "d": 4,
-   "x": "AI screening software consistently rates candidates from one group lower due to skewed training data. What is this problem called?",
-   "o": [
-    "Overclocking",
-    "AI bias",
-    "Data mirroring",
-    "Prompt injection"
-   ],
-   "a": 1,
-   "e": "Bias in training data produces systematically unfair model outputs — a key AI governance concern."
+   "e": "RMM platforms give managed service providers fleet-wide monitoring, patching, alerting, and remote access. RMM = remote monitoring and management."
   }
  },
  {
@@ -1515,21 +1317,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA A+",
   "vendor": "comptia",
   "domain": "1.0 Operating Systems",
-  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/the-windows-network-command-line-220-1202/",
-  "videoName": "The Windows Network Command Line",
+  "videoUrl": "https://www.professormesser.com/free-a-plus-training/220-1202/220-1202-video/macos-system-preferences-220-1202/",
+  "videoName": "macOS System Preferences",
   "q": {
-   "id": 296,
-   "t": "net-cmd",
+   "id": 293,
+   "t": "macos-prefs",
    "d": 1,
-   "x": "Which Windows command combines ping and tracert, showing per-hop packet loss over time?",
+   "x": "Which macOS feature provides full-disk encryption?",
    "o": [
-    "pathping",
-    "netstat",
-    "nbtstat",
-    "getmac"
+    "FileVault",
+    "Keychain",
+    "Time Machine",
+    "Stage Manager"
    ],
    "a": 0,
-   "e": "pathping traces the route, then sends probes to each hop for a period, revealing exactly where loss occurs."
+   "e": "FileVault encrypts the entire startup disk, tied to user credentials and a recovery key."
   }
  },
  {
@@ -1581,21 +1383,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/copper-cabling-n10-009/",
-  "videoName": "Copper Cabling",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-topologies-n10-009/",
+  "videoName": "Network Topologies",
   "q": {
-   "id": 10,
-   "t": "copper-cabling",
+   "id": 11,
+   "t": "network-topologies",
    "d": 1,
-   "x": "Which twisted-pair category supports 10GBASE-T up to 100 meters?",
+   "x": "In which topology does every device connect to a central switch, so a single cable fault affects only one node?",
    "o": [
-    "Cat 6a",
-    "Cat 3",
-    "Cat 5",
-    "Cat 5e"
+    "Star",
+    "Bus",
+    "Ring",
+    "Mesh"
    ],
    "a": 0,
-   "e": "Cat 6a supports 10 Gbps to 100 m with tighter specifications and shielding to limit crosstalk."
+   "e": "In a star topology each node connects to a central device; one link failure isolates only that node."
   }
  },
  {
@@ -1603,21 +1405,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/ipv6-addressing-n10-009/",
-  "videoName": "IPv6 Addressing",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/zero-trust-n10-009/",
+  "videoName": "Zero Trust",
   "q": {
-   "id": 16,
-   "t": "ipv6-addressing",
+   "id": 17,
+   "t": "zero-trust",
    "d": 1,
-   "x": "How many bits long is an IPv6 address?",
+   "x": "Which security model assumes no implicit trust and verifies every request regardless of network location?",
    "o": [
-    "128",
-    "32",
-    "64",
-    "256"
+    "Zero Trust",
+    "Castle-and-moat perimeter",
+    "Open trust",
+    "Implicit trust"
    ],
    "a": 0,
-   "e": "IPv6 uses 128-bit addresses, providing a vastly larger address space than 32-bit IPv4."
+   "e": "Zero Trust treats every request as untrusted until authenticated and authorized, whether inside or outside the perimeter."
   }
  },
  {
@@ -1625,21 +1427,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/understanding-the-osi-model-n10-009/",
-  "videoName": "Understanding the OSI Model",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/networking-devices-n10-009/",
+  "videoName": "Networking Devices",
   "q": {
-   "id": 21,
-   "t": "understanding-the-osi-model",
+   "id": 23,
+   "t": "networking-devices",
    "d": 1,
-   "x": "As data moves DOWN the OSI stack to be transmitted, what is the correct order of encapsulation names?",
+   "x": "Which device provides Wi-Fi client access while bridging wireless traffic onto the wired LAN?",
    "o": [
-    "Data → segments → packets → frames → bits",
-    "Bits → frames → packets → segments → data",
-    "Data → packets → segments → bits → frames",
-    "Frames → packets → data → segments → bits"
+    "A wireless access point",
+    "A router only",
+    "A firewall",
+    "A patch panel"
    ],
    "a": 0,
-   "e": "Application data becomes Transport segments, Network packets, Data Link frames, and finally Physical bits on the wire."
+   "e": "An AP bridges 802.11 wireless clients to the wired Ethernet network; in home 'routers' the AP is one built-in component."
   }
  },
  {
@@ -1650,18 +1452,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/common-ports-n10-009/",
   "videoName": "Common Ports",
   "q": {
-   "id": 33,
+   "id": 37,
    "t": "common-ports",
    "d": 1,
-   "x": "Which port does NTP use to synchronize clocks across network devices?",
+   "x": "Which ports does SIP use for VoIP call signaling?",
    "o": [
-    "123",
-    "23",
-    "443",
-    "514"
+    "5060",
+    "80 and 443",
+    "20 and 21",
+    "67 and 68"
    ],
    "a": 0,
-   "e": "The Network Time Protocol uses UDP port 123; accurate time matters for logs, authentication, and certificates."
+   "e": "The Session Initiation Protocol signals VoIP calls on 5060, with 5061 for TLS-encrypted signaling. 5060 = and 5061 for TLS."
   }
  },
  {
@@ -1669,21 +1471,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/other-useful-protocols-n10-009/",
-  "videoName": "Other Useful Protocols",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/ethernet-standards-n10-009/",
+  "videoName": "Ethernet Standards",
   "q": {
-   "id": 39,
-   "t": "other-useful-protocols",
+   "id": 43,
+   "t": "ethernet-standards",
    "d": 1,
-   "x": "Which tunneling protocol encapsulates one network protocol inside another but provides NO encryption on its own?",
+   "x": "Which fiber Ethernet standard is designed for short-range multimode runs inside a data center at 10 Gbps?",
    "o": [
-    "GRE",
-    "IPSec ESP",
-    "TLS",
-    "WPA3"
+    "10GBASE-SR",
+    "10GBASE-LR",
+    "1000BASE-T",
+    "10GBASE-T"
    ],
    "a": 0,
-   "e": "Generic Routing Encapsulation builds tunnels but has no confidentiality — it is often paired with IPSec for encryption."
+   "e": "SR (short range) uses multimode fiber for in-building runs; LR (long range) uses single-mode for kilometers."
   }
  },
  {
@@ -1691,43 +1493,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/optical-fiber-n10-009/",
-  "videoName": "Optical Fiber",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-topologies-n10-009/",
+  "videoName": "Network Topologies",
   "q": {
-   "id": 44,
-   "t": "optical-fiber",
+   "id": 51,
+   "t": "network-topologies",
    "d": 1,
-   "x": "Which fiber type is required for a 40 km link between two campuses?",
+   "x": "A WAN design connects every branch office only to headquarters, with no branch-to-branch links. What is this topology called?",
    "o": [
-    "Single-mode fiber",
-    "Multimode fiber",
-    "Cat 8 copper",
-    "Coaxial"
+    "Hub-and-spoke",
+    "Full mesh",
+    "Bus",
+    "Point-to-point only"
    ],
    "a": 0,
-   "e": "Single-mode fiber with laser optics spans tens of kilometers; multimode is limited to hundreds of meters."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-architectures-n10-009/",
-  "videoName": "Network Architectures",
-  "q": {
-   "id": 52,
-   "t": "network-architectures",
-   "d": 1,
-   "x": "In the classic three-tier network design, which layer connects end-user devices to the network?",
-   "o": [
-    "The access layer",
-    "The core layer",
-    "The distribution layer",
-    "The spine layer"
-   ],
-   "a": 0,
-   "e": "Access switches face endpoints; distribution aggregates them; the core provides fast transport between distribution blocks."
+   "e": "Hub-and-spoke centralizes connectivity through one site — cheaper than mesh but the hub is a single point of failure."
   }
  },
  {
@@ -1757,109 +1537,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "1.0 Networking Concepts",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/zero-trust-n10-009/",
-  "videoName": "Zero Trust",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/software-defined-networking-n10-009/",
+  "videoName": "Software Defined Networking",
   "q": {
-   "id": 63,
-   "t": "zero-trust",
+   "id": 64,
+   "t": "software-defined-networking",
    "d": 1,
-   "x": "A zero-trust design authenticates and authorizes EVERY request. Which additional principle limits what each identity can reach?",
+   "x": "In SDN, which plane makes forwarding decisions and is separated from the devices that move packets?",
    "o": [
-    "Least-privilege access",
-    "Implicit LAN trust",
-    "Open shares",
-    "Single-factor logins"
+    "The control plane",
+    "The data plane",
+    "The power plane",
+    "The physical plane"
    ],
    "a": 0,
-   "e": "Zero trust pairs continuous verification with least privilege, so even authenticated identities reach only what they need."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "2.0 Network Implementation",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/vlans-and-trunking-n10-009/",
-  "videoName": "VLANs and Trunking",
-  "q": {
-   "id": 70,
-   "t": "vlans-and-trunking",
-   "d": 2,
-   "x": "Which standard tags Ethernet frames so multiple VLANs can traverse a single trunk link?",
-   "o": [
-    "802.1Q",
-    "802.11ac",
-    "802.3af",
-    "802.1X"
-   ],
-   "a": 0,
-   "e": "IEEE 802.1Q inserts a VLAN tag into frames, allowing multiple VLANs to share one trunk."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "2.0 Network Implementation",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/static-routing-n10-009/",
-  "videoName": "Static Routing",
-  "q": {
-   "id": 76,
-   "t": "static-routing",
-   "d": 2,
-   "x": "Which route entry represents the default route in an IPv4 routing table?",
-   "o": [
-    "0.0.0.0/0",
-    "127.0.0.1/32",
-    "255.255.255.255/32",
-    "192.168.1.0/24"
-   ],
-   "a": 0,
-   "e": "0.0.0.0/0 matches any destination not covered by a more specific route — the 'gateway of last resort.'"
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "2.0 Network Implementation",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-address-translation-n10-009/",
-  "videoName": "Network Address Translation",
-  "q": {
-   "id": 87,
-   "t": "network-address-translation",
-   "d": 2,
-   "x": "Which NAT variant maps many private IPs to one public IP by tracking port numbers?",
-   "o": [
-    "PAT",
-    "Static NAT",
-    "1:1 DMZ NAT",
-    "DNS64 only"
-   ],
-   "a": 0,
-   "e": "Port Address Translation multiplexes many internal hosts through one public address using unique source ports. PAT = NAT overload."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "2.0 Network Implementation",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/vlans-and-trunking-n10-009/",
-  "videoName": "VLANs and Trunking",
-  "q": {
-   "id": 92,
-   "t": "vlans-and-trunking",
-   "d": 2,
-   "x": "An IP phone and a PC share one switch port, with the phone's traffic isolated for QoS. Which feature enables this?",
-   "o": [
-    "A voice VLAN",
-    "Port mirroring",
-    "BPDU guard",
-    "DHCP snooping"
-   ],
-   "a": 0,
-   "e": "A voice VLAN lets the phone tag its traffic into a dedicated VLAN while the PC uses the access (data) VLAN."
+   "e": "SDN centralizes the control plane in a controller; switches execute the data-plane forwarding it programs."
   }
  },
  {
@@ -1870,18 +1562,84 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/wireless-technologies-n10-009/",
   "videoName": "Wireless Technologies",
   "q": {
-   "id": 101,
+   "id": 73,
    "t": "wireless-technologies",
    "d": 2,
-   "x": "Doubling a Wi-Fi channel from 20 MHz to 40 MHz width has what effect?",
+   "x": "Which Wi-Fi standard, known as Wi-Fi 6, operates in the 2.4 GHz and 5 GHz bands?",
    "o": [
-    "More throughput but greater overlap risk",
-    "Less throughput than a 20 MHz channel",
-    "No change in throughput at all",
-    "It disables the 2.4 GHz band"
+    "802.11ax",
+    "802.11g",
+    "802.11a",
+    "802.11b"
    ],
    "a": 0,
-   "e": "Wider channels carry more data but consume more spectrum — a congestion tradeoff, especially at 2.4 GHz."
+   "e": "802.11ax (Wi-Fi 6) improves efficiency in dense environments across the 2.4 GHz and 5 GHz bands."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "2.0 Network Implementation",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/dynamic-routing-n10-009/",
+  "videoName": "Dynamic Routing",
+  "q": {
+   "id": 83,
+   "t": "dynamic-routing",
+   "d": 2,
+   "x": "Which interior gateway protocol floods link-state advertisements and computes shortest paths with Dijkstra's algorithm?",
+   "o": [
+    "OSPF",
+    "RIP",
+    "BGP",
+    "NAT"
+   ],
+   "a": 0,
+   "e": "OSPF routers build a shared topology database from LSAs and each computes shortest paths — fast converging and scalable."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "2.0 Network Implementation",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/vlans-and-trunking-n10-009/",
+  "videoName": "VLANs and Trunking",
+  "q": {
+   "id": 90,
+   "t": "vlans-and-trunking",
+   "d": 2,
+   "x": "Untagged frames arriving on an 802.1Q trunk are assigned to which VLAN?",
+   "o": [
+    "The native VLAN",
+    "VLAN 4095",
+    "The voice VLAN",
+    "No VLAN — they are dropped"
+   ],
+   "a": 0,
+   "e": "The native VLAN carries untagged trunk traffic; mismatched native VLANs on trunk ends cause leakage and errors."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "2.0 Network Implementation",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/spanning-tree-protocol-n10-009/",
+  "videoName": "Spanning Tree Protocol",
+  "q": {
+   "id": 99,
+   "t": "spanning-tree-protocol",
+   "d": 2,
+   "x": "What does spanning tree do with redundant paths that would create a loop?",
+   "o": [
+    "Puts those ports into a blocking state",
+    "Deletes the VLANs on those ports",
+    "Converts those ports to trunk links",
+    "Reboots the affected switch"
+   ],
+   "a": 0,
+   "e": "STP blocks redundant ports, keeping one loop-free active topology; blocked ports activate if the primary path fails."
   }
  },
  {
@@ -1914,18 +1672,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/installing-networks-n10-009/",
   "videoName": "Installing Networks",
   "q": {
-   "id": 111,
+   "id": 112,
    "t": "installing-networks",
    "d": 2,
-   "x": "Where does the ISP's responsibility end and the customer's network begin?",
+   "x": "Which facility houses the building's main network equipment, with smaller closets on each floor feeding back to it?",
    "o": [
-    "At the demarcation point",
-    "At the farthest wall jack",
-    "At the DNS server",
-    "At the firewall GUI"
+    "The MDF",
+    "The DMZ",
+    "The demarc extension",
+    "The UPS room"
    ],
    "a": 0,
-   "e": "The demarc is the handoff point between provider and customer infrastructure — key for assigning repair responsibility."
+   "e": "The MDF is the central wiring/equipment room; intermediate distribution frames (IDFs) serve floors or zones and uplink to it."
   }
  },
  {
@@ -1936,84 +1694,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/dhcp-n10-009/",
   "videoName": "DHCP",
   "q": {
-   "id": 119,
+   "id": 120,
    "t": "dhcp",
    "d": 3,
-   "x": "Which server automatically leases IP configuration (address, mask, gateway, DNS) to network clients?",
+   "x": "What does a DHCP reservation do?",
    "o": [
-    "DHCP",
-    "DNS",
-    "SNMP",
-    "NTP"
+    "Assigns a fixed IP to a device by its MAC",
+    "Blocks a device from the network",
+    "Shortens every lease to one minute",
+    "Encrypts all DHCP traffic"
    ],
    "a": 0,
-   "e": "DHCP dynamically provides IP configuration to clients, avoiding manual static assignment."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "3.0 Network Operations",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/snmp-n10-009/",
-  "videoName": "SNMP",
-  "q": {
-   "id": 124,
-   "t": "snmp",
-   "d": 3,
-   "x": "Which protocol is used to monitor and collect status and performance data from network devices?",
-   "o": [
-    "SNMP",
-    "SMTP",
-    "TFTP",
-    "LDAP"
-   ],
-   "a": 0,
-   "e": "SNMP polls managed devices for status and can receive traps; it is central to network monitoring."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "3.0 Network Operations",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-documentation-n10-009/",
-  "videoName": "Network Documentation",
-  "q": {
-   "id": 131,
-   "t": "network-documentation",
-   "d": 3,
-   "x": "Which document records every device's position in an equipment rack, unit by unit?",
-   "o": [
-    "A rack diagram",
-    "A DNS zone file",
-    "An SLA",
-    "An acceptable use policy"
-   ],
-   "a": 0,
-   "e": "Rack diagrams document elevation — which RU each device occupies — critical for remote hands and capacity planning."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "3.0 Network Operations",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/logs-and-monitoring-n10-009/",
-  "videoName": "Logs and Monitoring",
-  "q": {
-   "id": 143,
-   "t": "logs-and-monitoring",
-   "d": 3,
-   "x": "In syslog severity levels, which number is MOST severe?",
-   "o": [
-    "0 (Emergency)",
-    "7 (Debug)",
-    "5 (Notice)",
-    "3 (Error)"
-   ],
-   "a": 0,
-   "e": "Syslog severities run 0-7 from Emergency down to Debug — lower numbers are worse."
+   "e": "A reservation binds a MAC address to a fixed IP within the DHCP scope, so that device always receives the same address."
   }
  },
  {
@@ -2024,18 +1716,62 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/network-redundancy-n10-009/",
   "videoName": "Network Redundancy",
   "q": {
-   "id": 152,
+   "id": 126,
    "t": "network-redundancy",
    "d": 3,
-   "x": "A server is connected to two different switches with its two NICs bonded. What does this protect against?",
+   "x": "Which type of protocol provides gateway redundancy so hosts keep a working default gateway if one router fails?",
    "o": [
-    "Failure of a NIC, cable, or one switch",
-    "DNS poisoning",
-    "Slow websites",
-    "Password reuse"
+    "A first-hop redundancy protocol",
+    "Spanning Tree Protocol",
+    "NAT",
+    "SNMP"
    ],
    "a": 0,
-   "e": "NIC teaming across diverse switches removes single points of failure in the server's network path."
+   "e": "First-hop redundancy protocols such as VRRP and HSRP present a virtual gateway, so failover is transparent to hosts. In other words: VRRP/HSRP."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "3.0 Network Operations",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/configuration-management-n10-009/",
+  "videoName": "Configuration Management",
+  "q": {
+   "id": 138,
+   "t": "configuration-management",
+   "d": 3,
+   "x": "What should be captured immediately BEFORE making a change to a production router?",
+   "o": [
+    "A backup of the current configuration",
+    "A photo of the rack",
+    "The DNS cache",
+    "The CPU serial number"
+   ],
+   "a": 0,
+   "e": "A pre-change config backup makes rollback fast when a change misbehaves — a core change-management practice."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "3.0 Network Operations",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/disaster-recovery-n10-009/",
+  "videoName": "Disaster Recovery",
+  "q": {
+   "id": 151,
+   "t": "disaster-recovery",
+   "d": 3,
+   "x": "Which metric expresses the average time expected between failures of a device?",
+   "o": [
+    "MTBF",
+    "RTO",
+    "RPO",
+    "SLA"
+   ],
+   "a": 0,
+   "e": "Mean time between failures indicates expected reliability; MTTR measures how long repairs take."
   }
  },
  {
@@ -2046,18 +1782,18 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/an-overview-of-dns-n10-009/",
   "videoName": "An Overview of DNS",
   "q": {
-   "id": 161,
+   "id": 160,
    "t": "an-overview-of-dns",
    "d": 3,
-   "x": "A resolver looks up an IP address to find its hostname. What is this called, and which record answers it?",
+   "x": "Which DNS server type holds the actual records for a domain, providing the definitive answers?",
    "o": [
-    "A reverse lookup using a PTR record",
-    "A forward lookup using an A record",
-    "A mail lookup using MX",
-    "A zone transfer using AXFR"
+    "An authoritative server",
+    "A recursive resolver",
+    "A root hint cache",
+    "A forwarder only"
    ],
    "a": 0,
-   "e": "Reverse DNS maps IP → name via PTR records in the in-addr.arpa (or ip6.arpa) tree."
+   "e": "Authoritative servers own the zone data; recursive resolvers chase referrals from root → TLD → authoritative on clients' behalf."
   }
  },
  {
@@ -2109,21 +1845,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "4.0 Network Security",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/security-technologies-n10-009/",
-  "videoName": "Security Technologies",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/regulatory-compliance-n10-009/",
+  "videoName": "Regulatory Compliance",
   "q": {
-   "id": 183,
-   "t": "security-technologies",
+   "id": 185,
+   "t": "regulatory-compliance",
    "d": 4,
-   "x": "Which technology checks a connecting device's identity and health posture before granting network access?",
+   "x": "Which standard governs how organizations that process credit card payments must protect cardholder data?",
    "o": [
-    "NAC",
-    "NTP",
-    "RAID",
-    "QoS"
+    "PCI DSS",
+    "GDPR only",
+    "HIPAA only",
+    "IEEE 802.1Q"
    ],
    "a": 0,
-   "e": "NAC gates network admission: 802.1X authenticates, and posture checks verify patching/AV before the port or SSID opens. NAC = network access control, often 802.1X."
+   "e": "The Payment Card Industry Data Security Standard mandates network segmentation, encryption, and auditing around card data."
   }
  },
  {
@@ -2131,21 +1867,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "4.0 Network Security",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/vlan-hopping-n10-009/",
-  "videoName": "VLAN Hopping",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/arp-and-dns-poisoning-n10-009/",
+  "videoName": "ARP and DNS Poisoning",
   "q": {
-   "id": 192,
-   "t": "vlan-hopping",
+   "id": 196,
+   "t": "arp-and-dns-poisoning",
    "d": 4,
-   "x": "An attacker crafts frames with two 802.1Q tags so traffic reaches a VLAN they shouldn't access. Which attack is this?",
+   "x": "Which switch security feature validates ARP replies against known IP-MAC bindings, blocking ARP spoofing?",
    "o": [
-    "Double-tagging VLAN hopping",
-    "MAC flooding",
-    "DNS poisoning",
-    "Smishing"
+    "Dynamic ARP inspection",
+    "Jumbo frames",
+    "Link aggregation",
+    "Half duplex"
    ],
    "a": 0,
-   "e": "Double tagging abuses native-VLAN handling: the first tag is stripped, and the switch forwards the inner-tagged frame into the victim VLAN."
+   "e": "DAI checks ARP packets against the DHCP-snooping binding table and drops forged replies. In other words: with DHCP snooping."
   }
  },
  {
@@ -2153,65 +1889,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "4.0 Network Security",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/social-engineering-n10-009/",
-  "videoName": "Social Engineering",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/security-rules-n10-009/",
+  "videoName": "Security Rules",
   "q": {
-   "id": 201,
-   "t": "social-engineering",
+   "id": 206,
+   "t": "security-rules",
    "d": 4,
-   "x": "A targeted, personalized phishing email is sent specifically to a company's CFO. What is this attack called?",
+   "x": "Traffic reaches the end of a firewall rule list without matching any rule. What happens?",
    "o": [
-    "Whaling",
-    "Mass phishing",
-    "Tailgating",
-    "War driving"
+    "The implicit deny drops it",
+    "It is always allowed",
+    "The firewall reboots",
+    "It is emailed to the admin"
    ],
    "a": 0,
-   "e": "Whaling targets high-value executives with researched, personalized lures — the payoff justifies the attacker's effort. Whaling = executive spear phishing."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "5.0 Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/command-line-tools-n10-009/",
-  "videoName": "Command Line Tools",
-  "q": {
-   "id": 209,
-   "t": "command-line-tools",
-   "d": 5,
-   "x": "Which command displays a Windows host's IP address, subnet mask, and default gateway?",
-   "o": [
-    "ipconfig",
-    "ping",
-    "tracert",
-    "nslookup"
-   ],
-   "a": 0,
-   "e": "ipconfig shows adapter addressing; ipconfig /all adds MAC, DHCP, and DNS details."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "5.0 Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/routing-and-ip-issues-n10-009/",
-  "videoName": "Routing and IP Issues",
-  "q": {
-   "id": 216,
-   "t": "routing-and-ip-issues",
-   "d": 5,
-   "x": "Two devices on the same network were configured with the same static IP address. What symptom results?",
-   "o": [
-    "An IP address conflict",
-    "Faster throughput",
-    "A DNS cache miss",
-    "A duplex mismatch"
-   ],
-   "a": 0,
-   "e": "Duplicate IP addresses cause an address conflict, and one or both hosts lose reliable connectivity."
+   "e": "Firewalls and ACLs end with implicit deny — anything not explicitly permitted is dropped."
   }
  },
  {
@@ -2222,18 +1914,40 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/cable-issues-n10-009/",
   "videoName": "Cable Issues",
   "q": {
-   "id": 226,
+   "id": 213,
    "t": "cable-issues",
    "d": 5,
-   "x": "A fiber link fails after an installer cinched the cable tightly around a sharp corner. What rule was violated?",
+   "x": "A newly terminated cable has pairs in the wrong order, causing link problems. Which tool verifies the wiring map?",
    "o": [
-    "The minimum bend radius",
-    "The maximum MTU",
-    "The TIA color code",
-    "The PoE budget"
+    "A cable tester",
+    "A tone generator only",
+    "A multimeter",
+    "A loopback plug"
    ],
    "a": 0,
-   "e": "Bending fiber beyond its minimum radius causes light loss (macrobending) and can crack the glass."
+   "e": "A cable tester checks continuity and wire-map order, revealing miswires, opens, and shorts."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "5.0 Network Troubleshooting",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/cable-issues-n10-009/",
+  "videoName": "Cable Issues",
+  "q": {
+   "id": 225,
+   "t": "cable-issues",
+   "d": 5,
+   "x": "Signals from one wire pair are bleeding into an adjacent pair, corrupting data. What is this called?",
+   "o": [
+    "Crosstalk",
+    "Attenuation",
+    "Jitter",
+    "Split horizon"
+   ],
+   "a": 0,
+   "e": "Crosstalk is inter-pair interference — poor terminations and untwisted pairs at the connector are common causes."
   }
  },
  {
@@ -2266,62 +1980,40 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/wireless-issues-n10-009/",
   "videoName": "Wireless Issues",
   "q": {
-   "id": 246,
+   "id": 247,
    "t": "wireless-issues",
    "d": 5,
-   "x": "A roaming user's laptop clings to a distant AP with a weak signal instead of switching to the nearby one. What is this called?",
+   "x": "Wi-Fi in a warehouse degrades badly near industrial equipment. Which tool identifies the interference source?",
    "o": [
-    "A sticky client",
-    "An evil twin",
-    "Channel bonding",
-    "Band steering"
-   ],
-   "a": 0,
-   "e": "Sticky clients hold weak associations; lowering AP power, enabling 802.11k/v, or adjusting roaming aggressiveness helps."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "5.0 Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/software-tools-n10-009/",
-  "videoName": "Software Tools",
-  "q": {
-   "id": 252,
-   "t": "software-tools",
-   "d": 5,
-   "x": "A technician wants to verify DNS, DHCP, and gateway reachability from a wall jack quickly. Which purpose-built tool does this?",
-   "o": [
-    "A network validator that tests the link",
-    "A spudger for prying open cases",
-    "A cable stripper for jacket removal",
-    "An anti-static mat for the bench"
-   ],
-   "a": 0,
-   "e": "Link/network validators confirm PoE, DHCP, DNS, and gateway reachability in seconds from any jack."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "5.0 Network Troubleshooting",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/hardware-tools-n10-009/",
-  "videoName": "Hardware Tools",
-  "q": {
-   "id": 258,
-   "t": "hardware-tools",
-   "d": 5,
-   "x": "Which tool measures whether adequate light is arriving at the far end of a fiber link?",
-   "o": [
-    "A light/power meter",
-    "A tone generator",
+    "A spectrum analyzer",
     "A cable crimper",
-    "A punch-down tool"
+    "A punch-down tool",
+    "A loopback plug"
    ],
    "a": 0,
-   "e": "Light meters quantify received optical power, confirming the link budget after installation."
+   "e": "Spectrum analyzers see non-Wi-Fi RF (motors, microwaves, cordless gear) that channel-scanning Wi-Fi analyzers miss."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "5.0 Network Troubleshooting",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/command-line-tools-n10-009/",
+  "videoName": "Command Line Tools",
+  "q": {
+   "id": 254,
+   "t": "command-line-tools",
+   "d": 5,
+   "x": "Which command shows the local table mapping IP addresses to MAC addresses?",
+   "o": [
+    "arp -a",
+    "ipconfig /flushdns",
+    "netsh reset",
+    "route delete"
+   ],
+   "a": 0,
+   "e": "The ARP cache (arp -a) reveals learned IP-to-MAC bindings — useful for spotting duplicates or poisoning."
   }
  },
  {
@@ -2332,18 +2024,40 @@ export const QOTD_POOL: QotdEntry[] = [
   "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/basic-network-device-commands-n10-009/",
   "videoName": "Basic Network Device Commands",
   "q": {
-   "id": 263,
+   "id": 260,
    "t": "basic-network-device-commands",
    "d": 5,
-   "x": "After changing a switch configuration, which command makes the change survive a reboot?",
+   "x": "Which command on a switch or router shows interface status, errors, and traffic counters?",
    "o": [
-    "copy running-config startup-config",
-    "reload",
-    "show running-config",
-    "configure terminal"
+    "show interface",
+    "show clock",
+    "copy run start",
+    "erase startup"
    ],
    "a": 0,
-   "e": "Saving the running config to startup (write memory) persists changes to non-volatile storage."
+   "e": "'show interface' reveals link state, duplex/speed, and error counters — the first stop for port issues."
+  }
+ },
+ {
+  "code": "N10-009",
+  "cert": "CompTIA",
+  "vendor": "comptia",
+  "domain": "1.0 Networking Concepts",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/ipv6-addressing-n10-009/",
+  "videoName": "IPv6 Addressing",
+  "q": {
+   "id": 266,
+   "t": "ipv6-addressing",
+   "d": 1,
+   "x": "An IPv6 packet is sent to ff02::1. What kind of address is this?",
+   "o": [
+    "A link-local multicast to all nodes",
+    "A global unicast host address",
+    "A loopback address",
+    "An anycast DNS root server"
+   ],
+   "a": 0,
+   "e": "ff00::/8 is multicast; ff02::1 is the well-known all-nodes link-local group, IPv6's replacement for broadcast."
   }
  },
  {
@@ -2351,43 +2065,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "2.0 Network Implementation",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/routing-technologies-n10-009/",
-  "videoName": "Routing Technologies",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/wireless-technologies-n10-009/",
+  "videoName": "Wireless Technologies",
   "q": {
-   "id": 271,
-   "t": "routing-technologies",
+   "id": 276,
+   "t": "wireless-technologies",
    "d": 2,
-   "x": "Instead of advertising 16 /24 networks individually, a router advertises one /20 covering them all. What is this practice?",
+   "x": "A dual-band AP nudges capable clients from crowded 2.4 GHz to 5 GHz. What is this feature called?",
    "o": [
-    "Route summarization",
-    "Load balancing",
-    "Tunneling",
-    "Poison reverse"
+    "Band steering",
+    "Beamforming",
+    "Channel bonding",
+    "Roaming"
    ],
    "a": 0,
-   "e": "Summarization shrinks routing tables and dampens instability by hiding detail behind one aggregate prefix. Route summarization = aggregation."
-  }
- },
- {
-  "code": "N10-009",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "3.0 Network Operations",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/snmp-n10-009/",
-  "videoName": "SNMP",
-  "q": {
-   "id": 280,
-   "t": "snmp",
-   "d": 3,
-   "x": "In an SNMP deployment, which component runs on each monitored network device and answers requests from the monitoring station?",
-   "o": [
-    "The SNMP agent",
-    "The SNMP manager",
-    "The syslog collector",
-    "The trap receiver"
-   ],
-   "a": 0,
-   "e": "The agent is the software on each managed device that exposes MIB data and replies to the manager (NMS); the manager and its trap receiver run centrally on the monitoring station."
+   "e": "Band steering encourages 5 GHz-capable clients off the congested 2.4 GHz band, improving airtime for everyone."
   }
  },
  {
@@ -2395,21 +2087,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "4.0 Network Security",
-  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/authentication-n10-009/",
-  "videoName": "Authentication",
+  "videoUrl": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/security-concepts-n10-009/",
+  "videoName": "Security Concepts",
   "q": {
-   "id": 291,
-   "t": "authentication",
+   "id": 290,
+   "t": "security-concepts",
    "d": 4,
-   "x": "A login requires a password plus a code from a hardware token. Which two factor categories are combined?",
+   "x": "A team scores each threat by how likely it is and how much damage it would cause. What are they calculating?",
    "o": [
-    "Something you know and something you have",
-    "Two things you know",
-    "Something you are and somewhere you are",
-    "Two things you have"
+    "Risk",
+    "Throughput",
+    "Latency",
+    "Uptime"
    ],
    "a": 0,
-   "e": "Password = knowledge; token = possession. True MFA combines different categories, not two of the same kind."
+   "e": "Risk is commonly modeled as likelihood multiplied by impact, guiding which mitigations matter most."
   }
  },
  {
@@ -2439,43 +2131,373 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "CompTIA",
   "vendor": "comptia",
   "domain": "Security Architecture",
-  "videoUrl": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/network-infrastructure-concepts-sy0-701/",
-  "videoName": "Network Infrastructure Concepts",
+  "videoUrl": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/secure-infrastructures-sy0-701/",
+  "videoName": "Secure Infrastructures",
   "q": {
-   "id": 61,
-   "t": "network-infrastructure-concepts",
+   "id": 64,
+   "t": "secure-infrastructures",
    "d": 3,
-   "x": "In software-defined networking, which plane makes the centralized forwarding decisions that the data plane then carries out?",
+   "x": "Disabling unused services, closing open ports, and removing default accounts on a server all serve to reduce what?",
    "o": [
-    "The control plane",
-    "The data plane",
-    "The physical plane",
-    "The session plane"
+    "The recovery point objective",
+    "The false positive rate",
+    "The blast radius",
+    "The attack surface"
    ],
-   "a": 0,
-   "e": "In software-defined networking (SDN), the control plane decides how traffic should be forwarded and is centralized, while the data plane is the switch hardware that actually moves the packets. Separating them lets administrators reprogram network behavior from a single point."
+   "a": 3,
+   "e": "The attack surface is the sum of all points where an attacker could try to gain entry, so disabling services, closing ports, and removing default accounts all shrink it. Blast radius refers to how far damage spreads after a compromise, which segmentation limits rather than service hardening."
   }
  },
  {
-  "code": "SY0-701",
-  "cert": "CompTIA",
-  "vendor": "comptia",
-  "domain": "Security Operations",
-  "videoUrl": "https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/log-data-sy0-701/",
-  "videoName": "Log Data",
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=H8W9oMNSuwo",
+  "videoName": "Jeremy's IT Lab — Day 1: Network Devices",
   "q": {
-   "id": 133,
-   "t": "log-data",
-   "d": 4,
-   "x": "Which protocol is commonly used to forward log messages from many network devices to a central collection server over the network?",
+   "id": 1,
+   "t": "network-components",
+   "d": 1,
+   "x": "Which device makes forwarding decisions based on Layer 3 destination IP addresses and connects separate broadcast domains?",
    "o": [
-    "SMTP",
-    "Syslog",
-    "NTP",
-    "LDAP"
+    "Wireless access point",
+    "Router",
+    "Layer 2 switch",
+    "Ethernet hub"
    ],
    "a": 1,
-   "e": "Syslog is the standard protocol for sending event messages from devices such as routers, firewalls, and servers to a centralized log server, typically over UDP port 514. SMTP transports email, NTP synchronizes clocks, and LDAP queries directory services."
+   "e": "A router forwards packets between networks using destination IP addresses and terminates broadcast domains, while a Layer 2 switch forwards frames within one broadcast domain using MAC addresses."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=u2n762WG0Vo",
+  "videoName": "Jeremy's IT Lab — Day 5: Ethernet LAN Switching (Part 1)",
+  "q": {
+   "id": 24,
+   "t": "switching-concepts",
+   "d": 1,
+   "x": "Which switching method reads the entire frame and verifies the FCS before forwarding it?",
+   "o": [
+    "Fragment-free switching",
+    "Store-and-forward switching",
+    "Cut-through switching",
+    "Fast-forward switching"
+   ],
+   "a": 1,
+   "e": "Store-and-forward buffers the entire frame and checks the FCS, discarding errored frames before forwarding; cut-through methods forward before the frame fully arrives and cannot validate the FCS."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=bQ8sdpGQu8c",
+  "videoName": "Jeremy's IT Lab — Day 13: Subnetting (Part 1)",
+  "q": {
+   "id": 37,
+   "t": "subnetting",
+   "d": 1,
+   "x": "A workstation with IP 192.168.1.100 uses a 255.255.255.224 mask. Which subnet does the workstation belong to?",
+   "o": [
+    "192.168.1.96",
+    "192.168.1.64",
+    "192.168.1.100",
+    "192.168.1.128"
+   ],
+   "a": 0,
+   "e": "A /27 mask creates address blocks of 32, so 192.168.1.100 falls in the 96 to 127 range and its subnet is 192.168.1.96. The value 192.168.1.64 is the previous subnet."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=3ROdsfEUuhs",
+  "videoName": "Jeremy's IT Lab — Day 7: IPv4 Addressing (RFC 1918)",
+  "q": {
+   "id": 47,
+   "t": "private-ipv4-addresses",
+   "d": 1,
+   "x": "An administrator documents the private ranges. What is the full private address range defined within the Class B space?",
+   "o": [
+    "172.16.0.0 to 172.31.255.255",
+    "172.16.0.0 to 172.16.255.255",
+    "172.16.0.0 to 172.32.255.255",
+    "172.0.0.0 to 172.31.255.255"
+   ],
+   "a": 0,
+   "e": "RFC 1918 reserves 172.16.0.0 through 172.31.255.255 as private Class B space. The range stops before 172.32, which is public address space."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=BrTMMOXFhDU",
+  "videoName": "Jeremy's IT Lab — Day 32: IPv6 (Part 2)",
+  "q": {
+   "id": 57,
+   "t": "ipv6-address-types",
+   "d": 1,
+   "x": "A design calls for internet-routable IPv6 addresses. Which range is currently allocated for global unicast addressing?",
+   "o": [
+    "2000::/3",
+    "FF00::/8",
+    "FE80::/10",
+    "FC00::/7"
+   ],
+   "a": 0,
+   "e": "Global unicast addresses fall under 2000::/3 and are routable across the internet. The FE80::/10 prefix is reserved for link-local addresses only."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Access",
+  "videoUrl": "https://www.youtube.com/watch?v=OkPB028l2eE",
+  "videoName": "Jeremy's IT Lab — Day 18: VLANs (Part 3, inter-VLAN routing)",
+  "q": {
+   "id": 78,
+   "t": "inter-vlan-routing",
+   "d": 2,
+   "x": "For a Layer 3 switch to route between VLANs using switched virtual interfaces, which global command must be enabled first?",
+   "o": [
+    "ip routing",
+    "ip cef distributed",
+    "switchport routing enable",
+    "no switchport global"
+   ],
+   "a": 0,
+   "e": "ip routing turns on the Layer 3 forwarding process that lets SVIs route between VLANs. The other options are either invalid or unrelated to enabling multilayer routing."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Access",
+  "videoUrl": "https://www.youtube.com/watch?v=_hnMZBzXRRk",
+  "videoName": "Jeremy's IT Lab — Day 36: CDP & LLDP",
+  "q": {
+   "id": 89,
+   "t": "cdp-lldp",
+   "d": 2,
+   "x": "Which command displays the IP address and IOS version of a directly connected Cisco neighbor learned by discovery?",
+   "o": [
+    "show cdp neighbors",
+    "show cdp interface",
+    "show cdp neighbors detail",
+    "show cdp traffic"
+   ],
+   "a": 2,
+   "e": "show cdp neighbors detail adds the neighbor management address and software version. The plain neighbors view omits those fields, while interface and traffic report local port and counter data."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Network Access",
+  "videoUrl": "https://www.youtube.com/watch?v=EpazNsLlPps",
+  "videoName": "Jeremy's IT Lab — Day 22: Rapid Spanning Tree Protocol",
+  "q": {
+   "id": 105,
+   "t": "rapid-pvst",
+   "d": 2,
+   "x": "Which global configuration command enables Rapid PVST+ on a Cisco Catalyst switch?",
+   "o": [
+    "spanning-tree mode pvst",
+    "spanning-tree mode rapid-pvst",
+    "spanning-tree mode mst",
+    "spanning-tree rapid enable"
+   ],
+   "a": 1,
+   "e": "Rapid PVST+ is selected with spanning-tree mode rapid-pvst, the default on many Catalyst platforms; pvst selects the slower per-VLAN 802.1D and mst selects Multiple Spanning Tree."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "IP Connectivity",
+  "videoUrl": "https://www.youtube.com/watch?v=pvuaoJ9YzoI",
+  "videoName": "Jeremy's IT Lab — Day 26: OSPF (Part 1)",
+  "q": {
+   "id": 173,
+   "t": "ospfv2",
+   "d": 3,
+   "x": "With the default reference bandwidth, what OSPF cost is assigned to a 10 Mbps Ethernet interface?",
+   "o": [
+    "1",
+    "64",
+    "100",
+    "10"
+   ],
+   "a": 3,
+   "e": "The 100 Mbps reference divided by 10 Mbps yields a cost of 10. A 100 Mbps FastEthernet link would instead compute to a cost of 1 under the same default."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "IP Connectivity",
+  "videoUrl": "https://www.youtube.com/watch?v=VtzfTA21ht0",
+  "videoName": "Jeremy's IT Lab — Day 27: OSPF (Part 2)",
+  "q": {
+   "id": 192,
+   "t": "ospf-dr-bdr",
+   "d": 3,
+   "x": "On which OSPF network type is no designated router elected?",
+   "o": [
+    "Multiaccess Ethernet",
+    "Nonbroadcast multiaccess",
+    "Broadcast",
+    "Point-to-point"
+   ],
+   "a": 3,
+   "e": "Point-to-point links have only two routers, so no DR is needed or elected. Broadcast and nonbroadcast multiaccess segments do elect a DR and a BDR."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "IP Services",
+  "videoUrl": "https://www.youtube.com/watch?v=qGJaJx7OfUo",
+  "videoName": "Jeremy's IT Lab — Day 37: NTP",
+  "q": {
+   "id": 218,
+   "t": "ntp",
+   "d": 4,
+   "x": "Which command configures a router to synchronize its clock from an NTP server at 192.168.1.10?",
+   "o": [
+    "clock source 192.168.1.10",
+    "ntp peer 192.168.1.10 prefer",
+    "ntp server 192.168.1.10",
+    "ntp master 192.168.1.10"
+   ],
+   "a": 2,
+   "e": "ntp server points the device at an upstream time source to act as a client. ntp master makes the local router an authoritative source and takes a stratum number, not a server IP."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "IP Services",
+  "videoUrl": "https://www.youtube.com/watch?v=HXu0Ifj0oWU",
+  "videoName": "Jeremy's IT Lab — Day 40: SNMP",
+  "q": {
+   "id": 229,
+   "t": "snmp",
+   "d": 4,
+   "x": "Which SNMP version adds authentication and encryption to protect management traffic?",
+   "o": [
+    "SNMPv3",
+    "SNMPv1",
+    "SNMPv2c",
+    "SNMPv2"
+   ],
+   "a": 0,
+   "e": "SNMPv3 introduces message integrity, authentication, and privacy through encryption. SNMPv2c still relies on plaintext community strings and offers no encryption."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Security Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=SDocmq1c05s",
+  "videoName": "Jeremy's IT Lab — Day 4: Basic Device Security",
+  "q": {
+   "id": 251,
+   "t": "device-access-control",
+   "d": 5,
+   "x": "Which command stores the privileged EXEC mode password as a secure hash in the configuration instead of as recoverable cleartext?",
+   "o": [
+    "service password-encryption",
+    "enable password",
+    "username admin password",
+    "enable secret"
+   ],
+   "a": 3,
+   "e": "The enable secret command stores a hashed privileged password. The enable password command keeps it in cleartext unless service password-encryption is added, which only applies weak type 7 encoding."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Security Fundamentals",
+  "videoUrl": "https://www.youtube.com/watch?v=sHN3jOJIido",
+  "videoName": "Jeremy's IT Lab — Day 49: Port Security",
+  "q": {
+   "id": 279,
+   "t": "port-security",
+   "d": 5,
+   "x": "What is the default violation mode when port security is enabled on a switch access port?",
+   "o": [
+    "err-disable-recover",
+    "restrict",
+    "shutdown",
+    "protect"
+   ],
+   "a": 2,
+   "e": "The default violation action is shutdown, which err-disables the port on a violation; protect and restrict must be set explicitly."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Automation and Programmability",
+  "videoUrl": "https://www.youtube.com/watch?v=7HhWCeXDTpA",
+  "videoName": "Jeremy's IT Lab — Day 62: Software-Defined Networking",
+  "q": {
+   "id": 305,
+   "t": "sdn-architecture",
+   "d": 6,
+   "x": "Which product functions as an SDN controller for Cisco campus networks, providing central policy and assurance?",
+   "o": [
+    "Cisco Discovery Protocol",
+    "Cisco AnyConnect Client",
+    "Cisco Catalyst Center",
+    "Cisco Packet Tracer"
+   ],
+   "a": 2,
+   "e": "Catalyst Center, formerly DNA Center, is the campus SDN controller for policy and assurance; the others are a simulator, a discovery protocol, and a VPN client."
+  }
+ },
+ {
+  "code": "200-301",
+  "cert": "Cisco",
+  "vendor": "cisco",
+  "domain": "Automation and Programmability",
+  "videoUrl": "https://www.youtube.com/watch?v=nohde2-QNJ4",
+  "videoName": "Jeremy's IT Lab — Day 60: JSON, XML & YAML",
+  "q": {
+   "id": 324,
+   "t": "json-data",
+   "d": 6,
+   "x": "In JSON, how is a collection of key-value pairs represented?",
+   "o": [
+    "As an object enclosed in curly braces",
+    "As text separated only by tab characters",
+    "As a list enclosed in square brackets",
+    "As a value wrapped in angle brackets"
+   ],
+   "a": 0,
+   "e": "JSON objects use curly braces around comma-separated key-value pairs; square brackets denote arrays, not key-value collections."
   }
  },
  {
@@ -2527,43 +2549,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "Microsoft Certified",
   "vendor": "azure",
   "domain": "Describe security, compliance, and identity concepts",
-  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=1812s",
-  "videoName": "SC-900 Study Cram V2: Identity providers",
+  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2056s",
+  "videoName": "SC-900 Study Cram V2: Active Directory Domain Services",
   "q": {
-   "id": 26,
-   "t": "identity-providers",
+   "id": 30,
+   "t": "directory-services-active-directory",
    "d": 1,
-   "x": "Which Microsoft cloud service acts as an identity provider that authenticates users and manages access to SaaS and internal apps?",
+   "x": "In an on-premises directory, which server component authenticates logins and enforces group policy across the domain?",
    "o": [
-    "Microsoft Entra ID",
-    "Microsoft Purview compliance",
-    "Microsoft Defender for Cloud",
-    "Microsoft Sentinel analytics"
+    "The domain controller",
+    "The reverse proxy",
+    "The identity provider",
+    "The public key server"
    ],
    "a": 0,
-   "e": "Microsoft Entra ID, formerly Azure Active Directory, is the cloud identity provider that authenticates users and controls access to applications. Defender and Sentinel are security tooling, not the identity provider."
-  }
- },
- {
-  "code": "SC-900",
-  "cert": "Microsoft Certified",
-  "vendor": "azure",
-  "domain": "Describe the capabilities of Microsoft Entra",
-  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=2712s",
-  "videoName": "SC-900 Study Cram V2: MFA",
-  "q": {
-   "id": 62,
-   "t": "multifactor-authentication",
-   "d": 2,
-   "x": "In an MFA prompt, scanning a fingerprint satisfies which category of authentication factor?",
-   "o": [
-    "Something you have",
-    "Something you know",
-    "Somewhere you are",
-    "Something you are"
-   ],
-   "a": 3,
-   "e": "A fingerprint is a biometric trait, so it belongs to the something you are category. A hardware token would instead be something you have."
+   "e": "A domain controller is the server that authenticates logins and applies group policy within an Active Directory domain. An identity provider serves that role in cloud identity, not the on-premises domain."
   }
  },
  {
@@ -2571,21 +2571,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "Microsoft Certified",
   "vendor": "azure",
   "domain": "Describe the capabilities of Microsoft security solutions",
-  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=4578s",
-  "videoName": "SC-900 Study Cram V2: Azure Key Vault",
+  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=3963s",
+  "videoName": "SC-900 Study Cram V2: Azure DDoS Protection",
   "q": {
-   "id": 132,
-   "t": "azure-key-vault",
+   "id": 107,
+   "t": "azure-ddos-protection",
    "d": 3,
-   "x": "Besides secrets, which additional items can Azure Key Vault manage for an organization?",
+   "x": "At which layers of the network stack does Azure DDoS Protection primarily focus its mitigation of attacks?",
    "o": [
-    "Virtual machine disk images",
-    "Subscription billing invoices",
-    "Cryptographic keys and TLS certificates",
-    "Network security group rules"
+    "The physical and data-link layers",
+    "The session and application layers",
+    "The network and transport layers",
+    "The application and presentation layers"
    ],
    "a": 2,
-   "e": "Key Vault manages secrets, cryptographic keys, and certificates in one governed service. VM images and NSG rules are managed by other Azure features."
+   "e": "Azure DDoS Protection defends against layer 3 and layer 4 volumetric and protocol attacks. Application-layer web exploits are instead handled by a Web Application Firewall."
   }
  },
  {
@@ -2594,20 +2594,20 @@ export const QOTD_POOL: QotdEntry[] = [
   "vendor": "azure",
   "domain": "Describe the capabilities of Microsoft security solutions",
   "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5184s",
-  "videoName": "SC-900 Study Cram V2: Defender for Identity",
+  "videoName": "SC-900 Study Cram V2: Defender for Endpoint",
   "q": {
-   "id": 186,
-   "t": "defender-for-identity",
+   "id": 177,
+   "t": "defender-for-endpoint",
    "d": 3,
-   "x": "Analysts suspect an attacker is moving laterally using compromised on-premises AD credentials. Which service targets this?",
+   "x": "A managed laptop shows signs of a malware infection. Which service is built to detect and respond to that?",
    "o": [
     "Microsoft Defender for Identity",
-    "Microsoft Defender for Cloud Apps",
     "Microsoft Defender for Endpoint",
-    "Microsoft Defender for Office 365"
+    "Microsoft Defender for Office 365",
+    "Microsoft Defender for Cloud Apps"
    ],
-   "a": 0,
-   "e": "Lateral movement using on-premises AD credentials is exactly what Defender for Identity is built to detect."
+   "a": 1,
+   "e": "A malware-infected device is squarely within Defender for Endpoint's scope of detection and response."
   }
  },
  {
@@ -2615,21 +2615,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "Microsoft Certified",
   "vendor": "azure",
   "domain": "Describe the capabilities of Microsoft compliance solutions",
-  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5803s",
-  "videoName": "SC-900 Study Cram V2: Microsoft Purview portal",
+  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5387s",
+  "videoName": "SC-900 Study Cram V2: Microsoft privacy principles",
   "q": {
-   "id": 211,
-   "t": "microsoft-purview-portal",
+   "id": 207,
+   "t": "microsoft-privacy-principles",
    "d": 4,
-   "x": "The former Microsoft Purview compliance portal experience is now delivered through which unified interface?",
+   "x": "Which privacy principle commits Microsoft to being open about where data is stored and how it is handled?",
    "o": [
-    "The Microsoft Sentinel workspace",
-    "The Microsoft Intune admin center",
-    "The Microsoft Purview portal",
-    "The Microsoft Teams admin center"
+    "Control",
+    "Benefits to you",
+    "Transparency",
+    "No content-based targeting"
    ],
    "a": 2,
-   "e": "Compliance capabilities are now surfaced in the unified Microsoft Purview portal. Intune manages devices and is not the home for compliance solutions."
+   "e": "Transparency is the commitment to clearly communicate how data is collected, stored, and used. Control is about who can access data, not the openness of communication."
   }
  },
  {
@@ -2637,21 +2637,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "cert": "Microsoft Certified",
   "vendor": "azure",
   "domain": "Describe the capabilities of Microsoft compliance solutions",
-  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=6033s",
-  "videoName": "SC-900 Study Cram V2: Data classification",
+  "videoUrl": "https://www.youtube.com/watch?v=-FJqb60wPSY&t=5880s",
+  "videoName": "SC-900 Study Cram V2: Compliance score",
   "q": {
-   "id": 221,
-   "t": "data-classification",
+   "id": 220,
+   "t": "compliance-score",
    "d": 4,
-   "x": "Which classification capability uses predefined patterns like credit card or passport number formats to detect sensitive data?",
+   "x": "Points that make up the compliance score come from Microsoft-managed actions and which other source?",
    "o": [
-    "Retention policies",
-    "Insider risk indicators",
-    "Trainable classifiers",
-    "Sensitive information types"
+    "Documents pinned in My Library",
+    "Emails scanned by anti-malware",
+    "Actions your organization completes",
+    "Audit reports downloaded from the portal"
    ],
-   "a": 3,
-   "e": "Sensitive information types detect data by matching known patterns such as credit card numbers. Trainable classifiers rely on machine learning examples instead of fixed patterns."
+   "a": 2,
+   "e": "The score combines points from Microsoft-managed actions and the actions your organization completes. Downloading audit reports does not add points."
   }
  }
 ]

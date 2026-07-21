@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url"
 import path from "node:path"
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
-const EXAM_IDS = ["220-1201", "220-1202", "n10-009", "sy0-701", "aif-c01", "clf-c02", "az-900", "sc-900"]
+const EXAM_IDS = ["220-1201", "220-1202", "n10-009", "sy0-701", "ccna-200-301", "aif-c01", "clf-c02", "az-900", "sc-900"]
 const MARKER = "export const exam: ExamDef = "
 
 export function loadExam(id) {

@@ -249,7 +249,9 @@ export function mcAnswerBlank(sel: number | number[] | undefined): boolean {
  * award credit only when the whole item is correct.
  */
 export function pbqCredit(vendor: string, frac: number): number {
-  return vendor === "comptia" ? frac : frac === 1 ? 1 : 0
+  // CompTIA PBQs and Cisco CCNA sims/simlets award partial credit per objective;
+  // AWS and Azure interactive items are all-or-nothing.
+  return vendor === "comptia" || vendor === "cisco" ? frac : frac === 1 ? 1 : 0
 }
 
 /** 0=unattempted, 1=struggling, 2=getting there, 3=solid, 4=mastered */

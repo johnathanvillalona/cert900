@@ -1807,6 +1807,331 @@ export const EXAM_META: Record<string, ExamMeta> = {
   "questionCount": 331,
   "pbqCount": 16
  },
+ "ccna-200-301": {
+  "id": "ccna-200-301",
+  "vendor": "cisco",
+  "scale": {
+   "max": 1000,
+   "pass": 825
+  },
+  "cert": "Cisco",
+  "name": "CCNA",
+  "code": "200-301",
+  "blurb": "Network fundamentals, network access, IP connectivity, IP services, security fundamentals, and automation and programmability.",
+  "domains": {
+   "1": "Network Fundamentals",
+   "2": "Network Access",
+   "3": "IP Connectivity",
+   "4": "IP Services",
+   "5": "Security Fundamentals",
+   "6": "Automation and Programmability"
+  },
+  "examSplit": {
+   "1": 0.2,
+   "2": 0.2,
+   "3": 0.25,
+   "4": 0.1,
+   "5": 0.15,
+   "6": 0.1
+  },
+  "examMC": 60,
+  "examPBQ": 6,
+  "examMinutes": 120,
+  "videos": {
+   "network-components": {
+    "n": "Jeremy's IT Lab — Day 1: Network Devices",
+    "u": "https://www.youtube.com/watch?v=H8W9oMNSuwo",
+    "d": 1
+   },
+   "network-topology-architectures": {
+    "n": "Jeremy's IT Lab — Day 52: LAN Architectures",
+    "u": "https://www.youtube.com/watch?v=PvyEcLhmNBk",
+    "d": 1
+   },
+   "interfaces-and-cabling": {
+    "n": "Jeremy's IT Lab — Day 2: Interfaces and Cables",
+    "u": "https://www.youtube.com/watch?v=ieTH5lVhNaY",
+    "d": 1
+   },
+   "interface-cable-issues": {
+    "n": "Jeremy's IT Lab — Day 9: Switch Interfaces",
+    "u": "https://www.youtube.com/watch?v=cCqluocfQe0",
+    "d": 1
+   },
+   "tcp-vs-udp": {
+    "n": "Jeremy's IT Lab — Day 30: TCP & UDP",
+    "u": "https://www.youtube.com/watch?v=LIEACBqlntY",
+    "d": 1
+   },
+   "ipv4-addressing": {
+    "n": "Jeremy's IT Lab — Day 7: IPv4 Addressing (Part 1)",
+    "u": "https://www.youtube.com/watch?v=3ROdsfEUuhs",
+    "d": 1
+   },
+   "subnetting": {
+    "n": "Jeremy's IT Lab — Day 13: Subnetting (Part 1)",
+    "u": "https://www.youtube.com/watch?v=bQ8sdpGQu8c",
+    "d": 1
+   },
+   "vlsm": {
+    "n": "Jeremy's IT Lab — Day 15: Subnetting (Part 3, VLSM)",
+    "u": "https://www.youtube.com/watch?v=z-JqCedc9EI",
+    "d": 1
+   },
+   "private-ipv4-addresses": {
+    "n": "Jeremy's IT Lab — Day 7: IPv4 Addressing (RFC 1918)",
+    "u": "https://www.youtube.com/watch?v=3ROdsfEUuhs",
+    "d": 1
+   },
+   "ipv6-addressing": {
+    "n": "Jeremy's IT Lab — Day 31: IPv6 (Part 1)",
+    "u": "https://www.youtube.com/watch?v=ZNuXyOXae5U",
+    "d": 1
+   },
+   "ipv6-address-types": {
+    "n": "Jeremy's IT Lab — Day 32: IPv6 (Part 2)",
+    "u": "https://www.youtube.com/watch?v=BrTMMOXFhDU",
+    "d": 1
+   },
+   "verify-client-ip": {
+    "n": "Jeremy's IT Lab — Day 38: DNS (client IP verification)",
+    "u": "https://www.youtube.com/watch?v=4C6eeQes4cs",
+    "d": 1
+   },
+   "wireless-principles": {
+    "n": "Jeremy's IT Lab — Day 55: Wireless Fundamentals",
+    "u": "https://www.youtube.com/watch?v=zuYiktLqNYQ",
+    "d": 1
+   },
+   "virtualization-fundamentals": {
+    "n": "Jeremy's IT Lab — Day 54: Virtualization & Cloud",
+    "u": "https://www.youtube.com/watch?v=_S3greGajJA",
+    "d": 1
+   },
+   "switching-concepts": {
+    "n": "Jeremy's IT Lab — Day 5: Ethernet LAN Switching (Part 1)",
+    "u": "https://www.youtube.com/watch?v=u2n762WG0Vo",
+    "d": 1
+   },
+   "vlans": {
+    "n": "Jeremy's IT Lab — Day 16: VLANs (Part 1)",
+    "u": "https://www.youtube.com/watch?v=cjFzOnm6u1g",
+    "d": 2
+   },
+   "trunking": {
+    "n": "Jeremy's IT Lab — Day 17: VLANs (Part 2, trunking)",
+    "u": "https://www.youtube.com/watch?v=Jl9OOzNaBDU",
+    "d": 2
+   },
+   "inter-vlan-routing": {
+    "n": "Jeremy's IT Lab — Day 18: VLANs (Part 3, inter-VLAN routing)",
+    "u": "https://www.youtube.com/watch?v=OkPB028l2eE",
+    "d": 2
+   },
+   "dtp-vtp": {
+    "n": "Jeremy's IT Lab — Day 19: DTP / VTP",
+    "u": "https://www.youtube.com/watch?v=JtQV_0Sjszg",
+    "d": 2
+   },
+   "cdp-lldp": {
+    "n": "Jeremy's IT Lab — Day 36: CDP & LLDP",
+    "u": "https://www.youtube.com/watch?v=_hnMZBzXRRk",
+    "d": 2
+   },
+   "etherchannel": {
+    "n": "Jeremy's IT Lab — Day 23: EtherChannel",
+    "u": "https://www.youtube.com/watch?v=xuo69Joy_Nc",
+    "d": 2
+   },
+   "spanning-tree": {
+    "n": "Jeremy's IT Lab — Day 20: Spanning Tree Protocol (Part 1)",
+    "u": "https://www.youtube.com/watch?v=j-bK-EFt9cY",
+    "d": 2
+   },
+   "rapid-pvst": {
+    "n": "Jeremy's IT Lab — Day 22: Rapid Spanning Tree Protocol",
+    "u": "https://www.youtube.com/watch?v=EpazNsLlPps",
+    "d": 2
+   },
+   "wireless-architectures": {
+    "n": "Jeremy's IT Lab — Day 56: Wireless Architectures",
+    "u": "https://www.youtube.com/watch?v=uX1h0F6wpBY",
+    "d": 2
+   },
+   "device-management-access": {
+    "n": "Jeremy's IT Lab — Day 42: SSH",
+    "u": "https://www.youtube.com/watch?v=AvgYqI2qSD4",
+    "d": 2
+   },
+   "wlan-gui-config": {
+    "n": "Jeremy's IT Lab — Day 58: Wireless Configuration",
+    "u": "https://www.youtube.com/watch?v=r9o6GFI87go",
+    "d": 2
+   },
+   "routing-table": {
+    "n": "Jeremy's IT Lab — Day 24: Dynamic Routing",
+    "u": "https://www.youtube.com/watch?v=xSTgb8JLkvs",
+    "d": 3
+   },
+   "packet-forwarding": {
+    "n": "Jeremy's IT Lab — Day 11: Routing Fundamentals",
+    "u": "https://www.youtube.com/watch?v=aHwAm8GYbn8",
+    "d": 3
+   },
+   "static-routing": {
+    "n": "Jeremy's IT Lab — Day 11: Static Routing (Part 2)",
+    "u": "https://www.youtube.com/watch?v=YCv4-_sMvYE",
+    "d": 3
+   },
+   "ospfv2": {
+    "n": "Jeremy's IT Lab — Day 26: OSPF (Part 1)",
+    "u": "https://www.youtube.com/watch?v=pvuaoJ9YzoI",
+    "d": 3
+   },
+   "ospf-dr-bdr": {
+    "n": "Jeremy's IT Lab — Day 27: OSPF (Part 2)",
+    "u": "https://www.youtube.com/watch?v=VtzfTA21ht0",
+    "d": 3
+   },
+   "fhrp": {
+    "n": "Jeremy's IT Lab — Day 29: First Hop Redundancy Protocols",
+    "u": "https://www.youtube.com/watch?v=43WnpwQMolo",
+    "d": 3
+   },
+   "nat": {
+    "n": "Jeremy's IT Lab — Day 44: NAT (Part 1, static)",
+    "u": "https://www.youtube.com/watch?v=2TZCfTgopeg",
+    "d": 4
+   },
+   "nat-dynamic-pat": {
+    "n": "Jeremy's IT Lab — Day 45: NAT (Part 2, dynamic/PAT)",
+    "u": "https://www.youtube.com/watch?v=kILDNs4KjYE",
+    "d": 4
+   },
+   "ntp": {
+    "n": "Jeremy's IT Lab — Day 37: NTP",
+    "u": "https://www.youtube.com/watch?v=qGJaJx7OfUo",
+    "d": 4
+   },
+   "dhcp": {
+    "n": "Jeremy's IT Lab — Day 39: DHCP",
+    "u": "https://www.youtube.com/watch?v=hzkleGAC2_Y",
+    "d": 4
+   },
+   "dns": {
+    "n": "Jeremy's IT Lab — Day 38: DNS",
+    "u": "https://www.youtube.com/watch?v=4C6eeQes4cs",
+    "d": 4
+   },
+   "snmp": {
+    "n": "Jeremy's IT Lab — Day 40: SNMP",
+    "u": "https://www.youtube.com/watch?v=HXu0Ifj0oWU",
+    "d": 4
+   },
+   "syslog": {
+    "n": "Jeremy's IT Lab — Day 41: Syslog",
+    "u": "https://www.youtube.com/watch?v=RaQPSKQ4J5A",
+    "d": 4
+   },
+   "qos": {
+    "n": "Jeremy's IT Lab — Day 46: QoS (Part 1)",
+    "u": "https://www.youtube.com/watch?v=H6FKJMiiL6E",
+    "d": 4
+   },
+   "ftp-tftp": {
+    "n": "Jeremy's IT Lab — Day 43: FTP & TFTP",
+    "u": "https://www.youtube.com/watch?v=50hcfsoBf4Q",
+    "d": 4
+   },
+   "security-concepts": {
+    "n": "Jeremy's IT Lab — Day 48: Security Fundamentals",
+    "u": "https://www.youtube.com/watch?v=VvFuieyTTSw",
+    "d": 5
+   },
+   "device-access-control": {
+    "n": "Jeremy's IT Lab — Day 4: Basic Device Security",
+    "u": "https://www.youtube.com/watch?v=SDocmq1c05s",
+    "d": 5
+   },
+   "password-policies": {
+    "n": "Jeremy's IT Lab — Day 48: Security Fundamentals (password policy)",
+    "u": "https://www.youtube.com/watch?v=VvFuieyTTSw",
+    "d": 5
+   },
+   "ipsec-vpns": {
+    "n": "Jeremy's IT Lab — Day 53: WAN Architectures (VPNs)",
+    "u": "https://www.youtube.com/watch?v=BW3fQgdf4-w",
+    "d": 5
+   },
+   "acls": {
+    "n": "Jeremy's IT Lab — Day 34: Standard ACLs",
+    "u": "https://www.youtube.com/watch?v=z023_eRUtSo",
+    "d": 5
+   },
+   "extended-acls": {
+    "n": "Jeremy's IT Lab — Day 35: Extended ACLs",
+    "u": "https://www.youtube.com/watch?v=dUttKY_CNXE",
+    "d": 5
+   },
+   "port-security": {
+    "n": "Jeremy's IT Lab — Day 49: Port Security",
+    "u": "https://www.youtube.com/watch?v=sHN3jOJIido",
+    "d": 5
+   },
+   "dhcp-snooping": {
+    "n": "Jeremy's IT Lab — Day 50: DHCP Snooping",
+    "u": "https://www.youtube.com/watch?v=qYYeg2kz1yE",
+    "d": 5
+   },
+   "dynamic-arp-inspection": {
+    "n": "Jeremy's IT Lab — Day 51: Dynamic ARP Inspection",
+    "u": "https://www.youtube.com/watch?v=HwbTKaIvL6s",
+    "d": 5
+   },
+   "aaa": {
+    "n": "Jeremy's IT Lab — Day 48: Security Fundamentals (AAA)",
+    "u": "https://www.youtube.com/watch?v=VvFuieyTTSw",
+    "d": 5
+   },
+   "wireless-security": {
+    "n": "Jeremy's IT Lab — Day 57: Wireless Security",
+    "u": "https://www.youtube.com/watch?v=wHXKo9So5y8",
+    "d": 5
+   },
+   "network-automation-impact": {
+    "n": "Jeremy's IT Lab — Day 59: Intro to Network Automation",
+    "u": "https://www.youtube.com/watch?v=4tsBgMCPVuc",
+    "d": 6
+   },
+   "sdn-architecture": {
+    "n": "Jeremy's IT Lab — Day 62: Software-Defined Networking",
+    "u": "https://www.youtube.com/watch?v=7HhWCeXDTpA",
+    "d": 6
+   },
+   "ai-ml-network-operations": {
+    "n": "Jeremy's IT Lab — Day 59 (Part 2): AI & Machine Learning",
+    "u": "https://www.youtube.com/watch?v=Fn_kAv35W5A",
+    "d": 6
+   },
+   "rest-apis": {
+    "n": "Jeremy's IT Lab — Day 61: REST APIs",
+    "u": "https://www.youtube.com/watch?v=Luei0p-2h10",
+    "d": 6
+   },
+   "config-management": {
+    "n": "Jeremy's IT Lab — Day 63 (Part 2): Ansible & Terraform",
+    "u": "https://www.youtube.com/watch?v=VAwUaffejWU",
+    "d": 6
+   },
+   "json-data": {
+    "n": "Jeremy's IT Lab — Day 60: JSON, XML & YAML",
+    "u": "https://www.youtube.com/watch?v=nohde2-QNJ4",
+    "d": 6
+   }
+  },
+  "questionCount": 328,
+  "pbqCount": 12
+ },
  "aif-c01": {
   "id": "aif-c01",
   "vendor": "aws",
@@ -3194,4 +3519,4 @@ export const EXAM_META: Record<string, ExamMeta> = {
 }
 
 /** Display order: grouped by vendor (see vendors.ts VENDOR_ORDER). */
-export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","aif-c01","clf-c02","az-900","sc-900"]
+export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","ccna-200-301","aif-c01","clf-c02","az-900","sc-900"]

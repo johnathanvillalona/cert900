@@ -224,7 +224,7 @@ export type ExamMeta = Omit<ExamDef, "questions" | "pbqs"> & {
  */
 export type ExamTopics = Pick<ExamDef, "videos" | "domains">
 
-export type Vendor = "comptia" | "aws" | "azure"
+export type Vendor = "comptia" | "aws" | "azure" | "cisco"
 
 /** Scaled-score shape; min is always 100. CompTIA tops out at 900, AWS/Azure at 1000. */
 export interface ScoreScale {

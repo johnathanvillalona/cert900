@@ -16,7 +16,7 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -106,6 +106,31 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | 
       [
         "Is this actually free?",
         "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free SC-900 study video.",
+      ],
+    ],
+  },
+  ccna: {
+    path: "/cisco-ccna-practice-test",
+    title: "Free Cisco CCNA 200-301 Practice Test | Cert900",
+    description:
+      "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup.",
+    h1: "Free Cisco CCNA (200-301) practice test",
+    faq: [
+      [
+        "How many questions are on the CCNA exam?",
+        "The CCNA 200-301 is a 120-minute exam with roughly 90 to 120 items, mixing multiple choice, multiple response, and hands-on simulations (sims and simlets). Cisco does not publish the exact count or cut score; a scaled score around 825 of 1,000 is widely cited to pass.",
+      ],
+      [
+        "Do I need a prerequisite for CCNA?",
+        "No. CCNA has no formal prerequisites, though Cisco suggests about a year of hands-on networking experience. It is the standard associate-level networking certification.",
+      ],
+      [
+        "What does CCNA 200-301 cover?",
+        "Six domains: Network Fundamentals (20%), Network Access (20%), IP Connectivity (25%), IP Services (10%), Security Fundamentals (15%), and Automation and Programmability (10%). Our drills track your accuracy in each domain separately.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question, every simulation, and the exam simulator are free with no account. Every topic links to the matching Day lesson in Jeremy's IT Lab's free CCNA 200-301 course.",
       ],
     ],
   },
@@ -529,6 +554,47 @@ export function Sc900Guide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "SC-900 · Microsoft Entra", stem: "An administrator wants to require multifactor authentication only when a user signs in from an unmanaged device. Which Microsoft Entra feature enforces that?", options: ["Access reviews", "Conditional Access", "Privileged Identity Management", "Microsoft Entra Connect"], answer: 1, why: "Conditional Access evaluates signals like device state and applies controls such as requiring MFA. PIM grants just-in-time admin roles, and access reviews recertify access over time." }} />
         <Sample n={3} q={{ code: "SC-900 · Compliance solutions", stem: "Which Microsoft Purview capability blocks users from emailing documents that contain credit card numbers to external recipients?", options: ["Sensitivity labels", "eDiscovery", "Data loss prevention", "Records management"], answer: 2, why: "Data loss prevention inspects content and blocks or restricts sharing of sensitive information. Sensitivity labels classify and protect content, and eDiscovery finds content for legal cases." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("sc-900")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function CcnaGuide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.ccna
+  const ex = EXAM_META["ccna-200-301"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          The Cisco CCNA (200-301) is the foundational networking certification: it covers network fundamentals, network
+          access, IP connectivity, IP services, security fundamentals, and automation and programmability. This site
+          gives you {ex.questionCount} original practice questions and {ex.pbqCount} hands-on simulations for it, free
+          and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          CCNA leans hard on the command line and applied skills: subnetting under time, reading show output, and
+          configuring VLANs, OSPF, ACLs, and NAT. The simulation lab here reproduces those formats, including a device
+          terminal that accepts real IOS commands and clickable network diagrams. Every topic links to the matching free
+          Jeremy's IT Lab video.
+        </p>
+        <Cta label="Start the free CCNA practice test" onGo={() => onStart("ccna-200-301")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What CCNA 200-301 covers</h2>
+        <DomainTable examId="ccna-200-301" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: 120 minutes, roughly 90 to 120 items including sims and simlets. A scaled score near 825 of
+          1,000 is widely cited to pass; Cisco does not publish an official cut score.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "200-301 · Network Fundamentals", stem: "A /27 subnet provides how many usable host addresses?", options: ["62", "30", "32", "14"], answer: 1, why: "A /27 leaves 5 host bits, so 2^5 = 32 addresses, minus the network and broadcast addresses = 30 usable hosts." }} />
+        <Sample n={2} q={{ code: "200-301 · IP Connectivity", stem: "Two directly connected OSPFv2 routers are stuck in the EXSTART/EXCHANGE state. Which mismatch most commonly causes this?", options: ["Different OSPF process IDs", "An MTU mismatch on the link", "Mismatched interface descriptions", "Different device hostnames"], answer: 1, why: "An MTU mismatch stalls OSPF in EXSTART/EXCHANGE. Process IDs are locally significant, and hello or dead timer mismatches stop the neighbors from ever reaching the two-way state." }} />
+        <Sample n={3} q={{ code: "200-301 · Security Fundamentals", stem: "Following Cisco's design guidance, where should a standard ACL be applied?", options: ["Close to the source", "Inbound on every interface", "Close to the destination", "Only on the core router"], answer: 2, why: "A standard ACL matches on source address only, so placing it close to the destination avoids unintentionally filtering traffic elsewhere. Extended ACLs go close to the source." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("ccna-200-301")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
