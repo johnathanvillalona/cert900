@@ -19,6 +19,7 @@ const EXPECTED = {
   "az-900": { questions: 275, pbqs: 12, videos: 62, domains: 3 },
   "sc-900": { questions: 259, pbqs: 8, videos: 58, domains: 4 },
   "ccna-200-301": { questions: 328, pbqs: 12, videos: 58, domains: 6 },
+  "az-104": { questions: 312, pbqs: 12, videos: 82, domains: 5 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;

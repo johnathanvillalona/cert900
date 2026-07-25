@@ -16,7 +16,7 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -131,6 +131,31 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | 
       [
         "Is this actually free?",
         "Yes. Every question, every simulation, and the exam simulator are free with no account. Every topic links to the matching Day lesson in Jeremy's IT Lab's free CCNA 200-301 course.",
+      ],
+    ],
+  },
+  az104: {
+    path: "/azure-administrator-az-104-practice-test",
+    title: "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900",
+    description:
+      "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+    h1: "Free Microsoft AZ-104 (Azure Administrator) practice test",
+    faq: [
+      [
+        "How many questions are on the AZ-104 exam?",
+        "AZ-104 typically has 40 to 60 questions in about 100 minutes, including multiple choice, multiple response, and drag-and-drop, sometimes with a case study. Passing requires 700 on a scale up to 1,000.",
+      ],
+      [
+        "Do I need AZ-900 before AZ-104?",
+        "No. AZ-900 (Fundamentals) is a helpful primer but is not required. AZ-104 is the associate-level exam and assumes hands-on Azure administration experience.",
+      ],
+      [
+        "What does AZ-104 cover?",
+        "Five areas: manage identities and governance (20-25%), implement and manage storage (15-20%), deploy and manage compute (20-25%), implement and manage virtual networking (15-20%), and monitor and maintain resources (10-15%). Our drills track your accuracy in each separately.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free AZ-104 study video.",
       ],
     ],
   },
@@ -595,6 +620,46 @@ export function CcnaGuide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "200-301 · IP Connectivity", stem: "Two directly connected OSPFv2 routers are stuck in the EXSTART/EXCHANGE state. Which mismatch most commonly causes this?", options: ["Different OSPF process IDs", "An MTU mismatch on the link", "Mismatched interface descriptions", "Different device hostnames"], answer: 1, why: "An MTU mismatch stalls OSPF in EXSTART/EXCHANGE. Process IDs are locally significant, and hello or dead timer mismatches stop the neighbors from ever reaching the two-way state." }} />
         <Sample n={3} q={{ code: "200-301 · Security Fundamentals", stem: "Following Cisco's design guidance, where should a standard ACL be applied?", options: ["Close to the source", "Inbound on every interface", "Close to the destination", "Only on the core router"], answer: 2, why: "A standard ACL matches on source address only, so placing it close to the destination avoids unintentionally filtering traffic elsewhere. Extended ACLs go close to the source." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("ccna-200-301")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function Az104Guide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.az104
+  const ex = EXAM_META["az-104"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          Microsoft AZ-104 (Azure Administrator Associate) validates that you can manage Azure identities and
+          governance, storage, compute resources, virtual networking, and monitoring. This site gives you{" "}
+          {ex.questionCount} original practice questions plus {ex.pbqCount} drag-and-drop and matching items in
+          Microsoft's own interactive formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
+          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
+          Savill's free AZ-104 study video.
+        </p>
+        <Cta label="Start the free AZ-104 practice test" onGo={() => onStart("az-104")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What AZ-104 covers</h2>
+        <DomainTable examId="az-104" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: typically 40-60 questions, about 100 minutes, scaled to 1,000 with a 700 pass line. Hands-on
+          Azure administration experience is assumed.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "AZ-104 · Identities & governance", stem: "An administrator must let a team manage all resources in a resource group but not grant access to others. Which built-in role fits best?", options: ["Owner", "Contributor", "Reader", "User Access Administrator"], answer: 1, why: "Contributor can create and manage all resource types but cannot grant access to others. Owner can grant access, and User Access Administrator only manages access assignments." }} />
+        <Sample n={2} q={{ code: "AZ-104 · Storage", stem: "A workload needs its data to survive a full Azure region failure and allow read access to the replica at all times. Which storage redundancy option meets this?", options: ["RA-GRS", "GRS", "ZRS", "LRS"], answer: 0, why: "RA-GRS replicates to a paired secondary region and allows reads from the secondary at any time. GRS replicates but the secondary is not readable until failover; ZRS and LRS stay within one region." }} />
+        <Sample n={3} q={{ code: "AZ-104 · Virtual networking", stem: "Which Azure service lets an administrator connect to a VM over RDP or SSH without assigning the VM a public IP address?", options: ["VPN Gateway", "Public IP address", "Azure Bastion", "Application Gateway"], answer: 2, why: "Azure Bastion provides browser-based RDP and SSH to VMs over TLS using the VM's private IP, so no public IP is needed on the VM itself." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("az-104")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

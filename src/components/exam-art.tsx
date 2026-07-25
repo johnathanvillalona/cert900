@@ -143,6 +143,18 @@ export function ExamEmblem({ examId, className }: { examId: string; className?: 
         </svg>
       )
 
+    // AZ-104 Azure Administrator — managed resource blocks with an admin gear.
+    case "az-104":
+      return (
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden>
+          <rect {...stroke} fill={body} x={3.5} y={4} width={7.5} height={7} rx={1.5} />
+          <rect {...stroke} x={3.5} y={13.5} width={7.5} height={6.5} rx={1.5} />
+          <circle {...stroke} fill={body} cx={16.5} cy={15} r={3.2} />
+          <path {...detail} d="M16.5 11.3v-1.1M16.5 19.8v-1.1M20.2 15h-1.1M14 15h-1.1" />
+          <circle fill="currentColor" cx={16.5} cy={15} r={1} />
+        </svg>
+      )
+
     // Azure Fundamentals — a cloud over stacked resource blocks.
     case "az-900":
       return (
