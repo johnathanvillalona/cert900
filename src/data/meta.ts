@@ -3515,8 +3515,451 @@ export const EXAM_META: Record<string, ExamMeta> = {
   },
   "questionCount": 259,
   "pbqCount": 8
+ },
+ "az-104": {
+  "id": "az-104",
+  "vendor": "azure",
+  "scale": {
+   "max": 1000,
+   "pass": 700
+  },
+  "cert": "Microsoft Certified",
+  "name": "Azure Administrator Associate",
+  "code": "AZ-104",
+  "blurb": "Manage Azure identities and governance, storage, compute resources, virtual networking, and monitoring.",
+  "domains": {
+   "1": "Manage Azure identities and governance",
+   "2": "Implement and manage storage",
+   "3": "Deploy and manage Azure compute resources",
+   "4": "Implement and manage virtual networking",
+   "5": "Monitor and maintain Azure resources"
+  },
+  "examSplit": {
+   "1": 0.24,
+   "2": 0.19,
+   "3": 0.24,
+   "4": 0.19,
+   "5": 0.14
+  },
+  "examMC": 50,
+  "examPBQ": 6,
+  "examMinutes": 100,
+  "videos": {
+   "entra-users-groups-create": {
+    "n": "John Savill AZ-104 Study Cram v2: Users",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=668s",
+    "d": 1
+   },
+   "entra-user-group-properties": {
+    "n": "John Savill AZ-104 Study Cram v2: Groups",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=951s",
+    "d": 1
+   },
+   "entra-licenses": {
+    "n": "John Savill AZ-104 Study Cram v2: Licenses",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1248s",
+    "d": 1
+   },
+   "entra-external-users": {
+    "n": "John Savill AZ-104 Study Cram v2: Tenant & External Identities",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=479s",
+    "d": 1
+   },
+   "entra-sspr": {
+    "n": "John Savill AZ-104 Study Cram v2: SSPR",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1407s",
+    "d": 1
+   },
+   "rbac-builtin-roles": {
+    "n": "John Savill AZ-104 Study Cram v2: RBAC",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=3549s",
+    "d": 1
+   },
+   "rbac-role-assignment-scopes": {
+    "n": "John Savill AZ-104 Study Cram v2: RBAC (scopes)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=3549s",
+    "d": 1
+   },
+   "rbac-interpret-access": {
+    "n": "John Savill AZ-104 Study Cram v2: RBAC (access review)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=3549s",
+    "d": 1
+   },
+   "azure-policy": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Policy",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=3275s",
+    "d": 1
+   },
+   "resource-locks": {
+    "n": "John Savill AZ-104 Study Cram v2: Resource Locking",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=4016s",
+    "d": 1
+   },
+   "resource-tags": {
+    "n": "John Savill AZ-104 Study Cram v2: Tags",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=3080s",
+    "d": 1
+   },
+   "resource-groups": {
+    "n": "John Savill AZ-104 Study Cram v2: Resource Groups",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2611s",
+    "d": 1
+   },
+   "subscriptions": {
+    "n": "John Savill AZ-104 Study Cram v2: Subscriptions & Management Groups",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2088s",
+    "d": 1
+   },
+   "cost-management": {
+    "n": "John Savill AZ-104 Study Cram v2: Cost Analysis and Budgets",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2354s",
+    "d": 1
+   },
+   "management-groups": {
+    "n": "John Savill AZ-104 Study Cram v2: Management Groups",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2088s",
+    "d": 1
+   },
+   "storage-firewalls-vnets": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts (firewalls)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "storage-sas-tokens": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts (SAS)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "storage-stored-access-policies": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts (access policies)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "storage-access-keys": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts (access keys)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "files-identity-access": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Files Access",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10601s",
+    "d": 2
+   },
+   "storage-accounts-create": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "storage-redundancy": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Accounts (redundancy)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "storage-object-replication": {
+    "n": "John Savill AZ-104 Study Cram v2: Object Replication",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10222s",
+    "d": 2
+   },
+   "storage-encryption": {
+    "n": "John Savill AZ-104 Study Cram v2: Encryption",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10830s",
+    "d": 2
+   },
+   "storage-explorer-azcopy": {
+    "n": "John Savill AZ-104 Study Cram v2: Storage Tools",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9727s",
+    "d": 2
+   },
+   "files-share": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Files",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10365s",
+    "d": 2
+   },
+   "blob-container": {
+    "n": "John Savill AZ-104 Study Cram v2: Blob Containers",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "blob-storage-tiers": {
+    "n": "John Savill AZ-104 Study Cram v2: Blob Tiering",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9860s",
+    "d": 2
+   },
+   "blob-soft-delete": {
+    "n": "John Savill AZ-104 Study Cram v2: Blob Data Protection",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=9110s",
+    "d": 2
+   },
+   "files-snapshots-soft-delete": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Files (snapshots)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10365s",
+    "d": 2
+   },
+   "blob-lifecycle-management": {
+    "n": "John Savill AZ-104 Study Cram v2: Lifecycle Management",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10145s",
+    "d": 2
+   },
+   "blob-versioning": {
+    "n": "John Savill AZ-104 Study Cram v2: Blob Versioning",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10145s",
+    "d": 2
+   },
+   "arm-bicep-interpret": {
+    "n": "John Savill AZ-104 Study Cram v2: Provisioning Resources",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11421s",
+    "d": 3
+   },
+   "arm-template-modify": {
+    "n": "John Savill AZ-104 Study Cram v2: ARM Templates",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11421s",
+    "d": 3
+   },
+   "bicep-modify": {
+    "n": "John Savill AZ-104 Study Cram v2: Bicep",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11421s",
+    "d": 3
+   },
+   "arm-bicep-deploy": {
+    "n": "John Savill AZ-104 Study Cram v2: Deploy with ARM/Bicep",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11421s",
+    "d": 3
+   },
+   "arm-export-convert-bicep": {
+    "n": "John Savill AZ-104 Study Cram v2: Export & Convert to Bicep",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11421s",
+    "d": 3
+   },
+   "vm-create": {
+    "n": "John Savill AZ-104 Study Cram v2: Virtual Machines",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11945s",
+    "d": 3
+   },
+   "vm-encryption-at-host": {
+    "n": "John Savill AZ-104 Study Cram v2: VM Encryption at Host",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11945s",
+    "d": 3
+   },
+   "vm-move": {
+    "n": "John Savill AZ-104 Study Cram v2: Move a VM",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11945s",
+    "d": 3
+   },
+   "vm-sizes": {
+    "n": "John Savill AZ-104 Study Cram v2: VM Sizes",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=11945s",
+    "d": 3
+   },
+   "vm-disks": {
+    "n": "John Savill AZ-104 Study Cram v2: Managed Disks",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=10974s",
+    "d": 3
+   },
+   "vm-availability": {
+    "n": "John Savill AZ-104 Study Cram v2: Availability Sets and Zones",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12491s",
+    "d": 3
+   },
+   "vmss": {
+    "n": "John Savill AZ-104 Study Cram v2: VM Scale Sets",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12654s",
+    "d": 3
+   },
+   "container-registry": {
+    "n": "John Savill AZ-104 Study Cram v2: Containers (ACR)",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12875s",
+    "d": 3
+   },
+   "container-instances": {
+    "n": "John Savill AZ-104 Study Cram v2: Container Instances",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12875s",
+    "d": 3
+   },
+   "container-apps": {
+    "n": "John Savill AZ-104 Study Cram v2: Container Apps",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12875s",
+    "d": 3
+   },
+   "container-scaling": {
+    "n": "John Savill AZ-104 Study Cram v2: Container Scaling",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=12875s",
+    "d": 3
+   },
+   "appservice-plan": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Plan",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-scaling": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Scaling",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-create": {
+    "n": "John Savill AZ-104 Study Cram v2: Create App Service",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-tls-certs": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service TLS/Certs",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-custom-dns": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Custom DNS",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-backup": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Backup",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-networking": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Networking",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "appservice-deployment-slots": {
+    "n": "John Savill AZ-104 Study Cram v2: App Service Deployment Slots",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13354s",
+    "d": 3
+   },
+   "vnet-subnets": {
+    "n": "John Savill AZ-104 Study Cram v2: Virtual Network",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=4215s",
+    "d": 4
+   },
+   "vnet-peering": {
+    "n": "John Savill AZ-104 Study Cram v2: Peering",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=4800s",
+    "d": 4
+   },
+   "public-ip": {
+    "n": "John Savill AZ-104 Study Cram v2: Public IP Addresses",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=4215s",
+    "d": 4
+   },
+   "user-defined-routes": {
+    "n": "John Savill AZ-104 Study Cram v2: User Defined Routes",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7116s",
+    "d": 4
+   },
+   "network-connectivity-troubleshoot": {
+    "n": "John Savill AZ-104 Study Cram v2: Network Watcher",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=14345s",
+    "d": 4
+   },
+   "nsg-asg": {
+    "n": "John Savill AZ-104 Study Cram v2: Network Security Group",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=5327s",
+    "d": 4
+   },
+   "nsg-effective-rules": {
+    "n": "John Savill AZ-104 Study Cram v2: NSG Effective Rules",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=5327s",
+    "d": 4
+   },
+   "azure-bastion": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Bastion",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7683s",
+    "d": 4
+   },
+   "service-endpoints": {
+    "n": "John Savill AZ-104 Study Cram v2: Service Endpoints",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7195s",
+    "d": 4
+   },
+   "private-endpoints": {
+    "n": "John Savill AZ-104 Study Cram v2: Private Endpoints",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7490s",
+    "d": 4
+   },
+   "azure-dns": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure DNS",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=5921s",
+    "d": 4
+   },
+   "load-balancer": {
+    "n": "John Savill AZ-104 Study Cram v2: Azure Load Balancer",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7923s",
+    "d": 4
+   },
+   "load-balancing-troubleshoot": {
+    "n": "John Savill AZ-104 Study Cram v2: Load Balancing",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=7824s",
+    "d": 4
+   },
+   "monitor-metrics": {
+    "n": "John Savill AZ-104 Study Cram v2: Monitoring",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13525s",
+    "d": 5
+   },
+   "monitor-log-settings": {
+    "n": "John Savill AZ-104 Study Cram v2: Log Analytics Workspace",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=14097s",
+    "d": 5
+   },
+   "monitor-log-queries": {
+    "n": "John Savill AZ-104 Study Cram v2: Log Analytics Queries",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=14097s",
+    "d": 5
+   },
+   "monitor-alerts": {
+    "n": "John Savill AZ-104 Study Cram v2: Alerting",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13848s",
+    "d": 5
+   },
+   "monitor-insights": {
+    "n": "John Savill AZ-104 Study Cram v2: Monitor Insights",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=13525s",
+    "d": 5
+   },
+   "network-watcher": {
+    "n": "John Savill AZ-104 Study Cram v2: Network Watcher",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=14345s",
+    "d": 5
+   },
+   "recovery-services-vault": {
+    "n": "John Savill: Azure Master Class v2 - Module 4 Resiliency",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k",
+    "d": 5
+   },
+   "backup-vault": {
+    "n": "John Savill: Azure Master Class v2 - Module 4 Resiliency",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k",
+    "d": 5
+   },
+   "backup-policy": {
+    "n": "John Savill: Azure Master Class v2 - Module 4 Resiliency",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k",
+    "d": 5
+   },
+   "azure-backup-restore": {
+    "n": "John Savill: Azure Master Class v2 - Module 4 Resiliency",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k",
+    "d": 5
+   },
+   "site-recovery-configure": {
+    "n": "John Savill: Azure Site Recovery Overview",
+    "u": "https://www.youtube.com/watch?v=ErYUPsyGazA",
+    "d": 5
+   },
+   "site-recovery-failover": {
+    "n": "John Savill: Disaster Recovery in Microsoft Azure",
+    "u": "https://www.youtube.com/watch?v=8fvO3WArG-Y",
+    "d": 5
+   },
+   "backup-reports-alerts": {
+    "n": "John Savill: Azure Master Class v2 - Module 4 Resiliency",
+    "u": "https://www.youtube.com/watch?v=0Knf9nub4-k",
+    "d": 5
+   }
+  },
+  "questionCount": 312,
+  "pbqCount": 12
  }
 }
 
 /** Display order: grouped by vendor (see vendors.ts VENDOR_ORDER). */
-export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","ccna-200-301","aif-c01","clf-c02","az-900","sc-900"]
+export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","ccna-200-301","aif-c01","clf-c02","az-900","sc-900","az-104"]

@@ -17,6 +17,7 @@ import { exam as e5 } from "./az-900"
 import { exam as e6 } from "./sy0-701"
 import { exam as e7 } from "./sc-900"
 import { exam as e8 } from "./ccna-200-301"
+import { exam as e9 } from "./az-104"
 
 export const EXAMS: Record<string, ExamDef> = {
  "220-1202": e0,
@@ -28,6 +29,7 @@ export const EXAMS: Record<string, ExamDef> = {
  "clf-c02": e4,
  "az-900": e5,
  "sc-900": e7,
+ "az-104": e9,
 }
 
 // Re-exported from meta.ts so display order has exactly one definition.
