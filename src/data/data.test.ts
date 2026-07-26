@@ -20,6 +20,9 @@ const EXPECTED = {
   "sc-900": { questions: 259, pbqs: 8, videos: 58, domains: 4 },
   "ccna-200-301": { questions: 328, pbqs: 12, videos: 58, domains: 6 },
   "az-104": { questions: 312, pbqs: 12, videos: 82, domains: 5 },
+  // saa-c03 has no interactive items ON PURPOSE (like clf-c02): the real
+  // SAA-C03 is multiple choice / multiple response only.
+  "saa-c03": { questions: 304, pbqs: 0, videos: 57, domains: 4 },
 } as const
 
 // Per-vendor video-link contract: CompTIA topics link Professor Messer pages;

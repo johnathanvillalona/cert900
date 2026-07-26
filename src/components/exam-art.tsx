@@ -118,6 +118,17 @@ export function ExamEmblem({ examId, className }: { examId: string; className?: 
         </svg>
       )
 
+    // AWS Solutions Architect — a tiered architecture of connected blocks.
+    case "saa-c03":
+      return (
+        <svg viewBox="0 0 24 24" className={cls} aria-hidden>
+          <rect {...stroke} fill={body} x={9} y={3.5} width={6} height={5} rx={1} />
+          <rect {...stroke} x={3.5} y={15.5} width={6} height={5} rx={1} />
+          <rect {...stroke} x={14.5} y={15.5} width={6} height={5} rx={1} />
+          <path {...detail} d="M12 8.5v3.5M6.5 15.5v-2.5h11v2.5" />
+        </svg>
+      )
+
     // AWS Cloud Practitioner — a cloud over a base rail.
     case "clf-c02":
       return (

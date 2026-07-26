@@ -20,6 +20,7 @@ export const EXAM_SHORT: Record<string, string> = {
   "sc-900": "Security Fundamentals",
   "ccna-200-301": "CCNA",
   "az-104": "Azure Admin",
+  "saa-c03": "Solutions Architect",
 }
 
 /** Accepts ExamDef or ExamMeta — only id/name are needed. */

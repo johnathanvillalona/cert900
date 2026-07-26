@@ -1,0 +1,10 @@
+{
+  "examId": "saa-c03",
+  "fixes": [
+    {
+      "id": 303,
+      "a": 1,
+      "e": "Aurora Serverless v1 can auto-pause after a period of inactivity and resume on the next connection, minimizing cost for a rarely used database. A v2 cluster pinned to a 2-ACU minimum keeps that capacity running so it never pauses, and stopping a provisioned cluster on a schedule requires manual automation."
+    }
+  ]
+}

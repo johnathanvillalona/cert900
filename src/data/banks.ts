@@ -24,6 +24,7 @@ const LOADERS: Record<string, () => Promise<{ exam: ExamDef }>> = {
   "az-900": () => import("./az-900"),
   "sc-900": () => import("./sc-900"),
   "az-104": () => import("./az-104"),
+  "saa-c03": () => import("./saa-c03"),
 }
 
 const cache = new Map<string, ExamDef>()
