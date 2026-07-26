@@ -22,7 +22,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
-import { AifGuide, APlusGuide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META } from "@/screens/Guides"
+import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -43,6 +43,8 @@ export type Screen =
   | { kind: "terms" }
   | { kind: "delete-account" }
   | { kind: "guide-aplus" }
+  | { kind: "guide-aplus1" }
+  | { kind: "guide-aplus2" }
   | { kind: "guide-nplus" }
   | { kind: "guide-pbq" }
   | { kind: "guide-secplus" }
@@ -62,6 +64,8 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   // can open without installing the app.
   "/delete-account": "delete-account",
   [GUIDE_META.aplus.path]: "guide-aplus",
+  [GUIDE_META.aplus1.path]: "guide-aplus1",
+  [GUIDE_META.aplus2.path]: "guide-aplus2",
   [GUIDE_META.nplus.path]: "guide-nplus",
   [GUIDE_META.pbq.path]: "guide-pbq",
   [GUIDE_META.secplus.path]: "guide-secplus",
@@ -79,6 +83,8 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   terms: "Terms of use | Cert900",
   "delete-account": "Delete your account | Cert900",
   "guide-aplus": GUIDE_META.aplus.title,
+  "guide-aplus1": GUIDE_META.aplus1.title,
+  "guide-aplus2": GUIDE_META.aplus2.title,
   "guide-nplus": GUIDE_META.nplus.title,
   "guide-pbq": GUIDE_META.pbq.title,
   "guide-secplus": GUIDE_META.secplus.title,
@@ -345,6 +351,8 @@ export default function App() {
         {screen.kind === "terms" && <Terms />}
         {screen.kind === "delete-account" && <DeleteAccount />}
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-aplus1" && <APlusCore1Guide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-aplus2" && <APlusCore2Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-secplus" && <SecplusGuide onStart={startExamFromGuide} />}
