@@ -33,6 +33,10 @@ export interface ProgressStore {
   markSeen(examId: string, questionIds: number[]): void
   recordExam(examId: string, rec: ExamRecord): void
   logSession(examId: string, s: SessionRecord): void
+  /** Set or clear (null) the user's real exam date, ISO "YYYY-MM-DD". */
+  setExamDate(examId: string, date: string | null): void
+  /** Manual "I passed the real exam" milestone; never inferred from practice. */
+  setPassed(examId: string, passed: boolean): void
   resetExam(examId: string): void
   exportJson(): string
   importJson(json: string): void
@@ -169,6 +173,18 @@ export function useProgressStore(): ProgressStore {
     recordExam: (examId, rec) => update(examId, (p) => ({ ...p, exams: [...p.exams, rec] })),
     logSession: (examId, s) =>
       update(examId, (p) => ({ ...p, sessions: [...(p.sessions ?? []), s] })),
+    setExamDate: (examId, date) =>
+      update(examId, (p) => {
+        if (date) return { ...p, examDate: date }
+        const { examDate: _drop, ...rest } = p
+        return rest as ExamProgress
+      }),
+    setPassed: (examId, passed) =>
+      update(examId, (p) => {
+        if (passed) return { ...p, passed: true, passedOn: new Date().toISOString().slice(0, 10) }
+        const { passed: _p, passedOn: _po, ...rest } = p
+        return rest as ExamProgress
+      }),
     resetExam: (examId) =>
       setAll((prev) => {
         const next = { ...prev }

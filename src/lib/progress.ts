@@ -48,10 +48,38 @@ export interface ExamProgress {
   sessions?: SessionRecord[]
   /** key = String(Question["id"]). MC only; PBQs are keyed by title, not id. */
   q?: Record<string, QStat>
+  /**
+   * Additive optional v4 fields (same contract as `sessions?`/`q?`: absent in
+   * older blobs, presence-checked nowhere, survive sync untouched).
+   *
+   * examDate: the user's REAL exam date as an ISO "YYYY-MM-DD" — powers the
+   * countdown on the exam home. passed/passedOn: a manual milestone the user
+   * sets after passing the real exam; never inferred from practice scores.
+   */
+  examDate?: string
+  passed?: boolean
+  passedOn?: string
 }
 
 /** UTC day index. Same epoch arithmetic qotd.ts uses for the daily rotation. */
 export const dayNumber = (t = Date.now()): number => Math.floor(t / 86_400_000)
+
+/** "YYYY-MM-DD" -> UTC day index; NaN for junk input. */
+export const dateToDay = (iso: string): number => Math.floor(Date.parse(`${iso}T00:00:00Z`) / 86_400_000)
+
+/**
+ * Countdown copy for the exam-date widget, shared by web Home and mobile
+ * ExamHomeScreen so the phrasing can't drift; null when the date is unparsable.
+ */
+export function countdownCopy(iso: string, today: number): string | null {
+  const target = dateToDay(iso)
+  if (!Number.isFinite(target)) return null
+  const delta = target - today
+  if (delta > 1) return `${delta} days to go`
+  if (delta === 1) return "Tomorrow. You have got this."
+  if (delta === 0) return "Exam day is today. Go get it."
+  return delta === -1 ? "Was yesterday" : `Was ${-delta} days ago`
+}
 
 export type ProgressAll = Record<string, ExamProgress>
 
