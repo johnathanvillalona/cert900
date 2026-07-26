@@ -14,7 +14,7 @@ import path from "node:path"
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const MARKER = "export const exam: ExamDef = "
-const IDS = ["220-1201", "220-1202", "n10-009", "sy0-701", "ccna-200-301", "aif-c01", "clf-c02", "az-900", "sc-900", "az-104"]
+const IDS = ["220-1201", "220-1202", "n10-009", "sy0-701", "ccna-200-301", "aif-c01", "clf-c02", "saa-c03", "az-900", "sc-900", "az-104"]
 
 const meta = {}
 for (const id of IDS) {

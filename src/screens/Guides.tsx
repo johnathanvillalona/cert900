@@ -16,7 +16,7 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104" | "saa", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -156,6 +156,31 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | 
       [
         "Is this actually free?",
         "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free AZ-104 study video.",
+      ],
+    ],
+  },
+  saa: {
+    path: "/aws-solutions-architect-associate-practice-test",
+    title: "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900",
+    description:
+      "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+    h1: "Free AWS Solutions Architect Associate (SAA-C03) practice test",
+    faq: [
+      [
+        "How many questions are on the SAA-C03 exam?",
+        "65 questions in 130 minutes: 50 scored plus 15 unscored. The exam uses multiple-choice and multiple-response questions only, and passing requires a scaled score of 720 on a 100 to 1,000 range.",
+      ],
+      [
+        "How hard is SAA-C03 compared to Cloud Practitioner?",
+        "Substantially harder. Where Cloud Practitioner tests cloud literacy, SAA-C03 tests designing real architectures: choosing between services for security, resilience, performance, and cost under scenario constraints.",
+      ],
+      [
+        "What does SAA-C03 cover?",
+        "Four domains: Design Secure Architectures (30%), Design Resilient Architectures (26%), Design High-Performing Architectures (24%), and Design Cost-Optimized Architectures (20%). Our drills track your accuracy in each separately.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every question and the exam simulator are free with no account. Every topic links into Andrew Brown's free SAA-C03 course on freeCodeCamp's YouTube channel.",
       ],
     ],
   },
@@ -660,6 +685,44 @@ export function Az104Guide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={2} q={{ code: "AZ-104 · Storage", stem: "A workload needs its data to survive a full Azure region failure and allow read access to the replica at all times. Which storage redundancy option meets this?", options: ["RA-GRS", "GRS", "ZRS", "LRS"], answer: 0, why: "RA-GRS replicates to a paired secondary region and allows reads from the secondary at any time. GRS replicates but the secondary is not readable until failover; ZRS and LRS stay within one region." }} />
         <Sample n={3} q={{ code: "AZ-104 · Virtual networking", stem: "Which Azure service lets an administrator connect to a VM over RDP or SSH without assigning the VM a public IP address?", options: ["VPN Gateway", "Public IP address", "Azure Bastion", "Application Gateway"], answer: 2, why: "Azure Bastion provides browser-based RDP and SSH to VMs over TLS using the VM's private IP, so no public IP is needed on the VM itself." }} />
         <Cta label="Practice all of them free" onGo={() => onStart("az-104")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function SaaGuide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.saa
+  const ex = EXAM_META["saa-c03"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          The AWS Certified Solutions Architect - Associate (SAA-C03) validates that you can design secure, resilient,
+          high-performing, and cost-optimized architectures on AWS. This site gives you {ex.questionCount} original
+          scenario questions in the exam's real formats, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          The real exam is multiple choice and multiple response only, and so is our simulator: {ex.examMC} questions in{" "}
+          {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 720 pass line. Every topic links
+          into Andrew Brown's free freeCodeCamp course at the matching chapter.
+        </p>
+        <Cta label="Start the free SAA-C03 practice test" onGo={() => onStart("saa-c03")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What SAA-C03 covers</h2>
+        <DomainTable examId="saa-c03" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: 65 questions (50 scored, 15 unscored), 130 minutes, scaled 100 to 1,000, passing score 720.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "SAA-C03 · Design Resilient", stem: "A critical MySQL database on Amazon RDS must fail over automatically to a standby if the primary instance fails, with no application code changes. What should the architect enable?", options: ["RDS Multi-AZ", "An RDS read replica", "DynamoDB global tables", "An EC2 Auto Scaling group"], answer: 0, why: "RDS Multi-AZ keeps a synchronous standby and fails over automatically behind the same endpoint. A read replica is for read scaling and requires a manual promotion." }} />
+        <Sample n={2} q={{ code: "SAA-C03 · Design Cost-Optimized", stem: "Compliance data must be kept for seven years, is almost never accessed, and a retrieval time of up to 12 hours is acceptable. Which S3 storage class is most cost-effective?", options: ["S3 Standard-IA", "S3 Glacier Deep Archive", "S3 Standard", "S3 Glacier Instant Retrieval"], answer: 1, why: "Glacier Deep Archive is the lowest-cost class for long-term archives where multi-hour retrieval is acceptable. Standard-IA and Instant Retrieval cost far more for rarely accessed data." }} />
+        <Sample n={3} q={{ code: "SAA-C03 · Design Resilient", stem: "A web tier must hand image-processing jobs to a fleet of workers so a spike in uploads never overwhelms them. Which service decouples the tiers with the least effort?", options: ["Amazon SNS", "Amazon Kinesis Data Streams", "Amazon SQS", "AWS Step Functions"], answer: 2, why: "An SQS queue buffers jobs so workers pull at their own pace, absorbing spikes. SNS is pub/sub fan-out with no buffering, and Kinesis targets high-throughput streaming analytics." }} />
+        <Cta label="Practice all of them free" onGo={() => onStart("saa-c03")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

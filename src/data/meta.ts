@@ -2856,6 +2856,322 @@ export const EXAM_META: Record<string, ExamMeta> = {
   "questionCount": 319,
   "pbqCount": 0
  },
+ "saa-c03": {
+  "id": "saa-c03",
+  "vendor": "aws",
+  "scale": {
+   "max": 1000,
+   "pass": 720
+  },
+  "cert": "AWS Certified",
+  "name": "Solutions Architect Associate",
+  "code": "SAA-C03",
+  "blurb": "Design secure, resilient, high-performing, and cost-optimized architectures on AWS.",
+  "domains": {
+   "1": "Design Secure Architectures",
+   "2": "Design Resilient Architectures",
+   "3": "Design High-Performing Architectures",
+   "4": "Design Cost-Optimized Architectures"
+  },
+  "examSplit": {
+   "1": 0.3,
+   "2": 0.26,
+   "3": 0.24,
+   "4": 0.2
+  },
+  "examMC": 65,
+  "examPBQ": 0,
+  "examMinutes": 130,
+  "videos": {
+   "iam-users-groups-policies": {
+    "n": "freeCodeCamp SAA-C03: IAM users, groups & policies",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "iam-roles-sts": {
+    "n": "freeCodeCamp SAA-C03: IAM roles & STS",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "identity-vs-resource-policies": {
+    "n": "freeCodeCamp SAA-C03: Identity vs resource policies",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "cross-account-access": {
+    "n": "freeCodeCamp SAA-C03: Cross-account access",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "organizations-scps": {
+    "n": "freeCodeCamp SAA-C03: Organizations & SCPs",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "iam-identity-center": {
+    "n": "freeCodeCamp SAA-C03: IAM Identity Center & federation",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "root-account-mfa": {
+    "n": "freeCodeCamp SAA-C03: Root account & MFA",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=63222s",
+    "d": 1
+   },
+   "cognito-app-identity": {
+    "n": "freeCodeCamp SAA-C03: Cognito user & identity pools",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=169137s",
+    "d": 1
+   },
+   "vpc-security-groups-nacls": {
+    "n": "freeCodeCamp SAA-C03: Security groups & network ACLs",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=44392s",
+    "d": 1
+   },
+   "vpc-subnet-segmentation": {
+    "n": "freeCodeCamp SAA-C03: Subnet segmentation & NAT",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=44392s",
+    "d": 1
+   },
+   "secrets-manager": {
+    "n": "freeCodeCamp SAA-C03: Secrets Manager",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=172417s",
+    "d": 1
+   },
+   "kms-encryption-at-rest": {
+    "n": "freeCodeCamp SAA-C03: KMS encryption at rest",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=166905s",
+    "d": 1
+   },
+   "acm-tls-in-transit": {
+    "n": "freeCodeCamp SAA-C03: ACM & TLS in transit",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=168023s",
+    "d": 1
+   },
+   "waf-shield-ddos": {
+    "n": "freeCodeCamp SAA-C03: WAF & Shield",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=178409s",
+    "d": 1
+   },
+   "guardduty-macie": {
+    "n": "freeCodeCamp SAA-C03: GuardDuty & Macie",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=179170s",
+    "d": 1
+   },
+   "s3-security-bucket-policies": {
+    "n": "freeCodeCamp SAA-C03: S3 bucket policies & Block Public Access",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=3158s",
+    "d": 1
+   },
+   "sqs-decoupling": {
+    "n": "freeCodeCamp SAA-C03: SQS decoupling",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=99785s",
+    "d": 2
+   },
+   "sns-pub-sub": {
+    "n": "freeCodeCamp SAA-C03: SNS pub/sub",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=97329s",
+    "d": 2
+   },
+   "eventbridge-events": {
+    "n": "freeCodeCamp SAA-C03: EventBridge",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=106804s",
+    "d": 2
+   },
+   "api-gateway": {
+    "n": "freeCodeCamp SAA-C03: API Gateway",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=150249s",
+    "d": 2
+   },
+   "lambda-serverless": {
+    "n": "freeCodeCamp SAA-C03: Lambda",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=108996s",
+    "d": 2
+   },
+   "step-functions": {
+    "n": "freeCodeCamp SAA-C03: Step Functions",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=114591s",
+    "d": 2
+   },
+   "ecs-fargate": {
+    "n": "freeCodeCamp SAA-C03: ECS & Fargate",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=164358s",
+    "d": 2
+   },
+   "eks-kubernetes": {
+    "n": "freeCodeCamp SAA-C03: EKS",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=165747s",
+    "d": 2
+   },
+   "ec2-auto-scaling-groups": {
+    "n": "freeCodeCamp SAA-C03: EC2 Auto Scaling groups",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=77830s",
+    "d": 2
+   },
+   "elastic-load-balancing": {
+    "n": "freeCodeCamp SAA-C03: Elastic Load Balancing",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=78614s",
+    "d": 2
+   },
+   "route53-dns-failover": {
+    "n": "freeCodeCamp SAA-C03: Route 53 routing & failover",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=79040s",
+    "d": 2
+   },
+   "rds-multi-az": {
+    "n": "freeCodeCamp SAA-C03: RDS Multi-AZ",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=150069s",
+    "d": 2
+   },
+   "aurora-ha-replicas": {
+    "n": "freeCodeCamp SAA-C03: Aurora replicas & failover",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=154579s",
+    "d": 2
+   },
+   "dynamodb-global-tables": {
+    "n": "freeCodeCamp SAA-C03: DynamoDB global tables",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=160151s",
+    "d": 2
+   },
+   "s3-cross-region-replication": {
+    "n": "freeCodeCamp SAA-C03: S3 versioning & cross-region replication",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=3158s",
+    "d": 2
+   },
+   "disaster-recovery-strategies": {
+    "n": "freeCodeCamp SAA-C03: DR strategies",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=82464s",
+    "d": 2
+   },
+   "s3-performance": {
+    "n": "freeCodeCamp SAA-C03: S3 performance",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=3158s",
+    "d": 3
+   },
+   "ebs-volume-types": {
+    "n": "freeCodeCamp SAA-C03: EBS volume types & IOPS",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=81024s",
+    "d": 3
+   },
+   "efs-shared-storage": {
+    "n": "freeCodeCamp SAA-C03: EFS",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=81934s",
+    "d": 3
+   },
+   "fsx-file-systems": {
+    "n": "freeCodeCamp SAA-C03: FSx",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=82238s",
+    "d": 3
+   },
+   "ec2-instance-types": {
+    "n": "freeCodeCamp SAA-C03: EC2 instance types",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=69243s",
+    "d": 3
+   },
+   "elasticache-caching": {
+    "n": "freeCodeCamp SAA-C03: ElastiCache",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=125992s",
+    "d": 3
+   },
+   "cloudfront-cdn": {
+    "n": "freeCodeCamp SAA-C03: CloudFront",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=80460s",
+    "d": 3
+   },
+   "global-accelerator": {
+    "n": "freeCodeCamp SAA-C03: Global Accelerator",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=80369s",
+    "d": 3
+   },
+   "rds-read-replicas": {
+    "n": "freeCodeCamp SAA-C03: RDS read replicas",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=150069s",
+    "d": 3
+   },
+   "dynamodb-performance": {
+    "n": "freeCodeCamp SAA-C03: DynamoDB performance & DAX",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=160151s",
+    "d": 3
+   },
+   "redshift-warehouse": {
+    "n": "freeCodeCamp SAA-C03: Redshift",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=134363s",
+    "d": 3
+   },
+   "kinesis-streaming": {
+    "n": "freeCodeCamp SAA-C03: Kinesis streaming",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=135470s",
+    "d": 3
+   },
+   "glue-athena-lake": {
+    "n": "freeCodeCamp SAA-C03: Glue & Athena",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=149224s",
+    "d": 3
+   },
+   "direct-connect-vpn": {
+    "n": "freeCodeCamp SAA-C03: Direct Connect & VPN",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=44392s",
+    "d": 3
+   },
+   "datasync-migration": {
+    "n": "freeCodeCamp SAA-C03: DataSync",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=83735s",
+    "d": 3
+   },
+   "s3-storage-classes": {
+    "n": "freeCodeCamp SAA-C03: S3 storage classes",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=3158s",
+    "d": 4
+   },
+   "s3-lifecycle-intelligent-tiering": {
+    "n": "freeCodeCamp SAA-C03: S3 lifecycle & Intelligent-Tiering",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=3158s",
+    "d": 4
+   },
+   "storage-gateway-hybrid": {
+    "n": "freeCodeCamp SAA-C03: Storage Gateway",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=83227s",
+    "d": 4
+   },
+   "ec2-pricing-models": {
+    "n": "freeCodeCamp SAA-C03: EC2 pricing models",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=180655s",
+    "d": 4
+   },
+   "savings-plans": {
+    "n": "freeCodeCamp SAA-C03: Savings Plans vs Reserved",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=180655s",
+    "d": 4
+   },
+   "spot-instances": {
+    "n": "freeCodeCamp SAA-C03: Spot Instances",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=180655s",
+    "d": 4
+   },
+   "cost-explorer-budgets": {
+    "n": "freeCodeCamp SAA-C03: Cost Explorer & Budgets",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=180655s",
+    "d": 4
+   },
+   "nat-gateway-cost": {
+    "n": "freeCodeCamp SAA-C03: NAT gateway cost",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=44392s",
+    "d": 4
+   },
+   "vpc-endpoints-data-transfer": {
+    "n": "freeCodeCamp SAA-C03: VPC endpoints & data transfer",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=44392s",
+    "d": 4
+   },
+   "aurora-serverless-cost": {
+    "n": "freeCodeCamp SAA-C03: Aurora Serverless cost",
+    "u": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=154579s",
+    "d": 4
+   }
+  },
+  "questionCount": 304,
+  "pbqCount": 0
+ },
  "az-900": {
   "id": "az-900",
   "vendor": "azure",
@@ -3962,4 +4278,4 @@ export const EXAM_META: Record<string, ExamMeta> = {
 }
 
 /** Display order: grouped by vendor (see vendors.ts VENDOR_ORDER). */
-export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","ccna-200-301","aif-c01","clf-c02","az-900","sc-900","az-104"]
+export const EXAM_ORDER: string[] = ["220-1201","220-1202","n10-009","sy0-701","ccna-200-301","aif-c01","clf-c02","saa-c03","az-900","sc-900","az-104"]
