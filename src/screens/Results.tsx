@@ -7,6 +7,7 @@ import { Heart } from "lucide-react"
 import { VideoLink } from "@/components/VideoLink"
 import { ReportButton } from "@/components/ReportButton"
 import { StudyGuideLink } from "@/components/StudyGuideLink"
+import { AppPromo } from "@/components/AppPromo"
 import { DONATE_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -34,6 +35,9 @@ function ResultsSupport({ examId }: { examId: string }) {
           </a>
         </p>
       )}
+      <div className="mt-3 text-center">
+        <AppPromo variant="line" />
+      </div>
     </>
   )
 }

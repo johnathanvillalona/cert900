@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, BadgeCheck } from "lucide-react"
 import type { ExamMeta } from "@/data/types"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import { useProgress } from "@/hooks/useProgress"
@@ -37,8 +37,14 @@ export function ExamPicker({ exams, onChoose }: { exams: ExamMeta[]; onChoose: (
                       <span className="font-mono text-sm text-muted-foreground">{ex.code}</span>
                     </span>
                     <span className="sm:col-span-6">
-                      <span className="font-heading text-lg font-semibold sm:text-xl">
+                      <span className="font-heading flex flex-wrap items-center gap-2 text-lg font-semibold sm:text-xl">
                         {ex.cert} {ex.name}
+                        {p?.passed && (
+                          <span className="bg-success/10 text-success inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold">
+                            <BadgeCheck className="size-3" strokeWidth={2.5} />
+                            Passed
+                          </span>
+                        )}
                       </span>
                       <span className="text-muted-foreground mt-0.5 block text-sm">{ex.blurb}</span>
                     </span>

@@ -1,10 +1,13 @@
-import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight, RotateCcw } from "lucide-react"
+import { useState } from "react"
+import { Timer, ListChecks, Puzzle, ChartLine, ArrowRight, RotateCcw, BadgeCheck, CalendarDays, Trash2 } from "lucide-react"
 import type { ExamDef } from "@/data/types"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import { ExamEmblem } from "@/components/exam-art"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
-import { dayNumber } from "@/lib/progress"
+import { countdownCopy, dayNumber } from "@/lib/progress"
 import { reviewQueue } from "@/lib/review"
 
 const MODES = [
@@ -25,6 +28,7 @@ export function Home(props: {
   const { exam } = props
   const store = useProgress()
   const p = store.get(exam.id)
+  const [confirmClear, setConfirmClear] = useState(false)
   const totals = Object.values(p.topics).reduce((acc, s) => ({ q: acc.q + s.t, c: acc.c + s.c }), { q: 0, c: 0 })
   const weak = weakTopics(exam, p).length
   const today = dayNumber()
@@ -126,6 +130,95 @@ export function Home(props: {
           </p>
         )}
       </div>
+
+      {/* Exam plan: real-exam date countdown, the passed milestone, and the
+          per-exam reset. One quiet card; never inside the quiz. */}
+      <div className="mt-3 rounded-lg border bg-card p-5" data-testid="exam-plan">
+        {p.passed ? (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span
+              data-testid="passed-badge"
+              className="inline-flex items-center gap-1.5 rounded-md bg-success/10 px-2.5 py-1 font-mono text-xs font-semibold text-success"
+            >
+              <BadgeCheck className="size-3.5" strokeWidth={2.5} />
+              Passed{p.passedOn ? <span className="tabular-nums"> · {p.passedOn}</span> : null}
+            </span>
+            <span className="text-muted-foreground text-sm">This one is in the books. Congratulations.</span>
+            <button
+              onClick={() => store.setPassed(exam.id, false)}
+              className="text-muted-foreground cursor-pointer text-xs underline-offset-2 hover:text-foreground hover:underline"
+            >
+              Undo
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <label htmlFor="exam-date" className="flex items-center gap-1.5 text-sm font-medium">
+                <CalendarDays className="text-brand size-4" strokeWidth={2} />
+                Exam date
+              </label>
+              <input
+                id="exam-date"
+                data-testid="exam-date"
+                type="date"
+                value={p.examDate ?? ""}
+                onChange={(e) => store.setExamDate(exam.id, e.target.value || null)}
+                className="rounded-md border bg-background px-2.5 py-1.5 font-mono text-sm tabular-nums"
+              />
+              {p.examDate && (
+                <span data-testid="exam-countdown" className="text-sm font-medium text-brand">
+                  {countdownCopy(p.examDate, today)}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="text-muted-foreground text-sm">Already sat the real exam?</span>
+              <Button variant="outline" size="sm" data-testid="mark-passed" onClick={() => store.setPassed(exam.id, true)}>
+                <BadgeCheck className="size-4" strokeWidth={2} />
+                I passed
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t pt-4">
+          <span className="text-muted-foreground text-xs">
+            Clearing removes every answer, score, and streak for this exam only.
+          </span>
+          <Button variant="destructive" size="sm" data-testid="clear-progress" onClick={() => setConfirmClear(true)}>
+            <Trash2 className="size-4" strokeWidth={2} />
+            Clear progress
+          </Button>
+        </div>
+      </div>
+
+      <Dialog open={confirmClear} onOpenChange={setConfirmClear}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Clear all {exam.code} progress?</DialogTitle>
+            <DialogDescription>
+              Every answer, exam score, review-queue entry, exam date, and milestone for {exam.cert} {exam.name} will
+              be deleted on this device and in your synced copy. Other exams are not affected. This cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmClear(false)}>
+              Keep my progress
+            </Button>
+            <Button
+              variant="destructive"
+              data-testid="confirm-clear"
+              onClick={() => {
+                setConfirmClear(false)
+                store.resetExam(exam.id)
+              }}
+            >
+              Clear progress
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   )
 }

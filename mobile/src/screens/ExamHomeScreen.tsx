@@ -1,7 +1,8 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { useState } from "react"
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native"
 import { EXAMS } from "@/data/index"
 import { weakTopics } from "@/lib/engine"
-import { dayNumber } from "@/lib/progress"
+import { countdownCopy, dateToDay, dayNumber } from "@/lib/progress"
 import { reviewQueue } from "@/lib/review"
 import { useProgress } from "../progress-store"
 import { colors, radius, space } from "../theme"
@@ -10,11 +11,16 @@ import type { RootScreenProps } from "../navigation"
 /** How many misses one review round serves, matching the web's Home. */
 const REVIEW_LIMIT = 20
 
+/** RN has no native date input; accept a typed YYYY-MM-DD and validate it. */
+const isIsoDate = (s: string): boolean => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(dateToDay(s))
+
 export function ExamHomeScreen({ route, navigation }: RootScreenProps<"ExamHome">) {
   const { examId } = route.params
   const store = useProgress()
   const exam = EXAMS[examId]
   const p = store.get(examId)
+  // Local draft so a half-typed date never hits the store; committed on submit/blur.
+  const [dateDraft, setDateDraft] = useState<string | null>(null)
 
   // A deep link (cert900://exam/:examId) can carry any id, so this screen is the
   // one place an unvalidated id reaches EXAMS. Guard it before the shared helpers
@@ -85,6 +91,89 @@ export function ExamHomeScreen({ route, navigation }: RootScreenProps<"ExamHome"
               }`}
         </Text>
       </View>
+
+      {/* Exam plan: real-exam date countdown, the passed milestone, and the
+          per-exam reset. Mirrors the web Home's card. */}
+      <View style={styles.plan} testID="exam-plan">
+        {p.passed ? (
+          <View style={styles.planRow}>
+            <View style={styles.passedPill} testID="passed-badge">
+              <Text style={styles.passedPillText}>Passed{p.passedOn ? ` · ${p.passedOn}` : ""}</Text>
+            </View>
+            <Text style={styles.planMuted}>This one is in the books.</Text>
+            <Pressable onPress={() => store.setPassed(examId, false)} hitSlop={8}>
+              <Text style={styles.planLink}>Undo</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <>
+            <View style={styles.planRow}>
+              <Text style={styles.planLabel}>Exam date</Text>
+              <TextInput
+                testID="exam-date"
+                style={styles.dateInput}
+                value={dateDraft ?? p.examDate ?? ""}
+                placeholder="YYYY-MM-DD"
+                placeholderTextColor={colors.muted}
+                keyboardType="numbers-and-punctuation"
+                autoCapitalize="none"
+                autoCorrect={false}
+                maxLength={10}
+                onChangeText={setDateDraft}
+                onEndEditing={() => {
+                  const v = (dateDraft ?? "").trim()
+                  if (v === "") {
+                    if (dateDraft !== null) store.setExamDate(examId, null)
+                  } else if (isIsoDate(v)) {
+                    store.setExamDate(examId, v)
+                  }
+                  setDateDraft(null)
+                }}
+              />
+              {p.examDate && !dateDraft && (
+                <Text style={styles.countdown} testID="exam-countdown">
+                  {countdownCopy(p.examDate, today)}
+                </Text>
+              )}
+            </View>
+            <View style={styles.planRow}>
+              <Text style={styles.planMuted}>Already sat the real exam?</Text>
+              <Pressable
+                testID="mark-passed"
+                accessibilityRole="button"
+                accessibilityLabel="Mark this exam as passed"
+                onPress={() => store.setPassed(examId, true)}
+                style={({ pressed }) => [styles.smallBtn, pressed && { opacity: 0.7 }]}
+              >
+                <Text style={styles.smallBtnText}>I passed</Text>
+              </Pressable>
+            </View>
+          </>
+        )}
+
+        <View style={styles.planDivider} />
+        <View style={styles.planRow}>
+          <Text style={[styles.planMuted, { flex: 1 }]}>Clearing removes this exam's progress only.</Text>
+          <Pressable
+            testID="clear-progress"
+            accessibilityRole="button"
+            accessibilityLabel={`Clear all ${exam.code} progress`}
+            onPress={() =>
+              Alert.alert(
+                `Clear all ${exam.code} progress?`,
+                "Every answer, exam score, review-queue entry, exam date, and milestone for this exam will be deleted on this device and in your synced copy. Other exams are not affected. This cannot be undone.",
+                [
+                  { text: "Keep my progress", style: "cancel" },
+                  { text: "Clear progress", style: "destructive", onPress: () => store.resetExam(examId) },
+                ],
+              )
+            }
+            style={({ pressed }) => [styles.dangerBtn, pressed && { opacity: 0.7 }]}
+          >
+            <Text style={styles.dangerBtnText}>Clear progress</Text>
+          </Pressable>
+        </View>
+      </View>
     </ScrollView>
   )
 }
@@ -148,4 +237,54 @@ const styles = StyleSheet.create({
     marginTop: space.sm,
   },
   snapshotText: { color: colors.muted, fontSize: 13, lineHeight: 20 },
+  plan: {
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.lg,
+    padding: space.md,
+    marginTop: space.sm,
+    gap: space.sm,
+  },
+  planRow: { flexDirection: "row", alignItems: "center", gap: space.sm, flexWrap: "wrap" },
+  planLabel: { color: colors.text, fontSize: 14, fontWeight: "600" },
+  planMuted: { color: colors.muted, fontSize: 13, lineHeight: 18 },
+  planLink: { color: colors.primary, fontSize: 13, fontWeight: "600" },
+  dateInput: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.md,
+    color: colors.text,
+    paddingHorizontal: space.sm,
+    paddingVertical: 6,
+    fontSize: 14,
+    fontVariant: ["tabular-nums"],
+    minWidth: 130,
+  },
+  countdown: { color: colors.primary, fontSize: 14, fontWeight: "600" },
+  passedPill: {
+    borderWidth: 1,
+    borderColor: colors.success,
+    borderRadius: 999,
+    paddingHorizontal: space.sm,
+    paddingVertical: 3,
+  },
+  passedPillText: { color: colors.success, fontSize: 12, fontWeight: "700" },
+  smallBtn: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.md,
+    paddingHorizontal: space.md,
+    paddingVertical: 7,
+  },
+  smallBtnText: { color: colors.text, fontSize: 13, fontWeight: "600" },
+  planDivider: { height: 1, backgroundColor: colors.border },
+  dangerBtn: {
+    borderWidth: 1,
+    borderColor: colors.danger,
+    borderRadius: radius.md,
+    paddingHorizontal: space.md,
+    paddingVertical: 7,
+  },
+  dangerBtnText: { color: colors.danger, fontSize: 13, fontWeight: "600" },
 })

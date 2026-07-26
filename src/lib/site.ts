@@ -33,3 +33,16 @@ export const ADS = {
   /** From the EthicalAds publisher dashboard after approval. */
   publisherId: "",
 }
+
+/**
+ * Mobile-app promo config. While both URLs are empty the AppPromo component
+ * renders a "coming soon" line; once the apps clear review, paste the store
+ * URLs here and deploy -- the promo flips to real download links with no other
+ * change (the same inert-until-set pattern as ADS and AFFILIATE above).
+ */
+export const APP = {
+  /** e.g. "https://apps.apple.com/app/id6792990489" once approved. */
+  iosUrl: "",
+  /** e.g. "https://play.google.com/store/apps/details?id=com.cert900.app" once live. */
+  androidUrl: "",
+}

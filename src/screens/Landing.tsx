@@ -15,6 +15,7 @@ import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
 import { SearchPalette } from "@/components/SearchPalette"
 import { SiteFooter } from "@/components/SiteFooter"
+import { AppPromo } from "@/components/AppPromo"
 import { Wordmark } from "@/components/Wordmark"
 
 /** Real product in the hero: the question of the day, fully answerable. */
@@ -246,6 +247,11 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
             </div>
           ))}
         </div>
+      </section>
+
+      {/* mobile-app promo: below the hero and stats, never inside the hero */}
+      <section className="mx-auto max-w-6xl px-4 pt-10">
+        <AppPromo />
       </section>
 
       {/* exam index */}
