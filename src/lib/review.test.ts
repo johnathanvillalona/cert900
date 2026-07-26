@@ -77,7 +77,7 @@ describe("reviewQueue", () => {
 
   it("is empty for progress with no history at all", () => {
     expect(reviewQueue(exam, blankProgress(), 100)).toEqual([])
-    expect(reviewCount(blankProgress())).toBe(0)
+    expect(reviewCount(blankProgress(), 100)).toBe(0)
   })
 
   it("returns only outstanding misses", () => {
@@ -87,7 +87,25 @@ describe("reviewQueue", () => {
       [ids[2]]: [3, 1, 90, 3], // missed but graduated
     })
     expect(reviewQueue(exam, p, 100).map((x) => x.q.id)).toEqual([ids[0]])
-    expect(reviewCount(p)).toBe(1)
+    expect(reviewCount(p, 100)).toBe(1)
+  })
+
+  it("does not re-serve a question until its interval elapses (the reappear bug)", () => {
+    // Missed on day 100 (box 1, interval 0): due the same day.
+    let s = applyAnswer(undefined, false, 100)
+    let p = withHistory({ [ids[0]]: s })
+    expect(reviewQueue(exam, p, 100).map((x) => x.q.id)).toEqual([ids[0]])
+
+    // Re-answered correctly the same day (box 2, interval 1 day): it must NOT
+    // come straight back — not in the queue and not in the badge count today.
+    s = applyAnswer(s, true, 100)
+    p = withHistory({ [ids[0]]: s })
+    expect(reviewQueue(exam, p, 100)).toEqual([])
+    expect(reviewCount(p, 100)).toBe(0)
+
+    // Still outstanding (one hit is weak evidence), so it returns when due.
+    expect(reviewQueue(exam, p, 101).map((x) => x.q.id)).toEqual([ids[0]])
+    expect(reviewCount(p, 101)).toBe(1)
   })
 
   it("orders worst first: lower box, then more overdue", () => {
@@ -103,7 +121,7 @@ describe("reviewQueue", () => {
     const p = withHistory({ "999999": [0, 1, 90, 1] })
     expect(reviewQueue(exam, p, 100)).toEqual([])
     // The count is a cheap badge over stored history, so it still sees the row.
-    expect(reviewCount(p)).toBe(1)
+    expect(reviewCount(p, 100)).toBe(1)
   })
 
   it("caps at the requested limit", () => {

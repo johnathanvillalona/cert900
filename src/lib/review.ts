@@ -38,11 +38,21 @@ export const isDue = (s: QStat, today: number): boolean => today >= dueDay(s)
  */
 export const isOutstandingMiss = (s: QStat): boolean => s[1] > 0 && (s[3] ?? 1) < 3
 
-/** How many questions are waiting to be re-attempted (badge counts). */
-export function reviewCount(p: ExamProgress): number {
+/**
+ * How many questions are waiting to be re-attempted (badge counts).
+ *
+ * Due-gated like reviewQueue below: a question you just re-answered has a
+ * fresh lastDay and a stretched interval, so it drops out of the count until
+ * it is actually due again. Counting outstanding-but-not-due misses made the
+ * badge (and the queue) re-serve a question seconds after it was answered.
+ */
+export function reviewCount(p: ExamProgress, today: number): number {
   if (!p.q) return 0
   let n = 0
-  for (const id of Object.keys(p.q)) if (isOutstandingMiss(p.q[id])) n++
+  for (const id of Object.keys(p.q)) {
+    const s = p.q[id]
+    if (isOutstandingMiss(s) && isDue(s, today)) n++
+  }
   return n
 }
 
@@ -52,13 +62,21 @@ export interface QueuedQuestion {
   overdue: number
 }
 
-/** Worst first: lowest box, then most overdue, then most-missed. */
+/**
+ * Worst first: lowest box, then most overdue, then most-missed.
+ *
+ * Only DUE misses are served. Without the isDue gate, a question answered
+ * correctly moments ago (box 1 -> 2, due tomorrow) re-appeared in the very
+ * next review session — the "missed questions reappear after doing them" bug.
+ * The Leitner interval IS the feature: box 2 waits a day, box 1 (missed
+ * again) has interval 0 and legitimately returns in the same session.
+ */
 export function reviewQueue(exam: ExamDef, p: ExamProgress, today: number, limit = 25): QueuedQuestion[] {
   if (!p.q) return []
   const out: QueuedQuestion[] = []
   for (const q of exam.questions) {
     const s = p.q[String(q.id)]
-    if (!s || !isOutstandingMiss(s)) continue
+    if (!s || !isOutstandingMiss(s) || !isDue(s, today)) continue
     out.push({ q, box: s[3] ?? 1, overdue: today - dueDay(s) })
   }
   out.sort((a, b) => {
