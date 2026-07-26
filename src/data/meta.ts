@@ -347,7 +347,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 5
    }
   },
-  "questionCount": 291,
+  "questionCount": 348,
   "pbqCount": 21
  },
  "220-1202": {
@@ -748,7 +748,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 4
    }
   },
-  "questionCount": 330,
+  "questionCount": 367,
   "pbqCount": 21
  },
  "n10-009": {
@@ -1171,7 +1171,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 5
    }
   },
-  "questionCount": 315,
+  "questionCount": 355,
   "pbqCount": 20
  },
  "sy0-701": {
@@ -1804,7 +1804,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 5
    }
   },
-  "questionCount": 331,
+  "questionCount": 433,
   "pbqCount": 16
  },
  "ccna-200-301": {
@@ -2853,7 +2853,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 4
    }
   },
-  "questionCount": 319,
+  "questionCount": 354,
   "pbqCount": 0
  },
  "saa-c03": {
@@ -3508,7 +3508,7 @@ export const EXAM_META: Record<string, ExamMeta> = {
     "d": 3
    }
   },
-  "questionCount": 279,
+  "questionCount": 285,
   "pbqCount": 12
  },
  "sc-900": {
