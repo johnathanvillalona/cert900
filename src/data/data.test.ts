@@ -7,16 +7,16 @@ import { EXAM_META } from "./meta"
 // Minimum-count contract per exam (legacy parity for CompTIA; launch floors
 // for newer exams). Counts only grow.
 const EXPECTED = {
-  "220-1202": { questions: 281, pbqs: 8, videos: 74, domains: 4 },
-  "220-1201": { questions: 239, pbqs: 5, videos: 62, domains: 5 },
-  "n10-009": { questions: 264, pbqs: 6, videos: 78, domains: 5 },
-  "sy0-701": { questions: 325, pbqs: 16, videos: 120, domains: 5 },
+  "220-1202": { questions: 367, pbqs: 8, videos: 74, domains: 4 },
+  "220-1201": { questions: 348, pbqs: 5, videos: 62, domains: 5 },
+  "n10-009": { questions: 355, pbqs: 6, videos: 78, domains: 5 },
+  "sy0-701": { questions: 433, pbqs: 16, videos: 120, domains: 5 },
   "aif-c01": { questions: 315, pbqs: 16, videos: 61, domains: 5 },
   // clf-c02 has no interactive items ON PURPOSE. The real CLF-C02 uses only
   // multiple choice and multiple response -- no ordering, matching, or labs --
   // so a nonzero floor here would invite someone to "fix" a correct bank.
-  "clf-c02": { questions: 315, pbqs: 0, videos: 71, domains: 4 },
-  "az-900": { questions: 275, pbqs: 12, videos: 62, domains: 3 },
+  "clf-c02": { questions: 354, pbqs: 0, videos: 71, domains: 4 },
+  "az-900": { questions: 285, pbqs: 12, videos: 62, domains: 3 },
   "sc-900": { questions: 259, pbqs: 8, videos: 58, domains: 4 },
   "ccna-200-301": { questions: 328, pbqs: 12, videos: 58, domains: 6 },
   "az-104": { questions: 312, pbqs: 12, videos: 82, domains: 5 },
