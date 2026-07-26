@@ -1,11 +1,14 @@
 # CompTIA Practice Trainer v2 — Project Context
 
 ## What this is
-A free practice-exam platform for **seven certifications** - CompTIA A+ Core 1
+A free practice-exam platform for **eleven certifications** - CompTIA A+ Core 1
 (220-1201), A+ Core 2 (220-1202), Network+ (N10-009), and Security+ (SY0-701)
-with Messer videos and PBQs; AWS AI Practitioner (AIF-C01) and Cloud
-Practitioner (CLF-C02) with freeCodeCamp chapter-timestamp videos; Azure
-Fundamentals (AZ-900) with John Savill per-topic videos. Security+ scale.pass
+with Messer videos and PBQs; **Cisco CCNA 200-301** (new `cisco` vendor) with
+Jeremy's IT Lab per-topic "Day N" videos and CLI-sim PBQs; AWS AI Practitioner
+(AIF-C01), Cloud Practitioner (CLF-C02), and **Solutions Architect Associate
+(SAA-C03)** with freeCodeCamp chapter-timestamp videos; Azure Fundamentals
+(AZ-900), **Administrator (AZ-104)**, and **Security, Compliance & Identity
+Fundamentals (SC-900)** with John Savill videos. Security+ scale.pass
 = 750 (its real cut score); SY0-701 targeted because SY0-801 doesn't reach GA
 until ~Nov 2026 and 701 stays valid into 2027. Vendor-native formats per vendors.ts VENDOR_FORMATS
 (AWS: ordering/matching all-or-nothing weight-1 interleaved; Azure: drag-and-
@@ -14,11 +17,18 @@ drop/build-list, 45-min fundamentals sims (Microsoft Learn 2026 duration; the
 CompTIA scale.pass is per-exam REAL pass lines: Core 1 675, Core 2 700,
 N10-009 720. AI-900 NOT built: Microsoft retired it Apr 2026 (AI-901
 deferred until good free resources exist - user decision 2026-07-19).
-**Bank sizes (2026-07-20)**: 220-1201 291+21, 220-1202 330+21, n10-009 315+20,
-sy0-701 331+16, aif-c01 321+16, clf-c02 319+0, az-900 279+12 = **2,270 items**.
-**clf-c02 has zero interactive items ON PURPOSE** - the real CLF-C02 uses only
-MC and multiple-response (AWS shipped ordering/matching to AI Practitioner and
-ML Engineer Associate, not the foundational exam). Do not "fix" it.
+**Bank sizes (2026-07-26)**: 220-1201 348+21, 220-1202 367+21, n10-009 355+20,
+sy0-701 433+16, ccna-200-301 328+12, aif-c01 321+16, clf-c02 354+0, saa-c03
+304+0, az-900 285+12, sc-900 259+8, az-104 312+12 = **3,804 items** (11 exams,
+3,666 Q + 138 PBQs). Gap-fill (2026-07-26) lifted every thin (1-2 Q) sub-
+objective in the six pre-2026-07-26 banks to a floor of 4 questions (+277 Q),
+adversarially refuter-verified with 0 errors. **clf-c02 AND saa-c03 have zero
+interactive items ON PURPOSE** - the real CLF-C02 and SAA-C03 use only MC and
+multiple-response (AWS shipped ordering/matching to AI Practitioner and ML
+Engineer Associate, not the foundational/associate architect exams). Do not
+"fix" either. CCNA sims use the `cisco` VENDOR_FORMATS: terminal/hotspot/order/
+match, partial credit, weight-2, fronted (like CompTIA); engine `pbqCredit`
+grants partial credit to comptia + cisco.
 Content pipeline: author agents (anti-test-wiseness rules, one per exam domain,
 briefed with the domain's existing stems) -> `tools/prep-batch.mjs` (checks
 EVERY build-failing rule before a bank is touched, since add-content is
