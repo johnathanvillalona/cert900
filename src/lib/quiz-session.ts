@@ -32,6 +32,14 @@ interface State {
   idx: number
   answers: Record<number, Answer>
   graded: Record<number, number> // fraction correct (practice/pbq modes)
+  /**
+   * Items the user actually interacted with. `answers` alone cannot tell:
+   * every PBQ gets a non-blank initial answer at session start (an order PBQ
+   * starts DERANGED, so it never reads as blank), which made the exam palette
+   * light up untouched order PBQs as "answered" and let unansweredCount skip
+   * them. Presence here — not answer shape — is what "answered" means in UI.
+   */
+  touched: Set<number>
   flags: Set<number>
   remaining: number // seconds; -1 = untimed
   /**
@@ -140,6 +148,14 @@ function initialAnswerFor(item: QuizItem): Answer | undefined {
   }
 }
 
+/** New Set with idx added — every answer-modifying action marks its item touched. */
+function touch(touched: Set<number>, idx: number): Set<number> {
+  if (touched.has(idx)) return touched
+  const next = new Set(touched)
+  next.add(idx)
+  return next
+}
+
 function reducer(state: State, action: Action): State {
   const { idx } = state
   switch (action.type) {
@@ -150,7 +166,7 @@ function reducer(state: State, action: Action): State {
       const graded = action.grade
         ? { ...state.graded, [idx]: action.oi === item.q.a ? 1 : 0 }
         : state.graded
-      return { ...state, answers: { ...state.answers, [idx]: action.oi }, graded }
+      return { ...state, answers: { ...state.answers, [idx]: action.oi }, graded, touched: touch(state.touched, idx) }
     }
     case "toggle-mc": {
       if (state.graded[idx] !== undefined) return state
@@ -161,7 +177,7 @@ function reducer(state: State, action: Action): State {
       if (at !== -1) cur.splice(at, 1)
       else if (cur.length < action.max) cur.push(action.oi)
       else return state
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "grade-mc": {
       const item = state.items[idx]
@@ -172,17 +188,17 @@ function reducer(state: State, action: Action): State {
     case "set-match": {
       const cur = (state.answers[idx] as number[]).slice()
       cur[action.itemIdx] = action.choice
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "set-terminal": {
       const cur = (state.answers[idx] as string[]).slice()
       cur[action.taskIdx] = action.command
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "set-config-field": {
       const cur = (state.answers[idx] as (number | boolean | string)[]).slice()
       cur[action.fieldIdx] = action.value
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "toggle-hotspot": {
       const cur = (state.answers[idx] as string[]).slice()
@@ -190,21 +206,21 @@ function reducer(state: State, action: Action): State {
       if (at !== -1) cur.splice(at, 1)
       else if (cur.length < action.max) cur.push(action.nodeId)
       else return state
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "place-item": {
       const cur = { ...(state.answers[idx] as Record<string, string>) }
       // remove the item from any zone it currently occupies
       for (const z of Object.keys(cur)) if (cur[z] === action.itemId) delete cur[z]
       if (action.zoneId) cur[action.zoneId] = action.itemId
-      return { ...state, answers: { ...state.answers, [idx]: cur } }
+      return { ...state, answers: { ...state.answers, [idx]: cur }, touched: touch(state.touched, idx) }
     }
     case "move-step": {
       const ord = (state.answers[idx] as number[]).slice()
       const np = action.pos + action.dir
       if (np < 0 || np >= ord.length) return state
       ;[ord[action.pos], ord[np]] = [ord[np], ord[action.pos]]
-      return { ...state, answers: { ...state.answers, [idx]: ord } }
+      return { ...state, answers: { ...state.answers, [idx]: ord }, touched: touch(state.touched, idx) }
     }
     case "reorder-step": {
       // Lift one step out and re-insert it at `to` (drag-and-drop reorder).
@@ -213,7 +229,7 @@ function reducer(state: State, action: Action): State {
       if (from === to || from < 0 || from >= ord.length || to < 0 || to >= ord.length) return state
       const [moved] = ord.splice(from, 1)
       ord.splice(to, 0, moved)
-      return { ...state, answers: { ...state.answers, [idx]: ord } }
+      return { ...state, answers: { ...state.answers, [idx]: ord }, touched: touch(state.touched, idx) }
     }
     case "grade-pbq": {
       const item = state.items[idx]
@@ -248,6 +264,8 @@ export interface QuizSession {
   item: QuizItem
   answers: Record<number, Answer>
   graded: Record<number, number>
+  /** Items the user actually interacted with — the UI's definition of "answered". */
+  touched: Set<number>
   flags: Set<number>
   remaining: number
   finished: boolean
@@ -300,6 +318,7 @@ export function useQuizSession(
       idx: 0,
       answers,
       graded: {},
+      touched: new Set(),
       flags: new Set(),
       remaining: c.mode === "exam" ? exam.examMinutes * 60 : -1,
       endsAt: c.mode === "exam" ? Date.now() + exam.examMinutes * 60_000 : 0,
@@ -367,7 +386,12 @@ export function useQuizSession(
     toggleFlag: () => dispatch({ type: "toggle-flag" }),
     finish: () => dispatch({ type: "finish" }),
     unansweredCount() {
+      // Untouched = unanswered, whatever the initial answer shape looks like
+      // (order PBQs start deranged and never read as blank). Touched items can
+      // still be blank — e.g. a multi-select toggled on then off, or a terminal
+      // command typed then cleared — so keep the blank check for those.
       return state.items.filter((it, i) => {
+        if (!state.touched.has(i)) return true
         const a = state.answers[i]
         if (it.kind === "mc") return mcAnswerBlank(a as number | number[] | undefined)
         if (a === undefined) return true

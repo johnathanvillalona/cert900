@@ -208,11 +208,17 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5" data-testid="palette">
             {session.items.map((it, i) => {
+              // "Answered" = the user actually interacted with the item. Answer
+              // shape alone lies for PBQs: an order PBQ's initial state is a
+              // deranged sequence that never reads as blank, which used to light
+              // up untouched cells (shipped bug: Core 2 exam showed Q4 answered
+              // before it was ever visited).
               const a = session.answers[i]
-              const answered =
+              const blank =
                 it.kind === "mc"
-                  ? !mcAnswerBlank(a as number | number[] | undefined)
-                  : a !== undefined && !pbqAnswerBlank(it.p, a as PBQAnswer)
+                  ? mcAnswerBlank(a as number | number[] | undefined)
+                  : a === undefined || pbqAnswerBlank(it.p, a as PBQAnswer)
+              const answered = session.touched.has(i) && !blank
               return (
                 <button
                   key={i}

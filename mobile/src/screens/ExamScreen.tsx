@@ -250,11 +250,15 @@ export function ExamScreen({ route, navigation }: RootScreenProps<"Exam">) {
             </Text>
             <ScrollView contentContainerStyle={styles.paletteGrid} testID="palette">
               {session.items.map((it, i) => {
+                // "Answered" = actually interacted with. Order PBQs start with a
+                // deranged (non-blank) sequence, so answer shape alone would light
+                // up untouched cells — same shipped bug as the web palette.
                 const a = session.answers[i]
-                const answered =
+                const blank =
                   it.kind === "mc"
-                    ? !mcAnswerBlank(a as number | number[] | undefined)
-                    : a !== undefined && !pbqAnswerBlank(it.p, a as PBQAnswer)
+                    ? mcAnswerBlank(a as number | number[] | undefined)
+                    : a === undefined || pbqAnswerBlank(it.p, a as PBQAnswer)
+                const answered = session.touched.has(i) && !blank
                 return (
                   <Pressable
                     key={i}

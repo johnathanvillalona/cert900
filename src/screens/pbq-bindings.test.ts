@@ -27,6 +27,7 @@ import path from "node:path"
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..")
 const QUIZ = readFileSync(path.join(ROOT, "src", "screens", "Quiz.tsx"), "utf8")
 const SIMS = readFileSync(path.join(ROOT, "src", "components", "pbq-sims.tsx"), "utf8")
+const MOBILE_EXAM = readFileSync(path.join(ROOT, "mobile", "src", "screens", "ExamScreen.tsx"), "utf8")
 
 describe("PBQ view bindings", () => {
   it("never binds a Select value to undefined (would go uncontrolled and desync)", () => {
@@ -49,6 +50,25 @@ describe("PBQ view bindings", () => {
     expect(renders.length, "expected the six PBQ kind renders").toBeGreaterThanOrEqual(6)
     for (const r of renders) {
       expect(r, `PBQ view render is missing key={session.idx}: ${r}`).toContain("key={session.idx}")
+    }
+  })
+})
+
+describe("exam palette answered-state", () => {
+  /**
+   * Guards the fix for a shipped bug (2026-07-26): the palette inferred
+   * "answered" from answer shape alone, but every PBQ gets a non-blank initial
+   * answer at session start — an order PBQ starts DERANGED (shuffledIndices
+   * never returns identity), so untouched order-PBQ cells lit up as answered
+   * (Core 2 exam showed Q4 answered before it was ever visited). "Answered"
+   * must be gated on session.touched, which only answer-modifying reducer
+   * actions populate.
+   */
+  it("gates a cell's answered style on session.touched, web and mobile", () => {
+    for (const [name, src] of [["Quiz.tsx", QUIZ], ["mobile ExamScreen.tsx", MOBILE_EXAM]] as const) {
+      expect(src, `${name} palette must gate answered on session.touched.has(i)`).toMatch(
+        /answered = session\.touched\.has\(i\) && !blank/,
+      )
     }
   })
 })

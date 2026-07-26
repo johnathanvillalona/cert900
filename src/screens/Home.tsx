@@ -5,7 +5,7 @@ import { ExamEmblem } from "@/components/exam-art"
 import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
 import { dayNumber } from "@/lib/progress"
-import { isDue, reviewQueue } from "@/lib/review"
+import { reviewQueue } from "@/lib/review"
 
 const MODES = [
   { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // computed per exam below
@@ -28,8 +28,8 @@ export function Home(props: {
   const totals = Object.values(p.topics).reduce((acc, s) => ({ q: acc.q + s.t, c: acc.c + s.c }), { q: 0, c: 0 })
   const weak = weakTopics(exam, p).length
   const today = dayNumber()
+  // reviewQueue is due-gated: everything it returns is ready to re-attempt now.
   const queue = reviewQueue(exam, p, today, 20)
-  const dueNow = queue.filter((x) => isDue(p.q![String(x.q.id)], today)).length
   const handlers: Record<(typeof MODES)[number]["key"], () => void> = {
     exam: props.onFullExam,
     drill: props.onDrill,
@@ -57,13 +57,8 @@ export function Home(props: {
             <span className="font-heading block text-lg font-semibold">Review your misses</span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
               <span className="font-mono font-semibold tabular-nums">{queue.length}</span>{" "}
-              {queue.length === 1 ? "question is" : "questions are"} waiting to be re-earned
-              {dueNow > 0 && dueNow < queue.length ? (
-                <>
-                  , <span className="font-mono tabular-nums">{dueNow}</span> due today
-                </>
-              ) : null}
-              . Each one leaves the queue after you get it right twice.
+              {queue.length === 1 ? "question is" : "questions are"} due to be re-earned today.
+              Each one leaves the queue after you get it right twice.
             </span>
           </span>
           <ArrowRight

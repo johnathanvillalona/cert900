@@ -2,7 +2,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { EXAMS } from "@/data/index"
 import { weakTopics } from "@/lib/engine"
 import { dayNumber } from "@/lib/progress"
-import { isDue, reviewQueue } from "@/lib/review"
+import { reviewQueue } from "@/lib/review"
 import { useProgress } from "../progress-store"
 import { colors, radius, space } from "../theme"
 import type { RootScreenProps } from "../navigation"
@@ -33,8 +33,8 @@ export function ExamHomeScreen({ route, navigation }: RootScreenProps<"ExamHome"
   const totals = Object.values(p.topics).reduce((acc, s) => ({ q: acc.q + s.t, c: acc.c + s.c }), { q: 0, c: 0 })
   const weak = weakTopics(exam, p).length
   const today = dayNumber()
+  // reviewQueue is due-gated: everything it returns is ready to re-attempt now.
   const queue = reviewQueue(exam, p, today, REVIEW_LIMIT)
-  const dueNow = queue.filter((x) => isDue(p.q![String(x.q.id)], today)).length
 
   return (
     <ScrollView contentContainerStyle={styles.content}>
@@ -47,9 +47,7 @@ export function ExamHomeScreen({ route, navigation }: RootScreenProps<"ExamHome"
         <Tile
           testID="mode-review"
           title="Review your misses"
-          desc={`${queue.length} ${queue.length === 1 ? "question is" : "questions are"} waiting to be re-earned${
-            dueNow > 0 && dueNow < queue.length ? `, ${dueNow} due today` : ""
-          }. Each one leaves the queue after you get it right twice.`}
+          desc={`${queue.length} ${queue.length === 1 ? "question is" : "questions are"} due to be re-earned today. Each one leaves the queue after you get it right twice.`}
           accent
           onPress={() => navigation.navigate("Drill", { examId, ids: queue.map((x) => x.q.id) })}
         />
