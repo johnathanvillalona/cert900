@@ -213,6 +213,8 @@ export async function weeklyIndexNow(): Promise<void> {
       urlList: [
         `${SITE}/`,
         `${SITE}/comptia-a-plus-practice-test`,
+        `${SITE}/comptia-a-plus-core-1-practice-test`,
+        `${SITE}/comptia-a-plus-core-2-practice-test`,
         `${SITE}/network-plus-practice-test`,
         `${SITE}/comptia-security-plus-practice-test`,
         `${SITE}/comptia-pbq-practice`,

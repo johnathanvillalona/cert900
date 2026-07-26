@@ -16,7 +16,7 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
-export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104" | "saa", GuideMeta> = {
+export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104" | "saa", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -230,6 +230,56 @@ export const GUIDE_META: Record<"aplus" | "nplus" | "pbq" | "secplus" | "aif" | 
       ],
     ],
   },
+  aplus1: {
+    path: "/comptia-a-plus-core-1-practice-test",
+    title: "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900",
+    description:
+      "Free CompTIA A+ Core 1 (220-1201) practice: original questions on hardware, mobile devices, networking, virtualization, and troubleshooting, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+    h1: "Free CompTIA A+ Core 1 (220-1201) practice test",
+    faq: [
+      [
+        "How many questions are on the 220-1201 exam?",
+        "Core 1 has a maximum of 90 questions in 90 minutes, mixing multiple choice with performance-based questions. The passing score is 675 on a 100 to 900 scale.",
+      ],
+      [
+        "What does 220-1201 cover?",
+        "Five domains: mobile devices, networking, hardware, virtualization and cloud computing, and hardware and network troubleshooting. Hardware and troubleshooting carry the most weight, so hands-on familiarity matters.",
+      ],
+      [
+        "Should I take Core 1 or Core 2 first?",
+        "Most candidates sit Core 1 (220-1201) first because its hardware and networking material underpins Core 2's operating system and security topics, but CompTIA allows either order. You need both to earn the A+.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every Core 1 question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free 220-1201 course.",
+      ],
+    ],
+  },
+  aplus2: {
+    path: "/comptia-a-plus-core-2-practice-test",
+    title: "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900",
+    description:
+      "Free CompTIA A+ Core 2 (220-1202) practice: original questions on operating systems, security, software troubleshooting, and operational procedures, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+    h1: "Free CompTIA A+ Core 2 (220-1202) practice test",
+    faq: [
+      [
+        "How many questions are on the 220-1202 exam?",
+        "Core 2 has a maximum of 90 questions in 90 minutes, mixing multiple choice with performance-based questions. The passing score is 700 on a 100 to 900 scale, slightly higher than Core 1's 675.",
+      ],
+      [
+        "What does 220-1202 cover?",
+        "Four domains: operating systems, security, software troubleshooting, and operational procedures. Windows administration and security together dominate the exam, so command-line and settings fluency pay off.",
+      ],
+      [
+        "Do I need to pass Core 1 before Core 2?",
+        "No. CompTIA lets you take the two core exams in either order; you just need to pass both within the same series to earn the A+ certification.",
+      ],
+      [
+        "Is this actually free?",
+        "Yes. Every Core 2 question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free 220-1202 course.",
+      ],
+    ],
+  },
   nplus: {
     path: "/network-plus-practice-test",
     title: "Free CompTIA Network+ Practice Test (N10-009) | Cert900",
@@ -429,6 +479,15 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <DomainTable examId="220-1202" />
         <p className="text-muted-foreground mt-3 text-sm">
           Real exam facts: up to 90 questions per core, 90 minutes each, passing score 675 for Core 1 and 700 for Core 2.
+          Studying one core at a time? There is a dedicated{" "}
+          <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">
+            Core 1 (220-1201) practice test
+          </a>{" "}
+          and{" "}
+          <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">
+            Core 2 (220-1202) practice test
+          </a>{" "}
+          page for each.
         </p>
       </section>
 
@@ -442,6 +501,111 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
           official domain split, plus simulated PBQs: terminals, configuration panels, and drag-to-connect cabling.
         </p>
         <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function APlusCore1Guide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.aplus1
+  const ex = EXAM_META["220-1201"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          CompTIA A+ Core 1 (220-1201) covers the hands-on half of the A+: hardware, mobile devices, networking
+          fundamentals, virtualization and cloud basics, and hardware and network troubleshooting. This site gives you{" "}
+          {ex.questionCount} original Core 1 practice questions and {ex.pbqCount} performance-based questions, free and
+          without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a
+          full exam simulation with {ex.examMC} questions plus {ex.examPBQ} PBQs in {ex.examMinutes} minutes, scored on
+          the real 100 to 900 scale with Core 1's actual 675 pass line. Every topic links to the matching free
+          Professor Messer video.
+        </p>
+        <Cta label="Start the free Core 1 practice test" onGo={() => onStart("220-1201")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What 220-1201 covers</h2>
+        <DomainTable examId="220-1201" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: up to 90 questions, 90 minutes, passing score 675 on the 100 to 900 scale. Preparing for
+          both cores? The combined{" "}
+          <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">
+            A+ practice test
+          </a>{" "}
+          page covers Core 1 and Core 2 together, and Core 2 has its own{" "}
+          <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">
+            220-1202 practice test
+          </a>{" "}
+          page.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "220-1201 · Hardware", stem: "A technician is upgrading a laptop's mechanical hard drive to a faster component that has no moving parts. Which drive is being installed?", options: ["A second HDD", "An optical drive", "An SSD", "A power supply"], answer: 2, why: "A solid-state drive (SSD) has no moving parts, is faster and more shock-resistant than an HDD, and is a common laptop upgrade." }} />
+        <Sample n={2} q={{ code: "220-1201 · Mobile Devices", stem: "An organization needs to enforce passcodes and remotely wipe company smartphones if they are lost. Which solution provides this?", options: ["DHCP", "MDM", "NAT", "RAID"], answer: 1, why: "Mobile device management (MDM) centrally enforces policy, deploys apps, and can remotely lock or wipe enrolled devices." }} />
+        <Sample n={3} q={{ code: "220-1201 · Networking", stem: "A technician needs to connect a workstation to a network jack 80 meters away. Which cable type fits within spec?", options: ["Cat 6 twisted pair", "USB 3.0", "HDMI", "Thunderbolt"], answer: 0, why: "Twisted-pair Ethernet like Cat 6 is rated to 100 meters per run; USB, HDMI, and Thunderbolt are limited to a few meters." }} />
+        <p className="text-muted-foreground text-sm">
+          The full Core 1 bank is weighted to the official domain split and includes simulated PBQs: terminals,
+          configuration panels, and drag-to-connect cabling.
+        </p>
+        <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+      </section>
+    </GuideShell>
+  )
+}
+
+export function APlusCore2Guide({ onStart }: { onStart: (examId: string) => void }) {
+  const meta = GUIDE_META.aplus2
+  const ex = EXAM_META["220-1202"]
+  return (
+    <GuideShell meta={meta}>
+      <section className="flex flex-col gap-4">
+        <p className="text-muted-foreground leading-relaxed">
+          CompTIA A+ Core 2 (220-1202) covers the software half of the A+: operating systems, security, software
+          troubleshooting, and operational procedures. This site gives you {ex.questionCount} original Core 2 practice
+          questions and {ex.pbqCount} performance-based questions, free and without an account.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a
+          full exam simulation with {ex.examMC} questions plus {ex.examPBQ} PBQs in {ex.examMinutes} minutes, scored on
+          the real 100 to 900 scale with Core 2's actual 700 pass line. Every topic links to the matching free
+          Professor Messer video.
+        </p>
+        <Cta label="Start the free Core 2 practice test" onGo={() => onStart("220-1202")} testid="guide-cta" />
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What 220-1202 covers</h2>
+        <DomainTable examId="220-1202" />
+        <p className="text-muted-foreground mt-3 text-sm">
+          Real exam facts: up to 90 questions, 90 minutes, passing score 700 on the 100 to 900 scale. Preparing for
+          both cores? The combined{" "}
+          <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">
+            A+ practice test
+          </a>{" "}
+          page covers Core 1 and Core 2 together, and Core 1 has its own{" "}
+          <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">
+            220-1201 practice test
+          </a>{" "}
+          page.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Try three sample questions</h2>
+        <Sample n={1} q={{ code: "220-1202 · Operating Systems", stem: "Which partition style must be used on a boot drive larger than 2 TB with a UEFI system?", options: ["MBR", "Dynamic", "Extended", "GPT"], answer: 3, why: "GPT (GUID Partition Table) supports drives over 2 TB and is required for UEFI booting; MBR is limited to 2 TB and 4 primary partitions." }} />
+        <Sample n={2} q={{ code: "220-1202 · Security", stem: "A user reports pop-ups claiming their PC is infected and urging them to call a support number. What kind of threat is this?", options: ["A scareware social-engineering scam", "A failing hard drive", "A Windows Update prompt", "A DHCP misconfiguration"], answer: 0, why: "Fake infection warnings with a phone number are scareware, pressuring victims into paying or granting remote access. Legitimate OS messages never include support phone numbers." }} />
+        <Sample n={3} q={{ code: "220-1202 · Software Troubleshooting", stem: "Windows boots to a black screen after a driver update. Which startup option lets the technician load Windows with only essential drivers to remove it?", options: ["Safe Mode", "BitLocker recovery", "Disk Cleanup", "Fast startup"], answer: 0, why: "Safe Mode loads a minimal driver set, letting you roll back or uninstall a bad driver. BitLocker recovery handles encryption keys, not driver failures." }} />
+        <p className="text-muted-foreground text-sm">
+          The full Core 2 bank is weighted to the official domain split and includes simulated PBQs: terminals,
+          configuration panels, and hardening screens.
+        </p>
+        <Cta label="Practice all of them free" onGo={() => onStart("220-1202")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
