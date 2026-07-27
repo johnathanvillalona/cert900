@@ -350,16 +350,16 @@ export const exam: ExamDef = {
   {
    "id": 3,
    "t": "iam-users-groups-policies",
-   "x": "A security team wants every IAM credential protected and any unused permissions surfaced for review. Which actions help them follow least-privilege best practices? Choose TWO.",
+   "x": "A security team must confirm that IAM roles across all accounts hold only the access their workloads actually need and that no stale sign-in secrets remain active. Which actions support this effort? Choose TWO.",
    "o": [
-    "Store all user long-term access keys in a shared spreadsheet",
+    "Attach the ReadOnlyAccess managed policy to every role as a safer baseline",
     "Use IAM Access Analyzer to find unused roles and permissions",
-    "Grant every user the AdministratorAccess policy for flexibility",
-    "Turn off CloudTrail in each account to reduce logging cost",
+    "Enable Amazon GuardDuty and review its findings in each account",
+    "Consolidate workloads onto a single shared service role to simplify reviews",
     "Generate IAM credential reports to review password and key age"
    ],
    "a": 1,
-   "e": "Access Analyzer highlights unused access to tighten policies, and credential reports reveal stale or aged credentials. Sharing keys, granting admin broadly, and disabling CloudTrail all weaken security.",
+   "e": "IAM Access Analyzer identifies roles and permissions that are never used so policies can be scoped down, and credential reports list each user's password and access-key age so stale secrets can be disabled. GuardDuty detects active threats rather than over-broad policies, attaching ReadOnlyAccess everywhere grants unneeded read access instead of removing it, and a shared service role broadens access rather than narrowing it.",
    "d": 1,
    "as": [
     1,
@@ -641,16 +641,16 @@ export const exam: ExamDef = {
   {
    "id": 22,
    "t": "cross-account-access",
-   "x": "An architect is designing secure cross-account role assumption for a third-party vendor. Which controls strengthen this trust relationship? Choose TWO.",
+   "x": "An architect is designing cross-account role assumption for a third-party vendor. Which controls make this arrangement more secure? Choose TWO.",
    "o": [
     "Require an external ID in the role's trust policy",
-    "Publish the role ARN in a public code repository",
+    "Keep the role's ARN confidential and share it only over an encrypted channel",
     "Add an MFA condition to the assume-role request",
-    "Disable CloudTrail in the account being accessed",
-    "Grant the vendor role AdministratorAccess for convenience"
+    "Issue the vendor long-term IAM user access keys instead of temporary role sessions",
+    "Rotate the role's ARN on a fixed schedule so stale references stop working"
    ],
    "a": 0,
-   "e": "An external ID defeats the confused-deputy problem and an MFA condition adds assurance to the assume-role call. Publishing ARNs, granting admin, and disabling CloudTrail all reduce security.",
+   "e": "An external ID prevents the confused-deputy problem, and an MFA condition adds a second factor to the assume-role call. Role ARNs are identifiers rather than secrets, so keeping them confidential or rotating them provides no real protection, and long-term vendor access keys are weaker than short-lived role sessions.",
    "d": 1,
    "as": [
     0,
@@ -663,12 +663,12 @@ export const exam: ExamDef = {
    "x": "An engineer assumes a cross-account role but receives an access-denied error, even though the destination role already carries the needed permissions. Which element is MOST likely misconfigured?",
    "o": [
     "The trust policy on the destination role does not permit the calling principal",
-    "The destination account billing settings are out of date this month",
-    "The destination S3 bucket is missing an object lifecycle rule",
-    "The engineer's source account is missing an internet gateway route"
+    "The destination role's permissions policy is missing an sts:AssumeRole statement",
+    "The engineer's long-term access keys have not been rotated recently",
+    "The destination role is not associated with an EC2 instance profile"
    ],
    "a": 0,
-   "e": "Cross-account assumption requires the destination role's trust policy to allow the caller. Since the role already has the needed permissions, the trust relationship is the likely gap; billing and networking are unrelated.",
+   "e": "Cross-account AssumeRole must be allowed by the destination role's trust policy, so a trust policy that omits the calling principal is the likely gap when the role's permissions are otherwise correct. The role's own permissions policy, including any sts:AssumeRole statement in it, controls what the role can do after assumption rather than who may assume it; key age does not block API calls, and instance profiles matter only when attaching a role to EC2.",
    "d": 1
   },
   {
@@ -1014,13 +1014,13 @@ export const exam: ExamDef = {
    "t": "cognito-app-identity",
    "x": "A gaming app expects millions of players and needs a managed identity store that scales automatically for authentication. Why is Amazon Cognito a better fit than self-managed IAM users?",
    "o": [
-    "IAM users natively provide social login and JWT tokens for mobile applications out of the box",
+    "IAM users cannot be created through an API, so player sign-ups could not be automated",
     "IAM users are meant for AWS account access and hit a hard limit, unlike Cognito for end users",
-    "Cognito is unable to integrate with any external or social identity provider at all",
-    "IAM users automatically scale to millions of application end users without any limit"
+    "Cognito issues each player permanent credentials, so the app never handles token expiry or refresh",
+    "IAM users require a hardware MFA device for each principal, which is impractical at player scale"
    ],
    "a": 1,
-   "e": "IAM users are intended for a limited set of AWS account principals and are capped per account, so they cannot back a large app user base. Cognito is designed to scale to millions of end users.",
+   "e": "IAM users represent principals in the AWS account itself and are subject to a per-account quota, while Cognito user pools are built to hold millions of application identities. IAM users can in fact be created programmatically and do not require hardware MFA, and Cognito issues short-lived tokens that must be refreshed rather than permanent credentials.",
    "d": 1
   },
   {
@@ -1455,13 +1455,13 @@ export const exam: ExamDef = {
    "t": "acm-tls-in-transit",
    "x": "A regulated workload requires traffic to stay encrypted from the client all the way to the backend EC2 targets, not only to the load balancer. How should the Application Load Balancer be configured?",
    "o": [
-    "Disable the load balancer and expose the instances directly",
+    "Enable the strictest TLS security policy on the HTTPS listener and turn on access logging",
     "Use HTTPS listeners and register targets over HTTPS to the instances",
-    "Use a Network Load Balancer with unencrypted TCP passthrough",
-    "Terminate TLS at the ALB and forward plaintext HTTP to targets"
+    "Replace the ALB with a Network Load Balancer configured for TLS passthrough",
+    "Terminate TLS at the ALB with an ACM certificate and forward to the target group on port 80"
    ],
    "a": 1,
-   "e": "Configuring HTTPS both on the listener and to the targets keeps traffic encrypted end to end. Terminating TLS and forwarding plaintext leaves the final hop unencrypted.",
+   "e": "Encrypting both hops means an HTTPS listener for clients plus target registration over HTTPS to the instances. A strict TLS security policy on the listener secures only the client-to-ALB hop, forwarding to the target group on port 80 leaves the final hop in the clear, and swapping in an NLB does not answer how the ALB itself should be configured.",
    "d": 1
   },
   {
@@ -1481,15 +1481,15 @@ export const exam: ExamDef = {
   {
    "id": 77,
    "t": "waf-shield-ddos",
-   "x": "An enterprise requires advanced DDoS protection with 24/7 access to the AWS response team and cost protection against scaling charges during an attack. Which service meets this requirement?",
+   "x": "An enterprise requires enhanced DDoS mitigation with 24/7 access to a specialist response team and financial protection against scaling charges incurred during an attack. Which service meets this requirement?",
    "o": [
-    "Amazon CloudFront with default settings",
-    "AWS WAF rate-based rules alone",
+    "Amazon CloudFront",
+    "AWS WAF with rate-based rules",
     "AWS Shield Standard",
     "AWS Shield Advanced"
    ],
    "a": 3,
-   "e": "Shield Advanced adds enhanced DDoS mitigation, access to the Shield Response Team, and billing protection for attack-driven scaling. Shield Standard is automatic but lacks these features.",
+   "e": "Shield Advanced adds enhanced DDoS mitigation, 24/7 access to the Shield Response Team, and cost protection for scaling caused by an attack. Shield Standard is the always-on baseline included with every account but offers neither response-team access nor billing protection, and WAF rate-based rules only throttle layer 7 request floods.",
    "d": 1
   },
   {
@@ -2096,16 +2096,16 @@ export const exam: ExamDef = {
   {
    "id": 117,
    "t": "lambda-serverless",
-   "x": "A Lambda function needs database credentials at runtime without them being hardcoded, and its environment variables must be encrypted at rest. Which two approaches meet these requirements? Choose TWO.",
+   "x": "A Lambda function needs database credentials at runtime without hardcoding them, and both the stored secret and the function's environment variables must be encrypted at rest. Which two approaches meet these requirements? Choose TWO.",
    "o": [
     "Retrieve the secret from AWS Secrets Manager at runtime",
-    "Pass the password as a plaintext CLI argument",
+    "Fetch the credentials from a Parameter Store String parameter at runtime",
     "Encrypt environment variables with an AWS KMS key",
-    "Keep the password in the function's code comments",
-    "Put the credentials in the deployment package name"
+    "Have the CI pipeline inject the credentials into the function code as build-time constants",
+    "Store the database password in an AWS CloudHSM cluster for the function to query"
    ],
    "a": 0,
-   "e": "Fetching credentials from Secrets Manager avoids hardcoding, and KMS encrypts environment variables at rest; storing secrets in code or arguments exposes them.",
+   "e": "Secrets Manager keeps the secret encrypted with KMS and serves it to the function at runtime, and a KMS key satisfies the encryption requirement for environment variables. A Parameter Store String parameter stores its value unencrypted because only SecureString parameters are KMS-encrypted, constants injected at build time still hardcode the value into the code, and CloudHSM manages cryptographic keys rather than serving application passwords.",
    "d": 2,
    "as": [
     0,
@@ -2900,14 +2900,14 @@ export const exam: ExamDef = {
    "t": "disaster-recovery-strategies",
    "x": "A solutions architect is selecting a disaster recovery strategy based on two objectives. Which two statements correctly describe recovery point objective and recovery time objective? Choose TWO.",
    "o": [
-    "RTO is the total monthly cost of running the standby environment",
-    "RPO is the number of Regions in the disaster recovery architecture",
+    "RTO is the maximum amount of data loss the business can tolerate after an outage",
+    "RPO is the maximum time allowed to bring the service back online after an outage",
     "RTO is the maximum time allowed to restore service after an outage",
     "RPO is the maximum data loss allowed, expressed as a time span",
-    "RPO equals the count of read replicas attached to the database"
+    "RTO is determined by the interval between successive backups of the workload"
    ],
    "a": 2,
-   "e": "RPO expresses how much data loss is tolerable as a window of time, while RTO expresses how quickly service must be restored. Neither term refers to Region counts, replica counts, or the cost of the environment.",
+   "e": "RTO caps how long service restoration may take, and RPO caps how much data, measured as a span of time, may be lost. The reversed definitions are the classic trap: maximum tolerable data loss is RPO rather than RTO, and the backup interval drives RPO, not RTO.",
    "d": 2,
    "as": [
     2,
@@ -3119,15 +3119,15 @@ export const exam: ExamDef = {
   {
    "id": 184,
    "t": "efs-shared-storage",
-   "x": "An application must control which EC2 instances may mount an EFS file system and must encrypt data in transit. Which combination provides this MOST securely?",
+   "x": "An application must control which EC2 instances may mount an EFS file system and must encrypt data in transit. What should a solutions architect implement to meet both requirements?",
    "o": [
-    "A security group that allows all inbound traffic",
-    "Storing mount credentials in the file system metadata",
-    "A public NFS export open to the entire VPC CIDR",
+    "A security group on the mount targets allowing NFS only from the application subnet",
+    "File system encryption at rest with a KMS customer managed key",
+    "NFS export rules on the file system restricting mounts to approved client IP addresses",
     "EFS access points with IAM authorization and TLS mount encryption"
    ],
    "a": 3,
-   "e": "EFS access points combined with IAM authorization and TLS-encrypted NFS mounts restrict and secure access per application. Broadly opening the export or allowing all inbound traffic removes that control.",
+   "e": "Access points with IAM authorization govern which principals and instances may use the file system, and mounting with TLS encrypts the NFS traffic in transit. A subnet-scoped security group restricts reachability but leaves traffic unencrypted, KMS encryption at rest protects stored data rather than data in transit, and EFS does not support traditional NFS export rules.",
    "d": 3
   },
   {
@@ -3315,11 +3315,11 @@ export const exam: ExamDef = {
    "o": [
     "DynamoDB Accelerator",
     "ElastiCache for Memcached",
-    "An RDS read replica",
-    "Amazon CloudFront"
+    "DynamoDB Streams",
+    "DynamoDB global tables"
    ],
    "a": 0,
-   "e": "DAX is an in-memory cache purpose-built for DynamoDB, delivering microsecond reads through the same DynamoDB API with minimal code change. ElastiCache would require separate cache-management logic.",
+   "e": "DynamoDB Accelerator is an in-memory cache purpose-built for DynamoDB that delivers microsecond reads through the same DynamoDB API, so the application code stays unchanged. ElastiCache for Memcached can cache reads but forces the application to add its own cache-management logic, while DynamoDB Streams captures item changes and global tables replicate data across Regions; neither reduces read latency.",
    "d": 3
   },
   {
@@ -3851,15 +3851,15 @@ export const exam: ExamDef = {
   {
    "id": 232,
    "t": "glue-athena-lake",
-   "x": "An organization building an Amazon S3 data lake needs to grant analysts fine-grained, column-level access permissions centrally across Athena and Redshift Spectrum. Which service centralizes this data lake governance?",
+   "x": "An organization storing analytics datasets in Amazon S3 needs to grant analysts fine-grained, column-level access permissions centrally across Athena and Redshift Spectrum. Which service centralizes this permission management?",
    "o": [
-    "AWS Global Accelerator",
+    "AWS IAM",
     "AWS Lake Formation",
-    "AWS Certificate Manager",
-    "Amazon CloudFront"
+    "AWS Glue Data Catalog resource policies",
+    "Amazon S3 bucket policies"
    ],
    "a": 1,
-   "e": "Lake Formation centrally manages fine-grained, column- and row-level permissions for data lake tables used by Athena and Redshift Spectrum. The other services handle certificates, content delivery, and network routing.",
+   "e": "Lake Formation centrally manages fine-grained, column- and row-level permissions on tables queried through Athena and Redshift Spectrum. AWS Glue Data Catalog resource policies only control catalog access down to databases and tables, and AWS IAM and S3 bucket policies operate at the API, bucket, or object level, so none of them can restrict individual columns.",
    "d": 3
   },
   {
@@ -4287,7 +4287,7 @@ export const exam: ExamDef = {
   {
    "id": 261,
    "t": "storage-gateway-hybrid",
-   "x": "On-premises users need low-latency access to fully managed Windows file shares in AWS over SMB with Active Directory integration. Which gateway provides a local cache to Amazon FSx for Windows File Server?",
+   "x": "On-premises users need low-latency access to fully managed Windows file shares hosted in AWS over SMB with Active Directory integration. Which gateway provides a local cache for these shares?",
    "o": [
     "Amazon S3 File Gateway",
     "Volume Gateway in cached mode",
@@ -4295,7 +4295,7 @@ export const exam: ExamDef = {
     "Tape Gateway"
    ],
    "a": 2,
-   "e": "FSx File Gateway caches Amazon FSx for Windows File Server shares locally over SMB with AD integration. S3 File Gateway maps to S3 objects rather than a managed Windows file system.",
+   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares.",
    "d": 4
   },
   {
@@ -4475,15 +4475,15 @@ export const exam: ExamDef = {
   {
    "id": 273,
    "t": "savings-plans",
-   "x": "An architect is weighing Savings Plans against Reserved Instances and wants discounts applied automatically to any matching usage without managing individual reservations. Which characteristic favors Savings Plans?",
+   "x": "An architect is comparing Savings Plans with Standard Reserved Instances for steady-state compute usage. Which statement about Savings Plans is accurate?",
    "o": [
     "They discount matching usage automatically up to an hourly spend commitment",
     "They provide a capacity reservation within an Availability Zone",
-    "They require selecting a specific instance ID before purchase",
-    "They cannot be combined with any On-Demand usage on the account"
+    "They lock the discount to one instance type and size for the term",
+    "They allow the hourly commitment to be lowered at any time during the term"
    ],
    "a": 0,
-   "e": "Savings Plans automatically discount matching usage up to the committed hourly amount with no per-reservation management. They do not reserve capacity, which is a separate feature.",
+   "e": "Savings Plans apply their discount to any matching usage up to the committed hourly spend with no per-reservation management. They never reserve capacity in an Availability Zone, the hourly commitment cannot be lowered mid-term, and even EC2 Instance Savings Plans flex across instance sizes rather than locking a single type and size.",
    "d": 4
   },
   {
@@ -4933,12 +4933,12 @@ export const exam: ExamDef = {
    "x": "A team wants an Aurora deployment that can automatically pause and resume for a rarely used test database so they pay almost nothing when it is inactive. Which Aurora option supports automatic pause during inactivity?",
    "o": [
     "Aurora Serverless v2 with a minimum of 2 ACUs",
-    "Aurora Serverless v1 with auto-pause enabled",
+    "Aurora Serverless v1",
     "A provisioned Aurora cluster stopped on a schedule",
     "Aurora Global Database with a secondary Region"
    ],
-   "a": 1,
-   "e": "Aurora Serverless v1 can auto-pause after a period of inactivity and resume on the next connection, minimizing cost for a rarely used database. A v2 cluster pinned to a 2-ACU minimum keeps that capacity running so it never pauses, and stopping a provisioned cluster on a schedule requires manual automation.",
+   "a": 0,
+   "e": "Aurora Serverless v1 can pause automatically after a period of inactivity and resume on the next connection, so a rarely used test database costs almost nothing while idle. A Serverless v2 cluster pinned to a 2-ACU minimum keeps that capacity billed continuously, and a provisioned cluster stopped on a schedule needs custom automation and cannot restart itself when a connection arrives. Aurora Global Database targets cross-Region disaster recovery, not idle-time cost.",
    "d": 4
   },
   {

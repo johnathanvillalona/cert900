@@ -1784,15 +1784,15 @@ export const exam: ExamDef = {
   {
    "id": 83,
    "t": "resiliency",
-   "x": "An online service places redundant application servers in two data centers located in different regions so a regional power outage or natural disaster cannot take the whole service offline. Which resiliency strategy does this represent?",
+   "x": "An online service runs redundant application servers in two data centers sited far apart, so a power outage or natural disaster at one location cannot take the whole service offline. Which resiliency strategy does this represent?",
    "o": [
-    "Vertical scaling",
-    "In-rack clustering",
+    "Platform diversity",
+    "Warm-site failover",
     "Geographic dispersion",
-    "Single-site load balancing"
+    "Capacity planning"
    ],
    "a": 2,
-   "e": "Geographic dispersion places redundant systems in physically separate regions so a localized event, such as a regional outage or natural disaster, cannot disable the entire service. Clustering or load balancing within one location improves availability there but still fails if that whole site is lost, and vertical scaling only adds resources to a single machine.",
+   "e": "Running live redundant servers in widely separated facilities is geographic dispersion: no single localized disaster can reach both copies of the service. Warm-site failover also involves a second facility, but it describes a standby recovery site that must be activated after an outage, whereas here both locations actively serve the application; platform diversity varies vendors and technologies, not locations.",
    "d": 3
   },
   {
@@ -1884,13 +1884,13 @@ export const exam: ExamDef = {
    "t": "hardening-targets",
    "x": "A security administrator hardening a Linux web server runs a port scan that reveals Telnet, FTP, and a database daemon the application does not use. Which hardening action most directly shrinks the host's attack surface?",
    "o": [
-    "Enlarge the server's swap partition",
-    "Rotate the TLS certificate on the web service",
-    "Turn off the unneeded listeners and close their ports",
-    "Schedule more frequent full backups"
+    "Move Telnet and FTP to high, nonstandard ports",
+    "Update the three daemons to their latest patched versions",
+    "Disable those services and close their listening ports",
+    "Enable detailed connection logging for each listener"
    ],
    "a": 2,
-   "e": "Disabling unused services such as Telnet and FTP and the idle database, then closing their listening ports, removes entry points and directly reduces the attack surface. Rotating a certificate, resizing swap, and scheduling backups do not remove the exposed services.",
+   "e": "Disabling services the host does not need and closing their ports removes those entry points outright, which is the most direct reduction in attack surface. Updating the daemons hardens code that remains reachable, and moving Telnet and FTP to nonstandard ports merely obscures listeners a scanner will still find; neither removes the exposure.",
    "d": 4
   },
   {
@@ -1926,13 +1926,13 @@ export const exam: ExamDef = {
    "t": "wireless-security-settings",
    "x": "A company wants employees to authenticate to the corporate wireless network with individual certificates rather than a shared password, and it wants a central server to make each accept-or-reject decision. Which configuration should the wireless network use?",
    "o": [
-    "WPA3-Personal with a rotating pre-shared key",
-    "Open authentication with a captive portal",
-    "WPA2-Personal with MAC address filtering",
+    "WPA3-Personal with the pre-shared key rotated by a management server",
+    "Open authentication with a centrally hosted captive portal",
+    "WPA2-Personal with MAC filtering synchronized from a directory server",
     "WPA3-Enterprise with 802.1X and a RADIUS server"
    ],
    "a": 3,
-   "e": "WPA3-Enterprise uses 802.1X to hand authentication to a Remote Authentication Dial-In User Service (RADIUS) server, which can validate each user's certificate through EAP. Personal modes rely on one shared passphrase and cannot authenticate individual users with certificates.",
+   "e": "WPA3-Enterprise uses 802.1X to forward every authentication attempt to a RADIUS server, which can validate each employee's individual certificate through EAP-TLS. A centrally hosted captive portal only presents a web login page and cannot perform certificate-based authentication, and any Personal mode still relies on a shared passphrase no matter how a management server rotates or distributes it.",
    "d": 4
   },
   {
@@ -2444,13 +2444,13 @@ export const exam: ExamDef = {
    "t": "digital-forensics",
    "x": "During evidence acquisition, an examiner creates a bit-for-bit image of a drive and hashes both the original and the image. What does comparing the two hash values accomplish?",
    "o": [
-    "It recovers files that were previously deleted from the drive",
-    "It encrypts the image so only the analyst can open it",
-    "It compresses the image to save storage space",
+    "It identifies which specific files differ between the drive and the image",
+    "It checks the drive's contents against a database of known malicious hashes",
+    "It records the exact acquisition time for the chain-of-custody log",
     "It proves the image is an exact, unaltered copy of the original"
    ],
    "a": 3,
-   "e": "Calculating and comparing the hash of the original drive and the forensic image proves the copy is identical and has not been changed; matching hashes verify the integrity of the evidence. Hashing does not recover, encrypt, or compress data.",
+   "e": "Matching hash values demonstrate that the forensic image is bit-for-bit identical to the source drive, establishing the integrity of the evidence. A whole-drive hash is a single value, so the comparison can only show whether the two are identical, never which specific files differ; screening content against known-malicious hash databases is a separate analysis step, not what comparing the acquisition hashes does.",
    "d": 4
   },
   {
@@ -3018,13 +3018,13 @@ export const exam: ExamDef = {
    "t": "blockchain-technology",
    "x": "A university registrar is evaluating a distributed ledger for issued diplomas so that employers can confirm a credential is genuine without contacting the school. Which characteristic of the technology supports that goal?",
    "o": [
-    "Automatic deletion of outdated credentials",
-    "Guaranteed confidentiality of student grades",
-    "Reduced storage requirements at every node",
+    "Revocation lookups handled by the registrar's own node",
+    "Entries encrypted so only approved employers can read them",
+    "The registrar's ability to correct entries after they are issued",
     "Public verifiability of an append-only record"
    ],
    "a": 3,
-   "e": "A distributed ledger lets any party independently validate that an entry exists and has not been altered, which removes the need to call the issuer for confirmation. Confidentiality is the wrong fit because the same openness that enables verification means the ledger is a poor place to hide private data.",
+   "e": "Because a distributed ledger is publicly verifiable and append-only, any employer can independently confirm that a diploma entry exists and has not been altered, with no call to the school. Routing revocation lookups through the registrar's own node defeats that goal, since checks would again depend on the issuer being reachable; encrypting entries for approved readers would likewise force employers to obtain keys from the school first.",
    "d": 1
   },
   {
@@ -3116,13 +3116,13 @@ export const exam: ExamDef = {
    "t": "gap-analysis",
    "x": "A retailer's board wants to know whether the company actually meets the security framework it publicly claims to follow. Which assessment answers that question most directly?",
    "o": [
-    "A comparison of current practices against the framework's requirements",
-    "A scan of internet-facing hosts for missing patches",
-    "An interview-based estimate of likely breach costs",
-    "A tabletop exercise walking through an incident"
+    "A control-by-control comparison of current practices against the published requirements",
+    "A scan of internet-facing hosts mapped to the framework's technical controls",
+    "An interview-based estimate of the likely cost of a breach",
+    "A tabletop exercise walking the response team through a simulated incident"
    ],
    "a": 0,
-   "e": "Answering a conformance question means holding today's practices side by side with the published requirements and documenting where they diverge. Estimating breach costs is a risk-analysis activity: it may inform priorities later, but it says nothing about whether the claimed framework is being met.",
+   "e": "Answering a conformance question means holding each current practice side by side with the published requirements and documenting where they diverge. A scan mapped to the framework's technical controls only samples externally visible patch state, so it cannot show whether procedural and administrative requirements are met; estimating breach costs is risk analysis, which says nothing about conformance.",
    "d": 1
   },
   {
@@ -3226,15 +3226,15 @@ export const exam: ExamDef = {
   {
    "id": 186,
    "t": "technical-change-management",
-   "x": "An administrator plans a database engine upgrade for Saturday night. Two reporting services and a public web front end connect to that instance and will error out while it is offline. What must the plan address before the maintenance window opens?",
+   "x": "An administrator schedules a database engine upgrade for Saturday night. Two reporting services and a public web front end connect to that instance. What must the upgrade plan account for before the maintenance window opens?",
    "o": [
-    "The dependent services that rely on the instance",
-    "The number of concurrent user licenses",
-    "The vendor's marketing release notes",
-    "The physical rack position of the server"
+    "The effect of the outage on systems that use the database",
+    "The number of concurrent user licenses in the vendor contract",
+    "The average query volume during weekday business hours",
+    "The hardware warranty status of the host server"
    ],
    "a": 0,
-   "e": "Technical change management requires mapping every downstream system that consumes the component being changed so restart order, outage notices, and rollback timing can be planned. Concurrent license counts might matter for capacity planning but they have no bearing on which services break while the database is unavailable.",
+   "e": "Technical change management requires an impact analysis of every system that consumes the component being modified, so the plan can sequence restarts, send outage notices, and time the work around those consumers. Concurrent license counts and hardware warranty status may matter to procurement, but neither changes what happens to the reporting services and web front end while the database is offline.",
    "d": 1
   },
   {
@@ -3422,15 +3422,15 @@ export const exam: ExamDef = {
   {
    "id": 200,
    "t": "cryptographic-attacks",
-   "x": "A load balancer still accepts a client request to fall back to an obsolete protocol version whenever the modern handshake fails, and an adversary abuses that behavior to force weak ciphers onto the connection. Which mitigation addresses the underlying problem?",
+   "x": "A load balancer silently retries a failed modern handshake using a legacy alternative whenever the client asks for one, and an adversary abuses that retry behavior to force weak ciphers onto the connection. Which mitigation addresses the underlying problem?",
    "o": [
-    "Enable client certificate authentication",
-    "Increase the session ticket lifetime",
-    "Rotate the server certificate more frequently",
+    "Require OCSP stapling during the handshake",
+    "Shorten the session ticket lifetime",
+    "Prefer the server's cipher ordering during negotiation",
     "Disable the outdated protocol versions on the server"
    ],
    "a": 3,
-   "e": "If the weak versions are not offered at all, there is nothing to fall back to and the negotiation cannot be pushed downward. Rotating the certificate more often limits the damage from a stolen private key but leaves the negotiation logic untouched, so the same forced fallback still succeeds.",
+   "e": "Removing the outdated versions from the server's offer means the retry has nothing weaker to land on, so the forced downgrade fails outright. Preferring the server's cipher ordering only chooses among the ciphers the negotiated version supports and cannot stop the connection from being steered onto the legacy handshake, while certificate stapling and session ticket tuning address revocation and resumption rather than negotiation.",
    "d": 2
   },
   {
@@ -3492,7 +3492,7 @@ export const exam: ExamDef = {
   {
    "id": 205,
    "t": "viruses-and-worms",
-   "x": "Malicious code appends itself to executable files sitting on a departmental shared drive and only becomes active when a colleague launches one of those programs on their own workstation. Which statement best describes what this code requires to spread?",
+   "x": "Analysts find that several programs stored on a departmental shared drive have each grown by the same number of bytes, and workstations become infected at unpredictable times with no scanning or inbound connection activity preceding each infection. Which statement best describes what this code requires to spread?",
    "o": [
     "It needs a command channel before it can activate",
     "It needs a host program and a user to run it",
@@ -3500,7 +3500,7 @@ export const exam: ExamDef = {
     "It needs administrative rights on the source host"
    ],
    "a": 1,
-   "e": "This category attaches to a carrier file and depends entirely on someone executing that carrier, which is the defining difference from self-replicating network code. An open listening port would matter for something that propagates over the network on its own, but this sample never initiates a connection to reach a new machine.",
+   "e": "File-infecting code rides inside a carrier program and spreads only when someone executes that carrier, which is what separates it from self-propagating network code. An open listening port or a pre-established command channel would matter for malware that moves or activates over the network, but this sample never initiates or accepts a connection to reach a new machine.",
    "d": 2
   },
   {
@@ -3676,13 +3676,13 @@ export const exam: ExamDef = {
    "t": "mobile-device-vulnerabilities",
    "x": "An executive's personal phone has been altered to strip the vendor's software restrictions so that applications from outside the official store can be installed. Why does the security team refuse to enroll it in the corporate mail system?",
    "o": [
-    "The screen resolution breaks mail rendering",
-    "The carrier will refuse to activate the SIM",
+    "Push notifications for mail would route through unmanaged relay servers",
+    "Mail traffic would traverse the carrier network without encryption",
     "The operating system sandbox no longer holds",
-    "The battery will drain faster under policy"
+    "The device can no longer report its location if lost or stolen"
    ],
    "a": 2,
-   "e": "Removing those restrictions dismantles the isolation that keeps one application from reading another's data, so any installed app could reach corporate mail and credentials. Battery consumption is an inconvenience with no bearing on whether company data stays confined to the approved application.",
+   "e": "Stripping the vendor's restrictions dismantles the isolation that keeps one application from reading another's data, so any sideloaded app could reach corporate mail and its credentials. Mail transport stays encrypted in transit regardless of the device's state, so unprotected carrier traffic is not the issue, and push routing and lost-device location reporting behave the same on modified and unmodified phones.",
    "d": 2
   },
   {
@@ -3690,13 +3690,13 @@ export const exam: ExamDef = {
    "t": "mobile-device-vulnerabilities",
    "x": "A field technician loses a tablet holding cached maintenance records for regulated customer sites. The unit had only a four-digit passcode and was never enrolled in management. Which capability would have most reduced the data exposure?",
    "o": [
-    "Weekly antivirus scans of the tablet",
-    "A louder audible alarm on the device",
-    "A tracking sticker on the tablet case",
+    "Nightly cloud backups of the cached records",
+    "A host-based firewall blocking inbound connections",
+    "A privacy filter to prevent shoulder surfing",
     "Remote wipe with enforced device encryption"
    ],
    "a": 3,
-   "e": "Encryption keeps the stored records unreadable without the passcode, and a remote wipe lets the organization destroy the data before anyone works through a weak four-digit space. Antivirus scanning defends against hostile software on a device you still possess and offers nothing once the hardware is in someone else's hands.",
+   "e": "Enforced encryption keeps the cached records unreadable to whoever holds the hardware, and remote wipe lets the organization destroy them before a four-digit passcode is worked through. Nightly cloud backups preserve the company's copy but do nothing about the copy sitting on the lost unit, and a host-based firewall or privacy filter only protects a device still in authorized hands.",
    "d": 2
   },
   {
@@ -4276,15 +4276,15 @@ export const exam: ExamDef = {
   {
    "id": 261,
    "t": "threat-intelligence",
-   "x": "After a breach at an unrelated firm, a retailer wants early warning that its own employees' credentials are being traded on underground forums. Which intelligence source directly supports that goal?",
+   "x": "After a breach at an unrelated firm, a retailer wants early warning if its employees' logins begin circulating among criminals. Which intelligence source directly supports that goal?",
    "o": [
-    "Internal firewall logs from the perimeter devices",
+    "Authentication logs from the identity provider",
     "Dark web monitoring for leaked credential collections",
-    "Regulatory filings published by the retailer's peers",
-    "Vendor release notes for the point of sale software"
+    "Sector threat advisories from an information sharing group",
+    "A commercial vulnerability scoring feed for its software stack"
    ],
    "a": 1,
-   "e": "Monitoring underground marketplaces and paste sites is how organizations learn their credentials are circulating before those credentials get used. Perimeter logs would only reveal an attempt after someone tries the stolen credentials against the retailer, which is far later than the early warning being requested.",
+   "e": "Dark web monitoring watches the marketplaces and paste sites where stolen credential collections are offered, providing warning before anyone tries them. Authentication logs from the identity provider only reveal the problem once someone attempts to use the stolen logins against the retailer, which is later than the early warning requested, while sector advisories and vulnerability feeds describe general threats and flaws rather than the retailer's own exposed accounts.",
    "d": 4
   },
   {
@@ -4304,15 +4304,15 @@ export const exam: ExamDef = {
   {
    "id": 263,
    "t": "analyzing-vulnerabilities",
-   "x": "Two findings carry identical base severity ratings: one sits on an internet-facing payment gateway with published exploit code, the other on a lab workstation with no route in from outside. What should drive the order of remediation?",
+   "x": "Two findings carry identical base severity ratings: one affects a payment gateway reachable by anyone on the internet with attacks already reported in the wild, the other affects a lab workstation with no route in from outside. What should drive the order of remediation?",
    "o": [
-    "The number of total findings reported per device",
+    "The number of total findings reported on each device",
     "The age of the operating system installed on each host",
     "Environmental exposure and the availability of a working exploit",
-    "The alphabetical order of the affected product names"
+    "The length of time each finding has remained open"
    ],
    "a": 2,
-   "e": "Base severity describes the flaw in isolation, so real prioritization comes from context: reachability, business value, and whether attackers already have usable exploit code. Counting how many findings each device has is misleading, since a single reachable and weaponized flaw outranks a long list of unreachable ones.",
+   "e": "Base ratings describe a flaw in isolation, so remediation order should come from context: whether attackers can actually reach the system and whether usable exploit activity already exists. How long a finding has been open and how many findings a device carries are workload metrics rather than risk measures, so a single reachable, actively attacked flaw outranks a backlog of unreachable ones.",
    "d": 4
   },
   {
@@ -4432,13 +4432,13 @@ export const exam: ExamDef = {
    "t": "web-filtering",
    "x": "Malware on a workstation resolves an algorithmically generated hostname before it ever opens a session to its operator. Which filtering method can break the callback at the name resolution step?",
    "o": [
-    "Requiring signed macros in office productivity documents",
+    "Enforcing DNSSEC validation on all lookups",
     "Blocking known malicious domains at the resolver",
     "Dropping inbound connection attempts at the edge router",
     "Rewriting request headers at the reverse proxy"
    ],
    "a": 1,
-   "e": "Filtering at the resolver refuses to answer lookups for known bad names, so the callback fails before a single packet reaches the operator. Dropping inbound attempts at the edge router addresses traffic arriving from outside, which is the wrong direction for a compromised host reaching out on its own.",
+   "e": "A filtering resolver refuses to answer lookups for known malicious names, so the callback dies before a single packet reaches the operator. Enforcing DNSSEC validation only proves responses were not forged in transit; an attacker's own domain can be validly signed and would still resolve, and dropping inbound attempts at the edge router faces the wrong direction for a compromised host calling out.",
    "d": 4
   },
   {
@@ -4780,15 +4780,15 @@ export const exam: ExamDef = {
   {
    "id": 297,
    "t": "log-data",
-   "x": "Events from a firewall, a proxy, and two domain controllers cannot be lined up into one timeline because each device reports a noticeably different clock. What must be corrected first?",
+   "x": "Events from a firewall, a proxy, and two domain controllers cannot be lined up into one incident timeline; the same activity appears minutes apart depending on which device logged it. What must be corrected first?",
    "o": [
     "Time synchronization across every logging source",
-    "Retention length configured on the collector",
-    "Severity levels assigned to each message type",
-    "Transport encryption between devices and collector"
+    "Normalization of event formats before ingestion",
+    "Deduplication of repeated events at the collector",
+    "Retention length configured on the collector"
    ],
    "a": 0,
-   "e": "Correlation depends on a shared and accurate time reference, so every source should synchronize to the same authoritative clock before any timeline is trusted. Adjusting retention keeps records available longer but does nothing to make the timestamps on those records comparable to one another.",
+   "e": "Building one trustworthy timeline requires every logging source to reference the same accurate clock, so synchronizing time across the devices must happen before anything else. Normalizing event formats makes fields from different vendors comparable but leaves each device's timestamps unchanged, so the sources would still disagree about when events occurred; deduplication and retention affect volume and lifespan, not ordering.",
    "d": 4
   },
   {
@@ -5270,29 +5270,29 @@ export const exam: ExamDef = {
   {
    "id": 332,
    "t": "blockchain-technology",
-   "x": "A cryptocurrency network has no central authority, yet thousands of independent nodes must agree on which transactions are valid before a new block is committed. Which mechanism lets these mutually distrusting participants reach that agreement?",
+   "x": "In a public cryptocurrency network, thousands of independent nodes that do not trust one another must each end up committing the identical new block to their copy of the shared ledger. Which mechanism makes this possible?",
    "o": [
-    "A central key escrow service",
+    "Merkle tree hashing of the transactions in each block",
     "A consensus mechanism such as proof of work",
-    "A trusted certificate authority",
-    "A load balancer distributing requests"
+    "Digital signatures applied by each transaction's sender",
+    "A distributed hash table used for peer discovery"
    ],
    "a": 1,
-   "e": "Blockchains use a consensus mechanism, such as proof of work or proof of stake, so distributed nodes agree on the valid ledger without a central authority. A certificate authority is a centralized trust anchor, which is exactly what a blockchain is designed to avoid.",
+   "e": "Only a consensus mechanism such as proof of work lets mutually distrusting nodes converge on a single valid ledger state without a coordinator. Merkle tree hashing and per-transaction digital signatures verify the integrity and authorization of individual data but do not decide which competing block the whole network commits, and a distributed hash table only helps peers locate one another.",
    "d": 1
   },
   {
    "id": 333,
    "t": "blockchain-technology",
-   "x": "A public blockchain stores a complete copy of the ledger on every participating node instead of in one database. If some nodes go offline or one operator alters its own copy, the record stays available and correct. Which property provides this resilience?",
+   "x": "Auditors note that a public blockchain's transaction record stays available and correct even when several operators drop offline or one operator tampers with its own records. Which design property of the blockchain provides this resilience?",
    "o": [
-    "Decentralized copies stored on every node",
-    "A single authoritative master server",
-    "Nightly backups to offline media",
-    "RAID mirroring on the primary host"
+    "A decentralized ledger replicated across many participants",
+    "Automated failover to a hot-site standby data center",
+    "RAID mirroring within each operator's storage array",
+    "Scheduled snapshots restored from write-protected backups"
    ],
    "a": 0,
-   "e": "Every node holding an independent copy makes the ledger decentralized, so no single failure or tampered copy can take down or rewrite the shared record. A single master server would reintroduce the central point of failure blockchains are built to remove.",
+   "e": "Because the decentralized ledger is replicated across many independent participants, the honest majority preserves an available, correct record even if some nodes fail or one operator alters its own data. Hot-site failover and RAID mirroring protect a single operator's infrastructure, so a failed or dishonest operator could still lose or corrupt the record everyone depends on.",
    "d": 1
   },
   {
@@ -5382,15 +5382,15 @@ export const exam: ExamDef = {
   {
    "id": 340,
    "t": "gap-analysis",
-   "x": "While conducting a gap analysis, an assessor documents the organization's present security posture and the posture it is required to reach. The analysis then concentrates on identifying what specifically?",
+   "x": "An assessor documents an organization's current security posture, compares it with the posture a new compliance framework requires, and reports the specific shortfalls the organization must remediate. Which type of assessment is being performed?",
    "o": [
-    "The total cost of ownership for each system",
-    "The residual risk left after all controls",
-    "The gap between the current and desired states",
-    "The likelihood assigned to each individual threat"
+    "Risk assessment",
+    "Business impact analysis",
+    "Gap analysis",
+    "Vulnerability assessment"
    ],
    "a": 2,
-   "e": "A gap analysis compares where the organization is now against where it needs to be and reports the differences that must be closed. Residual risk is what remains after controls are applied, which is a separate measurement.",
+   "e": "Documenting the current state, comparing it against a required target state, and reporting the differences to close is a gap analysis. A risk assessment instead weighs threats, likelihoods, and impacts, and a vulnerability assessment enumerates technical flaws rather than measuring distance from a required posture.",
    "d": 1
   },
   {
@@ -5653,15 +5653,15 @@ export const exam: ExamDef = {
   {
    "id": 359,
    "t": "zero-trust",
-   "x": "A Zero Trust network is divided into many small, individually isolated segments so that compromising one workload does not let an attacker move freely to the others. Which Zero Trust technique is this?",
+   "x": "A Zero Trust architecture places each workload into its own tightly scoped isolation zone with an individual access policy, so an attacker who compromises one workload cannot move laterally to the rest. Which technique does this describe?",
    "o": [
-    "Perfect forward secrecy",
-    "Port mirroring",
-    "Round-robin load balancing",
+    "Air gapping",
+    "Screened subnet",
+    "802.1X port-based network access control",
     "Microsegmentation"
    ],
    "a": 3,
-   "e": "Microsegmentation isolates workloads into small zones so lateral movement is contained if one is breached. Perfect forward secrecy protects session keys and has nothing to do with segmenting network access.",
+   "e": "Microsegmentation gives each workload its own small isolation zone and access policy, containing lateral movement after a breach. A screened subnet only separates public-facing hosts from the internal network at the perimeter, and 802.1X decides whether a device may join the network at all rather than restricting movement between workloads already inside.",
    "d": 1
   },
   {
@@ -5841,15 +5841,15 @@ export const exam: ExamDef = {
   {
    "id": 371,
    "t": "cryptographic-attacks",
-   "x": "Attackers who steal a database of unsalted password hashes reverse them almost instantly using enormous precomputed lookup tables. Which defense specifically defeats these precomputed tables?",
+   "x": "After stealing a database of password hashes, attackers reverse a large share of them almost instantly by matching the stored values against enormous precomputed lookup tables. Which defense specifically defeats these precomputed tables?",
    "o": [
     "Adding a unique random salt to each password before hashing",
-    "Enabling perfect forward secrecy on the server",
-    "Switching the server to a longer symmetric key",
-    "Increasing the web session idle timeout"
+    "Enforcing an account lockout after repeated failed logins",
+    "Requiring scheduled password changes every 60 days",
+    "Enabling multifactor authentication on all accounts"
    ],
    "a": 0,
-   "e": "A unique per-password salt makes every stored hash different, so a single precomputed rainbow table can no longer match many accounts at once. Session timeouts, forward secrecy, and symmetric key length do not affect cracking of stored password hashes.",
+   "e": "A unique per-password salt changes every stored hash, so a table precomputed for the bare hashing algorithm no longer matches any of them. Account lockout, scheduled password changes, and multifactor authentication all operate at login time and do nothing to stop offline cracking of an already stolen hash database.",
    "d": 2
   },
   {
@@ -6307,13 +6307,13 @@ export const exam: ExamDef = {
    "x": "During a hardening review, an analyst is deciding which steps genuinely shrink a file server's operating system attack surface. Which TWO actions directly support that goal? Choose TWO.",
    "o": [
     "Disable services the role does not need",
-    "Extend the DHCP lease duration",
-    "Increase the monitor's screen brightness",
-    "Add more RAM to the server",
+    "Increase audit logging verbosity on the server",
+    "Schedule more frequent full backups",
+    "Deploy an intrusion detection sensor on the segment",
     "Remove unused default user accounts"
    ],
    "a": 0,
-   "e": "Disabling unneeded services and removing unused default accounts each eliminate potential entry points, shrinking the attack surface. Adding RAM or changing DHCP leases does not remove any exposed functionality an attacker could target.",
+   "e": "Disabling unneeded services and removing unused default accounts each eliminate functionality or credentials an attacker could target, directly shrinking the attack surface. Verbose audit logging and an intrusion detection sensor improve detection, and extra backups improve recovery, but none of those removes anything exposed for an attacker to exploit.",
    "d": 2,
    "as": [
     0,
@@ -6440,15 +6440,15 @@ export const exam: ExamDef = {
   {
    "id": 412,
    "t": "replay-attacks",
-   "x": "An attacker extracts a password hash from a compromised workstation's memory and presents that hash to authenticate to other servers without ever cracking the plaintext password. Which attack, a form of replay, is this?",
+   "x": "An attacker harvests a credential hash from a compromised workstation's memory and presents it directly to other servers to authenticate as the user, without ever recovering the plaintext password. Which attack, a form of replay, is this?",
    "o": [
     "Dictionary attack",
-    "ARP poisoning",
+    "Rainbow table attack",
     "Pass-the-hash",
-    "Cross-site scripting"
+    "Credential stuffing"
    ],
    "a": 2,
-   "e": "Pass-the-hash reuses a captured credential hash to authenticate as the user, replaying stored material rather than recovering the password. A dictionary attack instead guesses plaintext passwords and does not reuse a captured hash.",
+   "e": "Pass-the-hash replays the captured hash directly to authentication services, impersonating the user without ever recovering the password. A rainbow table attack also targets stolen hashes but works by cracking them back to plaintext, which the scenario explicitly rules out, and credential stuffing reuses known plaintext passwords across different sites.",
    "d": 2
   },
   {
@@ -6482,15 +6482,15 @@ export const exam: ExamDef = {
   {
    "id": 415,
    "t": "segmentation-and-access-control",
-   "x": "A firewall administrator ends every access control list with a rule that blocks any traffic not explicitly permitted by an earlier entry. What is the purpose of this final rule?",
+   "x": "While reviewing firewall configurations, an analyst checks how each access control list handles traffic that matches none of the configured entries. Per secure firewall practice, what should the final rule in each list do?",
    "o": [
-    "To log the source port of every allowed session",
-    "To translate internal addresses to public ones",
-    "To speed up processing of allowed packets",
-    "To drop any traffic not explicitly permitted"
+    "Permit unmatched traffic while logging each session for review",
+    "Rate-limit unmatched traffic so it cannot saturate the link",
+    "Redirect unmatched traffic to a quarantine network for inspection",
+    "Enforce a default-deny posture by blocking unmatched traffic"
    ],
    "a": 3,
-   "e": "A closing deny-all rule ensures anything not specifically allowed is dropped, enforcing a default-deny posture. It does not perform address translation or accelerate processing of permitted traffic.",
+   "e": "Secure firewall practice ends every access control list with a default-deny rule, so anything not explicitly permitted by an earlier entry is blocked and nothing slips through by omission. Permitting unmatched traffic with logging is a default-allow posture that still admits unknown traffic, and rate-limiting or quarantining it would keep forwarding traffic that was never authorized.",
    "d": 2
   },
   {
@@ -6714,12 +6714,12 @@ export const exam: ExamDef = {
    "x": "Employees report that the office wireless network becomes completely unusable whenever a particular device is switched on nearby, saturating the frequency with radio noise. Which type of wireless attack does this indicate?",
    "o": [
     "RF jamming",
-    "Credential stuffing",
-    "DNS tunneling",
-    "Cross-site scripting"
+    "Evil twin access point",
+    "Deauthentication flood",
+    "Bluejacking"
    ],
    "a": 0,
-   "e": "Flooding the wireless spectrum with interfering radio energy so legitimate signals cannot get through is RF jamming, a form of denial of service. Credential stuffing and DNS tunneling do not involve overwhelming the radio frequency itself.",
+   "e": "Flooding the spectrum with interfering radio energy so no legitimate wireless signal can get through is RF jamming. A deauthentication flood also denies wireless service, but it uses forged 802.11 management frames rather than raw radio noise, and an evil twin access point lures clients to a rogue network instead of blocking the medium.",
    "d": 2
   },
   {
@@ -6727,14 +6727,14 @@ export const exam: ExamDef = {
    "t": "zero-day-vulnerabilities",
    "x": "A newly exploited flaw has no signature yet, and the security team is choosing defenses that stand a chance of catching the attack in progress. Which TWO approaches best help here? Choose TWO.",
    "o": [
-    "Relying only on signature updates",
-    "Waiting for the next quarterly patch cycle",
+    "Shortening the antivirus signature update interval",
+    "Scheduling an annual penetration test",
     "A defense-in-depth layered architecture",
-    "Disabling all endpoint monitoring",
+    "Enforcing stricter password complexity rules",
     "Behavior-based anomaly detection"
    ],
    "a": 2,
-   "e": "Behavior-based detection and layered defenses can limit or catch novel activity even when no signature exists. Signature-only tools cannot recognize a threat that has no definition yet, so relying on them leaves a gap against zero-days.",
+   "e": "Behavior-based anomaly detection can flag novel activity that matches no existing definition, and a layered defense-in-depth architecture gives other controls a chance to contain what one layer misses. Shortening the signature update interval still depends on a signature existing, which a brand-new exploit lacks, and an annual penetration test assesses posture rather than catching an attack in progress.",
    "d": 2,
    "as": [
     2,
@@ -6746,13 +6746,13 @@ export const exam: ExamDef = {
    "t": "zero-day-vulnerabilities",
    "x": "A researcher privately reports a previously unknown software flaw to the vendor and agrees to withhold public details until a patch is released. What is the primary security benefit of this coordinated approach?",
    "o": [
-    "It automatically compensates the researcher through a regulator",
+    "It transfers legal liability for any exploitation to the researcher",
     "It shrinks the window attackers have before a fix exists",
-    "It removes the need for the vendor to test the patch",
-    "It guarantees the flaw can never be rediscovered by others"
+    "It lets affected customers begin applying workarounds immediately",
+    "It raises the flaw's severity score so scanners prioritize it"
    ],
    "a": 1,
-   "e": "Coordinated disclosure gives the vendor time to develop a fix before details become public, shrinking the exposure window for attackers. It cannot guarantee no one else independently finds the flaw, nor does it replace patch testing.",
+   "e": "Withholding details until a fix ships narrows the window in which attackers can exploit an unpatched flaw. Customers cannot begin applying workarounds immediately, because the whole point of the coordination is that details stay private until the patch exists, and the process changes neither the flaw's severity score nor who carries legal liability.",
    "d": 2
   }
  ],

@@ -630,13 +630,13 @@ export const exam: ExamDef = {
    "t": "reliability",
    "x": "A finance manager wants confidence in what the next quarter's cloud bill will be. Which approach best supports cost predictability?",
    "o": [
-    "Distributing application replicas across separate physical sites",
-    "Allowing each team to deploy any resource size on demand",
-    "Restoring services from an offsite copy after an outage",
+    "Reviewing the itemized invoice after each billing period closes",
+    "Moving eligible virtual machines to spot pricing for the deepest discount",
+    "Deleting unattached disks and idle resources at the end of each month",
     "Estimating spend in advance and tracking usage against budgets"
    ],
    "a": 3,
-   "e": "Cost predictability comes from forecasting expected spend before deployment and then monitoring real usage against those estimates. Replica distribution and offsite restores support availability and recovery, and unconstrained deployment sizes make spending harder to forecast.",
+   "e": "Predictability comes from forecasting expected spend before deployment and then comparing actual usage against budgets as the quarter progresses. Reviewing the invoice after the period closes only explains money already spent, and spot pricing and idle-resource cleanup can lower the bill but make it no easier to forecast, since spot rates and evictions vary.",
    "d": 1
   },
   {
@@ -1456,13 +1456,13 @@ export const exam: ExamDef = {
    "t": "serverless",
    "x": "An IoT platform processes sensor readings that arrive in unpredictable bursts, with hours of silence in between. Management wants compute charges to drop to zero during the quiet periods. Which behavior of the Azure Functions consumption plan supports this?",
    "o": [
-    "Reserved capacity is purchased up front in exchange for a discounted hourly rate",
-    "A flat monthly fee covers an unlimited number of function executions",
-    "Instances scale out as events arrive and billing stops when nothing is running",
-    "Charges accrue per core allocated to a dedicated virtual machine each hour"
+    "Unused execution credits from busy bursts roll over to offset the next month's bill",
+    "Charges pause for the remainder of the month once a preset spending cap is reached",
+    "Compute is allocated as events arrive and charges accrue only while executions run",
+    "Dedicated worker VMs are deallocated automatically after a configurable idle timeout"
    ],
    "a": 2,
-   "e": "The consumption plan allocates instances only while events are being processed and bills by execution count and duration, so idle hours cost nothing. Prepaid reserved capacity and per-core hourly charges describe commitment-based or infrastructure-style billing, both of which keep costing money while the workload sits idle.",
+   "e": "On the consumption plan, instances exist only while events are being processed and billing is based on execution count, duration, and memory, so hours of silence generate no compute charges. Automatic deallocation of dedicated worker VMs describes plans that hold reserved infrastructure, and rollover credits and mid-month spending pauses are not part of the consumption billing model.",
    "d": 2
   },
   {
@@ -2064,13 +2064,13 @@ export const exam: ExamDef = {
    "x": "An architect is building a pre-deployment estimate in the Azure pricing calculator. Which inputs drive the estimate? (Select TWO.)",
    "o": [
     "The services and tiers planned for the solution",
-    "Invoice history from an existing subscription",
+    "The resource group structure planned for the deployment",
     "The regions where the resources will run",
-    "Utilization metrics collected by Azure Monitor",
-    "The tenant’s current Advisor recommendations"
+    "The management group hierarchy planned for the tenant",
+    "The Azure Policy assignments planned for governance"
    ],
    "a": 0,
-   "e": "Pricing-calculator estimates come from what you plan to deploy: the services, their tiers and sizes, and the regions that host them. Invoices, live metrics, and Advisor data describe existing environments and play no part in a pre-deployment estimate.",
+   "e": "The calculator prices what you intend to deploy: each service, its tier and size, and the region that hosts it, because rates differ by product and location. Resource groups, management groups, and policy assignments organize and govern resources but carry no charge of their own, so the calculator never asks about them.",
    "d": 3,
    "as": [
     0,
@@ -2082,13 +2082,13 @@ export const exam: ExamDef = {
    "t": "cost-management",
    "x": "A department head wants an email notification when subscription spending reaches 80 percent of a set monthly amount, without any resources being stopped. What should be configured?",
    "o": [
-    "A spending limit applied to the subscription",
-    "A policy assignment that denies new deployments",
-    "A read-only lock at the subscription scope",
+    "An Azure Monitor metric alert on virtual machine CPU",
+    "A Service Health alert scoped to the subscription",
+    "An activity log alert on resource deployment operations",
     "A budget with an alert rule in Cost Management"
    ],
    "a": 3,
-   "e": "A Cost Management budget can send alert emails at defined thresholds while leaving every resource untouched. A spending limit disables resources when the cap is reached, so it fails the requirement, and policies and locks govern deployments and changes rather than spending notifications.",
+   "e": "A Cost Management budget fires email alerts at defined thresholds, such as 80 percent of the monthly amount, while leaving every resource running untouched. Azure Monitor metric alerts and activity log alerts watch performance counters and control-plane operations rather than accumulated spend, and Service Health alerts report platform incidents, so none of them can track a monthly cost threshold.",
    "d": 3
   },
   {
@@ -3875,15 +3875,15 @@ export const exam: ExamDef = {
   {
    "id": 235,
    "t": "zero-trust",
-   "x": "After adopting the model, a company stops treating its corporate office network as inherently trustworthy. What changes in day-to-day practice?",
+   "x": "A company adopts a Zero Trust model across its corporate offices and remote workforce. What changes in day-to-day security practice?",
    "o": [
-    "Office devices skip policy checks to reduce friction",
-    "Firewalls become the sole control guarding resources",
+    "All applications are consolidated behind a single hardened network perimeter",
+    "Employees must connect through the corporate VPN even when working on site",
     "Every request is verified no matter where it starts",
-    "Only remote staff must complete extra verification"
+    "An additional inspection firewall is placed between the office and the internet"
    ],
    "a": 2,
-   "e": "Verify explicitly means authenticating and authorizing each request on all available signals, whether it comes from a coffee shop or a desk in headquarters. Exempting the office would recreate the implicit trust boundary that the model is intended to remove.",
+   "e": "Zero Trust's verify-explicitly principle authenticates and authorizes every request on all available signals, whether it originates at headquarters or a coffee shop. Mandatory VPNs, consolidated perimeters, and added inspection firewalls all extend trust based on network location, which is exactly the assumption the model abandons.",
    "d": 2
   },
   {
@@ -3891,13 +3891,13 @@ export const exam: ExamDef = {
    "t": "zero-trust",
    "x": "A design assumes an attacker will eventually obtain a valid credential and get inside. Which control most directly limits how far that intruder can travel?",
    "o": [
-    "Granting standing administrator rights to avoid delays",
-    "Segmenting access so identities reach only what they need",
-    "Extending the password expiry interval for all accounts",
-    "Publishing more internal services to the public internet"
+    "Enforcing multi-factor authentication for every sign-in",
+    "Segmenting the environment with least-privilege access for each identity",
+    "Requiring complex passwords that rotate on a fixed schedule",
+    "Encrypting all traffic that crosses the internal network"
    ],
    "a": 1,
-   "e": "Assume breach pairs with least privilege and segmentation so a compromised account unlocks a narrow slice of the estate instead of the whole environment. Standing administrator rights do the opposite, handing an intruder broad control the moment a privileged credential is stolen.",
+   "e": "Assume breach pairs with segmentation and least privilege so a compromised account unlocks only a narrow slice of the environment instead of the whole estate. Multi-factor authentication and password rotation aim to prevent the credential theft the design already assumes will succeed, and encrypting internal traffic protects data from eavesdropping without restricting where an authenticated intruder can go.",
    "d": 2
   },
   {
@@ -4027,14 +4027,14 @@ export const exam: ExamDef = {
    "t": "cloud-adoption-framework",
    "x": "A manufacturer is at the earliest stages of its cloud journey and has not yet chosen any workloads to move. Which Cloud Adoption Framework activities belong to this early phase? (Select TWO.)",
    "o": [
-    "Running a post-migration cost optimization review",
-    "Tuning autoscale rules on production workloads",
-    "Decommissioning the last on-premises datacenter",
+    "Deploying a landing zone with core networking and identity services",
+    "Drafting operational runbooks for the cloud support team",
+    "Standardizing resource tagging and cost-governance policies",
     "Building a prioritized digital estate inventory",
     "Defining business justification and expected outcomes"
    ],
    "a": 3,
-   "e": "The Strategy and Plan methodologies come first: agree why the move is happening and what success looks like, then inventory and rank the estate so a migration backlog exists. Retiring a datacenter, tuning autoscale, and reviewing spend after the fact all assume workloads already run in Azure, so they sit in later methodologies such as Migrate and Manage.",
+   "e": "The Strategy and Plan methodologies come first: define the business justification and expected outcomes, then inventory and prioritize the digital estate so a migration backlog exists. Landing zone deployment, tagging and governance standards, and operational runbooks belong to the Ready, Govern, and Manage methodologies that build on an agreed strategy and plan.",
    "d": 3,
    "as": [
     3,
@@ -4522,15 +4522,15 @@ export const exam: ExamDef = {
   {
    "id": 278,
    "t": "portal-tools",
-   "x": "A new administrator must apply one identical tag to 200 existing resources and finds clicking through each blade far too slow. Which approach suits a change of this size?",
+   "x": "A new administrator must apply one identical tag to 200 existing resources in a subscription. Which approach suits a change of this size?",
    "o": [
-    "Submit a quota increase for the subscription",
-    "Open each resource blade one at a time",
+    "Assign an Azure Policy that audits resources missing the tag",
+    "Export the resource list to CSV and edit the tag column in the spreadsheet",
     "Script the change with Azure PowerShell",
-    "File a support request with Microsoft"
+    "Recreate each resource from an ARM template that includes the tag"
    ],
    "a": 2,
-   "e": "Command-line tools such as Azure PowerShell and the Azure CLI let a single loop apply the same change to hundreds of resources, and the script can be reviewed and rerun later. The graphical portal is well suited to exploration and one-off work but scales poorly to repetitive bulk edits. Support requests and quota increases address entitlement problems, not the effort of making a change.",
+   "e": "A short Azure PowerShell or Azure CLI loop can stamp the same tag on hundreds of resources in one run, and the script can be saved, reviewed, and rerun later. An audit policy only reports resources that lack the tag without adding it, an exported CSV is a read-only snapshot whose edits change nothing in Azure, and recreating 200 resources from templates risks downtime for a simple metadata change.",
    "d": 3
   },
   {
@@ -4550,15 +4550,15 @@ export const exam: ExamDef = {
   {
    "id": 280,
    "t": "conditional-access-mfa",
-   "x": "Administrators should be able to open the Azure portal only from devices that are marked compliant by the organization's device-management service. Which Conditional Access access control enforces this requirement?",
+   "x": "Administrators should be able to open the Azure portal only from devices that meet the requirements in the organization's Intune device policies. Which Conditional Access access control enforces this requirement?",
    "o": [
     "Require an approved client application",
     "Require multi-factor authentication at sign-in",
-    "Require a password reset before access is granted",
+    "Require the device to be Microsoft Entra hybrid joined",
     "Require the device to be marked as compliant"
    ],
    "a": 3,
-   "e": "The require-compliant-device grant control checks that a device meets the policies enforced by the mobile device management service before access is allowed. Requiring multi-factor authentication verifies the user's identity but says nothing about the health or compliance of the device.",
+   "e": "Intune compliance policies evaluate devices against the organization's requirements and mark passing devices as compliant, and the require-compliant-device grant control admits only devices carrying that status. Requiring a Microsoft Entra hybrid joined device verifies how the device is joined to the directory, not whether it satisfies Intune policy, and approved client app and multi-factor authentication constrain the application or the user rather than the device's state.",
    "d": 2
   },
   {
