@@ -1,0 +1,183 @@
+{
+ "examId": "sy0-701",
+ "fixes": [
+  {
+   "id": 51,
+   "o": [
+    "Attackers can use widely available rainbow tables to recover each stored password",
+    "Anyone who gains access to that store immediately obtains every user's usable password",
+    "The passwords can be captured in transit even when the site enforces TLS on every connection",
+    "A single leaked salt value would let attackers unlock every account's stored entry"
+   ],
+   "a": 1
+  },
+  {
+   "id": 54,
+   "o": [
+    "Apply the latest vendor patches to the Telnet and FTP services",
+    "Forward the server's authentication logs to a SIEM for review",
+    "Require complex passwords on the FTP and database accounts",
+    "Disable the services the application does not require"
+   ],
+   "a": 3,
+   "x": "A vulnerability scan of a web server reports that Telnet, FTP, and a database listener are all reachable, though the application serves traffic only over HTTP and HTTPS. Which hardening step most directly reduces the server's attack surface?",
+   "e": "Disabling services and protocols the system does not need, and closing their ports, removes listening entry points an attacker could reach and directly shrinks the attack surface. Patching, stronger passwords, and log monitoring make the remaining services safer to run, but they leave every unnecessary listener still exposed."
+  },
+  {
+   "id": 55,
+   "o": [
+    "Endpoint detection and response",
+    "Unified endpoint management",
+    "Data loss prevention",
+    "Host-based firewall"
+   ],
+   "a": 0,
+   "x": "A security team wants an agent on every company workstation that goes beyond matching known malware signatures to also watch process behavior, record host telemetry, and let analysts investigate and isolate threats on the machine. Which solution fits this need?"
+  },
+  {
+   "id": 59,
+   "o": [
+    "The customer remains responsible for patching the language runtime that executes the functions",
+    "The provider takes over responsibility for flaws in the customer's function code",
+    "The provider patches the operating system, so the customer does not manage the host",
+    "The short lifetime of each function invocation prevents code injection attacks"
+   ],
+   "a": 2,
+   "x": "A development team packages individual application functions and deploys them to a cloud provider that runs each one on demand, billing only for execution time. What is one security implication of this serverless model?"
+  },
+  {
+   "id": 61,
+   "o": [
+    "The control plane",
+    "The data plane",
+    "The management plane",
+    "The application plane"
+   ],
+   "a": 0,
+   "x": "In software-defined networking, which plane is centralized and computes the forwarding rules that are pushed down to the network switches?"
+  },
+  {
+   "id": 13,
+   "o": [
+    "Key stretching",
+    "Public key pinning",
+    "Key exchange",
+    "Key escrow"
+   ],
+   "a": 3,
+   "e": "Key escrow stores a copy of private keys with a trusted third party or system so the organization can recover encrypted data when the original key is unavailable. Key stretching strengthens password-derived keys, key exchange establishes session keys between parties, and public key pinning ties a service to an expected certificate; none of these keeps a recoverable copy of a user's private key."
+  },
+  {
+   "id": 17,
+   "o": [
+    "The password is encrypted instead of hashed before storage",
+    "Each hash takes longer to compute, which slows guessing attempts",
+    "The password never has to travel to the authentication server",
+    "Identical passwords no longer produce identical stored hashes"
+   ],
+   "a": 3,
+   "x": "What is the primary security benefit of salting passwords before they are hashed and stored?",
+   "e": "A unique salt ensures that two users with the same password produce different stored hashes, which defeats precomputed rainbow-table attacks and hides the fact that passwords are shared. Salting does not encrypt the password, does not change how long the hash takes to compute, and does not affect how credentials reach the server; slowing each computation is the job of key stretching."
+  },
+  {
+   "id": 20,
+   "o": [
+    "Wildcard certificate",
+    "Extended validation certificate",
+    "Intermediate certificate",
+    "Self-signed certificate"
+   ],
+   "a": 3,
+   "x": "A browser refuses to trust a website's certificate because it cannot build a chain to any trusted root, and inspection shows the certificate's issuer field is identical to its subject field. What kind of certificate is the server presenting?"
+  },
+  {
+   "id": 25,
+   "o": [
+    "The system's TLS certificates expire and can no longer be renewed",
+    "Existing security patches are removed once vendor support ends",
+    "Newly discovered flaws stay open and exploitable",
+    "The host firewall stops enforcing its rule set on an unsupported build"
+   ],
+   "a": 2,
+   "x": "A factory production line depends on a server whose operating system reached end of life with its vendor several years ago. Why does relying on this system create a serious threat vector?",
+   "e": "An end-of-life operating system no longer receives security updates, so every vulnerability discovered after support ends stays open permanently and gives attackers a reliable way in. Reaching end of life does not strip patches that were already applied, expire the host's certificates, or change how its firewall enforces rules; the danger is that newly found flaws will never be fixed."
+  },
+  {
+   "id": 30,
+   "o": [
+    "A misinformation campaign",
+    "A pretexting campaign",
+    "An impersonation campaign",
+    "A disinformation campaign"
+   ],
+   "a": 3
+  },
+  {
+   "id": 33,
+   "o": [
+    "Reflected cross-site scripting",
+    "DOM-based cross-site scripting",
+    "Cross-site request forgery",
+    "Stored cross-site scripting"
+   ],
+   "a": 3,
+   "x": "An attacker submits a forum comment containing a malicious script, and the application writes the comment into its database. When other users later view the thread, the script runs in their browsers and steals session cookies. Which attack is this?",
+   "e": "In stored, or persistent, cross-site scripting, the malicious payload is saved by the application, so it executes for every user who loads the affected page, commonly to hijack sessions. Reflected and DOM-based variants deliver the script through a crafted link or client-side code without persisting it, and cross-site request forgery tricks a victim's browser into sending forged requests rather than injecting script."
+  },
+  {
+   "id": 36,
+   "o": [
+    "The exploit rewrites its own code with each infection to confuse scanners",
+    "No signature exists yet to match the new threat",
+    "The malicious code runs entirely in memory where file scanners cannot see it",
+    "All of its network traffic is encrypted so scanners cannot inspect the payload"
+   ],
+   "a": 1,
+   "x": "Attackers are actively exploiting a software flaw that neither the vendor nor the security community knows about yet. Why do antivirus products that rely on threat definition databases struggle to detect it?"
+  },
+  {
+   "id": 38,
+   "o": [
+    "Conducting security assessments of vendors before integration",
+    "Purchasing insurance that covers losses from vendor incidents",
+    "Signing nondisclosure agreements with every new supplier",
+    "Consolidating orders under a single long-standing supplier"
+   ],
+   "a": 0,
+   "e": "Vendor due diligence, including assessing a supplier's security posture, reviewing a software bill of materials, and verifying code signing before integration, directly addresses supply chain risk. Nondisclosure agreements, insurance coverage, and consolidating purchases shape the business relationship but do nothing to verify that a supplier's products and practices are secure."
+  },
+  {
+   "id": 46,
+   "o": [
+    "A SYN flood attack",
+    "A DNS tunneling attack",
+    "A Slowloris attack",
+    "An amplification attack"
+   ],
+   "a": 3,
+   "x": "An attacker sends small DNS queries with a spoofed source address so that the servers' much larger responses are all directed at the victim's network. What is this technique called?"
+  },
+  {
+   "id": 50,
+   "o": [
+    "The login portal never locks accounts regardless of failed attempts",
+    "Password complexity rules are not enforced when users enroll",
+    "Multifactor authentication is required only for administrator accounts",
+    "The attacker has obtained a copy of the stored password hashes to test guesses against"
+   ],
+   "a": 3,
+   "x": "Which condition must be met before an attacker can conduct an offline brute-force attack against user passwords?"
+  },
+  {
+   "id": 34,
+   "a": 1,
+   "o": [
+    "Requiring HTTPS on every page of the application",
+    "Encoding user-supplied content before it is rendered",
+    "Encrypting the database where comments are stored",
+    "Hashing each comment before it is written to disk"
+   ],
+   "x": "A code review finds that a web application inserts user-submitted comments directly into its pages. Which coding practice most directly prevents this behavior from becoming a cross-site scripting flaw?"
+  }
+ ]
+}

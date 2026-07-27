@@ -806,13 +806,13 @@ export const exam: ExamDef = {
    "t": "public-key-infrastructure",
    "x": "An enterprise wants assurance that it can still recover encrypted files if an employee loses their private key or leaves the company. Which PKI concept provides this capability?",
    "o": [
-    "Certificate revocation list",
-    "Online Certificate Status Protocol",
-    "Certificate pinning",
+    "Key stretching",
+    "Public key pinning",
+    "Key exchange",
     "Key escrow"
    ],
    "a": 3,
-   "e": "Key escrow stores a copy of private keys with a trusted third party or system so the organization can recover encrypted data when the original key is unavailable. A certificate revocation list and the Online Certificate Status Protocol report whether a certificate is still valid, not how to recover a lost key.",
+   "e": "Key escrow stores a copy of private keys with a trusted third party or system so the organization can recover encrypted data when the original key is unavailable. Key stretching strengthens password-derived keys, key exchange establishes session keys between parties, and public key pinning ties a service to an expected certificate; none of these keeps a recoverable copy of a user's private key.",
    "d": 1
   },
   {
@@ -860,15 +860,15 @@ export const exam: ExamDef = {
   {
    "id": 17,
    "t": "hashing-and-digital-signatures",
-   "x": "What is the primary security benefit of adding a unique, random salt to each password before it is hashed and stored?",
+   "x": "What is the primary security benefit of salting passwords before they are hashed and stored?",
    "o": [
-    "The stored hash can later be decrypted back to the password",
-    "The hashing algorithm runs faster on the authentication server",
-    "The hash output is shortened to conserve disk space",
+    "The password is encrypted instead of hashed before storage",
+    "Each hash takes longer to compute, which slows guessing attempts",
+    "The password never has to travel to the authentication server",
     "Identical passwords no longer produce identical stored hashes"
    ],
    "a": 3,
-   "e": "A unique salt ensures that two users with the same password produce different hashes, which defeats precomputed rainbow-table attacks and hides the fact that passwords are shared. Hashing is one-way, so salting does not make the hash reversible or smaller.",
+   "e": "A unique salt ensures that two users with the same password produce different stored hashes, which defeats precomputed rainbow-table attacks and hides the fact that passwords are shared. Salting does not encrypt the password, does not change how long the hash takes to compute, and does not affect how credentials reach the server; slowing each computation is the job of key stretching.",
    "d": 1
   },
   {
@@ -902,7 +902,7 @@ export const exam: ExamDef = {
   {
    "id": 20,
    "t": "certificates",
-   "x": "A browser warns that a website's certificate cannot be trusted because it was signed by the same server presenting it instead of by a recognized authority. What kind of certificate is being used?",
+   "x": "A browser refuses to trust a website's certificate because it cannot build a chain to any trusted root, and inspection shows the certificate's issuer field is identical to its subject field. What kind of certificate is the server presenting?",
    "o": [
     "Wildcard certificate",
     "Extended validation certificate",
@@ -972,15 +972,15 @@ export const exam: ExamDef = {
   {
    "id": 25,
    "t": "common-threat-vectors",
-   "x": "A factory production line depends on a server running an operating system that the vendor no longer supports with security updates. Why does relying on this system create a serious threat vector?",
+   "x": "A factory production line depends on a server whose operating system reached end of life with its vendor several years ago. Why does relying on this system create a serious threat vector?",
    "o": [
-    "The firewall stops filtering traffic for the host",
-    "Multifactor authentication can no longer be enforced",
+    "The system's TLS certificates expire and can no longer be renewed",
+    "Existing security patches are removed once vendor support ends",
     "Newly discovered flaws stay open and exploitable",
-    "Backups of the server can no longer be scheduled"
+    "The host firewall stops enforcing its rule set on an unsupported build"
    ],
    "a": 2,
-   "e": "An unsupported or end-of-life system no longer receives security updates, so any vulnerability discovered after end-of-support remains open permanently and gives attackers a reliable way in. Reaching end of life does not by itself disable firewalls, authentication, or backups.",
+   "e": "An end-of-life operating system no longer receives security updates, so every vulnerability discovered after support ends stays open permanently and gives attackers a reliable way in. Reaching end of life does not strip patches that were already applied, expire the host's certificates, or change how its firewall enforces rules; the danger is that newly found flaws will never be fixed.",
    "d": 2
   },
   {
@@ -1044,9 +1044,9 @@ export const exam: ExamDef = {
    "t": "other-social-engineering-attacks",
    "x": "During an election, a network of coordinated fake social media accounts spreads deliberately false narratives to sway public opinion and undermine trust in an institution. Which concept does this represent?",
    "o": [
-    "A tailgating attempt",
-    "An evil twin",
-    "A shoulder-surfing attempt",
+    "A misinformation campaign",
+    "A pretexting campaign",
+    "An impersonation campaign",
     "A disinformation campaign"
    ],
    "a": 3,
@@ -1084,26 +1084,26 @@ export const exam: ExamDef = {
   {
    "id": 33,
    "t": "cross-site-scripting",
-   "x": "An attacker submits a forum comment containing malicious code that the server saves. When other users open the page, the code runs in their browsers and steals their session cookies. Which attack is this?",
+   "x": "An attacker submits a forum comment containing a malicious script, and the application writes the comment into its database. When other users later view the thread, the script runs in their browsers and steals session cookies. Which attack is this?",
    "o": [
-    "SQL injection",
-    "DNS poisoning",
-    "ARP spoofing",
+    "Reflected cross-site scripting",
+    "DOM-based cross-site scripting",
+    "Cross-site request forgery",
     "Stored cross-site scripting"
    ],
    "a": 3,
-   "e": "In stored, or persistent, cross-site scripting, the malicious script is saved on the server, so it executes for every user who loads the affected page, commonly to hijack sessions. SQL injection targets the database rather than other users' browsers.",
+   "e": "In stored, or persistent, cross-site scripting, the malicious payload is saved by the application, so it executes for every user who loads the affected page, commonly to hijack sessions. Reflected and DOM-based variants deliver the script through a crafted link or client-side code without persisting it, and cross-site request forgery tricks a victim's browser into sending forged requests rather than injecting script.",
    "d": 2
   },
   {
    "id": 34,
    "t": "cross-site-scripting",
-   "x": "Which control most directly mitigates cross-site scripting by neutralizing script characters before user-supplied content is rendered on a page?",
+   "x": "A code review finds that a web application inserts user-submitted comments directly into its pages. Which coding practice most directly prevents this behavior from becoming a cross-site scripting flaw?",
    "o": [
-    "Requiring HTTPS on all pages",
-    "Encoding output before it is displayed",
-    "Enforcing account lockout thresholds",
-    "Disabling unused switch ports"
+    "Requiring HTTPS on every page of the application",
+    "Encoding user-supplied content before it is rendered",
+    "Encrypting the database where comments are stored",
+    "Hashing each comment before it is written to disk"
    ],
    "a": 1,
    "e": "Cross-site scripting is countered by validating input and encoding output so characters like < and > are shown as text instead of running as script. HTTPS (Hypertext Transfer Protocol Secure) protects data in transit but does nothing to stop a script the server itself sends to the browser.",
@@ -1126,12 +1126,12 @@ export const exam: ExamDef = {
   {
    "id": 36,
    "t": "zero-day-vulnerabilities",
-   "x": "A newly discovered exploit is actively compromising systems, and no vendor patch or detection update exists yet. Why do antivirus tools that depend on known threat definitions struggle to catch it?",
+   "x": "Attackers are actively exploiting a software flaw that neither the vendor nor the security community knows about yet. Why do antivirus products that rely on threat definition databases struggle to detect it?",
    "o": [
-    "The exploit encrypts itself to evade all scanning",
+    "The exploit rewrites its own code with each infection to confuse scanners",
     "No signature exists yet to match the new threat",
-    "Antivirus tools only scan files during scheduled downtime",
-    "The threat definitions must be purchased separately"
+    "The malicious code runs entirely in memory where file scanners cannot see it",
+    "All of its network traffic is encrypted so scanners cannot inspect the payload"
    ],
    "a": 1,
    "e": "A zero-day is unknown to defenders, so no antivirus signature or detection rule has been written for it, and definition-based tools have nothing to match against. Behavior-based or anomaly detection is more effective against previously unseen threats.",
@@ -1157,12 +1157,12 @@ export const exam: ExamDef = {
    "x": "Which practice most effectively reduces the risk that a compromised third-party supplier introduces vulnerabilities into an organization?",
    "o": [
     "Conducting security assessments of vendors before integration",
-    "Requiring longer passwords for internal user accounts",
-    "Increasing the frequency of full data backups",
-    "Deploying additional guest wireless networks"
+    "Purchasing insurance that covers losses from vendor incidents",
+    "Signing nondisclosure agreements with every new supplier",
+    "Consolidating orders under a single long-standing supplier"
    ],
    "a": 0,
-   "e": "Vendor due diligence, including assessing a supplier's security posture, reviewing a software bill of materials (SBOM), and verifying code signing before integration, directly addresses supply chain risk. Stronger internal passwords or more frequent backups do not evaluate the trustworthiness of third parties.",
+   "e": "Vendor due diligence, including assessing a supplier's security posture, reviewing a software bill of materials, and verifying code signing before integration, directly addresses supply chain risk. Nondisclosure agreements, insurance coverage, and consolidating purchases shape the business relationship but do nothing to verify that a supplier's products and practices are secure.",
    "d": 2
   },
   {
@@ -1266,11 +1266,11 @@ export const exam: ExamDef = {
   {
    "id": 46,
    "t": "denial-of-service",
-   "x": "An attacker sends small DNS queries with a spoofed source address so that the large responses are all directed at the victim, generating far more traffic than the attacker sent. What is this technique called?",
+   "x": "An attacker sends small DNS queries with a spoofed source address so that the servers' much larger responses are all directed at the victim's network. What is this technique called?",
    "o": [
-    "A dictionary attack",
-    "A watering hole attack",
-    "A downgrade attack",
+    "A SYN flood attack",
+    "A DNS tunneling attack",
+    "A Slowloris attack",
     "An amplification attack"
    ],
    "a": 3,
@@ -1322,12 +1322,12 @@ export const exam: ExamDef = {
   {
    "id": 50,
    "t": "password-attacks",
-   "x": "Which condition allows an attacker to carry out an offline brute-force attack against a set of captured password hashes?",
+   "x": "Which condition must be met before an attacker can conduct an offline brute-force attack against user passwords?",
    "o": [
-    "The target account has account lockout set to trigger after three failed attempts",
-    "The login page enforces multi-factor authentication for every sign-in attempt",
-    "The password database is stored only on an air-gapped server with no network access",
-    "The attacker has obtained a copy of the stored password data and can test guesses on their own hardware"
+    "The login portal never locks accounts regardless of failed attempts",
+    "Password complexity rules are not enforced when users enroll",
+    "Multifactor authentication is required only for administrator accounts",
+    "The attacker has obtained a copy of the stored password hashes to test guesses against"
    ],
    "a": 3,
    "e": "An offline attack requires the attacker to already hold the password data, so they can test billions of guesses on their own hardware with no lockout counter or rate limit to slow them down. Online defenses such as account lockout and multi-factor authentication (MFA) only apply when guessing against the live authentication system.",
@@ -1338,10 +1338,10 @@ export const exam: ExamDef = {
    "t": "password-attacks",
    "x": "A web application stores its users' passwords as plain unencrypted text. From a security standpoint, why is this practice dangerous?",
    "o": [
-    "The passwords will consume significantly more storage space than hashed values",
+    "Attackers can use widely available rainbow tables to recover each stored password",
     "Anyone who gains access to that store immediately obtains every user's usable password",
-    "Users will be unable to reset their passwords through the self-service portal",
-    "The application will be unable to enforce a minimum password length policy"
+    "The passwords can be captured in transit even when the site enforces TLS on every connection",
+    "A single leaked salt value would let attackers unlock every account's stored entry"
    ],
    "a": 1,
    "e": "Storing passwords in plaintext means a single breach of that store exposes every credential in directly usable form. Best practice is to keep only a salted hash of each password, so a stolen database yields values that still must be cracked and identical passwords do not produce identical stored entries.",
@@ -1378,26 +1378,26 @@ export const exam: ExamDef = {
   {
    "id": 54,
    "t": "hardening-techniques",
-   "x": "A vulnerability scan of a web server reports that Telnet, FTP, and an unused database listener are all reachable, though the application needs none of them. Which hardening step most directly reduces this attack surface?",
+   "x": "A vulnerability scan of a web server reports that Telnet, FTP, and a database listener are all reachable, though the application serves traffic only over HTTP and HTTPS. Which hardening step most directly reduces the server's attack surface?",
    "o": [
-    "Increase the server's physical memory allocation",
-    "Enable verbose logging on the web application",
-    "Schedule more frequent full-disk backups",
-    "Disable the protocols the application does not use"
+    "Apply the latest vendor patches to the Telnet and FTP services",
+    "Forward the server's authentication logs to a SIEM for review",
+    "Require complex passwords on the FTP and database accounts",
+    "Disable the services the application does not require"
    ],
    "a": 3,
-   "e": "Disabling protocols and services the system does not need, and closing their ports, removes listening entry points an attacker could reach and directly shrinks the attack surface. Backups and logging are useful controls but do nothing to reduce the number of exposed services.",
+   "e": "Disabling services and protocols the system does not need, and closing their ports, removes listening entry points an attacker could reach and directly shrinks the attack surface. Patching, stronger passwords, and log monitoring make the remaining services safer to run, but they leave every unnecessary listener still exposed.",
    "d": 2
   },
   {
    "id": 55,
    "t": "hardening-techniques",
-   "x": "A security team wants endpoint software that goes beyond matching known malware signatures to also watch process behavior, record host telemetry, and let analysts investigate and isolate threats on the machine. Which solution fits this need?",
+   "x": "A security team wants an agent on every company workstation that goes beyond matching known malware signatures to also watch process behavior, record host telemetry, and let analysts investigate and isolate threats on the machine. Which solution fits this need?",
    "o": [
     "Endpoint detection and response",
-    "Host-based firewall configuration",
-    "Full-disk encryption software",
-    "Trusted platform module chip"
+    "Unified endpoint management",
+    "Data loss prevention",
+    "Host-based firewall"
    ],
    "a": 0,
    "e": "Endpoint detection and response (EDR) goes beyond signature-based antivirus by continuously watching endpoint behavior, recording telemetry, and giving analysts the ability to investigate and contain threats on the host. A host-based firewall only filters network connections and cannot perform that investigation.",
@@ -1448,12 +1448,12 @@ export const exam: ExamDef = {
   {
    "id": 59,
    "t": "cloud-infrastructures",
-   "x": "A development team deploys application functions to a provider that runs each function on demand with no customer-managed servers. What is one security implication of this serverless model?",
+   "x": "A development team packages individual application functions and deploys them to a cloud provider that runs each one on demand, billing only for execution time. What is one security implication of this serverless model?",
    "o": [
-    "The customer must harden the underlying server operating system before each run",
-    "Perimeter firewalls become unnecessary once functions run in the cloud",
+    "The customer remains responsible for patching the language runtime that executes the functions",
+    "The provider takes over responsibility for flaws in the customer's function code",
     "The provider patches the operating system, so the customer does not manage the host",
-    "Input validation can be skipped because the functions are short-lived"
+    "The short lifetime of each function invocation prevents code injection attacks"
    ],
    "a": 2,
    "e": "In a serverless, or Function as a Service, model the provider owns and patches the operating system and runtime, so that maintenance burden shifts away from the customer. The customer still writes secure code and validates input; serverless does not remove application-layer defenses.",
@@ -1476,12 +1476,12 @@ export const exam: ExamDef = {
   {
    "id": 61,
    "t": "network-infrastructure-concepts",
-   "x": "In software-defined networking, which plane makes the centralized forwarding decisions that the data plane then carries out?",
+   "x": "In software-defined networking, which plane is centralized and computes the forwarding rules that are pushed down to the network switches?",
    "o": [
     "The control plane",
     "The data plane",
-    "The physical plane",
-    "The session plane"
+    "The management plane",
+    "The application plane"
    ],
    "a": 0,
    "e": "In software-defined networking (SDN), the control plane decides how traffic should be forwarded and is centralized, while the data plane is the switch hardware that actually moves the packets. Separating them lets administrators reprogram network behavior from a single point.",
