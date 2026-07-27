@@ -447,12 +447,12 @@ export const exam: ExamDef = {
    "x": "Which accessory lets a USB-C laptop connect to wired Ethernet, HDMI, and extra USB ports through a single connection?",
    "o": [
     "A docking station / USB-C hub",
-    "A stylus",
-    "A screen protector",
-    "A cable lock"
+    "A USB-to-Ethernet adapter",
+    "A KVM switch",
+    "A wireless display adapter"
    ],
    "a": 0,
-   "e": "A docking station or USB-C hub expands a mobile device's connectivity to wired networking, external displays, and peripherals.",
+   "e": "A docking station or USB-C hub expands a laptop's single port into wired networking, external displays, and extra peripherals at once. An Ethernet adapter or display adapter covers only one of those needs, and a KVM switch shares one set of peripherals between computers.",
    "d": 1
   },
   {
@@ -460,13 +460,13 @@ export const exam: ExamDef = {
    "t": "laptop-hardware",
    "x": "A user reports their laptop case is bulging and the trackpad no longer clicks properly. What should the technician do FIRST?",
    "o": [
-    "Press the case flat and continue using it",
+    "Order a replacement trackpad and install it",
     "Power off the device and replace the swollen battery",
-    "Update the trackpad driver",
-    "Recalibrate the battery in software"
+    "Reinstall the touchpad driver to restore the click",
+    "Recalibrate the battery in the vendor utility"
    ],
    "a": 1,
-   "e": "A bulging case indicates a swollen lithium-ion battery — a fire hazard. Stop using the device and replace the battery; never puncture or compress it.",
+   "e": "A bulging case means a swollen lithium-ion battery, which is a fire hazard. Power the device off and replace the battery. The trackpad stops clicking because the swelling pack presses against it from below, so trackpad hardware or software fixes miss the real cause.",
    "d": 1
   },
   {
@@ -528,15 +528,15 @@ export const exam: ExamDef = {
   {
    "id": 13,
    "t": "laptop-hardware",
-   "x": "Several key caps have broken off a laptop keyboard. Which is generally the MOST cost-effective repair?",
+   "x": "Several keys have snapped off a laptop's built-in keyboard. Which is generally the MOST cost-effective repair?",
    "o": [
-    "Replace the laptop's motherboard",
+    "Send the laptop out for depot-level repair",
     "Replace the key caps or keyboard assembly",
-    "Replace the laptop's display assembly",
-    "Attach an external monitor to the laptop"
+    "Exchange the laptop for a refurbished unit",
+    "Attach an external Bluetooth keyboard instead"
    ],
    "a": 1,
-   "e": "Key caps and laptop keyboard assemblies are inexpensive, replaceable parts; individual caps often snap back onto the scissor mechanism.",
+   "e": "Key caps and laptop keyboard assemblies are inexpensive replacement parts, and individual caps often snap back onto the scissor mechanism. Depot service or a replacement laptop costs far more, and an external keyboard is a workaround rather than a repair.",
    "d": 1
   },
   {
@@ -545,12 +545,12 @@ export const exam: ExamDef = {
    "x": "A user is concerned about the laptop camera being accessed by malware. Which hardware feature directly addresses this?",
    "o": [
     "A physical camera privacy shutter",
-    "A higher-capacity removable battery",
-    "A keyboard with adjustable backlighting",
+    "An IR webcam with facial recognition",
+    "A TPM chip on the system board",
     "A built-in fingerprint reader"
    ],
    "a": 0,
-   "e": "Many business laptops include a physical shutter or switch that blocks or disconnects the camera regardless of software state.",
+   "e": "A physical shutter or kill switch blocks or disconnects the camera regardless of what software is running. TPMs, fingerprint readers, and IR cameras handle authentication and key storage; none of them can stop malware from streaming the webcam.",
    "d": 1
   },
   {
@@ -643,9 +643,9 @@ export const exam: ExamDef = {
    "x": "An artist wants precise pressure-sensitive input on a tablet. Which accessory provides this?",
    "o": [
     "A stylus / touch pen",
-    "A trackball",
-    "A cable lock",
-    "A USB hub"
+    "A high-DPI optical mouse",
+    "A trackball with adjustable sensitivity",
+    "A touchpad with multi-finger gestures"
    ],
    "a": 0,
    "e": "A stylus (touch pen) provides precise, often pressure-sensitive input for drawing and note-taking on tablets.",
@@ -671,12 +671,12 @@ export const exam: ExamDef = {
    "x": "A field worker needs their phone to survive drops on a construction site. Which accessories BEST address this?",
    "o": [
     "A rugged case and tempered screen protector",
-    "A stylus and headset",
-    "A wireless charger and stand",
-    "A bigger data plan"
+    "A slim silicone skin and camera lens film",
+    "A belt holster and microfiber pouch",
+    "A vinyl skin wrap and anti-glare film"
    ],
    "a": 0,
-   "e": "Protective cases and screen protectors are the standard physical protection for harsh environments.",
+   "e": "Rugged cases and tempered glass are built to absorb drop impacts. Slim skins, vinyl wraps, and carry pouches mainly guard against scratches or protect the device only while it is stowed, which does little on an active job site.",
    "d": 1
   },
   {
@@ -783,12 +783,12 @@ export const exam: ExamDef = {
    "x": "Which MDM capability protects corporate data when an enrolled phone is reported stolen?",
    "o": [
     "Remote wipe",
-    "Screen rotation lock",
-    "Wallpaper enforcement",
-    "App store ratings"
+    "Application allow listing",
+    "Screen-capture blocking",
+    "Asset inventory reporting"
    ],
    "a": 0,
-   "e": "Remote wipe erases the device (or the corporate partition) over the air, protecting data on lost or stolen hardware.",
+   "e": "Remote wipe erases the device or its corporate partition over the air, so data on lost or stolen hardware stays protected. Allow listing, screen-capture controls, and inventory reports manage devices in use but do nothing once the phone is gone.",
    "d": 1
   },
   {
@@ -796,13 +796,13 @@ export const exam: ExamDef = {
    "t": "mobile-device-management",
    "x": "An MDM policy requires a passcode and full-device encryption before a phone may access corporate email. Where are these requirements typically delivered to the device?",
    "o": [
-    "In a configuration profile pushed by the MDM",
-    "In a text message the user reads",
-    "In the phone's user manual",
-    "Through the SIM card"
+    "In a configuration profile pushed over the air",
+    "Through the carrier's firmware update channel",
+    "In a setup wizard run once at first boot",
+    "Through a SIM provisioning message"
    ],
    "a": 0,
-   "e": "MDM platforms push configuration profiles that enforce passcodes, encryption, and email/VPN settings on enrolled devices.",
+   "e": "MDM platforms deliver requirements like passcodes and encryption in configuration profiles pushed over the air to enrolled devices. Carrier firmware updates and SIM provisioning carry network settings, and the first-boot wizard only enrolls the device rather than delivering ongoing policy.",
    "d": 1
   },
   {
@@ -812,8 +812,8 @@ export const exam: ExamDef = {
    "o": [
     "Two-factor authentication",
     "Single-factor authentication",
-    "Tethering",
-    "Data roaming"
+    "Single sign-on",
+    "Biometric authentication"
    ],
    "a": 0,
    "e": "The password (something you know) plus the phone approval (something you have) makes it two-factor authentication.",
@@ -1219,7 +1219,7 @@ export const exam: ExamDef = {
     "Wi-Fi 6E",
     "Wi-Fi 4",
     "Wi-Fi 5",
-    "802.11n"
+    "Wi-Fi 6"
    ],
    "a": 0,
    "e": "Wi-Fi 6E extends Wi-Fi 6 (802.11ax) into the uncongested 6 GHz spectrum.",
@@ -1259,9 +1259,9 @@ export const exam: ExamDef = {
    "x": "Which device or service distributes incoming requests across several web servers so no single server is overwhelmed?",
    "o": [
     "A load balancer",
-    "A print server",
-    "A DHCP relay",
-    "A toner probe"
+    "A firewall",
+    "An IDS sensor",
+    "A spam gateway"
    ],
    "a": 0,
    "e": "A load balancer spreads client requests across a server pool for capacity and redundancy.",
@@ -1427,9 +1427,9 @@ export const exam: ExamDef = {
    "x": "Which device allows wireless clients to join a wired Ethernet network?",
    "o": [
     "A wireless access point",
-    "A modem",
-    "A patch panel",
-    "A UPS"
+    "A wireless LAN controller",
+    "An unmanaged switch",
+    "A media converter"
    ],
    "a": 0,
    "e": "An access point bridges 802.11 wireless clients onto the wired LAN.",
@@ -1438,12 +1438,12 @@ export const exam: ExamDef = {
   {
    "id": 78,
    "t": "network-devices",
-   "x": "Which passive rack-mounted device terminates horizontal cable runs so they can be patched into switch ports?",
+   "x": "Which passive rack-mounted device terminates horizontal cable runs so each one can be linked to a switch port with a short jumper cable?",
    "o": [
     "A patch panel",
-    "A router",
-    "A PoE injector",
-    "A firewall"
+    "A demarcation point",
+    "A cable management panel",
+    "A keystone wall plate"
    ],
    "a": 0,
    "e": "A patch panel terminates in-wall cabling at punch-down blocks, with patch cables linking each port to a switch.",
@@ -1455,9 +1455,9 @@ export const exam: ExamDef = {
    "x": "A security camera needs both data and electrical power over a single Ethernet cable, but the switch does not support PoE. Which device solves this?",
    "o": [
     "A PoE injector",
-    "A crossover cable",
-    "A cable modem",
-    "A toner probe"
+    "A PoE splitter",
+    "An Ethernet repeater",
+    "A crossover cable"
    ],
    "a": 0,
    "e": "A PoE injector adds power to an Ethernet run between a non-PoE switch and a powered device.",
@@ -1466,12 +1466,12 @@ export const exam: ExamDef = {
   {
    "id": 80,
    "t": "network-devices",
-   "x": "Which device converts the coaxial cable signal from an ISP into Ethernet for a home network?",
+   "x": "Which device converts an ISP's coaxial broadband signal into Ethernet for a home network?",
    "o": [
     "A cable modem",
-    "A hub",
-    "An ONT for fiber",
-    "A repeater"
+    "A DSL modem",
+    "An ONT",
+    "A SOHO router"
    ],
    "a": 0,
    "e": "A cable modem (DOCSIS) terminates the ISP's coax and hands Ethernet to the router; fiber services use an ONT instead.",
@@ -1553,9 +1553,9 @@ export const exam: ExamDef = {
    "x": "Which addressing approach is BEST for servers and printers that other devices must reliably find?",
    "o": [
     "Static addresses or DHCP reservations",
-    "Random APIPA addresses",
-    "Rotating addresses every hour",
-    "No IP address"
+    "Dynamic leases from the general DHCP pool",
+    "APIPA link-local addressing",
+    "DHCP with very short lease times"
    ],
    "a": 0,
    "e": "Infrastructure devices need stable addresses — either statically assigned or reserved in DHCP.",
@@ -1595,9 +1595,9 @@ export const exam: ExamDef = {
    "x": "A rural business gets internet from a provider that beams service from a tower to a rooftop antenna. What is this called?",
    "o": [
     "A WISP",
-    "DOCSIS cable",
-    "Dial-up",
-    "Power-line networking"
+    "A satellite ISP",
+    "A DOCSIS provider",
+    "An ISDN provider"
    ],
    "a": 0,
    "e": "Wireless internet service providers (WISPs) deliver fixed wireless broadband via point-to-point or point-to-multipoint radio links.",
@@ -1609,12 +1609,12 @@ export const exam: ExamDef = {
    "x": "A food truck needs internet anywhere in the city for its payment system. Which connection type fits BEST?",
    "o": [
     "Cellular",
-    "Fiber",
-    "Cable",
-    "DSL"
+    "Satellite",
+    "Fixed wireless",
+    "Municipal Wi-Fi"
    ],
    "a": 0,
-   "e": "Cellular data is the only practical option for a mobile business location; the others require fixed physical lines. Cellular = 4G/5G.",
+   "e": "Cellular data over 4G or 5G follows the truck anywhere in the city. Satellite needs a clear sky view and a mounted dish, fixed wireless serves a single stationary address, and municipal Wi-Fi coverage is too patchy and unsecured for payment traffic.",
    "d": 2
   },
   {
@@ -1662,12 +1662,12 @@ export const exam: ExamDef = {
   {
    "id": 94,
    "t": "network-tools",
-   "x": "Which tool verifies that all eight wires in a terminated cable are connected in the correct order?",
+   "x": "Which tool confirms that all eight conductors in a terminated run are mapped to the correct pins at both ends?",
    "o": [
     "A cable tester",
-    "A crimper",
-    "A PoE injector",
-    "A spudger"
+    "A toner probe",
+    "A loopback plug",
+    "A multimeter"
    ],
    "a": 0,
    "e": "A cable tester lights each conductor in sequence, confirming continuity and correct wire mapping.",
@@ -1704,12 +1704,12 @@ export const exam: ExamDef = {
   {
    "id": 97,
    "t": "network-tools",
-   "x": "Which tool tests a network port by looping transmitted signals back to the sender?",
+   "x": "Which tool verifies that a single network port can transmit and receive correctly without connecting to any other device?",
    "o": [
     "A loopback plug",
+    "A cable tester",
     "A toner probe",
-    "An anti-static strap",
-    "A cable stripper"
+    "A crossover cable"
    ],
    "a": 0,
    "e": "A loopback plug echoes the port's transmit pins to its receive pins, confirming the interface itself works.",
@@ -1718,15 +1718,15 @@ export const exam: ExamDef = {
   {
    "id": 98,
    "t": "network-tools",
-   "x": "A technician suspects Wi-Fi congestion in an office. Which tool shows nearby SSIDs, their channels, and signal strength?",
+   "x": "A technician suspects that overlapping access points are degrading performance across an office floor. Which tool shows nearby SSIDs, their channels, and signal strength?",
    "o": [
     "A Wi-Fi analyzer",
-    "A punch-down tool",
-    "A crimper",
-    "A POST card"
+    "A spectrum analyzer",
+    "A toner probe",
+    "A cable tester"
    ],
    "a": 0,
-   "e": "Wi-Fi analyzer software maps surrounding networks by channel and signal strength, revealing congestion and guiding channel selection.",
+   "e": "A Wi-Fi analyzer maps surrounding networks by SSID, channel, and signal strength, revealing co-channel congestion and guiding channel selection; a spectrum analyzer sees raw RF energy but cannot decode SSIDs.",
    "d": 2
   },
   {
@@ -1872,15 +1872,15 @@ export const exam: ExamDef = {
   {
    "id": 109,
    "t": "cpu-features",
-   "x": "Which CPU feature must be enabled in BIOS/UEFI to run hardware-accelerated virtual machines?",
+   "x": "Which BIOS/UEFI setting must be enabled before a workstation can run hardware-accelerated virtual machines?",
    "o": [
-    "Virtualization",
+    "Intel VT-x or AMD-V",
     "Secure Boot",
-    "Fast startup",
-    "XMP"
+    "TPM 2.0",
+    "XMP memory profiles"
    ],
    "a": 0,
-   "e": "Hardware virtualization extensions (Intel VT-x, AMD-V) must be enabled to run virtual machines with acceleration. Virtualization = VT-x / AMD-V.",
+   "e": "Hardware virtualization extensions, Intel VT-x or AMD-V, must be switched on in firmware before a hypervisor can use hardware acceleration; Secure Boot, TPM, and XMP control boot integrity, cryptography, and memory speed instead.",
    "d": 3
   },
   {
@@ -1889,9 +1889,9 @@ export const exam: ExamDef = {
    "x": "When selecting a replacement power supply, which specification most directly determines whether it can support the system's components?",
    "o": [
     "The wattage rating",
-    "The CPU clock speed",
-    "The amount of RAM",
-    "The GPU core count"
+    "The 80 Plus efficiency level",
+    "The fan bearing type",
+    "The modular cabling design"
    ],
    "a": 0,
    "e": "A PSU must supply enough wattage — and the correct connectors and rails — for all components under load.",
@@ -1900,12 +1900,12 @@ export const exam: ExamDef = {
   {
    "id": 111,
    "t": "cooling",
-   "x": "Which cooling method circulates liquid through a block and radiator to remove heat from a high-performance CPU?",
+   "x": "A high-performance CPU repeatedly overheats under sustained full load even though the case already has good airflow. Which cooling method can best handle this thermal load?",
    "o": [
     "Water cooling",
-    "A passive heatsink only",
-    "A single case fan",
-    "Thermal paste alone"
+    "A passive heatsink",
+    "Extra case fans",
+    "A new thermal pad"
    ],
    "a": 0,
    "e": "Water cooling, also called liquid cooling, moves heat via coolant from a CPU block to a radiator, handling high thermal loads more effectively than air alone.",
@@ -1928,15 +1928,15 @@ export const exam: ExamDef = {
   {
    "id": 113,
    "t": "video-cables",
-   "x": "Which digital display connector is common on modern GPUs, carries video and audio, and supports high refresh rates?",
+   "x": "Which type of video output is standard on current graphics cards, carries both video and audio over one cable, and supports high refresh rates?",
    "o": [
-    "DisplayPort",
-    "VGA",
-    "Composite",
-    "PS/2"
+    "A DisplayPort output",
+    "A DVI-D output",
+    "A VGA output",
+    "An S-Video output"
    ],
    "a": 0,
-   "e": "DisplayPort is a modern digital interface carrying high-resolution video and audio; VGA is analog and legacy.",
+   "e": "DisplayPort is the modern digital interface on current graphics cards, carrying high-resolution video and audio at high refresh rates; DVI-D is digital but omits audio, and VGA and S-Video are legacy analog standards.",
    "d": 3
   },
   {
@@ -2056,10 +2056,10 @@ export const exam: ExamDef = {
    "t": "display-attributes",
    "x": "A gamer wants smoother on-screen motion. Which display attribute should they prioritize?",
    "o": [
-    "A higher refresh rate (Hz)",
-    "A larger bezel",
-    "More USB ports",
-    "A glossy finish"
+    "A higher refresh rate",
+    "A higher native resolution",
+    "A wider color gamut",
+    "Greater peak brightness"
    ],
    "a": 0,
    "e": "Refresh rate (e.g., 144 Hz vs 60 Hz) determines how many times per second the screen redraws, making motion smoother.",
@@ -2113,9 +2113,9 @@ export const exam: ExamDef = {
    "x": "A modern laptop with only HDMI output must present on an old projector with a VGA input. What is required?",
    "o": [
     "An active HDMI-to-VGA converter",
-    "A straight pin adapter with no electronics",
-    "A null modem cable",
-    "A crossover cable"
+    "A passive HDMI-to-VGA cable",
+    "An HDMI-to-DVI passive adapter",
+    "A USB-C-to-VGA adapter"
    ],
    "a": 0,
    "e": "HDMI is digital and VGA is analog, so an active converter with signal-conversion electronics is required — a passive adapter cannot work.",
@@ -2281,12 +2281,12 @@ export const exam: ExamDef = {
    "x": "A technician is upgrading a CPU. What must match between the CPU and the motherboard?",
    "o": [
     "The socket type",
-    "The case color",
-    "The PSU brand",
-    "The number of fans"
+    "The form factor",
+    "The RAM brand",
+    "The PCIe lane count"
    ],
    "a": 0,
-   "e": "CPU and board must share the same socket, and the chipset/BIOS must support that specific CPU model. In other words: and chipset/BIOS support.",
+   "e": "The CPU and motherboard must share the same socket type, and the board's chipset and BIOS must also support that specific CPU model. Form factor governs board-to-case fit, and RAM brand or PCIe lane count are not CPU compatibility criteria.",
    "d": 3
   },
   {
@@ -2306,12 +2306,12 @@ export const exam: ExamDef = {
   {
    "id": 140,
    "t": "bios-settings",
-   "x": "A technician needs to boot a PC from a USB installer. Which BIOS/UEFI setting is changed?",
+   "x": "A technician inserts a USB flash drive containing an OS installer, but the PC keeps starting the existing operating system from the internal drive. Which BIOS/UEFI setting should be changed?",
    "o": [
     "The boot order / boot priority",
-    "The fan curve",
-    "The SATA mode",
-    "The XMP profile"
+    "The TPM security state",
+    "The SATA controller mode",
+    "The XMP memory profile"
    ],
    "a": 0,
    "e": "Setting the USB device first in the boot order (or using the one-time boot menu) starts the machine from installation media.",
@@ -2323,9 +2323,9 @@ export const exam: ExamDef = {
    "x": "Which BIOS/UEFI security option prevents unauthorized changes to firmware settings?",
    "o": [
     "A supervisor/setup password",
-    "Airplane mode",
-    "A guest account",
-    "Fast startup"
+    "A user power-on password",
+    "Secure Boot",
+    "Chassis intrusion detection"
    ],
    "a": 0,
    "e": "A firmware supervisor password locks the settings screens, preventing boot-order or security changes by unauthorized users.",
@@ -2362,12 +2362,12 @@ export const exam: ExamDef = {
   {
    "id": 144,
    "t": "expansion-cards",
-   "x": "A streamer wants to record HDMI output from a game console on their PC. Which card provides this?",
+   "x": "A streamer wants to bring a game console's HDMI feed into a PC so gameplay can be saved and broadcast live. Which expansion card enables this?",
    "o": [
     "A capture card",
-    "A modem card",
-    "A SCSI controller",
-    "A TV remote card"
+    "A TV tuner card",
+    "A discrete video card",
+    "A sound card"
    ],
    "a": 0,
    "e": "Capture cards ingest external HDMI video for recording and streaming.",
@@ -2462,10 +2462,10 @@ export const exam: ExamDef = {
    "t": "computer-power",
    "x": "A workstation build's components total 450 W at peak. Which PSU choice is BEST practice?",
    "o": [
-    "A quality unit rated comfortably above peak draw",
-    "Exactly 450 W",
-    "The cheapest 1600 W unit",
-    "Two 250 W supplies taped together"
+    "A unit rated comfortably above the total peak draw",
+    "A unit rated exactly at the total peak draw",
+    "The highest wattage unit available for future expansion",
+    "Two lower wattage supplies wired to share the load"
    ],
    "a": 0,
    "e": "Size the PSU with headroom above peak draw for efficiency, stability, and future upgrades. In other words: e.g., 650 W.",
@@ -2476,10 +2476,10 @@ export const exam: ExamDef = {
    "t": "computer-power",
    "x": "What is the benefit of a modular power supply?",
    "o": [
-    "Unused power cables can be detached",
-    "It operates without a wattage rating",
-    "It removes the need for a 24-pin connector",
-    "It converts AC input directly to AC output"
+    "Only the cables that are needed have to be connected",
+    "Failed internal parts can be swapped without replacing the unit",
+    "Extra wattage can be added by stacking supply modules",
+    "The cooling fan can be hot-swapped while the system runs"
    ],
    "a": 0,
    "e": "Modular PSUs let the builder connect only needed cables, reducing clutter and improving airflow.",
@@ -2504,10 +2504,10 @@ export const exam: ExamDef = {
    "t": "multifunction-devices",
    "x": "An office wants print jobs held at the copier until the user badges in at the device. What is this feature called?",
    "o": [
-    "Secure print / badged release",
-    "Duplex printing",
-    "Collating",
-    "Tray linking"
+    "Secure print release",
+    "Print spooling",
+    "Scheduled printing",
+    "Duplex printing"
    ],
    "a": 0,
    "e": "Secure print releases jobs only after user authentication at the device, preventing sensitive pages from sitting in the tray.",
@@ -2519,12 +2519,12 @@ export const exam: ExamDef = {
    "x": "A user wants scanned documents delivered directly to a shared network folder. Which scan feature is configured?",
    "o": [
     "Scan to SMB",
-    "Scan to fax",
-    "Print spooling",
-    "Envelope mode"
+    "Scan to email",
+    "Scan to cloud",
+    "Scan to USB"
    ],
    "a": 0,
-   "e": "Scan-to-folder (SMB) sends scans straight to a network share; scan-to-email is the common alternative. In other words: network folder.",
+   "e": "Scan to SMB delivers each scanned file straight into a shared folder on the network. Email, cloud, and USB destinations store the scan somewhere else rather than in a LAN file share.",
    "d": 3
   },
   {
@@ -2546,10 +2546,10 @@ export const exam: ExamDef = {
    "t": "inkjet-printer-maintenance",
    "x": "After replacing inkjet cartridges, printed text is misaligned and colors fringe. Which maintenance step fixes this?",
    "o": [
-    "Print-head calibration/alignment",
-    "Replacing the fuser",
-    "Degaussing",
-    "Changing the ribbon"
+    "Print-head calibration",
+    "A nozzle-cleaning cycle",
+    "Waste-ink pad replacement",
+    "Pickup-roller replacement"
    ],
    "a": 0,
    "e": "Calibration aligns the print heads after cartridge changes so passes line up correctly.",
@@ -2659,9 +2659,9 @@ export const exam: ExamDef = {
    "x": "A developer needs to test software on Windows, Linux, and an older OS version using one physical computer. Which technology enables this?",
    "o": [
     "Running each OS in a virtual machine",
-    "Installing three video cards",
-    "Partitioning the monitor",
-    "Using three keyboards"
+    "Running each OS in a container",
+    "Running each application in compatibility mode",
+    "Connecting to each OS over Remote Desktop"
    ],
    "a": 0,
    "e": "VMs let one physical host run multiple isolated operating systems side by side — ideal for cross-platform testing.",
@@ -2687,9 +2687,9 @@ export const exam: ExamDef = {
    "x": "Before installing a hypervisor on a workstation, which TWO resources most need checking for adequacy?",
    "o": [
     "CPU virtualization support and sufficient RAM",
-    "Monitor size and speaker wattage",
-    "Keyboard layout and mouse DPI",
-    "Case fans and RGB lighting"
+    "Discrete GPU memory and display resolution",
+    "Network adapter speed and USB port count",
+    "Optical drive speed and sound card quality"
    ],
    "a": 0,
    "e": "Virtualization needs CPU VT-x/AMD-V support and enough RAM to give each guest OS its own allocation.",
@@ -2698,12 +2698,12 @@ export const exam: ExamDef = {
   {
    "id": 168,
    "t": "virtualization-concepts",
-   "x": "Which VM feature captures the machine's exact state so it can be restored after a failed experiment?",
+   "x": "An administrator plans a risky configuration change inside a VM and wants the ability to roll the guest back if the change fails. Which VM feature is used beforehand?",
    "o": [
     "A snapshot",
-    "A quick format",
-    "A BIOS flash",
-    "Defragmentation"
+    "A VM template",
+    "A live migration",
+    "A virtual switch"
    ],
    "a": 0,
    "e": "Snapshots record VM state at a point in time; reverting undoes any changes made afterward.",
@@ -2855,9 +2855,9 @@ export const exam: ExamDef = {
    "x": "Files edited on a user's laptop appear automatically on their phone and desktop moments later. Which cloud capability provides this?",
    "o": [
     "File synchronization",
-    "Load balancing",
-    "Port forwarding",
-    "RAID striping"
+    "File versioning",
+    "File caching",
+    "File compression"
    ],
    "a": 0,
    "e": "Cloud file-sync services replicate changes across all of a user's devices through cloud storage.",
@@ -2922,15 +2922,15 @@ export const exam: ExamDef = {
   {
    "id": 184,
    "t": "troubleshooting-hardware",
-   "x": "A computer runs fine at idle but randomly shuts down under heavy load and feels very hot. What is the MOST likely cause?",
+   "x": "A computer runs fine at idle but shuts down abruptly a few minutes into demanding workloads, and its case fans race at full speed before it cuts out. What is the MOST likely cause?",
    "o": [
     "Overheating from inadequate cooling",
-    "A corrupted browser cache",
-    "An outdated desktop wallpaper",
-    "A disabled firewall"
+    "A failing memory module",
+    "Corrupted operating system files",
+    "An outdated BIOS version"
    ],
    "a": 0,
-   "e": "Thermal shutdowns under load point to cooling problems: dust buildup, a failed fan, or dried thermal paste.",
+   "e": "Load-only shutdowns with fans at full speed point to thermal protection tripping: check for dust buildup, blocked airflow, or dried thermal paste.",
    "d": 5
   },
   {
@@ -3065,9 +3065,9 @@ export const exam: ExamDef = {
    "x": "A user reports a burning smell from their desktop, which then powers off and will not turn back on. Which component MOST likely failed?",
    "o": [
     "The power supply",
-    "The mouse",
-    "The operating system",
-    "The monitor cable"
+    "The graphics card",
+    "The memory modules",
+    "The case fan assembly"
    ],
    "a": 0,
    "e": "A burning smell followed by total power loss points to a failed PSU; replace it and inspect for collateral damage before powering on.",
@@ -3093,9 +3093,9 @@ export const exam: ExamDef = {
    "x": "A PC randomly reboots under heavy gaming load but is stable at idle. Which TWO causes are MOST likely?",
    "o": [
     "An overloaded/failing PSU or overheating",
-    "A wrong wallpaper or slow mouse",
-    "An expired antivirus or old browser",
-    "A loose keyboard cable or dusty mousepad"
+    "A failing CMOS battery or an unseated Wi-Fi card",
+    "A fragmented hard drive or a bloated startup list",
+    "An outdated antivirus or a misconfigured firewall"
    ],
    "a": 0,
    "e": "Load-dependent restarts point to power delivery (PSU capacity/failure) or thermal protection kicking in.",
@@ -3107,9 +3107,9 @@ export const exam: ExamDef = {
    "x": "After installing new RAM, a PC beeps continuously and will not display anything. What should the technician do FIRST?",
    "o": [
     "Reseat the new RAM modules in their slots",
-    "Replace the motherboard",
-    "Reinstall Windows",
-    "Update the GPU driver"
+    "Replace the modules with a different brand",
+    "Boot into safe mode and run a memory test",
+    "Flash the BIOS to the latest available version"
    ],
    "a": 0,
    "e": "Continuous POST beeps after a RAM change usually mean a module is unseated or incompatible — reseat and retest first.",
@@ -3121,12 +3121,12 @@ export const exam: ExamDef = {
    "x": "A desktop makes a loud grinding or buzzing noise that changes with system activity. Which component is the MOST likely source?",
    "o": [
     "A failing cooling fan bearing",
-    "The RAM",
-    "The HDMI cable",
-    "The keyboard"
+    "A failing solid-state drive",
+    "A loose memory module",
+    "A degraded CMOS battery"
    ],
    "a": 0,
-   "e": "Grinding from a chassis is typically a fan with worn bearings (or a failing HDD); replace the fan before it stops and causes overheating.",
+   "e": "A grinding or buzzing noise that changes with system activity points to a moving part, and the classic culprit is a cooling fan with worn bearings. Solid-state drives, memory modules, and CMOS batteries have no moving parts and cannot produce mechanical noise.",
    "d": 5
   },
   {
@@ -3135,9 +3135,9 @@ export const exam: ExamDef = {
    "x": "A PC shows no signs of power — no fans, no lights. What is the FIRST thing to check?",
    "o": [
     "The outlet, power cable, and PSU switch",
-    "The CPU microcode revision",
-    "The Windows license activation",
-    "The GPU driver installation"
+    "The RAM seating and slot placement",
+    "The CMOS battery and board jumpers",
+    "The CPU cooler mounting and thermal paste"
    ],
    "a": 0,
    "e": "Always verify the power path first: outlet works, cable seated, PSU rocker switch on, front-panel connector attached.",
@@ -3146,12 +3146,12 @@ export const exam: ExamDef = {
   {
    "id": 200,
    "t": "troubleshooting-hardware",
-   "x": "Applications crash randomly with memory errors after a RAM upgrade. Which tool helps confirm the diagnosis?",
+   "x": "After a RAM upgrade, applications begin crashing at random intervals. Which tool helps confirm whether the new modules are at fault?",
    "o": [
     "A memory diagnostic",
-    "Disk Cleanup",
-    "A cable tester",
-    "The print spooler"
+    "A file integrity checker",
+    "A disk defragmentation utility",
+    "A resource usage monitor"
    ],
    "a": 0,
    "e": "Memory test utilities stress the RAM and report errors, confirming whether the new modules are faulty or incompatible. In other words: e.g., Windows Memory Diagnostic/MemTest86.",
@@ -3163,9 +3163,9 @@ export const exam: ExamDef = {
    "x": "A technician sees smoke coming from a workstation. What is the immediate FIRST action?",
    "o": [
     "Disconnect power to the system immediately",
-    "Run antivirus",
-    "Open Task Manager",
-    "Save open documents first"
+    "Perform a graceful shutdown from the OS",
+    "Move the workstation to an open area",
+    "Document the incident and notify a supervisor"
    ],
    "a": 0,
    "e": "Smoke is a safety issue: cut power immediately, then investigate — hardware is replaceable, people and buildings are not.",
@@ -3230,15 +3230,15 @@ export const exam: ExamDef = {
   {
    "id": 206,
    "t": "troubleshooting-storage-devices",
-   "x": "File operations that once took seconds now take minutes, and the HDD is nearly full and heavily fragmented. Which actions help? (Choose the BEST.)",
+   "x": "File operations that once took seconds now take minutes on a workstation with a mechanical hard drive, and drive health checks show no failing hardware. Which action is the BEST fix?",
    "o": [
-    "Free up space and defragment",
-    "Disable the page file",
-    "Unplug the network cable",
-    "Lower the screen resolution"
+    "Free up disk space and defragment the drive",
+    "Increase the virtual memory allocation",
+    "Update the storage controller driver",
+    "Disable unnecessary visual effects"
    ],
    "a": 0,
-   "e": "Extended read/write times on a nearly-full, fragmented HDD improve with free space, defragmentation, or an SSD upgrade. In other words: or upgrade to an SSD.",
+   "e": "Mechanical drives slow as they fill and fragment because the heads must seek across scattered pieces of every file. Freeing disk space and defragmenting restores contiguous reads; page-file, driver, and visual-effect changes do not address the drive itself. An SSD upgrade is the longer-term cure.",
    "d": 5
   },
   {
@@ -3247,9 +3247,9 @@ export const exam: ExamDef = {
    "x": "An external USB drive randomly disconnects during transfers. Which is a reasonable FIRST step?",
    "o": [
     "Try a different cable and USB port",
-    "Reformat the drive immediately",
-    "Replace the motherboard",
-    "Disable the antivirus"
+    "Reinstall the USB controller drivers",
+    "Run a full error scan on the drive",
+    "Update the motherboard chipset firmware"
    ],
    "a": 0,
    "e": "Flaky external-drive connections are most often the cable, port, or insufficient power — swap those before suspecting the drive.",
@@ -3289,9 +3289,9 @@ export const exam: ExamDef = {
    "x": "A monitor flickers intermittently. Which should be checked FIRST?",
    "o": [
     "The video cable seating",
-    "The CPU fan",
-    "The keyboard",
-    "The sound card"
+    "The display color profile",
+    "The screen resolution setting",
+    "The monitor's contrast setting"
    ],
    "a": 0,
    "e": "A loose or damaged video cable is the most common flicker cause; refresh-rate/driver settings come next. In other words: and then refresh rate settings.",
@@ -3317,9 +3317,9 @@ export const exam: ExamDef = {
    "x": "A monitor suddenly shows everything with a strong pink tint. Which is the MOST likely cause?",
    "o": [
     "A damaged or loose video cable pin",
-    "Too many browser tabs",
-    "An outdated mouse driver",
-    "The DNS server"
+    "An unsupported screen resolution",
+    "A misconfigured refresh rate",
+    "A disabled hardware acceleration setting"
    ],
    "a": 0,
    "e": "Color-cast issues usually trace to a bent/loose cable pin, a bad cable, or panel failure — test with a known-good cable and monitor. In other words: or failing panel.",
@@ -3359,9 +3359,9 @@ export const exam: ExamDef = {
    "x": "A second monitor is connected but Windows does not detect it. Which steps are reasonable FIRST checks?",
    "o": [
     "Verify the cable and the display's input source",
-    "Perform a clean reinstall of the operating system",
-    "Replace the motherboard with a newer model",
-    "Disable the software firewall on the PC"
+    "Roll back the most recent operating system update",
+    "Disable the integrated graphics adapter in BIOS",
+    "Replace the video card with a known-good unit"
    ],
    "a": 0,
    "e": "Confirm the physical path (cable, correct input) and force detection; then try another cable/port and update GPU drivers.",
@@ -3387,9 +3387,9 @@ export const exam: ExamDef = {
    "x": "After a screen crack, a phone registers touches in places the user is not touching ('ghost touch'). Which component is at fault?",
    "o": [
     "The digitizer",
-    "The battery",
-    "The SIM card",
-    "The speaker"
+    "The LCD panel",
+    "The backlight assembly",
+    "The proximity sensor"
    ],
    "a": 0,
    "e": "The digitizer is the touch-sensing layer; damage there causes phantom or missed touches, fixed by screen assembly replacement.",
@@ -3401,9 +3401,9 @@ export const exam: ExamDef = {
    "x": "A phone charges only when the cable is held at a specific angle. What is the MOST likely cause?",
    "o": [
     "Debris in or damage to the charging port",
-    "A failed OS update",
-    "A large photo library",
-    "Wi-Fi interference"
+    "A battery that no longer holds a full charge",
+    "A power adapter with insufficient wattage",
+    "A disabled fast-charging setting"
    ],
    "a": 0,
    "e": "Lint and pocket debris commonly block charge ports; careful cleaning (or port replacement) restores a solid connection.",
@@ -3414,13 +3414,13 @@ export const exam: ExamDef = {
    "t": "troubleshooting-mobile-devices",
    "x": "A phone has become sluggish and apps are slow to open. The user checks settings and sees that internal storage is almost completely full. What is the BEST way to restore performance?",
    "o": [
-    "Remove unused apps and files to free storage",
-    "Replace the phone's internal battery",
-    "Enable airplane mode on the device",
-    "Replace the phone's charging port"
+    "Uninstall unused apps and delete unneeded files",
+    "Force-stop every app running in the background",
+    "Turn off the Wi-Fi and Bluetooth radios",
+    "Install a third-party battery saver app"
    ],
    "a": 0,
-   "e": "When storage is nearly full the operating system has little room for caches and temporary files, so the device slows down. Freeing space by removing unused apps and files restores performance; the battery, radios, and charging port are unrelated.",
+   "e": "When internal storage is nearly full the operating system has little room for caches, app data, and temporary files, so the whole device slows down. Uninstalling unused apps and deleting files frees that space and restores responsiveness; force-stopping apps or disabling radios changes nothing lasting, and a battery saver app can slow the device further.",
    "d": 5
   },
   {
@@ -3456,10 +3456,10 @@ export const exam: ExamDef = {
    "t": "troubleshooting-mobile-devices",
    "x": "A user's earbuds no longer connect to their phone. Which sequence is the BEST first attempt?",
    "o": [
-    "Cycle Bluetooth and re-pair the earbuds",
-    "Perform a factory reset on the phone",
-    "Replace the earbuds with a new pair",
-    "Reinstall the phone's operating system"
+    "Toggle Bluetooth off and on, then re-pair the earbuds",
+    "Reset all network settings, then reboot the phone",
+    "Clear the Bluetooth cache, then restart the service",
+    "Update the phone's OS, then retry the connection"
    ],
    "a": 0,
    "e": "Most Bluetooth issues clear by cycling the radio and re-pairing; escalate only if that fails.",
@@ -3470,10 +3470,10 @@ export const exam: ExamDef = {
    "t": "troubleshooting-mobile-devices",
    "x": "A tablet's screen no longer rotates when turned sideways. What is the FIRST thing to check?",
    "o": [
-    "Whether the rotation lock is enabled",
-    "The battery health",
-    "The SIM tray",
-    "The charging cable"
+    "Whether the orientation lock is toggled on",
+    "Whether the accelerometer needs recalibration",
+    "Whether battery saver mode is restricting sensors",
+    "Whether a pending system update is waiting to install"
    ],
    "a": 0,
    "e": "Rotation lock in quick settings is the usual culprit; only then suspect the accelerometer or software.",
@@ -3484,10 +3484,10 @@ export const exam: ExamDef = {
    "t": "troubleshooting-mobile-devices",
    "x": "A phone is completely frozen and unresponsive to any touch. What is the FIRST step?",
    "o": [
-    "Perform a forced restart",
-    "Factory reset immediately",
-    "Remove the screen",
-    "Replace the battery"
+    "Perform a forced restart of the device",
+    "Run a factory reset from recovery mode",
+    "Let the battery drain fully, then recharge",
+    "Reflash the firmware from a computer"
    ],
    "a": 0,
    "e": "A forced restart clears the frozen state without data loss; factory reset is a last resort after backups. In other words: soft reset.",
@@ -3499,9 +3499,9 @@ export const exam: ExamDef = {
    "x": "A wired desktop loses its connection intermittently; the cable run passes under a rolling chair. What is the MOST likely cause?",
    "o": [
     "A damaged network cable",
-    "The DNS server",
-    "A DHCP scope conflict",
-    "The monitor cable"
+    "An incorrect DNS server entry",
+    "A duplex mismatch on the switch port",
+    "An exhausted DHCP address scope"
    ],
    "a": 0,
    "e": "Physical cable damage causes intermittent link; visually inspect, reroute, and replace the cable.",
@@ -3513,9 +3513,9 @@ export const exam: ExamDef = {
    "x": "VoIP calls in an office stutter and drop words even though file downloads are fast. Which network characteristics are the MOST likely cause?",
    "o": [
     "High latency and jitter",
-    "Excess storage space",
-    "Too many bookmarks",
-    "Old wallpaper"
+    "Low bandwidth and limited throughput",
+    "Slow DNS responses and lookup delays",
+    "Short DHCP leases and frequent renewals"
    ],
    "a": 0,
    "e": "Real-time voice is sensitive to latency and jitter (variation in delay), not raw bandwidth — QoS prioritization is the usual fix.",
@@ -3526,10 +3526,10 @@ export const exam: ExamDef = {
    "t": "troubleshooting-networks",
    "x": "Users can reach internal servers by IP and name, but nothing on the internet. Which device or setting should be examined FIRST?",
    "o": [
-    "The default gateway / edge router",
-    "The local printer",
-    "A single user's keyboard",
-    "The monitor"
+    "The default gateway or edge router",
+    "The DHCP server's address pool",
+    "The patch panel in the wiring closet",
+    "A single workstation's NIC settings"
    ],
    "a": 0,
    "e": "Internal-only connectivity with no internet points at the gateway: the router, its WAN link, or the gateway setting on clients.",
@@ -3540,10 +3540,10 @@ export const exam: ExamDef = {
    "t": "troubleshooting-networks",
    "x": "A PC's link light is off and the NIC shows 'cable unplugged' even though a cable is attached. Which checks come FIRST?",
    "o": [
-    "Try a known-good patch cord and another switch port",
-    "Reinstall the operating system from media",
-    "Replace the CPU with a matching spare",
-    "Disable the system's paging file"
+    "Try a known-good patch cord and a different switch port",
+    "Update the network adapter driver from the vendor",
+    "Assign a static IP address to the interface",
+    "Replace the network adapter with a spare card"
    ],
    "a": 0,
    "e": "No link means a physical-path problem: swap cable, jack, and switch port to isolate which element is dead.",
@@ -3552,12 +3552,12 @@ export const exam: ExamDef = {
   {
    "id": 229,
    "t": "troubleshooting-networks",
-   "x": "Two users report address-conflict pop-ups and intermittent connectivity. Investigation shows both PCs use the same static IP. What is the fix?",
+   "x": "Two PCs configured with static addresses each display an IP address conflict warning and drop off the network intermittently. Which action resolves the problem?",
    "o": [
-    "Give each device a unique address",
-    "Reboot the DNS server",
-    "Swap their keyboards",
-    "Shorten the cable"
+    "Assign each device a unique IP address",
+    "Renew the DHCP lease on both machines",
+    "Flush the DNS resolver cache on each PC",
+    "Change the subnet mask on both devices"
    ],
    "a": 0,
    "e": "Duplicate IPs conflict; assign unique statics outside the DHCP pool or convert the machines to DHCP. In other words: or move to DHCP.",
@@ -3653,9 +3653,9 @@ export const exam: ExamDef = {
    "x": "Laser pages print with a vertical white streak down one side. Which cause is MOST likely?",
    "o": [
     "A low or unevenly distributed toner supply",
-    "Extra memory installed in the printer",
-    "An IP address conflict on the network",
-    "A frayed power cable at the outlet"
+    "A fuser assembly running below temperature",
+    "A worn pickup roller in the paper tray",
+    "A misadjusted duplexing assembly"
    ],
    "a": 0,
    "e": "Vertical white streaks usually mean toner starvation along that strip — redistribute or replace the cartridge, then inspect the drum.",
@@ -3692,12 +3692,12 @@ export const exam: ExamDef = {
   {
    "id": 239,
    "t": "mobile-device-networks",
-   "x": "A new phone activates its cellular plan without any physical card. Which technology makes this possible?",
+   "x": "A new phone activates its cellular plan by downloading a carrier profile during initial setup. Which technology makes this possible?",
    "o": [
     "eSIM",
     "NFC",
-    "MicroSD",
-    "WPS"
+    "VoLTE",
+    "IMEI"
    ],
    "a": 0,
    "e": "An eSIM is a programmable SIM built into the phone; carriers provision it digitally, no physical SIM swap needed.",
@@ -3709,12 +3709,12 @@ export const exam: ExamDef = {
    "x": "A traveling executive wants people beside them on a plane to be unable to read the laptop screen. Which accessory addresses this?",
    "o": [
     "A privacy filter",
-    "A brighter panel",
-    "A matte case",
-    "A second battery"
+    "An anti-glare film",
+    "A tempered glass protector",
+    "A blue-light filter overlay"
    ],
    "a": 0,
-   "e": "Privacy filters narrow the viewing angle so the screen appears dark from the sides.",
+   "e": "Privacy filters narrow the viewing angle so the screen looks dark from the sides. Anti-glare, tempered glass, and blue-light films change reflections, durability, or color output, not who can see the display.",
    "d": 1
   },
   {
@@ -4255,12 +4255,12 @@ export const exam: ExamDef = {
    "x": "A phone left in a hot car now shows a temperature warning and refuses to charge. What is the correct response?",
    "o": [
     "Let it cool before using or charging it",
-    "Charge it faster to recalibrate",
-    "Put it in a freezer",
-    "Remove the screen"
+    "Fully drain the battery, then recharge it",
+    "Move it to a refrigerator to cool it faster",
+    "Perform a factory reset to clear the warning"
    ],
    "a": 0,
-   "e": "Lithium batteries must not charge at high temperature; devices deliberately block charging until they cool.",
+   "e": "Lithium batteries must not charge at high temperature, so the device blocks charging until it returns to a safe range on its own. Rapid chilling in a refrigerator causes condensation inside the phone, and neither a discharge cycle nor a reset changes the battery's temperature.",
    "d": 5
   },
   {
@@ -4843,13 +4843,13 @@ export const exam: ExamDef = {
    "t": "cpu-features",
    "x": "What is the primary advantage of a processor that contains multiple physical cores?",
    "o": [
-    "It increases the monitor's maximum resolution",
-    "It permanently replaces the need for system RAM",
+    "It increases the base clock speed of each core",
+    "It allows a single thread to complete twice as fast",
     "It can execute several threads truly in parallel",
-    "It doubles the capacity of the storage drive"
+    "It doubles the amount of on-die cache available"
    ],
    "a": 2,
-   "e": "Multiple physical cores let a CPU run several threads at the same time, improving multitasking and multithreaded workloads. Cores do not substitute for RAM, storage, or display hardware.",
+   "e": "Multiple physical cores let the CPU run several threads at the same time, improving multitasking and multithreaded workloads. Adding cores does not raise each core's clock speed, speed up an individual thread, or determine how much cache the die carries.",
    "d": 3
   },
   {
@@ -5002,13 +5002,13 @@ export const exam: ExamDef = {
    "t": "thermal-printers",
    "x": "In a thermal printer, which component applies heat to create the printed image on the media?",
    "o": [
-    "The fuser lamp",
-    "The toner drum",
-    "The thermal print head",
+    "The fuser assembly",
+    "The transfer ribbon",
+    "The print head",
     "The platen roller"
    ],
    "a": 2,
-   "e": "The thermal print head holds a row of tiny heating elements that darken the coated paper or melt the ribbon ink. The platen roller only backs and advances the media and applies no heat.",
+   "e": "The print head contains a row of tiny heating elements that darken thermally coated paper or melt ribbon ink onto the media. The platen roller only backs and advances the media, the ribbon supplies ink rather than heat, and fuser assemblies belong to laser printers.",
    "d": 3
   },
   {

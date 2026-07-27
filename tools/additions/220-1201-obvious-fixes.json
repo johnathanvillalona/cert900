@@ -1,0 +1,743 @@
+{
+ "examId": "220-1201",
+ "fixes": [
+  {
+   "id": 33,
+   "o": [
+    "Two-factor authentication",
+    "Single-factor authentication",
+    "Single sign-on",
+    "Biometric authentication"
+   ],
+   "a": 0
+  },
+  {
+   "id": 62,
+   "o": [
+    "Wi-Fi 6E",
+    "Wi-Fi 4",
+    "Wi-Fi 5",
+    "Wi-Fi 6"
+   ],
+   "a": 0
+  },
+  {
+   "id": 65,
+   "o": [
+    "A load balancer",
+    "A firewall",
+    "An IDS sensor",
+    "A spam gateway"
+   ],
+   "a": 0
+  },
+  {
+   "id": 77,
+   "o": [
+    "A wireless access point",
+    "A wireless LAN controller",
+    "An unmanaged switch",
+    "A media converter"
+   ],
+   "a": 0
+  },
+  {
+   "id": 78,
+   "o": [
+    "A patch panel",
+    "A demarcation point",
+    "A cable management panel",
+    "A keystone wall plate"
+   ],
+   "a": 0,
+   "x": "Which passive rack-mounted device terminates horizontal cable runs so each one can be linked to a switch port with a short jumper cable?"
+  },
+  {
+   "id": 79,
+   "o": [
+    "A PoE injector",
+    "A PoE splitter",
+    "An Ethernet repeater",
+    "A crossover cable"
+   ],
+   "a": 0
+  },
+  {
+   "id": 80,
+   "o": [
+    "A cable modem",
+    "A DSL modem",
+    "An ONT",
+    "A SOHO router"
+   ],
+   "a": 0,
+   "x": "Which device converts an ISP's coaxial broadband signal into Ethernet for a home network?"
+  },
+  {
+   "id": 86,
+   "o": [
+    "Static addresses or DHCP reservations",
+    "Dynamic leases from the general DHCP pool",
+    "APIPA link-local addressing",
+    "DHCP with very short lease times"
+   ],
+   "a": 0
+  },
+  {
+   "id": 89,
+   "o": [
+    "A WISP",
+    "A satellite ISP",
+    "A DOCSIS provider",
+    "An ISDN provider"
+   ],
+   "a": 0
+  },
+  {
+   "id": 90,
+   "o": [
+    "Cellular",
+    "Satellite",
+    "Fixed wireless",
+    "Municipal Wi-Fi"
+   ],
+   "a": 0,
+   "e": "Cellular data over 4G or 5G follows the truck anywhere in the city. Satellite needs a clear sky view and a mounted dish, fixed wireless serves a single stationary address, and municipal Wi-Fi coverage is too patchy and unsecured for payment traffic."
+  },
+  {
+   "id": 94,
+   "o": [
+    "A cable tester",
+    "A toner probe",
+    "A loopback plug",
+    "A multimeter"
+   ],
+   "a": 0,
+   "x": "Which tool confirms that all eight conductors in a terminated run are mapped to the correct pins at both ends?"
+  },
+  {
+   "id": 97,
+   "o": [
+    "A loopback plug",
+    "A cable tester",
+    "A toner probe",
+    "A crossover cable"
+   ],
+   "a": 0,
+   "x": "Which tool verifies that a single network port can transmit and receive correctly without connecting to any other device?"
+  },
+  {
+   "id": 240,
+   "o": [
+    "A privacy filter",
+    "An anti-glare film",
+    "A tempered glass protector",
+    "A blue-light filter overlay"
+   ],
+   "a": 0,
+   "e": "Privacy filters narrow the viewing angle so the screen looks dark from the sides. Anti-glare, tempered glass, and blue-light films change reflections, durability, or color output, not who can see the display."
+  },
+  {
+   "id": 279,
+   "o": [
+    "Let it cool before using or charging it",
+    "Fully drain the battery, then recharge it",
+    "Move it to a refrigerator to cool it faster",
+    "Perform a factory reset to clear the warning"
+   ],
+   "a": 0,
+   "e": "Lithium batteries must not charge at high temperature, so the device blocks charging until it returns to a safe range on its own. Rapid chilling in a refrigerator causes condensation inside the phone, and neither a discharge cycle nor a reset changes the battery's temperature."
+  },
+  {
+   "id": 320,
+   "o": [
+    "It increases the base clock speed of each core",
+    "It allows a single thread to complete twice as fast",
+    "It can execute several threads truly in parallel",
+    "It doubles the amount of on-die cache available"
+   ],
+   "a": 2,
+   "e": "Multiple physical cores let the CPU run several threads at the same time, improving multitasking and multithreaded workloads. Adding cores does not raise each core's clock speed, speed up an individual thread, or determine how much cache the die carries."
+  },
+  {
+   "id": 331,
+   "o": [
+    "The fuser assembly",
+    "The transfer ribbon",
+    "The print head",
+    "The platen roller"
+   ],
+   "a": 2,
+   "e": "The print head contains a row of tiny heating elements that darken thermally coated paper or melt ribbon ink onto the media. The platen roller only backs and advances the media, the ribbon supplies ink rather than heat, and fuser assemblies belong to laser printers."
+  },
+  {
+   "id": 7,
+   "o": [
+    "A docking station / USB-C hub",
+    "A USB-to-Ethernet adapter",
+    "A KVM switch",
+    "A wireless display adapter"
+   ],
+   "a": 0,
+   "e": "A docking station or USB-C hub expands a laptop's single port into wired networking, external displays, and extra peripherals at once. An Ethernet adapter or display adapter covers only one of those needs, and a KVM switch shares one set of peripherals between computers."
+  },
+  {
+   "id": 8,
+   "o": [
+    "Order a replacement trackpad and install it",
+    "Power off the device and replace the swollen battery",
+    "Reinstall the touchpad driver to restore the click",
+    "Recalibrate the battery in the vendor utility"
+   ],
+   "a": 1,
+   "e": "A bulging case means a swollen lithium-ion battery, which is a fire hazard. Power the device off and replace the battery. The trackpad stops clicking because the swelling pack presses against it from below, so trackpad hardware or software fixes miss the real cause."
+  },
+  {
+   "id": 13,
+   "o": [
+    "Send the laptop out for depot-level repair",
+    "Replace the key caps or keyboard assembly",
+    "Exchange the laptop for a refurbished unit",
+    "Attach an external Bluetooth keyboard instead"
+   ],
+   "a": 1,
+   "x": "Several keys have snapped off a laptop's built-in keyboard. Which is generally the MOST cost-effective repair?",
+   "e": "Key caps and laptop keyboard assemblies are inexpensive replacement parts, and individual caps often snap back onto the scissor mechanism. Depot service or a replacement laptop costs far more, and an external keyboard is a workaround rather than a repair."
+  },
+  {
+   "id": 14,
+   "o": [
+    "A physical camera privacy shutter",
+    "An IR webcam with facial recognition",
+    "A TPM chip on the system board",
+    "A built-in fingerprint reader"
+   ],
+   "a": 0,
+   "e": "A physical shutter or kill switch blocks or disconnects the camera regardless of what software is running. TPMs, fingerprint readers, and IR cameras handle authentication and key storage; none of them can stop malware from streaming the webcam."
+  },
+  {
+   "id": 21,
+   "o": [
+    "A stylus / touch pen",
+    "A high-DPI optical mouse",
+    "A trackball with adjustable sensitivity",
+    "A touchpad with multi-finger gestures"
+   ],
+   "a": 0
+  },
+  {
+   "id": 23,
+   "o": [
+    "A rugged case and tempered screen protector",
+    "A slim silicone skin and camera lens film",
+    "A belt holster and microfiber pouch",
+    "A vinyl skin wrap and anti-glare film"
+   ],
+   "a": 0,
+   "e": "Rugged cases and tempered glass are built to absorb drop impacts. Slim skins, vinyl wraps, and carry pouches mainly guard against scratches or protect the device only while it is stowed, which does little on an active job site."
+  },
+  {
+   "id": 31,
+   "o": [
+    "Remote wipe",
+    "Application allow listing",
+    "Screen-capture blocking",
+    "Asset inventory reporting"
+   ],
+   "a": 0,
+   "e": "Remote wipe erases the device or its corporate partition over the air, so data on lost or stolen hardware stays protected. Allow listing, screen-capture controls, and inventory reports manage devices in use but do nothing once the phone is gone."
+  },
+  {
+   "id": 32,
+   "o": [
+    "In a configuration profile pushed over the air",
+    "Through the carrier's firmware update channel",
+    "In a setup wizard run once at first boot",
+    "Through a SIM provisioning message"
+   ],
+   "a": 0,
+   "e": "MDM platforms deliver requirements like passcodes and encryption in configuration profiles pushed over the air to enrolled devices. Carrier firmware updates and SIM provisioning carry network settings, and the first-boot wizard only enrolls the device rather than delivering ongoing policy."
+  },
+  {
+   "id": 144,
+   "o": [
+    "A capture card",
+    "A TV tuner card",
+    "A discrete video card",
+    "A sound card"
+   ],
+   "a": 0,
+   "x": "A streamer wants to bring a game console's HDMI feed into a PC so gameplay can be saved and broadcast live. Which expansion card enables this?"
+  },
+  {
+   "id": 151,
+   "o": [
+    "A unit rated comfortably above the total peak draw",
+    "A unit rated exactly at the total peak draw",
+    "The highest wattage unit available for future expansion",
+    "Two lower wattage supplies wired to share the load"
+   ],
+   "a": 0
+  },
+  {
+   "id": 154,
+   "o": [
+    "Secure print release",
+    "Print spooling",
+    "Scheduled printing",
+    "Duplex printing"
+   ],
+   "a": 0
+  },
+  {
+   "id": 155,
+   "o": [
+    "Scan to SMB",
+    "Scan to email",
+    "Scan to cloud",
+    "Scan to USB"
+   ],
+   "a": 0,
+   "e": "Scan to SMB delivers each scanned file straight into a shared folder on the network. Email, cloud, and USB destinations store the scan somewhere else rather than in a LAN file share."
+  },
+  {
+   "id": 157,
+   "o": [
+    "Print-head calibration",
+    "A nozzle-cleaning cycle",
+    "Waste-ink pad replacement",
+    "Pickup-roller replacement"
+   ],
+   "a": 0
+  },
+  {
+   "id": 165,
+   "o": [
+    "Running each OS in a virtual machine",
+    "Running each OS in a container",
+    "Running each application in compatibility mode",
+    "Connecting to each OS over Remote Desktop"
+   ],
+   "a": 0
+  },
+  {
+   "id": 167,
+   "o": [
+    "CPU virtualization support and sufficient RAM",
+    "Discrete GPU memory and display resolution",
+    "Network adapter speed and USB port count",
+    "Optical drive speed and sound card quality"
+   ],
+   "a": 0
+  },
+  {
+   "id": 168,
+   "o": [
+    "A snapshot",
+    "A VM template",
+    "A live migration",
+    "A virtual switch"
+   ],
+   "a": 0,
+   "x": "An administrator plans a risky configuration change inside a VM and wants the ability to roll the guest back if the change fails. Which VM feature is used beforehand?"
+  },
+  {
+   "id": 179,
+   "o": [
+    "File synchronization",
+    "File versioning",
+    "File caching",
+    "File compression"
+   ],
+   "a": 0
+  },
+  {
+   "id": 122,
+   "o": [
+    "A higher refresh rate",
+    "A higher native resolution",
+    "A wider color gamut",
+    "Greater peak brightness"
+   ],
+   "a": 0
+  },
+  {
+   "id": 126,
+   "o": [
+    "An active HDMI-to-VGA converter",
+    "A passive HDMI-to-VGA cable",
+    "An HDMI-to-DVI passive adapter",
+    "A USB-C-to-VGA adapter"
+   ],
+   "a": 0
+  },
+  {
+   "id": 138,
+   "o": [
+    "The socket type",
+    "The form factor",
+    "The RAM brand",
+    "The PCIe lane count"
+   ],
+   "a": 0,
+   "e": "The CPU and motherboard must share the same socket type, and the board's chipset and BIOS must also support that specific CPU model. Form factor governs board-to-case fit, and RAM brand or PCIe lane count are not CPU compatibility criteria."
+  },
+  {
+   "id": 140,
+   "o": [
+    "The boot order / boot priority",
+    "The TPM security state",
+    "The SATA controller mode",
+    "The XMP memory profile"
+   ],
+   "a": 0,
+   "x": "A technician inserts a USB flash drive containing an OS installer, but the PC keeps starting the existing operating system from the internal drive. Which BIOS/UEFI setting should be changed?"
+  },
+  {
+   "id": 141,
+   "o": [
+    "A supervisor/setup password",
+    "A user power-on password",
+    "Secure Boot",
+    "Chassis intrusion detection"
+   ],
+   "a": 0
+  },
+  {
+   "id": 98,
+   "o": [
+    "A Wi-Fi analyzer",
+    "A spectrum analyzer",
+    "A toner probe",
+    "A cable tester"
+   ],
+   "a": 0,
+   "x": "A technician suspects that overlapping access points are degrading performance across an office floor. Which tool shows nearby SSIDs, their channels, and signal strength?",
+   "e": "A Wi-Fi analyzer maps surrounding networks by SSID, channel, and signal strength, revealing co-channel congestion and guiding channel selection; a spectrum analyzer sees raw RF energy but cannot decode SSIDs."
+  },
+  {
+   "id": 110,
+   "o": [
+    "The wattage rating",
+    "The 80 Plus efficiency level",
+    "The fan bearing type",
+    "The modular cabling design"
+   ],
+   "a": 0
+  },
+  {
+   "id": 111,
+   "o": [
+    "Water cooling",
+    "A passive heatsink",
+    "Extra case fans",
+    "A new thermal pad"
+   ],
+   "a": 0,
+   "x": "A high-performance CPU repeatedly overheats under sustained full load even though the case already has good airflow. Which cooling method can best handle this thermal load?"
+  },
+  {
+   "id": 113,
+   "o": [
+    "A DisplayPort output",
+    "A DVI-D output",
+    "A VGA output",
+    "An S-Video output"
+   ],
+   "a": 0,
+   "x": "Which type of video output is standard on current graphics cards, carries both video and audio over one cable, and supports high refresh rates?",
+   "e": "DisplayPort is the modern digital interface on current graphics cards, carrying high-resolution video and audio at high refresh rates; DVI-D is digital but omits audio, and VGA and S-Video are legacy analog standards."
+  },
+  {
+   "id": 184,
+   "o": [
+    "Overheating from inadequate cooling",
+    "A failing memory module",
+    "Corrupted operating system files",
+    "An outdated BIOS version"
+   ],
+   "a": 0,
+   "x": "A computer runs fine at idle but shuts down abruptly a few minutes into demanding workloads, and its case fans race at full speed before it cuts out. What is the MOST likely cause?",
+   "e": "Load-only shutdowns with fans at full speed point to thermal protection tripping: check for dust buildup, blocked airflow, or dried thermal paste."
+  },
+  {
+   "id": 194,
+   "o": [
+    "The power supply",
+    "The graphics card",
+    "The memory modules",
+    "The case fan assembly"
+   ],
+   "a": 0
+  },
+  {
+   "id": 196,
+   "o": [
+    "An overloaded/failing PSU or overheating",
+    "A failing CMOS battery or an unseated Wi-Fi card",
+    "A fragmented hard drive or a bloated startup list",
+    "An outdated antivirus or a misconfigured firewall"
+   ],
+   "a": 0
+  },
+  {
+   "id": 197,
+   "o": [
+    "Reseat the new RAM modules in their slots",
+    "Replace the modules with a different brand",
+    "Boot into safe mode and run a memory test",
+    "Flash the BIOS to the latest available version"
+   ],
+   "a": 0
+  },
+  {
+   "id": 198,
+   "o": [
+    "A failing cooling fan bearing",
+    "A failing solid-state drive",
+    "A loose memory module",
+    "A degraded CMOS battery"
+   ],
+   "a": 0,
+   "e": "A grinding or buzzing noise that changes with system activity points to a moving part, and the classic culprit is a cooling fan with worn bearings. Solid-state drives, memory modules, and CMOS batteries have no moving parts and cannot produce mechanical noise."
+  },
+  {
+   "id": 199,
+   "o": [
+    "The outlet, power cable, and PSU switch",
+    "The RAM seating and slot placement",
+    "The CMOS battery and board jumpers",
+    "The CPU cooler mounting and thermal paste"
+   ],
+   "a": 0
+  },
+  {
+   "id": 200,
+   "o": [
+    "A memory diagnostic",
+    "A file integrity checker",
+    "A disk defragmentation utility",
+    "A resource usage monitor"
+   ],
+   "a": 0,
+   "x": "After a RAM upgrade, applications begin crashing at random intervals. Which tool helps confirm whether the new modules are at fault?"
+  },
+  {
+   "id": 201,
+   "o": [
+    "Disconnect power to the system immediately",
+    "Perform a graceful shutdown from the OS",
+    "Move the workstation to an open area",
+    "Document the incident and notify a supervisor"
+   ],
+   "a": 0
+  },
+  {
+   "id": 206,
+   "o": [
+    "Free up disk space and defragment the drive",
+    "Increase the virtual memory allocation",
+    "Update the storage controller driver",
+    "Disable unnecessary visual effects"
+   ],
+   "a": 0,
+   "x": "File operations that once took seconds now take minutes on a workstation with a mechanical hard drive, and drive health checks show no failing hardware. Which action is the BEST fix?",
+   "e": "Mechanical drives slow as they fill and fragment because the heads must seek across scattered pieces of every file. Freeing disk space and defragmenting restores contiguous reads; page-file, driver, and visual-effect changes do not address the drive itself. An SSD upgrade is the longer-term cure."
+  },
+  {
+   "id": 207,
+   "o": [
+    "Try a different cable and USB port",
+    "Reinstall the USB controller drivers",
+    "Run a full error scan on the drive",
+    "Update the motherboard chipset firmware"
+   ],
+   "a": 0
+  },
+  {
+   "id": 210,
+   "o": [
+    "The video cable seating",
+    "The display color profile",
+    "The screen resolution setting",
+    "The monitor's contrast setting"
+   ],
+   "a": 0
+  },
+  {
+   "id": 212,
+   "o": [
+    "A damaged or loose video cable pin",
+    "An unsupported screen resolution",
+    "A misconfigured refresh rate",
+    "A disabled hardware acceleration setting"
+   ],
+   "a": 0
+  },
+  {
+   "id": 215,
+   "o": [
+    "Verify the cable and the display's input source",
+    "Roll back the most recent operating system update",
+    "Disable the integrated graphics adapter in BIOS",
+    "Replace the video card with a known-good unit"
+   ],
+   "a": 0
+  },
+  {
+   "id": 217,
+   "o": [
+    "The digitizer",
+    "The LCD panel",
+    "The backlight assembly",
+    "The proximity sensor"
+   ],
+   "a": 0
+  },
+  {
+   "id": 218,
+   "o": [
+    "Debris in or damage to the charging port",
+    "A battery that no longer holds a full charge",
+    "A power adapter with insufficient wattage",
+    "A disabled fast-charging setting"
+   ],
+   "a": 0
+  },
+  {
+   "id": 219,
+   "o": [
+    "Uninstall unused apps and delete unneeded files",
+    "Force-stop every app running in the background",
+    "Turn off the Wi-Fi and Bluetooth radios",
+    "Install a third-party battery saver app"
+   ],
+   "a": 0,
+   "e": "When internal storage is nearly full the operating system has little room for caches, app data, and temporary files, so the whole device slows down. Uninstalling unused apps and deleting files frees that space and restores responsiveness; force-stopping apps or disabling radios changes nothing lasting, and a battery saver app can slow the device further."
+  },
+  {
+   "id": 222,
+   "o": [
+    "Toggle Bluetooth off and on, then re-pair the earbuds",
+    "Reset all network settings, then reboot the phone",
+    "Clear the Bluetooth cache, then restart the service",
+    "Update the phone's OS, then retry the connection"
+   ],
+   "a": 0
+  },
+  {
+   "id": 223,
+   "o": [
+    "Whether the orientation lock is toggled on",
+    "Whether the accelerometer needs recalibration",
+    "Whether battery saver mode is restricting sensors",
+    "Whether a pending system update is waiting to install"
+   ],
+   "a": 0
+  },
+  {
+   "id": 224,
+   "o": [
+    "Perform a forced restart of the device",
+    "Run a factory reset from recovery mode",
+    "Let the battery drain fully, then recharge",
+    "Reflash the firmware from a computer"
+   ],
+   "a": 0
+  },
+  {
+   "id": 225,
+   "o": [
+    "A damaged network cable",
+    "An incorrect DNS server entry",
+    "A duplex mismatch on the switch port",
+    "An exhausted DHCP address scope"
+   ],
+   "a": 0
+  },
+  {
+   "id": 226,
+   "o": [
+    "High latency and jitter",
+    "Low bandwidth and limited throughput",
+    "Slow DNS responses and lookup delays",
+    "Short DHCP leases and frequent renewals"
+   ],
+   "a": 0
+  },
+  {
+   "id": 227,
+   "o": [
+    "The default gateway or edge router",
+    "The DHCP server's address pool",
+    "The patch panel in the wiring closet",
+    "A single workstation's NIC settings"
+   ],
+   "a": 0
+  },
+  {
+   "id": 228,
+   "o": [
+    "Try a known-good patch cord and a different switch port",
+    "Update the network adapter driver from the vendor",
+    "Assign a static IP address to the interface",
+    "Replace the network adapter with a spare card"
+   ],
+   "a": 0
+  },
+  {
+   "id": 229,
+   "o": [
+    "Assign each device a unique IP address",
+    "Renew the DHCP lease on both machines",
+    "Flush the DNS resolver cache on each PC",
+    "Change the subnet mask on both devices"
+   ],
+   "a": 0,
+   "x": "Two PCs configured with static addresses each display an IP address conflict warning and drop off the network intermittently. Which action resolves the problem?"
+  },
+  {
+   "id": 236,
+   "o": [
+    "A low or unevenly distributed toner supply",
+    "A fuser assembly running below temperature",
+    "A worn pickup roller in the paper tray",
+    "A misadjusted duplexing assembly"
+   ],
+   "a": 0
+  },
+  {
+   "id": 239,
+   "o": [
+    "eSIM",
+    "NFC",
+    "VoLTE",
+    "IMEI"
+   ],
+   "a": 0,
+   "x": "A new phone activates its cellular plan by downloading a carrier profile during initial setup. Which technology makes this possible?"
+  },
+  {
+   "id": 152,
+   "a": 0,
+   "o": [
+    "Only the cables that are needed have to be connected",
+    "Failed internal parts can be swapped without replacing the unit",
+    "Extra wattage can be added by stacking supply modules",
+    "The cooling fan can be hot-swapped while the system runs"
+   ]
+  },
+  {
+   "id": 109,
+   "a": 0,
+   "o": [
+    "Intel VT-x or AMD-V",
+    "Secure Boot",
+    "TPM 2.0",
+    "XMP memory profiles"
+   ],
+   "x": "Which BIOS/UEFI setting must be enabled before a workstation can run hardware-accelerated virtual machines?",
+   "e": "Hardware virtualization extensions, Intel VT-x or AMD-V, must be switched on in firmware before a hypervisor can use hardware acceleration; Secure Boot, TPM, and XMP control boot integrity, cryptography, and memory speed instead."
+  }
+ ]
+}

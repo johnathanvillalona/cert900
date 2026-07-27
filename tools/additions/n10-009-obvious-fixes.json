@@ -1,0 +1,134 @@
+{
+ "examId": "n10-009",
+ "fixes": [
+  {
+   "id": 45,
+   "o": [
+    "Fiber is immune to electromagnetic interference",
+    "Fiber costs less to install and terminate than copper",
+    "Fiber can supply Power over Ethernet to end devices",
+    "Fiber withstands crushing and bending better than copper"
+   ],
+   "a": 0,
+   "x": "A manufacturing floor has large motors and arc welders along the planned cable route. Why is fiber recommended over copper for these runs?"
+  },
+  {
+   "id": 63,
+   "o": [
+    "Least-privilege access",
+    "Multifactor authentication",
+    "Defense in depth",
+    "Non-repudiation"
+   ],
+   "a": 0,
+   "x": "A zero-trust design authenticates and authorizes EVERY request. Which companion principle should determine the permissions each identity is granted?"
+  },
+  {
+   "id": 53,
+   "o": [
+    "Spine-and-leaf",
+    "Three-tier",
+    "Collapsed core",
+    "Hub-and-spoke"
+   ],
+   "a": 0,
+   "x": "A data center is being redesigned so that every top-of-rack access switch connects to every switch in the tier above it, keeping east-west performance predictable. Which architecture is this?"
+  },
+  {
+   "id": 49,
+   "o": [
+    "Mismatched transceiver and fiber types",
+    "A duplex mismatch between the switch ports",
+    "An incorrect VLAN assignment on the ports",
+    "A speed mismatch between the two optics"
+   ],
+   "a": 0,
+   "x": "A new fiber link between two switches will not come up. Both transceivers operate at the same speed, but one end has an -SR optic and the other an -LR optic. What is the problem?",
+   "e": "SR optics are short-range multimode and LR optics are long-range single-mode; both ends of a fiber link must match in wavelength, fiber type, and standard, so an SR-to-LR pairing never establishes link."
+  },
+  {
+   "id": 305,
+   "o": [
+    "The allowed VLAN list configured on the trunk",
+    "The speed and duplex negotiated on the trunk link",
+    "The voice VLAN assigned to the trunk interface",
+    "The MTU value configured on the trunk interface"
+   ],
+   "a": 0
+  },
+  {
+   "id": 307,
+   "o": [
+    "The /25 mask makes half the /24 range look remote to the host",
+    "The /25 mask moves the host into a different VLAN",
+    "The /25 mask shrinks the DHCP scope, so some peers lost their leases",
+    "The /25 mask stops broadcast frames from crossing the switch"
+   ],
+   "a": 0
+  },
+  {
+   "id": 334,
+   "o": [
+    "Encrypted management sessions to every network device",
+    "Real-time alerts when a device interface goes down",
+    "Automatic discovery of new devices joining the network",
+    "A reviewable history of every change with rollback"
+   ],
+   "a": 3,
+   "e": "Version control gives an auditable history of who changed what and the ability to revert to a known-good configuration. Interface alerting, device discovery, and session encryption come from monitoring and management tooling, not from the repository itself."
+  },
+  {
+   "id": 74,
+   "o": [
+    "WPA3",
+    "WPA2",
+    "802.1X",
+    "TKIP"
+   ],
+   "a": 0,
+   "e": "WPA3 is the newest Wi-Fi security standard, adding SAE key exchange to resist offline password attacks; WPA2 and TKIP are older wireless protections, and 802.1X handles port-based authentication rather than encryption."
+  },
+  {
+   "id": 118,
+   "o": [
+    "A clean-agent gas system",
+    "A wet-pipe sprinkler system",
+    "A foam deluge system",
+    "A dry chemical powder system"
+   ],
+   "a": 0,
+   "e": "Clean-agent gas systems suppress fire without the conductive water, foam, or corrosive powder residue that sprinkler, deluge, and dry chemical systems would leave on energized electronics."
+  },
+  {
+   "id": 60,
+   "a": 0,
+   "o": [
+    "/25",
+    "/26",
+    "/24",
+    "/27"
+   ]
+  },
+  {
+   "id": 28,
+   "a": 0,
+   "o": [
+    "Limiting internet exposure to only the systems that require it",
+    "Encrypting traffic automatically between the two subnets",
+    "Reducing data-transfer charges between the two subnets",
+    "Providing automatic failover if one subnet goes down"
+   ]
+  },
+  {
+   "id": 100,
+   "a": 0,
+   "o": [
+    "802.1w",
+    "802.1D",
+    "802.1Q",
+    "802.1X"
+   ],
+   "e": "RSTP, standardized as IEEE 802.1w, redesigned port roles and handshakes so the topology converges in seconds. 802.1D is the classic slow-converging spanning tree, while 802.1Q covers VLAN tagging and 802.1X covers port-based network authentication."
+  }
+ ]
+}
