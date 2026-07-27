@@ -1076,12 +1076,12 @@ export const exam: ExamDef = {
    "x": "A content team finds a model's product blurbs too repetitive and predictable. Without changing the prompt, which adjustment makes the outputs more varied?",
    "o": [
     "Lowering the temperature toward zero",
-    "Expanding the context window so longer prompts fit",
-    "Switching to an embeddings model for the generation step",
-    "Raising the temperature so lower-probability words are selected more often"
+    "Expanding the maximum context window",
+    "Switching to an embeddings model for generation",
+    "Raising the temperature setting"
    ],
    "a": 3,
-   "e": "Higher temperature flattens the token probability distribution, letting less likely words through and increasing variety. Temperature near zero does the opposite by making output nearly deterministic, and a larger context window changes input capacity, not output diversity.",
+   "e": "Raising the temperature flattens the token probability distribution so lower-probability words are sampled more often, which makes the output more varied. Lowering it toward zero does the opposite and produces nearly deterministic text, and a larger context window changes how much input fits, not how diverse the output is.",
    "d": 2
   },
   {
@@ -1407,15 +1407,15 @@ export const exam: ExamDef = {
   {
    "id": 72,
    "t": "rag",
-   "x": "Which statement best describes what Retrieval Augmented Generation adds to a foundation model?",
+   "x": "Which statement best describes what a RAG pipeline adds to a foundation model?",
    "o": [
     "It permanently updates the model weights with domain knowledge",
-    "It compresses the model so inference can run on smaller hardware",
+    "It looks up cached answers from earlier sessions so repeated prompts skip the model",
     "It retrieves related information from an external source and passes it to the model",
     "It screens generated responses for harmful or restricted content"
    ],
    "a": 2,
-   "e": "RAG grounds responses by injecting externally fetched content into the model's input at inference time; the model itself is never changed. Permanently updating weights describes fine-tuning, and screening responses for harmful content is what Bedrock Guardrails does.",
+   "e": "RAG fetches relevant content from an external knowledge source at inference time and injects it into the model's input; the weights are never touched. Looking up cached answers to repeated prompts describes response caching, which reuses old output instead of grounding a new one, and permanently updating weights describes fine-tuning.",
    "d": 3
   },
   {
@@ -2015,13 +2015,13 @@ export const exam: ExamDef = {
    "t": "model-selection",
    "x": "A retailer is picking a foundation model to power search-box suggestions that must appear while the customer is still typing. Deep reasoning quality is unimportant for this feature. Which choice best matches the requirements?",
    "o": [
-    "The provider's largest flagship reasoning model",
-    "A compact, low-cost model optimized for speed",
-    "A multimodal model that also accepts images",
-    "A model customized through a fine-tuning job"
+    "The flagship model with response streaming enabled",
+    "The provider's smallest, lowest-cost model tier",
+    "A multimodal model that can interpret product photos",
+    "A fine-tuned copy of the flagship model with response caching"
    ],
    "a": 1,
-   "e": "Interactive type-ahead experiences are dominated by latency, so a small model that responds quickly and cheaply is the right tradeoff when reasoning depth is not needed. The largest flagship models add response time and per-request cost without benefiting this use case.",
+   "e": "Type-ahead suggestions are a latency- and volume-dominated workload, so the provider's smallest, lowest-cost tier is the right fit when deep quality is not required. Streaming the flagship model improves perceived responsiveness but keeps the big model's slower time to first token and much higher per-request cost, and response caching only pays off when identical prompts repeat.",
    "d": 3
   },
   {
@@ -2057,13 +2057,13 @@ export const exam: ExamDef = {
    "t": "model-selection",
    "x": "A nonprofit runs an internal FAQ helper that receives a few dozen questions per day and needs only straightforward answers. Which option keeps spending lowest while meeting the need?",
    "o": [
-    "The largest available model with reserved capacity",
-    "A flagship model customized through fine-tuning",
+    "A lightweight model on provisioned throughput with a one-year term",
+    "A lightweight model customized through a fine-tuning job",
     "A lightweight model billed per token on demand",
-    "A premium multimodal model with vision support"
+    "A lightweight model hosted on a dedicated always-on endpoint"
    ],
    "a": 2,
-   "e": "Low, sporadic traffic with modest quality needs is the ideal case for a small model on pay-per-token on-demand pricing. Reserved capacity and fine-tuning both add fixed or upfront costs that only pay off at sustained high volume.",
+   "e": "A few dozen requests a day is the ideal case for pay-per-token on-demand pricing, since the nonprofit pays only for what it actually uses. Provisioned throughput with a term commitment and a dedicated always-on endpoint both bill for reserved capacity around the clock and only pay off at sustained high volume, while fine-tuning adds training and hosting costs this workload does not need.",
    "d": 3
   },
   {
@@ -2238,15 +2238,15 @@ export const exam: ExamDef = {
   {
    "id": 127,
    "t": "explainability",
-   "x": "Hospital compliance rules require that clinicians be able to follow exactly how a triage system reached each recommendation. A neural network scores slightly higher offline than a decision-tree alternative. Why might the team still choose the tree?",
+   "x": "Hospital auditors must be able to justify every triage recommendation after the fact. A neural network scores slightly higher offline than a decision-tree alternative. Why might the team still choose the tree?",
    "o": [
-    "Its decision path can be traced step by step for full transparency",
-    "Tree-based models generalize better on clinical data than neural networks",
-    "Neural networks cannot be hosted on real-time endpoints",
-    "Simpler models are inherently free of bias"
+    "Each prediction follows an explicit rule path that can be read directly",
+    "Tree models generalize better on clinical data than neural networks",
+    "It attaches a calibrated confidence score to every risk level",
+    "It returns identical outputs for identical inputs, unlike a neural network"
    ],
    "a": 0,
-   "e": "In regulated, high-stakes settings, an inherently interpretable model can be worth a small accuracy sacrifice because its logic can be traced directly. Simplicity does not guarantee fairness, so the claim that simpler models are bias-free is false: bias comes from data, not model size alone.",
+   "e": "A decision tree is inherently interpretable: every prediction follows an explicit rule path that an auditor can read and defend directly, which can be worth a small offline accuracy gap in a regulated setting. A confidence score reports how sure the model is, not why it decided, and determinism is no differentiator because a trained neural network also returns identical outputs for identical inputs.",
    "d": 4
   },
   {
@@ -2847,12 +2847,12 @@ export const exam: ExamDef = {
    "x": "A hospital triage app must return a risk score to the clinician's screen within about 200 milliseconds of a nurse submitting vitals. Which inference pattern should the team deploy?",
    "o": [
     "A real-time endpoint that responds per request",
-    "A scheduled job that scores files overnight",
-    "A manual export reviewed by an analyst weekly",
-    "An asynchronous queue drained once per hour"
+    "An asynchronous endpoint that delivers results to a storage bucket",
+    "A serverless endpoint that scales to zero between requests",
+    "A batch transform job triggered whenever new records arrive"
    ],
    "a": 0,
-   "e": "An interactive, sub-second requirement calls for a persistent real-time endpoint that answers each request as it arrives. An hourly queue is a reasonable pattern for heavy payloads, but a delay measured in minutes or hours cannot support a clinician waiting at the bedside.",
+   "e": "A persistent real-time endpoint keeps the model loaded and answers each call synchronously, the only pattern that reliably meets a sub-second bedside target. A serverless endpoint that scales to zero adds cold-start delays of several seconds, and asynchronous inference queues the request and drops the result in storage later instead of returning it to the waiting clinician.",
    "d": 1
   },
   {
@@ -3205,15 +3205,15 @@ export const exam: ExamDef = {
   {
    "id": 191,
    "t": "ml-use-cases",
-   "x": "An airline wants to spot which spare parts will fail soon by learning from millions of historical sensor readings that no engineer could inspect by hand. What makes this a good candidate for machine learning?",
+   "x": "An airline wants to predict which spare parts will fail soon using years of accumulated sensor readings. What makes this problem a good candidate for machine learning rather than a hand-coded rules program?",
    "o": [
-    "The business rules are simple and fixed",
-    "Every case is covered by written policy",
-    "The output must never change over time",
-    "Patterns are complex and hidden in volume"
+    "Failure patterns can be learned without any labeled examples of past failures",
+    "A model trained once will hold its accuracy without ongoing retraining",
+    "A model can pinpoint the physical root cause of each predicted failure",
+    "The failure signatures are too complex and numerous to write out as explicit rules"
    ],
    "a": 3,
-   "e": "Machine learning earns its keep when relationships are too subtle and the data too large for a person to encode as rules. Simple fixed rules point the other way, because a deterministic program is cheaper and easier to audit when the logic is already known.",
+   "e": "Machine learning earns its keep when the relationships are too subtle and numerous for anyone to encode as explicit rules, which is exactly the case for failure signatures buried in years of sensor data. The other claims misstate what ML offers: supervised failure prediction still needs labeled failure history, accuracy drifts without retraining, and models surface correlated risk rather than pinpointing physical root causes.",
    "d": 1
   },
   {
@@ -3491,16 +3491,16 @@ export const exam: ExamDef = {
   {
    "id": 210,
    "t": "diffusion-models",
-   "x": "A publisher is evaluating multimodal foundation models for archive work. Which tasks can such a model handle? (Select TWO.)",
+   "x": "A publisher's archive team is evaluating a multimodal foundation model that accepts text and images as input and generates text. Which of these archive tasks does it fit? (Select TWO.)",
    "o": [
-    "Rewiring the network switches in a rack",
+    "Transcribing digitized audio interviews into text",
     "Writing a caption for a supplied photograph",
-    "Physically printing the archive to paper",
-    "Guaranteeing every fact in its response",
+    "Retouching damaged photos by regenerating missing pixels",
+    "Retrieving newly published web articles on its own",
     "Answering a question about a chart image"
    ],
    "a": 1,
-   "e": "A multimodal model accepts an image alongside text and returns language, so captioning and visual question answering are both in scope. Printing and rewiring are physical acts, and no model can guarantee factual accuracy, which is why human review still matters.",
+   "e": "A text-and-image multimodal model can examine a supplied photograph or chart and generate language about it, so captioning and visual question answering both fit. Transcribing audio requires a speech input modality the model does not accept, regenerating pixels requires image output it does not produce, and a foundation model cannot fetch new web content on its own without an external retrieval tool.",
    "d": 2,
    "as": [
     1,
@@ -3524,15 +3524,15 @@ export const exam: ExamDef = {
   {
    "id": 212,
    "t": "genai-cost-tradeoffs",
-   "x": "A steady, high-volume assistant runs around the clock, and the team wants guaranteed throughput with committed pricing on Amazon Bedrock. Which purchasing option fits?",
+   "x": "A steady, high-volume assistant runs around the clock on Amazon Bedrock, and the team wants committed-term pricing with a guaranteed sustained request rate and no throttling. Which purchasing option fits?",
    "o": [
     "Provisioned Throughput",
-    "Reserved storage tiers",
-    "Spot training capacity",
+    "Batch inference",
+    "Compute Savings Plans",
     "On-Demand invocation"
    ],
    "a": 0,
-   "e": "Provisioned Throughput reserves model capacity for a committed term, which suits predictable heavy traffic and guarantees a throughput level. On-Demand is the sensible default for bursty or experimental workloads but offers no capacity guarantee or committed discount.",
+   "e": "Provisioned Throughput reserves dedicated model capacity for a committed term, locking in both price and a sustained request rate for predictable round-the-clock traffic. On-Demand carries no commitment and can be throttled at high volume, Batch inference discounts non-interactive jobs by trading away latency, and Compute Savings Plans do not cover Bedrock model invocation.",
    "d": 2
   },
   {
@@ -3568,14 +3568,14 @@ export const exam: ExamDef = {
    "t": "genai-cost-tradeoffs",
    "x": "A product owner wants lower per-call spend on a summarization feature without rewriting the application. Which adjustments reduce cost? (Select TWO.)",
    "o": [
-    "Add a second copy of the instructions",
+    "Lower the temperature setting to zero",
     "Trim unnecessary text out of each prompt",
-    "Switch to a larger flagship-tier model",
-    "Raise the temperature toward its maximum",
+    "Reduce the top-p sampling value",
+    "Decrease the number of retry attempts per request",
     "Cap the maximum number of output tokens"
    ],
    "a": 1,
-   "e": "Billing follows tokens in and tokens out, so shrinking the prompt and bounding the response both cut the bill directly. Temperature changes wording style at no cost difference, while a larger model or duplicated instructions would raise spending.",
+   "e": "Billing follows tokens in and tokens out, so trimming prompt text and capping the response length both shrink the bill directly. Lowering the temperature or the top-p value only changes how each next token is chosen, not how many tokens are billed, and retry settings matter only for failed calls, which generate no billable output to save on.",
    "d": 2,
    "as": [
     1,
@@ -3824,15 +3824,15 @@ export const exam: ExamDef = {
   {
    "id": 232,
    "t": "bedrock-inference-modes",
-   "x": "A logistics company generates 400,000 shipment descriptions each night from a file staged in Amazon S3, and the output is not needed until the following morning. Which Amazon Bedrock invocation mode keeps the cost of this workload lowest?",
+   "x": "A logistics company generates 400,000 shipment descriptions from a file exported every night, and the output is not needed until the following morning. Which Amazon Bedrock invocation mode keeps the cost of this workload lowest?",
    "o": [
     "Provisioned Throughput purchased with no commitment",
-    "Batch inference on records staged in Amazon S3",
+    "Batch inference submitted as a single job",
     "On-demand invocation for each individual record",
     "Provisioned Throughput with a six-month commitment"
    ],
    "a": 1,
-   "e": "Batch inference reads records asynchronously from Amazon S3 and is priced below the standard per-token rate, which suits work that tolerates delay. Provisioned Throughput is billed hourly for reserved capacity, so it would sit idle for the many hours outside the nightly window and cost far more.",
+   "e": "Batch inference processes large record sets asynchronously and is priced below the standard per-token rate, which fits work that can wait until morning. On-demand invocation for each individual record pays the full per-token price, and Provisioned Throughput in either form bills hourly for reserved capacity that would sit idle outside the nightly window.",
    "d": 3
   },
   {
@@ -4399,19 +4399,19 @@ export const exam: ExamDef = {
    "t": "rag-datastores",
    "x": "Which measure do vector stores commonly use to rank how close a query vector sits to the stored ones?",
    "o": [
-    "Row insertion timestamp",
-    "Alphabetical ordering",
+    "Levenshtein edit distance",
+    "Jaccard overlap of shared keywords",
     "Cosine similarity",
     "Term frequency counts"
    ],
    "a": 2,
-   "e": "Cosine similarity compares the angle between two vectors, so it measures shared direction of meaning independently of magnitude. Alphabetical order and insertion time ignore content entirely, and term frequency is a keyword statistic rather than a vector distance.",
+   "e": "Cosine similarity compares the angle between embedding vectors, capturing closeness of meaning independent of magnitude, and it is the standard ranking metric in vector stores. Levenshtein edit distance counts character-level changes between raw strings rather than comparing embeddings, while Jaccard overlap and term frequency counts are keyword statistics, not vector comparisons.",
    "d": 3
   },
   {
    "id": 271,
    "t": "rag-datastores",
-   "x": "An assistant leaves out details that clearly exist in the corpus, and logs show only two passages reach the model on each call. Which retrieval setting should the team change?",
+   "x": "A retrieval-augmented assistant produces well-formed answers that end cleanly yet omit supporting details reviewers confirm exist in the knowledge base, and last night's index sync completed without errors. Which retrieval setting should the team change?",
    "o": [
     "The number of results returned for each query",
     "The denied topics list in the guardrail",
@@ -4419,7 +4419,7 @@ export const exam: ExamDef = {
     "The schedule frequency of the sync job"
    ],
    "a": 0,
-   "e": "If too few passages are pulled back, relevant supporting material never reaches the context window and the answer looks incomplete. Raising the count improves coverage until context length or noise becomes the limit, whereas stop sequences and sync cadence do not govern how much evidence is supplied.",
+   "e": "When too few passages come back per query, relevant material never reaches the model's context, so answers sound complete but stay thin; raising the result count widens the evidence supplied. A denied-topics guardrail would block or deflect whole subjects rather than trim details, stop sequences would cut answers off mid-stream instead of letting them end cleanly, and a sync job that finished without errors has already placed the content in the index.",
    "d": 3
   },
   {
@@ -4486,15 +4486,15 @@ export const exam: ExamDef = {
   {
    "id": 276,
    "t": "model-selection",
-   "x": "A regulated broker must keep every inference call inside one AWS Region and needs the model provider's usage terms cleared by counsel before launch. Which criteria dominate the choice here?",
+   "x": "A regulated brokerage is choosing a foundation model. Data-residency rules require every inference call to run inside a specific geography, and counsel must sign off on how the provider permits commercial use before launch. Which criteria dominate the choice?",
    "o": [
     "Regional availability and licensing terms",
-    "Token generation speed under heavy load",
-    "The number of languages the model supports",
+    "Inference speed and context window size",
+    "Supported languages and modality coverage",
     "Parameter count and training data size"
    ],
    "a": 0,
-   "e": "Compliance constraints narrow the field before capability does, since a model unavailable in the required Region or carrying unacceptable terms cannot be used at all. Size, speed, and language coverage matter when comparing the models that remain eligible.",
+   "e": "Compliance constraints filter the field before capability comparisons matter: a model not offered where the data must stay, or whose usage terms counsel rejects, is disqualified outright. Inference speed, context window size, language coverage, and parameter count are worth weighing only among the models that survive that eligibility screen.",
    "d": 3
   },
   {
@@ -4514,15 +4514,15 @@ export const exam: ExamDef = {
   {
    "id": 278,
    "t": "dataset-bias",
-   "x": "An annotation vendor working in a single country labeled every image in a wildlife-classification dataset, and reviewers later find that local naming habits shaped the labels themselves. Which flaw entered the pipeline?",
+   "x": "An annotation vendor based in a single country labeled every image in a wildlife-classification dataset. Reviewers later find many species tagged according to that country's local naming conventions rather than the agreed taxonomy. Which flaw entered the pipeline?",
    "o": [
-    "Bias produced by randomizing the order of the training batches",
-    "Bias caused by an overly small validation split at train time",
+    "Bias from label smoothing applied during model training",
+    "Bias caused by class imbalance across the labeled categories",
     "Bias introduced by the human annotators during labeling",
-    "Bias arising from a mismatch in numeric feature scaling steps"
+    "Bias arising from label leakage between the training and test splits"
    ],
    "a": 2,
-   "e": "When the ground truth itself reflects the assumptions of one group of labelers, the model learns those assumptions rather than the real world. A small validation split affects how reliably you can measure performance, but it does not corrupt the labels the model trains on.",
+   "e": "The ground truth itself reflects the conventions of one group of human labelers, so the model would learn those conventions as if they were fact, which is annotator-introduced bias. Label smoothing is a deliberate training-time regularization rather than a data flaw, and class imbalance or leakage between splits would distort proportions or evaluation without explaining why individual tags follow one country's naming habits.",
    "d": 4
   },
   {

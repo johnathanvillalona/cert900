@@ -1,0 +1,315 @@
+{
+ "examId": "sy0-701",
+ "fixes": [
+  {
+   "id": 332,
+   "o": [
+    "Merkle tree hashing of the transactions in each block",
+    "A consensus mechanism such as proof of work",
+    "Digital signatures applied by each transaction's sender",
+    "A distributed hash table used for peer discovery"
+   ],
+   "a": 1,
+   "x": "In a public cryptocurrency network, thousands of independent nodes that do not trust one another must each end up committing the identical new block to their copy of the shared ledger. Which mechanism makes this possible?",
+   "e": "Only a consensus mechanism such as proof of work lets mutually distrusting nodes converge on a single valid ledger state without a coordinator. Merkle tree hashing and per-transaction digital signatures verify the integrity and authorization of individual data but do not decide which competing block the whole network commits, and a distributed hash table only helps peers locate one another."
+  },
+  {
+   "id": 359,
+   "o": [
+    "Air gapping",
+    "Screened subnet",
+    "802.1X port-based network access control",
+    "Microsegmentation"
+   ],
+   "a": 3,
+   "x": "A Zero Trust architecture places each workload into its own tightly scoped isolation zone with an individual access policy, so an attacker who compromises one workload cannot move laterally to the rest. Which technique does this describe?",
+   "e": "Microsegmentation gives each workload its own small isolation zone and access policy, containing lateral movement after a breach. A screened subnet only separates public-facing hosts from the internal network at the perimeter, and 802.1X decides whether a device may join the network at all rather than restricting movement between workloads already inside."
+  },
+  {
+   "id": 371,
+   "o": [
+    "Adding a unique random salt to each password before hashing",
+    "Enforcing an account lockout after repeated failed logins",
+    "Requiring scheduled password changes every 60 days",
+    "Enabling multifactor authentication on all accounts"
+   ],
+   "a": 0,
+   "x": "After stealing a database of password hashes, attackers reverse a large share of them almost instantly by matching the stored values against enormous precomputed lookup tables. Which defense specifically defeats these precomputed tables?",
+   "e": "A unique per-password salt changes every stored hash, so a table precomputed for the bare hashing algorithm no longer matches any of them. Account lockout, scheduled password changes, and multifactor authentication all operate at login time and do nothing to stop offline cracking of an already stolen hash database."
+  },
+  {
+   "id": 403,
+   "o": [
+    "Disable services the role does not need",
+    "Increase audit logging verbosity on the server",
+    "Schedule more frequent full backups",
+    "Deploy an intrusion detection sensor on the segment",
+    "Remove unused default user accounts"
+   ],
+   "as": [
+    0,
+    4
+   ],
+   "a": 0,
+   "e": "Disabling unneeded services and removing unused default accounts each eliminate functionality or credentials an attacker could target, directly shrinking the attack surface. Verbose audit logging and an intrusion detection sensor improve detection, and extra backups improve recovery, but none of those removes anything exposed for an attacker to exploit."
+  },
+  {
+   "id": 412,
+   "o": [
+    "Dictionary attack",
+    "Rainbow table attack",
+    "Pass-the-hash",
+    "Credential stuffing"
+   ],
+   "a": 2,
+   "x": "An attacker harvests a credential hash from a compromised workstation's memory and presents it directly to other servers to authenticate as the user, without ever recovering the plaintext password. Which attack, a form of replay, is this?",
+   "e": "Pass-the-hash replays the captured hash directly to authentication services, impersonating the user without ever recovering the password. A rainbow table attack also targets stolen hashes but works by cracking them back to plaintext, which the scenario explicitly rules out, and credential stuffing reuses known plaintext passwords across different sites."
+  },
+  {
+   "id": 431,
+   "o": [
+    "RF jamming",
+    "Evil twin access point",
+    "Deauthentication flood",
+    "Bluejacking"
+   ],
+   "a": 0,
+   "e": "Flooding the spectrum with interfering radio energy so no legitimate wireless signal can get through is RF jamming. A deauthentication flood also denies wireless service, but it uses forged 802.11 management frames rather than raw radio noise, and an evil twin access point lures clients to a rogue network instead of blocking the medium."
+  },
+  {
+   "id": 297,
+   "o": [
+    "Time synchronization across every logging source",
+    "Normalization of event formats before ingestion",
+    "Deduplication of repeated events at the collector",
+    "Retention length configured on the collector"
+   ],
+   "a": 0,
+   "x": "Events from a firewall, a proxy, and two domain controllers cannot be lined up into one incident timeline; the same activity appears minutes apart depending on which device logged it. What must be corrected first?",
+   "e": "Building one trustworthy timeline requires every logging source to reference the same accurate clock, so synchronizing time across the devices must happen before anything else. Normalizing event formats makes fields from different vendors comparable but leaves each device's timestamps unchanged, so the sources would still disagree about when events occurred; deduplication and retention affect volume and lifespan, not ordering."
+  },
+  {
+   "id": 83,
+   "o": [
+    "Platform diversity",
+    "Warm-site failover",
+    "Geographic dispersion",
+    "Capacity planning"
+   ],
+   "a": 2,
+   "x": "An online service runs redundant application servers in two data centers sited far apart, so a power outage or natural disaster at one location cannot take the whole service offline. Which resiliency strategy does this represent?",
+   "e": "Running live redundant servers in widely separated facilities is geographic dispersion: no single localized disaster can reach both copies of the service. Warm-site failover also involves a second facility, but it describes a standby recovery site that must be activated after an outage, whereas here both locations actively serve the application; platform diversity varies vendors and technologies, not locations."
+  },
+  {
+   "id": 93,
+   "o": [
+    "WPA3-Personal with the pre-shared key rotated by a management server",
+    "Open authentication with a centrally hosted captive portal",
+    "WPA2-Personal with MAC filtering synchronized from a directory server",
+    "WPA3-Enterprise with 802.1X and a RADIUS server"
+   ],
+   "a": 3,
+   "e": "WPA3-Enterprise uses 802.1X to forward every authentication attempt to a RADIUS server, which can validate each employee's individual certificate through EAP-TLS. A centrally hosted captive portal only presents a web login page and cannot perform certificate-based authentication, and any Personal mode still relies on a shared passphrase no matter how a management server rotates or distributes it."
+  },
+  {
+   "id": 130,
+   "o": [
+    "It identifies which specific files differ between the drive and the image",
+    "It checks the drive's contents against a database of known malicious hashes",
+    "It records the exact acquisition time for the chain-of-custody log",
+    "It proves the image is an exact, unaltered copy of the original"
+   ],
+   "a": 3,
+   "e": "Matching hash values demonstrate that the forensic image is bit-for-bit identical to the source drive, establishing the integrity of the evidence. A whole-drive hash is a single value, so the comparison can only show whether the two are identical, never which specific files differ; screening content against known-malicious hash databases is a separate analysis step, not what comparing the acquisition hashes does."
+  },
+  {
+   "id": 171,
+   "o": [
+    "Revocation lookups handled by the registrar's own node",
+    "Entries encrypted so only approved employers can read them",
+    "The registrar's ability to correct entries after they are issued",
+    "Public verifiability of an append-only record"
+   ],
+   "a": 3,
+   "e": "Because a distributed ledger is publicly verifiable and append-only, any employer can independently confirm that a diploma entry exists and has not been altered, with no call to the school. Routing revocation lookups through the registrar's own node defeats that goal, since checks would again depend on the issuer being reachable; encrypting entries for approved readers would likewise force employers to obtain keys from the school first."
+  },
+  {
+   "id": 178,
+   "o": [
+    "A control-by-control comparison of current practices against the published requirements",
+    "A scan of internet-facing hosts mapped to the framework's technical controls",
+    "An interview-based estimate of the likely cost of a breach",
+    "A tabletop exercise walking the response team through a simulated incident"
+   ],
+   "a": 0,
+   "e": "Answering a conformance question means holding each current practice side by side with the published requirements and documenting where they diverge. A scan mapped to the framework's technical controls only samples externally visible patch state, so it cannot show whether procedural and administrative requirements are met; estimating breach costs is risk analysis, which says nothing about conformance."
+  },
+  {
+   "id": 432,
+   "o": [
+    "Shortening the antivirus signature update interval",
+    "Scheduling an annual penetration test",
+    "A defense-in-depth layered architecture",
+    "Enforcing stricter password complexity rules",
+    "Behavior-based anomaly detection"
+   ],
+   "as": [
+    2,
+    4
+   ],
+   "a": 2,
+   "e": "Behavior-based anomaly detection can flag novel activity that matches no existing definition, and a layered defense-in-depth architecture gives other controls a chance to contain what one layer misses. Shortening the signature update interval still depends on a signature existing, which a brand-new exploit lacks, and an annual penetration test assesses posture rather than catching an attack in progress."
+  },
+  {
+   "id": 433,
+   "o": [
+    "It transfers legal liability for any exploitation to the researcher",
+    "It shrinks the window attackers have before a fix exists",
+    "It lets affected customers begin applying workarounds immediately",
+    "It raises the flaw's severity score so scanners prioritize it"
+   ],
+   "a": 1,
+   "e": "Withholding details until a fix ships narrows the window in which attackers can exploit an unpatched flaw. Customers cannot begin applying workarounds immediately, because the whole point of the coordination is that details stay private until the patch exists, and the process changes neither the flaw's severity score nor who carries legal liability."
+  },
+  {
+   "id": 200,
+   "o": [
+    "Require OCSP stapling during the handshake",
+    "Shorten the session ticket lifetime",
+    "Prefer the server's cipher ordering during negotiation",
+    "Disable the outdated protocol versions on the server"
+   ],
+   "a": 3,
+   "x": "A load balancer silently retries a failed modern handshake using a legacy alternative whenever the client asks for one, and an adversary abuses that retry behavior to force weak ciphers onto the connection. Which mitigation addresses the underlying problem?",
+   "e": "Removing the outdated versions from the server's offer means the retry has nothing weaker to land on, so the forced downgrade fails outright. Preferring the server's cipher ordering only chooses among the ciphers the negotiated version supports and cannot stop the connection from being steered onto the legacy handshake, while certificate stapling and session ticket tuning address revocation and resumption rather than negotiation."
+  },
+  {
+   "id": 205,
+   "o": [
+    "It needs a command channel before it can activate",
+    "It needs a host program and a user to run it",
+    "It needs an open listening port on the target",
+    "It needs administrative rights on the source host"
+   ],
+   "a": 1,
+   "x": "Analysts find that several programs stored on a departmental shared drive have each grown by the same number of bytes, and workstations become infected at unpredictable times with no scanning or inbound connection activity preceding each infection. Which statement best describes what this code requires to spread?",
+   "e": "File-infecting code rides inside a carrier program and spreads only when someone executes that carrier, which is what separates it from self-propagating network code. An open listening port or a pre-established command channel would matter for malware that moves or activates over the network, but this sample never initiates or accepts a connection to reach a new machine."
+  },
+  {
+   "id": 218,
+   "o": [
+    "Push notifications for mail would route through unmanaged relay servers",
+    "Mail traffic would traverse the carrier network without encryption",
+    "The operating system sandbox no longer holds",
+    "The device can no longer report its location if lost or stolen"
+   ],
+   "a": 2,
+   "e": "Stripping the vendor's restrictions dismantles the isolation that keeps one application from reading another's data, so any sideloaded app could reach corporate mail and its credentials. Mail transport stays encrypted in transit regardless of the device's state, so unprotected carrier traffic is not the issue, and push routing and lost-device location reporting behave the same on modified and unmodified phones."
+  },
+  {
+   "id": 219,
+   "o": [
+    "Nightly cloud backups of the cached records",
+    "A host-based firewall blocking inbound connections",
+    "A privacy filter to prevent shoulder surfing",
+    "Remote wipe with enforced device encryption"
+   ],
+   "a": 3,
+   "e": "Enforced encryption keeps the cached records unreadable to whoever holds the hardware, and remote wipe lets the organization destroy them before a four-digit passcode is worked through. Nightly cloud backups preserve the company's copy but do nothing about the copy sitting on the lost unit, and a host-based firewall or privacy filter only protects a device still in authorized hands."
+  },
+  {
+   "id": 261,
+   "o": [
+    "Authentication logs from the identity provider",
+    "Dark web monitoring for leaked credential collections",
+    "Sector threat advisories from an information sharing group",
+    "A commercial vulnerability scoring feed for its software stack"
+   ],
+   "a": 1,
+   "x": "After a breach at an unrelated firm, a retailer wants early warning if its employees' logins begin circulating among criminals. Which intelligence source directly supports that goal?",
+   "e": "Dark web monitoring watches the marketplaces and paste sites where stolen credential collections are offered, providing warning before anyone tries them. Authentication logs from the identity provider only reveal the problem once someone attempts to use the stolen logins against the retailer, which is later than the early warning requested, while sector advisories and vulnerability feeds describe general threats and flaws rather than the retailer's own exposed accounts."
+  },
+  {
+   "id": 263,
+   "o": [
+    "The number of total findings reported on each device",
+    "The age of the operating system installed on each host",
+    "Environmental exposure and the availability of a working exploit",
+    "The length of time each finding has remained open"
+   ],
+   "a": 2,
+   "x": "Two findings carry identical base severity ratings: one affects a payment gateway reachable by anyone on the internet with attacks already reported in the wild, the other affects a lab workstation with no route in from outside. What should drive the order of remediation?",
+   "e": "Base ratings describe a flaw in isolation, so remediation order should come from context: whether attackers can actually reach the system and whether usable exploit activity already exists. How long a finding has been open and how many findings a device carries are workload metrics rather than risk measures, so a single reachable, actively attacked flaw outranks a backlog of unreachable ones."
+  },
+  {
+   "id": 272,
+   "o": [
+    "Enforcing DNSSEC validation on all lookups",
+    "Blocking known malicious domains at the resolver",
+    "Dropping inbound connection attempts at the edge router",
+    "Rewriting request headers at the reverse proxy"
+   ],
+   "a": 1,
+   "e": "A filtering resolver refuses to answer lookups for known malicious names, so the callback dies before a single packet reaches the operator. Enforcing DNSSEC validation only proves responses were not forged in transit; an attacker's own domain can be validly signed and would still resolve, and dropping inbound attempts at the edge router faces the wrong direction for a compromised host calling out."
+  },
+  {
+   "id": 333,
+   "o": [
+    "A decentralized ledger replicated across many participants",
+    "Automated failover to a hot-site standby data center",
+    "RAID mirroring within each operator's storage array",
+    "Scheduled snapshots restored from write-protected backups"
+   ],
+   "a": 0,
+   "x": "Auditors note that a public blockchain's transaction record stays available and correct even when several operators drop offline or one operator tampers with its own records. Which design property of the blockchain provides this resilience?",
+   "e": "Because the decentralized ledger is replicated across many independent participants, the honest majority preserves an available, correct record even if some nodes fail or one operator alters its own data. Hot-site failover and RAID mirroring protect a single operator's infrastructure, so a failed or dishonest operator could still lose or corrupt the record everyone depends on."
+  },
+  {
+   "id": 340,
+   "o": [
+    "Risk assessment",
+    "Business impact analysis",
+    "Gap analysis",
+    "Vulnerability assessment"
+   ],
+   "a": 2,
+   "x": "An assessor documents an organization's current security posture, compares it with the posture a new compliance framework requires, and reports the specific shortfalls the organization must remediate. Which type of assessment is being performed?",
+   "e": "Documenting the current state, comparing it against a required target state, and reporting the differences to close is a gap analysis. A risk assessment instead weighs threats, likelihoods, and impacts, and a vulnerability assessment enumerates technical flaws rather than measuring distance from a required posture."
+  },
+  {
+   "id": 415,
+   "o": [
+    "Permit unmatched traffic while logging each session for review",
+    "Rate-limit unmatched traffic so it cannot saturate the link",
+    "Redirect unmatched traffic to a quarantine network for inspection",
+    "Enforce a default-deny posture by blocking unmatched traffic"
+   ],
+   "a": 3,
+   "x": "While reviewing firewall configurations, an analyst checks how each access control list handles traffic that matches none of the configured entries. Per secure firewall practice, what should the final rule in each list do?",
+   "e": "Secure firewall practice ends every access control list with a default-deny rule, so anything not explicitly permitted by an earlier entry is blocked and nothing slips through by omission. Permitting unmatched traffic with logging is a default-allow posture that still admits unknown traffic, and rate-limiting or quarantining it would keep forwarding traffic that was never authorized."
+  },
+  {
+   "id": 90,
+   "o": [
+    "Move Telnet and FTP to high, nonstandard ports",
+    "Update the three daemons to their latest patched versions",
+    "Disable those services and close their listening ports",
+    "Enable detailed connection logging for each listener"
+   ],
+   "a": 2,
+   "e": "Disabling services the host does not need and closing their ports removes those entry points outright, which is the most direct reduction in attack surface. Updating the daemons hardens code that remains reachable, and moving Telnet and FTP to nonstandard ports merely obscures listeners a scanner will still find; neither removes the exposure."
+  },
+  {
+   "id": 186,
+   "o": [
+    "The effect of the outage on systems that use the database",
+    "The number of concurrent user licenses in the vendor contract",
+    "The average query volume during weekday business hours",
+    "The hardware warranty status of the host server"
+   ],
+   "a": 0,
+   "x": "An administrator schedules a database engine upgrade for Saturday night. Two reporting services and a public web front end connect to that instance. What must the upgrade plan account for before the maintenance window opens?",
+   "e": "Technical change management requires an impact analysis of every system that consumes the component being modified, so the plan can sequence restarts, send outage notices, and time the work around those consumers. Concurrent license counts and hardware warranty status may matter to procurement, but neither changes what happens to the reporting services and web front end while the database is offline."
+  }
+ ]
+}

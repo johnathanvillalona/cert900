@@ -1,0 +1,197 @@
+{
+ "examId": "az-104",
+ "fixes": [
+  {
+   "id": 7,
+   "o": [
+    "Remove the user's licenses",
+    "Reset the password to a random value",
+    "Set Block sign-in to Yes",
+    "Remove the user's role assignments"
+   ],
+   "a": 2,
+   "x": "An employee is going on extended leave and their access must be suspended, while the account and its data are retained. What should the administrator configure?",
+   "e": "Setting Block sign-in to Yes suspends all authentication for the account while keeping the object, its data, and its assignments intact. Resetting the password to a random value does not revoke existing sessions and the user could regain entry through self-service password reset, while removing licenses or role assignments limits what the account can reach without actually suspending it."
+  },
+  {
+   "id": 15,
+   "o": [
+    "Employee hire date",
+    "Office location",
+    "Manager",
+    "Usage location"
+   ],
+   "a": 3,
+   "x": "An administrator attempts to assign a license to a new user, but the assignment fails with an error. Which user property must be set first?",
+   "e": "A usage location must be set before licenses can be assigned because Microsoft restricts some services by country. Office location is an informational profile field with no effect on licensing, and hire date and manager likewise do not gate license assignment."
+  },
+  {
+   "id": 27,
+   "o": [
+    "Move the subscription into the target management group",
+    "Assign the same policies directly at the subscription scope",
+    "Change the tenant's default management group setting",
+    "Transfer billing ownership of the subscription"
+   ],
+   "a": 0,
+   "x": "An administrator needs an existing subscription to inherit the policy and role assignments applied at a particular management group. What should the administrator do?",
+   "e": "Placing the subscription under the target management group causes it to inherit that group's policy and role assignments, both now and as they change later. Assigning the same policies directly at the subscription scope reproduces today's rules but creates no inheritance, and the default management group setting only controls where newly created subscriptions land."
+  },
+  {
+   "id": 35,
+   "o": [
+    "Resource Policy Contributor",
+    "Management Group Reader",
+    "Management Group Contributor",
+    "Hierarchy Settings Administrator"
+   ],
+   "a": 2,
+   "e": "Creating and managing management groups requires the Management Group Contributor role at the parent scope. Management Group Reader can only view the hierarchy, Hierarchy Settings Administrator manages settings such as the default management group rather than creating groups, and Resource Policy Contributor works with policy definitions and assignments."
+  },
+  {
+   "id": 91,
+   "o": [
+    "The account connection string",
+    "An account access key",
+    "A service SAS for a single blob",
+    "A user delegation SAS for one container",
+    "A stored access policy on a container"
+   ],
+   "as": [
+    0,
+    1
+   ],
+   "a": 0,
+   "e": "Account access keys, and the connection string that embeds them, authorize every operation on all data in the account. A service SAS or user delegation SAS is bounded by the specific blob or container it was signed for regardless of the permissions it carries, and a stored access policy only defines constraints for SAS tokens issued against its own container."
+  },
+  {
+   "id": 93,
+   "o": [
+    "Premium performance with the page blob kind",
+    "Standard performance with the hot default tier",
+    "Premium performance with the block blob kind",
+    "Standard performance with the cool default tier"
+   ],
+   "a": 2,
+   "x": "A transaction-heavy application needs the lowest possible latency for many small, frequently accessed objects. Which storage account choice is appropriate?",
+   "e": "Premium block blob accounts use SSD-backed storage built for high transaction rates and consistently low latency on object data. Premium page blob accounts serve page blob and disk-style workloads rather than general object traffic, and standard accounts on the hot or cool tier are HDD-backed and cannot match premium latency."
+  },
+  {
+   "id": 107,
+   "o": [
+    "On-premises Active Directory Domain Services",
+    "Storage account key authentication",
+    "Microsoft Entra Kerberos authentication",
+    "Microsoft Entra Domain Services with a managed domain"
+   ],
+   "a": 2,
+   "x": "An administrator wants users synced from on-premises Active Directory to access an Azure file share over SMB with single sign-on from Microsoft Entra joined devices that have no line of sight to any domain controllers. Which authentication method should be enabled on the storage account?",
+   "e": "Microsoft Entra Kerberos issues Kerberos tickets directly from Entra ID, so Entra joined clients get single sign-on to the share without contacting any domain controllers. Entra Domain Services and on-premises AD DS both require the client to reach domain controllers during authentication, and storage account keys provide no per-user identity or single sign-on."
+  },
+  {
+   "id": 112,
+   "o": [
+    "Enable large file shares on the account",
+    "Raise the share quota in the share properties",
+    "Convert the account to premium provisioned throughput",
+    "Enable the hierarchical namespace"
+   ],
+   "a": 0,
+   "x": "An administrator needs a single standard SMB file share to hold 60 TiB of data. What must be configured so the share can grow beyond the default size limit?",
+   "e": "A standard share's quota cannot exceed the 5 TiB default until large file shares is enabled on the storage account, which lifts the ceiling to 100 TiB. Simply raising the share quota fails at the default cap, converting to premium abandons the required standard share, and hierarchical namespace applies to Data Lake blob storage rather than file shares."
+  },
+  {
+   "id": 171,
+   "o": [
+    "A scheduled scale rule that adds instances at fixed times",
+    "Automatic instance repair enabled on the scale set",
+    "A larger VM size applied to the scale set profile",
+    "An autoscale rule based on a CPU metric"
+   ],
+   "a": 3,
+   "x": "An administrator wants a VM scale set to add instances whenever average processor utilization exceeds a threshold, without manual intervention. Which feature should be configured?",
+   "e": "A metric-based autoscale rule grows the scale set when average CPU crosses the defined threshold. A scheduled scale rule changes capacity at preset times regardless of actual load, automatic instance repair only replaces unhealthy instances, and applying a larger VM size scales up rather than adding instances."
+  },
+  {
+   "id": 182,
+   "o": [
+    "A minimum replica count of 1 with an HTTP scale rule",
+    "A minimum replica count of 1 with a CPU scale rule",
+    "A minimum replica count of 0 with a CPU scale rule",
+    "A minimum replica count of 0 with an HTTP scale rule"
+   ],
+   "a": 3,
+   "x": "An administrator wants an Azure Container App to run no instances when idle and add replicas as incoming requests arrive. Which scale configuration meets the requirement?",
+   "e": "Idle shutdown requires a minimum replica count of 0 together with an HTTP or event-driven scale rule that adds replicas as requests arrive. CPU and memory scale rules cannot take a Container App down to no instances even when the minimum is set to 0, and any minimum of 1 keeps a replica running while idle."
+  },
+  {
+   "id": 256,
+   "o": [
+    "A gateway load balancer deployed in front of the application tier",
+    "An internal load balancer with a private frontend IP",
+    "A public load balancer with an inbound NAT rule",
+    "A NAT gateway associated with the application tier subnet"
+   ],
+   "a": 1,
+   "x": "A three-tier application must balance traffic from its web tier to an application tier that must not be reachable from the internet. Which configuration fits?",
+   "e": "An internal load balancer's private frontend IP distributes web-to-application traffic entirely inside the VNet. A gateway load balancer exists to chain traffic through network virtual appliances rather than to balance an application tier, a NAT gateway handles only outbound connectivity, and a public load balancer's frontend would make the tier internet-reachable."
+  },
+  {
+   "id": 301,
+   "o": [
+    "Restore disks",
+    "File recovery",
+    "Create a new VM",
+    "Replace existing disks"
+   ],
+   "a": 1,
+   "x": "An Azure VM is healthy and must stay untouched, but an administrator needs two configuration files from last night's recovery point. Which restore option should be used?",
+   "e": "File recovery mounts the selected recovery point as a local drive so individual items can be copied off without altering the VM. Restore disks and Create a new VM provision full disk or machine resources just to reach two items, and Replace existing disks would overwrite the healthy VM's current disks."
+  },
+  {
+   "id": 161,
+   "o": [
+    "The N-series",
+    "The H-series",
+    "The B-series",
+    "The D-series"
+   ],
+   "a": 2,
+   "e": "B-series VMs accumulate CPU credits while idle and spend them to burst when demand spikes, making them the low-cost fit for mostly idle development workloads. D-series VMs deliver constant full-performance general-purpose compute that costs more when sitting idle, and the N-series and H-series target GPU and high-performance computing workloads respectively."
+  },
+  {
+   "id": 163,
+   "o": [
+    "The E-series",
+    "The F-series",
+    "The B-series",
+    "The A-series"
+   ],
+   "a": 0,
+   "e": "The E-series is Azure's memory-optimized family, giving the high memory-to-vCPU ratio an in-memory database needs. The F-series is compute-optimized with the opposite ratio, the B-series is burstable for intermittent light workloads, and the A-series targets entry-level test and development use."
+  },
+  {
+   "id": 199,
+   "o": [
+    "An A record",
+    "A TXT record",
+    "A CNAME record",
+    "An NS record"
+   ],
+   "a": 2,
+   "x": "An administrator maps www.contoso.com to an App Service. Which DNS record type points the subdomain at the app's default azurewebsites.net hostname?",
+   "e": "A CNAME record maps one DNS name to another, pointing www.contoso.com at the app's azurewebsites.net hostname. An A record resolves a name to an IP address rather than another hostname, while TXT records hold text values and NS records delegate a zone."
+  },
+  {
+   "id": 200,
+   "o": [
+    "A CAA record",
+    "A PTR record",
+    "A TXT record",
+    "An A record"
+   ],
+   "a": 2,
+   "e": "App Service checks for a TXT record at asuid.<subdomain> holding the domain verification ID, which proves control of the name. An A record maps the name to an IP for routing but does not prove ownership, PTR serves reverse DNS, and CAA only restricts which certificate authorities may issue for the domain."
+  }
+ ]
+}

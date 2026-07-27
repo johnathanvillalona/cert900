@@ -542,15 +542,15 @@ export const exam: ExamDef = {
   {
    "id": 7,
    "t": "entra-user-group-properties",
-   "x": "An employee is on extended leave and must not sign in, but the account and its data should be retained. What should the administrator configure?",
+   "x": "An employee is going on extended leave and their access must be suspended, while the account and its data are retained. What should the administrator configure?",
    "o": [
-    "Remove the usage location",
-    "Delete the user account",
+    "Remove the user's licenses",
+    "Reset the password to a random value",
     "Set Block sign-in to Yes",
-    "Reset the user password"
+    "Remove the user's role assignments"
    ],
    "a": 2,
-   "e": "Blocking sign-in disables the account while preserving the object and its data. Deleting the account would remove it and its assignments after the recycle bin window.",
+   "e": "Setting Block sign-in to Yes suspends all authentication for the account while keeping the object, its data, and its assignments intact. Resetting the password to a random value does not revoke existing sessions and the user could regain entry through self-service password reset, while removing licenses or role assignments limits what the account can reach without actually suspending it.",
    "d": 1
   },
   {
@@ -664,15 +664,15 @@ export const exam: ExamDef = {
   {
    "id": 15,
    "t": "entra-licenses",
-   "x": "An administrator cannot assign a license to a new user and receives a location error. Which property must be set first?",
+   "x": "An administrator attempts to assign a license to a new user, but the assignment fails with an error. Which user property must be set first?",
    "o": [
     "Employee hire date",
-    "Job title",
+    "Office location",
     "Manager",
     "Usage location"
    ],
    "a": 3,
-   "e": "A license cannot be assigned until the user's usage location is set, because service availability varies by country. The other fields do not block licensing.",
+   "e": "A usage location must be set before licenses can be assigned because Microsoft restricts some services by country. Office location is an informational profile field with no effect on licensing, and hire date and manager likewise do not gate license assignment.",
    "d": 1
   },
   {
@@ -847,15 +847,15 @@ export const exam: ExamDef = {
   {
    "id": 27,
    "t": "subscriptions",
-   "x": "An administrator needs to move an Azure subscription so that it inherits policies from a different management group. Which action accomplishes this?",
+   "x": "An administrator needs an existing subscription to inherit the policy and role assignments applied at a particular management group. What should the administrator do?",
    "o": [
     "Move the subscription into the target management group",
-    "Change the subscription offer type",
-    "Recreate the subscription under a new tenant",
-    "Convert the subscription to a resource group"
+    "Assign the same policies directly at the subscription scope",
+    "Change the tenant's default management group setting",
+    "Transfer billing ownership of the subscription"
    ],
    "a": 0,
-   "e": "Subscriptions can be moved between management groups to inherit their policy and role assignments. A subscription cannot become a resource group, which is a lower scope inside it.",
+   "e": "Placing the subscription under the target management group causes it to inherit that group's policy and role assignments, both now and as they change later. Assigning the same policies directly at the subscription scope reproduces today's rules but creates no inheritance, and the default management group setting only controls where newly created subscriptions land.",
    "d": 1
   },
   {
@@ -971,13 +971,13 @@ export const exam: ExamDef = {
    "t": "management-groups",
    "x": "Before an administrator can create child management groups, which permission or role must they hold at the appropriate scope?",
    "o": [
-    "Storage Blob Data Owner",
-    "Network Contributor",
+    "Resource Policy Contributor",
+    "Management Group Reader",
     "Management Group Contributor",
-    "Reader"
+    "Hierarchy Settings Administrator"
    ],
    "a": 2,
-   "e": "Creating and managing management groups requires the Management Group Contributor role. Reader and resource-specific roles do not grant permission to build the hierarchy.",
+   "e": "Creating and managing management groups requires the Management Group Contributor role at the parent scope. Management Group Reader can only view the hierarchy, Hierarchy Settings Administrator manages settings such as the default management group rather than creating groups, and Resource Policy Contributor works with policy definitions and assignments.",
    "d": 1
   },
   {
@@ -1822,12 +1822,12 @@ export const exam: ExamDef = {
    "o": [
     "The account connection string",
     "An account access key",
-    "A read-only service SAS for one blob",
-    "A user delegation SAS scoped to list",
-    "A Storage Blob Data Reader role assignment"
+    "A service SAS for a single blob",
+    "A user delegation SAS for one container",
+    "A stored access policy on a container"
    ],
    "a": 0,
-   "e": "Both account keys and the connection string embed full account authority. A scoped SAS or a reader role grants only limited access.",
+   "e": "Account access keys, and the connection string that embeds them, authorize every operation on all data in the account. A service SAS or user delegation SAS is bounded by the specific blob or container it was signed for regardless of the permissions it carries, and a stored access policy only defines constraints for SAS tokens issued against its own container.",
    "d": 2,
    "as": [
     0,
@@ -1856,15 +1856,15 @@ export const exam: ExamDef = {
   {
    "id": 93,
    "t": "storage-accounts-create",
-   "x": "A transaction-heavy application needs the lowest-latency block blob storage. Which account choice is appropriate?",
+   "x": "A transaction-heavy application needs the lowest possible latency for many small, frequently accessed objects. Which storage account choice is appropriate?",
    "o": [
     "Premium performance with the page blob kind",
-    "Standard performance with a cool default tier",
+    "Standard performance with the hot default tier",
     "Premium performance with the block blob kind",
-    "Standard performance with an archive default tier"
+    "Standard performance with the cool default tier"
    ],
    "a": 2,
-   "e": "Premium block blob accounts use SSD-backed storage for high-transaction, low-latency blob traffic. Premium page blob accounts target managed disks instead.",
+   "e": "Premium block blob accounts use SSD-backed storage built for high transaction rates and consistently low latency on object data. Premium page blob accounts serve page blob and disk-style workloads rather than general object traffic, and standard accounts on the hot or cool tier are HDD-backed and cannot match premium latency.",
    "d": 2
   },
   {
@@ -2067,15 +2067,15 @@ export const exam: ExamDef = {
   {
    "id": 107,
    "t": "files-identity-access",
-   "x": "An administrator wants hybrid users synced from on-premises to reach an Azure file share over SMB with single sign-on and no domain controllers to manage. Which authentication method should be enabled?",
+   "x": "An administrator wants users synced from on-premises Active Directory to access an Azure file share over SMB with single sign-on from Microsoft Entra joined devices that have no line of sight to any domain controllers. Which authentication method should be enabled on the storage account?",
    "o": [
     "On-premises Active Directory Domain Services",
     "Storage account key authentication",
-    "Microsoft Entra Kerberos authentication for hybrid identities",
+    "Microsoft Entra Kerberos authentication",
     "Microsoft Entra Domain Services with a managed domain"
    ],
    "a": 2,
-   "e": "Microsoft Entra Kerberos lets hybrid identities use single sign-on to Azure Files over SMB with no domain controllers to run or manage. Entra Domain Services and on-premises AD DS both rely on managed or self-run domain controllers, and account keys are not identity-based.",
+   "e": "Microsoft Entra Kerberos issues Kerberos tickets directly from Entra ID, so Entra joined clients get single sign-on to the share without contacting any domain controllers. Entra Domain Services and on-premises AD DS both require the client to reach domain controllers during authentication, and storage account keys provide no per-user identity or single sign-on.",
    "d": 2
   },
   {
@@ -2142,15 +2142,15 @@ export const exam: ExamDef = {
   {
    "id": 112,
    "t": "files-share",
-   "x": "An administrator must store 60 TiB in a single standard SMB file share. Which setting must be turned on for the storage account to exceed the default share size limit?",
+   "x": "An administrator needs a single standard SMB file share to hold 60 TiB of data. What must be configured so the share can grow beyond the default size limit?",
    "o": [
-    "Large file shares",
-    "Geo-zone-redundant storage",
-    "Premium provisioned throughput",
-    "Hierarchical namespace"
+    "Enable large file shares on the account",
+    "Raise the share quota in the share properties",
+    "Convert the account to premium provisioned throughput",
+    "Enable the hierarchical namespace"
    ],
    "a": 0,
-   "e": "Enabling large file shares raises a standard SMB share's capacity to as much as 100 TiB. Hierarchical namespace is for Data Lake, and provisioned throughput or geo-redundancy do not change the size limit.",
+   "e": "A standard share's quota cannot exceed the 5 TiB default until large file shares is enabled on the storage account, which lifts the ceiling to 100 TiB. Simply raising the share quota fails at the default cap, converting to premium abandons the required standard share, and hierarchical namespace applies to Data Lake blob storage rather than file shares.",
    "d": 2
   },
   {
@@ -2890,13 +2890,13 @@ export const exam: ExamDef = {
    "t": "vm-sizes",
    "x": "An administrator runs a development workload that sits idle most of the time and wants low-cost VMs able to burst CPU when needed. Which VM series fits best?",
    "o": [
-    "The N-series GPU-accelerated virtual machines",
-    "The H-series high-performance compute machines",
-    "The B-series burstable virtual machines",
-    "The M-series memory-optimized virtual machines"
+    "The N-series",
+    "The H-series",
+    "The B-series",
+    "The D-series"
    ],
    "a": 2,
-   "e": "B-series burstable VMs accumulate credits while idle and burst CPU on demand at low cost. M-series targets large memory, H-series targets HPC, and N-series targets GPU workloads.",
+   "e": "B-series VMs accumulate CPU credits while idle and spend them to burst when demand spikes, making them the low-cost fit for mostly idle development workloads. D-series VMs deliver constant full-performance general-purpose compute that costs more when sitting idle, and the N-series and H-series target GPU and high-performance computing workloads respectively.",
    "d": 3
   },
   {
@@ -2918,13 +2918,13 @@ export const exam: ExamDef = {
    "t": "vm-sizes",
    "x": "An administrator needs VMs with a high memory-to-vCPU ratio to host an in-memory database. Which VM series should be selected?",
    "o": [
-    "The E-series memory-optimized virtual machines",
-    "The F-series compute-optimized virtual machines",
-    "The B-series burstable virtual machines",
-    "The A-series entry-level virtual machines"
+    "The E-series",
+    "The F-series",
+    "The B-series",
+    "The A-series"
    ],
    "a": 0,
-   "e": "E-series memory-optimized VMs provide a high memory-to-vCPU ratio suited to in-memory databases. F-series favors CPU, A-series is entry-level, and B-series is burstable for light workloads.",
+   "e": "The E-series is Azure's memory-optimized family, giving the high memory-to-vCPU ratio an in-memory database needs. The F-series is compute-optimized with the opposite ratio, the B-series is burstable for intermittent light workloads, and the A-series targets entry-level test and development use.",
    "d": 3
   },
   {
@@ -3038,15 +3038,15 @@ export const exam: ExamDef = {
   {
    "id": 171,
    "t": "vmss",
-   "x": "An administrator wants a VM scale set to add instances automatically when average CPU rises above a threshold. Which feature should be configured?",
+   "x": "An administrator wants a VM scale set to add instances whenever average processor utilization exceeds a threshold, without manual intervention. Which feature should be configured?",
    "o": [
-    "A single instance given a larger size",
-    "A manual instance count set one time",
-    "A load balancer health probe by itself",
+    "A scheduled scale rule that adds instances at fixed times",
+    "Automatic instance repair enabled on the scale set",
+    "A larger VM size applied to the scale set profile",
     "An autoscale rule based on a CPU metric"
    ],
    "a": 3,
-   "e": "Autoscale rules add or remove instances based on metrics such as CPU. A manual count is static, resizing one VM is not scaling out, and a health probe checks health without scaling the set.",
+   "e": "A metric-based autoscale rule grows the scale set when average CPU crosses the defined threshold. A scheduled scale rule changes capacity at preset times regardless of actual load, automatic instance repair only replaces unhealthy instances, and applying a larger VM size scales up rather than adding instances.",
    "d": 3
   },
   {
@@ -3207,15 +3207,15 @@ export const exam: ExamDef = {
   {
    "id": 182,
    "t": "container-scaling",
-   "x": "An administrator wants an Azure Container App to run no instances when idle and add replicas as HTTP requests arrive. Which setting enables scaling to zero?",
+   "x": "An administrator wants an Azure Container App to run no instances when idle and add replicas as incoming requests arrive. Which scale configuration meets the requirement?",
    "o": [
+    "A minimum replica count of 1 with an HTTP scale rule",
     "A minimum replica count of 1 with a CPU scale rule",
-    "A fixed replica count set to auto",
-    "An always-on flag on the environment",
+    "A minimum replica count of 0 with a CPU scale rule",
     "A minimum replica count of 0 with an HTTP scale rule"
    ],
    "a": 3,
-   "e": "Setting minimum replicas to 0 lets Container Apps scale to zero, and an HTTP scale rule adds replicas as requests arrive. A minimum of 1 keeps at least one instance always running.",
+   "e": "Idle shutdown requires a minimum replica count of 0 together with an HTTP or event-driven scale rule that adds replicas as requests arrive. CPU and memory scale rules cannot take a Container App down to no instances even when the minimum is set to 0, and any minimum of 1 keeps a replica running while idle.",
    "d": 3
   },
   {
@@ -3460,15 +3460,15 @@ export const exam: ExamDef = {
   {
    "id": 199,
    "t": "appservice-custom-dns",
-   "x": "An administrator maps www.contoso.com to an App Service. Which DNS record aliases the subdomain to the app's default hostname?",
+   "x": "An administrator maps www.contoso.com to an App Service. Which DNS record type points the subdomain at the app's default azurewebsites.net hostname?",
    "o": [
-    "An SRV record advertising the web app service port",
-    "An MX record routing mail for the custom domain",
-    "A CNAME record aliasing to the app's default hostname",
-    "An NS record delegating the subdomain to a zone"
+    "An A record",
+    "A TXT record",
+    "A CNAME record",
+    "An NS record"
    ],
    "a": 2,
-   "e": "A CNAME record aliases the subdomain to the app's azurewebsites.net hostname. MX records route mail, SRV records advertise services, and NS records delegate zones.",
+   "e": "A CNAME record maps one DNS name to another, pointing www.contoso.com at the app's azurewebsites.net hostname. An A record resolves a name to an IP address rather than another hostname, while TXT records hold text values and NS records delegate a zone.",
    "d": 3
   },
   {
@@ -3476,13 +3476,13 @@ export const exam: ExamDef = {
    "t": "appservice-custom-dns",
    "x": "App Service requires proof of domain control before binding a custom name. Which record provides that ownership verification?",
    "o": [
-    "A CAA record listing the certificate authority",
-    "A PTR record for the app's IP address",
-    "A TXT record containing the custom domain verification ID",
-    "An A record pointing at the app"
+    "A CAA record",
+    "A PTR record",
+    "A TXT record",
+    "An A record"
    ],
    "a": 2,
-   "e": "A TXT record holding the asuid verification ID proves domain ownership to App Service. PTR handles reverse DNS, A records map to IPs, and CAA restricts which authorities may issue certificates.",
+   "e": "App Service checks for a TXT record at asuid.<subdomain> holding the domain verification ID, which proves control of the name. An A record maps the name to an IP for routing but does not prove ownership, PTR serves reverse DNS, and CAA only restricts which certificate authorities may issue for the domain.",
    "d": 3
   },
   {
@@ -4313,15 +4313,15 @@ export const exam: ExamDef = {
   {
    "id": 256,
    "t": "load-balancer",
-   "x": "A three-tier application must balance traffic between its web tier and a private application tier with no internet exposure. Which configuration fits?",
+   "x": "A three-tier application must balance traffic from its web tier to an application tier that must not be reachable from the internet. Which configuration fits?",
    "o": [
-    "An internal load balancer with a public frontend IP",
+    "A gateway load balancer deployed in front of the application tier",
     "An internal load balancer with a private frontend IP",
-    "A public load balancer paired with a service endpoint",
-    "A public load balancer with an inbound NAT rule"
+    "A public load balancer with an inbound NAT rule",
+    "A NAT gateway associated with the application tier subnet"
    ],
    "a": 1,
-   "e": "An internal load balancer uses a private frontend IP to distribute traffic within the VNet, ideal for tier-to-tier flows. A public LB or public frontend would expose the tier to the internet.",
+   "e": "An internal load balancer's private frontend IP distributes web-to-application traffic entirely inside the VNet. A gateway load balancer exists to chain traffic through network virtual appliances rather than to balance an application tier, a NAT gateway handles only outbound connectivity, and a public load balancer's frontend would make the tier internet-reachable.",
    "d": 4
   },
   {
@@ -5013,15 +5013,15 @@ export const exam: ExamDef = {
   {
    "id": 301,
    "t": "azure-backup-restore",
-   "x": "An administrator must recover a few individual files from an Azure VM backup without restoring the entire machine. Which restore option fits?",
+   "x": "An Azure VM is healthy and must stay untouched, but an administrator needs two configuration files from last night's recovery point. Which restore option should be used?",
    "o": [
-    "Restore the entire VM",
+    "Restore disks",
     "File recovery",
     "Create a new VM",
     "Replace existing disks"
    ],
    "a": 1,
-   "e": "File recovery mounts the recovery point as a local drive so specific files can be copied off. Creating a new VM or replacing disks restores the whole machine instead.",
+   "e": "File recovery mounts the selected recovery point as a local drive so individual items can be copied off without altering the VM. Restore disks and Create a new VM provision full disk or machine resources just to reach two items, and Replace existing disks would overwrite the healthy VM's current disks.",
    "d": 5
   },
   {

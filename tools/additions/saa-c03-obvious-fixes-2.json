@@ -1,0 +1,187 @@
+{
+ "examId": "saa-c03",
+ "fixes": [
+  {
+   "id": 197,
+   "o": [
+    "DynamoDB Accelerator",
+    "ElastiCache for Memcached",
+    "DynamoDB Streams",
+    "DynamoDB global tables"
+   ],
+   "a": 0,
+   "e": "DynamoDB Accelerator is an in-memory cache purpose-built for DynamoDB that delivers microsecond reads through the same DynamoDB API, so the application code stays unchanged. ElastiCache for Memcached can cache reads but forces the application to add its own cache-management logic, while DynamoDB Streams captures item changes and global tables replicate data across Regions; neither reduces read latency."
+  },
+  {
+   "id": 232,
+   "o": [
+    "AWS IAM",
+    "AWS Lake Formation",
+    "AWS Glue Data Catalog resource policies",
+    "Amazon S3 bucket policies"
+   ],
+   "a": 1,
+   "x": "An organization storing analytics datasets in Amazon S3 needs to grant analysts fine-grained, column-level access permissions centrally across Athena and Redshift Spectrum. Which service centralizes this permission management?",
+   "e": "Lake Formation centrally manages fine-grained, column- and row-level permissions on tables queried through Athena and Redshift Spectrum. AWS Glue Data Catalog resource policies only control catalog access down to databases and tables, and AWS IAM and S3 bucket policies operate at the API, bucket, or object level, so none of them can restrict individual columns."
+  },
+  {
+   "id": 261,
+   "o": [
+    "Amazon S3 File Gateway",
+    "Volume Gateway in cached mode",
+    "Amazon FSx File Gateway",
+    "Tape Gateway"
+   ],
+   "a": 2,
+   "x": "On-premises users need low-latency access to fully managed Windows file shares hosted in AWS over SMB with Active Directory integration. Which gateway provides a local cache for these shares?",
+   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares."
+  },
+  {
+   "id": 273,
+   "o": [
+    "They discount matching usage automatically up to an hourly spend commitment",
+    "They provide a capacity reservation within an Availability Zone",
+    "They lock the discount to one instance type and size for the term",
+    "They allow the hourly commitment to be lowered at any time during the term"
+   ],
+   "a": 0,
+   "x": "An architect is comparing Savings Plans with Standard Reserved Instances for steady-state compute usage. Which statement about Savings Plans is accurate?",
+   "e": "Savings Plans apply their discount to any matching usage up to the committed hourly spend with no per-reservation management. They never reserve capacity in an Availability Zone, the hourly commitment cannot be lowered mid-term, and even EC2 Instance Savings Plans flex across instance sizes rather than locking a single type and size."
+  },
+  {
+   "id": 303,
+   "o": [
+    "Aurora Serverless v2 with a minimum of 2 ACUs",
+    "Aurora Serverless v1",
+    "A provisioned Aurora cluster stopped on a schedule",
+    "Aurora Global Database with a secondary Region"
+   ],
+   "a": 0,
+   "e": "Aurora Serverless v1 can pause automatically after a period of inactivity and resume on the next connection, so a rarely used test database costs almost nothing while idle. A Serverless v2 cluster pinned to a 2-ACU minimum keeps that capacity billed continuously, and a provisioned cluster stopped on a schedule needs custom automation and cannot restart itself when a connection arrives. Aurora Global Database targets cross-Region disaster recovery, not idle-time cost."
+  },
+  {
+   "id": 3,
+   "o": [
+    "Attach the ReadOnlyAccess managed policy to every role as a safer baseline",
+    "Use IAM Access Analyzer to find unused roles and permissions",
+    "Enable Amazon GuardDuty and review its findings in each account",
+    "Consolidate workloads onto a single shared service role to simplify reviews",
+    "Generate IAM credential reports to review password and key age"
+   ],
+   "as": [
+    1,
+    4
+   ],
+   "a": 1,
+   "x": "A security team must confirm that IAM roles across all accounts hold only the access their workloads actually need and that no stale sign-in secrets remain active. Which actions support this effort? Choose TWO.",
+   "e": "IAM Access Analyzer identifies roles and permissions that are never used so policies can be scoped down, and credential reports list each user's password and access-key age so stale secrets can be disabled. GuardDuty detects active threats rather than over-broad policies, attaching ReadOnlyAccess everywhere grants unneeded read access instead of removing it, and a shared service role broadens access rather than narrowing it."
+  },
+  {
+   "id": 22,
+   "o": [
+    "Require an external ID in the role's trust policy",
+    "Keep the role's ARN confidential and share it only over an encrypted channel",
+    "Add an MFA condition to the assume-role request",
+    "Issue the vendor long-term IAM user access keys instead of temporary role sessions",
+    "Rotate the role's ARN on a fixed schedule so stale references stop working"
+   ],
+   "as": [
+    0,
+    2
+   ],
+   "a": 0,
+   "x": "An architect is designing cross-account role assumption for a third-party vendor. Which controls make this arrangement more secure? Choose TWO.",
+   "e": "An external ID prevents the confused-deputy problem, and an MFA condition adds a second factor to the assume-role call. Role ARNs are identifiers rather than secrets, so keeping them confidential or rotating them provides no real protection, and long-term vendor access keys are weaker than short-lived role sessions."
+  },
+  {
+   "id": 23,
+   "o": [
+    "The trust policy on the destination role does not permit the calling principal",
+    "The destination role's permissions policy is missing an sts:AssumeRole statement",
+    "The engineer's long-term access keys have not been rotated recently",
+    "The destination role is not associated with an EC2 instance profile"
+   ],
+   "a": 0,
+   "e": "Cross-account AssumeRole must be allowed by the destination role's trust policy, so a trust policy that omits the calling principal is the likely gap when the role's permissions are otherwise correct. The role's own permissions policy, including any sts:AssumeRole statement in it, controls what the role can do after assumption rather than who may assume it; key age does not block API calls, and instance profiles matter only when attaching a role to EC2."
+  },
+  {
+   "id": 46,
+   "o": [
+    "IAM users cannot be created through an API, so player sign-ups could not be automated",
+    "IAM users are meant for AWS account access and hit a hard limit, unlike Cognito for end users",
+    "Cognito issues each player permanent credentials, so the app never handles token expiry or refresh",
+    "IAM users require a hardware MFA device for each principal, which is impractical at player scale"
+   ],
+   "a": 1,
+   "e": "IAM users represent principals in the AWS account itself and are subject to a per-account quota, while Cognito user pools are built to hold millions of application identities. IAM users can in fact be created programmatically and do not require hardware MFA, and Cognito issues short-lived tokens that must be refreshed rather than permanent credentials."
+  },
+  {
+   "id": 75,
+   "o": [
+    "Enable the strictest TLS security policy on the HTTPS listener and turn on access logging",
+    "Use HTTPS listeners and register targets over HTTPS to the instances",
+    "Replace the ALB with a Network Load Balancer configured for TLS passthrough",
+    "Terminate TLS at the ALB with an ACM certificate and forward to the target group on port 80"
+   ],
+   "a": 1,
+   "e": "Encrypting both hops means an HTTPS listener for clients plus target registration over HTTPS to the instances. A strict TLS security policy on the listener secures only the client-to-ALB hop, forwarding to the target group on port 80 leaves the final hop in the clear, and swapping in an NLB does not answer how the ALB itself should be configured."
+  },
+  {
+   "id": 77,
+   "o": [
+    "Amazon CloudFront",
+    "AWS WAF with rate-based rules",
+    "AWS Shield Standard",
+    "AWS Shield Advanced"
+   ],
+   "a": 3,
+   "x": "An enterprise requires enhanced DDoS mitigation with 24/7 access to a specialist response team and financial protection against scaling charges incurred during an attack. Which service meets this requirement?",
+   "e": "Shield Advanced adds enhanced DDoS mitigation, 24/7 access to the Shield Response Team, and cost protection for scaling caused by an attack. Shield Standard is the always-on baseline included with every account but offers neither response-team access nor billing protection, and WAF rate-based rules only throttle layer 7 request floods."
+  },
+  {
+   "id": 117,
+   "o": [
+    "Retrieve the secret from AWS Secrets Manager at runtime",
+    "Fetch the credentials from a Parameter Store String parameter at runtime",
+    "Encrypt environment variables with an AWS KMS key",
+    "Have the CI pipeline inject the credentials into the function code as build-time constants",
+    "Store the database password in an AWS CloudHSM cluster for the function to query"
+   ],
+   "as": [
+    0,
+    2
+   ],
+   "a": 0,
+   "x": "A Lambda function needs database credentials at runtime without hardcoding them, and both the stored secret and the function's environment variables must be encrypted at rest. Which two approaches meet these requirements? Choose TWO.",
+   "e": "Secrets Manager keeps the secret encrypted with KMS and serves it to the function at runtime, and a KMS key satisfies the encryption requirement for environment variables. A Parameter Store String parameter stores its value unencrypted because only SecureString parameters are KMS-encrypted, constants injected at build time still hardcode the value into the code, and CloudHSM manages cryptographic keys rather than serving application passwords."
+  },
+  {
+   "id": 170,
+   "o": [
+    "RTO is the maximum amount of data loss the business can tolerate after an outage",
+    "RPO is the maximum time allowed to bring the service back online after an outage",
+    "RTO is the maximum time allowed to restore service after an outage",
+    "RPO is the maximum data loss allowed, expressed as a time span",
+    "RTO is determined by the interval between successive backups of the workload"
+   ],
+   "as": [
+    2,
+    3
+   ],
+   "a": 2,
+   "e": "RTO caps how long service restoration may take, and RPO caps how much data, measured as a span of time, may be lost. The reversed definitions are the classic trap: maximum tolerable data loss is RPO rather than RTO, and the backup interval drives RPO, not RTO."
+  },
+  {
+   "id": 184,
+   "o": [
+    "A security group on the mount targets allowing NFS only from the application subnet",
+    "File system encryption at rest with a KMS customer managed key",
+    "NFS export rules on the file system restricting mounts to approved client IP addresses",
+    "EFS access points with IAM authorization and TLS mount encryption"
+   ],
+   "a": 3,
+   "x": "An application must control which EC2 instances may mount an EFS file system and must encrypt data in transit. What should a solutions architect implement to meet both requirements?",
+   "e": "Access points with IAM authorization govern which principals and instances may use the file system, and mounting with TLS encrypts the NFS traffic in transit. A subnet-scoped security group restricts reachability but leaves traffic unencrypted, KMS encryption at rest protects stored data rather than data in transit, and EFS does not support traditional NFS export rules."
+  }
+ ]
+}

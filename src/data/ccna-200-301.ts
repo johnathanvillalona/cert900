@@ -439,15 +439,15 @@ export const exam: ExamDef = {
   {
    "id": 8,
    "t": "network-topology-architectures",
-   "x": "A small office replaces its on-premises email server with a subscription email service reached over the internet. Which deployment model is this?",
+   "x": "A small office subscribes to an email platform from a service provider, and staff reach it over the internet. Which deployment model does this describe?",
    "o": [
-    "A collapsed core design",
-    "An on-premises data center",
+    "A colocation facility",
+    "An on-premises private cloud",
     "A cloud-based service",
-    "A spine-leaf fabric"
+    "A hybrid deployment"
    ],
    "a": 2,
-   "e": "Consuming an application over the internet from a provider is a cloud deployment that shifts maintenance to the provider, unlike an on-premises server the company hosts and manages itself.",
+   "e": "An application consumed as a subscription from a provider over the internet is the cloud model: the provider owns and maintains the infrastructure while the office simply uses the service. A colocation facility would house server hardware the office itself owns and manages, and a hybrid deployment would combine the provider's service with infrastructure the office still runs, neither of which fits a pure subscription offering.",
    "d": 1
   },
   {
@@ -1244,14 +1244,14 @@ export const exam: ExamDef = {
    "t": "ipv6-address-types",
    "x": "An engineer compares IPv6 delivery methods. Which two address types support one-to-many or one-to-nearest delivery? Choose TWO.",
    "o": [
-    "Unicast delivers to a single specific interface",
-    "Broadcast delivers to every host on the subnet",
-    "Anycast delivers to the nearest member of a group",
-    "Multicast delivers to all members of a group",
-    "Loopback delivers to a distant remote host"
+    "Unicast",
+    "Broadcast",
+    "Anycast",
+    "Multicast",
+    "Loopback"
    ],
    "a": 2,
-   "e": "Multicast reaches all members of a group while anycast reaches the nearest one. IPv6 has no broadcast address, and unicast targets only one specific interface.",
+   "e": "In IPv6, multicast provides one-to-many delivery to every member of a group, and anycast provides one-to-nearest delivery, reaching only the closest member of a group. Broadcast is the tempting one-to-all choice, but IPv6 eliminated broadcast entirely in favor of multicast; unicast and loopback each reach exactly one interface.",
    "d": 1,
    "as": [
     2,
@@ -1665,15 +1665,15 @@ export const exam: ExamDef = {
   {
    "id": 87,
    "t": "cdp-lldp",
-   "x": "An engineer wants a discovery protocol that runs between Cisco devices at Layer 2 and is enabled by default. Which protocol fits?",
+   "x": "An engineer wants directly connected Cisco devices to exchange identity, platform, and port information at Layer 2 without adding any configuration. Which protocol provides this?",
    "o": [
-    "Cisco Discovery Protocol",
-    "Spanning Tree Protocol",
-    "Address Resolution Protocol",
-    "Link Layer Discovery Protocol"
+    "CDP",
+    "STP",
+    "ARP",
+    "LLDP"
    ],
    "a": 0,
-   "e": "CDP is the Cisco-proprietary Layer 2 discovery protocol enabled by default. LLDP is the open standard but is off by default, while STP and ARP serve different purposes entirely.",
+   "e": "CDP is Cisco proprietary and enabled by default, advertising identity, platform, and port details to directly connected neighbors. LLDP carries the same kind of neighbor information but is the open standard and is disabled by default on most Cisco platforms, while STP prevents Layer 2 loops and ARP resolves IP addresses to MAC addresses.",
    "d": 2
   },
   {
@@ -2094,13 +2094,13 @@ export const exam: ExamDef = {
    "t": "wireless-architectures",
    "x": "A branch keeps its access points joined to a central controller but needs local data switching if the WAN link drops. Which AP mode fits?",
    "o": [
-    "FlexConnect mode for local switching at the branch",
-    "SE-Connect mode to stream raw spectrum data",
-    "Monitor mode to only scan for rogue devices",
-    "Sniffer mode to capture frames for later analysis"
+    "FlexConnect mode",
+    "SE-Connect mode",
+    "Monitor mode",
+    "Sniffer mode"
    ],
    "a": 0,
-   "e": "FlexConnect lets branch APs switch client data locally and keep serving users during a WAN outage while remaining centrally managed; monitor and sniffer modes handle scanning and capture, not client forwarding.",
+   "e": "FlexConnect lets a controller-joined AP switch client traffic locally at the branch, so users keep working if the WAN link to the controller fails. Monitor and sniffer modes dedicate the radio to scanning or packet capture and serve no clients, and SE-Connect streams spectrum-analysis data rather than forwarding user traffic.",
    "d": 2
   },
   {
@@ -2108,14 +2108,14 @@ export const exam: ExamDef = {
    "t": "wireless-architectures",
    "x": "Which two access point modes continue to serve wireless clients while the AP is joined to a controller? Choose TWO.",
    "o": [
-    "Monitor mode, which serves no client traffic",
-    "Local mode, the default client-serving mode",
-    "Rogue detector mode, which watches wired ARP",
-    "FlexConnect mode, which can switch data locally",
-    "Sniffer mode, which forwards frames to an analyzer"
+    "Monitor mode",
+    "Local mode",
+    "Rogue detector mode",
+    "FlexConnect mode",
+    "Sniffer mode"
    ],
    "a": 1,
-   "e": "Local and FlexConnect modes both carry client traffic, with FlexConnect adding local switching at branches; monitor, sniffer, and rogue detector are dedicated roles that do not serve clients.",
+   "e": "Local mode is the standard client-serving mode, and FlexConnect also serves clients while adding the ability to switch their traffic locally at a branch. Monitor, sniffer, and rogue detector modes dedicate the AP to scanning, packet capture, or wired-side detection, so none of them carries client traffic.",
    "d": 2,
    "as": [
     1,
@@ -2235,14 +2235,14 @@ export const exam: ExamDef = {
    "t": "device-management-access",
    "x": "Which two protocols let a switch learn details about the devices connected directly to its interfaces? Choose TWO.",
    "o": [
-    "Syslog, which forwards event messages to a server",
-    "CDP, the Cisco proprietary discovery protocol",
-    "LLDP, the vendor-neutral IEEE discovery protocol",
-    "SNMP, which polls devices for their statistics",
-    "NTP, which synchronizes clocks across devices"
+    "Syslog",
+    "CDP",
+    "LLDP",
+    "SNMP",
+    "NTP"
    ],
    "a": 1,
-   "e": "CDP and LLDP both advertise and learn directly connected neighbor details, with LLDP being the multivendor standard; NTP handles time, SNMP handles monitoring, and Syslog handles logging.",
+   "e": "CDP and LLDP both advertise and learn directly connected neighbor details such as device identity, platform, and port, with LLDP as the vendor-neutral IEEE standard. SNMP polls devices for statistics, Syslog forwards event messages to a collector, and NTP synchronizes clocks; none of those protocols carries neighbor information.",
    "d": 2,
    "as": [
     1,
@@ -2280,15 +2280,15 @@ export const exam: ExamDef = {
   {
    "id": 127,
    "t": "wlan-gui-config",
-   "x": "Under which WLAN configuration tab do you enter the WPA2 pre-shared key in the controller GUI?",
+   "x": "Where in the WLC GUI's WLAN configuration is the WPA2 pre-shared key entered?",
    "o": [
-    "The Security tab under the Layer 2 settings",
-    "The General tab beside the profile name field",
-    "The Advanced tab under the client exclusion timer",
-    "The QoS tab under the assigned bandwidth profile"
+    "On the Security tab, within the Layer 2 sub-tab",
+    "On the Security tab, within the Layer 3 sub-tab",
+    "On the Security tab, within the AAA Servers sub-tab",
+    "On the General tab, beside the profile name field"
    ],
    "a": 0,
-   "e": "The pre-shared key is entered on the Security tab under Layer 2, where WPA2 and PSK are chosen; the General and QoS tabs handle naming and traffic priority instead of the key.",
+   "e": "WPA2 with PSK is a Layer 2 security method, so the key is entered on the Security tab's Layer 2 sub-tab. The Layer 3 sub-tab covers web authentication policies and the AAA Servers sub-tab links the WLAN to RADIUS servers, so neither holds the pre-shared key; the General tab only handles naming and status.",
    "d": 2
   },
   {
@@ -3678,13 +3678,13 @@ export const exam: ExamDef = {
    "t": "ntp",
    "x": "Why is synchronized time from NTP important across network devices?",
    "o": [
-    "It reduces the size of the routing table on core routers",
+    "It ensures DHCP leases renew before their timers expire",
     "It keeps log timestamps and certificate checks consistent between devices",
-    "It encrypts all management traffic exchanged between switches",
-    "It compresses syslog messages before they are transmitted"
+    "It shortens routing protocol convergence by aligning hello timers",
+    "It updates interface traffic counters at a higher resolution"
    ],
    "a": 1,
-   "e": "Consistent clocks let you correlate log events across devices and validate time-sensitive certificates. NTP does nothing to routing table size, message compression, or traffic encryption.",
+   "e": "Synchronized clocks let administrators correlate log timestamps across devices and keep time-sensitive certificate validation accurate. DHCP lease renewal, routing protocol hello timers, and interface counters all run on each device's own internal timers, so NTP accuracy does not change how they behave.",
    "d": 4
   },
   {
@@ -3986,15 +3986,15 @@ export const exam: ExamDef = {
   {
    "id": 237,
    "t": "qos",
-   "x": "Which header field is used to mark IP packets for DSCP-based quality of service?",
+   "x": "Which header field is used to mark IP packets so routers can apply per-hop priority treatment?",
    "o": [
     "The Time To Live field in the IPv4 header",
     "The Differentiated Services field in the IPv4 header",
-    "The Window field in the TCP segment header",
-    "The Type field in the Ethernet frame header"
+    "The Protocol field in the IPv4 header",
+    "The Flags field in the IPv4 header"
    ],
    "a": 1,
-   "e": "DSCP values live in the Differentiated Services field of the IP header so devices can classify packets end to end. The TTL field controls hop count and carries no QoS marking.",
+   "e": "Per-hop priority markings are carried in the Differentiated Services field, which every router along the path can read to classify and queue the packet consistently. The Time To Live field limits hop count, the Protocol field identifies the payload such as TCP or UDP, and the Flags field controls fragmentation; none of them signals priority.",
    "d": 4
   },
   {
@@ -4794,10 +4794,10 @@ export const exam: ExamDef = {
     "ARP spoofing used for on-path interception",
     "MAC flooding of the switch address table",
     "DHCP starvation of the address pool",
-    "VLAN hopping through double tagging"
+    "Gratuitous ARP floods meant to overwhelm the switch CPU"
    ],
    "a": 0,
-   "e": "DAI blocks forged ARP replies that enable on-path interception; MAC flooding is handled by port security and VLAN hopping by trunk hardening.",
+   "e": "DAI validates ARP packets against DHCP snooping bindings specifically to stop the forged replies that enable on-path interception. Gratuitous ARP floods against the switch CPU are a volume problem absorbed by ARP rate limiting rather than the inspection logic itself, while MAC flooding is countered by port security and DHCP starvation by DHCP snooping.",
    "d": 5
   },
   {
@@ -4806,13 +4806,13 @@ export const exam: ExamDef = {
    "x": "A server uses a static IP with no DHCP lease. How can DAI still permit its ARP traffic? Choose TWO.",
    "o": [
     "Set the server access port to untrusted mode",
-    "Add a static host route toward the server subnet",
+    "Add a static ARP entry for the server on the neighboring router",
     "Define an ARP ACL binding its IP to its MAC",
     "Disable DHCP snooping globally for the VLAN",
-    "Apply that ARP ACL to the VLAN for inspection"
+    "Apply an ARP ACL to the VLAN for inspection"
    ],
    "a": 2,
-   "e": "A statically addressed host has no snooping binding, so an ARP ACL defines its valid IP-to-MAC pair and is applied to the VLAN for inspection; routing changes do not help.",
+   "e": "A statically addressed host has no DHCP snooping binding, so an ARP ACL supplies the valid IP-to-MAC pair and must be applied to the VLAN that DAI inspects. A static ARP entry on the neighboring router only populates that router's own cache and never reaches the switch's inspection logic, and disabling DHCP snooping removes bindings without exempting the server's traffic.",
    "d": 5,
    "as": [
     2,
@@ -4935,15 +4935,15 @@ export const exam: ExamDef = {
   {
    "id": 298,
    "t": "network-automation-impact",
-   "x": "An organization begins provisioning new branch routers in hours instead of weeks after adopting automation. Which factor most directly produced this improvement?",
+   "x": "An organization begins provisioning new branch routers in hours instead of weeks after overhauling its deployment process. Which change most directly produced this improvement?",
    "o": [
-    "Additional approval signatures required per device",
-    "More technicians assigned to type commands by hand",
+    "Faster WAN circuits installed at each branch office",
+    "A larger team of technicians configuring each router",
     "Standardized machine-driven provisioning replacing manual steps",
-    "Slower change windows scheduled only on weekends"
+    "Extended weekend maintenance windows for installation work"
    ],
    "a": 2,
-   "e": "Machine-driven provisioning executes standardized steps quickly and repeatably, collapsing lead time that manual, approval-heavy processes stretch out.",
+   "e": "Standardized machine-driven provisioning executes the same validated steps on every router in minutes, which is what collapses deployment lead time from weeks to hours. Faster WAN circuits and additional technicians only accelerate parts of a still-manual workflow, and extended maintenance windows change when the work happens, not how long it takes.",
    "d": 6
   },
   {
@@ -4982,15 +4982,15 @@ export const exam: ExamDef = {
   {
    "id": 301,
    "t": "sdn-architecture",
-   "x": "In a software-defined network, which plane is decoupled from the forwarding devices and centralized on a controller?",
+   "x": "In a software-defined network, which plane is separated from the individual switches and routers and centralized on a controller?",
    "o": [
-    "The optical transceiver plane on each uplink",
+    "The management plane used for device administration",
     "The control plane that makes forwarding decisions",
-    "The data plane that physically forwards frames",
-    "The power distribution plane inside each switch"
+    "The data plane that moves packets between interfaces",
+    "The application plane where network services express intent"
    ],
    "a": 1,
-   "e": "SDN moves the control plane to a central controller while devices keep a data plane that forwards traffic per the controller's instructions.",
+   "e": "SDN centralizes the control plane, the decision-making logic, on a controller while each device retains its data plane to move packets between interfaces. The management plane still refers to per-device administrative access such as SSH and SNMP, and the application plane sits above the controller consuming its northbound APIs; neither is what gets pulled out of the switches and routers.",
    "d": 6
   },
   {
@@ -5107,13 +5107,13 @@ export const exam: ExamDef = {
    "x": "Which two tasks are well suited to AI-assisted network operations? Choose TWO.",
    "o": [
     "Baselining normal traffic to highlight unusual behavior",
-    "Deciding the paint color of the data center walls",
-    "Crimping RJ45 connectors onto new patch cables",
+    "Approving emergency change requests without human review",
+    "Predicting the exact moment a stable link will fail",
     "Correlating many alerts into a single probable root cause",
-    "Manually reading every syslog line in real time"
+    "Guaranteeing the true root cause from one isolated alert"
    ],
    "a": 0,
-   "e": "AI excels at correlating noisy alerts into likely root causes and baselining traffic to flag anomalies; it does not perform manual or physical labor.",
+   "e": "AI-assisted operations excel at pattern analysis, such as baselining normal traffic to expose anomalies and correlating large alert volumes into a probable root cause. The technology produces probabilities rather than certainties, so guaranteeing the true root cause from one isolated alert or predicting the exact moment a stable link will fail overstates it, and approving emergency changes without human review removes necessary oversight.",
    "d": 6,
    "as": [
     0,
@@ -5137,15 +5137,15 @@ export const exam: ExamDef = {
   {
    "id": 311,
    "t": "ai-ml-network-operations",
-   "x": "Why is high-quality telemetry data essential for machine learning in network operations?",
+   "x": "A network operations team feeds device telemetry into a machine-learning analytics platform. Which statement about the telemetry data is accurate?",
    "o": [
-    "Telemetry is only useful for powering the devices",
+    "A large enough volume of telemetry compensates for gaps and noise in the feeds",
     "Model accuracy depends on complete and reliable input data",
-    "Models ignore all input data once they are trained once",
-    "Poor data always improves anomaly detection results"
+    "Telemetry quality only affects initial training, not models already in production",
+    "The algorithms normalize away any errors present in the collected data"
    ],
    "a": 1,
-   "e": "ML predictions are only as good as their inputs, so incomplete or noisy telemetry degrades accuracy; quality data is what makes anomaly detection reliable.",
+   "e": "Machine-learning output is only as good as its inputs, so incomplete or noisy telemetry degrades model accuracy during both training and production scoring. Sheer volume cannot compensate for gaps and noise in the feeds, and algorithms cannot simply normalize away collection errors, which is also why quality still matters for models already in production.",
    "d": 6
   },
   {

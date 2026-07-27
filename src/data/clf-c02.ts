@@ -510,14 +510,14 @@ export const exam: ExamDef = {
    "t": "benefits-of-cloud",
    "x": "A game studio in Ohio wants to serve players in Europe and Asia with low latency and enter new markets quickly. Which capabilities of the AWS global infrastructure support these goals? (Select TWO.)",
    "o": [
-    "Caching game content near players at edge locations around the world",
-    "Serving all global traffic from one Availability Zone chosen for its central location",
-    "Opening a separate AWS account for each country where players live",
-    "Launching infrastructure in additional Regions in days rather than months",
-    "Relocating the studio's physical servers into AWS facilities in each market"
+    "Serving cached game assets from AWS edge locations around the world",
+    "Replicating every workload to all Regions automatically by default",
+    "Applying Reserved Instance discounts from one Region in any other Region",
+    "Launching infrastructure in additional Regions without constructing facilities first",
+    "Transferring data between Regions at no cost over the AWS backbone"
    ],
    "a": 0,
-   "e": "Global reach comes from deploying into Regions worldwide on demand and from edge locations that cache content close to users. A single central Availability Zone cannot deliver low latency worldwide, accounts are not tied to countries, and AWS does not host customer-owned servers in its data centers.",
+   "e": "Because AWS already operates Regions across Europe and Asia, the studio can stand up infrastructure there without building anything, and edge locations cache game assets close to players to cut latency. Workloads are never replicated across Regions automatically, Reserved Instance discounts stay in the Region where they were purchased, and inter-Region data transfer is metered, not free.",
    "d": 1,
    "as": [
     0,
@@ -529,13 +529,13 @@ export const exam: ExamDef = {
    "t": "benefits-of-cloud",
    "x": "An on-premises team must order hardware months before each product launch and usually ends up over-provisioned or short of capacity. What changes when the launch runs on AWS instead?",
    "o": [
-    "Peak capacity still has to be purchased ahead of the event at a set size",
-    "Capacity estimates become binding once the first resources are launched",
-    "Hardware requests are fulfilled by AWS within the usual procurement lead times",
+    "AWS sizes the launch environment from a submitted traffic forecast and pre-allocates it before the event",
+    "A fixed block of launch capacity must be reserved up front and is billed whether or not it is used",
+    "Hardware requests are fulfilled from AWS inventory after a lead time of several days",
     "Capacity can be provisioned to match live demand and adjusted afterward"
    ],
    "a": 3,
-   "e": "One core cloud benefit is that you stop guessing capacity: provision what current demand requires and scale up or down in minutes. There is no procurement lead time and no lock-in to an initial estimate.",
+   "e": "The core change is that you stop guessing capacity: resources are provisioned to match observed demand and resized in minutes as it shifts. AWS does not pre-allocate an environment from a submitted forecast on the customer's behalf, provisioning has no multi-day lead time, and reserving a fixed pre-paid block is an optional pricing choice rather than a requirement for launch capacity.",
    "d": 1
   },
   {
@@ -719,15 +719,15 @@ export const exam: ExamDef = {
   {
    "id": 23,
    "t": "cloud-architecture",
-   "x": "An application adds servers during peak traffic and releases them when demand falls. Which cloud characteristic does this demonstrate?",
+   "x": "An application automatically launches extra servers while traffic is heavy and terminates them once it subsides. Which cloud characteristic does this demonstrate?",
    "o": [
-    "Resources are added and released automatically as demand rises and falls",
-    "Workloads continue operating when an individual component fails",
-    "New test environments can be provisioned within minutes",
-    "Capacity is committed in advance in exchange for lower pricing"
+    "Resource levels grow and shrink to track demand",
+    "Requests are rerouted to healthy servers when one stops responding",
+    "Complete environments can be stood up within minutes of a request",
+    "A predictable capacity baseline is committed up front at a lower rate"
    ],
    "a": 0,
-   "e": "Elasticity is the ability to grow and shrink resources with demand, typically through Auto Scaling. Surviving component failure describes high availability, and fast provisioning of new environments describes agility.",
+   "e": "Elasticity is the characteristic where resource levels grow and shrink to track demand, usually through Auto Scaling. Rerouting requests around an unresponsive server describes high availability, standing up environments in minutes describes cloud agility, and committing a capacity baseline at a lower rate describes reserved pricing rather than demand-driven scaling.",
    "d": 1
   },
   {
@@ -1681,15 +1681,15 @@ export const exam: ExamDef = {
   {
    "id": 87,
    "t": "global-infrastructure",
-   "x": "A hospital group in Germany is legally required to keep patient records inside the country. When the group selects an AWS Region for its records system, which factor settles the decision?",
+   "x": "A hospital group in Germany must comply with a data-residency mandate covering patient records. When the group selects an AWS Region for its records system, which factor settles the decision?",
    "o": [
-    "Whether the Region offers the lowest On-Demand compute prices",
+    "Whether the Region offers the lowest prices for the services the system uses",
     "Whether the Region keeps stored data within the required jurisdiction",
-    "Whether the Region sits closest to the company's development team",
-    "Whether the Region was among the most recently opened by AWS"
+    "Whether the Region carries the broadest set of compliance certifications and attestations",
+    "Whether the Region offers every managed service the records system plans to use"
    ],
    "a": 1,
-   "e": "When a law dictates where data must live, compliance drives Region choice: data placed in a Region stays there unless the customer replicates it elsewhere, so picking a Region inside Germany satisfies the mandate. Price and team proximity are valid selection factors, but neither can override a legal residency requirement.",
+   "e": "Data residency is about physical location: data placed in a Region stays there unless the customer replicates it elsewhere, so choosing a Region inside Germany is what satisfies the mandate. A long list of compliance certifications attests to how AWS operates but does not change where the records physically live, and pricing or service breadth cannot override a residency requirement.",
    "d": 3
   },
   {
@@ -2886,30 +2886,30 @@ export const exam: ExamDef = {
   {
    "id": 167,
    "t": "cloud-deployment-models",
-   "x": "A publisher built an internal private cloud with self-service portals, but teams still wait in a queue whenever the shared pool of physical hosts is fully allocated. Which limitation of that model does the wait illustrate?",
+   "x": "A publisher runs an internal private cloud for its development teams. During seasonal production peaks, requests for new environments sit in a queue until other workloads wind down. Which limitation of the private cloud model does the wait illustrate?",
    "o": [
-    "Chargeback reporting cannot be produced for internal teams",
-    "Virtual machines cannot be created without a public Region",
-    "Self-service provisioning is impossible in this model",
+    "Per-team usage cannot be metered for internal chargeback in this model",
+    "Hypervisor overhead makes provisioning slower than on physical servers",
+    "Workloads from different teams cannot be isolated on shared hosts",
     "Capacity is bounded by hardware the publisher already bought"
    ],
    "a": 3,
-   "e": "A private cloud can offer a self-service experience, but the pool it draws from is finite because someone had to purchase the hosts in advance. Self-service is clearly not impossible here, since the portals exist and work until the pool is exhausted.",
+   "e": "A private cloud draws from a finite pool the publisher had to purchase up front, so requests queue whenever the installed hardware is fully committed and only clear when something is released. Hypervisor overhead would make provisioning uniformly slower rather than force requests to wait for other workloads to finish, and private clouds are fully capable of metering per-team usage and isolating workloads on shared hosts.",
    "d": 1
   },
   {
    "id": 168,
    "t": "cloud-deployment-models",
-   "x": "A logistics firm has finished closing its last server room and now runs every application on AWS. Which statements describe its current model? (Select TWO.)",
+   "x": "A logistics firm now runs every application on AWS under an all-in cloud deployment. Which statements describe its current operating model? (Select TWO.)",
    "o": [
     "Capacity can be adjusted through APIs rather than purchase orders",
     "Application code becomes the responsibility of AWS",
-    "The firm must still refresh its hardware on a three-year cycle",
-    "Only one Availability Zone may be used per account",
+    "Operating system patching is no longer required for any of its workloads",
+    "Monthly costs become a fixed amount that no longer varies with usage",
     "The firm no longer maintains its own physical servers"
    ],
    "a": 0,
-   "e": "An all-in cloud deployment removes the hardware ownership burden and turns capacity changes into API calls instead of procurement cycles. AWS never takes responsibility for customer application code, and nothing about a cloud deployment restricts an account to a single Availability Zone.",
+   "e": "An all-in cloud deployment removes ownership of physical servers and turns capacity changes into API calls instead of procurement cycles. Under the shared responsibility model, application code and OS patching on services like EC2 stay with the customer, and cloud spending is a variable expense that rises and falls with usage rather than a fixed monthly amount.",
    "d": 1,
    "as": [
     0,
@@ -2996,13 +2996,13 @@ export const exam: ExamDef = {
    "t": "economies-of-scale",
    "x": "An auditor notes that the company's owned servers average 12 percent utilization because each was sized for a once-a-year peak. How does consumption-based pricing change this picture?",
    "o": [
-    "Charges are calculated from the highest utilization reached each year",
-    "Charges track the capacity actually consumed rather than the peak",
-    "Charges are fixed once the first workload has been deployed",
-    "Charges are waived for any resource below 20 percent utilization"
+    "Charges are calculated from the highest usage level reached during the year",
+    "Charges follow what the workloads actually use as demand rises and falls",
+    "Charges are set by the amount of capacity provisioned at migration time",
+    "Charges apply only when usage exceeds the capacity originally planned"
    ],
    "a": 1,
-   "e": "Paying for what is used means idle headroom stops being a sunk purchase, which is the fix for chronic over-provisioning. Billing from an annual high-water mark would recreate the same problem, and no discount is granted simply for low utilization.",
+   "e": "Consumption-based pricing bills for what is actually used, so the idle headroom that today sits at 88 percent stops generating cost instead of being paid for up front. Billing on provisioned capacity or on the year's high-water mark would preserve the over-provisioning penalty, and an overage-only scheme describes burst billing, not pay-as-you-go.",
    "d": 1
   },
   {
@@ -3043,13 +3043,13 @@ export const exam: ExamDef = {
    "t": "economies-of-scale",
    "x": "A university IT director argues that his institution could match AWS pricing simply by buying more equipment at once. Which factor most weakens that argument?",
    "o": [
-    "Equipment discounts are identical for every buyer worldwide",
-    "One campus buys a tiny fraction of the volume AWS buys",
-    "Campus equipment is taxed at a higher rate than cloud services",
-    "Universities are prohibited from operating their own servers"
+    "AWS pays list price for hardware and recovers the cost through service fees",
+    "A single campus orders a tiny fraction of the hardware volume AWS purchases",
+    "Volume discounts level off once an order reaches a few hundred servers",
+    "AWS's pricing advantage comes mainly from billing customers in advance"
    ],
    "a": 1,
-   "e": "Volume discounts and operational efficiency scale with total purchasing, and a single campus operates orders of magnitude below hyperscale volume. The claim that discounts are identical for all buyers is simply untrue, which is the whole basis of the scale advantage.",
+   "e": "AWS aggregates purchasing across millions of customers, operating at a scale no single campus order can approach, and those economies of scale are what let it keep lowering prices. The claim that volume discounts level off after a few hundred servers would actually help the director's case if it were true, and AWS's advantage rests on purchasing scale, not on paying list price or collecting payment in advance.",
    "d": 1
   },
   {
@@ -3254,14 +3254,14 @@ export const exam: ExamDef = {
    "t": "cloud-architecture",
    "x": "An orchestra's ticket sales platform must keep taking orders when one server or one facility becomes unavailable. Which measures support that outcome? (Select TWO.)",
    "o": [
-    "Store order records only on a single instance volume",
+    "Take nightly snapshots of each instance for later restoration",
     "Spread instances across multiple Availability Zones",
     "Replace instances that fail health checks automatically",
-    "Perform failover manually during business hours",
-    "Consolidate the workload onto one larger instance"
+    "Move each instance to a larger size before major on-sale events",
+    "Cache the site's static assets on a content delivery network"
    ],
    "a": 1,
-   "e": "Redundancy across Availability Zones survives the loss of a facility, and automatic replacement of unhealthy instances survives the loss of a server. Consolidating onto one larger instance does the opposite by concentrating the workload into a single point of failure.",
+   "e": "Spreading instances across multiple Availability Zones survives the loss of a facility, and automatic replacement of unhealthy instances survives the loss of a server. Nightly snapshots only help restore data after an outage rather than keeping orders flowing through one, and larger instance sizes or CDN caching of static assets improve performance without removing any single point of failure.",
    "d": 1,
    "as": [
     1,
@@ -3603,16 +3603,16 @@ export const exam: ExamDef = {
   {
    "id": 215,
    "t": "waf-shield",
-   "x": "A university portal must stop a flood of requests from one IP address hammering its login page while staying available during a large network layer attack. Which statements are accurate? (Select TWO.)",
+   "x": "A university portal is being hardened against both abusive login traffic and large-scale denial-of-service events. Which statements about AWS WAF and AWS Shield are accurate? (Select TWO.)",
    "o": [
-    "AWS WAF replaces the need for authentication on the login page",
-    "AWS WAF encrypts the portal database at rest by default",
+    "AWS WAF evaluates outbound responses only, leaving inbound requests unfiltered",
+    "AWS Shield Standard requires a separate subscription before protection begins",
     "AWS Shield defends against volumetric network layer attacks",
     "AWS WAF rate-based rules can throttle requests from a single source",
-    "AWS Shield rewrites application URLs to hide the origin server"
+    "AWS Shield protects only traffic that first matches an AWS WAF web ACL rule"
    ],
    "a": 2,
-   "e": "Rate-based rules in AWS WAF count requests per source and block sources that exceed a threshold, while Shield absorbs volumetric floods aimed at the network and transport layers. Neither service encrypts databases nor substitutes for authenticating users, which remain separate customer responsibilities.",
+   "e": "AWS Shield absorbs volumetric attacks at the network and transport layers, while AWS WAF rate-based rules count requests per source and throttle any source exceeding a threshold. Shield Standard is applied automatically at no extra charge, with no subscription required and no dependency on a WAF web ACL, and WAF filters inbound web requests rather than outbound responses.",
    "d": 2,
    "as": [
     2,
@@ -3955,15 +3955,15 @@ export const exam: ExamDef = {
   {
    "id": 238,
    "t": "identity-iam",
-   "x": "A contractor needs console access for a two-week engagement, and the access must expire on its own rather than depending on someone remembering to remove it. Which approach fits best?",
+   "x": "A contractor needs console access for a two-week engagement, and the security team does not want any credentials lingering after the work ends. Which approach fits best?",
    "o": [
-    "Federated access through a role with a session that expires",
-    "An access key stored in the contractor password manager",
-    "An IAM user with a password and a calendar reminder to delete it",
-    "A shared administrator login handed to the contractor"
+    "Federated access through a role that issues temporary sessions",
+    "An IAM user placed in a contractors group with a strict password policy",
+    "Long-term access keys attached to a tightly scoped permissions policy",
+    "A service control policy limiting which actions the contractor can take"
    ],
    "a": 0,
-   "e": "Federated role access issues a session that ends after a defined duration, so the credential stops working with no cleanup task required. Creating an IAM user relies on a manual deletion step, which is exactly the failure mode that leaves orphaned accounts behind.",
+   "e": "Federated role access issues temporary credentials that stop working after the session duration, leaving nothing to clean up. An IAM user persists until someone deletes it no matter how strict its password policy, long-term access keys never expire on their own and grant programmatic rather than console access, and a service control policy only restricts permissions without granting sign-in or removing anything when the engagement ends.",
    "d": 2
   },
   {
@@ -4316,15 +4316,15 @@ export const exam: ExamDef = {
   {
    "id": 262,
    "t": "lambda",
-   "x": "A charity's donation page calls a small function to validate postal addresses. Volumes are unpredictable, and the trustees refuse to pay for idle servers between gifts. Which billing behavior makes Lambda attractive here?",
+   "x": "A charity's donation page calls a small Lambda function to validate postal addresses, and traffic is sporadic and unpredictable. Which statement describes how the function is billed?",
    "o": [
-    "Charges are fixed per month regardless of invocation count",
-    "Charges depend on the number of instances reserved in advance",
-    "Charges begin when the function is deployed and run continuously",
+    "A flat hourly rate applies to every function that is published",
+    "Cost is set by the memory reserved for the month, whether or not it is used",
+    "A minimum monthly invocation fee begins once the function goes live",
     "Charges accrue only while function code is executing"
    ],
    "a": 3,
-   "e": "Lambda bills on the number of requests and the duration each invocation runs, so a function that nobody calls costs nothing. Simply deploying a function accrues no charge until it is invoked, and that is what separates the model from keeping servers running.",
+   "e": "Lambda bills per request and for the milliseconds each invocation runs, so a function nobody calls costs nothing. Although the memory setting influences the per-millisecond price, memory is charged only during execution rather than reserved monthly, and there is no hourly rate or minimum fee for a published function.",
    "d": 3
   },
   {
@@ -4834,14 +4834,14 @@ export const exam: ExamDef = {
    "t": "sqs-sns",
    "x": "A brokerage is breaking apart a tightly coupled trade-settlement monolith and wants asynchronous communication between the new pieces. Which outcomes does putting a message queue between them provide? (Select TWO.)",
    "o": [
-    "The components must be deployed together in one release",
-    "Message delivery becomes synchronous and blocking by design",
-    "Total compute cost is fixed regardless of message volume",
+    "The components no longer need to agree on a message format",
+    "End-to-end latency for each settlement message is reduced",
+    "Consumers no longer need error handling because the queue retries deliveries",
     "A failure in the consumer does not immediately stop the producer",
     "Each component can scale independently of the others"
    ],
    "a": 3,
-   "e": "A queue buffers work so a failing or slow consumer does not halt the producer, and each side scales on its own schedule. Decoupling makes communication asynchronous rather than blocking, which is the opposite of the synchronous option listed.",
+   "e": "A queue buffers work so a slow or failing consumer does not halt the producer, and each side scales on its own schedule. The components must still agree on a message format, consumers still need error handling even though the queue redelivers unacknowledged messages, and inserting a queue adds an extra hop rather than reducing end-to-end latency.",
    "d": 3,
    "as": [
     3,
@@ -4912,15 +4912,15 @@ export const exam: ExamDef = {
   {
    "id": 301,
    "t": "free-tier",
-   "x": "A student opens a personal AWS account and wants to run a small Linux server for study without paying anything during the first year. Which Free Tier category covers that usage?",
+   "x": "A student opens a personal AWS account and wants to run a small Linux server for study without being charged for it. Which Free Tier category covers that usage?",
    "o": [
-    "A credit applied to the account after the first invoice",
-    "An always-free offer with no expiration date",
-    "A short-term trial that begins when a service is first used",
-    "A 12-month free offer available to new accounts"
+    "A promotional credit automatically applied to the first monthly bill",
+    "An always-free allowance with no expiration date",
+    "A short-term trial that starts the first time a service is used",
+    "A 12-month free offer that begins when the account is created"
    ],
    "a": 3,
-   "e": "The monthly allowance of small Linux EC2 instance hours falls under the 12-month offers, which start the day a new account is created. Always-free offers such as a monthly Lambda request allowance never expire and form a separate category.",
+   "e": "The monthly allowance of small Linux instance hours belongs to the 12-month offers, which run from the day the account is created. Always-free allowances, such as a monthly quota of Lambda requests, never expire and form a separate category, while service trials are brief windows tied to first use of a specific service; the Free Tier is also not delivered as a promotional bill credit.",
    "d": 4
   },
   {
@@ -5193,15 +5193,15 @@ export const exam: ExamDef = {
   {
    "id": 320,
    "t": "auto-scaling",
-   "x": "A web application team wants its EC2 fleet to add capacity when average processor use rises and shed it when demand falls, holding utilization near a chosen figure. Which scaling approach does that?",
+   "x": "A web application team wants its EC2 Auto Scaling group to add and remove instances automatically so that average CPU utilization stays as close as possible to a value the team chooses. Which scaling approach does that?",
    "o": [
-    "A fixed reserved count that never changes with demand",
-    "A manual capacity change made whenever an engineer notices load",
-    "A target tracking scaling policy that adjusts capacity toward a metric goal",
-    "A one-time launch of extra instances left running permanently"
+    "A step scaling policy",
+    "A simple scaling policy",
+    "A target tracking scaling policy",
+    "A scheduled scaling action"
    ],
    "a": 2,
-   "e": "Target tracking scaling adds or removes instances to keep a metric such as average CPU near a set target. Manual changes and fixed counts do not respond automatically to shifting demand.",
+   "e": "Target tracking continuously adjusts group capacity to hold a chosen metric, such as average CPU utilization, near the specified value without the team defining alarms. Step scaling and simple scaling instead react to CloudWatch alarm breaches with adjustments the team must configure, and scheduled scaling changes capacity at preset times regardless of what the metric is doing.",
    "d": 3
   },
   {
@@ -5547,13 +5547,13 @@ export const exam: ExamDef = {
    "x": "A company is deciding which AWS Region to deploy a new workload in. Which factors should influence that choice? Choose TWO.",
    "o": [
     "Latency between the Region and the workload's end users",
-    "The color theme selected in the console",
+    "The number of edge locations AWS operates near the company's offices",
     "Compliance and data-governance requirements",
-    "The naming convention used for resources",
-    "The number of IAM users in the account"
+    "The default Region preselected in the AWS Management Console",
+    "The number of IAM roles already defined in the account"
    ],
    "a": 0,
-   "e": "Region choice should weigh user latency and compliance or data-governance rules, alongside cost and service availability. IAM user counts, naming conventions, and console themes have no bearing on Region selection.",
+   "e": "Region selection should weigh latency to the workload's end users and any compliance or data-governance obligations, alongside cost and service availability. Edge locations belong to the global content delivery network and serve users regardless of which Region hosts the workload, IAM is a global service whose roles work in every Region, and the console's preselected default is a convenience, not a selection criterion.",
    "d": 3,
    "as": [
     0,
@@ -5621,13 +5621,13 @@ export const exam: ExamDef = {
    "t": "snow-family",
    "x": "A company is shipping an AWS Snowball device full of data back to AWS and asks how that data is protected while in transit. What safeguards apply?",
    "o": [
-    "Data is left unencrypted so it can be read faster on arrival",
-    "Encryption stays off unless a support ticket enables it",
-    "Protection depends entirely on the shipping courier's handling",
+    "Data is encrypted only after it has been imported at the AWS data center",
+    "Customers must apply client-side encryption before copying data to the device",
+    "A dedicated AWS courier keeps custody of the device throughout shipment",
     "Data is automatically encrypted and the device is tamper-resistant"
    ],
    "a": 3,
-   "e": "Snowball automatically encrypts data and uses tamper-resistant hardware with a Trusted Platform Module. Data is never left unencrypted, and protection does not rely on the courier or a support request.",
+   "e": "Snowball encrypts data automatically with keys managed through AWS KMS and ships in a tamper-resistant enclosure with a Trusted Platform Module, so protection is in place before the device ever leaves the site. Client-side encryption is an optional extra rather than a requirement, and the device travels through standard carriers, not a dedicated AWS courier.",
    "d": 3
   },
   {
