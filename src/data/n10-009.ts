@@ -820,10 +820,10 @@ export const exam: ExamDef = {
    "t": "designing-the-cloud",
    "x": "A cloud VPC is divided into a public subnet for web servers and a private subnet for databases. What is the purpose of this design?",
    "o": [
-    "Isolating internet-facing systems from internal data tiers",
-    "It speeds up DNS resolution for clients",
-    "It provides cheaper object storage",
-    "It produces prettier monitoring dashboards"
+    "Limiting internet exposure to only the systems that require it",
+    "Encrypting traffic automatically between the two subnets",
+    "Reducing data-transfer charges between the two subnets",
+    "Providing automatic failover if one subnet goes down"
    ],
    "a": 0,
    "e": "Public/private subnet separation limits exposure: only the web tier is internet-reachable, while data stays on private addressing.",
@@ -1056,12 +1056,12 @@ export const exam: ExamDef = {
   {
    "id": 45,
    "t": "optical-fiber",
-   "x": "Why is fiber preferred over copper in electrically noisy industrial environments?",
+   "x": "A manufacturing floor has large motors and arc welders along the planned cable route. Why is fiber recommended over copper for these runs?",
    "o": [
     "Fiber is immune to electromagnetic interference",
-    "Fiber is cheaper to terminate than copper",
-    "Fiber can deliver Power over Ethernet",
-    "Fiber cabling is physically unbreakable"
+    "Fiber costs less to install and terminate than copper",
+    "Fiber can supply Power over Ethernet to end devices",
+    "Fiber withstands crushing and bending better than copper"
    ],
    "a": 0,
    "e": "Light in glass is unaffected by EMI/RFI, making fiber ideal near motors, welders, and power equipment.",
@@ -1112,15 +1112,15 @@ export const exam: ExamDef = {
   {
    "id": 49,
    "t": "network-transceivers",
-   "x": "A fiber link won't come up. The two transceivers are the same speed but one is -SR (multimode) and the other -LR (single-mode). What is the problem?",
+   "x": "A new fiber link between two switches will not come up. Both transceivers operate at the same speed, but one end has an -SR optic and the other an -LR optic. What is the problem?",
    "o": [
     "Mismatched transceiver and fiber types",
-    "The switch simply needs a reboot",
-    "Fiber cannot connect two switches",
-    "The VLAN assignment is wrong"
+    "A duplex mismatch between the switch ports",
+    "An incorrect VLAN assignment on the ports",
+    "A speed mismatch between the two optics"
    ],
    "a": 0,
-   "e": "Both ends of a fiber link must match in wavelength, fiber type, and standard; SR and LR optics are incompatible.",
+   "e": "SR optics are short-range multimode and LR optics are long-range single-mode; both ends of a fiber link must match in wavelength, fiber type, and standard, so an SR-to-LR pairing never establishes link.",
    "d": 1
   },
   {
@@ -1168,11 +1168,11 @@ export const exam: ExamDef = {
   {
    "id": 53,
    "t": "network-architectures",
-   "x": "Which modern data center architecture connects every leaf switch to every spine switch for predictable east-west performance?",
+   "x": "A data center is being redesigned so that every top-of-rack access switch connects to every switch in the tier above it, keeping east-west performance predictable. Which architecture is this?",
    "o": [
     "Spine-and-leaf",
-    "Ring",
-    "Bus",
+    "Three-tier",
+    "Collapsed core",
     "Hub-and-spoke"
    ],
    "a": 0,
@@ -1268,10 +1268,10 @@ export const exam: ExamDef = {
    "t": "calculating-ipv4-subnets-and-hosts",
    "x": "A department needs 100 host addresses. Which is the SMALLEST subnet that fits?",
    "o": [
-    "/25 (126 hosts)",
-    "/26 (62 hosts)",
-    "/24 (254 hosts)",
-    "/27 (30 hosts)"
+    "/25",
+    "/26",
+    "/24",
+    "/27"
    ],
    "a": 0,
    "e": "A /25 provides 2^7-2 = 126 usable addresses — the smallest block that covers 100 hosts.",
@@ -1308,12 +1308,12 @@ export const exam: ExamDef = {
   {
    "id": 63,
    "t": "zero-trust",
-   "x": "A zero-trust design authenticates and authorizes EVERY request. Which additional principle limits what each identity can reach?",
+   "x": "A zero-trust design authenticates and authorizes EVERY request. Which companion principle should determine the permissions each identity is granted?",
    "o": [
     "Least-privilege access",
-    "Implicit LAN trust",
-    "Open shares",
-    "Single-factor logins"
+    "Multifactor authentication",
+    "Defense in depth",
+    "Non-repudiation"
    ],
    "a": 0,
    "e": "Zero trust pairs continuous verification with least privilege, so even authenticated identities reach only what they need.",
@@ -1466,11 +1466,11 @@ export const exam: ExamDef = {
    "o": [
     "WPA3",
     "WPA2",
-    "WEP",
-    "WPA"
+    "802.1X",
+    "TKIP"
    ],
    "a": 0,
-   "e": "WPA3 is the newest Wi-Fi security standard, adding stronger encryption and protection against offline password attacks.",
+   "e": "WPA3 is the newest Wi-Fi security standard, adding SAE key exchange to resist offline password attacks; WPA2 and TKIP are older wireless protections, and 802.1X handles port-based authentication rather than encryption.",
    "d": 2
   },
   {
@@ -1828,13 +1828,13 @@ export const exam: ExamDef = {
    "t": "spanning-tree-protocol",
    "x": "Which STP improvement converges in seconds rather than the classic 30-50 seconds?",
    "o": [
-    "Rapid Spanning Tree",
-    "RIP version 2",
-    "CSMA/CD",
-    "Half duplex"
+    "802.1w",
+    "802.1D",
+    "802.1Q",
+    "802.1X"
    ],
    "a": 0,
-   "e": "RSTP (802.1w) redesigned port roles and handshakes for much faster convergence after topology changes. In other words: RSTP, 802.1w.",
+   "e": "RSTP, standardized as IEEE 802.1w, redesigned port roles and handshakes so the topology converges in seconds. 802.1D is the classic slow-converging spanning tree, while 802.1Q covers VLAN tagging and 802.1X covers port-based network authentication.",
    "d": 2
   },
   {
@@ -2081,12 +2081,12 @@ export const exam: ExamDef = {
    "x": "Which fire-suppression approach is appropriate for a room full of energized electronics?",
    "o": [
     "A clean-agent gas system",
-    "A garden hose",
-    "Foam on live servers first",
-    "Disabling all alarms"
+    "A wet-pipe sprinkler system",
+    "A foam deluge system",
+    "A dry chemical powder system"
    ],
    "a": 0,
-   "e": "Clean-agent systems (FM-200/Novec/inert gas) extinguish fires without destroying electronics or endangering staff like water does. In other words: with wet pipe as a last resort.",
+   "e": "Clean-agent gas systems suppress fire without the conductive water, foam, or corrosive powder residue that sprinkler, deluge, and dry chemical systems would leave on energized electronics.",
    "d": 2
   },
   {
@@ -4698,10 +4698,10 @@ export const exam: ExamDef = {
    "t": "switching-issues",
    "x": "A new VLAN 60 works between hosts on the same switch but not across the trunk to the next switch. Which trunk setting should be checked?",
    "o": [
-    "VLAN 60 in the trunk's allowed list",
-    "The cable color at each end",
-    "The port's configured speed",
-    "The DNS search suffix"
+    "The allowed VLAN list configured on the trunk",
+    "The speed and duplex negotiated on the trunk link",
+    "The voice VLAN assigned to the trunk interface",
+    "The MTU value configured on the trunk interface"
    ],
    "a": 0,
    "e": "Trunks can prune/limit VLANs; a VLAN missing from the allowed list is silently dropped at the trunk.",
@@ -4726,10 +4726,10 @@ export const exam: ExamDef = {
    "t": "routing-and-ip-issues",
    "x": "A host was configured with mask /25 on a /24 network. It can reach some local hosts but not others. Why?",
    "o": [
-    "The /25 mask makes half the /24 look remote",
-    "The NIC hardware has failed",
-    "The DNS resolver is offline",
-    "The switch filters odd-numbered IPs"
+    "The /25 mask makes half the /24 range look remote to the host",
+    "The /25 mask moves the host into a different VLAN",
+    "The /25 mask shrinks the DHCP scope, so some peers lost their leases",
+    "The /25 mask stops broadcast frames from crossing the switch"
    ],
    "a": 0,
    "e": "The wrong mask splits the network in the host's view; 'local' destinations beyond its subnet boundary get misrouted.",
@@ -5109,13 +5109,13 @@ export const exam: ExamDef = {
    "t": "infrastructure-as-code",
    "x": "A team keeps all router and switch configurations in a Git repository managed as code. Which benefit does this MOST directly provide?",
    "o": [
-    "Faster physical link speeds between switches",
-    "Automatic firmware upgrades on all devices",
-    "Reduced broadcast traffic on each VLAN",
+    "Encrypted management sessions to every network device",
+    "Real-time alerts when a device interface goes down",
+    "Automatic discovery of new devices joining the network",
     "A reviewable history of every change with rollback"
    ],
    "a": 3,
-   "e": "Version control records who changed what and lets the team revert to a known-good state. It does not alter link speed or broadcast traffic, which depend on the hardware and topology.",
+   "e": "Version control gives an auditable history of who changed what and the ability to revert to a known-good configuration. Interface alerting, device discovery, and session encryption come from monitoring and management tooling, not from the repository itself.",
    "d": 1
   },
   {

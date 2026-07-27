@@ -1,0 +1,904 @@
+{
+ "examId": "220-1202",
+ "fixes": [
+  {
+   "id": 355,
+   "o": [
+    "They pass user input to queries only through parameterized statements",
+    "They concatenate user input directly into database query strings",
+    "They hash user input before comparing it to stored values",
+    "They validate user input against a server-side allow list"
+   ],
+   "a": 1
+  },
+  {
+   "id": 140,
+   "o": [
+    "Business email compromise",
+    "Credential harvesting",
+    "Voice phishing",
+    "Watering hole attack"
+   ],
+   "a": 0,
+   "x": "The accounting team receives a message that appears to come from the CFO's legitimate corporate account, instructing an urgent wire transfer to a new vendor. Which attack is this most likely?"
+  },
+  {
+   "id": 148,
+   "o": [
+    "Short complex passwords rotated daily",
+    "Long, complex passwords or passphrases with MFA enabled",
+    "Dictionary words with a number appended, changed quarterly",
+    "Eight-character minimums with security questions as backup"
+   ],
+   "a": 1
+  },
+  {
+   "id": 153,
+   "o": [
+    "Remote lock",
+    "Remote wipe",
+    "Geofencing",
+    "Device encryption"
+   ],
+   "a": 1,
+   "x": "After a corporate smartphone is reported lost, IT sends a command from the MDM console that ensures no company data remains on the device. Which capability is this?"
+  },
+  {
+   "id": 154,
+   "o": [
+    "Full device encryption",
+    "Biometric screen lock",
+    "SIM card lock",
+    "Device locator service"
+   ],
+   "a": 0
+  },
+  {
+   "id": 158,
+   "o": [
+    "A statement of work",
+    "A certificate of destruction",
+    "A service level agreement",
+    "A nondisclosure agreement"
+   ],
+   "a": 1,
+   "x": "A third-party vendor handles end-of-life disposal of a company's retired hard drives. Which documentation should the company receive for its compliance records?"
+  },
+  {
+   "id": 162,
+   "o": [
+    "Enabling MAC address filtering",
+    "Updating the firmware",
+    "Changing the default SSID",
+    "Disabling the DHCP server"
+   ],
+   "a": 1,
+   "x": "A security audit finds a SOHO router exposed to an exploit that the manufacturer resolved months ago. Which action remediates the finding?"
+  },
+  {
+   "id": 164,
+   "o": [
+    "MAC filtering",
+    "SSID broadcast",
+    "Band steering",
+    "WPS pairing"
+   ],
+   "a": 1,
+   "x": "Disabling which wireless router feature keeps the network name from appearing in nearby devices' lists of available networks, though it provides little real security by itself?"
+  },
+  {
+   "id": 168,
+   "o": [
+    "Enabling private browsing mode",
+    "Enabling the pop-up blocker",
+    "Clearing the browser cache",
+    "Resetting the default search engine"
+   ],
+   "a": 1,
+   "x": "A user reports that extra browser windows keep opening on their own across many websites. Which built-in browser setting addresses this?"
+  },
+  {
+   "id": 175,
+   "o": [
+    "A corrupted boot record or a failed drive",
+    "A corrupted Windows user profile",
+    "An outdated graphics adapter driver",
+    "A misconfigured virtual memory setting"
+   ],
+   "a": 0
+  },
+  {
+   "id": 177,
+   "o": [
+    "Check for runaway processes and drive errors",
+    "Update the graphics adapter driver",
+    "Reinstall the operating system right away",
+    "Clear the browser cache and cookies"
+   ],
+   "a": 0
+  },
+  {
+   "id": 180,
+   "o": [
+    "A screen timeout set to thirty seconds",
+    "Apps running constantly in the background",
+    "A large collection of locally stored photos",
+    "An email account set to fetch once per day"
+   ],
+   "a": 1
+  },
+  {
+   "id": 325,
+   "o": [
+    "Recycle them through a certified e-waste program",
+    "Place them in the building's single-stream recycling bin",
+    "Fully discharge the batteries, then put everything in the trash",
+    "Send the batteries for recycling and trash the toner cartridges"
+   ],
+   "a": 0
+  },
+  {
+   "id": 107,
+   "o": [
+    "Offline Files",
+    "Folder redirection",
+    "Home folder mapping",
+    "Credential roaming"
+   ],
+   "a": 1
+  },
+  {
+   "id": 110,
+   "o": [
+    "WPA2-AES",
+    "WPA-TKIP",
+    "802.1X",
+    "WPA3"
+   ],
+   "a": 3
+  },
+  {
+   "id": 121,
+   "o": [
+    "EDR",
+    "DLP",
+    "UTM",
+    "IAM"
+   ],
+   "a": 0
+  },
+  {
+   "id": 122,
+   "o": [
+    "At the email gateway",
+    "In each user's mail client",
+    "In the mailbox after delivery",
+    "On each individual workstation"
+   ],
+   "a": 0
+  },
+  {
+   "id": 125,
+   "o": [
+    "Impersonation and urgency",
+    "Phishing and smishing",
+    "Tailgating and shoulder surfing",
+    "Baiting and dumpster diving"
+   ],
+   "a": 0,
+   "x": "An attacker calls a help desk posing as an executive who needs a password reset completed before a meeting that starts in a few minutes. Which techniques are being combined?"
+  },
+  {
+   "id": 126,
+   "o": [
+    "Screen lock timeout",
+    "Privacy screen",
+    "Cable lock",
+    "Webcam cover"
+   ],
+   "a": 1
+  },
+  {
+   "id": 131,
+   "o": [
+    "DNS hijacking",
+    "ARP poisoning",
+    "MAC flooding",
+    "VLAN hopping"
+   ],
+   "a": 1,
+   "x": "Which technique manipulates the mapping between IP addresses and MAC addresses on a LAN so traffic flows through the attacker?"
+  },
+  {
+   "id": 79,
+   "o": [
+    "CPU, memory, and free storage requirements",
+    "Monitor size, network speed, and BIOS version",
+    "Hostname, MAC address, and domain membership",
+    "Browser version, antivirus vendor, and email client"
+   ],
+   "a": 0
+  },
+  {
+   "id": 83,
+   "o": [
+    "Multifactor authentication",
+    "Identity synchronization",
+    "Group Policy enforcement",
+    "Role-based access control"
+   ],
+   "a": 1,
+   "x": "After adopting cloud services alongside on-premises Active Directory, a company wants employees to stop maintaining separate accounts and passwords for each environment. Which technology accomplishes this?"
+  },
+  {
+   "id": 84,
+   "o": [
+    "A local file share on one office server",
+    "A cloud-based document collaboration suite",
+    "An FTP server with individual accounts",
+    "An email distribution list for attachments"
+   ],
+   "a": 1
+  },
+  {
+   "id": 87,
+   "o": [
+    "Motion-activated video surveillance",
+    "Badge readers with entry logging",
+    "A monitored burglar alarm system",
+    "An electronic combination door lock"
+   ],
+   "a": 0,
+   "x": "A server room needs monitoring that can confirm who actually entered and when, even when access cards are sometimes shared or borrowed. Which control provides this?",
+   "e": "Motion-activated video surveillance captures a visual record of who actually entered and when; badge logs only show which credential was used, so a borrowed card defeats them, and alarms and locks identify no one."
+  },
+  {
+   "id": 90,
+   "o": [
+    "Have them sign in and move about unescorted",
+    "Issue a visitor badge and escort them",
+    "Register them as a permanent badge holder",
+    "Give them a spare employee badge for the day"
+   ],
+   "a": 1
+  },
+  {
+   "id": 96,
+   "o": [
+    "Privilege creep",
+    "Just-in-time access",
+    "Role-based access control",
+    "Single sign-on"
+   ],
+   "a": 1,
+   "x": "A company's administrators receive elevated rights only when they request them for a specific approved task, and the rights are revoked automatically once the task is complete. What is this practice called?"
+  },
+  {
+   "id": 184,
+   "o": [
+    "A damaged microphone assembly",
+    "A failure in the earpiece speaker",
+    "A degraded cellular antenna connection",
+    "A failing SIM card connection"
+   ],
+   "a": 1
+  },
+  {
+   "id": 185,
+   "o": [
+    "A recent OS update enabled sponsored notifications",
+    "Sideloaded apps installed adware/malware",
+    "The launcher's ad personalization cache is corrupted",
+    "A carrier configuration push turned on promotional alerts"
+   ],
+   "a": 1,
+   "x": "A user's Android phone has started showing aggressive pop-up ads. The technician notices that installing apps from unknown sources is enabled and several APK files sit in the Downloads folder. What likely happened?"
+  },
+  {
+   "id": 186,
+   "o": [
+    "It disables biometric authentication for all apps",
+    "It bypasses OS protections and MDM controls",
+    "It forces the device onto unencrypted Wi-Fi networks",
+    "It grants the carrier remote control of the device"
+   ],
+   "a": 1
+  },
+  {
+   "id": 187,
+   "o": [
+    "A degraded battery reaching end of life",
+    "Possible malware or spyware activity",
+    "An outdated carrier settings profile",
+    "A display brightness setting left at maximum"
+   ],
+   "a": 1
+  },
+  {
+   "id": 188,
+   "o": [
+    "Install the suggested app so it can remove the threat",
+    "Close the browser page and report it to IT",
+    "Enter the device passcode to allow a full scan",
+    "Factory reset the phone to remove the infection"
+   ],
+   "a": 1,
+   "x": "An employee's phone browser suddenly displays a full-screen antivirus alert claiming the device is infected and urging immediate installation of a cleanup app. What should the employee do?"
+  },
+  {
+   "id": 189,
+   "o": [
+    "Turn off MAC address randomization",
+    "Disable auto-join for unknown or open networks",
+    "Enable Wi-Fi calling on the device",
+    "Assign a static IP address for Wi-Fi"
+   ],
+   "a": 1,
+   "x": "A user keeps finding their phone connected to unfamiliar open hotspots they never chose to join. Which setting reduces this risk?"
+  },
+  {
+   "id": 190,
+   "o": [
+    "A corrupted browser cache and cookies",
+    "Browser hijacking malware or PUPs",
+    "An outdated browser missing security updates",
+    "A failing drive corrupting the user profile"
+   ],
+   "a": 1
+  },
+  {
+   "id": 191,
+   "o": [
+    "The site's certificate was recently revoked",
+    "The wrong date makes valid certificates fail validation",
+    "A corrupted browser cache on that PC",
+    "The router is blocking traffic on port 443"
+   ],
+   "a": 1
+  },
+  {
+   "id": 280,
+   "o": [
+    "AI hallucination",
+    "AI bias",
+    "Model drift",
+    "Prompt injection"
+   ],
+   "a": 1,
+   "x": "An AI screening tool trained on a company's past hiring records rates applicants from one background consistently lower than equally qualified peers. Which AI concern does this illustrate?",
+   "e": "Training data that reflects historical inequities produces systematically unfair outputs, which is bias. Drift is accuracy decay as real-world data changes over time, hallucination is fabricated output, and prompt injection is an attack through crafted input."
+  },
+  {
+   "id": 282,
+   "o": [
+    "Its clean command wipes a disk's partition table immediately",
+    "It applies commands to all attached disks rather than one selection",
+    "It converts basic disks to dynamic automatically at launch",
+    "It marks the boot partition inactive whenever a disk is initialized"
+   ],
+   "a": 0
+  },
+  {
+   "id": 283,
+   "o": [
+    "Resource Monitor",
+    "Performance Monitor",
+    "Event Viewer",
+    "System Information"
+   ],
+   "a": 0
+  },
+  {
+   "id": 285,
+   "o": [
+    "The startup impact rating shown for each program",
+    "The process ID assigned to each program",
+    "The last BIOS time displayed on the Startup tab",
+    "The publisher name listed for each program"
+   ],
+   "a": 0
+  },
+  {
+   "id": 287,
+   "o": [
+    "Credential Manager",
+    "Network and Sharing Center",
+    "Internet Options",
+    "Windows Defender Firewall"
+   ],
+   "a": 0,
+   "x": "Windows keeps connecting to a network share with an outdated saved password. Which Control Panel tool should the technician use to delete the saved entry?"
+  },
+  {
+   "id": 294,
+   "o": [
+    "apt install <package>",
+    "dnf install <package>",
+    "pacman -S <package>",
+    "zypper install <package>"
+   ],
+   "a": 0,
+   "e": "Debian and Ubuntu systems use APT. dnf belongs to the Red Hat family, zypper to SUSE, and pacman to Arch; matching the package manager to the distribution family is the tested skill."
+  },
+  {
+   "id": 296,
+   "o": [
+    "pathping",
+    "tracert",
+    "netstat",
+    "ping"
+   ],
+   "a": 0,
+   "x": "Which Windows command traces the route to a destination and then reports per-hop packet loss statistics gathered over a period of time?",
+   "e": "pathping first discovers the route, then probes every hop for a period to compute per-hop loss percentages. tracert samples each hop only briefly and never reports sustained loss, and ping tests only the final endpoint."
+  },
+  {
+   "id": 298,
+   "o": [
+    "Repair or recreate the user's profile",
+    "Copy the temporary profile's contents over the original one",
+    "Restore the user's files from a File History backup",
+    "Run Startup Repair from the recovery environment"
+   ],
+   "a": 0
+  },
+  {
+   "id": 300,
+   "o": [
+    "Boot WinRE and uninstall the latest quality update",
+    "Boot WinRE and rebuild the BCD store with bootrec",
+    "Boot to Safe Mode and pause all future Windows updates",
+    "Boot to Safe Mode and roll back the display adapter driver"
+   ],
+   "a": 0
+  },
+  {
+   "id": 301,
+   "o": [
+    "Run the app in compatibility mode",
+    "Raise the app's process priority in Task Manager",
+    "Re-register the app's DLL files with regsvr32",
+    "Run the System File Checker to repair Windows"
+   ],
+   "a": 0
+  },
+  {
+   "id": 304,
+   "o": [
+    "Notification permissions and battery optimization settings",
+    "Storage permissions and app cache size settings",
+    "Screen timeout and auto-brightness settings",
+    "Default language and region format settings"
+   ],
+   "a": 0,
+   "x": "A user gets no alerts from a messaging app until they open it manually. Which settings should be checked first?"
+  },
+  {
+   "id": 306,
+   "o": [
+    "Forget the pairing on phone and car, then re-pair",
+    "Roll back the phone's OS to the previous version",
+    "Update the car's infotainment firmware to the newest release",
+    "Delete the phone's saved Wi-Fi networks and reconnect"
+   ],
+   "a": 0
+  },
+  {
+   "id": 253,
+   "o": [
+    "Heat harms parts, damp air raises ESD, dry air condenses",
+    "Heat harms parts, dry air raises ESD, damp air condenses",
+    "Cold harms parts, dry air corrodes contacts, damp air raises ESD",
+    "Heat raises ESD, dry air condenses on boards, damp air harms fans"
+   ],
+   "a": 1
+  },
+  {
+   "id": 254,
+   "o": [
+    "Acceptable use policy documentation",
+    "Chain of custody documentation",
+    "Change management documentation",
+    "Service level agreement documentation"
+   ],
+   "a": 1
+  },
+  {
+   "id": 257,
+   "o": [
+    "A patent licensing violation",
+    "A software licensing violation",
+    "A trademark usage violation",
+    "An export control violation"
+   ],
+   "a": 1
+  },
+  {
+   "id": 270,
+   "o": [
+    "Enable network discovery on each of the workstations",
+    "Deploy a login script via Group Policy",
+    "Email each user a batch file to run after signing in",
+    "Add the server's name to each PC's local hosts file"
+   ],
+   "a": 1
+  },
+  {
+   "id": 271,
+   "o": [
+    "It may bypass the file permissions that protect system files",
+    "It may change settings or install unwanted software",
+    "It may run with more privileges than the launching account",
+    "It may keep running under other accounts after sign-out"
+   ],
+   "a": 1
+  },
+  {
+   "id": 272,
+   "o": [
+    "A one-time rename of a single file on one PC",
+    "Nightly backups repeated across many systems",
+    "Writing individualized replies to customer emails",
+    "Troubleshooting a user's one-off application error"
+   ],
+   "a": 1
+  },
+  {
+   "id": 276,
+   "o": [
+    "Create a permanent vendor VPN account for future support needs",
+    "Provide time-limited, logged access to only that server",
+    "Add the vendor's account to the internal IT administrators group",
+    "Forward a firewall port so the vendor can reach the server directly"
+   ],
+   "a": 1,
+   "x": "A vendor has been hired to perform maintenance on an internal application server. Which access approach is MOST secure?"
+  },
+  {
+   "id": 277,
+   "o": [
+    "Require every draft to start from an approved prompt template",
+    "Keep confidential and regulated data out of the chatbot",
+    "Restrict chatbot use to business hours on company networks",
+    "Standardize all drafting on the chatbot for consistent formatting"
+   ],
+   "a": 1
+  },
+  {
+   "id": 307,
+   "o": [
+    "Remove the unknown configuration profile and check for a rogue proxy",
+    "Clear the browser cache and website data, then reload the pages",
+    "Forget the wireless network and rejoin it to refresh the connection",
+    "Update the phone to the latest iOS release and restart it"
+   ],
+   "a": 0,
+   "x": "A user tapped a link on their iPhone and approved an installation prompt; since then, web traffic behaves oddly. What should the technician do?"
+  },
+  {
+   "id": 308,
+   "o": [
+    "The device is quarantined from corporate access until remediated",
+    "An antivirus scan is pushed and access continues if it is clean",
+    "The device is flagged for review at the next scheduled audit",
+    "Corporate apps are reinstalled to overwrite the root changes"
+   ],
+   "a": 0
+  },
+  {
+   "id": 309,
+   "o": [
+    "A captive portal intercepts traffic until the user signs in",
+    "The access point is broadcasting on an overcrowded channel",
+    "The visited websites are all using self-signed certificates",
+    "The hotel firewall is dropping all encrypted traffic outright"
+   ],
+   "a": 0,
+   "x": "On hotel Wi-Fi, a newly connected phone shows certificate warnings on every website the user tries to open. What explains this?"
+  },
+  {
+   "id": 310,
+   "o": [
+    "Revoke its admin rights, uninstall it, and report it",
+    "Clear the app's cache and data and continue using it",
+    "Install a separate ad-blocking app to suppress the pop-ups",
+    "Approve the admin request but restrict the app's background data"
+   ],
+   "a": 0
+  },
+  {
+   "id": 311,
+   "o": [
+    "A browser hijacker",
+    "A keylogger",
+    "A cryptominer",
+    "A ransomware strain"
+   ],
+   "a": 0,
+   "x": "A user's search results now route through an unknown search site, and an unfamiliar extension keeps reinstalling itself after removal. What class of software is this?"
+  },
+  {
+   "id": 193,
+   "o": [
+    "Disable the Windows Update service so the failures stop",
+    "Run the Update troubleshooter and repair system files",
+    "Reinstall the network adapter driver and renew the IP lease",
+    "Roll the system back to the previous Windows build"
+   ],
+   "a": 1,
+   "x": "Windows Update repeatedly fails to install on one PC while other machines update normally. What should the technician try FIRST?"
+  },
+  {
+   "id": 194,
+   "o": [
+    "Reset the browser's home page and default search engine",
+    "Revoke the site's permission to send notifications",
+    "Clear the browser's cache and saved cookies",
+    "Add the site to the browser's pop-up blocker list"
+   ],
+   "a": 1,
+   "x": "A user sees constant messages from a shopping website in the corner of the desktop, even when the site's tab is closed. What should the technician do?"
+  },
+  {
+   "id": 197,
+   "o": [
+    "Windows Memory Diagnostic",
+    "Disk Cleanup on the system drive",
+    "Resource Monitor's memory usage graph",
+    "The DirectX Diagnostic Tool report"
+   ],
+   "a": 0
+  },
+  {
+   "id": 199,
+   "o": [
+    "System Restore",
+    "File History",
+    "Storage Sense",
+    "Registry Editor"
+   ],
+   "a": 0,
+   "x": "A PC became unstable after a driver bundle was installed yesterday. Which built-in Windows feature can return the system to how it was before the installation without touching personal files?"
+  },
+  {
+   "id": 203,
+   "o": [
+    "The service dependencies and the System log",
+    "The Application log and the Startup tab in Task Manager",
+    "The boot order in UEFI and the Security log",
+    "The service recovery options and the Setup log"
+   ],
+   "a": 0,
+   "x": "A critical service is set to Automatic but fails to start at boot, logging error 1068 each time. Where should the technician investigate?",
+   "e": "Error 1068 means a required service failed to start first; the Dependencies tab in services.msc shows what the service needs, and the System log records which prerequisite failed."
+  },
+  {
+   "id": 207,
+   "o": [
+    "RF interference or an obstruction in that spot",
+    "Weak cellular coverage in that part of the building",
+    "An outdated Bluetooth codec selected by the headset",
+    "Too many devices saved in the phone's paired list"
+   ],
+   "a": 0
+  },
+  {
+   "id": 208,
+   "o": [
+    "Clear app caches and offloaded data",
+    "Disable automatic app updates in the store",
+    "Turn off cloud backup for photos and videos",
+    "Restart the device into safe mode"
+   ],
+   "a": 0
+  },
+  {
+   "id": 209,
+   "o": [
+    "The separate media volume channel",
+    "The notification volume slider",
+    "The in-call voice volume level",
+    "The mono audio accessibility setting"
+   ],
+   "a": 0,
+   "e": "Phones keep independent volume channels for ringer, media, notifications, alarms, and calls; only the media channel being muted silences apps while ringtones and alarms stay loud."
+  },
+  {
+   "id": 211,
+   "o": [
+    "Wait for the developer's compatibility update",
+    "Roll back the phone to the previous OS version",
+    "Sideload an older build of the app from a mirror site",
+    "Run the app in the OS legacy compatibility mode"
+   ],
+   "a": 0,
+   "x": "After a phone OS upgrade, an older app crashes on launch every time. The developer's support page says a fix for the new OS version is in review. What is the BEST advice?"
+  },
+  {
+   "id": 212,
+   "o": [
+    "Install unknown apps",
+    "Developer options",
+    "Google Play Protect",
+    "Device admin apps"
+   ],
+   "a": 0,
+   "x": "Which Android setting, when turned off, restricts a device to obtaining apps only through the official store?"
+  },
+  {
+   "id": 213,
+   "o": [
+    "Deny the permissions and uninstall the app",
+    "Allow the permissions only while the app is in use",
+    "Grant the requests if the app has strong store ratings",
+    "Deny location but allow the contacts and microphone"
+   ],
+   "a": 0
+  },
+  {
+   "id": 214,
+   "o": [
+    "Change the password, enable MFA, and revoke sessions",
+    "Restore the phone to factory settings and set it up again",
+    "Scan the device for malware and keep monitoring the account",
+    "Set up a new email address and migrate messages to it"
+   ],
+   "a": 0
+  },
+  {
+   "id": 215,
+   "o": [
+    "The OS privacy and app permission settings",
+    "The app store's listing page for the app",
+    "The device's developer options menu",
+    "The battery usage statistics screen"
+   ],
+   "a": 0
+  },
+  {
+   "id": 216,
+   "o": [
+    "Updating the device OS to the required version",
+    "Deleting the MDM enrollment profile",
+    "Rooting the phone's operating system",
+    "Re-adding the corporate mail account manually"
+   ],
+   "a": 0,
+   "x": "An MDM console flags a phone as non-compliant and blocks corporate email, citing a failed patch-level check. What restores access?"
+  },
+  {
+   "id": 217,
+   "o": [
+    "Data theft over the cable; use an AC wall adapter instead",
+    "Battery damage from unstable voltage; use a fast-charge cable instead",
+    "Overheating from shared power circuits; charge in short sessions instead",
+    "Malware on the kiosk's public Wi-Fi; disable Wi-Fi while charging instead"
+   ],
+   "a": 0
+  },
+  {
+   "id": 218,
+   "o": [
+    "Report it to IT so the corporate data can be remotely wiped",
+    "Contact the carrier to suspend service on the line",
+    "File a police report about the missing device",
+    "Change personal account passwords from another device"
+   ],
+   "a": 0
+  },
+  {
+   "id": 221,
+   "o": [
+    "An untrusted root certificate installed on that PC",
+    "Expired TLS certificates on the web servers themselves",
+    "An incorrect date and time set on that PC",
+    "A corrupted browser cache that needs to be cleared"
+   ],
+   "a": 0
+  },
+  {
+   "id": 226,
+   "o": [
+    "The user's job title and office location",
+    "The problem, the steps taken, and the resolution",
+    "The device's asset tag and warranty expiration",
+    "The list of other open tickets from the same user"
+   ],
+   "a": 1
+  },
+  {
+   "id": 228,
+   "o": [
+    "Place the ticket on hold until the issue recurs",
+    "Escalate to a higher-tier team with full notes",
+    "Reassign the ticket back to the general intake queue",
+    "Close the ticket and have the user open a new one"
+   ],
+   "a": 1
+  },
+  {
+   "id": 230,
+   "o": [
+    "MDM",
+    "CMDB",
+    "SIEM",
+    "RMM"
+   ],
+   "a": 1,
+   "x": "A change team needs to look up a server's hardware, installed software, and the other services that depend on it before scheduling work. Which system of record holds this information?"
+  },
+  {
+   "id": 233,
+   "o": [
+    "Incident report",
+    "Standard operating procedure",
+    "Network topology diagram",
+    "Acceptable use policy"
+   ],
+   "a": 1,
+   "x": "A document walks technicians through the exact steps to follow, in the same order, every time they image and deploy a new workstation. What type of document is this?"
+  },
+  {
+   "id": 236,
+   "o": [
+    "The technicians implementing the work",
+    "The change advisory board",
+    "The change requester's direct manager",
+    "The executive leadership team"
+   ],
+   "a": 1
+  },
+  {
+   "id": 239,
+   "o": [
+    "The period the review board has to assess a request",
+    "A scheduled low-impact period for approved changes",
+    "The interval between vendor patch release cycles",
+    "The required lead time between request and approval"
+   ],
+   "a": 1
+  },
+  {
+   "id": 246,
+   "o": [
+    "In standard bubble wrap",
+    "In anti-static bags",
+    "In sealed plastic containers",
+    "In foam-padded envelopes"
+   ],
+   "a": 1
+  },
+  {
+   "id": 314,
+   "a": 0,
+   "o": [
+    "Excluded folders are skipped by scans, hiding files placed there",
+    "Exclusions disable real-time protection for the whole system",
+    "Exclusions grant elevated permissions to the folder's contents",
+    "Exclusions make the folder's contents launch at startup"
+   ]
+  },
+  {
+   "id": 89,
+   "a": 2,
+   "o": [
+    "Something you know",
+    "Something you have",
+    "Something you are",
+    "Somewhere you are"
+   ],
+   "x": "A laptop signs users in with a fingerprint reader. Which authentication factor category does this rely on?",
+   "e": "A fingerprint is a biometric, the something-you-are factor: an inherent physical characteristic like a retina, face, or palmprint, unlike factors based on knowledge, possession, or location."
+  },
+  {
+   "id": 227,
+   "a": 1,
+   "o": [
+    "First-come, first-served order",
+    "Severity and priority levels",
+    "Escalation tier assignments",
+    "Ticket category labels"
+   ]
+  }
+ ]
+}

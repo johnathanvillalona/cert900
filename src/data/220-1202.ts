@@ -1512,10 +1512,10 @@ export const exam: ExamDef = {
    "t": "installing-apps",
    "x": "Before installing a new application, which THREE requirements should a technician verify against the workstation?",
    "o": [
-    "CPU, RAM, and storage requirements",
-    "Monitor brand, mouse DPI, and case color",
-    "BIOS date, MAC address, and hostname",
-    "Printer drivers, fonts, and wallpaper"
+    "CPU, memory, and free storage requirements",
+    "Monitor size, network speed, and BIOS version",
+    "Hostname, MAC address, and domain membership",
+    "Browser version, antivirus vendor, and email client"
    ],
    "a": 0,
    "e": "Verify the app's CPU compatibility (32/64-bit), memory, and disk requirements — plus OS version support.",
@@ -1566,12 +1566,12 @@ export const exam: ExamDef = {
   {
    "id": 83,
    "t": "cloud-tools",
-   "x": "Which technology keeps one set of usernames and passwords working across both on-premises Active Directory and cloud services?",
+   "x": "After adopting cloud services alongside on-premises Active Directory, a company wants employees to stop maintaining separate accounts and passwords for each environment. Which technology accomplishes this?",
    "o": [
-    "Port forwarding",
+    "Multifactor authentication",
     "Identity synchronization",
-    "DHCP reservations",
-    "RAID mirroring"
+    "Group Policy enforcement",
+    "Role-based access control"
    ],
    "a": 1,
    "e": "Directory/identity synchronization replicates accounts to the cloud identity provider so users keep a single credential set. Identity synchronization = e.g., directory sync.",
@@ -1583,9 +1583,9 @@ export const exam: ExamDef = {
    "x": "A team in three cities needs to edit the same document at the same time and see each other's changes live. Which tool category enables this?",
    "o": [
     "A local file share on one office server",
-    "A real-time cloud collaboration suite",
+    "A cloud-based document collaboration suite",
     "An FTP server with individual accounts",
-    "A screen saver package for shared PCs"
+    "An email distribution list for attachments"
    ],
    "a": 1,
    "e": "Cloud collaboration suites support simultaneous multi-user editing with live syncing and version history.",
@@ -1622,15 +1622,15 @@ export const exam: ExamDef = {
   {
    "id": 87,
    "t": "physical-security",
-   "x": "A server room needs monitoring that can identify who entered and when, with visual evidence. Which control provides this?",
+   "x": "A server room needs monitoring that can confirm who actually entered and when, even when access cards are sometimes shared or borrowed. Which control provides this?",
    "o": [
     "Motion-activated video surveillance",
-    "Privacy screens",
-    "Cable locks",
-    "Signage"
+    "Badge readers with entry logging",
+    "A monitored burglar alarm system",
+    "An electronic combination door lock"
    ],
    "a": 0,
-   "e": "Video surveillance with motion detection provides a visual record of physical access events.",
+   "e": "Motion-activated video surveillance captures a visual record of who actually entered and when; badge logs only show which credential was used, so a borrowed card defeats them, and alarms and locks identify no one.",
    "d": 2
   },
   {
@@ -1650,15 +1650,15 @@ export const exam: ExamDef = {
   {
    "id": 89,
    "t": "physical-access",
-   "x": "Which authentication method uses a physical characteristic such as a fingerprint or retina pattern?",
+   "x": "A laptop signs users in with a fingerprint reader. Which authentication factor category does this rely on?",
    "o": [
     "Something you know",
     "Something you have",
-    "Biometrics",
+    "Something you are",
     "Somewhere you are"
    ],
    "a": 2,
-   "e": "Biometric factors are unique physical characteristics: fingerprints, retina, face, palmprint. Biometrics = something you are.",
+   "e": "A fingerprint is a biometric, the something-you-are factor: an inherent physical characteristic like a retina, face, or palmprint, unlike factors based on knowledge, possession, or location.",
    "d": 2
   },
   {
@@ -1666,10 +1666,10 @@ export const exam: ExamDef = {
    "t": "physical-access",
    "x": "A visitor needs temporary building access. Which is the BEST practice?",
    "o": [
-    "Lend them an employee badge",
+    "Have them sign in and move about unescorted",
     "Issue a visitor badge and escort them",
-    "Prop the door open",
-    "Share the door PIN"
+    "Register them as a permanent badge holder",
+    "Give them a spare employee badge for the day"
    ],
    "a": 1,
    "e": "Visitors should get distinct temporary badges and be escorted; sharing employee credentials breaks accountability.",
@@ -1748,12 +1748,12 @@ export const exam: ExamDef = {
   {
    "id": 96,
    "t": "auth-access",
-   "x": "A company grants administrators elevated rights only for the short time window they need them, then automatically revokes access. What is this called?",
+   "x": "A company's administrators receive elevated rights only when they request them for a specific approved task, and the rights are revoked automatically once the task is complete. What is this practice called?",
    "o": [
-    "Persistent privilege",
+    "Privilege creep",
     "Just-in-time access",
-    "Shoulder access",
-    "Passive provisioning"
+    "Role-based access control",
+    "Single sign-on"
    ],
    "a": 1,
    "e": "Just-in-time (JIT) access grants temporary, time-limited privileges, shrinking the standing attack surface.",
@@ -1904,10 +1904,10 @@ export const exam: ExamDef = {
    "t": "active-directory",
    "x": "Which Active Directory feature ensures a user's Documents folder is stored on a network server rather than the local disk?",
    "o": [
-    "Roaming lock",
+    "Offline Files",
     "Folder redirection",
-    "Home realm",
-    "OU nesting"
+    "Home folder mapping",
+    "Credential roaming"
    ],
    "a": 1,
    "e": "Folder redirection (via Group Policy) points user folders like Documents to a server share for central backup and access.",
@@ -1946,9 +1946,9 @@ export const exam: ExamDef = {
    "t": "wireless-encryption",
    "x": "Which wireless security protocol is the most current and secure for a home network?",
    "o": [
-    "WEP",
-    "WPA",
-    "WPA2-TKIP",
+    "WPA2-AES",
+    "WPA-TKIP",
+    "802.1X",
     "WPA3"
    ],
    "a": 3,
@@ -2101,9 +2101,9 @@ export const exam: ExamDef = {
    "x": "Which security tool goes beyond signature antivirus by monitoring endpoint behavior and enabling investigation and response to threats?",
    "o": [
     "EDR",
-    "Screen saver",
-    "Disk Cleanup",
-    "Print spooler"
+    "DLP",
+    "UTM",
+    "IAM"
    ],
    "a": 0,
    "e": "EDR platforms monitor behavior, detect suspicious activity, and support remediation across endpoints. EDR = Endpoint Detection and Response.",
@@ -2115,9 +2115,9 @@ export const exam: ExamDef = {
    "x": "Where should spam and phishing messages ideally be filtered before reaching user inboxes?",
    "o": [
     "At the email gateway",
-    "On each user's phone",
-    "In the print queue",
-    "At the DNS root"
+    "In each user's mail client",
+    "In the mailbox after delivery",
+    "On each individual workstation"
    ],
    "a": 0,
    "e": "An email (spam) gateway filters malicious and unwanted mail at the network edge before delivery.",
@@ -2154,12 +2154,12 @@ export const exam: ExamDef = {
   {
    "id": 125,
    "t": "social-engineering",
-   "x": "An attacker calls a help desk claiming to be an executive who urgently needs a password reset. Which techniques are being combined?",
+   "x": "An attacker calls a help desk posing as an executive who needs a password reset completed before a meeting that starts in a few minutes. Which techniques are being combined?",
    "o": [
     "Impersonation and urgency",
-    "Encryption and hashing",
-    "Tailgating and dumpster diving",
-    "XSS and SQLi"
+    "Phishing and smishing",
+    "Tailgating and shoulder surfing",
+    "Baiting and dumpster diving"
    ],
    "a": 0,
    "e": "Pretending to be someone with authority plus manufactured urgency are core social engineering levers.",
@@ -2170,10 +2170,10 @@ export const exam: ExamDef = {
    "t": "social-engineering",
    "x": "A user is watching someone enter their password by looking over their shoulder at the airport. Which control BEST mitigates this?",
    "o": [
-    "Antivirus",
+    "Screen lock timeout",
     "Privacy screen",
-    "Firewall",
-    "Encryption at rest"
+    "Cable lock",
+    "Webcam cover"
    ],
    "a": 1,
    "e": "Shoulder surfing is mitigated by privacy filters and awareness of surroundings.",
@@ -2238,12 +2238,12 @@ export const exam: ExamDef = {
   {
    "id": 131,
    "t": "on-path",
-   "x": "Which technique poisons the mapping between IP addresses and MAC addresses on a LAN so traffic flows through the attacker?",
+   "x": "Which technique manipulates the mapping between IP addresses and MAC addresses on a LAN so traffic flows through the attacker?",
    "o": [
     "DNS hijacking",
-    "ARP poisoning/spoofing",
-    "Port scanning",
-    "Ping of death"
+    "ARP poisoning",
+    "MAC flooding",
+    "VLAN hopping"
    ],
    "a": 1,
    "e": "ARP poisoning sends forged ARP replies so the attacker's MAC is associated with the gateway IP, enabling on-path interception.",
@@ -2364,12 +2364,12 @@ export const exam: ExamDef = {
   {
    "id": 140,
    "t": "bec",
-   "x": "The accounting team receives an email that appears to come from the CFO's real account instructing an urgent wire transfer to a new vendor. Which attack is this most likely?",
+   "x": "The accounting team receives a message that appears to come from the CFO's legitimate corporate account, instructing an urgent wire transfer to a new vendor. Which attack is this most likely?",
    "o": [
     "Business email compromise",
-    "Denial of service",
-    "Evil twin",
-    "Rootkit"
+    "Credential harvesting",
+    "Voice phishing",
+    "Watering hole attack"
    ],
    "a": 0,
    "e": "BEC uses compromised or convincingly spoofed business accounts to trick employees into transferring money or data.",
@@ -2478,10 +2478,10 @@ export const exam: ExamDef = {
    "t": "best-practices",
    "x": "Which password policy provides the BEST security?",
    "o": [
-    "Short passwords changed daily",
+    "Short complex passwords rotated daily",
     "Long, complex passwords or passphrases with MFA enabled",
-    "Same password across all accounts",
-    "Passwords written under keyboards"
+    "Dictionary words with a number appended, changed quarterly",
+    "Eight-character minimums with security questions as backup"
    ],
    "a": 1,
    "e": "Length and complexity plus multifactor authentication provide far stronger protection than frequent rotation of weak passwords.",
@@ -2546,12 +2546,12 @@ export const exam: ExamDef = {
   {
    "id": 153,
    "t": "mobile-security",
-   "x": "A company requires that lost corporate smartphones can be erased from a central console. Which capability is this?",
+   "x": "After a corporate smartphone is reported lost, IT sends a command from the MDM console that ensures no company data remains on the device. Which capability is this?",
    "o": [
-    "Screen lock",
+    "Remote lock",
     "Remote wipe",
-    "Tethering",
-    "NFC"
+    "Geofencing",
+    "Device encryption"
    ],
    "a": 1,
    "e": "Remote wipe erases a lost or stolen device's data via MDM or account services.",
@@ -2563,9 +2563,9 @@ export const exam: ExamDef = {
    "x": "Which mobile security feature protects data if a phone is stolen and the storage chip is read directly?",
    "o": [
     "Full device encryption",
-    "Bigger PIN font",
-    "Locator app",
-    "Push notifications"
+    "Biometric screen lock",
+    "SIM card lock",
+    "Device locator service"
    ],
    "a": 0,
    "e": "Full-device encryption renders storage unreadable without the key, protecting data at rest.",
@@ -2616,12 +2616,12 @@ export const exam: ExamDef = {
   {
    "id": 158,
    "t": "data-destruction",
-   "x": "A third-party vendor destroys a company's old drives. What documentation should the company receive?",
+   "x": "A third-party vendor handles end-of-life disposal of a company's retired hard drives. Which documentation should the company receive for its compliance records?",
    "o": [
-    "A purchase order",
+    "A statement of work",
     "A certificate of destruction",
-    "An SLA",
-    "A chain letter"
+    "A service level agreement",
+    "A nondisclosure agreement"
    ],
    "a": 1,
    "e": "A certificate of destruction documents which assets were destroyed, when, and how — required for compliance audits.",
@@ -2672,12 +2672,12 @@ export const exam: ExamDef = {
   {
    "id": 162,
    "t": "soho",
-   "x": "Which SOHO router configuration reduces the attack surface by ensuring the router software has the latest security fixes?",
+   "x": "A security audit finds a SOHO router exposed to an exploit that the manufacturer resolved months ago. Which action remediates the finding?",
    "o": [
-    "Disabling DHCP",
+    "Enabling MAC address filtering",
     "Updating the firmware",
-    "Changing the SSID color",
-    "Enabling WEP"
+    "Changing the default SSID",
+    "Disabling the DHCP server"
    ],
    "a": 1,
    "e": "Router firmware updates patch vulnerabilities; outdated firmware is a common compromise vector.",
@@ -2700,12 +2700,12 @@ export const exam: ExamDef = {
   {
    "id": 164,
    "t": "soho",
-   "x": "Disabling which feature stops a wireless router from broadcasting its network name (while noting this is not strong security by itself)?",
+   "x": "Disabling which wireless router feature keeps the network name from appearing in nearby devices' lists of available networks, though it provides little real security by itself?",
    "o": [
-    "DHCP",
+    "MAC filtering",
     "SSID broadcast",
-    "WPA3",
-    "NAT"
+    "Band steering",
+    "WPS pairing"
    ],
    "a": 1,
    "e": "Disabling SSID broadcast hides the name from casual view, but the SSID is still discoverable by anyone with basic tools.",
@@ -2756,12 +2756,12 @@ export const exam: ExamDef = {
   {
    "id": 168,
    "t": "browser-security",
-   "x": "A user complains about constant pop-ups on many websites. Which built-in browser setting addresses this?",
+   "x": "A user reports that extra browser windows keep opening on their own across many websites. Which built-in browser setting addresses this?",
    "o": [
-    "Disable JavaScript everywhere",
-    "Pop-up blocker",
-    "Clear bookmarks",
-    "Increase cache size"
+    "Enabling private browsing mode",
+    "Enabling the pop-up blocker",
+    "Clearing the browser cache",
+    "Resetting the default search engine"
    ],
    "a": 1,
    "e": "Modern browsers include pop-up blockers, with per-site exceptions for legitimate needs.",
@@ -2857,9 +2857,9 @@ export const exam: ExamDef = {
    "x": "A PC shows 'Operating System Not Found' at boot. Which is a likely cause?",
    "o": [
     "A corrupted boot record or a failed drive",
-    "An incorrect desktop wallpaper file",
-    "An outdated antivirus program",
-    "Too many browser tabs open at shutdown"
+    "A corrupted Windows user profile",
+    "An outdated graphics adapter driver",
+    "A misconfigured virtual memory setting"
    ],
    "a": 0,
    "e": "Missing OS errors point to boot record/BCD corruption, incorrect boot order, or a failed drive — WinRE Startup Repair is a first step.",
@@ -2885,9 +2885,9 @@ export const exam: ExamDef = {
    "x": "A user's system is sluggish and Task Manager shows disk usage constantly at 100%. Which is a reasonable step?",
    "o": [
     "Check for runaway processes and drive errors",
-    "Add a second monitor to spread the load",
-    "Increase the mouse pointer sensitivity",
-    "Change the desktop theme to a lighter one"
+    "Update the graphics adapter driver",
+    "Reinstall the operating system right away",
+    "Clear the browser cache and cookies"
    ],
    "a": 0,
    "e": "Constant 100% disk usage suggests a runaway process, malware, or a failing drive — investigate processes and drive health. In other words: S.M.A.R.T..",
@@ -2926,10 +2926,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A smartphone battery drains much faster than usual. Which is the MOST likely software cause?",
    "o": [
-    "A hairline crack in the display glass",
+    "A screen timeout set to thirty seconds",
     "Apps running constantly in the background",
-    "Debris inside the charging port",
-    "A paired set of Bluetooth headphones"
+    "A large collection of locally stored photos",
+    "An email account set to fetch once per day"
    ],
    "a": 1,
    "e": "Background app activity, poor cell signal searching, and buggy apps are the primary software causes of rapid drain.",
@@ -2982,10 +2982,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile",
    "x": "A user cannot hear callers unless using speakerphone. Apps and volume settings are fine. What kind of issue is likely?",
    "o": [
-    "A malware infection on the device",
+    "A damaged microphone assembly",
     "A failure in the earpiece speaker",
-    "An expired security certificate",
-    "A DNS resolution problem"
+    "A degraded cellular antenna connection",
+    "A failing SIM card connection"
    ],
    "a": 1,
    "e": "When software settings check out and one output works, the failing component (earpiece) points to hardware.",
@@ -2994,12 +2994,12 @@ export const exam: ExamDef = {
   {
    "id": 185,
    "t": "ts-mobile-security",
-   "x": "An Android user installed apps from outside the official store, and the phone now shows aggressive pop-up ads. What likely happened?",
+   "x": "A user's Android phone has started showing aggressive pop-up ads. The technician notices that installing apps from unknown sources is enabled and several APK files sit in the Downloads folder. What likely happened?",
    "o": [
-    "The screen protector caused it",
+    "A recent OS update enabled sponsored notifications",
     "Sideloaded apps installed adware/malware",
-    "The phone needs a new battery",
-    "Airplane mode was on"
+    "The launcher's ad personalization cache is corrupted",
+    "A carrier configuration push turned on promotional alerts"
    ],
    "a": 1,
    "e": "Sideloading bypasses store vetting; untrusted APKs are a leading source of mobile adware and malware.",
@@ -3010,10 +3010,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A corporate phone shows signs of jailbreaking/rooting. Why is this a security concern for the organization?",
    "o": [
-    "It voids the manufacturer's warranty",
+    "It disables biometric authentication for all apps",
     "It bypasses OS protections and MDM controls",
-    "It consumes far more cellular data",
-    "It disables the built-in camera app"
+    "It forces the device onto unencrypted Wi-Fi networks",
+    "It grants the carrier remote control of the device"
    ],
    "a": 1,
    "e": "Jailbroken/rooted devices lose OS security guarantees and can evade MDM controls, exposing corporate data.",
@@ -3024,10 +3024,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "A user's phone battery drains rapidly, data usage has spiked, and the device is warm even when idle. What should a technician suspect?",
    "o": [
-    "Normal behavior",
+    "A degraded battery reaching end of life",
     "Possible malware or spyware activity",
-    "A bad SIM",
-    "The wallpaper"
+    "An outdated carrier settings profile",
+    "A display brightness setting left at maximum"
    ],
    "a": 1,
    "e": "Unexplained battery, heat, and data spikes are classic indicators of malicious background activity — scan and review installed apps.",
@@ -3036,12 +3036,12 @@ export const exam: ExamDef = {
   {
    "id": 188,
    "t": "ts-mobile-security",
-   "x": "An employee reports their phone shows a fake antivirus warning in the browser demanding immediate app installation. What should they do?",
+   "x": "An employee's phone browser suddenly displays a full-screen antivirus alert claiming the device is infected and urging immediate installation of a cleanup app. What should the employee do?",
    "o": [
-    "Install the app before the deadline shown",
-    "Close the page and report it to IT",
-    "Enter their password to verify the alert",
-    "Restart the phone into recovery mode"
+    "Install the suggested app so it can remove the threat",
+    "Close the browser page and report it to IT",
+    "Enter the device passcode to allow a full scan",
+    "Factory reset the phone to remove the infection"
    ],
    "a": 1,
    "e": "Fake AV pop-ups are social engineering; do not interact, close the page/tab, and report per policy.",
@@ -3050,12 +3050,12 @@ export const exam: ExamDef = {
   {
    "id": 189,
    "t": "ts-mobile-security",
-   "x": "A phone repeatedly connects to an unknown Wi-Fi network automatically. Which setting reduces this risk?",
+   "x": "A user keeps finding their phone connected to unfamiliar open hotspots they never chose to join. Which setting reduces this risk?",
    "o": [
-    "Increase screen brightness",
-    "Disable auto-join for unknown/open networks",
-    "Enable NFC",
-    "Clear the clipboard"
+    "Turn off MAC address randomization",
+    "Disable auto-join for unknown or open networks",
+    "Enable Wi-Fi calling on the device",
+    "Assign a static IP address for Wi-Fi"
    ],
    "a": 1,
    "e": "Disabling auto-connect to open networks prevents unintentional connections to rogue or evil twin APs.",
@@ -3066,10 +3066,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A user's browser homepage changed on its own and searches are redirected through an unknown site. What do these symptoms indicate?",
    "o": [
-    "A failing hard drive",
-    "Browser hijacking malware/PUPs",
-    "A DHCP failure",
-    "Normal updates"
+    "A corrupted browser cache and cookies",
+    "Browser hijacking malware or PUPs",
+    "An outdated browser missing security updates",
+    "A failing drive corrupting the user profile"
    ],
    "a": 1,
    "e": "Redirects and homepage changes indicate a browser hijacker or potentially unwanted program — begin malware remediation.",
@@ -3080,10 +3080,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "Users report a valid website shows a certificate warning on one specific PC, and the system clock shows last year's date. What is the likely cause?",
    "o": [
-    "The website's hosting server is offline",
+    "The site's certificate was recently revoked",
     "The wrong date makes valid certificates fail validation",
-    "The graphics card is beginning to fail",
-    "The DNS server is responding too quickly"
+    "A corrupted browser cache on that PC",
+    "The router is blocking traffic on port 443"
    ],
    "a": 1,
    "e": "Certificate validity is checked against the system clock; a wrong date breaks HTTPS validation.",
@@ -3106,12 +3106,12 @@ export const exam: ExamDef = {
   {
    "id": 193,
    "t": "ts-security",
-   "x": "Windows Update repeatedly fails on one PC while others update fine. Which is a reasonable troubleshooting step?",
+   "x": "Windows Update repeatedly fails to install on one PC while other machines update normally. What should the technician try FIRST?",
    "o": [
-    "Disable Windows Update to stop the errors",
+    "Disable the Windows Update service so the failures stop",
     "Run the Update troubleshooter and repair system files",
-    "Replace the keyboard and mouse",
-    "Downgrade to an older unsupported OS"
+    "Reinstall the network adapter driver and renew the IP lease",
+    "Roll the system back to the previous Windows build"
    ],
    "a": 1,
    "e": "Persistent update failures are addressed via the troubleshooter, sfc/DISM, disk space checks, and malware scans.",
@@ -3120,12 +3120,12 @@ export const exam: ExamDef = {
   {
    "id": 194,
    "t": "ts-security",
-   "x": "A user gets constant desktop notification spam from a website they accidentally allowed. Where is this fixed?",
+   "x": "A user sees constant messages from a shopping website in the corner of the desktop, even when the site's tab is closed. What should the technician do?",
    "o": [
-    "Reinstall the operating system",
-    "Revoke the site's notification permission",
-    "Buy a new external monitor",
-    "Disable the network adapter"
+    "Reset the browser's home page and default search engine",
+    "Revoke the site's permission to send notifications",
+    "Clear the browser's cache and saved cookies",
+    "Add the site to the browser's pop-up blocker list"
    ],
    "a": 1,
    "e": "Browser site permissions control notifications; removing the site's permission stops the spam.",
@@ -3166,8 +3166,8 @@ export const exam: ExamDef = {
    "o": [
     "Windows Memory Diagnostic",
     "Disk Cleanup on the system drive",
-    "An update to the default browser",
-    "gpupdate /force from a command prompt"
+    "Resource Monitor's memory usage graph",
+    "The DirectX Diagnostic Tool report"
    ],
    "a": 0,
    "e": "Memory-related stop codes call for a RAM test before software fixes — failing modules cause exactly this pattern.",
@@ -3190,12 +3190,12 @@ export const exam: ExamDef = {
   {
    "id": 199,
    "t": "ts-windows",
-   "x": "A PC became unstable after a driver bundle was installed yesterday. Which built-in feature returns system files and settings to a point before the change?",
+   "x": "A PC became unstable after a driver bundle was installed yesterday. Which built-in Windows feature can return the system to how it was before the installation without touching personal files?",
    "o": [
     "System Restore",
-    "Disk Management",
+    "File History",
     "Storage Sense",
-    "Night Light"
+    "Registry Editor"
    ],
    "a": 0,
    "e": "System Restore rolls the system state back to a restore point without touching personal files.",
@@ -3246,15 +3246,15 @@ export const exam: ExamDef = {
   {
    "id": 203,
    "t": "ts-windows",
-   "x": "A critical service is set to Automatic but fails to start at boot with a dependency error. Where should the technician investigate?",
+   "x": "A critical service is set to Automatic but fails to start at boot, logging error 1068 each time. Where should the technician investigate?",
    "o": [
     "The service dependencies and the System log",
-    "The desktop wallpaper settings",
-    "The mouse pointer DPI setting",
-    "The Recycle Bin contents"
+    "The Application log and the Startup tab in Task Manager",
+    "The boot order in UEFI and the Security log",
+    "The service recovery options and the Setup log"
    ],
    "a": 0,
-   "e": "Dependency failures cascade: identify the upstream service that failed in the System log and fix that first.",
+   "e": "Error 1068 means a required service failed to start first; the Dependencies tab in services.msc shows what the service needs, and the System log records which prerequisite failed.",
    "d": 3
   },
   {
@@ -3305,9 +3305,9 @@ export const exam: ExamDef = {
    "x": "Bluetooth audio stutters only in one room of the office. What is the MOST likely cause?",
    "o": [
     "RF interference or an obstruction in that spot",
-    "The chosen music playlist",
-    "The color of the phone case",
-    "Low internal storage space"
+    "Weak cellular coverage in that part of the building",
+    "An outdated Bluetooth codec selected by the headset",
+    "Too many devices saved in the phone's paired list"
    ],
    "a": 0,
    "e": "Bluetooth shares 2.4 GHz with Wi-Fi and other devices; interference or attenuation in that spot causes dropouts.",
@@ -3319,9 +3319,9 @@ export const exam: ExamDef = {
    "x": "A phone reports storage full, but the user's apps and photos don't account for it. What is the usual fix?",
    "o": [
     "Clear app caches and offloaded data",
-    "Delete the OS",
-    "Remove the battery",
-    "Disable mobile data"
+    "Disable automatic app updates in the store",
+    "Turn off cloud backup for photos and videos",
+    "Restart the device into safe mode"
    ],
    "a": 0,
    "e": "Cached and temporary data accumulate as 'other' storage; clearing caches (or offloading big apps) reclaims the space. In other words: the 'other'/system data category.",
@@ -3333,12 +3333,12 @@ export const exam: ExamDef = {
    "x": "Media apps play with no sound, but ringtones and alarms are loud. What should be checked?",
    "o": [
     "The separate media volume channel",
-    "The SIM card",
-    "The charging cable",
-    "The GPS"
+    "The notification volume slider",
+    "The in-call voice volume level",
+    "The mono audio accessibility setting"
    ],
    "a": 0,
-   "e": "Phones keep independent volume channels — ringer, media, alarms; only the media channel being muted causes exactly this. In other words: and mute/Do Not Disturb state.",
+   "e": "Phones keep independent volume channels for ringer, media, notifications, alarms, and calls; only the media channel being muted silences apps while ringtones and alarms stay loud.",
    "d": 3
   },
   {
@@ -3358,12 +3358,12 @@ export const exam: ExamDef = {
   {
    "id": 211,
    "t": "ts-mobile",
-   "x": "After a phone OS upgrade, an older app crashes on launch every time. The developer's page says an update is 'in review.' What is the BEST advice?",
+   "x": "After a phone OS upgrade, an older app crashes on launch every time. The developer's support page says a fix for the new OS version is in review. What is the BEST advice?",
    "o": [
     "Wait for the developer's compatibility update",
-    "Root the phone and force the install",
-    "Replace the phone with a newer model",
-    "Reset the wallpaper and lock screen"
+    "Roll back the phone to the previous OS version",
+    "Sideload an older build of the app from a mirror site",
+    "Run the app in the OS legacy compatibility mode"
    ],
    "a": 0,
    "e": "Major OS updates break older apps until developers ship compatibility fixes — a known and temporary condition.",
@@ -3372,12 +3372,12 @@ export const exam: ExamDef = {
   {
    "id": 212,
    "t": "ts-mobile-security",
-   "x": "Which Android setting, when disabled, blocks installation of apps from outside the official store?",
+   "x": "Which Android setting, when turned off, restricts a device to obtaining apps only through the official store?",
    "o": [
     "Install unknown apps",
-    "Airplane mode",
-    "Battery saver",
-    "Auto-rotate"
+    "Developer options",
+    "Google Play Protect",
+    "Device admin apps"
    ],
    "a": 0,
    "e": "Blocking 'unknown sources' forces installs through the vetted store, cutting off the main malware delivery path. In other words: sideloading permission.",
@@ -3389,9 +3389,9 @@ export const exam: ExamDef = {
    "x": "A flashlight app requests access to contacts, microphone, and location. What should the user do?",
    "o": [
     "Deny the permissions and uninstall the app",
-    "Grant everything for best performance",
-    "Grant only the microphone",
-    "Leave a five-star review"
+    "Allow the permissions only while the app is in use",
+    "Grant the requests if the app has strong store ratings",
+    "Deny location but allow the contacts and microphone"
    ],
    "a": 0,
    "e": "Permissions should match function; wildly excessive requests are a hallmark of data-harvesting apps.",
@@ -3403,9 +3403,9 @@ export const exam: ExamDef = {
    "x": "A user reports their email account sent messages they never wrote, and their phone shows sign-ins from another country. What is the response?",
    "o": [
     "Change the password, enable MFA, and revoke sessions",
-    "Ignore the foreign sign-in alerts",
-    "Delete the email app entirely",
-    "Turn off the phone's Wi-Fi"
+    "Restore the phone to factory settings and set it up again",
+    "Scan the device for malware and keep monitoring the account",
+    "Set up a new email address and migrate messages to it"
    ],
    "a": 0,
    "e": "Compromised-account response: rotate credentials, add MFA, kill unknown sessions, and check forwarding rules.",
@@ -3416,10 +3416,10 @@ export const exam: ExamDef = {
    "t": "ts-mobile-security",
    "x": "An employee worries an app is tracking their location constantly. Where can this be confirmed and controlled?",
    "o": [
-    "The OS location and privacy settings",
-    "The device wallpaper settings",
-    "The on-screen keyboard settings",
-    "The ringtone selection menu"
+    "The OS privacy and app permission settings",
+    "The app store's listing page for the app",
+    "The device's developer options menu",
+    "The battery usage statistics screen"
    ],
    "a": 0,
    "e": "Modern mobile OSes expose per-app location access (with 'always' vs 'while using') and recent-access indicators.",
@@ -3428,12 +3428,12 @@ export const exam: ExamDef = {
   {
    "id": 216,
    "t": "ts-mobile-security",
-   "x": "MDM marks a phone non-compliant and blocks corporate email because its OS is outdated. What restores access?",
+   "x": "An MDM console flags a phone as non-compliant and blocks corporate email, citing a failed patch-level check. What restores access?",
    "o": [
     "Updating the device OS to the required version",
     "Deleting the MDM enrollment profile",
     "Rooting the phone's operating system",
-    "Complaining to the HR department"
+    "Re-adding the corporate mail account manually"
    ],
    "a": 0,
    "e": "Compliance policies gate access on patch level; updating the OS returns the device to compliance and restores access.",
@@ -3445,9 +3445,9 @@ export const exam: ExamDef = {
    "x": "Why should travelers avoid public USB charging kiosks, and what is the safe alternative?",
    "o": [
     "Data theft over the cable; use an AC wall adapter instead",
-    "USB power is weaker in airport terminals",
-    "Public kiosks overcharge phone batteries",
-    "There is no risk in using public kiosks"
+    "Battery damage from unstable voltage; use a fast-charge cable instead",
+    "Overheating from shared power circuits; charge in short sessions instead",
+    "Malware on the kiosk's public Wi-Fi; disable Wi-Fi while charging instead"
    ],
    "a": 0,
    "e": "Unknown USB ports may negotiate data access; AC wall power or charge-only adapters eliminate the risk.",
@@ -3459,9 +3459,9 @@ export const exam: ExamDef = {
    "x": "An employee loses a personal phone that had corporate email under BYOD. What is the FIRST required action?",
    "o": [
     "Report it to IT so the corporate data can be remotely wiped",
-    "Wait a few days to see whether the phone turns up",
-    "Buy a replacement handset before doing anything else",
-    "Post about the lost phone on social media to find it"
+    "Contact the carrier to suspend service on the line",
+    "File a police report about the missing device",
+    "Change personal account passwords from another device"
    ],
    "a": 0,
    "e": "Fast reporting lets IT wipe corporate data (full or selective) before it is extracted; time is the critical factor.",
@@ -3501,9 +3501,9 @@ export const exam: ExamDef = {
    "x": "Every HTTPS site on one PC shows certificate warnings naming an unfamiliar issuer. Other devices are fine. What should be investigated?",
    "o": [
     "An untrusted root certificate installed on that PC",
-    "Every website is having an outage at once",
-    "The router needs a firmware reboot",
-    "A loose monitor cable on that PC"
+    "Expired TLS certificates on the web servers themselves",
+    "An incorrect date and time set on that PC",
+    "A corrupted browser cache that needs to be cleared"
    ],
    "a": 0,
    "e": "A rogue trusted root or local TLS interception rewrites every site's certificate chain — audit the trusted root store and installed software.",
@@ -3570,10 +3570,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A help desk technician resolves an issue. What information is MOST important to add to the ticket before closing it?",
    "o": [
-    "Only the ticket reference number and nothing more",
+    "The user's job title and office location",
     "The problem, the steps taken, and the resolution",
-    "The user's account password for future reference",
-    "Nothing further, since closing is enough by itself"
+    "The device's asset tag and warranty expiration",
+    "The list of other open tickets from the same user"
    ],
    "a": 1,
    "e": "Clear problem/progress/resolution notes make tickets useful for the user, future technicians, and the knowledge base.",
@@ -3584,10 +3584,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A ticket arrives describing a server outage affecting the entire company, while another reports one user's broken mouse. What ticketing concept determines which is handled first?",
    "o": [
-    "Alphabetical order",
-    "Severity/priority levels",
-    "Ticket length",
-    "User seniority only"
+    "First-come, first-served order",
+    "Severity and priority levels",
+    "Escalation tier assignments",
+    "Ticket category labels"
    ],
    "a": 1,
    "e": "Tickets are triaged by impact and urgency; a company-wide outage outranks a single-user peripheral issue.",
@@ -3598,10 +3598,10 @@ export const exam: ExamDef = {
    "t": "ticketing",
    "x": "A technician cannot resolve a complex network issue at the help desk level. What is the proper ticketing action?",
    "o": [
-    "Close the ticket and mark it unresolvable",
+    "Place the ticket on hold until the issue recurs",
     "Escalate to a higher-tier team with full notes",
-    "Delete the ticket to clear it from the queue",
-    "Tell the user to resubmit it every week"
+    "Reassign the ticket back to the general intake queue",
+    "Close the ticket and have the user open a new one"
    ],
    "a": 1,
    "e": "Escalation moves tickets to specialized tiers; complete notes prevent the user from repeating information.",
@@ -3624,12 +3624,12 @@ export const exam: ExamDef = {
   {
    "id": 230,
    "t": "asset-mgmt",
-   "x": "Which database stores information about hardware, software, and the relationships between configuration items in an IT environment?",
+   "x": "A change team needs to look up a server's hardware, installed software, and the other services that depend on it before scheduling work. Which system of record holds this information?",
    "o": [
-    "DHCP scope",
+    "MDM",
     "CMDB",
-    "DNS zone file",
-    "Print queue"
+    "SIEM",
+    "RMM"
    ],
    "a": 1,
    "e": "A CMDB holds configuration items and their relationships, supporting asset and change management. CMDB = configuration management database.",
@@ -3666,12 +3666,12 @@ export const exam: ExamDef = {
   {
    "id": 233,
    "t": "documents",
-   "x": "A checklist describes the exact standard steps for imaging and deploying a new workstation. What type of document is this?",
+   "x": "A document walks technicians through the exact steps to follow, in the same order, every time they image and deploy a new workstation. What type of document is this?",
    "o": [
     "Incident report",
     "Standard operating procedure",
     "Network topology diagram",
-    "Splash screen"
+    "Acceptable use policy"
    ],
    "a": 1,
    "e": "SOPs document repeatable step-by-step processes so tasks are performed consistently.",
@@ -3710,10 +3710,10 @@ export const exam: ExamDef = {
    "t": "change-mgmt",
    "x": "Who typically reviews and approves significant infrastructure changes before implementation?",
    "o": [
-    "The end users",
+    "The technicians implementing the work",
     "The change advisory board",
-    "The janitorial staff",
-    "The ISP"
+    "The change requester's direct manager",
+    "The executive leadership team"
    ],
    "a": 1,
    "e": "A change board reviews proposed changes for risk, scheduling, and business impact before approval. In other words: CAB.",
@@ -3752,10 +3752,10 @@ export const exam: ExamDef = {
    "t": "change-mgmt",
    "x": "What is the purpose of a maintenance window in change management?",
    "o": [
-    "A set time to clean the monitors and desks",
+    "The period the review board has to assess a request",
     "A scheduled low-impact period for approved changes",
-    "The waiting time for new hardware to arrive",
-    "The scheduled lunch break for the admin team"
+    "The interval between vendor patch release cycles",
+    "The required lead time between request and approval"
    ],
    "a": 1,
    "e": "Maintenance windows schedule disruptive work during agreed low-usage periods to minimize business impact.",
@@ -3850,10 +3850,10 @@ export const exam: ExamDef = {
    "t": "esd",
    "x": "How should spare motherboards and RAM be stored and transported?",
    "o": [
-    "In plastic grocery bags",
+    "In standard bubble wrap",
     "In anti-static bags",
-    "Loose in a cardboard box",
-    "Wrapped in wool"
+    "In sealed plastic containers",
+    "In foam-padded envelopes"
    ],
    "a": 1,
    "e": "Anti-static bags shield components from electrostatic fields and discharge during storage and transport.",
@@ -3948,10 +3948,10 @@ export const exam: ExamDef = {
    "t": "environment",
    "x": "Why should server rooms control both temperature AND humidity?",
    "o": [
-    "Only the room temperature actually matters here",
+    "Heat harms parts, damp air raises ESD, dry air condenses",
     "Heat harms parts, dry air raises ESD, damp air condenses",
-    "Humidity mainly affects the Wi-Fi signal strength",
-    "OSHA requires exactly fifty percent relative humidity"
+    "Cold harms parts, dry air corrodes contacts, damp air raises ESD",
+    "Heat raises ESD, dry air condenses on boards, damp air harms fans"
    ],
    "a": 1,
    "e": "Climate control protects equipment: overheating causes failures, low humidity raises ESD risk, high humidity causes condensation and corrosion.",
@@ -3962,10 +3962,10 @@ export const exam: ExamDef = {
    "t": "incident-response",
    "x": "A workstation is suspected to contain evidence of illegal activity. What must be maintained as the drive is collected and transferred for analysis?",
    "o": [
-    "A backup schedule",
+    "Acceptable use policy documentation",
     "Chain of custody documentation",
-    "An SLA",
-    "A DHCP lease"
+    "Change management documentation",
+    "Service level agreement documentation"
    ],
    "a": 1,
    "e": "Chain of custody records who handled evidence, when, and why — without it, evidence can be inadmissible.",
@@ -4004,10 +4004,10 @@ export const exam: ExamDef = {
    "t": "licensing",
    "x": "A company installs one purchased copy of a commercial application on 40 computers. What issue does this create?",
    "o": [
-    "A performance issue",
+    "A patent licensing violation",
     "A software licensing violation",
-    "A DHCP conflict",
-    "A driver conflict"
+    "A trademark usage violation",
+    "An export control violation"
    ],
    "a": 1,
    "e": "Installing beyond the license terms is a compliance violation; enterprises use volume licensing to cover multiple seats.",
@@ -4186,10 +4186,10 @@ export const exam: ExamDef = {
    "t": "scripting-uses",
    "x": "A technician needs 500 workstations to map network drives automatically at every user login. What is the BEST approach?",
    "o": [
-    "Visit each PC manually",
+    "Enable network discovery on each of the workstations",
     "Deploy a login script via Group Policy",
-    "Email users instructions",
-    "Use sticky notes"
+    "Email each user a batch file to run after signing in",
+    "Add the server's name to each PC's local hosts file"
    ],
    "a": 1,
    "e": "Login scripts (deployed via GPO) automate per-login tasks like drive mapping at scale.",
@@ -4200,10 +4200,10 @@ export const exam: ExamDef = {
    "t": "scripting-uses",
    "x": "What is a key RISK of running an unfamiliar script pulled from the internet on production systems?",
    "o": [
-    "Scripts are sandboxed and cannot harm the system",
+    "It may bypass the file permissions that protect system files",
     "It may change settings or install unwanted software",
-    "The script will expire before it finishes running",
-    "Running it voids the hardware warranty on the device"
+    "It may run with more privileges than the launching account",
+    "It may keep running under other accounts after sign-out"
    ],
    "a": 1,
    "e": "Scripts run with the user's privileges and can misconfigure systems or introduce malware — always review and test first.",
@@ -4214,10 +4214,10 @@ export const exam: ExamDef = {
    "t": "scripting-uses",
    "x": "Which task is a classic use case for scripting and automation?",
    "o": [
-    "One-time single-file rename",
-    "Nightly automated backups across many systems",
-    "Reading email aloud",
-    "Choosing a wallpaper"
+    "A one-time rename of a single file on one PC",
+    "Nightly backups repeated across many systems",
+    "Writing individualized replies to customer emails",
+    "Troubleshooting a user's one-off application error"
    ],
    "a": 1,
    "e": "Repetitive scheduled tasks — backups, restarts, updates, remapping — are ideal automation candidates.",
@@ -4268,12 +4268,12 @@ export const exam: ExamDef = {
   {
    "id": 276,
    "t": "remote-access",
-   "x": "A vendor needs temporary access to one internal server. Which is the MOST secure approach?",
+   "x": "A vendor has been hired to perform maintenance on an internal application server. Which access approach is MOST secure?",
    "o": [
-    "Grant standing VPN access to the entire network",
-    "Provide time-limited, logged access to that one system",
-    "Share a domain administrator account's credentials",
-    "Expose the server's RDP port directly to the internet"
+    "Create a permanent vendor VPN account for future support needs",
+    "Provide time-limited, logged access to only that server",
+    "Add the vendor's account to the internal IT administrators group",
+    "Forward a firewall port so the vendor can reach the server directly"
    ],
    "a": 1,
    "e": "Third-party access should be scoped, time-boxed, logged, and revoked when work completes.",
@@ -4284,10 +4284,10 @@ export const exam: ExamDef = {
    "t": "ai",
    "x": "A company allows staff to use an AI chatbot for drafting documents. Which practice is MOST important in the usage policy?",
    "o": [
-    "Require staff to write shorter, faster prompts",
+    "Require every draft to start from an approved prompt template",
     "Keep confidential and regulated data out of the chatbot",
-    "Encourage staff to route all work through the chatbot",
-    "Have staff disable spell check before drafting"
+    "Restrict chatbot use to business hours on company networks",
+    "Standardize all drafting on the chatbot for consistent formatting"
    ],
    "a": 1,
    "e": "Data entered into public AI tools may be stored or used for training — confidential data must be kept out of unapproved services.",
@@ -4324,15 +4324,15 @@ export const exam: ExamDef = {
   {
    "id": 280,
    "t": "ai",
-   "x": "AI screening software consistently rates candidates from one group lower due to skewed training data. What is this problem called?",
+   "x": "An AI screening tool trained on a company's past hiring records rates applicants from one background consistently lower than equally qualified peers. Which AI concern does this illustrate?",
    "o": [
-    "Overclocking",
+    "AI hallucination",
     "AI bias",
-    "Data mirroring",
+    "Model drift",
     "Prompt injection"
    ],
    "a": 1,
-   "e": "Bias in training data produces systematically unfair model outputs — a key AI governance concern.",
+   "e": "Training data that reflects historical inequities produces systematically unfair outputs, which is bias. Drift is accuracy decay as real-world data changes over time, hallucination is fabricated output, and prompt injection is an attack through crafted input.",
    "d": 4
   },
   {
@@ -4355,9 +4355,9 @@ export const exam: ExamDef = {
    "x": "Why is diskpart considered dangerous compared with Disk Management?",
    "o": [
     "Its clean command wipes a disk's partition table immediately",
-    "It cannot format disks larger than 32 GB",
-    "It works only with removable USB storage",
-    "It requires an active internet connection to run"
+    "It applies commands to all attached disks rather than one selection",
+    "It converts basic disks to dynamic automatically at launch",
+    "It marks the boot partition inactive whenever a disk is initialized"
    ],
    "a": 0,
    "e": "diskpart executes destructive commands like clean immediately; selecting the wrong disk destroys its layout with no undo.",
@@ -4369,9 +4369,9 @@ export const exam: ExamDef = {
    "x": "Task Manager shows high disk usage but not which files are being touched. Which tool shows per-process disk, network, and file-handle activity in detail?",
    "o": [
     "Resource Monitor",
-    "Notepad",
-    "Disk Cleanup",
-    "Character Map"
+    "Performance Monitor",
+    "Event Viewer",
+    "System Information"
    ],
    "a": 0,
    "e": "Resource Monitor breaks out per-process disk I/O with file names, plus network and memory detail beyond Task Manager. Resource Monitor = resmon.",
@@ -4398,8 +4398,8 @@ export const exam: ExamDef = {
    "o": [
     "The startup impact rating shown for each program",
     "The process ID assigned to each program",
-    "The window title of each program",
-    "The icon color of each program"
+    "The last BIOS time displayed on the Startup tab",
+    "The publisher name listed for each program"
    ],
    "a": 0,
    "e": "The Startup tab's impact column ranks how much each program slows sign-in, prioritizing what to disable.",
@@ -4422,12 +4422,12 @@ export const exam: ExamDef = {
   {
    "id": 287,
    "t": "control-panel",
-   "x": "Windows keeps using an old saved password for a network share. Which Control Panel tool removes the stored credential?",
+   "x": "Windows keeps connecting to a network share with an outdated saved password. Which Control Panel tool should the technician use to delete the saved entry?",
    "o": [
     "Credential Manager",
-    "Ease of Access",
-    "Sync Center",
-    "Phone and Modem"
+    "Network and Sharing Center",
+    "Internet Options",
+    "Windows Defender Firewall"
    ],
    "a": 0,
    "e": "Credential Manager stores Windows and web credentials; deleting the stale entry forces a fresh prompt.",
@@ -4523,12 +4523,12 @@ export const exam: ExamDef = {
    "x": "On a Debian-based Linux system, which command installs software from the distribution's repositories?",
    "o": [
     "apt install <package>",
-    "regedit",
-    "chkdsk",
-    "brew doctor"
+    "dnf install <package>",
+    "pacman -S <package>",
+    "zypper install <package>"
    ],
    "a": 0,
-   "e": "Debian/Ubuntu systems use APT; Red Hat family uses dnf/yum. Package managers handle dependencies and updates.",
+   "e": "Debian and Ubuntu systems use APT. dnf belongs to the Red Hat family, zypper to SUSE, and pacman to Arch; matching the package manager to the distribution family is the tested skill.",
    "d": 1
   },
   {
@@ -4548,15 +4548,15 @@ export const exam: ExamDef = {
   {
    "id": 296,
    "t": "net-cmd",
-   "x": "Which Windows command combines ping and tracert, showing per-hop packet loss over time?",
+   "x": "Which Windows command traces the route to a destination and then reports per-hop packet loss statistics gathered over a period of time?",
    "o": [
     "pathping",
+    "tracert",
     "netstat",
-    "nbtstat",
-    "getmac"
+    "ping"
    ],
    "a": 0,
-   "e": "pathping traces the route, then sends probes to each hop for a period, revealing exactly where loss occurs.",
+   "e": "pathping first discovers the route, then probes every hop for a period to compute per-hop loss percentages. tracert samples each hop only briefly and never reports sustained loss, and ping tests only the final endpoint.",
    "d": 1
   },
   {
@@ -4579,9 +4579,9 @@ export const exam: ExamDef = {
    "x": "A user signs in and gets a desktop with none of their files; Windows says they are on a temporary profile. What should the technician do?",
    "o": [
     "Repair or recreate the user's profile",
-    "Wipe the PC and reinstall Windows",
-    "Create a new Microsoft account for the user",
-    "Replace the drive and restore from backup"
+    "Copy the temporary profile's contents over the original one",
+    "Restore the user's files from a File History backup",
+    "Run Startup Repair from the recovery environment"
    ],
    "a": 0,
    "e": "Temp-profile logons mean the real profile failed to load; files remain under C:\\Users, and the profile can be repaired via the registry ProfileList key or recreated.",
@@ -4607,9 +4607,9 @@ export const exam: ExamDef = {
    "x": "Immediately after a monthly update, a PC blue-screens on every boot. Which recovery path removes the cause without losing data?",
    "o": [
     "Boot WinRE and uninstall the latest quality update",
-    "Format the drive and reinstall Windows",
-    "Replace the RAM modules with new ones",
-    "Boot to Safe Mode and disable the firewall"
+    "Boot WinRE and rebuild the BCD store with bootrec",
+    "Boot to Safe Mode and pause all future Windows updates",
+    "Boot to Safe Mode and roll back the display adapter driver"
    ],
    "a": 0,
    "e": "WinRE includes 'Uninstall Updates' precisely for update-induced boot failures; data is untouched.",
@@ -4621,9 +4621,9 @@ export const exam: ExamDef = {
    "x": "A legacy business app crashes on a new Windows version but ran fine on an older one. Which quick mitigation should be tried first?",
    "o": [
     "Run the app in compatibility mode",
-    "Reinstall Windows on the PC",
-    "Purchase newer hardware for the user",
-    "Disable the antivirus software on the PC"
+    "Raise the app's process priority in Task Manager",
+    "Re-register the app's DLL files with regsvr32",
+    "Run the System File Checker to repair Windows"
    ],
    "a": 0,
    "e": "Compatibility mode shims the environment (version checks, paths) and often gets legacy apps working immediately.",
@@ -4660,12 +4660,12 @@ export const exam: ExamDef = {
   {
    "id": 304,
    "t": "ts-mobile",
-   "x": "A user gets no notifications from a messaging app until they open it manually. Which settings should be checked first?",
+   "x": "A user gets no alerts from a messaging app until they open it manually. Which settings should be checked first?",
    "o": [
     "Notification permissions and battery optimization settings",
-    "Screen resolution and display scaling settings",
-    "The SIM card PIN and lock code",
-    "The device's storage encryption status"
+    "Storage permissions and app cache size settings",
+    "Screen timeout and auto-brightness settings",
+    "Default language and region format settings"
    ],
    "a": 0,
    "e": "Aggressive battery optimization suspends background delivery; exempting the app (and allowing notifications) restores real-time alerts.",
@@ -4691,9 +4691,9 @@ export const exam: ExamDef = {
    "x": "After a phone OS update, its Bluetooth no longer auto-connects to the user's car. What is the standard first fix?",
    "o": [
     "Forget the pairing on phone and car, then re-pair",
-    "Factory reset the car's entire infotainment system",
-    "Replace the phone's battery and charging port",
-    "Disable Wi-Fi and mobile data on the phone"
+    "Roll back the phone's OS to the previous version",
+    "Update the car's infotainment firmware to the newest release",
+    "Delete the phone's saved Wi-Fi networks and reconnect"
    ],
    "a": 0,
    "e": "Updates can invalidate stored pairing keys; re-pairing from scratch on both ends re-establishes a clean bond.",
@@ -4702,12 +4702,12 @@ export const exam: ExamDef = {
   {
    "id": 307,
    "t": "ts-mobile-security",
-   "x": "A user tapped a link that installed a 'settings profile' on their iPhone, and now web traffic behaves oddly. What should the technician do?",
+   "x": "A user tapped a link on their iPhone and approved an installation prompt; since then, web traffic behaves oddly. What should the technician do?",
    "o": [
     "Remove the unknown configuration profile and check for a rogue proxy",
-    "Charge the phone fully and restart it twice",
-    "Rotate the wallpaper and rebuild the icon cache",
-    "Toggle airplane mode on and off a few times"
+    "Clear the browser cache and website data, then reload the pages",
+    "Forget the wireless network and rejoin it to refresh the connection",
+    "Update the phone to the latest iOS release and restart it"
    ],
    "a": 0,
    "e": "Malicious configuration profiles can add proxies, VPNs, or certificates that intercept traffic; removing the profile removes the control.",
@@ -4719,9 +4719,9 @@ export const exam: ExamDef = {
    "x": "MDM flags a corporate phone as rooted. Per best practice, what happens next?",
    "o": [
     "The device is quarantined from corporate access until remediated",
-    "Nothing changes, since rooting is only a cosmetic tweak",
-    "The device is granted more access for developer testing",
-    "Only the wallpaper and lock screen are reset"
+    "An antivirus scan is pushed and access continues if it is clean",
+    "The device is flagged for review at the next scheduled audit",
+    "Corporate apps are reinstalled to overwrite the root changes"
    ],
    "a": 0,
    "e": "Rooted devices cannot be trusted to enforce policy; compliance systems block corporate access until remediated.",
@@ -4730,12 +4730,12 @@ export const exam: ExamDef = {
   {
    "id": 309,
    "t": "ts-mobile-security",
-   "x": "On hotel Wi-Fi, a phone shows certificate warnings on every site until the user opens a login page. What explains this?",
+   "x": "On hotel Wi-Fi, a newly connected phone shows certificate warnings on every website the user tries to open. What explains this?",
    "o": [
-    "A captive portal intercepts traffic until you sign in",
-    "The phone's Wi-Fi radio is physically broken",
-    "Every website the user visits is down at once",
-    "The SIM card has expired and lost service"
+    "A captive portal intercepts traffic until the user signs in",
+    "The access point is broadcasting on an overcrowded channel",
+    "The visited websites are all using self-signed certificates",
+    "The hotel firewall is dropping all encrypted traffic outright"
    ],
    "a": 0,
    "e": "Captive portals redirect all requests, which trips HTTPS warnings; complete the portal login, and stop if warnings persist afterward.",
@@ -4747,9 +4747,9 @@ export const exam: ExamDef = {
    "x": "An app from the official store requests device-admin rights and floods the phone with ads. What should the user do?",
    "o": [
     "Revoke its admin rights, uninstall it, and report it",
-    "Grant the admin rights it asks for to stop the ads",
-    "Root the phone to remove the app manually",
-    "Clear the wallpaper and restart the launcher"
+    "Clear the app's cache and data and continue using it",
+    "Install a separate ad-blocking app to suppress the pop-ups",
+    "Approve the admin request but restrict the app's background data"
    ],
    "a": 0,
    "e": "Store vetting is imperfect; revoke elevated rights first (or uninstall may be blocked), remove the app, and report it.",
@@ -4758,12 +4758,12 @@ export const exam: ExamDef = {
   {
    "id": 311,
    "t": "ts-security",
-   "x": "A user's search results now route through an unknown search site, and an unfamiliar browser extension keeps reappearing. What class of software is this?",
+   "x": "A user's search results now route through an unknown search site, and an unfamiliar extension keeps reinstalling itself after removal. What class of software is this?",
    "o": [
-    "A browser hijacker program",
-    "A hardware device driver",
-    "A media codec pack",
-    "A firmware update package"
+    "A browser hijacker",
+    "A keylogger",
+    "A cryptominer",
+    "A ransomware strain"
    ],
    "a": 0,
    "e": "Search redirection plus a persistent extension is hijacker behavior; remove the PUP, reset browser settings, and scan.",
@@ -4802,10 +4802,10 @@ export const exam: ExamDef = {
    "t": "ts-security",
    "x": "A technician finds an unfamiliar folder excluded from antivirus scans on a compromised PC. Why would malware add this?",
    "o": [
-    "Exclusions create a scan-proof hiding place for files",
-    "Exclusions speed up the computer's mouse and cursor",
-    "Exclusions are purely cosmetic and change nothing",
-    "Antivirus software requires at least one exclusion"
+    "Excluded folders are skipped by scans, hiding files placed there",
+    "Exclusions disable real-time protection for the whole system",
+    "Exclusions grant elevated permissions to the folder's contents",
+    "Exclusions make the folder's contents launch at startup"
    ],
    "a": 0,
    "e": "Adding itself to AV exclusions is a common persistence trick; exclusion lists deserve review during any cleanup.",
@@ -4956,10 +4956,10 @@ export const exam: ExamDef = {
    "t": "environment",
    "x": "How should a box of used toner cartridges and old UPS batteries be handled?",
    "o": [
-    "Recycle through a certified e-waste program",
-    "Throw them in the regular office trash",
-    "Burn them in an outdoor fire",
-    "Bury them in the ground outside"
+    "Recycle them through a certified e-waste program",
+    "Place them in the building's single-stream recycling bin",
+    "Fully discharge the batteries, then put everything in the trash",
+    "Send the batteries for recycling and trash the toner cartridges"
    ],
    "a": 0,
    "e": "Batteries and toner contain regulated materials; vendor take-back and certified recyclers handle them legally and safely.",
@@ -5396,10 +5396,10 @@ export const exam: ExamDef = {
    "t": "sqli",
    "x": "SQL injection attacks are only possible against applications that handle user input in what way?",
    "o": [
-    "They run completely offline with no database at all",
-    "They insert user input directly into database queries",
-    "They store all records on printed paper",
-    "They serve only static HTML pages"
+    "They pass user input to queries only through parameterized statements",
+    "They concatenate user input directly into database query strings",
+    "They hash user input before comparing it to stored values",
+    "They validate user input against a server-side allow list"
    ],
    "a": 1,
    "e": "Injection works when untrusted input is concatenated into a database query. Applications with no database, or ones using parameterized queries, are not exposed to this technique.",
