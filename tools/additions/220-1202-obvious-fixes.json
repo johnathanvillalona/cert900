@@ -867,38 +867,6 @@
     "In foam-padded envelopes"
    ],
    "a": 1
-  },
-  {
-   "id": 314,
-   "a": 0,
-   "o": [
-    "Excluded folders are skipped by scans, hiding files placed there",
-    "Exclusions disable real-time protection for the whole system",
-    "Exclusions grant elevated permissions to the folder's contents",
-    "Exclusions make the folder's contents launch at startup"
-   ]
-  },
-  {
-   "id": 89,
-   "a": 2,
-   "o": [
-    "Something you know",
-    "Something you have",
-    "Something you are",
-    "Somewhere you are"
-   ],
-   "x": "A laptop signs users in with a fingerprint reader. Which authentication factor category does this rely on?",
-   "e": "A fingerprint is a biometric, the something-you-are factor: an inherent physical characteristic like a retina, face, or palmprint, unlike factors based on knowledge, possession, or location."
-  },
-  {
-   "id": 227,
-   "a": 1,
-   "o": [
-    "First-come, first-served order",
-    "Severity and priority levels",
-    "Escalation tier assignments",
-    "Ticket category labels"
-   ]
   }
  ]
 }

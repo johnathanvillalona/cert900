@@ -716,28 +716,6 @@
    ],
    "a": 0,
    "x": "A new phone activates its cellular plan by downloading a carrier profile during initial setup. Which technology makes this possible?"
-  },
-  {
-   "id": 152,
-   "a": 0,
-   "o": [
-    "Only the cables that are needed have to be connected",
-    "Failed internal parts can be swapped without replacing the unit",
-    "Extra wattage can be added by stacking supply modules",
-    "The cooling fan can be hot-swapped while the system runs"
-   ]
-  },
-  {
-   "id": 109,
-   "a": 0,
-   "o": [
-    "Intel VT-x or AMD-V",
-    "Secure Boot",
-    "TPM 2.0",
-    "XMP memory profiles"
-   ],
-   "x": "Which BIOS/UEFI setting must be enabled before a workstation can run hardware-accelerated virtual machines?",
-   "e": "Hardware virtualization extensions, Intel VT-x or AMD-V, must be switched on in firmware before a hypervisor can use hardware acceleration; Secure Boot, TPM, and XMP control boot integrity, cryptography, and memory speed instead."
   }
  ]
 }

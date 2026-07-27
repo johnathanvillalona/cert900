@@ -100,35 +100,895 @@
    "e": "Clean-agent gas systems suppress fire without the conductive water, foam, or corrosive powder residue that sprinkler, deluge, and dry chemical systems would leave on energized electronics."
   },
   {
-   "id": 60,
-   "a": 0,
+   "id": 296,
    "o": [
-    "/25",
-    "/26",
-    "/24",
-    "/27"
-   ]
-  },
-  {
-   "id": 28,
-   "a": 0,
-   "o": [
-    "Limiting internet exposure to only the systems that require it",
-    "Encrypting traffic automatically between the two subnets",
-    "Reducing data-transfer charges between the two subnets",
-    "Providing automatic failover if one subnet goes down"
-   ]
-  },
-  {
-   "id": 100,
-   "a": 0,
-   "o": [
-    "802.1w",
-    "802.1D",
-    "802.1Q",
-    "802.1X"
+    "Document the findings, actions, and outcomes",
+    "Establish a plan of action and identify effects",
+    "Test the theory to determine the cause",
+    "Establish a theory of probable cause"
    ],
-   "e": "RSTP, standardized as IEEE 802.1w, redesigned port roles and handshakes so the topology converges in seconds. 802.1D is the classic slow-converging spanning tree, while 802.1Q covers VLAN tagging and 802.1X covers port-based network authentication."
+   "a": 0
+  },
+  {
+   "id": 284,
+   "o": [
+    "A diff against the last known-good config",
+    "Automatic failover to a redundant device",
+    "Real-time alerts on rising interface errors",
+    "A live packet capture of the failing traffic"
+   ],
+   "a": 0
+  },
+  {
+   "id": 252,
+   "o": [
+    "A link and network validator",
+    "A time-domain reflectometer",
+    "A tone generator and probe",
+    "A wiremap cable tester"
+   ],
+   "a": 0
+  },
+  {
+   "id": 256,
+   "o": [
+    "tcpdump",
+    "netstat",
+    "dig",
+    "iperf"
+   ],
+   "a": 0
+  },
+  {
+   "id": 279,
+   "o": [
+    "Dual power supplies on independent A/B feeds",
+    "An oversized power supply with extra wattage headroom",
+    "A metered PDU with individually switched outlets",
+    "Surge protectors rated for the full rack load"
+   ],
+   "a": 0,
+   "x": "A rack of production equipment must stay online even if an upstream power circuit fails. Which power design provides this?"
+  },
+  {
+   "id": 277,
+   "o": [
+    "Supplicant, authenticator, and authentication server",
+    "Client, key distribution center, and ticket-granting service",
+    "Enrollee, registrar, and wireless access point",
+    "Initiator, responder, and certificate authority"
+   ],
+   "a": 0,
+   "x": "Which THREE roles take part in an 802.1X exchange on a wireless network?"
+  },
+  {
+   "id": 281,
+   "o": [
+    "It shows whether current counts deviate from normal levels",
+    "It sets the polling interval the monitoring system uses",
+    "It defines the threshold at which the interface shuts down",
+    "It determines how long performance history is retained"
+   ],
+   "a": 0
+  },
+  {
+   "id": 247,
+   "o": [
+    "A spectrum analyzer",
+    "A Wi-Fi analyzer",
+    "A protocol analyzer",
+    "A cable certifier"
+   ],
+   "a": 0
+  },
+  {
+   "id": 254,
+   "o": [
+    "arp -a",
+    "netstat -r",
+    "ipconfig /all",
+    "route print"
+   ],
+   "a": 0
+  },
+  {
+   "id": 248,
+   "o": [
+    "The captive portal service and its redirect",
+    "The 802.1X supplicant settings on the clients",
+    "The controller's channel and power plan",
+    "The guest SSID's band-steering configuration"
+   ],
+   "a": 0
+  },
+  {
+   "id": 270,
+   "o": [
+    "Limit LSA flooding within each area",
+    "Enable equal-cost load balancing across links",
+    "Exchange routes between separate autonomous systems",
+    "Elect one designated router shared by all areas"
+   ],
+   "a": 0
+  },
+  {
+   "id": 82,
+   "o": [
+    "All routers share a consistent view of the topology",
+    "Every router runs the same routing protocol across the network",
+    "All routes are summarized into a single advertisement",
+    "Each router selects the path with the fewest hops"
+   ],
+   "a": 0
+  },
+  {
+   "id": 66,
+   "o": [
+    "Infrastructure as code",
+    "Software-defined networking",
+    "Configuration drift",
+    "Change management"
+   ],
+   "a": 0
+  },
+  {
+   "id": 65,
+   "o": [
+    "The management plane",
+    "The data plane",
+    "The control plane",
+    "The orchestration plane"
+   ],
+   "a": 0
+  },
+  {
+   "id": 120,
+   "o": [
+    "Assigns a fixed IP to a device by its MAC",
+    "Excludes a block of addresses from the lease pool",
+    "Forwards client requests to a server on another subnet",
+    "Sets the lease duration to unlimited for all clients"
+   ],
+   "a": 0
+  },
+  {
+   "id": 101,
+   "o": [
+    "More throughput but greater overlap risk",
+    "More throughput with no added interference risk",
+    "Greater range but lower data rates",
+    "Twice the client capacity with the same spectrum use"
+   ],
+   "a": 0
+  },
+  {
+   "id": 246,
+   "o": [
+    "A sticky client",
+    "A hidden node",
+    "A rogue client",
+    "A flapping client"
+   ],
+   "a": 0,
+   "x": "A roaming user's laptop remains associated with a distant AP at low signal strength instead of switching to the nearby one. What is this client behavior called?"
+  },
+  {
+   "id": 249,
+   "o": [
+    "A protocol analyzer",
+    "A port scanner",
+    "A NetFlow collector",
+    "A throughput tester"
+   ],
+   "a": 0,
+   "x": "Which tool captures traffic from the wire and decodes each frame's headers and payload for inspection?"
+  },
+  {
+   "id": 251,
+   "o": [
+    "A port scanner",
+    "A protocol analyzer",
+    "A bandwidth tester",
+    "A spectrum analyzer"
+   ],
+   "a": 0,
+   "x": "Which tool actively probes a subnet to identify responsive hosts and the services listening on them?"
+  },
+  {
+   "id": 258,
+   "o": [
+    "A light/power meter",
+    "An OTDR",
+    "A visual fault locator",
+    "A fusion splicer"
+   ],
+   "a": 0,
+   "x": "After a new fiber run is installed, which tool measures whether the signal level received at the far end meets the link budget?"
+  },
+  {
+   "id": 282,
+   "o": [
+    "Asset inventory management",
+    "Change management",
+    "Patch management",
+    "Capacity planning"
+   ],
+   "a": 0,
+   "x": "During an audit, the team must state exactly which firmware each switch runs and where every device is installed. Which practice provides this?"
+  },
+  {
+   "id": 290,
+   "o": [
+    "Risk",
+    "Vulnerability",
+    "Impact",
+    "Likelihood"
+   ],
+   "a": 0
+  },
+  {
+   "id": 292,
+   "o": [
+    "Data residency",
+    "Data retention",
+    "Data classification",
+    "Data loss prevention"
+   ],
+   "a": 0
+  },
+  {
+   "id": 116,
+   "o": [
+    "A UPS for ride-through plus a generator",
+    "Two UPS units wired in parallel",
+    "A managed PDU with surge suppression",
+    "Dual power supplies fed from one panel"
+   ],
+   "a": 0
+  },
+  {
+   "id": 113,
+   "o": [
+    "Faster troubleshooting and safe changes later",
+    "Reduced crosstalk between adjacent cable runs",
+    "Compliance with plenum fire-code requirements",
+    "Proof that each link passed certification testing"
+   ],
+   "a": 0
+  },
+  {
+   "id": 117,
+   "o": [
+    "Too low causes static, too high causes condensation",
+    "Too low causes condensation, too high causes static",
+    "Only high humidity poses a risk to equipment",
+    "Only low humidity poses a risk to equipment"
+   ],
+   "a": 0
+  },
+  {
+   "id": 111,
+   "o": [
+    "At the demarcation point",
+    "At the main distribution frame",
+    "At the first patch panel",
+    "At the customer's core switch"
+   ],
+   "a": 0,
+   "x": "A leased circuit goes down, and the provider will repair its wiring only up to the hand-off location at the customer site. Which point is that?"
+  },
+  {
+   "id": 103,
+   "o": [
+    "A directional antenna",
+    "An omnidirectional antenna",
+    "A diversity antenna array",
+    "An integrated internal antenna"
+   ],
+   "a": 0
+  },
+  {
+   "id": 92,
+   "o": [
+    "A dedicated voice VLAN",
+    "A private VLAN edge port",
+    "Class of Service marking on frames",
+    "Traffic shaping on the uplink"
+   ],
+   "a": 0
+  },
+  {
+   "id": 78,
+   "o": [
+    "They do not adapt automatically when a link fails",
+    "They add periodic update traffic to every link",
+    "They consume more router memory than dynamic routes",
+    "They are limited to one next hop per destination"
+   ],
+   "a": 0
+  },
+  {
+   "id": 95,
+   "o": [
+    "LACP link aggregation",
+    "802.1Q VLAN trunking",
+    "Multiple Spanning Tree",
+    "Per-VLAN load sharing"
+   ],
+   "a": 0,
+   "x": "A network team runs four cables between two access switches and wants them to act as a single logical connection that keeps forwarding if any one cable fails. Which technology is used?"
+  },
+  {
+   "id": 104,
+   "o": [
+    "Roaming across an ESS",
+    "Band steering between AP radios",
+    "Meshing over wireless backhaul",
+    "Operating as a workgroup bridge"
+   ],
+   "a": 0,
+   "x": "A campus WLAN has dozens of APs broadcasting the same SSID. As a laptop's signal to its current AP weakens, it re-associates with a closer AP and its sessions continue uninterrupted. What is this behavior called?"
+  },
+  {
+   "id": 110,
+   "o": [
+    "SD-WAN",
+    "DMVPN",
+    "MPLS-TE",
+    "DOCSIS"
+   ],
+   "a": 0,
+   "x": "Which WAN technology steers a branch office's application traffic across MPLS, broadband, and LTE transports according to centrally managed policies?"
+  },
+  {
+   "id": 105,
+   "o": [
+    "Mesh mode",
+    "Ad hoc mode",
+    "Infrastructure mode",
+    "Autonomous AP mode"
+   ],
+   "a": 0
+  },
+  {
+   "id": 114,
+   "o": [
+    "Battery backup during a power outage",
+    "Protection against transient voltage spikes",
+    "Surge suppression for coax and phone lines",
+    "A grounded path for connected equipment"
+   ],
+   "a": 0
+  },
+  {
+   "id": 241,
+   "o": [
+    "Bandwidth saturation caused by the backup jobs",
+    "A duplex mismatch on the WAN router interface",
+    "A broadcast storm on the local switch segment",
+    "MAC address table flooding on the core switch"
+   ],
+   "a": 0,
+   "x": "Users complain the network is slow every day at 2 PM, when scheduled backups copy data offsite. During that window, interface monitoring shows heavy queuing and packet drops on the WAN router. What is the MOST likely cause?"
+  },
+  {
+   "id": 242,
+   "o": [
+    "Jitter",
+    "Latency",
+    "Packet loss",
+    "Throughput"
+   ],
+   "a": 0,
+   "x": "Users on video calls see smearing video and hear robotic audio, yet ping round-trip times are normal and interface counters show no drops. Which performance metric MOST likely explains the symptoms?"
+  },
+  {
+   "id": 244,
+   "o": [
+    "Bandwidth utilization",
+    "Interface throughput",
+    "Application goodput",
+    "Round-trip latency"
+   ],
+   "a": 0,
+   "x": "Before approving a circuit upgrade, a manager asks how close the WAN link runs to its capacity during business hours. Which monitoring metric answers that question?"
+  },
+  {
+   "id": 126,
+   "o": [
+    "A first-hop redundancy protocol",
+    "A dynamic routing protocol",
+    "A link aggregation protocol",
+    "A loop prevention protocol"
+   ],
+   "a": 0,
+   "x": "Hosts are configured with a single default gateway address. Which type of protocol allows a standby router to take over that address automatically if the active router fails?"
+  },
+  {
+   "id": 131,
+   "o": [
+    "A rack diagram",
+    "A site floor plan",
+    "A logical network diagram",
+    "A wiring diagram"
+   ],
+   "a": 0,
+   "x": "Which document records the exact U position each device occupies in a data center cabinet?"
+  },
+  {
+   "id": 132,
+   "o": [
+    "IPAM",
+    "DHCP",
+    "DNS",
+    "SNMP"
+   ],
+   "a": 0,
+   "x": "Which system gives administrators one place to track which subnets and host addresses are allocated, reserved, and still available across the organization, including static assignments?"
+  },
+  {
+   "id": 135,
+   "o": [
+    "Its stored configuration and credentials must be securely wiped",
+    "Its support and warranty coverage must be transferred to the buyer",
+    "Its firmware must be upgraded to the latest supported release",
+    "Its management licenses must be reassigned to a replacement device"
+   ],
+   "a": 0
+  },
+  {
+   "id": 136,
+   "o": [
+    "Scheduling tested firmware updates with documented rollback plans",
+    "Enabling vendor auto-update so devices patch themselves overnight",
+    "Standardizing on one firmware release and keeping it unchanged",
+    "Applying updates only when a vendor support case requires them"
+   ],
+   "a": 0
+  },
+  {
+   "id": 138,
+   "o": [
+    "A backup of the current configuration",
+    "An export of the DHCP lease table",
+    "A packet capture from the WAN interface",
+    "A copy of the licensing activation keys"
+   ],
+   "a": 0
+  },
+  {
+   "id": 150,
+   "o": [
+    "A tabletop exercise",
+    "A parallel test",
+    "A full interruption test",
+    "A hot-site cutover"
+   ],
+   "a": 0,
+   "e": "Tabletop exercises validate the plan and team roles cheaply through discussion; parallel tests and full interruption tests actually exercise the recovery systems."
+  },
+  {
+   "id": 259,
+   "o": [
+    "A network tap",
+    "A media converter",
+    "A load balancer",
+    "A VPN concentrator"
+   ],
+   "a": 0,
+   "x": "A technician must feed a protocol analyzer a copy of every frame crossing a switch-to-router link, without reconfiguring either device. What should be installed inline?"
+  },
+  {
+   "id": 190,
+   "o": [
+    "A reflection/amplification DDoS",
+    "A DNS cache poisoning attack",
+    "A TCP SYN flood attack",
+    "An on-path interception attack"
+   ],
+   "a": 0,
+   "x": "An attacker sends DNS queries with a spoofed source address to open resolvers so that the replies overwhelm a target host. What is this attack called?"
+  },
+  {
+   "id": 192,
+   "o": [
+    "Double-tagging VLAN hopping",
+    "Switch spoofing VLAN hopping",
+    "MAC address flooding",
+    "ARP cache poisoning"
+   ],
+   "a": 0,
+   "x": "An attacker on the native VLAN sends frames crafted so the access switch strips one 802.1Q tag and forwards them, still tagged, into a VLAN the attacker cannot normally reach. Which attack is this?",
+   "e": "Double tagging abuses native-VLAN handling: the outer tag is stripped and the switch forwards the still-tagged frame into the victim VLAN. Switch spoofing is the other VLAN-hopping variant, but it works by negotiating a trunk over DTP rather than by nesting tags."
+  },
+  {
+   "id": 195,
+   "o": [
+    "Port security",
+    "DHCP snooping",
+    "Storm control",
+    "BPDU guard"
+   ],
+   "a": 0
+  },
+  {
+   "id": 196,
+   "o": [
+    "Dynamic ARP inspection",
+    "DHCP snooping",
+    "MAC address filtering",
+    "Control plane policing"
+   ],
+   "a": 0,
+   "e": "Dynamic ARP inspection validates each ARP packet against the trusted IP-to-MAC binding table that DHCP snooping builds; DHCP snooping by itself only polices DHCP messages, and MAC filtering cannot verify the contents of ARP replies."
+  },
+  {
+   "id": 197,
+   "o": [
+    "DNSSEC",
+    "DNS over HTTPS",
+    "DNS over TLS",
+    "DNS filtering"
+   ],
+   "a": 0,
+   "e": "DNSSEC signs zone records so validating resolvers can detect forgeries. DNS over HTTPS and DNS over TLS only encrypt the transport between client and resolver, and filtering blocks known-bad domains; none of those proves a record is authentic."
+  },
+  {
+   "id": 200,
+   "o": [
+    "A rogue access point — it bypasses security controls",
+    "An evil twin — it impersonates the corporate SSID",
+    "A wireless repeater — it leaks coverage outside the building",
+    "An unmanaged switch — it floods the LAN with broadcast traffic"
+   ],
+   "a": 0,
+   "e": "An employee-installed unauthorized AP is a rogue access point that opens an unmonitored path into the LAN; an evil twin is different because it deliberately impersonates a legitimate SSID to lure victims. Wireless scans and NAC detect and block rogue devices."
+  },
+  {
+   "id": 202,
+   "o": [
+    "Tailgating — stopped by mantraps and turnstiles",
+    "Shoulder surfing — stopped by privacy screen filters",
+    "Dumpster diving — stopped by document shredding policies",
+    "Badge cloning — stopped by encrypted smart cards"
+   ],
+   "a": 0
+  },
+  {
+   "id": 204,
+   "o": [
+    "Via a dedicated management VLAN with SSH-only access",
+    "Via Telnet sessions limited to the internal user subnet",
+    "Via SNMPv2c secured with a long community string",
+    "Via the web GUI on the data VLAN with a shared admin account"
+   ],
+   "a": 0
+  },
+  {
+   "id": 205,
+   "o": [
+    "Change default credentials",
+    "Schedule configuration backups",
+    "Enable SNMP performance monitoring",
+    "Baseline normal traffic levels"
+   ],
+   "a": 0,
+   "e": "Default passwords appear in every attacker's playbook, so changing them, along with patching firmware, comes before anything else. Monitoring, backups, and traffic baselining all follow once the device has been hardened."
+  },
+  {
+   "id": 207,
+   "o": [
+    "The specific deny is shadowed by the broad allow",
+    "The most specific rule is applied regardless of position",
+    "The deny is enforced because deny rules take precedence",
+    "Both rules are skipped and the implicit deny is applied"
+   ],
+   "a": 0,
+   "x": "A network firewall evaluates its rule base from the top down. A broad ALLOW rule sits above a more specific DENY rule for the same traffic. What results?"
+  },
+  {
+   "id": 216,
+   "o": [
+    "An IP address conflict",
+    "A broadcast storm",
+    "An exhausted DHCP scope",
+    "A duplex mismatch"
+   ],
+   "a": 0,
+   "x": "Two hosts on the same subnet were independently configured with identical static addressing. Which problem results?"
+  },
+  {
+   "id": 219,
+   "o": [
+    "Co-channel interference",
+    "Adjacent-channel interference",
+    "Multipath interference",
+    "Electromagnetic interference"
+   ],
+   "a": 0,
+   "x": "Two nearby access points operate on an identical frequency, and clients in range of both must wait their turn to transmit, degrading Wi-Fi throughput. What is this problem called?",
+   "e": "Co-channel interference occurs when access points share one channel and their clients must defer to each other, cutting usable airtime and throughput. Adjacent-channel interference comes from overlapping but different channels and shows up as noise rather than orderly contention; spacing neighboring APs across non-overlapping channels such as 1, 6, and 11 in 2.4 GHz avoids both."
+  },
+  {
+   "id": 220,
+   "o": [
+    "Question users, identify symptoms, and note what changed",
+    "Establish a theory of probable cause and test it",
+    "Establish a plan of action and implement the solution",
+    "Verify full functionality and implement preventive measures"
+   ],
+   "a": 0
+  },
+  {
+   "id": 221,
+   "o": [
+    "Establish a new theory or escalate",
+    "Establish a plan of action and implement the solution",
+    "Verify full system functionality with the user",
+    "Document the findings, actions, and outcomes"
+   ],
+   "a": 0
+  },
+  {
+   "id": 222,
+   "o": [
+    "Verify functionality, add preventives, and document",
+    "Question users to identify symptoms and recent changes",
+    "Test the theory to determine the exact cause",
+    "Establish a plan of action to resolve the problem"
+   ],
+   "a": 0
+  },
+  {
+   "id": 226,
+   "o": [
+    "The minimum bend radius",
+    "The maximum pulling tension",
+    "The maximum conduit fill ratio",
+    "The minimum separation from power runs"
+   ],
+   "a": 0
+  },
+  {
+   "id": 227,
+   "o": [
+    "A split pair",
+    "A reversed pair",
+    "A crossed pair",
+    "An open pair"
+   ],
+   "a": 0,
+   "x": "A copper run passes basic pin-to-pin continuity, yet certification fails with severe crosstalk at gigabit speeds because each jack was punched down using conductors from two different twisted pairs as if they were one pair. Which termination mistake is this?"
+  },
+  {
+   "id": 233,
+   "o": [
+    "Overheating from inadequate cooling",
+    "A memory leak in the switch firmware",
+    "An overloaded PoE power budget",
+    "Interference from nearby fluorescent lighting"
+   ],
+   "a": 0,
+   "x": "A switch in a cramped, unventilated wiring closet spontaneously reboots most afternoons in July. Which is the MOST likely cause?",
+   "e": "Heat in an enclosed closet peaks in the afternoon, and network gear thermal-protects itself by shutting down or resetting. A memory leak tracks uptime rather than time of day, PoE exhaustion drops powered ports instead of restarting the switch, and lighting interference corrupts frames, not power. Add airflow or AC and keep fans and vents clear."
+  },
+  {
+   "id": 234,
+   "o": [
+    "The running configuration was never saved to non-volatile storage",
+    "The power interruption corrupted the operating system image",
+    "A depleted internal battery erased the stored settings",
+    "The power fault triggered an automatic factory reset"
+   ],
+   "a": 0
+  },
+  {
+   "id": 235,
+   "o": [
+    "A broadcast storm",
+    "A routing loop",
+    "MAC address flapping",
+    "A duplex mismatch"
+   ],
+   "a": 0,
+   "x": "Two switches are accidentally cabled into a loop on a LAN with no spanning tree protection, and within seconds every link saturates with endlessly circulating frames until nothing works. What is this event called?"
+  },
+  {
+   "id": 236,
+   "o": [
+    "A loop or a device moving between ports",
+    "Normal aging of the MAC address table",
+    "An IP address conflict between two hosts",
+    "A duplex mismatch on one of the ports"
+   ],
+   "a": 0
+  },
+  {
+   "id": 237,
+   "o": [
+    "The port is assigned to the wrong VLAN",
+    "Port security has restricted the allowed MAC addresses",
+    "Spanning tree has placed the port in a blocking state",
+    "The port is hard-coded to half duplex"
+   ],
+   "a": 0,
+   "x": "A user's PC links up and passes traffic, but it can only reach hosts on another department's subnet instead of its own. Which switch misconfiguration is MOST likely?"
+  },
+  {
+   "id": 240,
+   "o": [
+    "Asymmetric routing",
+    "Split-horizon routing",
+    "Route redistribution",
+    "Policy-based routing"
+   ],
+   "a": 0
+  },
+  {
+   "id": 152,
+   "o": [
+    "Failure of a NIC, cable, or one switch",
+    "An outage of the upstream ISP circuit",
+    "Failure of a disk in the storage array",
+    "Loss of power to the server chassis"
+   ],
+   "a": 0
+  },
+  {
+   "id": 153,
+   "o": [
+    "Dual WAN circuits from separate carriers over diverse paths",
+    "An LACP bundle of two circuits from the primary carrier",
+    "Redundant edge routers running VRRP on the existing uplink",
+    "A second core switch stacked with the current core switch"
+   ],
+   "a": 0
+  },
+  {
+   "id": 154,
+   "o": [
+    "Discover → Offer → Request → Acknowledge",
+    "Discover → Request → Offer → Acknowledge",
+    "Discover → Offer → Acknowledge → Request",
+    "Offer → Discover → Request → Acknowledge"
+   ],
+   "a": 0
+  },
+  {
+   "id": 155,
+   "o": [
+    "DHCP relay",
+    "DHCP snooping",
+    "Proxy ARP",
+    "NAT overload"
+   ],
+   "a": 0
+  },
+  {
+   "id": 157,
+   "o": [
+    "Add exclusion ranges that cover the static addresses",
+    "Shorten the scope's lease duration so addresses recycle sooner",
+    "Split the scope between two DHCP servers with an 80/20 rule",
+    "Extend the scope's range so more addresses become available"
+   ],
+   "a": 0
+  },
+  {
+   "id": 158,
+   "o": [
+    "It combines a router-advertised prefix with an interface ID it generates",
+    "It leases a full 128-bit address from a stateful DHCPv6 server",
+    "It embeds its IPv4 address into a well-known transition prefix",
+    "The gateway router assigns it an address from a managed local pool"
+   ],
+   "a": 0,
+   "x": "How does a host obtain an IPv6 address when SLAAC is in use?"
+  },
+  {
+   "id": 159,
+   "o": [
+    "Router Advertisements",
+    "Router Solicitations",
+    "Neighbor Advertisements",
+    "Redirect messages"
+   ],
+   "a": 0,
+   "x": "Which ICMPv6 message carries the prefix and default gateway information hosts use for SLAAC?"
+  },
+  {
+   "id": 165,
+   "o": [
+    "Kerberos rejects authentication when clocks drift beyond its tolerance",
+    "RADIUS drops access requests whose timestamps fall outside one minute",
+    "The drift causes domain DNS records to be scavenged prematurely",
+    "TLS certificates on the domain controllers appear expired to clients"
+   ],
+   "a": 0
+  },
+  {
+   "id": 166,
+   "o": [
+    "SSH encrypts the session while Telnet sends passwords in cleartext",
+    "SSH runs over connectionless UDP while Telnet adds TCP overhead",
+    "SSH blocks brute-force attempts while Telnet accepts unlimited retries",
+    "SSH keeps a local log of every command while Telnet logs nothing"
+   ],
+   "a": 0
+  },
+  {
+   "id": 168,
+   "o": [
+    "Out-of-band management",
+    "In-band SSH management",
+    "SPAN port mirroring",
+    "LACP link aggregation"
+   ],
+   "a": 0
+  },
+  {
+   "id": 170,
+   "o": [
+    "AAA",
+    "PKI",
+    "SSO",
+    "NAC"
+   ],
+   "a": 0,
+   "x": "Which framework lets an organization centrally validate user credentials, control what each user can do, and record user activity on the network?"
+  },
+  {
+   "id": 173,
+   "o": [
+    "ARP poisoning",
+    "MAC flooding",
+    "DHCP spoofing",
+    "VLAN hopping"
+   ],
+   "a": 0,
+   "x": "Hosts on a LAN begin resolving the default gateway's IP address to an attacker's MAC address after receiving forged replies. Which attack is this?"
+  },
+  {
+   "id": 182,
+   "o": [
+    "A honeypot",
+    "A bastion host",
+    "A jump server",
+    "A sinkhole server"
+   ],
+   "a": 0,
+   "x": "A security team deploys an isolated system that imitates a production server so that intrusion attempts against it can be safely observed. What is this system called?"
+  },
+  {
+   "id": 285,
+   "a": 0,
+   "o": [
+    "A lease lasting a few hours",
+    "A lease lasting a few minutes",
+    "A lease lasting seven days",
+    "A lease lasting thirty days"
+   ],
+   "e": "A lease of a few hours returns addresses to the pool as visitors leave; minute-scale leases flood the network with constant renewal traffic, while multi-day leases strand addresses long after devices are gone."
+  },
+  {
+   "id": 133,
+   "a": 0,
+   "o": [
+    "It establishes a reference for what normal performance looks like",
+    "It confirms the carrier is delivering the contracted bandwidth",
+    "It records the physical topology for the documentation library",
+    "It verifies new hardware performs to manufacturer specifications"
+   ]
+  },
+  {
+   "id": 143,
+   "a": 0,
+   "o": [
+    "Level 0",
+    "Level 7",
+    "Level 5",
+    "Level 3"
+   ]
   }
  ]
 }
