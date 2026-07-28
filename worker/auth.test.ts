@@ -53,9 +53,10 @@ describe("auth config", () => {
      */
     it("stays off in production until transactional mail is configured", () => {
       expect(createAuth(env()).options.emailAndPassword?.enabled).toBe(false)
-      // Binding without a from-address, and from-address without a binding, are
-      // both incomplete and must not flip it on.
+      // A transport without a from-address, and a from-address without any
+      // transport, are both incomplete and must not flip it on.
       expect(createAuth(env({ EMAIL: mail.EMAIL })).options.emailAndPassword?.enabled).toBe(false)
+      expect(createAuth(env({ RESEND_API_KEY: "re_test" })).options.emailAndPassword?.enabled).toBe(false)
       expect(createAuth(env({ AUTH_EMAIL_FROM: "no-reply@cert900.com" })).options.emailAndPassword?.enabled).toBe(false)
     })
 
@@ -64,6 +65,12 @@ describe("auth config", () => {
       expect(auth.options.emailAndPassword?.enabled).toBe(true)
       expect(auth.options.emailAndPassword?.sendResetPassword).toBeTypeOf("function")
       expect(auth.options.emailVerification?.sendVerificationEmail).toBeTypeOf("function")
+    })
+
+    /** Either transport is sufficient on its own. */
+    it("accepts Resend as the transport without a Cloudflare binding", () => {
+      const auth = createAuth(env({ RESEND_API_KEY: "re_test", AUTH_EMAIL_FROM: "no-reply@send.cert900.com" }))
+      expect(auth.options.emailAndPassword?.enabled).toBe(true)
     })
 
     it("stays available locally for integration tests without sending mail", () => {

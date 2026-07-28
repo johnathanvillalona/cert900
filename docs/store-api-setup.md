@@ -7,10 +7,23 @@ Two credentials, one per store. **Neither belongs in this repo.** Put them in a
 folder outside it (`C:\Users\user\keys\` or similar) and pass the path with
 `--key`. Both are live publishing credentials.
 
-Codemagic already holds equivalent credentials. You do **not** have to reuse
-them, and you should not try: neither Google nor Apple lets you re-download a
-key after creation. Mint a **second** key instead — Google allows 10 keys per
-service account and Apple allows multiple team keys — so Codemagic keeps
+### Current status (verified 2026-07-28)
+
+Both credentials already exist in `C:\Users\user\secure` and **both work**:
+
+| Store | Credential | Status |
+|---|---|---|
+| Google Play | `grimoire-publishing-*.json` (`codemagic-publisher@…`) | Working. Reads and diffs the live cert900 listing. |
+| App Store | `AuthKey_AAD22D8LBT.p8` + issuer `adf2c3f3-…` | Working. Team key, so it covers every app on the team. |
+
+They were created for the grimoire app, but neither is app-specific: a Play
+service account just needs per-app permission (already granted for
+`com.cert900.app`), and an App Store Connect **team** key applies across all apps
+on the team by design.
+
+If you ever need fresh ones, mint a **second** key rather than hunting for these
+— neither vendor lets you re-download a key after creation. Google allows 10 keys
+per service account and Apple allows multiple team keys, so Codemagic keeps
 working untouched and revoking one never breaks the other.
 
 ---
@@ -131,26 +144,49 @@ Neither API can do these, by the vendors' design:
 
 ---
 
-## Verifying transactional email (separate credential, same spirit)
+## Transactional email (separate credential, same spirit)
 
-`AUTH_EMAIL_FROM` in `wrangler.jsonc` turns on email/password sign-in, and it must
-stay empty until Cloudflare Email **Sending** is onboarded for cert900.com.
+`AUTH_EMAIL_FROM` in `wrangler.jsonc` turns on email/password sign-in and must
+stay empty until a send is proven to work. A misconfigured transport fails
+**silently**: Better Auth swallows the error, the UI still says the reset link
+was sent, and that account is unrecoverable.
 
-Email **Routing** (receiving) and Email **Sending** (transactional) are different
-products that share the `send_email` binding name and both add DNS records. The
-domain currently has Routing configured — MX records, an SPF include, and a
-`cf2024-1` DKIM key are all live — which makes DNS look correct and makes
-`wrangler dev` print an "unrestricted" Send Email binding, while every send still
-fails with `destination address is not a verified address`, because Routing only
-sends to addresses you have verified.
+### Why not Cloudflare Email Sending
 
-Onboard Sending at **Cloudflare Dashboard → Compute & AI → Email Service → Email
-Sending → Onboard Domain**, then prove it:
+Cloudflare Email **Sending** requires the **Workers Paid** plan. On the free plan
+the `send_email` binding falls back to Email **Routing** semantics, which only
+delivers to addresses you have verified — useless for password resets. This is
+easy to misdiagnose, because Routing is already configured on cert900.com (MX
+records, an SPF include, and a `cf2024-1` DKIM key are all live), so DNS looks
+correct and `wrangler dev` even prints an "unrestricted" Send Email binding while
+every send fails with `destination address is not a verified address`.
 
-```bash
-node tools/mail-check.mjs you@example.com
-```
+The binding is left in `wrangler.jsonc` so switching to it is one line if the
+plan ever changes.
 
-That sends one real message through the same binding the Worker uses, without
-deploying anything. Only set `AUTH_EMAIL_FROM` once it reports OK and the mail
-actually arrives.
+### Resend (what's wired up)
+
+1. <https://resend.com> → sign up (free tier: 3,000 emails/month, no card).
+2. **Domains → Add Domain**. Use a **subdomain**: `send.cert900.com`.
+   This matters — do **not** verify the apex. cert900.com already has an SPF TXT
+   record and MX records for Email Routing, and **a domain can only have one SPF
+   record**; adding a second breaks SPF for both, and an apex MX from Resend
+   would fight Routing's MX records. A subdomain sidesteps all of it and is
+   Resend's own recommendation anyway, since it isolates sending reputation.
+3. Add the DNS records Resend shows you in **Cloudflare → cert900.com → DNS**.
+   They will all be on `send.cert900.com` / `resend._domainkey.send.cert900.com`.
+   Leave every existing apex record alone.
+4. **API Keys → Create**, scope it to sending. Copy the `re_...` value.
+5. Prove it works:
+   ```bash
+   RESEND_API_KEY=re_xxx node tools/mail-check.mjs you@example.com
+   ```
+6. Once the mail actually lands:
+   ```bash
+   npx wrangler secret put RESEND_API_KEY     # paste the key
+   ```
+   then set `"AUTH_EMAIL_FROM": "no-reply@send.cert900.com"` in `wrangler.jsonc`,
+   commit, and email sign-in goes live on the next deploy.
+
+Verify after deploy: `curl https://cert900.com/api/config` should report
+`{"emailAuth":true}`.
