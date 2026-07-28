@@ -1,5 +1,6 @@
 import { createAuth, type Env } from "./auth"
 import { dailySocialPost, weeklyRedditScan, weeklyIndexNow } from "./social"
+import { isKnownPath } from "../src/data/routes"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
 
@@ -198,6 +199,18 @@ async function route(req: Request, env: Env): Promise<Response> {
   ) {
     const out = new Response(res.body, res)
     out.headers.set("cache-control", "public, max-age=31536000, immutable")
+    return out
+  }
+
+  // Soft-404 fix. `not_found_handling: "single-page-application"` answers EVERY
+  // unmatched path with index.html and HTTP 200, so the whole infinite URL space
+  // looked like real pages to a crawler (and the SPA quietly rendered the
+  // landing screen). Serve the same shell, so a mistyped link still boots the
+  // app, but with an honest status and noindex. Only HTML falls through here;
+  // a missing static file keeps whatever the assets binding returned.
+  if (res.ok && type.includes("text/html") && !isKnownPath(url.pathname)) {
+    const out = new Response(res.body, { status: 404, headers: res.headers })
+    out.headers.set("X-Robots-Tag", "noindex")
     return out
   }
   return res

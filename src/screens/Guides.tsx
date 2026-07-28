@@ -1,4 +1,5 @@
 import { EXAM_META } from "@/data/meta"
+import { GUIDE_PATHS, type GuideKey } from "@/data/routes"
 import { ArrowRight, Check } from "lucide-react"
 
 /**
@@ -31,9 +32,9 @@ const APLUS = inventory("220-1201", "220-1202")
 const NPLUS = inventory("n10-009")
 const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
 
-export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104" | "saa", GuideMeta> = {
+export const GUIDE_META: Record<GuideKey, GuideMeta> = {
   secplus: {
-    path: "/comptia-security-plus-practice-test",
+    path: GUIDE_PATHS.secplus,
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
     description:
       "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup.",
@@ -58,7 +59,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   clf: {
-    path: "/aws-cloud-practitioner-practice-test",
+    path: GUIDE_PATHS.clf,
     title: "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900",
     description:
       "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
@@ -79,7 +80,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   az900: {
-    path: "/azure-fundamentals-practice-test",
+    path: GUIDE_PATHS.az900,
     title: "Free Azure Fundamentals Practice Test (AZ-900) | Cert900",
     description:
       "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
@@ -100,7 +101,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   sc900: {
-    path: "/microsoft-sc-900-practice-test",
+    path: GUIDE_PATHS.sc900,
     title: "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900",
     description:
       "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
@@ -125,7 +126,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   ccna: {
-    path: "/cisco-ccna-practice-test",
+    path: GUIDE_PATHS.ccna,
     title: "Free Cisco CCNA 200-301 Practice Test | Cert900",
     description:
       "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup.",
@@ -150,7 +151,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   az104: {
-    path: "/azure-administrator-az-104-practice-test",
+    path: GUIDE_PATHS.az104,
     title: "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900",
     description:
       "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
@@ -175,7 +176,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   saa: {
-    path: "/aws-solutions-architect-associate-practice-test",
+    path: GUIDE_PATHS.saa,
     title: "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900",
     description:
       "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
@@ -200,7 +201,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   aif: {
-    path: "/aws-ai-practitioner-practice-test",
+    path: GUIDE_PATHS.aif,
     title: "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900",
     description:
       "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
@@ -225,7 +226,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   aplus: {
-    path: "/comptia-a-plus-practice-test",
+    path: GUIDE_PATHS.aplus,
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
     description: `Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): ${APLUS.q} original questions, ${APLUS.pbq} performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.`,
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
@@ -245,7 +246,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   aplus1: {
-    path: "/comptia-a-plus-core-1-practice-test",
+    path: GUIDE_PATHS.aplus1,
     title: "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900",
     description:
       "Free CompTIA A+ Core 1 (220-1201) practice: original questions on hardware, mobile devices, networking, virtualization, and troubleshooting, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
@@ -270,7 +271,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   aplus2: {
-    path: "/comptia-a-plus-core-2-practice-test",
+    path: GUIDE_PATHS.aplus2,
     title: "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900",
     description:
       "Free CompTIA A+ Core 2 (220-1202) practice: original questions on operating systems, security, software troubleshooting, and operational procedures, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
@@ -295,7 +296,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   nplus: {
-    path: "/network-plus-practice-test",
+    path: GUIDE_PATHS.nplus,
     title: "Free CompTIA Network+ Practice Test (N10-009) | Cert900",
     description: `Free CompTIA Network+ N10-009 practice: ${NPLUS.q} original questions, ${NPLUS.pbq} performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.`,
     h1: "Free CompTIA Network+ (N10-009) practice test",
@@ -315,7 +316,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
     ],
   },
   pbq: {
-    path: "/comptia-pbq-practice",
+    path: GUIDE_PATHS.pbq,
     title: "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900",
     description: `Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. ${COMPTIA_PBQ.pbq} PBQs, no signup.`,
     h1: "CompTIA PBQ practice: real simulations, free",

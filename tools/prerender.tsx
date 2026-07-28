@@ -9,6 +9,7 @@ import { renderToStaticMarkup } from "react-dom/server"
 import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META, type GuideMeta } from "../src/screens/Guides"
 import { qotdPool } from "../src/lib/qotd"
 import { siteTagline, siteTitle } from "../src/lib/copy"
+import { GUIDE_PATHS, LEGAL_PATHS } from "../src/data/routes"
 import { SITE_URL } from "../src/lib/site"
 
 const dist = resolve(import.meta.dirname, "../dist")
@@ -146,6 +147,32 @@ for (const [meta, el] of pages) {
   writeFileSync(resolve(dist, out), page(meta, body))
   console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
 }
+
+/**
+ * sitemap.xml, generated from the same route table the worker and footer use.
+ *
+ * Hand-maintaining it worked only because someone remembered; the four other
+ * copies of this list did not survive contact with four new exams. `lastmod`
+ * uses the build date for guides, which is honest here because their bodies are
+ * interpolated from the question banks — a content batch really does change
+ * them. Legal pages keep a fixed date so they do not claim daily churn.
+ */
+const buildDate = new Date().toISOString().slice(0, 10)
+const sitemap = [
+  `<?xml version="1.0" encoding="UTF-8"?>`,
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+  `<url><loc>${SITE_URL}/</loc><lastmod>${buildDate}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>`,
+  ...Object.values(GUIDE_PATHS).map(
+    (p) =>
+      `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
+  ),
+  ...LEGAL_PATHS.map(
+    (p) => `<url><loc>${SITE_URL}${p}</loc><lastmod>2026-07-21</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>`,
+  ),
+  `</urlset>`,
+].join("\n")
+writeFileSync(resolve(dist, "sitemap.xml"), sitemap + "\n")
+console.log(`sitemap.xml: ${Object.keys(GUIDE_PATHS).length + LEGAL_PATHS.length + 1} urls`)
 
 // QOTD feed for the worker's daily social post. No answers or explanations.
 //
