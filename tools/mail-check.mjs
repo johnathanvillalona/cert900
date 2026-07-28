@@ -65,103 +65,108 @@ if (process.env.RESEND_API_KEY) {
     }
     process.exitCode = 1
   }
-  process.exit()
 }
 
 // ---- Cloudflare Email Sending: local worker, remote binding --------------
-console.log("No RESEND_API_KEY set, testing the Cloudflare Email Sending binding instead.")
-const PORT = 8787 + Math.floor(Math.random() * 200)
-const dir = mkdtempSync(path.join(tmpdir(), "cert900-mailcheck-"))
+// Guarded rather than early-exited: process.exit() while the fetch above is
+// still closing trips a libuv assertion on Windows, which prints like a crash
+// after a run that actually succeeded.
+if (!process.env.RESEND_API_KEY) {
+  console.log("No RESEND_API_KEY set, testing the Cloudflare Email Sending binding instead.")
+  const PORT = 8787 + Math.floor(Math.random() * 200)
+  const dir = mkdtempSync(path.join(tmpdir(), "cert900-mailcheck-"))
 
-writeFileSync(
-  path.join(dir, "wrangler.jsonc"),
-  JSON.stringify({
-    name: "cert900-mailcheck",
-    main: "index.mjs",
-    compatibility_date: "2026-07-14",
-    // remote:true = local worker, real Email Service.
-    send_email: [{ name: "EMAIL", remote: true }],
-  }),
-)
+  writeFileSync(
+    path.join(dir, "wrangler.jsonc"),
+    JSON.stringify({
+      name: "cert900-mailcheck",
+      main: "index.mjs",
+      compatibility_date: "2026-07-14",
+      // remote:true = local worker, real Email Service.
+      send_email: [{ name: "EMAIL", remote: true }],
+    }),
+  )
 
-writeFileSync(
-  path.join(dir, "index.mjs"),
-  `export default {
-  async fetch(req, env) {
-    const to = new URL(req.url).searchParams.get("to")
+  writeFileSync(
+    path.join(dir, "index.mjs"),
+    `export default {
+    async fetch(req, env) {
+      const to = new URL(req.url).searchParams.get("to")
+      try {
+        const res = await env.EMAIL.send({
+          to,
+          from: { email: ${JSON.stringify(from)}, name: "cert900" },
+          subject: ${JSON.stringify(SUBJECT)},
+          html: ${JSON.stringify(HTML)},
+          text: ${JSON.stringify(TEXT)},
+        })
+        return Response.json({ ok: true, res })
+      } catch (e) {
+        return Response.json({ ok: false, error: String(e) }, { status: 500 })
+      }
+    },
+  }`,
+  )
+
+  // One command string rather than an args array: with shell:true Node warns
+  // about unescaped arg concatenation, and PORT is the only interpolation.
+  const dev = spawn(`npx wrangler dev --remote --port ${PORT}`, {
+    cwd: dir,
+    shell: true,
+    stdio: ["ignore", "pipe", "pipe"],
+  })
+  let log = ""
+  dev.stdout.on("data", (d) => (log += d))
+  dev.stderr.on("data", (d) => (log += d))
+
+  const cleanup = () => {
+    dev.kill()
     try {
-      const res = await env.EMAIL.send({
-        to,
-        from: { email: ${JSON.stringify(from)}, name: "cert900" },
-        subject: ${JSON.stringify(SUBJECT)},
-        html: ${JSON.stringify(HTML)},
-        text: ${JSON.stringify(TEXT)},
-      })
-      return Response.json({ ok: true, res })
-    } catch (e) {
-      return Response.json({ ok: false, error: String(e) }, { status: 500 })
+      rmSync(dir, { recursive: true, force: true })
+    } catch {
+      /* temp dir; the OS will get it */
     }
-  },
-}`,
-)
-
-// One command string rather than an args array: with shell:true Node warns
-// about unescaped arg concatenation, and PORT is the only interpolation.
-const dev = spawn(`npx wrangler dev --remote --port ${PORT}`, {
-  cwd: dir,
-  shell: true,
-  stdio: ["ignore", "pipe", "pipe"],
-})
-let log = ""
-dev.stdout.on("data", (d) => (log += d))
-dev.stderr.on("data", (d) => (log += d))
-
-const cleanup = () => {
-  dev.kill()
-  try {
-    rmSync(dir, { recursive: true, force: true })
-  } catch {
-    /* temp dir; the OS will get it */
   }
-}
 
-const deadline = Date.now() + 90_000
-let ready = false
-while (Date.now() < deadline && !ready) {
-  await new Promise((r) => setTimeout(r, 1000))
-  try {
-    await fetch(`http://127.0.0.1:${PORT}/`)
-    ready = true
-  } catch {
-    /* not up yet */
-  }
-}
-if (!ready) {
-  console.error("wrangler dev never came up. Log:\n" + log.slice(-2000))
-  cleanup()
-  process.exit(1)
-}
-
-try {
-  const res = await fetch(`http://127.0.0.1:${PORT}/?to=${encodeURIComponent(to)}`)
-  const body = await res.json()
-  if (body.ok) {
-    console.log(`OK  sent from ${from} to ${to}`)
-    console.log(JSON.stringify(body.res, null, 2))
-    console.log(`\nCheck that inbox, then set AUTH_EMAIL_FROM to "${from}" in wrangler.jsonc.`)
-  } else {
-    console.error(`FAILED  ${body.error}`)
-    if (String(body.error).includes("not a verified address")) {
-      console.error(
-        `\nThat is the Email ROUTING error, which means Email SENDING is not active for\n` +
-          `this domain. Email Sending needs the Workers Paid plan; on the free plan use\n` +
-          `Resend instead:\n\n` +
-          `  RESEND_API_KEY=re_xxx node tools/mail-check.mjs ${to}\n\n` +
-          `Leave AUTH_EMAIL_FROM empty until one of them passes.`,
-      )
+  const deadline = Date.now() + 90_000
+  let ready = false
+  while (Date.now() < deadline && !ready) {
+    await new Promise((r) => setTimeout(r, 1000))
+    try {
+      await fetch(`http://127.0.0.1:${PORT}/`)
+      ready = true
+    } catch {
+      /* not up yet */
     }
-    process.exitCode = 1
   }
-} finally {
-  cleanup()
+  if (!ready) {
+    console.error("wrangler dev never came up. Log:\n" + log.slice(-2000))
+    cleanup()
+    process.exit(1)
+  }
+
+  try {
+    const res = await fetch(`http://127.0.0.1:${PORT}/?to=${encodeURIComponent(to)}`)
+    const body = await res.json()
+    if (body.ok) {
+      console.log(`OK  sent from ${from} to ${to}`)
+      console.log(JSON.stringify(body.res, null, 2))
+      console.log(`\nCheck that inbox, then set AUTH_EMAIL_FROM to "${from}" in wrangler.jsonc.`)
+    } else {
+      console.error(`FAILED  ${body.error}`)
+      if (String(body.error).includes("not a verified address")) {
+        console.error(
+          `\nThat is the Email ROUTING error, which means Email SENDING is not active for\n` +
+            `this domain. Email Sending needs the Workers Paid plan; on the free plan use\n` +
+            `Resend instead:\n\n` +
+            `  RESEND_API_KEY=re_xxx node tools/mail-check.mjs ${to}\n\n` +
+            `Leave AUTH_EMAIL_FROM empty until one of them passes.`,
+        )
+      }
+      process.exitCode = 1
+    }
+  } finally {
+    cleanup()
+  }
+
 }
