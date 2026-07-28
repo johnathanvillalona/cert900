@@ -220,6 +220,28 @@ url.protocol (wrangler dev simulates the route host and would loop).
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
 
 ## Next tasks
+- **Done 2026-07-28 (tester feedback + email auth + SEO depth), 8 commits:**
+  copy that states counts is now DERIVED (`src/lib/copy.ts`, guard
+  `src/data/copy.test.ts`) after shipping "seven exams / three vendors" at 11
+  and 4; QOTD switched from a stride to a per-exam quota (SAA-C03 and AZ-900 had
+  drawn ZERO slots) and now serves match/order PBQ days; the daily social post
+  no longer captions every exam as CompTIA; **unknown URLs return a real 404 +
+  noindex** instead of the SPA shell with 200; `src/data/routes.ts` is the ONE
+  route table (sitemap, noscript, footer, IndexNow all derive from it — the
+  noscript list had drifted to 9 of 13 guides); mobile got a first-launch
+  walkthrough, in-app question reporting, and share-a-result; **email/password
+  auth is built but gated on `AUTH_EMAIL_FROM`** (worker/mail.ts via the
+  Cloudflare Email Service binding, plus 30/15min per-IP throttling on
+  `/api/auth/*`, which previously had none); the store listing is generated
+  (`tools/gen-store-listing.mjs`) and pushable via the Play API
+  (`tools/play-listing.mjs`); the 13 guides carry 8 real bank questions each
+  with Quiz schema and went from ~600 to ~1,311 words; 3 informational pages
+  added (16 crawlable pages, 20 sitemap URLs).
+  **Guides are lazy-loaded and GUIDE_META lives in `src/data/guide-meta.ts`** —
+  importing it from `Guides.tsx` pins the whole guide chunk into the entry bundle.
+- **SEO phase 2 (not started):** ~48 programmatic per-domain pages from
+  `domains`/`examSplit`/`videos`. Wait until phase 1 is indexed. 783 topic keys
+  exist but are too thin at that granularity.
 - Marketing user steps: remote D1 migration for `leads` (schema.sql command),
   X dev account -> 4 secrets (X_API_KEY/SECRET, X_ACCESS_TOKEN/SECRET),
   Bluesky app password -> BSKY_IDENTIFIER + BSKY_APP_PASSWORD, Reddit script
