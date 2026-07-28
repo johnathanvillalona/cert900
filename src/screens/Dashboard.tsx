@@ -1,4 +1,4 @@
-import { ArrowRight, Flame } from "lucide-react"
+import { ArrowRight, BadgeCheck, Flame } from "lucide-react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import type { ExamMeta } from "@/data/types"
 import { VENDORS } from "@/data/vendors"
@@ -35,6 +35,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       lastExam,
       weakest,
       ready,
+      passed: p?.passed === true,
     }
   })
 
@@ -51,7 +52,9 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   })()
   const streak = studyStreak(allSessions(store.all), new Date().toISOString().slice(0, 10))
 
-  if (totalAnswered === 0) {
+  // A passed exam is worth showing even with no practice behind it, so the
+  // milestone someone just marked does not vanish behind the empty state.
+  if (totalAnswered === 0 && !perExam.some((x) => x.passed)) {
     return (
       <main>
         <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
@@ -89,7 +92,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       </div>
 
       <div className="mt-3 flex flex-col gap-3">
-        {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready }, i) => (
+        {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready, passed }, i) => (
           <ExamSummaryCard
             style={{ "--i": i + 3 } as React.CSSProperties}
             key={exam.id}
@@ -99,6 +102,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
             lastExam={lastExam}
             ready={ready}
             weakest={weakest}
+            passed={passed}
             onContinue={() => onContinue(exam.id)}
             onDetails={() => onDetails(exam.id)}
           />
@@ -109,13 +113,14 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   )
 }
 
-function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, onContinue, onDetails, style }: {
+function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, passed, onContinue, onDetails, style }: {
   exam: ExamMeta
   answered: number
   accuracy: number | null
   lastExam: { scaled: number; date: string } | null
   ready: Readiness | null
   weakest: { name: string; pct: number } | null
+  passed: boolean
   onContinue: () => void
   onDetails: () => void
   style?: React.CSSProperties
@@ -128,8 +133,17 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, o
           <ExamEmblem examId={exam.id} className={cn("size-6", VENDORS[exam.vendor].tintClass)} />
           <span>
             <p className="font-mono text-xs text-muted-foreground">{exam.code}</p>
-            <p className="font-heading text-lg font-semibold">
+            <p className="font-heading flex flex-wrap items-center gap-2 text-lg font-semibold">
               {exam.cert} {exam.name}
+              {passed && (
+                <span
+                  className="bg-success/10 text-success inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold"
+                  data-testid="dash-passed"
+                >
+                  <BadgeCheck className="size-3" strokeWidth={2.5} />
+                  Passed
+                </span>
+              )}
             </p>
           </span>
         </div>

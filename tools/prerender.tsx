@@ -8,6 +8,7 @@ import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META, type GuideMeta } from "../src/screens/Guides"
 import { qotdPool } from "../src/lib/qotd"
+import { siteTagline, siteTitle } from "../src/lib/copy"
 import { SITE_URL } from "../src/lib/site"
 
 const dist = resolve(import.meta.dirname, "../dist")
@@ -31,15 +32,39 @@ const fontPreloads = (() => {
     .join("")
 })()
 
+/**
+ * The homepage's crawlable no-JS fallback, generated from GUIDE_META.
+ *
+ * Hand-maintaining this list failed exactly the way you would expect: it still
+ * said "seven IT certifications" and linked 9 of the 13 guides, so four exams
+ * were invisible to any crawler that does not run JS. Generating it means a new
+ * guide is linked the moment it exists.
+ */
+function noscriptBlock(): string {
+  const links = Object.values(GUIDE_META)
+    .map((g) => `<li><a href="${g.path}">${esc(g.title.replace(" | Cert900", ""))}</a></li>`)
+    .join("")
+  return `<noscript><h1>Cert900 — free certification practice exams</h1><p>${esc(siteTagline())}</p><ul>${links}</ul></noscript>`
+}
+
 // Inject into the template so every prerendered guide gets the preloads, and
 // patch dist/index.html so the SPA entry (homepage/app) gets them too.
 // Idempotent: re-running prerender without a fresh build must not double-inject.
 const rawTemplate = readFileSync(resolve(dist, "index.html"), "utf8")
-const template = rawTemplate.includes('as="font"')
+const withFonts = rawTemplate.includes('as="font"')
   ? rawTemplate
   : rawTemplate.replace("</head>", `${fontPreloads}</head>`)
+// Idempotent by construction: the regex matches the generated block too. The
+// title is stamped from the registry as well, so index.html and the SPA's
+// DEFAULT_TITLE cannot drift apart again (one listed Cisco, the other did not).
+const template = withFonts
+  .replace(/<noscript>[\s\S]*?<\/noscript>/, noscriptBlock())
+  .replace(/<title>[^<]*<\/title>/, `<title>${esc(siteTitle())}</title>`)
+  .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
+  .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
 writeFileSync(resolve(dist, "index.html"), template)
 console.log(`font preloads: ${fontPreloads ? (fontPreloads.match(/href="([^"]+)"/g) ?? []).join(" ") : "(none found)"}`)
+console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links`)
 
 const noop = () => {}
 

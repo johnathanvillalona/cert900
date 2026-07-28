@@ -1,4 +1,5 @@
 import { useRef, useState } from "react"
+import { BadgeCheck } from "lucide-react"
 import { toast } from "sonner"
 import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
@@ -54,7 +55,18 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
   return (
     <main>
       <p className="font-mono text-xs text-muted-foreground">{exam.cert} {exam.name} · {exam.code}</p>
-      <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Detailed progress</h1>
+      <h1 className="font-heading mt-1 flex flex-wrap items-center gap-3 text-3xl font-semibold tracking-tight">
+        Detailed progress
+        {p.passed && (
+          <span
+            className="bg-success/10 text-success inline-flex items-center gap-1 rounded-md px-2 py-1 font-mono text-xs font-semibold"
+            data-testid="passed-badge"
+          >
+            <BadgeCheck className="size-3.5" strokeWidth={2.5} />
+            Passed{p.passedOn ? ` ${p.passedOn}` : ""}
+          </span>
+        )}
+      </h1>
 
       <Card className="mt-4 p-6" data-testid="readiness">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

@@ -16,6 +16,21 @@ export interface GuideMeta {
   faq: [string, string][]
 }
 
+/**
+ * Inventory counts for a set of exams, for copy that quotes them.
+ *
+ * These are OUR question totals, not exam facts, so they move every time a bank
+ * grows: the A+ description shipped "621 questions" against 715 and Network+
+ * "315" against 355. Never retype them.
+ */
+const inventory = (...ids: string[]) => ({
+  q: ids.reduce((a, id) => a + EXAM_META[id].questionCount, 0),
+  pbq: ids.reduce((a, id) => a + EXAM_META[id].pbqCount, 0),
+})
+const APLUS = inventory("220-1201", "220-1202")
+const NPLUS = inventory("n10-009")
+const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
+
 export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" | "secplus" | "aif" | "clf" | "az900" | "sc900" | "ccna" | "az104" | "saa", GuideMeta> = {
   secplus: {
     path: "/comptia-security-plus-practice-test",
@@ -212,8 +227,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
   aplus: {
     path: "/comptia-a-plus-practice-test",
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
-    description:
-      "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 621 original questions, 42 performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+    description: `Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): ${APLUS.q} original questions, ${APLUS.pbq} performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.`,
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
     faq: [
       [
@@ -226,7 +240,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
       ],
       [
         "Is this actually free?",
-        "Yes. All 621 A+ questions, all 42 PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional Google sign-in syncs it across devices.",
+        `Yes. All ${APLUS.q} A+ questions, all ${APLUS.pbq} PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional sign-in syncs it across devices.`,
       ],
     ],
   },
@@ -283,8 +297,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
   nplus: {
     path: "/network-plus-practice-test",
     title: "Free CompTIA Network+ Practice Test (N10-009) | Cert900",
-    description:
-      "Free CompTIA Network+ N10-009 practice: 315 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.",
+    description: `Free CompTIA Network+ N10-009 practice: ${NPLUS.q} original questions, ${NPLUS.pbq} performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.`,
     h1: "Free CompTIA Network+ (N10-009) practice test",
     faq: [
       [
@@ -304,8 +317,7 @@ export const GUIDE_META: Record<"aplus" | "aplus1" | "aplus2" | "nplus" | "pbq" 
   pbq: {
     path: "/comptia-pbq-practice",
     title: "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900",
-    description:
-      "Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. 62 PBQs, no signup.",
+    description: `Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. ${COMPTIA_PBQ.pbq} PBQs, no signup.`,
     h1: "CompTIA PBQ practice: real simulations, free",
     faq: [
       [
@@ -926,7 +938,7 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <Sample n={1} q={{ code: "N10-009 · Concepts", stem: "Which OSI layer is responsible for logical addressing and routing between different networks?", options: ["Layer 2 (Data Link)", "Layer 3 (Network)", "Layer 4 (Transport)", "Layer 7 (Application)"], answer: 1, why: "Layer 3, the Network layer, handles logical (IP) addressing and routing between networks." }} />
         <Sample n={2} q={{ code: "N10-009 · Ports", stem: "Which port does HTTPS use for encrypted web traffic?", options: ["80", "22", "443", "25"], answer: 2, why: "HTTPS uses TCP port 443; HTTP uses port 80." }} />
         <Sample n={3} q={{ code: "N10-009 · Standards", stem: "Which Ethernet standard provides 1 Gbps over twisted-pair copper?", options: ["10BASE-T", "100BASE-TX", "10GBASE-SR", "1000BASE-T"], answer: 3, why: "1000BASE-T delivers 1 Gbps over Cat 5e or better copper up to 100 meters." }} />
-        <Cta label="Practice all 315 free" onGo={() => onStart("n10-009")} testid="guide-cta-2" />
+        <Cta label={`Practice all ${NPLUS.q} free`} onGo={() => onStart("n10-009")} testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
