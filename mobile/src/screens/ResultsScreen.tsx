@@ -1,11 +1,13 @@
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native"
 import { EXAMS } from "@/data/index"
+import { SITE_URL } from "@/lib/site"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import type { ExamDef, Question } from "@/data/types"
-import type { ExamOutcome, ReviewEntry } from "@/lib/quiz-session"
+import type { ExamOutcome, QuizOutcome, ReviewEntry } from "@/lib/quiz-session"
 import { colors, radius, space } from "../theme"
 import { AppButton } from "../ui"
 import type { RootScreenProps } from "../navigation"
+import { ReportLink } from "../report"
 
 function fmtSelection(q: Question, sel: number | number[] | undefined): string {
   if (sel === undefined || (Array.isArray(sel) && sel.length === 0)) return "(none)"
@@ -19,6 +21,26 @@ function fmtCorrect(q: Question): string {
 
 const videoLabel = (exam: ExamDef) =>
   exam.vendor === "comptia" ? "Watch the Professor Messer video →" : "Watch the free video →"
+
+/**
+ * Share sheet for a finished session.
+ *
+ * Uses React Native's built-in Share, so no dependency and no permissions. The
+ * message names the exam and the real scale rather than a bare number, since a
+ * scaled score is meaningless without its cut line.
+ */
+async function shareResult(exam: ExamDef, outcome: QuizOutcome): Promise<void> {
+  const right = outcome.review.filter((r) => r.ok).length
+  const body =
+    outcome.mode === "exam"
+      ? `I scored ${outcome.scaled} on a ${exam.cert} ${exam.name} (${exam.code}) practice exam — pass line is ${exam.scale.pass} on a ${exam.scale.max} scale.`
+      : `I just drilled ${outcome.review.length} ${exam.cert} ${exam.name} (${exam.code}) questions and got ${right} right.`
+  try {
+    await Share.share({ message: `${body}\n\nFree practice at ${SITE_URL}` })
+  } catch {
+    /* user dismissed the sheet, or the platform refused it */
+  }
+}
 
 export function ResultsScreen({ route, navigation }: RootScreenProps<"Results">) {
   const { examId, outcome } = route.params
@@ -62,6 +84,12 @@ export function ResultsScreen({ route, navigation }: RootScreenProps<"Results">)
       </View>
 
       <View style={styles.actions}>
+        <AppButton
+          label="Share this result"
+          variant="ghost"
+          testID="share-result"
+          onPress={() => void shareResult(exam, outcome)}
+        />
         {redoIds.length > 0 && (
           <AppButton
             label={`Redo the ${redoIds.length} you missed`}
@@ -170,6 +198,10 @@ function MissCard({ exam, entry }: { exam: ExamDef; entry: ReviewEntry }) {
           <Text style={styles.videoName}>{video.n}</Text>
         </Pressable>
       ) : null}
+      <ReportLink
+        examId={exam.id}
+        refId={entry.kind === "mc" ? `q:${entry.q.id}` : `pbq:${entry.p.title}`}
+      />
     </View>
   )
 }

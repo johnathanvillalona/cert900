@@ -8,6 +8,7 @@ import { useProgress } from "../progress-store"
 import { colors, radius, space } from "../theme"
 import { AppButton } from "../ui"
 import type { RootScreenProps } from "../navigation"
+import { ReportLink } from "../report"
 
 const COUNT = 10
 const CHOOSE_WORDS: Record<number, string> = { 2: "two", 3: "three", 4: "four" }
@@ -215,6 +216,7 @@ export function DrillScreen({ route, navigation }: RootScreenProps<"Drill">) {
             {ok ? "Correct" : correctSet ? "Not quite. The correct answers are highlighted above" : "Not quite"}
           </Text>
           <Text style={styles.explainText}>{q.e}</Text>
+          <ReportLink examId={exam.id} refId={`q:${q.id}`} />
         </View>
       )}
 

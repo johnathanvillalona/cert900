@@ -45,11 +45,40 @@ export async function saveUpdatedAt(m: UpdatedAtMap): Promise<void> {
 /**
  * Removes both progress keys from the device. Only these two: other AsyncStorage
  * keys are not ours, and the auth session lives in SecureStore, not here.
+ *
+ * UI flags written by `setFlag` are deliberately NOT cleared. "Erase progress on
+ * this device" is about practice data; replaying the first-launch walkthrough
+ * afterwards would be a bug, not a feature.
  */
 export async function clearLocal(): Promise<void> {
   try {
     await AsyncStorage.multiRemove([STORE_KEY, UPDATED_AT_KEY])
   } catch {
     /* unavailable — the in-memory reset below is still what the user sees */
+  }
+}
+
+/**
+ * Small local UI flags (currently just "has seen onboarding").
+ *
+ * Kept out of the progress store on purpose: every mutation there goes through
+ * `update()`, which marks the exam dirty and schedules a cloud push, so a purely
+ * local UI preference would be uploaded and synced across devices.
+ */
+export async function getFlag(key: string): Promise<boolean> {
+  try {
+    return (await AsyncStorage.getItem(`cert900-flag-${key}`)) === "1"
+  } catch {
+    // Unreadable storage: report "not set". For onboarding that means showing
+    // it again, which is the harmless direction to fail in.
+    return false
+  }
+}
+
+export async function setFlag(key: string, value = true): Promise<void> {
+  try {
+    await AsyncStorage.setItem(`cert900-flag-${key}`, value ? "1" : "0")
+  } catch {
+    /* unavailable — the flag just does not stick */
   }
 }
