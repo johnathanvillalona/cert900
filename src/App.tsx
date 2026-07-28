@@ -23,6 +23,7 @@ import { DrillSetup } from "@/screens/DrillSetup"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
+import { NotFound } from "@/screens/NotFound"
 import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META } from "@/screens/Guides"
 import { SiteFooter } from "@/components/SiteFooter"
 
@@ -56,6 +57,7 @@ export type Screen =
   | { kind: "guide-ccna" }
   | { kind: "guide-az104" }
   | { kind: "guide-saa" }
+  | { kind: "not-found" }
 
 /** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
@@ -83,6 +85,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
   "delete-account": "Delete your account | Cert900",
+  "not-found": "Page not found | Cert900",
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-aplus1": GUIDE_META.aplus1.title,
   "guide-aplus2": GUIDE_META.aplus2.title,
@@ -106,7 +109,11 @@ const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results"
 
 function screenForPath(path: string): Screen {
   const kind = PATH_SCREENS[path]
-  return kind ? ({ kind } as Screen) : { kind: "landing" }
+  if (kind) return { kind } as Screen
+  // Anything that is not "/" and not a known route is a real 404. The worker
+  // sends this shell with a 404 status and noindex; rendering the landing page
+  // instead (the old behaviour) made every mistyped URL look like a real page.
+  return path === "/" ? { kind: "landing" } : { kind: "not-found" }
 }
 
 export default function App() {
@@ -118,8 +125,12 @@ export default function App() {
 
   // Keep the address bar honest: deep-linkable pages get real URLs, everything else lives at "/".
   useEffect(() => {
-    const want = SCREEN_PATHS[screen.kind] ?? "/"
-    if (window.location.pathname !== want) window.history.pushState({}, "", want)
+    // The 404 screen keeps whatever URL the visitor actually asked for;
+    // rewriting it to "/" would hide the broken link and contradict the 404.
+    if (screen.kind !== "not-found") {
+      const want = SCREEN_PATHS[screen.kind] ?? "/"
+      if (window.location.pathname !== want) window.history.pushState({}, "", want)
+    }
     document.title = SCREEN_TITLES[screen.kind] ?? DEFAULT_TITLE
   }, [screen.kind])
   useEffect(() => {
@@ -353,6 +364,9 @@ export default function App() {
         {screen.kind === "privacy" && <Privacy />}
         {screen.kind === "terms" && <Terms />}
         {screen.kind === "delete-account" && <DeleteAccount />}
+        {screen.kind === "not-found" && (
+          <NotFound onHome={() => setScreen({ kind: "landing" })} onNavigate={openPath} />
+        )}
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus1" && <APlusCore1Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus2" && <APlusCore2Guide onStart={startExamFromGuide} />}

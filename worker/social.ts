@@ -3,6 +3,7 @@
 // IndexNow ping. All platform credentials are optional secrets; anything
 // unconfigured is skipped with a log line so one platform never blocks another.
 import type { Env } from "./auth"
+import { GUIDE_PATHS } from "../src/data/routes"
 
 interface FeedEntry {
   code: string
@@ -237,25 +238,9 @@ export async function weeklyIndexNow(): Promise<void> {
       host: "cert900.com",
       key: INDEXNOW_KEY,
       keyLocation: `${SITE}/${INDEXNOW_KEY}.txt`,
-      // Home + every prerendered guide slug. Keep in sync with the guide set
-      // (src/screens/Guides.tsx GUIDE_META) and public/sitemap.xml; each new
-      // exam's integration adds its slug here.
-      urlList: [
-        `${SITE}/`,
-        `${SITE}/comptia-a-plus-practice-test`,
-        `${SITE}/comptia-a-plus-core-1-practice-test`,
-        `${SITE}/comptia-a-plus-core-2-practice-test`,
-        `${SITE}/network-plus-practice-test`,
-        `${SITE}/comptia-security-plus-practice-test`,
-        `${SITE}/comptia-pbq-practice`,
-        `${SITE}/cisco-ccna-practice-test`,
-        `${SITE}/aws-ai-practitioner-practice-test`,
-        `${SITE}/aws-cloud-practitioner-practice-test`,
-        `${SITE}/aws-solutions-architect-associate-practice-test`,
-        `${SITE}/azure-fundamentals-practice-test`,
-        `${SITE}/azure-administrator-az-104-practice-test`,
-        `${SITE}/microsoft-sc-900-practice-test`,
-      ],
+      // Home + every prerendered guide slug, from the shared route table so a
+      // new exam's guide is pinged without editing this list.
+      urlList: [`${SITE}/`, ...Object.values(GUIDE_PATHS).map((p) => `${SITE}${p}`)],
     }),
   })
   console.log(`indexnow -> ${res.status}`)

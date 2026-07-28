@@ -2,7 +2,7 @@ import { Heart } from "lucide-react"
 import { AFFILIATE, CONTACT_EMAIL, DONATE_URL } from "@/lib/site"
 import { AMAZON_DISCLOSURE } from "@/lib/affiliate"
 import { Wordmark } from "@/components/Wordmark"
-import { GUIDE_META } from "@/screens/Guides"
+import { GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS } from "@/data/routes"
 
 /**
  * Quiet legal footer used on the landing page and the app shell.
@@ -24,14 +24,16 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
           </p>
         )}
         <nav className={full ? "mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs" : "flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"} aria-label="Study guides">
-          {(["aplus", "aplus1", "aplus2", "nplus", "secplus", "pbq", "ccna", "aif", "clf", "saa", "az900", "az104", "sc900"] as const).map((k) => (
+          {/* Keys and labels come from src/data/routes.ts, so a new guide shows
+              up here without editing a parallel array and a ternary chain. */}
+          {GUIDE_KEYS.map((k) => (
             <a
               key={k}
-              href={GUIDE_META[k].path}
-              onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_META[k].path) }}
+              href={GUIDE_PATHS[k]}
+              onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_PATHS[k]) }}
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
-              {k === "aplus" ? "A+ practice test" : k === "aplus1" ? "A+ Core 1 practice" : k === "aplus2" ? "A+ Core 2 practice" : k === "nplus" ? "Network+ practice test" : k === "secplus" ? "Security+ practice test" : k === "pbq" ? "PBQ practice" : k === "ccna" ? "CCNA practice test" : k === "aif" ? "AWS AI Practitioner practice" : k === "clf" ? "AWS Cloud Practitioner practice" : k === "saa" ? "AWS Solutions Architect practice" : k === "az900" ? "Azure Fundamentals practice" : k === "az104" ? "AZ-104 practice test" : "SC-900 practice test"}
+              {GUIDE_LABELS[k]}
             </a>
           ))}
         </nav>
