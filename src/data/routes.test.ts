@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, isKnownPath } from "./routes"
-import { GUIDE_META } from "../screens/Guides"
+import { GUIDE_META } from "./guide-meta"
 
 /**
  * The route table is the single source for five consumers that used to keep
