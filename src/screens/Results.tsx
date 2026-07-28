@@ -8,6 +8,7 @@ import { VideoLink } from "@/components/VideoLink"
 import { ReportButton } from "@/components/ReportButton"
 import { StudyGuideLink } from "@/components/StudyGuideLink"
 import { AppPromo } from "@/components/AppPromo"
+import { ShareResult } from "@/components/ShareResult"
 import { DONATE_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -107,6 +108,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
             Another drill
           </Button>
           <Button variant="outline" onClick={onProgress}>My progress</Button>
+          <ShareResult exam={exam} outcome={outcome} />
           <Button variant="outline" onClick={onHome}>Home</Button>
         </div>
         <ResultsSupport examId={exam.id} />
@@ -208,6 +210,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           Retake with fresh questions
         </Button>
         <Button variant="outline" onClick={onProgress}>My progress</Button>
+        <ShareResult exam={exam} outcome={outcome} />
         <Button variant="outline" onClick={onHome}>Home</Button>
       </div>
       <ResultsSupport examId={exam.id} />

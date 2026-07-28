@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, View } from "react-native"
 import * as Linking from "expo-linking"
@@ -14,6 +15,8 @@ import { ExamScreen } from "./src/screens/ExamScreen"
 import { ResultsScreen } from "./src/screens/ResultsScreen"
 import { ProgressScreen } from "./src/screens/ProgressScreen"
 import { AccountScreen } from "./src/screens/AccountScreen"
+import { OnboardingScreen } from "./src/screens/OnboardingScreen"
+import { getFlag, setFlag } from "./src/storage"
 import type { RootStackParamList } from "./src/navigation"
 import { APP_SCHEME } from "./src/config"
 import { colors } from "./src/theme"
@@ -49,6 +52,14 @@ const linking: LinkingOptions<RootStackParamList> = {
 
 export default function App() {
   const store = useProgressStore()
+  // `null` = flag not read yet, so neither the walkthrough nor the app flashes
+  // before we know which to show.
+  const [seenIntro, setSeenIntro] = useState<boolean | null>(null)
+  useEffect(() => {
+    void getFlag("onboarding").then(setSeenIntro)
+  }, [])
+
+  const booting = !store.ready || seenIntro === null
 
   return (
     <ProgressContext.Provider value={store}>
@@ -58,10 +69,21 @@ export default function App() {
           {/* Hold interactive UI until the async AsyncStorage load resolves, so
               no answer can be written against an empty in-memory blob and then
               overwritten when the load lands. */}
-          {!store.ready ? (
+          {booting ? (
             <View style={styles.loading}>
               <ActivityIndicator color={colors.primary} />
             </View>
+          ) : !seenIntro ? (
+            // Outside the navigator on purpose: no back gesture into it, and no
+            // route that could deep-link a returning user back to the intro.
+            <ErrorBoundary>
+              <OnboardingScreen
+                onDone={() => {
+                  setSeenIntro(true)
+                  void setFlag("onboarding")
+                }}
+              />
+            </ErrorBoundary>
           ) : (
             <ErrorBoundary>
               <NavigationContainer theme={navTheme} linking={linking}>
