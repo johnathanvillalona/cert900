@@ -42,12 +42,21 @@
   "vars": {
     "BETTER_AUTH_URL": "https://cert900.com",
     // Set this to "no-reply@cert900.com" to enable email/password sign-in.
-    // REQUIRED FIRST: onboard the sending domain, which adds the SPF and DKIM
-    // records — `npx wrangler email sending enable cert900.com`, or Dashboard >
-    // Compute & AI > Email Service > Email Sending > Onboard Domain. Until then
-    // this stays empty and the site offers Google (and Apple on iOS) only,
-    // because password sign-in without a delivered reset link is a permanent
-    // lockout for anyone who forgets one.
+    //
+    // DO NOT SET IT UNTIL `node tools/mail-check.mjs <your-address>` REPORTS OK.
+    // Email Routing (receiving) and Email Sending (transactional) are separate
+    // products that share the `send_email` binding name. cert900.com has Routing
+    // set up — MX records, an SPF include, and a cf2024-1 DKIM key are all live —
+    // and that is enough to make the binding LOOK configured while every send
+    // fails with "destination address is not a verified address", because
+    // Routing only sends to addresses you have verified. Sending has to be
+    // onboarded separately: Dashboard > Compute & AI > Email Service > Email
+    // Sending > Onboard Domain (or `npx wrangler email sending enable
+    // cert900.com`, which needs a token carrying the email scope).
+    //
+    // Until the check passes this stays empty and the site offers Google (and
+    // Apple on iOS) only, because password sign-in without a delivered reset
+    // link is a permanent lockout for anyone who forgets one.
     "AUTH_EMAIL_FROM": ""
   }
 }

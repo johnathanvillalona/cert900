@@ -10,6 +10,7 @@
 //   node tools/play-listing.mjs --key <path> --commit     # actually publish
 //
 // The key is a live publishing credential: keep it OUTSIDE this repo.
+// Setup instructions: docs/store-api-setup.md
 //
 // What this CANNOT do (Play Console only, by Google's design): App content
 // declarations (data safety, content rating, target audience, ads), identity
@@ -23,6 +24,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const PACKAGE = "com.cert900.app"
 const LOCALE = "en-US"
 const API = "https://androidpublisher.googleapis.com/androidpublisher/v3"
+
+/** Google enforces these server-side and 400s on overflow. */
+const LIMITS = { title: 30, shortDescription: 80, fullDescription: 4000 }
 
 const args = process.argv.slice(2)
 const keyPath = args[args.indexOf("--key") + 1]
@@ -68,8 +72,40 @@ async function api(token, method, url, body) {
     body: body ? JSON.stringify(body) : undefined,
   })
   const text = await res.text()
-  if (!res.ok) throw new Error(`${method} ${url} -> ${res.status}\n${text}`)
+  if (!res.ok) {
+    // Translate the failures that actually happen into the fix for each.
+    if (res.status === 403 || text.includes("PERMISSION_DENIED")) {
+      throw new Error(
+        `${res.status} permission denied.\n` +
+          `The service account needs the "Manage store presence" permission on ${PACKAGE}\n` +
+          `(Play Console > Users and permissions > the service account > App permissions).\n` +
+          `Release permissions are NOT what grants listing edits. Newly granted permissions\n` +
+          `can take a while to propagate.\n\n${text}`,
+      )
+    }
+    if (res.status === 404) {
+      throw new Error(
+        `${res.status} not found. Either the package name is wrong, or this service account\n` +
+          `is not invited to the developer account that owns ${PACKAGE}. Google returns 404\n` +
+          `rather than 403 for an app you cannot see at all.\n\n${text}`,
+      )
+    }
+    if (res.status === 429) throw new Error(`${res.status} rate limited by Google; retry shortly.\n${text}`)
+    throw new Error(`${method} ${url} -> ${res.status}\n${text}`)
+  }
   return text ? JSON.parse(text) : {}
+}
+
+/** Fail before opening an edit rather than eating a 400 mid-transaction. */
+function checkLimits(listing) {
+  const over = Object.entries(LIMITS)
+    .filter(([f, max]) => [...(listing[f] ?? "")].length > max)
+    .map(([f, max]) => `  ${f}: ${[...listing[f]].length}/${max}`)
+  if (over.length) {
+    console.error(`Listing exceeds Google's limits:\n${over.join("\n")}`)
+    console.error("Shorten the copy in tools/gen-store-listing.mjs and regenerate.")
+    process.exit(1)
+  }
 }
 
 /** Show what would change, field by field, before anything is written. */
@@ -92,15 +128,20 @@ function diff(current, next) {
 
 const sa = JSON.parse(readFileSync(keyPath, "utf8"))
 const listing = JSON.parse(readFileSync(path.join(ROOT, "tools", "store-listing.json"), "utf8"))
+checkLimits(listing)
 
 const token = await accessToken(sa)
 console.log(`authenticated as ${sa.client_email}`)
 
 // Every write goes through an "edit" that is only applied on commit, so a dry
 // run can read the live listing through the same transaction and discard it.
-const edit = await api(token, "POST", `${API}/applications/${PACKAGE}/edits`)
+// Note: an account may have only ONE edit open at a time, and creating a new
+// one invalidates any existing edit — including one the Play Console UI has
+// open. Do not run this while editing the listing by hand.
+const edit = await api(token, "POST", `${API}/applications/${PACKAGE}/edits`, {})
 console.log(`opened edit ${edit.id}`)
 
+let committed = false
 try {
   let current = null
   try {
@@ -116,23 +157,34 @@ try {
   } else if (!commit) {
     console.log("\nDRY RUN. Re-run with --commit to publish these changes.")
   } else {
+    // PUT replaces the whole Listing resource, and `video` is a field on it, so
+    // send the current value back rather than silently clearing a promo video.
     await api(token, "PUT", `${API}/applications/${PACKAGE}/edits/${edit.id}/listings/${LOCALE}`, {
       language: LOCALE,
       title: listing.title,
       shortDescription: listing.shortDescription,
       fullDescription: listing.fullDescription,
+      ...(current?.video ? { video: current.video } : {}),
     })
-    await api(token, "POST", `${API}/applications/${PACKAGE}/edits/${edit.id}:commit`)
-    console.log("\ncommitted. The new listing is live on Google Play.")
-    process.exit(0)
+    // changesInReviewBehavior is the important one. Its DEFAULT is
+    // CANCEL_IN_REVIEW_AND_SUBMIT, which would silently cancel whatever is
+    // currently in review and submit this instead. ERROR_IF_IN_REVIEW makes the
+    // call fail loudly instead, which is the only safe default for a script.
+    const url = new URL(`${API}/applications/${PACKAGE}/edits/${edit.id}:commit`)
+    url.searchParams.set("changesInReviewBehavior", "ERROR_IF_IN_REVIEW")
+    await api(token, "POST", url.toString())
+    committed = true
+    console.log("\ncommitted. Store listing changes go through Google's review before they appear.")
   }
 } finally {
-  // Abandon the edit unless it was committed above, so a failed or dry run
-  // never leaves a dangling transaction that blocks the next one.
-  try {
-    await api(token, "DELETE", `${API}/applications/${PACKAGE}/edits/${edit.id}`)
-    console.log(`\ndiscarded edit ${edit.id}`)
-  } catch {
-    /* already committed or expired */
+  // Abandon the edit unless it was committed, so a failed or dry run never
+  // leaves a dangling transaction that blocks the next one.
+  if (!committed) {
+    try {
+      await api(token, "DELETE", `${API}/applications/${PACKAGE}/edits/${edit.id}`)
+      console.log(`\ndiscarded edit ${edit.id}`)
+    } catch {
+      /* already invalidated or expired */
+    }
   }
 }
