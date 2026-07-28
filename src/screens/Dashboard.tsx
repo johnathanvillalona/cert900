@@ -36,6 +36,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       weakest,
       ready,
       passed: p?.passed === true,
+      passedOn: p?.passedOn,
     }
   })
 
@@ -92,7 +93,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
       </div>
 
       <div className="mt-3 flex flex-col gap-3">
-        {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready, passed }, i) => (
+        {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready, passed, passedOn }, i) => (
           <ExamSummaryCard
             style={{ "--i": i + 3 } as React.CSSProperties}
             key={exam.id}
@@ -103,6 +104,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
             ready={ready}
             weakest={weakest}
             passed={passed}
+            passedOn={passedOn}
             onContinue={() => onContinue(exam.id)}
             onDetails={() => onDetails(exam.id)}
           />
@@ -113,7 +115,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
   )
 }
 
-function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, passed, onContinue, onDetails, style }: {
+function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, passed, passedOn, onContinue, onDetails, style }: {
   exam: ExamMeta
   answered: number
   accuracy: number | null
@@ -121,6 +123,7 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
   ready: Readiness | null
   weakest: { name: string; pct: number } | null
   passed: boolean
+  passedOn?: string
   onContinue: () => void
   onDetails: () => void
   style?: React.CSSProperties
@@ -178,6 +181,12 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
                 </span>
               )}
             </>
+          ) : passed ? (
+            // "Not started" next to a Passed badge reads as a contradiction:
+            // the exam is done, there is simply no practice history behind it.
+            <span className="text-muted-foreground">
+              {passedOn ? `Passed on ${passedOn}` : "Marked as passed"}
+            </span>
           ) : (
             <span className="text-muted-foreground">Not started</span>
           )}

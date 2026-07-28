@@ -10,11 +10,27 @@ interface State {
   error: Error | null
 }
 
-export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
+interface Props {
+  children: ReactNode
+  /**
+   * Called once when a child throws. Lets a caller route AROUND the failure
+   * instead of parking the user on the fallback screen — the first-launch
+   * walkthrough uses it to mark itself seen, because "Try again" on a screen
+   * that crashes deterministically is an unescapable loop, and that screen
+   * renders before the navigator.
+   */
+  onError?: (error: Error) => void
+}
+
+export class ErrorBoundary extends Component<Props, State> {
   state: State = { error: null }
 
   static getDerivedStateFromError(error: Error): State {
     return { error }
+  }
+
+  componentDidCatch(error: Error) {
+    this.props.onError?.(error)
   }
 
   render() {

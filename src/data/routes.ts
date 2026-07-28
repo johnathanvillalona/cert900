@@ -11,6 +11,7 @@
  * linked 9 of 13 guides, so four exams were invisible to non-JS crawlers.
  * Everything now derives from here.
  */
+import { EXAM_IDS } from "./exam-ids"
 
 /** Guide slugs, in footer/sitemap order. */
 export const GUIDE_PATHS = {
@@ -63,6 +64,36 @@ export const GUIDE_KEYS = Object.keys(GUIDE_PATHS) as GuideKey[]
 export const LEGAL_PATHS = ["/privacy", "/terms", "/delete-account"] as const
 
 /**
+ * App screens that own a URL.
+ *
+ * Every screen used to live at "/", which meant browsing the app created no
+ * history entries at all and the browser's back button walked straight off the
+ * site. These are client-rendered (no prerender), so they stay out of the
+ * sitemap, but they must resolve rather than 404.
+ */
+export const APP_PATHS = ["/exams", "/progress"] as const
+
+/** Sub-pages under /exam/:id. "" is the exam's own menu. */
+export const EXAM_SUBPATHS = ["", "drill", "quiz", "results", "stats"] as const
+
+export const examPath = (examId: string, sub: (typeof EXAM_SUBPATHS)[number] = "") =>
+  sub ? `/exam/${examId}/${sub}` : `/exam/${examId}`
+
+/**
+ * Parse `/exam/:id[/sub]`. Returns null for anything else, and for an exam id
+ * that does not exist — otherwise `/exam/nonsense` would answer 200 and put the
+ * soft-404 hole back.
+ */
+export function parseExamPath(pathname: string): { examId: string; sub: string } | null {
+  const m = /^\/exam\/([^/]+)(?:\/([^/]+))?\/?$/.exec(pathname)
+  if (!m) return null
+  const [, examId, sub = ""] = m
+  if (!EXAM_IDS.includes(examId)) return null
+  if (!(EXAM_SUBPATHS as readonly string[]).includes(sub)) return null
+  return { examId, sub }
+}
+
+/**
  * Everything that should return 200. Anything else under a non-asset path is a
  * genuine 404 — previously the SPA fallback answered every URL on the internet
  * with the landing page and HTTP 200, a soft-404 across the whole path space.
@@ -71,6 +102,7 @@ export const KNOWN_PATHS: readonly string[] = [
   "/",
   ...Object.values(GUIDE_PATHS),
   ...LEGAL_PATHS,
+  ...APP_PATHS,
 ]
 
 /** `true` for a path the site actually serves, tolerating one trailing slash. */
@@ -79,5 +111,5 @@ export function isKnownPath(pathname: string): boolean {
   // serve; a doubled slash is never one of ours.
   if (pathname.includes("//")) return false
   const p = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
-  return KNOWN_PATHS.includes(p)
+  return KNOWN_PATHS.includes(p) || parseExamPath(p) !== null
 }

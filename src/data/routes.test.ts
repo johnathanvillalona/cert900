@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
-import { GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, isKnownPath } from "./routes"
+import { EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isKnownPath, parseExamPath } from "./routes"
+import { EXAM_IDS } from "./exam-ids"
 import { GUIDE_META } from "./guide-meta"
 
 /**
@@ -42,6 +43,41 @@ describe("route table", () => {
       "/privacy/extra",
     ]) {
       expect(isKnownPath(bad), bad).toBe(false)
+    }
+  })
+})
+
+/**
+ * App screens gained URLs so the browser's back button works: every screen used
+ * to live at "/", which created no history entries at all.
+ */
+describe("app screen paths", () => {
+  it("builds exam paths and round-trips them", () => {
+    expect(examPath("sy0-701")).toBe("/exam/sy0-701")
+    expect(examPath("sy0-701", "drill")).toBe("/exam/sy0-701/drill")
+    for (const sub of EXAM_SUBPATHS) {
+      const parsed = parseExamPath(examPath("sy0-701", sub))
+      expect(parsed, `${sub || "(menu)"} should parse`).toEqual({ examId: "sy0-701", sub })
+    }
+  })
+
+  it("resolves every real exam id", () => {
+    for (const id of EXAM_IDS) expect(parseExamPath(`/exam/${id}`)?.examId, id).toBe(id)
+  })
+
+  /** Otherwise /exam/anything would answer 200 and reopen the soft-404 hole. */
+  it("rejects unknown exams and unknown sub-pages", () => {
+    expect(parseExamPath("/exam/not-an-exam")).toBeNull()
+    expect(parseExamPath("/exam/sy0-701/nonsense")).toBeNull()
+    expect(parseExamPath("/exam/sy0-701/drill/extra")).toBeNull()
+    expect(parseExamPath("/exam/")).toBeNull()
+    expect(parseExamPath("/exams")).toBeNull()
+    expect(isKnownPath("/exam/not-an-exam")).toBe(false)
+  })
+
+  it("serves the app paths rather than 404ing them", () => {
+    for (const p of ["/exams", "/progress", "/exam/sy0-701", "/exam/az-104/stats"]) {
+      expect(isKnownPath(p), p).toBe(true)
     }
   })
 })

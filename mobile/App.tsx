@@ -60,6 +60,11 @@ export default function App() {
   }, [])
 
   const booting = !store.ready || seenIntro === null
+  /** Mark the walkthrough done, whether it finished or fell over. */
+  const dismissIntro = () => {
+    setSeenIntro(true)
+    void setFlag("onboarding")
+  }
 
   return (
     <ProgressContext.Provider value={store}>
@@ -76,13 +81,14 @@ export default function App() {
           ) : !seenIntro ? (
             // Outside the navigator on purpose: no back gesture into it, and no
             // route that could deep-link a returning user back to the intro.
-            <ErrorBoundary>
-              <OnboardingScreen
-                onDone={() => {
-                  setSeenIntro(true)
-                  void setFlag("onboarding")
-                }}
-              />
+            //
+            // onError skips the walkthrough entirely if it throws. This screen
+            // renders before the navigator on a first launch, so without the
+            // escape hatch a render bug here would be an unescapable error
+            // screen — the app would be unopenable rather than merely missing
+            // its intro.
+            <ErrorBoundary onError={dismissIntro}>
+              <OnboardingScreen onDone={dismissIntro} />
             </ErrorBoundary>
           ) : (
             <ErrorBoundary>
