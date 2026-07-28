@@ -4,6 +4,7 @@ import { CloudCheck, CloudOff, LoaderCircle, LogOut, Trash2 } from "lucide-react
 import { useSession, signIn, signOut, deleteUser } from "@/lib/auth-client"
 import { CONTACT_EMAIL } from "@/lib/site"
 import { useProgress } from "@/hooks/useProgress"
+import { EmailAuthForm, useEmailAuthEnabled } from "@/components/EmailAuthForm"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -42,24 +43,67 @@ export function AccountMenu() {
   const [deleting, setDeleting] = useState(false)
   const [confirmSignOut, setConfirmSignOut] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
+  const [signInOpen, setSignInOpen] = useState(false)
+  const emailAuth = useEmailAuthEnabled()
 
   if (isPending) return <span className="w-9" />
 
   if (!session?.user) {
+    // With mail configured there are two ways in, so the button opens a chooser
+    // instead. Without it, the button stays a one-tap Google sign-in exactly as
+    // before rather than opening a dialog with a single option in it.
+    if (!emailAuth) {
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          data-testid="sign-in"
+          aria-label="Sign in with Google"
+          onClick={() => signIn.social({ provider: "google" })}
+          className="gap-2"
+        >
+          <GoogleMark />
+          {/* Label drops below sm: with search added, five controls plus a worded
+              button overflowed the landing header at 360px. */}
+          <span className="hidden sm:inline">Sign in</span>
+        </Button>
+      )
+    }
     return (
-      <Button
-        variant="outline"
-        size="sm"
-        data-testid="sign-in"
-        aria-label="Sign in with Google"
-        onClick={() => signIn.social({ provider: "google" })}
-        className="gap-2"
-      >
-        <GoogleMark />
-        {/* Label drops below sm: with search added, five controls plus a worded
-            button overflowed the landing header at 360px. */}
-        <span className="hidden sm:inline">Sign in</span>
-      </Button>
+      <>
+        <Button
+          variant="outline"
+          size="sm"
+          data-testid="sign-in"
+          aria-label="Sign in"
+          onClick={() => setSignInOpen(true)}
+          className="gap-2"
+        >
+          <GoogleMark />
+          <span className="hidden sm:inline">Sign in</span>
+        </Button>
+        <Dialog open={signInOpen} onOpenChange={setSignInOpen}>
+          <DialogContent className="sm:max-w-sm">
+            <DialogHeader>
+              <DialogTitle>Sign in to sync</DialogTitle>
+              <DialogDescription>
+                Optional. Everything works signed out; an account just syncs your progress
+                between this browser and your phone.
+              </DialogDescription>
+            </DialogHeader>
+            <Button variant="outline" className="w-full gap-2" onClick={() => signIn.social({ provider: "google" })}>
+              <GoogleMark />
+              Continue with Google
+            </Button>
+            <div className="flex items-center gap-3">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-muted-foreground font-mono text-[11px] uppercase">or</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+            <EmailAuthForm />
+          </DialogContent>
+        </Dialog>
+      </>
     )
   }
 

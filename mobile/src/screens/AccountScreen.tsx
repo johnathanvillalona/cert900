@@ -15,6 +15,7 @@ import { useProgress } from "../progress-store"
 import { colors, radius, space } from "../theme"
 import { AppButton, Pill, SYNC_LABEL } from "../ui"
 import type { RootScreenProps } from "../navigation"
+import { EmailAuthForm, useEmailAuthEnabled } from "../EmailAuthForm"
 
 /**
  * Account, sync, legal, and deletion. Sign-in lives here rather than on the
@@ -33,6 +34,7 @@ export function AccountScreen(_props: RootScreenProps<"Account">) {
   const [deleting, setDeleting] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
   const appleAvailable = useAppleSignInAvailable()
+  const emailAuth = useEmailAuthEnabled()
 
   const signInGoogle = async () => {
     if (busy) return
@@ -223,6 +225,18 @@ export function AccountScreen(_props: RootScreenProps<"Account">) {
               disabled={busy !== null}
               testID="sign-in-google"
             />
+            {/* Only rendered where the server actually offers it; see
+                useEmailAuthEnabled. */}
+            {emailAuth && (
+              <>
+                <View style={styles.divider}>
+                  <View style={styles.rule} />
+                  <Text style={styles.dividerText}>or</Text>
+                  <View style={styles.rule} />
+                </View>
+                <EmailAuthForm disabled={busy !== null} />
+              </>
+            )}
           </>
         )}
       </View>
@@ -312,6 +326,9 @@ const styles = StyleSheet.create({
   label: { color: colors.text, fontSize: 15, fontWeight: "700" },
   value: { color: colors.muted, fontSize: 14 },
   hint: { color: colors.muted, fontSize: 13, lineHeight: 19 },
+  divider: { flexDirection: "row", alignItems: "center", gap: space.sm, marginTop: space.sm },
+  rule: { flex: 1, height: 1, backgroundColor: colors.border },
+  dividerText: { color: colors.muted, fontSize: 11, textTransform: "uppercase", letterSpacing: 0.6 },
   statusRow: { flexDirection: "row" },
   linkRow: {
     flexDirection: "row",

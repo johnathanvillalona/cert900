@@ -1,5 +1,6 @@
 import { createAuth, type Env } from "./auth"
 import { dailySocialPost, weeklyRedditScan, weeklyIndexNow } from "./social"
+import { mailEnabled } from "./mail"
 import { isKnownPath } from "../src/data/routes"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
@@ -96,8 +97,11 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
 
   const hash = await ipHash(req)
   const dayAgo = Date.now() - 86_400_000
+  // exam_id != '__auth' matters: the auth throttle (below) stores its counters
+  // in this table too, and without the filter every sign-in attempt would count
+  // against the 1000/day global report cap and quietly disable reporting.
   const counts = await env.DB.prepare(
-    "SELECT COUNT(*) AS total, SUM(ip_hash = ?1) AS mine FROM reports WHERE created_at > ?2",
+    "SELECT COUNT(*) AS total, SUM(ip_hash = ?1) AS mine FROM reports WHERE created_at > ?2 AND exam_id != '__auth'",
   )
     .bind(hash, dayAgo)
     .first<{ total: number; mine: number | null }>()
@@ -111,6 +115,49 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
     .bind(examId, ref, hash, Date.now())
     .run()
   return json({ ok: true })
+}
+
+/**
+ * Credential-endpoint throttling.
+ *
+ * `/api/auth/*` had no rate limiting at all, which was survivable while Google
+ * was the only provider (the guessing happens at Google). Password sign-in
+ * makes this endpoint worth attacking, so the credential routes get a per-IP
+ * budget before Better Auth ever sees the request. Reuses the `reports` table
+ * as a generic counter rather than adding a migration: it already has the
+ * (ip_hash, created_at) shape and a retention story, and the rows are
+ * distinguishable by exam_id.
+ */
+const AUTH_LIMIT = { perIp: 30, windowMs: 15 * 60_000 }
+// Better Auth exposes password reset under both the current name and the
+// legacy alias, so both are covered; missing one would leave an open door.
+const THROTTLED_AUTH_ROUTES = [
+  "/api/auth/sign-in/email",
+  "/api/auth/sign-up/email",
+  "/api/auth/request-password-reset",
+  "/api/auth/forget-password",
+  "/api/auth/reset-password",
+]
+
+async function authThrottled(req: Request, env: Env, pathname: string): Promise<boolean> {
+  if (req.method !== "POST") return false
+  if (!THROTTLED_AUTH_ROUTES.some((r) => pathname.startsWith(r))) return false
+
+  const hash = await ipHash(req)
+  const since = Date.now() - AUTH_LIMIT.windowMs
+  const row = await env.DB.prepare(
+    "SELECT COUNT(*) AS mine FROM reports WHERE exam_id = '__auth' AND ip_hash = ?1 AND created_at > ?2",
+  )
+    .bind(hash, since)
+    .first<{ mine: number | null }>()
+  if ((row?.mine ?? 0) >= AUTH_LIMIT.perIp) return true
+
+  await env.DB.prepare(
+    "INSERT INTO reports (exam_id, ref, ip_hash, created_at) VALUES ('__auth', ?, ?, ?)",
+  )
+    .bind(pathname.slice(10, 60), hash, Date.now())
+    .run()
+  return false
 }
 
 const CANONICAL_HOST = "cert900.com"
@@ -173,6 +220,9 @@ async function route(req: Request, env: Env): Promise<Response> {
   }
 
   if (url.pathname.startsWith("/api/auth/")) {
+    if (await authThrottled(req, env, url.pathname)) {
+      return json({ error: "too many attempts. Try again in a few minutes." }, 429)
+    }
     return createAuth(env).handler(req)
   }
   if (url.pathname === "/api/progress") {
@@ -180,6 +230,14 @@ async function route(req: Request, env: Env): Promise<Response> {
   }
   if (url.pathname === "/api/report") {
     return handleReport(req, env)
+  }
+  // Which optional auth methods this deploy actually offers, so the clients can
+  // render the right buttons instead of showing a form that would 400. Cached
+  // briefly: it only changes on deploy.
+  if (url.pathname === "/api/config") {
+    const res = json({ emailAuth: mailEnabled(env) })
+    res.headers.set("cache-control", "public, max-age=300")
+    return res
   }
   if (url.pathname.startsWith("/api/")) {
     return json({ error: "not found" }, 404)
