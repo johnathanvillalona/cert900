@@ -22,13 +22,17 @@ export interface Env {
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
   /**
-   * Cloudflare Email Service binding + the address transactional mail is sent
-   * from. Both are needed before email/password sign-in can be offered at all
-   * (see worker/mail.ts): without a working reset, a forgotten password is a
-   * permanent lockout. Optional so a deploy without them still boots with
-   * Google-only auth, exactly like the Apple secrets below.
+   * Transactional mail. `AUTH_EMAIL_FROM` plus ONE transport is what enables
+   * email/password sign-in at all (see worker/mail.ts): without a working
+   * reset, a forgotten password is a permanent lockout.
+   *
+   * `RESEND_API_KEY` (a wrangler secret) selects Resend; the `EMAIL` binding
+   * selects Cloudflare Email Service, which needs the Workers Paid plan. All
+   * optional, so a deploy without any of them still boots with Google-only
+   * auth, exactly like the Apple secrets below.
    */
   EMAIL?: { send(msg: { to: string; from: { email: string; name?: string }; subject: string; html: string; text: string }): Promise<unknown> }
+  RESEND_API_KEY?: string
   AUTH_EMAIL_FROM?: string
   // Sign in with Apple, native (iOS) only. Optional so a deploy without the
   // secrets still boots: the provider is simply not registered, exactly like

@@ -209,27 +209,39 @@ if (!editableVersion) {
   const locs = await api("GET", `/appStoreVersions/${editableVersion.id}/appStoreVersionLocalizations`)
   const loc = locs.data?.find((l) => l.attributes?.locale === LOCALE)
   if (loc) {
+    // Apple freezes description and keywords once a version is submitted, but
+    // promotional text stays editable at any time. Patching the frozen fields
+    // would 409 and take the whole request down with it, including the field
+    // that WAS allowed, so narrow the patch to match the state.
+    const FREE_EDIT = ["PREPARE_FOR_SUBMISSION", "DEVELOPER_REJECTED", "REJECTED", "METADATA_REJECTED", "INVALID_BINARY"]
+    const frozen = !FREE_EDIT.includes(state)
+
     console.log(`\nversion ${editableVersion.attributes?.versionString} (${state}), ${LOCALE}:`)
-    const dirty =
-      [
-        diffField("description", loc.attributes?.description, want.description),
-        diffField("keywords", loc.attributes?.keywords, want.keywords),
-        diffField("promotionalText", loc.attributes?.promotionalText, want.promotionalText),
-      ].some(Boolean)
+    if (frozen) {
+      console.log("  ! submitted for review: only promotional text is editable in this state")
+    }
+
+    const fields = frozen
+      ? { promotionalText: want.promotionalText }
+      : { description: want.description, keywords: want.keywords, promotionalText: want.promotionalText }
+
+    const dirty = Object.entries(fields)
+      .map(([f, v]) => diffField(f, loc.attributes?.[f], v))
+      .some(Boolean)
+    if (frozen) {
+      // Still show what is waiting, so it is obvious why the push is partial.
+      for (const f of ["description", "keywords"]) {
+        if ((loc.attributes?.[f] ?? "").trim() !== (want[f] ?? "").trim()) {
+          console.log(`  - ${f}: differs, but locked until the version leaves ${state}`)
+        }
+      }
+    }
     changed ||= dirty
     if (dirty && commit) {
       await api("PATCH", `/appStoreVersionLocalizations/${loc.id}`, {
-        data: {
-          type: "appStoreVersionLocalizations",
-          id: loc.id,
-          attributes: {
-            description: want.description,
-            keywords: want.keywords,
-            promotionalText: want.promotionalText,
-          },
-        },
+        data: { type: "appStoreVersionLocalizations", id: loc.id, attributes: fields },
       })
-      console.log("  -> updated description/keywords/promotional text")
+      console.log(`  -> updated ${Object.keys(fields).join(", ")}`)
     }
   }
 }

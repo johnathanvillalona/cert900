@@ -33,30 +33,31 @@
       "database_id": "b1aa1018-db54-4b96-952a-1a193be84a8a"
     }
   ],
-  // Transactional mail (password reset + address confirmation) for email
-  // sign-in. The binding is harmless on its own; AUTH_EMAIL_FROM below is what
-  // turns email/password auth on.
+  // Cloudflare Email Sending binding. Harmless on its own, and currently
+  // UNUSED: Email Sending requires the Workers Paid plan, so mail goes through
+  // Resend instead (worker/mail.ts picks whichever transport is configured).
+  // Kept so switching back is a one-line change if the plan ever changes.
   "send_email": [
     { "name": "EMAIL" }
   ],
   "vars": {
     "BETTER_AUTH_URL": "https://cert900.com",
-    // Set this to "no-reply@cert900.com" to enable email/password sign-in.
+    // The address transactional mail is sent from. Setting it enables
+    // email/password sign-in.
     //
-    // DO NOT SET IT UNTIL `node tools/mail-check.mjs <your-address>` REPORTS OK.
-    // Email Routing (receiving) and Email Sending (transactional) are separate
-    // products that share the `send_email` binding name. cert900.com has Routing
-    // set up — MX records, an SPF include, and a cf2024-1 DKIM key are all live —
-    // and that is enough to make the binding LOOK configured while every send
-    // fails with "destination address is not a verified address", because
-    // Routing only sends to addresses you have verified. Sending has to be
-    // onboarded separately: Dashboard > Compute & AI > Email Service > Email
-    // Sending > Onboard Domain (or `npx wrangler email sending enable
-    // cert900.com`, which needs a token carrying the email scope).
+    // DO NOT SET IT until `node tools/mail-check.mjs <address>` reports OK AND
+    // the mail actually arrives. A misconfigured transport fails silently:
+    // Better Auth swallows the error, the UI still says the reset link was
+    // sent, and that account is then unrecoverable.
     //
-    // Until the check passes this stays empty and the site offers Google (and
-    // Apple on iOS) only, because password sign-in without a delivered reset
-    // link is a permanent lockout for anyone who forgets one.
+    // Transport is whichever credential exists (see worker/mail.ts):
+    //   RESEND_API_KEY secret -> Resend      (free tier, no plan change)
+    //   EMAIL binding         -> Cloudflare  (needs Workers Paid)
+    //
+    // Use a sending SUBDOMAIN, e.g. no-reply@send.cert900.com. The apex already
+    // carries an SPF record and MX records for Email Routing, and a second SPF
+    // record at the apex would break SPF for both. A subdomain is also Resend's
+    // own recommendation, since it isolates sending reputation.
     "AUTH_EMAIL_FROM": ""
   }
 }

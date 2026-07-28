@@ -1,21 +1,23 @@
 import type { Env } from "./auth"
 
 /**
- * Transactional mail through the Cloudflare Email Service Workers binding.
+ * Transactional mail for password reset and address confirmation.
  *
- * Binding rather than the REST API because this runs inside the Worker, so
- * there is no API token to store or rotate. The sending domain has to be
- * onboarded once (`wrangler email sending enable cert900.com`, or Dashboard >
- * Compute & AI > Email Service), which adds the SPF and DKIM records.
+ * Two transports, picked by whichever credential the deploy actually has:
  *
- * Everything here is inert until `AUTH_EMAIL_FROM` is set in wrangler.jsonc —
- * the same "configured or invisible" pattern as ADS and AFFILIATE in
- * src/lib/site.ts. `mailEnabled` is what gates password auth: shipping
- * email/password sign-in without a working reset is a permanent lockout for
- * anyone who forgets their password.
+ *   RESEND_API_KEY set  -> Resend REST API (a plain fetch, no binding)
+ *   EMAIL binding set   -> Cloudflare Email Service
+ *
+ * Cloudflare's Email Sending is the tidier option (no third party, no API key)
+ * but it is gated behind the Workers Paid plan, so Resend's free tier is the
+ * zero-cost path. Nothing else in the worker cares which one is in use.
+ *
+ * Everything here is inert until `AUTH_EMAIL_FROM` is set, and `mailEnabled` is
+ * what gates password auth: shipping email/password sign-in without a working
+ * reset is a permanent lockout for anyone who forgets their password.
  */
 export function mailEnabled(env: Env): boolean {
-  return Boolean(env.AUTH_EMAIL_FROM && env.EMAIL)
+  return Boolean(env.AUTH_EMAIL_FROM && (env.RESEND_API_KEY || env.EMAIL))
 }
 
 const SITE = "https://cert900.com"
@@ -38,18 +40,32 @@ function wrap(heading: string, intro: string, button: { href: string; label: str
 async function send(env: Env, to: string, subject: string, html: string, text: string): Promise<void> {
   if (!mailEnabled(env)) {
     // Should be unreachable: password auth is gated on the same flag.
-    console.log(`mail skipped (AUTH_EMAIL_FROM unset): ${subject}`)
+    console.log(`mail skipped (no transport configured): ${subject}`)
     return
   }
-  await env.EMAIL!.send({
-    to,
-    from: { email: env.AUTH_EMAIL_FROM!, name: "cert900" },
-    subject,
-    html,
-    // Always both: some clients render only text, and text/plain alternatives
-    // measurably help spam scoring.
-    text,
-  })
+  const from = env.AUTH_EMAIL_FROM!
+
+  if (env.RESEND_API_KEY) {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      // Always both bodies: some clients render only text, and a text/plain
+      // alternative measurably helps spam scoring.
+      body: JSON.stringify({ from: `cert900 <${from}>`, to: [to], subject, html, text }),
+    })
+    if (!res.ok) {
+      // Surface the reason: Better Auth swallows a rejected promise here, and a
+      // silent failure looks identical to a delivered reset from the UI.
+      const body = await res.text()
+      throw new Error(`resend send failed (${res.status}): ${body.slice(0, 300)}`)
+    }
+    return
+  }
+
+  await env.EMAIL!.send({ to, from: { email: from, name: "cert900" }, subject, html, text })
 }
 
 export async function sendPasswordReset(env: Env, to: string, url: string): Promise<void> {
