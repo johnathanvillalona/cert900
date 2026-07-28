@@ -58,6 +58,6 @@
     // carries an SPF record and MX records for Email Routing, and a second SPF
     // record at the apex would break SPF for both. A subdomain is also Resend's
     // own recommendation, since it isolates sending reputation.
-    "AUTH_EMAIL_FROM": ""
+    "AUTH_EMAIL_FROM": "no-reply@send.cert900.com"
   }
 }
