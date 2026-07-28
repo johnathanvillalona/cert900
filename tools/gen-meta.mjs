@@ -25,56 +25,135 @@ for (const id of IDS) {
 }
 
 // ---- question-of-the-day pool -------------------------------------------
-// The landing hero shows one fully answerable question, which is the only
-// place the chrome needs real question content. Embedding a small sampled pool
-// keeps that instant (no fetch, no chunk) while leaving the banks on demand.
-// Sampled with a stride so all seven exams stay represented, and kept above
-// 100 entries because stats.test.ts asserts a healthy pool.
-const POOL_SIZE = 120
-const candidates = []
+// The landing hero shows one fully answerable item, which is the only place the
+// chrome needs real question content. Embedding a small sampled pool keeps that
+// instant (no fetch, no chunk) while leaving the banks on demand.
+//
+// Sampling is a PER-EXAM QUOTA, not a stride over one flat list. The stride
+// version silently starved the newer, wordier banks: with the old fit rule
+// (stem <= 130 chars, options <= 42) SAA-C03 and AZ-900 had a single eligible
+// question each and drew ZERO slots, Security+ drew 2, and A+ plus Network+
+// took 85 of 120 — so the "daily question" was effectively A+ forever. The
+// limits below are the widest the hero card and a 280-character post can carry.
+const POOL_SIZE = 121 // 11 per exam; the social composer degrades if one is long
+const MAX_STEM = 200
+const MAX_OPTION = 80
+/** Only these two PBQ kinds render in the hero; the rest need the full sim UI. */
+const PBQ_KINDS = ["match", "order"]
+
+const byExam = new Map()
 for (const id of IDS) {
   const src = readFileSync(path.join(ROOT, "src", "data", `${id}.ts`), "utf8")
   const exam = JSON.parse(src.slice(src.indexOf(MARKER) + MARKER.length))
+  const flat = { code: exam.code, cert: exam.cert, vendor: exam.vendor }
+  const mine = []
+  const minePbq = []
+
   for (const q of exam.questions) {
-    // Same fit rule the old runtime filter used: short stem, four short options.
-    if (q.x.length <= 130 && q.o.length === 4 && q.o.every((o) => o.length <= 42)) {
-      const v = exam.videos[q.t]
-      candidates.push({
-        code: exam.code,
-        cert: exam.cert,
-        vendor: exam.vendor,
-        domain: exam.domains[q.d],
-        videoUrl: v.u,
-        videoName: v.n,
-        q: { id: q.id, t: q.t, d: q.d, x: q.x, o: q.o, a: q.a, e: q.e },
-      })
-    }
+    // `!q.as` excludes multiple-response. It used to be excluded only by
+    // accident (`o.length === 4`, since "Choose TWO" items carry 5 options),
+    // and the projection below would have dropped `as` silently, turning a
+    // multi-answer question into a single-answer one with the wrong key.
+    if (q.as) continue
+    if (q.x.length > MAX_STEM || q.o.length !== 4) continue
+    if (q.o.some((o) => o.length > MAX_OPTION)) continue
+    const v = exam.videos[q.t]
+    mine.push({
+      ...flat,
+      kind: "mc",
+      domain: exam.domains[q.d],
+      videoUrl: v.u,
+      videoName: v.n,
+      q: { id: q.id, t: q.t, d: q.d, x: q.x, o: q.o, a: q.a, e: q.e },
+    })
   }
+
+  for (const pbq of exam.pbqs) {
+    if (!PBQ_KINDS.includes(pbq.kind)) continue
+    // PBQs carry no numeric id (they are keyed by title everywhere else), and
+    // no domain number, so `domain` falls back to the topic's video title.
+    const v = exam.videos[pbq.t]
+    const payload =
+      pbq.kind === "match"
+        ? { kind: "match", choices: pbq.choices, items: pbq.items }
+        : { kind: "order", steps: pbq.steps }
+    if (pbq.kind === "match" && pbq.items.length > 4) continue // taller than the card
+    if (pbq.kind === "order" && pbq.steps.length > 5) continue
+    minePbq.push({
+      ...flat,
+      kind: "pbq",
+      domain: v.n,
+      videoUrl: v.u,
+      videoName: v.n,
+      pbq: { t: pbq.t, title: pbq.title, scen: pbq.scen, ...payload },
+    })
+  }
+  byExam.set(id, { mc: mine, pbq: minePbq })
 }
-const pool = Array.from({ length: Math.min(POOL_SIZE, candidates.length) }, (_, i) =>
-  candidates[Math.floor((i * candidates.length) / Math.min(POOL_SIZE, candidates.length))],
-)
+
+/** Even stride across a list, so the picks span the whole bank. */
+const stride = (list, n) =>
+  Array.from({ length: Math.min(n, list.length) }, (_, i) =>
+    list[Math.floor((i * list.length) / Math.min(n, list.length))],
+  )
+
+// Round-robin the quota so every exam appears. PBQ slots are reserved rather
+// than merged into one list: PBQs are appended after several hundred questions,
+// so a single stride over the combined list never reached them (the first pass
+// of this rewrite produced a fair 11-per-exam pool with zero PBQs in it).
+const quota = Math.ceil(POOL_SIZE / IDS.length)
+const PBQ_PER_EXAM = 2
+const picked = []
+for (const id of IDS) {
+  const { mc, pbq } = byExam.get(id)
+  const takePbq = stride(pbq, PBQ_PER_EXAM)
+  picked.push(...stride(mc, quota - takePbq.length), ...takePbq)
+}
+// Interleave by exam so consecutive days rotate vendors instead of marching
+// through one bank at a time (the pool is consumed as dayIndex % length).
+const lanes = IDS.map((id) => picked.filter((e) => e.code === meta[id].code))
+const pool = []
+for (let round = 0; round < Math.max(...lanes.map((l) => l.length)); round++) {
+  for (const lane of lanes) if (round < lane.length) pool.push(lane[round])
+}
+
 writeFileSync(
   path.join(ROOT, "src", "data", "qotd-pool.ts"),
   `// GENERATED by tools/gen-meta.mjs — do not edit by hand.
 // Sampled question-of-the-day pool for the landing hero. Flat exam fields so
 // one entry carries everything the card renders without pulling a bank.
-import type { Vendor } from "./types"
+// Two kinds: "mc" (four options, single answer) and "pbq" (match/order only).
+import type { MatchItem, Vendor } from "./types"
 
-export interface QotdEntry {
+interface QotdBase {
   code: string
   cert: string
   vendor: Vendor
   domain: string
   videoUrl: string
   videoName: string
+}
+
+export interface QotdMc extends QotdBase {
+  kind: "mc"
   q: { id: number; t: string; d: number; x: string; o: string[]; a: number; e: string }
 }
+
+export interface QotdPbqEntry extends QotdBase {
+  kind: "pbq"
+  pbq:
+    | { t: string; title: string; scen: string; kind: "match"; choices: string[]; items: MatchItem[] }
+    | { t: string; title: string; scen: string; kind: "order"; steps: string[] }
+}
+
+export type QotdEntry = QotdMc | QotdPbqEntry
 
 export const QOTD_POOL: QotdEntry[] = ${JSON.stringify(pool, null, 1)}
 `,
 )
-console.log(`wrote src/data/qotd-pool.ts (${pool.length} of ${candidates.length} eligible)`)
+const spread = IDS.map((id) => `${id} ${pool.filter((e) => e.code === meta[id].code).length}`).join(", ")
+const pbqCount = pool.filter((e) => e.kind === "pbq").length
+console.log(`wrote src/data/qotd-pool.ts (${pool.length} entries, ${pbqCount} PBQ)\n  ${spread}`)
 
 const out = `// GENERATED by tools/gen-meta.mjs — do not edit by hand.
 // Re-run after content changes: node tools/gen-meta.mjs

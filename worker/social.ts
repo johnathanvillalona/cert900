@@ -7,14 +7,44 @@ import type { Env } from "./auth"
 interface FeedEntry {
   code: string
   cert: string
+  vendor: string
   stem: string
   options: string[]
+}
+
+/**
+ * Hashtags per vendor, most specific first.
+ *
+ * The daily post used to hardcode `#CompTIA` plus a Network+/A+ guess off the
+ * cert string, so every CCNA, AWS, and Azure question went out captioned "Free
+ * CompTIA question of the day" under #CompTIAAPlus. The pool spans all eleven
+ * exams, so the caption has to follow the exam.
+ */
+const VENDOR_TAGS: Record<string, string> = {
+  comptia: "#CompTIA",
+  cisco: "#Cisco #CCNA",
+  aws: "#AWS #AWSCertified",
+  azure: "#Azure #MicrosoftLearn",
+}
+
+/** Exam-specific tag where one is well known, so posts are findable. */
+function examTag(code: string): string {
+  const c = code.toUpperCase()
+  if (c.startsWith("220-12")) return "#CompTIAAPlus"
+  if (c.startsWith("N10-")) return "#NetworkPlus"
+  if (c.startsWith("SY0-")) return "#SecurityPlus"
+  if (c.startsWith("AZ-") || c.startsWith("SC-")) return `#${c.replace("-", "")}`
+  return ""
 }
 
 const SITE = "https://cert900.com"
 const QOTD_LINK = `${SITE}/?utm_source=%SRC%&utm_medium=social&utm_campaign=qotd`
 
-/** Same pick math as src/lib/qotd.ts: feed order mirrors qotdPool(). */
+/**
+ * Same pick math as src/lib/qotd.ts. The feed is the multiple-choice subset of
+ * the pool (PBQs cannot be posted as lettered options), so it is shorter and
+ * the post will usually differ from what the site's hero shows that day.
+ */
 async function todaysQuestion(env: Env): Promise<FeedEntry | null> {
   const res = await env.ASSETS.fetch("https://assets.local/qotd-feed.json")
   if (!res.ok) return null
@@ -25,11 +55,11 @@ async function todaysQuestion(env: Env): Promise<FeedEntry | null> {
 }
 
 /** Compose the post under `limit` chars; drop options, then truncate, to fit. */
-function composePost(q: FeedEntry, link: string, linkLen: number, limit: number): string {
-  const tag = q.cert.includes("Network") ? "#NetworkPlus" : "#CompTIAAPlus"
-  const head = `Free CompTIA question of the day (${q.code}):`
+export function composePost(q: FeedEntry, link: string, linkLen: number, limit: number): string {
+  const tags = [VENDOR_TAGS[q.vendor] ?? "", examTag(q.code)].filter(Boolean).join(" ")
+  const head = `Free ${q.cert} question of the day (${q.code}):`
   const opts = q.options.map((o, i) => `${"ABCD"[i]}) ${o}`).join("\n")
-  const tail = `Answer + explanation: ${link}\n#CompTIA ${tag}`
+  const tail = `Answer + explanation: ${link}\n${tags}`
   const tailLen = tail.length - link.length + linkLen
   const full = `${head}\n\n${q.stem}\n\n${opts}\n\n${tail}`
   if (full.length - link.length + linkLen <= limit) return full
