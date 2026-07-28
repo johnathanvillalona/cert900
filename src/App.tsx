@@ -1,4 +1,4 @@
-import { Suspense, lazy, startTransition, useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { useExamBank } from "@/hooks/useExamBank"
@@ -25,6 +25,7 @@ import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { NotFound } from "@/screens/NotFound"
 import { GUIDE_META } from "@/data/guide-meta"
+import { examPath, parseExamPath } from "@/data/routes"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -149,40 +150,110 @@ const DEFAULT_TITLE = siteTitle()
 /** Screens that need the exam's question bank, so they wait on its chunk. */
 const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress"])
 
-function screenForPath(path: string): Screen {
+/**
+ * The URL a screen should live at.
+ *
+ * Every app screen used to answer to "/", so browsing created no history
+ * entries and the browser's back button walked straight off the site. Giving
+ * each screen a path makes back and forward work for free, and makes an exam
+ * bookmarkable.
+ */
+function pathForScreen(screen: Screen, examId: string | null): string {
+  if (SCREEN_PATHS[screen.kind]) return SCREEN_PATHS[screen.kind]
+  switch (screen.kind) {
+    case "picker":
+      return "/exams"
+    case "dashboard":
+      return "/progress"
+    case "home":
+      return examId ? examPath(examId) : "/exams"
+    case "setup":
+      return examId ? examPath(examId, "drill") : "/exams"
+    case "quiz":
+      return examId ? examPath(examId, "quiz") : "/exams"
+    case "results":
+      return examId ? examPath(examId, "results") : "/exams"
+    case "progress":
+      return examId ? examPath(examId, "stats") : "/exams"
+    default:
+      return "/"
+  }
+}
+
+/** Sub-path -> screen for a cold load of /exam/:id/... */
+const EXAM_SUB_SCREENS: Record<string, Screen["kind"]> = {
+  "": "home",
+  drill: "setup",
+  stats: "progress",
+  // A quiz and its results live entirely in memory (a QuizConfig, a graded
+  // QuizOutcome). Nothing can rebuild them from a URL, so a cold load of those
+  // lands on the exam's menu rather than a broken screen.
+  quiz: "home",
+  results: "home",
+}
+
+function screenForPath(path: string): { screen: Screen; examId?: string } {
   const kind = PATH_SCREENS[path]
-  if (kind) return { kind } as Screen
-  // Anything that is not "/" and not a known route is a real 404. The worker
-  // sends this shell with a 404 status and noindex; rendering the landing page
-  // instead (the old behaviour) made every mistyped URL look like a real page.
-  return path === "/" ? { kind: "landing" } : { kind: "not-found" }
+  if (kind) return { screen: { kind } as Screen }
+  if (path === "/") return { screen: { kind: "landing" } }
+  if (path === "/exams") return { screen: { kind: "picker" } }
+  if (path === "/progress") return { screen: { kind: "dashboard" } }
+  const exam = parseExamPath(path)
+  if (exam) return { screen: { kind: EXAM_SUB_SCREENS[exam.sub] } as Screen, examId: exam.examId }
+  // Anything else is a real 404. The worker sends this shell with a 404 status
+  // and noindex; rendering the landing page instead (the old behaviour) made
+  // every mistyped URL look like a real page.
+  return { screen: { kind: "not-found" } }
 }
 
 export default function App() {
   const store = useProgressStore()
   const { toggle } = useTheme()
-  const [examId, setExamId] = useState<string | null>(null)
-  const [screen, setScreen] = useState<Screen>(() => screenForPath(window.location.pathname))
+  const initial = useMemo(() => screenForPath(window.location.pathname), [])
+  const [examId, setExamId] = useState<string | null>(initial.examId ?? null)
+  const [screen, setScreen] = useState<Screen>(initial.screen)
   const [sessionCounter, setSessionCounter] = useState(0)
+  // Set while restoring from a popstate, so the sync effect below knows this
+  // change came FROM history and must not push a duplicate entry back onto it.
+  const restoring = useRef(false)
 
-  // Keep the address bar honest: deep-linkable pages get real URLs, everything else lives at "/".
   useEffect(() => {
-    // The 404 screen keeps whatever URL the visitor actually asked for;
-    // rewriting it to "/" would hide the broken link and contradict the 404.
-    if (screen.kind !== "not-found") {
-      const want = SCREEN_PATHS[screen.kind] ?? "/"
-      if (window.location.pathname !== want) window.history.pushState({}, "", want)
-    }
     document.title = SCREEN_TITLES[screen.kind] ?? DEFAULT_TITLE
-  }, [screen.kind])
+    if (restoring.current) {
+      restoring.current = false
+      return
+    }
+    // The 404 screen keeps whatever URL the visitor actually asked for;
+    // rewriting it would hide the broken link and contradict the 404.
+    if (screen.kind === "not-found") return
+
+    const want = pathForScreen(screen, examId)
+    if (window.location.pathname === want) return
+    // Results REPLACE the quiz entry instead of stacking on it: going "back"
+    // into a quiz that has already been graded would restart it.
+    const go = screen.kind === "results" ? window.history.replaceState : window.history.pushState
+    go.call(window.history, null, "", want)
+  }, [screen, examId])
+
   useEffect(() => {
-    const onPop = () => setScreen(screenForPath(window.location.pathname))
+    const onPop = () => {
+      const next = screenForPath(window.location.pathname)
+      restoring.current = true
+      // startTransition: progress and the guides are lazy, and a popstate that
+      // suspends without one throws away the current screen mid-render.
+      startTransition(() => {
+        if (next.examId) setExamId(next.examId)
+        setScreen(next.screen)
+      })
+    }
     window.addEventListener("popstate", onPop)
     return () => window.removeEventListener("popstate", onPop)
   }, [])
 
   const openPath = (path: string) => {
-    setScreen(screenForPath(path))
+    const next = screenForPath(path)
+    if (next.examId) setExamId(next.examId)
+    setScreen(next.screen)
     window.scrollTo(0, 0)
   }
 
