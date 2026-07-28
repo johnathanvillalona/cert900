@@ -5,8 +5,9 @@ import type { ExamMeta } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
-import { questionOfTheDay } from "@/lib/qotd"
+import { questionOfTheDay, type DailyPick } from "@/lib/qotd"
 import { siteFaq } from "@/lib/copy"
+import { QotdPbq, QotdPbqFooter } from "@/components/QotdPbq"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
@@ -19,9 +20,44 @@ import { SiteFooter } from "@/components/SiteFooter"
 import { AppPromo } from "@/components/AppPromo"
 import { Wordmark } from "@/components/Wordmark"
 
-/** Real product in the hero: the question of the day, fully answerable. */
+/**
+ * Real product in the hero: the question of the day, fully answerable.
+ *
+ * Some days that item is a match or order PBQ rather than multiple choice —
+ * the pool carries both kinds so the hero shows off the interactive formats
+ * too, not just the four-option questions.
+ */
 function LiveQuestion() {
   const pick = useMemo(() => questionOfTheDay(), [])
+  const [pbqGraded, setPbqGraded] = useState(false)
+
+  if (pick.kind === "pbq") {
+    return (
+      <div className="rounded-lg border bg-card p-5 shadow-sm" data-testid="live-question">
+        <p className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <span className="text-brand">Question of the day</span>
+          <span>
+            {pick.code} · {pick.pbq.kind === "match" ? "matching" : "ordering"}
+          </span>
+        </p>
+        <p className="mt-2 font-medium leading-snug">{pick.pbq.title}</p>
+        <QotdPbq pick={pick} onGraded={() => setPbqGraded(true)} />
+        {pbqGraded && (
+          <div className="enter-fade-rise">
+            <QotdPbqFooter pick={pick} />
+            <p className="text-muted-foreground mt-2 font-mono text-xs">
+              Every question works like this. A new one lands tomorrow.
+            </p>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return <LiveMcQuestion pick={pick} />
+}
+
+function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) {
   const q = pick.q
   const order = useMemo(() => shuffle(q.o.map((_, i) => i)), [q])
   const [sel, setSel] = useState<number | null>(null)

@@ -147,13 +147,22 @@ for (const [meta, el] of pages) {
   console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
 }
 
-// QOTD feed for the worker's daily social post: same pool + order as
-// src/lib/qotd.ts (dayIndex % length). No answers or explanations included.
-const feed = qotdPool().map((p) => ({
-  code: p.code,
-  cert: p.cert,
-  stem: p.q.x,
-  options: p.q.o,
-}))
+// QOTD feed for the worker's daily social post. No answers or explanations.
+//
+// Multiple-choice only: a match/order PBQ has no stem-plus-lettered-options
+// shape to post, so those pool days are skipped rather than mangled. That means
+// the feed is SHORTER than the pool, so the worker's `dayIndex % feed.length`
+// lands on a different item than the site's hero — deliberate, and the reason
+// `vendor` travels with each entry: the caption is built from the exam, not
+// assumed to be CompTIA.
+const feed = qotdPool()
+  .filter((p) => p.kind === "mc")
+  .map((p) => ({
+    code: p.code,
+    cert: p.cert,
+    vendor: p.vendor,
+    stem: p.q.x,
+    options: p.q.o,
+  }))
 writeFileSync(resolve(dist, "qotd-feed.json"), JSON.stringify(feed))
-console.log(`qotd-feed.json: ${feed.length} entries`)
+console.log(`qotd-feed.json: ${feed.length} multiple-choice entries (of ${qotdPool().length} in the pool)`)

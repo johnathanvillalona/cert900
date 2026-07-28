@@ -75,11 +75,52 @@ describe("question of the day", () => {
     const { qotdPool, questionOfTheDay } = await import("./qotd")
     const pool = qotdPool()
     expect(pool.length).toBeGreaterThan(100)
-    expect(questionOfTheDay(20649).q.id).toBe(questionOfTheDay(20649).q.id)
-    expect(questionOfTheDay(20649).q).not.toEqual(questionOfTheDay(20650).q)
-    for (const p of pool.slice(0, 50)) {
+    expect(questionOfTheDay(20649)).toEqual(questionOfTheDay(20649))
+    expect(questionOfTheDay(20649)).not.toEqual(questionOfTheDay(20650))
+  })
+
+  it("fits the hero card and never carries a multi-answer question", async () => {
+    const { qotdPool } = await import("./qotd")
+    for (const p of qotdPool()) {
+      if (p.kind !== "mc") continue
       expect(p.q.o.length).toBe(4)
-      expect(p.q.x.length).toBeLessThanOrEqual(130)
+      expect(p.q.x.length).toBeLessThanOrEqual(200)
+      for (const o of p.q.o) expect(o.length).toBeLessThanOrEqual(80)
+      // The hero renders a single-select list; `as` would silently mis-key it.
+      expect("as" in p.q).toBe(false)
+      expect(p.q.a).toBeGreaterThanOrEqual(0)
+      expect(p.q.a).toBeLessThan(p.q.o.length)
+    }
+  })
+
+  /**
+   * The pool used to be strided over one flat candidate list, which starved the
+   * newer banks: SAA-C03 and AZ-900 drew zero slots and Security+ drew two,
+   * while A+ and Network+ took 85 of 120. Every exam now gets a fair share.
+   */
+  it("represents every exam", async () => {
+    const { qotdPool } = await import("./qotd")
+    const { EXAM_META, EXAM_ORDER } = await import("@/data/meta")
+    const pool = qotdPool()
+    for (const id of EXAM_ORDER) {
+      const n = pool.filter((p) => p.code === EXAM_META[id].code).length
+      expect(n, `${id} has ${n} QOTD entries`).toBeGreaterThanOrEqual(5)
+    }
+  })
+
+  it("includes interactive items, and only the two kinds the hero can render", async () => {
+    const { qotdPool } = await import("./qotd")
+    const pbqs = qotdPool().filter((p) => p.kind === "pbq")
+    expect(pbqs.length).toBeGreaterThan(0)
+    for (const p of pbqs) {
+      if (p.kind !== "pbq") continue
+      expect(["match", "order"]).toContain(p.pbq.kind)
+      if (p.pbq.kind === "match") {
+        expect(p.pbq.items.length).toBeGreaterThan(1)
+        for (const it of p.pbq.items) expect(p.pbq.choices[it.a]).toBeTruthy()
+      } else {
+        expect(p.pbq.steps.length).toBeGreaterThan(1)
+      }
     }
   })
 })
