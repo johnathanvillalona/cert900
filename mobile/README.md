@@ -1,8 +1,8 @@
 # cert900 mobile (Expo / React Native)
 
-Companion app for [cert900.com](https://cert900.com): all seven certification
-banks with timed exams and drills, offline, progress synced across devices
-against the same Cloudflare Worker + D1 backend the web app uses.
+Companion app for [cert900.com](https://cert900.com): every certification bank
+with timed exams and drills, offline, progress synced across devices against the
+same Cloudflare Worker + D1 backend the web app uses.
 
 ## Run it (Expo Go)
 
@@ -20,8 +20,11 @@ emulator/simulator if you have one.
 
 ## What works now
 
-- **All seven exams** — CompTIA A+ Core 1 / Core 2, Network+, Security+; AWS
-  Cloud Practitioner and AI Practitioner; Azure Fundamentals.
+- **Every exam the web app ships** — the bank list comes from `EXAM_ORDER`, so
+  the app picks up a new certification with no mobile change. Currently CompTIA
+  (A+ Core 1 / Core 2, Network+, Security+), Cisco (CCNA), AWS (Cloud
+  Practitioner, AI Practitioner, Solutions Architect Associate), and Microsoft
+  (AZ-900, SC-900, AZ-104).
 - **Timed full-exam mode** scored on each exam's real scale and cut line, plus
   short adaptive drills. Multiple-response questions and match/order
   performance-based questions are graded natively.
