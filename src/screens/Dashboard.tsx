@@ -169,10 +169,20 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
                   last exam {lastExam.scaled}
                 </span>
               )}
-              {/* Only once the estimate has cleared its evidence gate. */}
+              {/* Only once the estimate has cleared its evidence gate.
+                  "tracking 804-845" said nothing about what the number was: not
+                  that it is a scaled score, not what it is measured against.
+                  The title carries the full explanation for a hover, and the
+                  pass line is inline so the range means something at a glance.
+                  Still a band and still no verdict -- a practice bank cannot
+                  promise a real exam result. */}
               {ready?.band && (
-                <span className="text-muted-foreground font-mono text-xs tabular-nums" data-testid="dash-readiness">
-                  tracking {ready.band.low}-{ready.band.high}
+                <span
+                  className="text-muted-foreground font-mono text-xs tabular-nums"
+                  data-testid="dash-readiness"
+                  title={`Estimated scaled score from your practice so far, as a range rather than a single number. ${exam.code} passes at ${exam.scale.pass} on a ${exam.scale.max}-point scale.`}
+                >
+                  est. score {ready.band.low}-{ready.band.high} · pass {exam.scale.pass}
                 </span>
               )}
               {weakest && weakest.pct < 70 && (
