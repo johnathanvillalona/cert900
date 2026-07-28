@@ -62,8 +62,13 @@ CREATE TABLE IF NOT EXISTS "progress" (
 
 -- Question reports from the "Report this question" button (no auth required).
 -- ip_hash is a one-way SHA-256 of the client IP, kept only for rate limiting.
+--
+-- Also carries the credential-endpoint throttle counters, written with the
+-- sentinel exam_id '__auth' (see worker/index.ts authThrottled). Reusing this
+-- table avoids a migration that would have to land before the worker deploy or
+-- auth would 500. ALWAYS exclude the sentinel when reading reports:
 -- Read them with: npx wrangler d1 execute comptia-trainer --remote \
---   --command "SELECT exam_id, ref, COUNT(*) n FROM reports GROUP BY 1,2 ORDER BY n DESC"
+--   --command "SELECT exam_id, ref, COUNT(*) n FROM reports WHERE exam_id != '__auth' GROUP BY 1,2 ORDER BY n DESC"
 CREATE TABLE IF NOT EXISTS "reports" (
   "id" integer PRIMARY KEY AUTOINCREMENT,
   "exam_id" text NOT NULL,

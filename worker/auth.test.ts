@@ -40,10 +40,52 @@ describe("auth config", () => {
     expect(origins.some((o) => o.includes("localhost"))).toBe(false)
   })
 
-  it("enables password auth only for local testing", () => {
-    expect(createAuth(env()).options.emailAndPassword?.enabled).toBe(false)
-    const local = createAuth(env({ BETTER_AUTH_URL: "http://localhost:8787" }))
-    expect(local.options.emailAndPassword?.enabled).toBe(true)
+  describe("password auth", () => {
+    const mail = {
+      EMAIL: { send: async () => ({}) },
+      AUTH_EMAIL_FROM: "no-reply@cert900.com",
+    } as Partial<Env>
+
+    /**
+     * Password auth is gated on mail being configured, NOT on an on/off switch:
+     * offering passwords without a delivered reset link permanently locks out
+     * anyone who forgets one.
+     */
+    it("stays off in production until transactional mail is configured", () => {
+      expect(createAuth(env()).options.emailAndPassword?.enabled).toBe(false)
+      // Binding without a from-address, and from-address without a binding, are
+      // both incomplete and must not flip it on.
+      expect(createAuth(env({ EMAIL: mail.EMAIL })).options.emailAndPassword?.enabled).toBe(false)
+      expect(createAuth(env({ AUTH_EMAIL_FROM: "no-reply@cert900.com" })).options.emailAndPassword?.enabled).toBe(false)
+    })
+
+    it("turns on once mail is configured", () => {
+      const auth = createAuth(env(mail))
+      expect(auth.options.emailAndPassword?.enabled).toBe(true)
+      expect(auth.options.emailAndPassword?.sendResetPassword).toBeTypeOf("function")
+      expect(auth.options.emailVerification?.sendVerificationEmail).toBeTypeOf("function")
+    })
+
+    it("stays available locally for integration tests without sending mail", () => {
+      const local = createAuth(env({ BETTER_AUTH_URL: "http://localhost:8787" }))
+      expect(local.options.emailAndPassword?.enabled).toBe(true)
+    })
+
+    /**
+     * Enabling password auth must not re-trust the Expo Go and localhost
+     * origins: the two used to ride on the same `isLocal` flag, so flipping one
+     * would have silently flipped the other.
+     */
+    it("does not widen trusted origins when mail is configured", () => {
+      const origins = createAuth(env(mail)).options.trustedOrigins as string[]
+      expect(origins.some((o) => o.startsWith("exp://"))).toBe(false)
+      expect(origins.some((o) => o.includes("localhost"))).toBe(false)
+    })
+
+    it("never auto-links an unverified email signup to a social account", () => {
+      const linking = createAuth(env(mail)).options.account?.accountLinking
+      expect(linking?.trustedProviders).not.toContain("credential")
+    })
   })
 
   describe("sign in with apple", () => {

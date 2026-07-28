@@ -33,7 +33,21 @@
       "database_id": "b1aa1018-db54-4b96-952a-1a193be84a8a"
     }
   ],
+  // Transactional mail (password reset + address confirmation) for email
+  // sign-in. The binding is harmless on its own; AUTH_EMAIL_FROM below is what
+  // turns email/password auth on.
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
   "vars": {
-    "BETTER_AUTH_URL": "https://cert900.com"
+    "BETTER_AUTH_URL": "https://cert900.com",
+    // Set this to "no-reply@cert900.com" to enable email/password sign-in.
+    // REQUIRED FIRST: onboard the sending domain, which adds the SPF and DKIM
+    // records — `npx wrangler email sending enable cert900.com`, or Dashboard >
+    // Compute & AI > Email Service > Email Sending > Onboard Domain. Until then
+    // this stays empty and the site offers Google (and Apple on iOS) only,
+    // because password sign-in without a delivered reset link is a permanent
+    // lockout for anyone who forgets one.
+    "AUTH_EMAIL_FROM": ""
   }
 }

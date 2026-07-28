@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth"
 import { expo } from "@better-auth/expo"
 import { D1Dialect } from "kysely-d1"
+import { mailEnabled, sendPasswordReset, sendVerification } from "./mail"
 
 // Native app deep-link scheme (see mobile/app.json). The mobile client signs in
 // through this scheme's OAuth redirect, then authenticates the data API with the
@@ -20,6 +21,15 @@ export interface Env {
   BETTER_AUTH_URL: string
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
+  /**
+   * Cloudflare Email Service binding + the address transactional mail is sent
+   * from. Both are needed before email/password sign-in can be offered at all
+   * (see worker/mail.ts): without a working reset, a forgotten password is a
+   * permanent lockout. Optional so a deploy without them still boots with
+   * Google-only auth, exactly like the Apple secrets below.
+   */
+  EMAIL?: { send(msg: { to: string; from: { email: string; name?: string }; subject: string; html: string; text: string }): Promise<unknown> }
+  AUTH_EMAIL_FROM?: string
   // Sign in with Apple, native (iOS) only. Optional so a deploy without the
   // secrets still boots: the provider is simply not registered, exactly like
   // the social cron secrets.
@@ -85,10 +95,46 @@ export function createAuth(env: Env) {
           }
         : {}),
     },
-    // Password auth is enabled ONLY for local integration testing (no email
-    // delivery is configured, so there is no reset flow in production).
+    /**
+     * Email/password sign-in, gated on mail being configured rather than on
+     * `isLocal`.
+     *
+     * The two were coupled before, which meant flipping password auth on in
+     * production would ALSO have re-trusted the Expo Go and localhost origins
+     * below. They are separate concerns and are now separate flags.
+     *
+     * The gate is mail, not an on/off switch, because the two are inseparable:
+     * offering passwords without a delivered reset link locks out everyone who
+     * forgets one. Locally there is no binding, so `isLocal` keeps password
+     * auth available for integration tests without sending anything.
+     */
     emailAndPassword: {
-      enabled: isLocal,
+      enabled: isLocal || mailEnabled(env),
+      sendResetPassword: async ({ user, url }) => {
+        await sendPasswordReset(env, user.email, url)
+      },
+      // Verification is sent (below) but not required to sign in. Requiring it
+      // would strand a tester behind a mail round-trip for a free study app
+      // whose entire bank works signed out.
+      requireEmailVerification: false,
+    },
+    emailVerification: {
+      sendOnSignUp: mailEnabled(env),
+      sendVerificationEmail: async ({ user, url }) => {
+        await sendVerification(env, user.email, url)
+      },
+    },
+    account: {
+      accountLinking: {
+        /**
+         * Do NOT auto-link an email signup to an existing Google account with
+         * the same address unless the address has been verified. Otherwise
+         * signing up with someone else's email would attach to their synced
+         * progress. Google itself stays trusted: it verifies addresses.
+         */
+        enabled: true,
+        trustedProviders: ["google", "apple"],
+      },
     },
     trustedOrigins: isLocal
       ? ["http://localhost:5173", "http://127.0.0.1:5173", ...appOrigins]
