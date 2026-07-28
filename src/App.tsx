@@ -24,13 +24,41 @@ import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { NotFound } from "@/screens/NotFound"
-import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META } from "@/screens/Guides"
+import { GUIDE_META } from "@/data/guide-meta"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
 const ProgressScreen = lazy(() =>
   import("@/screens/ProgressScreen").then((m) => ({ default: m.ProgressScreen })),
 )
+
+/**
+ * Guide pages load on demand.
+ *
+ * They are landing pages: almost every visit arrives from search straight into
+ * the prerendered HTML, and in-app navigation to them is rare. They also embed
+ * ~60KB of real practice questions (src/data/guide-samples.ts), which has no
+ * business in the entry chunk that every quiz-taker downloads.
+ *
+ * GUIDE_META itself stays a static import — it is small, and routing needs the
+ * paths and titles synchronously on first paint.
+ */
+const guide = <K extends keyof typeof import("@/screens/Guides")>(name: K) =>
+  lazy(() => import("@/screens/Guides").then((m) => ({ default: m[name] as React.ComponentType<{ onStart: (id: string) => void }> })))
+
+const APlusGuide = guide("APlusGuide")
+const APlusCore1Guide = guide("APlusCore1Guide")
+const APlusCore2Guide = guide("APlusCore2Guide")
+const NPlusGuide = guide("NPlusGuide")
+const PbqGuide = guide("PbqGuide")
+const SecplusGuide = guide("SecplusGuide")
+const AifGuide = guide("AifGuide")
+const ClfGuide = guide("ClfGuide")
+const Az900Guide = guide("Az900Guide")
+const Sc900Guide = guide("Sc900Guide")
+const CcnaGuide = guide("CcnaGuide")
+const Az104Guide = guide("Az104Guide")
+const SaaGuide = guide("SaaGuide")
 
 export type Screen =
   | { kind: "landing" }
@@ -367,6 +395,17 @@ export default function App() {
         {screen.kind === "not-found" && (
           <NotFound onHome={() => setScreen({ kind: "landing" })} onNavigate={openPath} />
         )}
+        {/* One boundary for all of them: the guide chunk is shared, so whichever
+            page is opened first pays the load and the rest are instant. */}
+        <Suspense
+          fallback={
+            screen.kind.startsWith("guide-") ? (
+              <div className="flex justify-center py-24" aria-label="Loading guide">
+                <LoaderCircle className="size-6 animate-spin text-muted-foreground" strokeWidth={2} />
+              </div>
+            ) : null
+          }
+        >
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus1" && <APlusCore1Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus2" && <APlusCore2Guide onStart={startExamFromGuide} />}
@@ -380,6 +419,7 @@ export default function App() {
         {screen.kind === "guide-ccna" && <CcnaGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-az104" && <Az104Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-saa" && <SaaGuide onStart={startExamFromGuide} />}
+        </Suspense>
         </div>
         <SiteFooter onNavigate={openPath} />
       </div>

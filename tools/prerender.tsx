@@ -6,10 +6,13 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
-import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide, GUIDE_META, type GuideMeta } from "../src/screens/Guides"
+import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide} from "../src/screens/Guides"
+import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "../src/data/guide-meta"
+import { GUIDE_SAMPLES } from "../src/data/guide-samples"
+import { EXAM_META } from "../src/data/meta"
 import { qotdPool } from "../src/lib/qotd"
-import { siteTagline, siteTitle } from "../src/lib/copy"
-import { GUIDE_PATHS, LEGAL_PATHS } from "../src/data/routes"
+import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
+import { GUIDE_PATHS, LEGAL_PATHS, type GuideKey } from "../src/data/routes"
 import { SITE_URL } from "../src/lib/site"
 
 const dist = resolve(import.meta.dirname, "../dist")
@@ -63,16 +66,65 @@ const template = withFonts
   .replace(/<title>[^<]*<\/title>/, `<title>${esc(siteTitle())}</title>`)
   .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
   .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
-writeFileSync(resolve(dist, "index.html"), template)
+// The homepage's FAQPage/ItemList goes ONLY into index.html, never into the
+// shared template: each guide emits its own FAQPage, and two FAQPage entities
+// on one URL are competing claims about what the page is.
+writeFileSync(resolve(dist, "index.html"), template.replace("</head>", `${homeJsonLd()}</head>`))
 console.log(`font preloads: ${fontPreloads ? (fontPreloads.match(/href="([^"]+)"/g) ?? []).join(" ") : "(none found)"}`)
 console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links`)
 
 const noop = () => {}
 
-function jsonLd(meta: GuideMeta): string {
+/**
+ * Quiz markup for the sample questions the page actually renders.
+ *
+ * This is the "practice problems" rich result: `Quiz` with `hasPart` Questions,
+ * each carrying the accepted answer and the distractors as suggested answers.
+ * Driven by the same GUIDE_EXAMS map the page renders from, so the schema can
+ * never advertise questions the page does not show.
+ */
+function quizNode(key: GuideKey, meta: GuideMeta) {
+  const examIds = GUIDE_EXAMS[key]
+  if (examIds.length === 0) return null
+  const questions = examIds
+    .flatMap((id) => (GUIDE_SAMPLES[id] ?? []).map((q) => ({ q, exam: EXAM_META[id] })))
+    .slice(0, 8)
+  if (questions.length === 0) return null
+
+  return {
+    "@type": "Quiz",
+    name: meta.h1,
+    url: `${SITE_URL}${meta.path}`,
+    about: examIds.map((id) => ({
+      "@type": "Thing",
+      name: `${EXAM_META[id].cert} ${EXAM_META[id].name} (${EXAM_META[id].code})`,
+    })),
+    educationalAlignment: examIds.map((id) => ({
+      "@type": "AlignmentObject",
+      alignmentType: "educationalSubject",
+      targetName: `${EXAM_META[id].cert} ${EXAM_META[id].name}`,
+    })),
+    hasPart: questions.map(({ q }) => ({
+      "@type": "Question",
+      eduQuestionType: "Multiple choice",
+      learningResourceType: "Practice problem",
+      name: q.x,
+      text: q.x,
+      acceptedAnswer: { "@type": "Answer", text: q.o[q.a], explanation: q.e },
+      suggestedAnswer: q.o
+        .map((o, i) => ({ o, i }))
+        .filter(({ i }) => i !== q.a)
+        .map(({ o }) => ({ "@type": "Answer", text: o })),
+    })),
+  }
+}
+
+function jsonLd(key: GuideKey, meta: GuideMeta): string {
   const url = `${SITE_URL}${meta.path}`
-  // FAQPage + Course + BreadcrumbList in one @graph. Organization/WebSite come
-  // from the static template (index.html), deduped by @id.
+  // FAQPage + Course + BreadcrumbList (+ Quiz where the page shows questions)
+  // in one @graph. Organization/WebSite come from the static template
+  // (index.html), deduped by @id.
+  const quiz = quizNode(key, meta)
   const graph = [
     {
       "@type": "FAQPage",
@@ -98,6 +150,39 @@ function jsonLd(meta: GuideMeta): string {
       ],
     },
   ]
+  if (quiz) graph.push(quiz)
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
+}
+
+/**
+ * Homepage structured data: the FAQ the landing page renders, plus an ItemList
+ * of every guide so the exam set is machine-readable from the root.
+ *
+ * Deliberately NO WebSite SearchAction: the site has no `?q=` search URL (search
+ * is an in-app palette), and claiming a sitelinks searchbox that does not work
+ * is a promise to Google we cannot keep.
+ */
+function homeJsonLd(): string {
+  const graph = [
+    {
+      "@type": "FAQPage",
+      mainEntity: siteFaq().map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    },
+    {
+      "@type": "ItemList",
+      name: "Free IT certification practice tests",
+      itemListElement: Object.values(GUIDE_META).map((g, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: g.title.replace(" | Cert900", ""),
+        url: `${SITE_URL}${g.path}`,
+      })),
+    },
+  ]
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
 }
 
@@ -105,7 +190,7 @@ function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
 }
 
-function page(meta: GuideMeta, body: string): string {
+function page(key: GuideKey, meta: GuideMeta, body: string): string {
   const url = `${SITE_URL}${meta.path}`
   return template
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`)
@@ -116,7 +201,7 @@ function page(meta: GuideMeta, body: string): string {
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(meta.title)}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
-    .replace("</head>", `${jsonLd(meta)}</head>`)
+    .replace("</head>", `${jsonLd(key, meta)}</head>`)
     // Root now carries a <noscript> fallback (see index.html); match the whole
     // block, not the old empty `<div id="root"></div>`.
     .replace(
@@ -125,26 +210,26 @@ function page(meta: GuideMeta, body: string): string {
     )
 }
 
-const pages: [GuideMeta, React.ReactElement][] = [
-  [GUIDE_META.aplus, <APlusGuide onStart={noop} />],
-  [GUIDE_META.aplus1, <APlusCore1Guide onStart={noop} />],
-  [GUIDE_META.aplus2, <APlusCore2Guide onStart={noop} />],
-  [GUIDE_META.nplus, <NPlusGuide onStart={noop} />],
-  [GUIDE_META.pbq, <PbqGuide onStart={noop} />],
-  [GUIDE_META.secplus, <SecplusGuide onStart={noop} />],
-  [GUIDE_META.aif, <AifGuide onStart={noop} />],
-  [GUIDE_META.clf, <ClfGuide onStart={noop} />],
-  [GUIDE_META.az900, <Az900Guide onStart={noop} />],
-  [GUIDE_META.sc900, <Sc900Guide onStart={noop} />],
-  [GUIDE_META.ccna, <CcnaGuide onStart={noop} />],
-  [GUIDE_META.az104, <Az104Guide onStart={noop} />],
-  [GUIDE_META.saa, <SaaGuide onStart={noop} />],
+const pages: [GuideKey, GuideMeta, React.ReactElement][] = [
+  ["aplus", GUIDE_META.aplus, <APlusGuide onStart={noop} />],
+  ["aplus1", GUIDE_META.aplus1, <APlusCore1Guide onStart={noop} />],
+  ["aplus2", GUIDE_META.aplus2, <APlusCore2Guide onStart={noop} />],
+  ["nplus", GUIDE_META.nplus, <NPlusGuide onStart={noop} />],
+  ["pbq", GUIDE_META.pbq, <PbqGuide onStart={noop} />],
+  ["secplus", GUIDE_META.secplus, <SecplusGuide onStart={noop} />],
+  ["aif", GUIDE_META.aif, <AifGuide onStart={noop} />],
+  ["clf", GUIDE_META.clf, <ClfGuide onStart={noop} />],
+  ["az900", GUIDE_META.az900, <Az900Guide onStart={noop} />],
+  ["sc900", GUIDE_META.sc900, <Sc900Guide onStart={noop} />],
+  ["ccna", GUIDE_META.ccna, <CcnaGuide onStart={noop} />],
+  ["az104", GUIDE_META.az104, <Az104Guide onStart={noop} />],
+  ["saa", GUIDE_META.saa, <SaaGuide onStart={noop} />],
 ]
 
-for (const [meta, el] of pages) {
+for (const [key, meta, el] of pages) {
   const body = renderToStaticMarkup(el)
   const out = `${meta.path.slice(1)}.html` // flat file: /slug serves slug.html (no trailing-slash redirect)
-  writeFileSync(resolve(dist, out), page(meta, body))
+  writeFileSync(resolve(dist, out), page(key, meta, body))
   console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
 }
 
