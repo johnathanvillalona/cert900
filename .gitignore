@@ -18,3 +18,13 @@ dist/
 
 mobile/store-assets/*.aab
 tsconfig.tsbuildinfo
+
+# Store publishing credentials. These belong OUTSIDE the repo entirely (see
+# docs/store-api-setup.md) — this is only a net for the day one gets dragged in.
+# Neither Google nor Apple lets you re-download a key, so a leak means revoking
+# and re-minting, and a committed one is live until you do.
+*.p8
+*-service-account*.json
+*serviceaccount*.json
+google-play-*.json
+AuthKey_*.p8
