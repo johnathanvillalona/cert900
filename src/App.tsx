@@ -59,6 +59,11 @@ const Sc900Guide = guide("Sc900Guide")
 const CcnaGuide = guide("CcnaGuide")
 const Az104Guide = guide("Az104Guide")
 const SaaGuide = guide("SaaGuide")
+const info = <K extends keyof typeof import("@/screens/InfoPages")>(name: K) =>
+  lazy(() => import("@/screens/InfoPages").then((m) => ({ default: m[name] as React.ComponentType<{ onStart: (id: string) => void }> })))
+const HubPage = info("HubPage")
+const ScoresPage = info("ScoresPage")
+const OrderPage = info("OrderPage")
 
 export type Screen =
   | { kind: "landing" }
@@ -85,6 +90,9 @@ export type Screen =
   | { kind: "guide-ccna" }
   | { kind: "guide-az104" }
   | { kind: "guide-saa" }
+  | { kind: "guide-hub" }
+  | { kind: "guide-scores" }
+  | { kind: "guide-order" }
   | { kind: "not-found" }
 
 /** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
@@ -107,6 +115,9 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   [GUIDE_META.ccna.path]: "guide-ccna",
   [GUIDE_META.az104.path]: "guide-az104",
   [GUIDE_META.saa.path]: "guide-saa",
+  [GUIDE_META.hub.path]: "guide-hub",
+  [GUIDE_META.scores.path]: "guide-scores",
+  [GUIDE_META.order.path]: "guide-order",
 }
 const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
@@ -127,6 +138,9 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-ccna": GUIDE_META.ccna.title,
   "guide-az104": GUIDE_META.az104.title,
   "guide-saa": GUIDE_META.saa.title,
+  "guide-hub": GUIDE_META.hub.title,
+  "guide-scores": GUIDE_META.scores.title,
+  "guide-order": GUIDE_META.order.title,
 }
 // Derived so the SPA title cannot drift from index.html's, which it had (one
 // listed Cisco, the other did not).
@@ -419,6 +433,9 @@ export default function App() {
         {screen.kind === "guide-ccna" && <CcnaGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-az104" && <Az104Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-saa" && <SaaGuide onStart={startExamFromGuide} />}
+        {screen.kind === "guide-hub" && <HubPage onStart={startExamFromGuide} />}
+        {screen.kind === "guide-scores" && <ScoresPage onStart={startExamFromGuide} />}
+        {screen.kind === "guide-order" && <OrderPage onStart={startExamFromGuide} />}
         </Suspense>
         </div>
         <SiteFooter onNavigate={openPath} />

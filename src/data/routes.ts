@@ -27,6 +27,12 @@ export const GUIDE_PATHS = {
   az900: "/azure-fundamentals-practice-test",
   az104: "/azure-administrator-az-104-practice-test",
   sc900: "/microsoft-sc-900-practice-test",
+  // Informational pages. Same machinery as the exam guides (sitemap, noscript,
+  // footer, IndexNow, cross-links) because they are the same kind of thing to a
+  // crawler: a static page we want indexed.
+  hub: "/it-certification-practice-tests",
+  scores: "/it-certification-passing-scores",
+  order: "/which-it-certification-first",
 } as const
 
 export type GuideKey = keyof typeof GUIDE_PATHS
@@ -46,6 +52,9 @@ export const GUIDE_LABELS: Record<GuideKey, string> = {
   az900: "Azure Fundamentals practice",
   az104: "AZ-104 practice test",
   sc900: "SC-900 practice test",
+  hub: "All IT cert practice tests",
+  scores: "Passing scores",
+  order: "Which cert first?",
 }
 
 export const GUIDE_KEYS = Object.keys(GUIDE_PATHS) as GuideKey[]

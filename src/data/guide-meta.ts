@@ -7,7 +7,7 @@
  * embedded practice questions into the entry chunk that every quiz-taker
  * downloads. Data here, JSX there.
  */
-import { EXAM_META } from "@/data/meta"
+import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { GUIDE_PATHS, type GuideKey } from "@/data/routes"
 
 export interface GuideMeta {
@@ -33,7 +33,7 @@ const APLUS = inventory("220-1201", "220-1202")
 const NPLUS = inventory("n10-009")
 const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
 
-export const GUIDE_META: Record<GuideKey, GuideMeta> = {
+const EXAM_GUIDE_META: Record<Exclude<GuideKey, "hub" | "scores" | "order">, GuideMeta> = {
   secplus: {
     path: GUIDE_PATHS.secplus,
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -350,7 +350,7 @@ export const GUIDE_META: Record<GuideKey, GuideMeta> = {
  * disagreed, the schema would advertise questions the page does not show.
  * The PBQ guide has no multiple-choice samples, hence the empty list.
  */
-export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
+const EXAM_GUIDE_EXAMS = {
   aplus: ["220-1201", "220-1202"],
   aplus1: ["220-1201"],
   aplus2: ["220-1202"],
@@ -364,4 +364,103 @@ export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
   az900: ["az-900"],
   az104: ["az-104"],
   sc900: ["sc-900"],
+}
+
+/**
+ * Informational pages.
+ *
+ * These target query classes the per-exam guides cannot: the generic "IT
+ * certification practice test" head term, and the two questions every candidate
+ * asks before picking an exam (what score do I need, and which one first). All
+ * three are built from data the site already owns — real cut scores, scales,
+ * question counts, and time limits for every exam — rather than being thin
+ * doorway pages restating the guides.
+ */
+const N_EXAMS = EXAM_ORDER.length
+const TOTAL_Q = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
+
+const INFO_META: Record<"hub" | "scores" | "order", GuideMeta> = {
+  hub: {
+    path: GUIDE_PATHS.hub,
+    title: "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900",
+    description: `Free practice tests for ${N_EXAMS} IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. ${TOTAL_Q} original questions, timed exam simulation on each exam's real scale. No signup.`,
+    h1: "Free IT certification practice tests",
+    faq: [
+      [
+        "Are these practice tests really free?",
+        "Yes, all of them. There is no paywall, no signup wall, and no trial that expires. The full question bank for every exam is open, and progress saves in your browser without an account.",
+      ],
+      [
+        "Are these real exam questions?",
+        "No, and you should avoid anyone who says otherwise. Every question here is original, written from the current published exam objectives. Sites distributing actual exam content are violating their agreements with the vendor, and using them can get your certification revoked.",
+      ],
+      [
+        "How close is the simulation to the real exam?",
+        "Each timed exam uses that exam's real question count, time limit, question-type mix, and scoring scale, including the actual cut score. A practice score therefore reads the way a real score report does.",
+      ],
+      [
+        "Which certification should I start with?",
+        "It depends on the track. CompTIA A+ is the usual first step for IT support, CCNA for networking, and the cloud vendors have their own fundamentals exams. There is a full walkthrough on the which-certification-first page.",
+      ],
+    ],
+  },
+  scores: {
+    path: GUIDE_PATHS.scores,
+    title: "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900",
+    description: `Passing scores for ${N_EXAMS} IT certification exams, with each exam's scale, question count, and time limit. CompTIA A+ 675, Network+ 720, Security+ 750 on 100-900; AWS and Azure 700-720 and Cisco about 825 on 100-1,000. Free practice scored on the same scales.`,
+    h1: "IT certification passing scores, by exam",
+    faq: [
+      [
+        "Why is the passing score not a percentage?",
+        "Most certification exams report a scaled score, not a raw percentage. Questions differ in difficulty and different candidates see different question sets, so the raw count is converted onto a common scale that means the same thing across every version of the exam.",
+      ],
+      [
+        "Does that mean I need 675 out of 900 correct?",
+        "No. The scale runs from 100, not zero, and the conversion is not linear. A 675 on CompTIA A+ Core 1 does not correspond to any fixed percentage of questions answered correctly, which is why CompTIA does not publish one.",
+      ],
+      [
+        "Do performance-based questions count for more?",
+        "On CompTIA and Cisco exams, yes: simulations carry more weight than a single multiple-choice question and award partial credit for the parts you get right. AWS and Azure interactive items are all-or-nothing and weighted like a normal question.",
+      ],
+      [
+        "Does Cisco publish the CCNA passing score?",
+        "No. Cisco does not publish the cut score or the exact question count for the CCNA 200-301, and it can vary between exam forms. A scaled score around 825 of 1,000 is the figure widely reported by candidates, and it is what this site scores against.",
+      ],
+    ],
+  },
+  order: {
+    path: GUIDE_PATHS.order,
+    title: "Which IT Certification Should You Take First? | Cert900",
+    description: "Which IT certification to take first, by track: CompTIA A+ then Network+ then Security+ for support and security, Cisco CCNA for networking, and the AWS and Azure fundamentals exams before their associate-level certifications. With free practice tests for each.",
+    h1: "Which IT certification should you take first?",
+    faq: [
+      [
+        "Do I need A+ before Network+ or Security+?",
+        "No. CompTIA recommends that order but enforces no prerequisites, so you can sit any of them in any order. If you already work in IT, starting at Network+ or Security+ is common and completely allowed.",
+      ],
+      [
+        "Is A+ worth it if I already work in IT?",
+        "If you are already doing the job, A+ mostly certifies what you can already do. It still helps for HR filters and government contracting roles, but Network+ or Security+ usually moves the needle more for someone already employed in IT.",
+      ],
+      [
+        "Should I do a cloud fundamentals exam before an associate one?",
+        "It is the cheapest way to find out whether the vocabulary is there. Cloud Practitioner and AZ-900 are inexpensive, do not expire, and cover the terminology the associate exams assume. If you already administer that cloud daily, going straight to the associate exam is reasonable.",
+      ],
+      [
+        "Does Security+ expire?",
+        "CompTIA certifications are valid for three years and renew through continuing education or a higher certification. Microsoft fundamentals certifications such as AZ-900 and SC-900 do not expire; role-based ones such as AZ-104 renew annually through a free online assessment.",
+      ],
+    ],
+  },
+}
+
+/** Every guide and informational page, keyed exactly like GUIDE_PATHS. */
+export const GUIDE_META: Record<GuideKey, GuideMeta> = { ...EXAM_GUIDE_META, ...INFO_META }
+
+/** Informational pages show no sample questions, so they map to no exam. */
+export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
+  ...EXAM_GUIDE_EXAMS,
+  hub: [],
+  scores: [],
+  order: [],
 }

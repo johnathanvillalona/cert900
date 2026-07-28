@@ -136,7 +136,7 @@ function StudyPath({ examId }: { examId: string }) {
   )
 }
 
-function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
+export function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   return (
     <main className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
@@ -182,7 +182,7 @@ function GuideShell({ meta, children }: { meta: GuideMeta; children: React.React
   )
 }
 
-function Cta({ label, onGo, testid }: { label: string; onGo: () => void; testid: string }) {
+export function Cta({ label, onGo, testid }: { label: string; onGo: () => void; testid: string }) {
   return (
     <button
       onClick={onGo}
