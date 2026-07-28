@@ -58,6 +58,14 @@ export function ProgressScreen({ route }: RootScreenProps<"Progress">) {
         {exam.cert} {exam.name} · {exam.code}
       </Text>
 
+      {p.passed && (
+        <View style={styles.passedPill} testID="passed-badge">
+          <Text style={styles.passedPillText}>
+            Passed{p.passedOn ? ` · ${p.passedOn}` : ""}
+          </Text>
+        </View>
+      )}
+
       <ReadinessCard exam={exam} p={p} />
 
       <View style={styles.tiles} testID="statline">
@@ -315,6 +323,16 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     padding: space.md,
   },
+  passedPill: {
+    alignSelf: "flex-start",
+    borderWidth: 1,
+    borderColor: colors.success,
+    borderRadius: 999,
+    paddingHorizontal: space.sm,
+    paddingVertical: 2,
+    marginBottom: space.xs,
+  },
+  passedPillText: { color: colors.success, fontSize: 11, fontWeight: "700" },
   cardTitle: { color: colors.text, fontSize: 17, fontWeight: "700" },
   cardNote: { color: colors.muted, fontSize: 12, lineHeight: 18, marginTop: 4 },
   empty: { color: colors.muted, fontSize: 13, lineHeight: 20, marginTop: space.sm },

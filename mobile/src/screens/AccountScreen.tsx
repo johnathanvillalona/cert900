@@ -31,6 +31,7 @@ export function AccountScreen(_props: RootScreenProps<"Account">) {
   // Google button while the Apple sheet is up.
   const [busy, setBusy] = useState<"google" | "apple" | null>(null)
   const [deleting, setDeleting] = useState(false)
+  const [signingOut, setSigningOut] = useState(false)
   const appleAvailable = useAppleSignInAvailable()
 
   const signInGoogle = async () => {
@@ -82,6 +83,34 @@ export function AccountScreen(_props: RootScreenProps<"Account">) {
       [
         { text: "Cancel", style: "cancel" },
         { text: "Erase", style: "destructive", onPress: () => store.clearDevice() },
+      ],
+    )
+
+  /**
+   * Sign-out was the one account action with no confirm and no feedback: the
+   * promise was discarded, so a failed request looked identical to success.
+   */
+  const runSignOut = async () => {
+    setSigningOut(true)
+    try {
+      await signOut()
+    } catch {
+      Alert.alert(
+        "Couldn't sign out",
+        "Something went wrong reaching the server. Check your connection and try again.",
+      )
+    } finally {
+      setSigningOut(false)
+    }
+  }
+
+  const confirmSignOut = () =>
+    Alert.alert(
+      "Sign out?",
+      "Your progress stays synced to your account and on this device. Sign back in any time to pick up where you left off.",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "Sign out", onPress: () => void runSignOut() },
       ],
     )
 
@@ -171,7 +200,9 @@ export function AccountScreen(_props: RootScreenProps<"Account">) {
             <AppButton
               label="Sign out"
               variant="ghost"
-              onPress={() => void signOut()}
+              loading={signingOut}
+              disabled={signingOut}
+              onPress={confirmSignOut}
               testID="sign-out"
             />
           </>

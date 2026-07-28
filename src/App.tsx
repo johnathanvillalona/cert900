@@ -8,6 +8,7 @@ import { useTheme } from "@/hooks/useTheme"
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/lib/quiz-session"
+import { siteTitle } from "@/lib/copy"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
@@ -96,7 +97,9 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   "guide-az104": GUIDE_META.az104.title,
   "guide-saa": GUIDE_META.saa.title,
 }
-const DEFAULT_TITLE = "Cert900: Free CompTIA, AWS & Azure Practice Exams"
+// Derived so the SPA title cannot drift from index.html's, which it had (one
+// listed Cisco, the other did not).
+const DEFAULT_TITLE = siteTitle()
 
 /** Screens that need the exam's question bank, so they wait on its chunk. */
 const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress"])

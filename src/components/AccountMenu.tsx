@@ -40,6 +40,8 @@ export function AccountMenu() {
   const store = useProgress()
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [confirmSignOut, setConfirmSignOut] = useState(false)
+  const [signingOut, setSigningOut] = useState(false)
 
   if (isPending) return <span className="w-9" />
 
@@ -104,7 +106,7 @@ export function AccountMenu() {
             )}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => signOut()} data-testid="sign-out">
+          <DropdownMenuItem onClick={() => setConfirmSignOut(true)} data-testid="sign-out">
             <LogOut className="size-4" strokeWidth={2} /> Sign out
           </DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onClick={() => setConfirmDelete(true)}>
@@ -112,6 +114,43 @@ export function AccountMenu() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <Dialog open={confirmSignOut} onOpenChange={setConfirmSignOut}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sign out?</DialogTitle>
+            <DialogDescription>
+              Your progress stays synced to your account and on this device. Sign back in any
+              time to pick up where you left off.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmSignOut(false)}>
+              Cancel
+            </Button>
+            <Button
+              disabled={signingOut}
+              data-testid="confirm-sign-out"
+              onClick={async () => {
+                setSigningOut(true)
+                try {
+                  await signOut()
+                  setConfirmSignOut(false)
+                  toast("Signed out.")
+                } catch {
+                  toast("Could not sign out", {
+                    description: "Something went wrong reaching the server. Check your connection and try again.",
+                  })
+                } finally {
+                  setSigningOut(false)
+                }
+              }}
+            >
+              {signingOut ? "Signing out" : "Sign out"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
         <DialogContent>

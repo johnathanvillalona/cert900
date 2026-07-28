@@ -6,6 +6,7 @@ import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
 import { questionOfTheDay } from "@/lib/qotd"
+import { siteFaq } from "@/lib/copy"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
@@ -115,31 +116,15 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answer
   )
 }
 
-const FAQ: [string, string][] = [
-  [
-    "Is this really free?",
-    "Yes. Every question, every timed exam, every PBQ, across all three vendors. No paywall, no sign-up, no trial that expires. If it helps you pass, tell someone who is also studying.",
-  ],
-  [
-    "Which exams are covered?",
-    "Seven: CompTIA A+ Core 1 (220-1201), A+ Core 2 (220-1202), Network+ (N10-009), and Security+ (SY0-701); AWS AI Practitioner (AIF-C01) and Cloud Practitioner (CLF-C02); and Microsoft Azure Fundamentals (AZ-900). Each follows its real exam's formats, length, and scoring.",
-  ],
-  [
-    "How does scaled scoring work?",
-    "Certification exams report scaled scores, not percentages. CompTIA scores 100 to 900, with the pass line varying by exam from 675 to 750; AWS and Azure report up to 1,000 and need 700. Every simulation here uses its exam's real scale and cut score, so your practice score means what it says.",
-  ],
-  [
-    "Do I need an account?",
-    "No. Progress saves in this browser on its own. Signing in with Google only adds syncing, so you can drill on your phone and review the misses at your desk.",
-  ],
-]
-
 function FaqSection() {
+  // Derived from the exam registry, never retyped: this block twice shipped a
+  // stale exam count after a new bank landed. See src/lib/copy.ts.
+  const faq = siteFaq()
   return (
     <section id="faq" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
       <h2 className="font-heading text-3xl font-semibold tracking-tight">Common questions</h2>
       <div className="mt-8 max-w-3xl border-t">
-        {FAQ.map(([q, a]) => (
+        {faq.map(([q, a]) => (
           <details key={q} className="group border-b">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-heading text-lg font-semibold [&::-webkit-details-marker]:hidden">
               {q}
