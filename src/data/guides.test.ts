@@ -62,15 +62,16 @@ describe("guide/exam wiring", () => {
   })
 
   /**
-   * Every guide except the PBQ overview renders sample questions; that one is
-   * about the interaction formats, which have no multiple-choice samples.
+   * Pages with no exam show no sample questions and get no Quiz schema. Only
+   * these four qualify: the PBQ overview (about interaction formats, which have
+   * no multiple-choice samples) and the three informational pages. Any other
+   * key landing here means a guide silently lost its questions.
    */
+  const SAMPLE_LESS = ["pbq", "hub", "scores", "order"]
+
   it("gives every exam guide questions to show", () => {
-    for (const key of GUIDE_KEYS) {
-      if (key === "pbq") continue
-      expect(GUIDE_EXAMS[key].length, `${key} has no exam`).toBeGreaterThan(0)
-    }
-    expect(GUIDE_EXAMS.pbq).toEqual([])
+    const empty = GUIDE_KEYS.filter((k) => GUIDE_EXAMS[k].length === 0)
+    expect(empty.sort()).toEqual([...SAMPLE_LESS].sort())
   })
 
   it("keeps every guide's meta complete", () => {
@@ -92,11 +93,16 @@ describe("guide/exam wiring", () => {
    * 315 against 355 because those numbers were typed in by hand.
    */
   it("quotes question counts that match the banks", () => {
+    const siteTotal = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
     for (const key of GUIDE_KEYS) {
       const claimed = GUIDE_META[key].description.match(/([\d,]+) original questions/)
       if (!claimed) continue
-      const actual = GUIDE_EXAMS[key].reduce((a, id) => a + EXAM_META[id].questionCount, 0)
-      expect(Number(claimed[1].replace(/,/g, "")), `${key} description`).toBe(actual)
+      // A per-exam guide quotes its own exams' total; a site-wide page quotes
+      // the whole bank.
+      const expected = GUIDE_EXAMS[key].length
+        ? GUIDE_EXAMS[key].reduce((a, id) => a + EXAM_META[id].questionCount, 0)
+        : siteTotal
+      expect(Number(claimed[1].replace(/,/g, "")), `${key} description`).toBe(expected)
     }
   })
 })
