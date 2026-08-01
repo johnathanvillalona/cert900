@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { ADMIN_PATH, APP_PATHS, EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isKnownPath, parseExamPath } from "./routes"
+import { ADMIN_PATH, APP_PATHS, EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isGuidePath, isKnownPath, parseExamPath } from "./routes"
 import { EXAM_IDS } from "./exam-ids"
 import { GUIDE_META } from "./guide-meta"
 
@@ -91,5 +91,20 @@ describe("app screen paths", () => {
     expect(APP_PATHS).not.toContain(ADMIN_PATH)
     expect(Object.values(GUIDE_PATHS)).not.toContain(ADMIN_PATH)
     expect(LEGAL_PATHS).not.toContain(ADMIN_PATH)
+  })
+
+  /**
+   * isGuidePath selects which Content-Security-Policy a page gets: guides carry
+   * the Grow script and get the wider policy, everything else keeps the strict
+   * one. A false positive here hands an app page the ad-adjacent CSP.
+   */
+  it("classifies guide paths for the CSP split, and nothing else", () => {
+    for (const p of Object.values(GUIDE_PATHS)) {
+      expect(isGuidePath(p), p).toBe(true)
+      expect(isGuidePath(`${p}/`), `${p}/`).toBe(true)
+    }
+    for (const p of ["/", "/exams", "/progress", "/privacy", ADMIN_PATH, "/exam/sy0-701", "/exam/sy0-701/quiz", "/nope", `//${GUIDE_PATHS.nplus.slice(1)}`]) {
+      expect(isGuidePath(p), p).toBe(false)
+    }
   })
 })

@@ -116,6 +116,18 @@ export const KNOWN_PATHS: readonly string[] = [
   ADMIN_PATH,
 ]
 
+/**
+ * `true` for the 16 static guide pages. The worker serves these a different
+ * Content-Security-Policy: they carry the Grow script (and someday maybe ads),
+ * which the app's strict CSP must never admit. Tolerates one trailing slash
+ * like isKnownPath.
+ */
+export function isGuidePath(pathname: string): boolean {
+  if (pathname.includes("//")) return false
+  const p = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
+  return (Object.values(GUIDE_PATHS) as string[]).includes(p)
+}
+
 /** `true` for a path the site actually serves, tolerating one trailing slash. */
 export function isKnownPath(pathname: string): boolean {
   // "//" would otherwise normalize to "/" and answer 200 for a path we never

@@ -14,7 +14,7 @@ import { EXAM_META } from "../src/data/meta"
 import { qotdPool } from "../src/lib/qotd"
 import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
 import { GUIDE_PATHS, LEGAL_PATHS, type GuideKey } from "../src/data/routes"
-import { SITE_URL } from "../src/lib/site"
+import { GROW, SITE_URL } from "../src/lib/site"
 
 const dist = resolve(import.meta.dirname, "../dist")
 
@@ -189,6 +189,17 @@ function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
 }
 
+/**
+ * Grow by Mediavine, guide pages only. Empty siteId = the tag simply does not
+ * exist in the output, and this is the ONLY place it is ever emitted --
+ * dist/index.html and therefore the whole app can never carry it. Grow is the
+ * 30-day prerequisite for applying to Journey; it serves no ads itself.
+ * The official manual-install snippet, verbatim, with the id substituted.
+ */
+const growTag = GROW.siteId
+  ? `<script data-grow-initializer="">!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");e.type="text/javascript";e.src="https://faves.grow.me/main.js";e.defer=!0;e.setAttribute("data-grow-faves-site-id",${JSON.stringify(GROW.siteId)});var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();</script>`
+  : ""
+
 function page(key: GuideKey, meta: GuideMeta, body: string): string {
   const url = `${SITE_URL}${meta.path}`
   return template
@@ -200,7 +211,7 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(meta.title)}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
-    .replace("</head>", `${jsonLd(key, meta)}</head>`)
+    .replace("</head>", `${jsonLd(key, meta)}${growTag}</head>`)
     // Root now carries a <noscript> fallback (see index.html); match the whole
     // block, not the old empty `<div id="root"></div>`. GuideShell brings its
     // own header/wrapper/footer, so the body goes in bare.
