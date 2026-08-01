@@ -244,7 +244,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
             <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
               <ThemeIcon />
             </Button>
-            <AccountMenu />
+            <AccountMenu onNavigate={onNavigate} />
           </div>
         </nav>
       </header>

@@ -399,7 +399,7 @@ export default function App() {
               <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
                 <ThemeIcon />
               </Button>
-              <AccountMenu />
+              <AccountMenu onNavigate={openPath} />
             </div>
           </div>
         </header>

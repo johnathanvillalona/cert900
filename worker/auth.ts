@@ -46,10 +46,11 @@ export interface Env {
   APPLE_CLIENT_ID?: string
   APPLE_CLIENT_SECRET?: string
   // Social automation secrets; optional so the cron degrades gracefully.
-  X_API_KEY?: string
-  X_API_SECRET?: string
-  X_ACCESS_TOKEN?: string
-  X_ACCESS_SECRET?: string
+  //
+  // The X_* secrets are gone from here because the posting path is gone: X
+  // answered every request with `402 credits depleted` (the free tier can no
+  // longer write). They still exist on the deployed Worker and can be dropped
+  // with `npx wrangler secret delete X_API_KEY` and friends.
   BSKY_IDENTIFIER?: string
   BSKY_APP_PASSWORD?: string
   REDDIT_CLIENT_ID?: string

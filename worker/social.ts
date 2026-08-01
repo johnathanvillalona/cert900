@@ -70,53 +70,16 @@ export function composePost(q: FeedEntry, link: string, linkLen: number, limit: 
   return `${head}\n\n${q.stem.slice(0, Math.max(40, room))}…\n\n${tail}`
 }
 
-// ---------- X (OAuth 1.0a user context, HMAC-SHA1 via WebCrypto) ----------
-
-function pctEncode(s: string): string {
-  return encodeURIComponent(s).replace(/[!*'()]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase())
-}
-
-async function hmacSha1(key: string, base: string): Promise<string> {
-  const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(key), { name: "HMAC", hash: "SHA-1" }, false, ["sign"])
-  const sig = await crypto.subtle.sign("HMAC", k, new TextEncoder().encode(base))
-  return btoa(String.fromCharCode(...new Uint8Array(sig)))
-}
-
-async function postToX(env: Env, text: string): Promise<void> {
-  if (!env.X_API_KEY || !env.X_API_SECRET || !env.X_ACCESS_TOKEN || !env.X_ACCESS_SECRET) {
-    console.log("qotd: X skipped (secrets not set)")
-    return
-  }
-  const url = "https://api.x.com/2/tweets"
-  const oauth: Record<string, string> = {
-    oauth_consumer_key: env.X_API_KEY,
-    oauth_nonce: crypto.randomUUID().replaceAll("-", ""),
-    oauth_signature_method: "HMAC-SHA1",
-    oauth_timestamp: String(Math.floor(Date.now() / 1000)),
-    oauth_token: env.X_ACCESS_TOKEN,
-    oauth_version: "1.0",
-  }
-  const paramStr = Object.keys(oauth)
-    .sort()
-    .map((k) => `${pctEncode(k)}=${pctEncode(oauth[k])}`)
-    .join("&")
-  const base = `POST&${pctEncode(url)}&${pctEncode(paramStr)}`
-  const signingKey = `${pctEncode(env.X_API_SECRET)}&${pctEncode(env.X_ACCESS_SECRET)}`
-  oauth.oauth_signature = await hmacSha1(signingKey, base)
-  const header =
-    "OAuth " +
-    Object.keys(oauth)
-      .sort()
-      .map((k) => `${pctEncode(k)}="${pctEncode(oauth[k])}"`)
-      .join(", ")
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { Authorization: header, "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
-  })
-  console.log(`qotd: X -> ${res.status}${res.ok ? "" : " " + (await res.text()).slice(0, 200)}`)
-}
+// ---------- X: REMOVED 2026-08-01 ----------
+//
+// X's API answered every post with `402 credits depleted`: the free tier can no
+// longer write. Promise.allSettled meant it failed silently for weeks. Rather
+// than keep ~45 lines of OAuth 1.0a signing warm for an endpoint that cannot
+// succeed, the whole path is gone; `git show 7f57c1e:worker/social.ts` has it
+// intact if a paid plan ever makes it worth restoring.
+//
+// The X_* secrets are still set on the Worker and are now unused. Remove them
+// with `npx wrangler secret delete X_API_KEY` (and the other three).
 
 // ---------- Bluesky (app password session + link facet) ----------
 
@@ -163,12 +126,9 @@ export async function dailySocialPost(env: Env, q: FeedEntry | null): Promise<vo
     console.log("qotd: no feed entry")
     return
   }
-  const xLink = QOTD_LINK.replace("%SRC%", "x")
   const bskyLink = QOTD_LINK.replace("%SRC%", "bluesky")
-  // X wraps links to 23 chars; Bluesky counts graphemes of the raw text.
-  const xText = composePost(q, xLink, 23, 280)
-  const bskyText = composePost(q, bskyLink, bskyLink.length, 300)
-  await Promise.allSettled([postToX(env, xText), postToBluesky(env, bskyText, bskyLink)])
+  // Bluesky counts graphemes of the raw text, so the link costs its full length.
+  await postToBluesky(env, composePost(q, bskyLink, bskyLink.length, 300), bskyLink)
 }
 
 // ---------- Weekly: Reddit opportunity scan (read-only) + IndexNow ----------

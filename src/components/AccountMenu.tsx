@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { CloudCheck, CloudOff, LoaderCircle, LogOut, Trash2 } from "lucide-react"
+import { CloudCheck, CloudOff, Flag, LoaderCircle, LogOut, Trash2 } from "lucide-react"
 import { useSession, signIn, signOut, deleteUser } from "@/lib/auth-client"
 import { CONTACT_EMAIL } from "@/lib/site"
+import { ADMIN_PATH } from "@/data/routes"
+import { useAdmin } from "@/hooks/useAdmin"
 import { useProgress } from "@/hooks/useProgress"
 import { EmailAuthForm, useEmailAuthEnabled } from "@/components/EmailAuthForm"
 import { Button } from "@/components/ui/button"
@@ -36,9 +38,15 @@ function GoogleMark() {
   )
 }
 
-export function AccountMenu() {
+/**
+ * `onNavigate` is optional so the two call sites that have router access get a
+ * client-side transition, and anything that does not still gets a working link
+ * rather than a dead menu item.
+ */
+export function AccountMenu({ onNavigate }: { onNavigate?: (path: string) => void } = {}) {
   const { data: session, isPending } = useSession()
   const store = useProgress()
+  const { admin, open: openReports } = useAdmin(Boolean(session?.user))
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [confirmSignOut, setConfirmSignOut] = useState(false)
@@ -149,6 +157,32 @@ export function AccountMenu() {
               </>
             )}
           </DropdownMenuLabel>
+          {/* Owner only: useAdmin returns false unless /api/admin/whoami says
+              otherwise, so this never renders for anyone else. The count is the
+              point of putting it here rather than relying on a bookmark. */}
+          {admin && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild data-testid="admin-link">
+                <a
+                  href={ADMIN_PATH}
+                  onClick={(e) => {
+                    if (!onNavigate) return
+                    e.preventDefault()
+                    onNavigate(ADMIN_PATH)
+                  }}
+                >
+                  <Flag className="size-4" strokeWidth={2} />
+                  <span className="flex-1">Reported questions</span>
+                  {openReports > 0 && (
+                    <span className="bg-destructive/10 text-destructive rounded-md px-1.5 py-0.5 font-mono text-[11px] font-semibold tabular-nums">
+                      {openReports}
+                    </span>
+                  )}
+                </a>
+              </DropdownMenuItem>
+            </>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setConfirmSignOut(true)} data-testid="sign-out">
             <LogOut className="size-4" strokeWidth={2} /> Sign out
