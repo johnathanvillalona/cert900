@@ -9,6 +9,7 @@ import { shuffle } from "@/lib/engine"
 import { questionOfTheDay, type DailyPick } from "@/lib/qotd"
 import { siteFaq } from "@/lib/copy"
 import { QotdPbq, QotdPbqFooter } from "@/components/QotdPbq"
+import { NewsletterSignup } from "@/components/NewsletterSignup"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
@@ -49,6 +50,7 @@ function LiveQuestion() {
             <p className="text-muted-foreground mt-2 font-mono text-xs">
               Every question works like this. A new one lands tomorrow.
             </p>
+            <NewsletterSignup />
           </div>
         )}
       </div>
@@ -111,6 +113,7 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
           <p className="text-muted-foreground mt-2 font-mono text-xs">
             Every question works like this. A new one lands tomorrow.
           </p>
+          <NewsletterSignup />
         </div>
       )}
     </div>

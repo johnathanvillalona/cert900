@@ -83,6 +83,79 @@ export async function sendPasswordReset(env: Env, to: string, url: string): Prom
   )
 }
 
+/**
+ * Fan one message out to many addresses, each with its own body.
+ *
+ * Resend's batch endpoint takes up to 100 messages in one request, which is what
+ * makes a daily send possible at all: their default rate limit is 2 requests a
+ * second, so looping would be both slow and throttled. Bodies differ per
+ * recipient because each carries its own unsubscribe token.
+ *
+ * The Cloudflare binding has no batch equivalent, so that path loops. It is the
+ * unused transport today (Email Sending needs the Workers Paid plan).
+ */
+export async function sendBatch(
+  env: Env,
+  messages: { to: string; subject: string; html: string; text: string; headers?: Record<string, string> }[],
+): Promise<{ sent: number; failed: number }> {
+  if (!mailEnabled(env) || messages.length === 0) return { sent: 0, failed: messages.length }
+  const from = `cert900 <${env.AUTH_EMAIL_FROM!}>`
+
+  if (env.RESEND_API_KEY) {
+    let sent = 0
+    let failed = 0
+    for (let i = 0; i < messages.length; i += 100) {
+      const chunk = messages.slice(i, i + 100)
+      const res = await fetch("https://api.resend.com/emails/batch", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          chunk.map((m) => ({ from, to: [m.to], subject: m.subject, html: m.html, text: m.text, headers: m.headers })),
+        ),
+      })
+      if (res.ok) {
+        sent += chunk.length
+      } else {
+        failed += chunk.length
+        console.log(`newsletter: batch failed (${res.status}) ${(await res.text()).slice(0, 200)}`)
+      }
+    }
+    return { sent, failed }
+  }
+
+  let sent = 0
+  let failed = 0
+  for (const m of messages) {
+    try {
+      await env.EMAIL!.send({ to: m.to, from: { email: env.AUTH_EMAIL_FROM!, name: "cert900" }, subject: m.subject, html: m.html, text: m.text })
+      sent++
+    } catch (e) {
+      failed++
+      console.log(`newsletter: send failed for one recipient: ${String(e).slice(0, 200)}`)
+    }
+  }
+  return { sent, failed }
+}
+
+/** Double opt-in. Nothing is ever sent to an address that has not clicked this. */
+export async function sendSubscribeConfirm(env: Env, to: string, url: string): Promise<void> {
+  await send(
+    env,
+    to,
+    "Confirm your cert900 question of the day",
+    wrap(
+      "One click and you are on the list",
+      "You will get one real exam question a day, with the answer and a link to the free video that covers it. Nothing else, and you can leave from the bottom of any email.",
+      { href: url, label: "Confirm subscription" },
+      "If you did not sign up, ignore this email. Nothing is sent to an address that has not confirmed.",
+    ),
+    `Confirm your cert900 question of the day\n\nOne exam question a day, with the answer and the free video that covers it. Confirm here:\n${url}\n\nIf you did not sign up, ignore this: nothing is sent to an address that has not confirmed.`,
+  )
+}
+
 export async function sendVerification(env: Env, to: string, url: string): Promise<void> {
   await send(
     env,

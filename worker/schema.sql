@@ -93,6 +93,30 @@ CREATE INDEX IF NOT EXISTS "reports_created_idx" ON "reports" ("created_at");
 --   npx wrangler d1 execute comptia-trainer --remote \
 --     --command "ALTER TABLE reports ADD COLUMN resolved_at INTEGER"
 
+-- Question-of-the-day email list.
+--
+-- Double opt-in is not optional: confirmed_at stays NULL until the address
+-- clicks the link, and the daily send only ever reads confirmed, non-
+-- unsubscribed rows. One random token per row serves as BOTH the confirm link
+-- and the unsubscribe link, which is what makes one-click unsubscribe possible
+-- without a session -- knowing it only lets you manage that one address.
+--
+-- ip_hash is the signup rate-limit key (same one-way hash as reports) and is
+-- never selected back out.
+--
+-- MIGRATION: this file is CREATE TABLE IF NOT EXISTS, so run it (or just this
+-- statement) against remote D1 BEFORE the worker that reads it deploys.
+CREATE TABLE IF NOT EXISTS "subscribers" (
+  "email" text NOT NULL PRIMARY KEY,
+  "token" text NOT NULL,
+  "created_at" integer NOT NULL,
+  "confirmed_at" integer,
+  "unsubscribed_at" integer,
+  "ip_hash" text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS "subscribers_token_idx" ON "subscribers" ("token");
+CREATE INDEX IF NOT EXISTS "subscribers_confirmed_idx" ON "subscribers" ("confirmed_at");
+
 -- Weekly Reddit scanner output: threads asking about practice tests/PBQs.
 -- Read: npx wrangler d1 execute comptia-trainer --remote \
 --   --command "SELECT subreddit, title, url FROM leads ORDER BY created_at DESC LIMIT 20"

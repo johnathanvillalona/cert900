@@ -1,5 +1,6 @@
 import { createAuth, type Env } from "./auth"
-import { dailySocialPost, weeklyRedditScan, weeklyIndexNow } from "./social"
+import { dailySocialPost, todaysQuestion, weeklyRedditScan, weeklyIndexNow } from "./social"
+import { dailyNewsletter, handleConfirm, handleSubscribe, handleUnsubscribe } from "./newsletter"
 import { mailEnabled } from "./mail"
 import { isKnownPath } from "../src/data/routes"
 import { EXAM_IDS } from "../src/data/exam-ids"
@@ -340,11 +341,22 @@ async function route(req: Request, env: Env): Promise<Response> {
   if (url.pathname.startsWith("/api/admin/")) {
     return handleAdmin(req, env, url.pathname)
   }
+  if (url.pathname === "/api/newsletter/subscribe") {
+    return handleSubscribe(req, env)
+  }
+  if (url.pathname === "/api/newsletter/confirm") {
+    return handleConfirm(req, env)
+  }
+  if (url.pathname === "/api/newsletter/unsubscribe") {
+    return handleUnsubscribe(req, env)
+  }
   // Which optional auth methods this deploy actually offers, so the clients can
   // render the right buttons instead of showing a form that would 400. Cached
   // briefly: it only changes on deploy.
   if (url.pathname === "/api/config") {
-    const res = json({ emailAuth: mailEnabled(env) })
+    // Both ride on the same flag: no transport means no confirmation mail, and
+    // a signup form that silently drops addresses is worse than no form.
+    const res = json({ emailAuth: mailEnabled(env), newsletter: mailEnabled(env) })
     res.headers.set("cache-control", "public, max-age=300")
     return res
   }
@@ -392,7 +404,13 @@ export default {
   // "0 15 * * 1" = Monday lead scan + IndexNow ping.
   async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
     if (controller.cron === "30 14 * * *") {
-      ctx.waitUntil(dailySocialPost(env))
+      // One feed read, two destinations. allSettled so a dead social token
+      // never costs the mailing list its send, or the other way round.
+      ctx.waitUntil(
+        todaysQuestion(env).then((q) =>
+          Promise.allSettled([dailySocialPost(env, q), dailyNewsletter(env, q)]),
+        ),
+      )
     } else {
       ctx.waitUntil(Promise.allSettled([weeklyRedditScan(env), weeklyIndexNow()]))
     }
