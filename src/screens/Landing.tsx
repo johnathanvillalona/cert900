@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import type { ExamMeta } from "@/data/types"
+import { useCountUp } from "@/hooks/useCountUp"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
@@ -143,11 +144,30 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answer
             </span>
             <span className="flex items-center gap-2 font-medium text-brand">
               Continue
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" strokeWidth={2} />
+              <ArrowRight className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1" strokeWidth={2} />
             </span>
           </button>
         ))}
       </div>
+    </div>
+  )
+}
+
+/**
+ * One number from the stats strip. These four figures are the strongest claim
+ * the page makes, so they earn the one piece of motion on the section: they
+ * count up the first time they scroll into view, once.
+ */
+function Stat({ n, label }: { n: number; label: string }) {
+  const { value, ref } = useCountUp(n)
+  return (
+    <div>
+      {/* aria-label carries the final number so a screen reader announces the
+          fact, not whatever frame the count happened to be on. */}
+      <p ref={ref} className="font-heading text-3xl font-semibold tabular-nums" aria-label={`${n} ${label}`}>
+        <span aria-hidden="true">{value}</span>
+      </p>
+      <p className="text-muted-foreground mt-1 text-sm">{label}</p>
     </div>
   )
 }
@@ -232,7 +252,10 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
           <ContinueHero started={started} onChoose={onChooseExam} />
         ) : (
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 lg:col-span-6">
+            {/* 400ms, not 700: the documented budget is under 300ms and a
+                once-per-visit hero entrance is the fair exception to it, but
+                700ms had drifted past reading as intentional. */}
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-400 lg:col-span-6">
               <h1 className="font-heading text-[1.9rem] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.6rem]">
                 The practice exam that studies&nbsp;you&nbsp;back.
               </h1>
@@ -241,12 +264,12 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                 Free, no sign-up.
               </p>
               <div className="mt-7">
-                <Button size="lg" onClick={() => scrollTo("exams")} className="active:scale-[0.98]" data-testid="hero-cta">
+                <Button size="lg" onClick={() => scrollTo("exams")} className="motion-safe:active:scale-[0.98]" data-testid="hero-cta">
                   Start practicing
                 </Button>
               </div>
             </div>
-            <div className="animate-in fade-in slide-in-from-bottom-4 delay-150 duration-700 lg:col-span-6">
+            <div className="animate-in fade-in slide-in-from-bottom-4 delay-150 duration-400 lg:col-span-6">
               <LiveQuestion />
             </div>
           </div>
@@ -255,17 +278,14 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
       {/* stats strip */}
       <section className="border-y bg-card">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-6 px-4 py-8 sm:grid-cols-4">
+        <div className="reveal mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-6 px-4 py-8 sm:grid-cols-4">
           {[
-            [String(totalQ), "original questions"],
-            [String(totalPBQ), "PBQs & interactive questions"],
-            [String(exams.length), "certifications covered"],
-            [String(totalVideos), "video links, all verified"],
+            [totalQ, "original questions"] as const,
+            [totalPBQ, "PBQs & interactive questions"] as const,
+            [exams.length, "certifications covered"] as const,
+            [totalVideos, "video links, all verified"] as const,
           ].map(([n, label]) => (
-            <div key={label}>
-              <p className="font-heading text-3xl font-semibold tabular-nums">{n}</p>
-              <p className="text-muted-foreground mt-1 text-sm">{label}</p>
-            </div>
+            <Stat key={label} n={n} label={label} />
           ))}
         </div>
       </section>
@@ -286,6 +306,9 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
             const group = exams.filter((ex) => ex.vendor === v)
             if (group.length === 0) return null
             return (
+              // No .reveal here on purpose: a vendor group is taller than the
+              // viewport, and a scroll-driven range on a tall element keeps it
+              // part-way through its entrance for most of the scroll past it.
               <div key={v} className="mb-8 last:mb-0">
                 <p className="text-muted-foreground border-b pb-2 font-mono text-[11px] font-semibold tracking-wider uppercase">
                   {VENDORS[v].name}
@@ -294,11 +317,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                   const p = store.all[ex.id]
                   const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
                   return (
+                    // The reveal lives on the GROUP, not here. A filled
+                    // animation retains its final transform and would win over
+                    // this hover transition, so the row would stop lifting on
+                    // every browser that supports view().
                     <button
                       key={ex.id}
                       onClick={() => onChooseExam(ex.id)}
                       data-testid="exam-row"
-                      className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-colors duration-200 hover:bg-accent sm:grid-cols-12 sm:gap-4"
+                      className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-[color,background-color,border-color,transform] duration-200 hover:bg-accent motion-safe:hover:-translate-y-px sm:grid-cols-12 sm:gap-4"
                     >
                       <span className="flex items-center gap-2.5 sm:col-span-2">
                         <ExamEmblem examId={ex.id} className={cn("size-7", VENDORS[ex.vendor].tintClass)} />
@@ -317,7 +344,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                           {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
                         </span>
                       </span>
-                      <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
+                      <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 motion-safe:group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
                     </button>
                   )
                 })}
@@ -342,7 +369,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
               ["Simulate", "Full timed exams in each certification's real format, question mix, and time limit, with flagging and a question palette. Scored on the real exam's scale with its pass line."],
               ["Review", "Every miss links to the exact free training video for that topic. Watch, then drill it again."],
             ].map(([verb, body]) => (
-              <div key={verb} className="grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">
+              <div key={verb} className="reveal grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">
                 <p className="col-span-12 font-heading text-xl font-semibold sm:col-span-3">{verb}</p>
                 <p className="text-muted-foreground col-span-12 leading-relaxed sm:col-span-9">{body}</p>
               </div>

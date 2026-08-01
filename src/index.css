@@ -166,6 +166,13 @@
         animation-iteration-count: 1 !important;
         transition-property: color, background-color, border-color, opacity, box-shadow !important;
     }
+    /* Narrowing transition-property above stops transforms from ANIMATING but
+       not from APPLYING, so a press or hover transform still fires -- just
+       instantly, which is the one outcome nobody asked for. Neutralise the
+       transform itself; the color change still confirms the interaction. */
+    .pressable:active {
+        transform: none;
+    }
     .animate-spin {
         animation-duration: 1s !important;
         animation-iteration-count: infinite !important;
@@ -195,6 +202,37 @@
     @starting-style {
         opacity: 0;
         transform: translateY(4px);
+    }
+}
+
+/* Scroll reveal for marketing sections. Scroll-driven rather than JS: the
+   timeline IS the scroll position, so there is no observer, no state, and no
+   chance of content stranded at opacity 0 because a callback never fired.
+   Firefox has no view() yet; @supports means those visitors simply get the
+   section with no entrance, which is the correct degradation. The hidden
+   start state MUST stay inside @supports for that reason.
+   rise-in has only a `to` frame, so the start state has to be declared here or
+   the animation would run from the element's normal style to itself.
+   The range ends at `entry 40%`: an element is fully opaque once it is 40%
+   into the viewport. Ranges that end at `cover` look better in isolation but
+   strand anything the page cannot scroll far enough past at partial opacity.
+   The reduced-motion rule is NOT redundant with the global one above -- a
+   scroll-driven animation is paced by the timeline, so overriding
+   animation-duration does nothing to it. */
+@supports (animation-timeline: view()) {
+    .reveal {
+        opacity: 0;
+        transform: translateY(8px);
+        animation: rise-in 1ms var(--ease-out-strong) both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal {
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
     }
 }
 
