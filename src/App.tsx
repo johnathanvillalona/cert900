@@ -1,5 +1,6 @@
 import { Suspense, lazy, startTransition, useEffect, useMemo, useRef, useState } from "react"
 import { LoaderCircle } from "lucide-react"
+import { toast } from "sonner"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { useExamBank } from "@/hooks/useExamBank"
 
@@ -242,6 +243,23 @@ export default function App() {
     const go = screen.kind === "results" ? window.history.replaceState : window.history.pushState
     go.call(window.history, null, "", want)
   }, [screen, examId])
+
+  /**
+   * Newsletter confirm and unsubscribe are plain links in an email, so they hit
+   * the worker and bounce back here with ?nl=. Report the outcome, then strip
+   * the param so a refresh or a shared URL does not repeat the message.
+   */
+  useEffect(() => {
+    const nl = new URLSearchParams(window.location.search).get("nl")
+    if (!nl) return
+    const said: Record<string, string> = {
+      confirmed: "You are on the list. First question lands tomorrow morning.",
+      unsubscribed: "Unsubscribed. No more emails.",
+      badlink: "That link has expired or was already used.",
+    }
+    if (said[nl]) toast(said[nl])
+    window.history.replaceState(null, "", window.location.pathname)
+  }, [])
 
   useEffect(() => {
     const onPop = () => {

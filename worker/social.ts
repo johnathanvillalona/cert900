@@ -46,7 +46,7 @@ const QOTD_LINK = `${SITE}/?utm_source=%SRC%&utm_medium=social&utm_campaign=qotd
  * the pool (PBQs cannot be posted as lettered options), so it is shorter and
  * the post will usually differ from what the site's hero shows that day.
  */
-async function todaysQuestion(env: Env): Promise<FeedEntry | null> {
+export async function todaysQuestion(env: Env): Promise<FeedEntry | null> {
   const res = await env.ASSETS.fetch("https://assets.local/qotd-feed.json")
   if (!res.ok) return null
   const feed = (await res.json()) as FeedEntry[]
@@ -158,8 +158,7 @@ async function postToBluesky(env: Env, text: string, link: string): Promise<void
   console.log(`qotd: Bluesky -> ${res.status}${res.ok ? "" : " " + (await res.text()).slice(0, 200)}`)
 }
 
-export async function dailySocialPost(env: Env): Promise<void> {
-  const q = await todaysQuestion(env)
+export async function dailySocialPost(env: Env, q: FeedEntry | null): Promise<void> {
   if (!q) {
     console.log("qotd: no feed entry")
     return
