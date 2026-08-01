@@ -19,6 +19,21 @@ const SITE = "https://cert900.com"
  */
 const DAILY_CAP = 90
 
+/**
+ * Postal address printed at the foot of the daily email.
+ *
+ * CAN-SPAM requires a valid physical postal address in any message whose
+ * primary purpose is commercial, and a newsletter that promotes a website (or
+ * later carries a sponsor) counts. There is no exemption for small senders, and
+ * no requirement that the address be a residence: a PO box or a mailbox service
+ * satisfies it, which is what most solo operators use.
+ *
+ * Empty is not a crisis today -- the list has one confirmed address and no
+ * sponsor -- but it should be filled in before the list is promoted or a
+ * sponsored issue goes out. Set the string, deploy, and every send carries it.
+ */
+const POSTAL_ADDRESS = ""
+
 const EMAIL_RE = /^[^\s@,;<>]+@[^\s@,;<>]+\.[a-z]{2,}$/i
 
 /** Per-IP and global signup caps, so the table cannot be filled by one client. */
@@ -184,11 +199,11 @@ export function composeNewsletter(q: FeedEntry, unsubUrl: string): { subject: st
     <a href="${link}" style="display:inline-block;background:#f2b27c;color:#151b29;font-weight:600;font-size:15px;text-decoration:none;padding:12px 20px;border-radius:8px">See the answer</a>
     <p style="margin:24px 0 0;font-size:13px;line-height:1.6;color:#64748b">Every question links to the free video that covers its topic. No account needed, and nothing behind a paywall.</p>
     <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#94a3b8">
-      <a href="${unsubUrl}" style="color:#94a3b8">Unsubscribe</a>
+      <a href="${unsubUrl}" style="color:#94a3b8">Unsubscribe</a>${POSTAL_ADDRESS ? `<br>${esc(POSTAL_ADDRESS)}` : ""}
     </p>
   </div>
 </body></html>`
-  const text = `${q.cert} · ${q.code}\n\n${q.stem}\n\n${opts.join("\n")}\n\nSee the answer: ${link}\n\nUnsubscribe: ${unsubUrl}`
+  const text = `${q.cert} · ${q.code}\n\n${q.stem}\n\n${opts.join("\n")}\n\nSee the answer: ${link}\n\nUnsubscribe: ${unsubUrl}${POSTAL_ADDRESS ? `\n${POSTAL_ADDRESS}` : ""}`
   return { subject, html, text }
 }
 
