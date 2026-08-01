@@ -13,16 +13,42 @@ import { DONATE_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 /**
- * Everything below the score: a "prefer a book?" study-guide link (secondary to
- * the free video, invisible until an affiliate tag is set) and a soft donate
- * nudge. Display ads are deliberately NOT here -- EthicalAds lives on the
- * Dashboard only, so a page never carries two monetization units.
+ * Everything below the score: one paid study recommendation (secondary to the
+ * free video, invisible until an affiliate id is set) and the donate ask.
+ * Display ads are deliberately NOT here -- EthicalAds lives on the Dashboard
+ * only, so a page never carries two monetization units.
+ *
+ * `celebrate` is the aha moment: a passing exam score, the one instant where
+ * someone is genuinely pleased with the site. The best public datapoint for a
+ * free tool is one donation per ~4,200 visitors, and a quiet footer-style link
+ * is exactly what earns that rate. So here the ask is a real block, it names an
+ * amount, and it says what the money is for. Everywhere else it stays the quiet
+ * line -- asking hard after a failed exam would be reading the room badly.
  */
-function ResultsSupport({ examId }: { examId: string }) {
+function ResultsSupport({ examId, celebrate }: { examId: string; celebrate: boolean }) {
   return (
     <>
       <StudyGuideLink examId={examId} />
-      {DONATE_URL && (
+      {DONATE_URL && celebrate && (
+        <div className="mt-6 rounded-lg border bg-card p-5 text-center" data-testid="results-donate-block">
+          <p className="font-heading text-lg font-semibold">Did this get you there?</p>
+          <p className="text-muted-foreground mx-auto mt-2 max-w-md text-sm leading-relaxed">
+            Cert900 has no ads, no paywall and no account requirement, and it stays that way. It is
+            paid for out of pocket. If it was worth something to you, five dollars keeps it running.
+          </p>
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="results-donate"
+            className="pressable mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors duration-200 hover:opacity-90"
+          >
+            <Heart className="size-4" strokeWidth={2.5} />
+            Chip in $5
+          </a>
+        </div>
+      )}
+      {DONATE_URL && !celebrate && (
         <p className="text-muted-foreground mt-4 text-center text-sm">
           Cert900 is free and always will be.{" "}
           <a
@@ -111,7 +137,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           <ShareResult exam={exam} outcome={outcome} />
           <Button variant="outline" onClick={onHome}>Home</Button>
         </div>
-        <ResultsSupport examId={exam.id} />
+        <ResultsSupport examId={exam.id} celebrate={false} />
       </main>
     )
   }
@@ -213,7 +239,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
         <ShareResult exam={exam} outcome={outcome} />
         <Button variant="outline" onClick={onHome}>Home</Button>
       </div>
-      <ResultsSupport examId={exam.id} />
+      <ResultsSupport examId={exam.id} celebrate={outcome.pass} />
     </main>
   )
 }
