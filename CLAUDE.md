@@ -74,8 +74,10 @@ must use the GitHub noreply email (set in local git config).
 React 19 + Vite 7 + TypeScript + Tailwind v4 + shadcn (radix-vega style), deployed
 as a **Cloudflare Worker with static assets**: `worker/index.ts` serves `/api/*`
 (Better Auth at `/api/auth/*`, progress sync at `/api/progress`, anonymous
-question reports at `/api/report`) and falls through to `dist/` assets (SPA
-mode). D1 (`comptia-trainer`) stores auth + synced progress + reports.
+question reports at `/api/report`, owner-only triage at `/api/admin/*`,
+newsletter at `/api/newsletter/*`) and falls through to `dist/` assets (SPA
+mode). D1 (`comptia-trainer`) stores auth + synced progress + reports +
+subscribers.
 Every response gets security headers (HSTS 1y incl. subdomains, nosniff,
 X-Frame DENY, Referrer-Policy, Permissions-Policy; CSP on HTML only -
 allows self + inline scripts + static.cloudflareinsights.com; update CSP if
@@ -218,6 +220,38 @@ url.protocol (wrangler dev simulates the route host and would loop).
 - Git-connected CI (Workers Builds): build command must be
   `npm ci && npm run build`, deploy `npx wrangler deploy`.
 - After deploy, cache-bust when verifying (`?v=` query) — CF edge caches assets.
+
+## Admin, monetization, newsletter (2026-08-01)
+- **`/admin`** (lazy screen, kept out of `APP_PATHS` but in `KNOWN_PATHS` so it
+  resolves) lists reported questions grouped by `(exam_id, ref)`. Gate is
+  `ADMIN_EMAILS` (wrangler var) **intersected with `emailVerified`** — passwords
+  are on with `requireEmailVerification:false`, so the allowlist alone could be
+  claimed by signing up for an unclaimed allowlisted address. Non-admins get
+  **404, not 403**. `ip_hash` is never selected. `reports.resolved_at` added.
+- `handleReport` now validates `examId` against `EXAM_IDS` and `ref` against
+  `q:<id>` / `pbq:<title>`. **This closed a real hole**: `examId:"__auth"` used
+  to slip past the rate limiter, which excludes exactly those sentinel rows.
+- Monetization: donate ask is a real block **only on a passing exam score** (the
+  aha moment); everywhere else stays the quiet line. `DONATE.kofi` beats
+  `DONATE.bmc` when set (0% vs 5% on tips). `practiceOffer()` (MeasureUp for
+  comptia/azure, Tutorials Dojo for aws) **outranks** the Amazon book and only
+  one ever renders. Cisco maps to nothing on purpose. All inert until configured.
+  **CompTIA has no affiliate program and its voucher terms forbid resale** — do
+  not go looking. `ADS.enabled` stays false; EthicalAds needs 50k pageviews/mo
+  and must be the only ad on the page, so Journey by Mediavine (1,000 sessions)
+  is the realistic first rung.
+- **Newsletter** (`worker/newsletter.ts`): double opt-in, one token per row
+  serving as both confirm and unsubscribe, `List-Unsubscribe` +
+  `List-Unsubscribe-Post` headers, GET **and** POST unsubscribe. Signup always
+  answers 200 (no enumeration) and will not re-send a pending confirm for an
+  hour (anti-mailbomb). `DAILY_CAP = 90` because Resend free is 3,000/mo and
+  100/day; the cap logs when it bites. Cron reads the feed once and hands it to
+  both `dailySocialPost` and `dailyNewsletter`. Capture renders under the QOTD
+  card **after** it is answered, gated on `/api/config` → `newsletter`.
+- **`X_*` posting is dead**: the API returns `402 credits depleted` (free tier
+  can no longer post). Bluesky works. `allSettled` hid this.
+- **Do not run `/__scheduled` locally** unless you mean it: `.dev.vars` carries
+  the real BSKY/X secrets, so the cron posts to the live accounts.
 
 ## Next tasks
 - **Done 2026-07-28 (tester feedback + email auth + SEO depth), 8 commits:**
