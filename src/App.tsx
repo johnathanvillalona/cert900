@@ -133,7 +133,10 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
   "delete-account": "Delete your account | Cert900",
-  admin: "Reported questions | Cert900",
+  // Deliberately says nothing about what this page is. The API 404s rather than
+  // 403s for the same reason: someone who guesses the path should learn
+  // nothing, and the title is rendered before any auth check has run.
+  admin: "Cert900",
   "not-found": "Page not found | Cert900",
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-aplus1": GUIDE_META.aplus1.title,
