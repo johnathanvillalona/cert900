@@ -70,6 +70,28 @@ export const ADS = {
 }
 
 /**
+ * Grow by Mediavine, on the STATIC GUIDE PAGES ONLY.
+ *
+ * Grow serves no ads. It is the prerequisite for Journey by Mediavine (the one
+ * ad network reachable at this traffic level -- 1,000 sessions/month): their
+ * rule is the Grow script running on the site for 30 days before you may
+ * apply. Setting a site id here starts that clock; whether to actually apply
+ * is a separate decision (privacy-policy rewrite, public messaging) recorded
+ * in the plan and CLAUDE.md.
+ *
+ * The script is injected by tools/prerender.tsx into the 16 guide pages'
+ * static HTML, never into dist/index.html -- so the app cannot carry it even
+ * by accident. Leaving a guide is a real navigation, so it cannot follow a
+ * reader into the quiz.
+ *
+ * Get the id from grow.me: create a site, choose manual install, and the
+ * snippet's data-grow-initializer contains it.
+ */
+export const GROW = {
+  siteId: "",
+}
+
+/**
  * Mobile-app promo config. While both URLs are empty the AppPromo component
  * renders a "coming soon" line; once the apps clear review, paste the store
  * URLs here and deploy -- the promo flips to real download links with no other

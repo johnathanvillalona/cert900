@@ -2,7 +2,7 @@ import { createAuth, type Env } from "./auth"
 import { dailySocialPost, todaysQuestion, weeklyRedditScan, weeklyIndexNow } from "./social"
 import { dailyNewsletter, handleConfirm, handleSubscribe, handleUnsubscribe } from "./newsletter"
 import { mailEnabled } from "./mail"
-import { isKnownPath } from "../src/data/routes"
+import { isGuidePath, isKnownPath } from "../src/data/routes"
 import { EXAM_IDS } from "../src/data/exam-ids"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
@@ -304,8 +304,35 @@ const CSP = [
   "object-src 'none'",
 ].join("; ")
 
+/**
+ * The 16 static guide pages get their own, slightly wider CSP: the app policy
+ * above plus the grow.me hosts for the Grow script (see tools/prerender.tsx --
+ * the tag exists only in those pages' HTML, so the app policy never needs
+ * these hosts). frame-src exists here and not above because Grow's favourites
+ * sign-in renders in an iframe; the app CSP inherits frame-src from
+ * `default-src 'self'` and stays closed.
+ *
+ * If ads ever go live (the September decision), this policy -- NOT the app
+ * one -- is what gets replaced with the permissive https: version, because
+ * programmatic creatives come from arbitrary advertiser hosts that no static
+ * allowlist can enumerate.
+ */
+const GUIDE_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://grow.me https://*.grow.me",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://grow.me https://*.grow.me",
+  "font-src 'self'",
+  "connect-src 'self' https://cloudflareinsights.com https://grow.me https://*.grow.me",
+  "frame-src https://grow.me https://*.grow.me",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+].join("; ")
+
 /** Security headers on every response; CSP only on HTML documents. */
-function withSecurityHeaders(res: Response): Response {
+function withSecurityHeaders(res: Response, pathname: string): Response {
   const out = new Response(res.body, res)
   out.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
   out.headers.set("X-Content-Type-Options", "nosniff")
@@ -313,7 +340,7 @@ function withSecurityHeaders(res: Response): Response {
   out.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
   out.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
   if ((out.headers.get("content-type") ?? "").includes("text/html")) {
-    out.headers.set("Content-Security-Policy", CSP)
+    out.headers.set("Content-Security-Policy", isGuidePath(pathname) ? GUIDE_CSP : CSP)
   }
   return out
 }
@@ -411,7 +438,7 @@ async function route(req: Request, env: Env): Promise<Response> {
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    return withSecurityHeaders(await route(req, env))
+    return withSecurityHeaders(await route(req, env), new URL(req.url).pathname)
   },
 
   // Marketing automation. "30 14 * * *" = daily question-of-the-day post;
