@@ -240,6 +240,26 @@ url.protocol (wrangler dev simulates the route host and would loop).
   not go looking. `ADS.enabled` stays false; EthicalAds needs 50k pageviews/mo
   and must be the only ad on the page, so Journey by Mediavine (1,000 sessions)
   is the realistic first rung.
+- **Guides are STATIC DOCUMENTS (2026-08-01)**: the 16 prerendered pages ship
+  zero JS (prerender strips the module script), carry their own header/footer
+  via `GuideShell`, and the SPA no longer renders them at all — `openPath`
+  falls back to `location.assign` for known-but-not-SPA paths. CLS went 0.35→0.
+  `GuideResources` (affiliate block, inline FTC disclosure, `rel=sponsored`)
+  renders on exam guides only — never pbq/hub/scores/order/ccna (tests pin it).
+  `npm run dev` cannot serve guide routes; use `npm run build && npx vite preview`.
+- **Journey by Mediavine on-ramp (decided 2026-08-01)**: `GROW.siteId` in
+  site.ts (empty = inert) injects the Grow script into guide HTML ONLY via
+  prerender; guide paths get a wider CSP (`isGuidePath` in routes.ts picks
+  GUIDE_CSP vs CSP in the worker — app CSP has no frame-src, keep it that way).
+  Grow serves no ads and starts Journey's mandatory 30-day clock. **The
+  ads-on decision is DEFERRED to ~September and gated on**: rewriting four
+  privacy claims in Legal.tsx (lines ~26/61/70/81 — "never sell or share" is
+  CPRA-load-bearing), fixing the Results donate copy ("no ads... stays that
+  way"), updating marketing/paid-growth.md + this file, saying it proactively
+  on Reddit, and confirming guides alone clear 1,000 GA4 sessions. Expected
+  net at current traffic is only $7-28/mo (70% share, NET-65, $25 floor).
+  Placement then = Mediavine Content Hints substituted in prerender (one hint
+  disables ALL auto-placement); GUIDE_CSP (not CSP) becomes the loose policy.
 - **Newsletter** (`worker/newsletter.ts`): double opt-in, one token per row
   serving as both confirm and unsubscribe, `List-Unsubscribe` +
   `List-Unsubscribe-Post` headers, GET **and** POST unsubscribe. Signup always
