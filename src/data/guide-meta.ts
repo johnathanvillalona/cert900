@@ -464,3 +464,18 @@ export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
   scores: [],
   order: [],
 }
+
+/**
+ * The exams a guide page covers, looked up by its URL path.
+ *
+ * GuideShell receives only `meta`, and threading an exam list through 16 call
+ * sites for one consumer is churn for nothing -- `meta.path` already identifies
+ * the page. Unknown paths return [], which downstream renders as nothing.
+ */
+const EXAMS_BY_PATH: Record<string, string[]> = Object.fromEntries(
+  (Object.keys(GUIDE_EXAMS) as GuideKey[]).map((k) => [GUIDE_PATHS[k], GUIDE_EXAMS[k]]),
+)
+
+export function guideExamsForPath(path: string): string[] {
+  return EXAMS_BY_PATH[path] ?? []
+}

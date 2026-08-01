@@ -37,6 +37,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts", "worker/**/*.test.ts"],
+    // .tsx tests render hook-free components with renderToStaticMarkup, which
+    // needs no DOM -- the same way tools/prerender.tsx runs them.
+    include: ["src/**/*.test.{ts,tsx}", "worker/**/*.test.ts"],
   },
 })

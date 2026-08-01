@@ -1,6 +1,7 @@
 import { EXAM_META } from "@/data/meta"
 import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "@/data/guide-meta"
 import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
+import { GuideResources } from "@/components/GuideResources"
 import { ArrowRight, Check } from "lucide-react"
 
 /**
@@ -155,6 +156,11 @@ export function GuideShell({ meta, children }: { meta: GuideMeta; children: Reac
           ))}
         </div>
       </section>
+
+      {/* Paid resources AFTER the FAQ, never above the fold: the free CTA is
+          the page's primary action and the reason these pages rank. Inert until
+          the AFFILIATE fields in src/lib/site.ts are filled in. */}
+      <GuideResources path={meta.path} />
 
       {/* Crawlable internal links: guide -> sibling guides + home. Real <a>
           hrefs (unlike the in-app CTA buttons) so search crawlers can walk the
