@@ -5,10 +5,25 @@ import { Wordmark } from "@/components/Wordmark"
 import { GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS } from "@/data/routes"
 
 /**
- * Quiet legal footer used on the landing page and the app shell.
+ * Quiet legal footer used on the landing page, the app shell, and the static
+ * guide pages.
  * `full` adds the trademark disclaimer paragraph (landing only).
+ * `onNavigate` is optional: the SPA passes it for client-side transitions; the
+ * prerendered guides omit it and every link falls back to a real href, which is
+ * the whole point of a page that ships no JavaScript.
  */
-export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNavigate: (path: string) => void }) {
+export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNavigate?: (path: string) => void }) {
+  // Legal pages are SPA screens, so they take the client-side transition when
+  // one is offered. Guide links never do: a guide is ALWAYS the static
+  // prerendered page now, so those stay plain hrefs even inside the app --
+  // otherwise the SPA would render its own copy of the guide and the static
+  // page's whole point (speed, and later ad containment) quietly disappears.
+  const go = onNavigate
+    ? (path: string) => (e: React.MouseEvent) => {
+        e.preventDefault()
+        onNavigate(path)
+      }
+    : () => undefined
   return (
     <footer className="border-t">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -30,7 +45,6 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             <a
               key={k}
               href={GUIDE_PATHS[k]}
-              onClick={(e) => { e.preventDefault(); onNavigate(GUIDE_PATHS[k]) }}
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
               {GUIDE_LABELS[k]}
@@ -40,29 +54,34 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
           <Wordmark className="text-xs text-muted-foreground" iconClassName="size-4" />
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
-            <button
-              onClick={() => onNavigate("/privacy")}
+            {/* Real <a> elements, not buttons: on the static guide pages there
+                is no JavaScript, so a button with a handler would be dead. */}
+            <a
+              href="/privacy"
+              onClick={go("/privacy")}
               data-testid="footer-privacy"
               className="text-muted-foreground cursor-pointer underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
               Privacy
-            </button>
-            <button
-              onClick={() => onNavigate("/terms")}
+            </a>
+            <a
+              href="/terms"
+              onClick={go("/terms")}
               data-testid="footer-terms"
               className="text-muted-foreground cursor-pointer underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
               Terms
-            </button>
+            </a>
             {/* Public deletion URL; Google Play's Data safety form requires one
                 reachable without installing the app. */}
-            <button
-              onClick={() => onNavigate("/delete-account")}
+            <a
+              href="/delete-account"
+              onClick={go("/delete-account")}
               data-testid="footer-delete-account"
               className="text-muted-foreground cursor-pointer underline-offset-2 transition-colors hover:text-foreground hover:underline"
             >
               Delete account
-            </button>
+            </a>
             <a
               className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
               href={`mailto:${CONTACT_EMAIL}?subject=cert900%20feedback`}
