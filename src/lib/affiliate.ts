@@ -27,6 +27,7 @@ export const STUDY_GUIDES: Record<string, StudyGuide> = {
 }
 
 export const AMAZON_DISCLOSURE = "As an Amazon Associate, cert900 earns from qualifying purchases."
+export const AFFILIATE_DISCLOSURE = "Affiliate link: cert900 earns a commission if you buy, at no extra cost to you."
 
 /** The recommended guide for an exam, or null when affiliates are off / unmapped. */
 export function studyGuideFor(examId: string): { title: string; url: string } | null {
@@ -35,4 +36,32 @@ export function studyGuideFor(examId: string): { title: string; url: string } | 
   if (!g) return null
   const url = `https://www.amazon.com/s?k=${encodeURIComponent(g.query)}&tag=${encodeURIComponent(AFFILIATE.amazonTag)}`
   return { title: g.title, url }
+}
+
+/**
+ * A paid practice-test partner for this exam's vendor, or null.
+ *
+ * Split by vendor because the two programs do not overlap: MeasureUp publishes
+ * the OFFICIAL practice tests for CompTIA and Microsoft, Tutorials Dojo is the
+ * AWS/Azure one people actually recommend. Cisco gets nothing on purpose --
+ * Boson is the name worth recommending for CCNA and it has no affiliate
+ * program, and pointing at a worse product for a commission is how a free site
+ * loses the trust that makes it worth visiting.
+ */
+export function practiceOffer(vendor: string): { title: string; note: string; url: string } | null {
+  if ((vendor === "comptia" || vendor === "azure") && AFFILIATE.measureUpUrl) {
+    return {
+      title: "MeasureUp practice tests",
+      note: "The official practice tests, written under licence from the exam vendor.",
+      url: AFFILIATE.measureUpUrl,
+    }
+  }
+  if (vendor === "aws" && AFFILIATE.tutorialsDojoUrl) {
+    return {
+      title: "Tutorials Dojo practice exams",
+      note: "Long-form AWS practice sets with detailed answer breakdowns.",
+      url: AFFILIATE.tutorialsDojoUrl,
+    }
+  }
+  return null
 }
