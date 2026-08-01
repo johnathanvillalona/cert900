@@ -152,7 +152,16 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
         </div>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-          {started ? (
+          {/* Passed outranks practice history. Once the real exam is behind
+              you, a projected score and a "weakest domain" nag are answering a
+              question you have already settled, so the row collapses to the
+              milestone whether or not there is practice behind it. The stats
+              are still one click away under Details. */}
+          {passed ? (
+            <span className="text-muted-foreground">
+              {passedOn ? `Passed on ${passedOn}` : "Marked as passed"}
+            </span>
+          ) : started ? (
             <>
               <span className="font-mono tabular-nums">
                 {answered} answered · {accuracy}%
@@ -189,12 +198,6 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
                 </span>
               )}
             </>
-          ) : passed ? (
-            // "Not started" next to a Passed badge reads as a contradiction:
-            // the exam is done, there is simply no practice history behind it.
-            <span className="text-muted-foreground">
-              {passedOn ? `Passed on ${passedOn}` : "Marked as passed"}
-            </span>
           ) : (
             <span className="text-muted-foreground">Not started</span>
           )}
