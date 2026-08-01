@@ -25,47 +25,13 @@ import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { NotFound } from "@/screens/NotFound"
-import { GUIDE_META } from "@/data/guide-meta"
-import { ADMIN_PATH, examPath, parseExamPath } from "@/data/routes"
+import { ADMIN_PATH, examPath, isKnownPath, parseExamPath } from "@/data/routes"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
 const ProgressScreen = lazy(() =>
   import("@/screens/ProgressScreen").then((m) => ({ default: m.ProgressScreen })),
 )
-
-/**
- * Guide pages load on demand.
- *
- * They are landing pages: almost every visit arrives from search straight into
- * the prerendered HTML, and in-app navigation to them is rare. They also embed
- * ~60KB of real practice questions (src/data/guide-samples.ts), which has no
- * business in the entry chunk that every quiz-taker downloads.
- *
- * GUIDE_META itself stays a static import — it is small, and routing needs the
- * paths and titles synchronously on first paint.
- */
-const guide = <K extends keyof typeof import("@/screens/Guides")>(name: K) =>
-  lazy(() => import("@/screens/Guides").then((m) => ({ default: m[name] as React.ComponentType<{ onStart: (id: string) => void }> })))
-
-const APlusGuide = guide("APlusGuide")
-const APlusCore1Guide = guide("APlusCore1Guide")
-const APlusCore2Guide = guide("APlusCore2Guide")
-const NPlusGuide = guide("NPlusGuide")
-const PbqGuide = guide("PbqGuide")
-const SecplusGuide = guide("SecplusGuide")
-const AifGuide = guide("AifGuide")
-const ClfGuide = guide("ClfGuide")
-const Az900Guide = guide("Az900Guide")
-const Sc900Guide = guide("Sc900Guide")
-const CcnaGuide = guide("CcnaGuide")
-const Az104Guide = guide("Az104Guide")
-const SaaGuide = guide("SaaGuide")
-const info = <K extends keyof typeof import("@/screens/InfoPages")>(name: K) =>
-  lazy(() => import("@/screens/InfoPages").then((m) => ({ default: m[name] as React.ComponentType<{ onStart: (id: string) => void }> })))
-const HubPage = info("HubPage")
-const ScoresPage = info("ScoresPage")
-const OrderPage = info("OrderPage")
 
 // Owner-only, so it must not cost every other visitor a byte of the entry chunk.
 const Admin = lazy(() => import("@/screens/Admin").then((m) => ({ default: m.Admin })))
@@ -82,26 +48,17 @@ export type Screen =
   | { kind: "privacy" }
   | { kind: "terms" }
   | { kind: "delete-account" }
-  | { kind: "guide-aplus" }
-  | { kind: "guide-aplus1" }
-  | { kind: "guide-aplus2" }
-  | { kind: "guide-nplus" }
-  | { kind: "guide-pbq" }
-  | { kind: "guide-secplus" }
-  | { kind: "guide-aif" }
-  | { kind: "guide-clf" }
-  | { kind: "guide-az900" }
-  | { kind: "guide-sc900" }
-  | { kind: "guide-ccna" }
-  | { kind: "guide-az104" }
-  | { kind: "guide-saa" }
-  | { kind: "guide-hub" }
-  | { kind: "guide-scores" }
-  | { kind: "guide-order" }
   | { kind: "admin" }
   | { kind: "not-found" }
 
-/** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
+/**
+ * Deep-linkable SPA paths (legal + admin); everything else is app state.
+ *
+ * The SEO guides are gone from this table ON PURPOSE: they are pure static
+ * documents now (tools/prerender.tsx strips their module scripts), so the SPA
+ * never renders them. Reaching one is always a real navigation -- `openPath`
+ * falls back to location.assign for any known path the SPA does not own.
+ */
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
   "/privacy": "privacy",
   "/terms": "terms",
@@ -111,22 +68,6 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   // Not in APP_PATHS (see routes.ts) but it still needs an entry here, or
   // pathForScreen falls through to "/" and the URL fights the render.
   [ADMIN_PATH]: "admin",
-  [GUIDE_META.aplus.path]: "guide-aplus",
-  [GUIDE_META.aplus1.path]: "guide-aplus1",
-  [GUIDE_META.aplus2.path]: "guide-aplus2",
-  [GUIDE_META.nplus.path]: "guide-nplus",
-  [GUIDE_META.pbq.path]: "guide-pbq",
-  [GUIDE_META.secplus.path]: "guide-secplus",
-  [GUIDE_META.aif.path]: "guide-aif",
-  [GUIDE_META.clf.path]: "guide-clf",
-  [GUIDE_META.az900.path]: "guide-az900",
-  [GUIDE_META.sc900.path]: "guide-sc900",
-  [GUIDE_META.ccna.path]: "guide-ccna",
-  [GUIDE_META.az104.path]: "guide-az104",
-  [GUIDE_META.saa.path]: "guide-saa",
-  [GUIDE_META.hub.path]: "guide-hub",
-  [GUIDE_META.scores.path]: "guide-scores",
-  [GUIDE_META.order.path]: "guide-order",
 }
 const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
@@ -138,22 +79,6 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   // nothing, and the title is rendered before any auth check has run.
   admin: "Cert900",
   "not-found": "Page not found | Cert900",
-  "guide-aplus": GUIDE_META.aplus.title,
-  "guide-aplus1": GUIDE_META.aplus1.title,
-  "guide-aplus2": GUIDE_META.aplus2.title,
-  "guide-nplus": GUIDE_META.nplus.title,
-  "guide-pbq": GUIDE_META.pbq.title,
-  "guide-secplus": GUIDE_META.secplus.title,
-  "guide-aif": GUIDE_META.aif.title,
-  "guide-clf": GUIDE_META.clf.title,
-  "guide-az900": GUIDE_META.az900.title,
-  "guide-sc900": GUIDE_META.sc900.title,
-  "guide-ccna": GUIDE_META.ccna.title,
-  "guide-az104": GUIDE_META.az104.title,
-  "guide-saa": GUIDE_META.saa.title,
-  "guide-hub": GUIDE_META.hub.title,
-  "guide-scores": GUIDE_META.scores.title,
-  "guide-order": GUIDE_META.order.title,
 }
 // Derived so the SPA title cannot drift from index.html's, which it had (one
 // listed Cisco, the other did not).
@@ -281,14 +206,14 @@ export default function App() {
 
   const openPath = (path: string) => {
     const next = screenForPath(path)
+    // A path the site serves but the SPA does not render -- the static guide
+    // pages -- gets a real navigation. Anything else known lands on a screen.
+    if (next.screen.kind === "not-found" && isKnownPath(path)) {
+      window.location.assign(path)
+      return
+    }
     if (next.examId) setExamId(next.examId)
     setScreen(next.screen)
-    window.scrollTo(0, 0)
-  }
-
-  const startExamFromGuide = (id: string) => {
-    setExamId(id)
-    setScreen({ kind: "home" })
     window.scrollTo(0, 0)
   }
 
@@ -509,11 +434,9 @@ export default function App() {
         {screen.kind === "not-found" && (
           <NotFound onHome={() => setScreen({ kind: "landing" })} onNavigate={openPath} />
         )}
-        {/* One boundary for all of them: the guide chunk is shared, so whichever
-            page is opened first pays the load and the rest are instant. */}
         <Suspense
           fallback={
-            screen.kind.startsWith("guide-") || screen.kind === "admin" ? (
+            screen.kind === "admin" ? (
               <div className="flex justify-center py-24" aria-label="Loading page">
                 <LoaderCircle className="size-6 animate-spin text-muted-foreground" strokeWidth={2} />
               </div>
@@ -521,22 +444,6 @@ export default function App() {
           }
         >
         {screen.kind === "admin" && <Admin onHome={() => setScreen({ kind: "landing" })} />}
-        {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-aplus1" && <APlusCore1Guide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-aplus2" && <APlusCore2Guide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-nplus" && <NPlusGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-pbq" && <PbqGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-secplus" && <SecplusGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-aif" && <AifGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-clf" && <ClfGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-az900" && <Az900Guide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-sc900" && <Sc900Guide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-ccna" && <CcnaGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-az104" && <Az104Guide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-saa" && <SaaGuide onStart={startExamFromGuide} />}
-        {screen.kind === "guide-hub" && <HubPage onStart={startExamFromGuide} />}
-        {screen.kind === "guide-scores" && <ScoresPage onStart={startExamFromGuide} />}
-        {screen.kind === "guide-order" && <OrderPage onStart={startExamFromGuide} />}
         </Suspense>
         </div>
         <SiteFooter onNavigate={openPath} />

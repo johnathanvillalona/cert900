@@ -92,7 +92,7 @@ function guidePathFor(examId: string): string {
   return map[examId] ?? "/"
 }
 
-export function HubPage({ onStart }: { onStart: (examId: string) => void }) {
+export function HubPage() {
   const meta = GUIDE_META.hub
   const all = exams()
   const totalQ = all.reduce((a, e) => a + e.questionCount, 0)
@@ -115,7 +115,7 @@ export function HubPage({ onStart }: { onStart: (examId: string) => void }) {
           over it.
         </p>
         <div className="mt-6">
-          <Cta label="Start practicing" onGo={() => onStart("220-1201")} testid="hub-cta" />
+          <Cta label="Start practicing" examId="220-1201" testid="hub-cta" />
         </div>
       </section>
 
@@ -167,7 +167,7 @@ export function HubPage({ onStart }: { onStart: (examId: string) => void }) {
   )
 }
 
-export function ScoresPage({ onStart }: { onStart: (examId: string) => void }) {
+export function ScoresPage() {
   const meta = GUIDE_META.scores
   return (
     <GuideShell meta={meta}>
@@ -215,14 +215,14 @@ export function ScoresPage({ onStart }: { onStart: (examId: string) => void }) {
           one will be.
         </p>
         <div className="mt-6">
-          <Cta label="See where you would land today" onGo={() => onStart("sy0-701")} testid="scores-cta" />
+          <Cta label="See where you would land today" examId="sy0-701" testid="scores-cta" />
         </div>
       </section>
     </GuideShell>
   )
 }
 
-export function OrderPage({ onStart }: { onStart: (examId: string) => void }) {
+export function OrderPage() {
   const meta = GUIDE_META.order
   const e = (id: string) => EXAM_META[id]
   return (
@@ -327,7 +327,7 @@ export function OrderPage({ onStart }: { onStart: (examId: string) => void }) {
           already near the cut line, start higher up the ladder.
         </p>
         <div className="mt-6">
-          <Cta label="Take a timed exam now" onGo={() => onStart("220-1201")} testid="order-cta" />
+          <Cta label="Take a timed exam now" examId="220-1201" testid="order-cta" />
         </div>
       </section>
     </GuideShell>

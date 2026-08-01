@@ -74,8 +74,6 @@ writeFileSync(resolve(dist, "index.html"), template.replace("</head>", `${homeJs
 console.log(`font preloads: ${fontPreloads ? (fontPreloads.match(/href="([^"]+)"/g) ?? []).join(" ") : "(none found)"}`)
 console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links`)
 
-const noop = () => {}
-
 /**
  * Quiz markup for the sample questions the page actually renders.
  *
@@ -204,30 +202,35 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
     .replace("</head>", `${jsonLd(key, meta)}</head>`)
     // Root now carries a <noscript> fallback (see index.html); match the whole
-    // block, not the old empty `<div id="root"></div>`.
-    .replace(
-      /<div id="root">[\s\S]*?<\/div>/,
-      `<div id="root"><div class="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">${body}</div></div>`,
-    )
+    // block, not the old empty `<div id="root"></div>`. GuideShell brings its
+    // own header/wrapper/footer, so the body goes in bare.
+    .replace(/<div id="root">[\s\S]*?<\/div>/, `<div id="root">${body}</div>`)
+    // THE point of the static guides: no SPA boot. Strip the module script and
+    // its preloads so these pages ship zero JavaScript beyond the inline theme
+    // stamp and the analytics beacon. The SPA used to blank the painted page
+    // (createRoot clears #root) and re-render it ~255KB of JS later, which is
+    // also what let anything loaded on a guide follow the reader into the app.
+    .replace(/<script type="module"[^>]*><\/script>/, "")
+    .replace(/<link rel="modulepreload"[^>]*>/g, "")
 }
 
 const pages: [GuideKey, GuideMeta, React.ReactElement][] = [
-  ["aplus", GUIDE_META.aplus, <APlusGuide onStart={noop} />],
-  ["aplus1", GUIDE_META.aplus1, <APlusCore1Guide onStart={noop} />],
-  ["aplus2", GUIDE_META.aplus2, <APlusCore2Guide onStart={noop} />],
-  ["nplus", GUIDE_META.nplus, <NPlusGuide onStart={noop} />],
-  ["pbq", GUIDE_META.pbq, <PbqGuide onStart={noop} />],
-  ["secplus", GUIDE_META.secplus, <SecplusGuide onStart={noop} />],
-  ["aif", GUIDE_META.aif, <AifGuide onStart={noop} />],
-  ["clf", GUIDE_META.clf, <ClfGuide onStart={noop} />],
-  ["az900", GUIDE_META.az900, <Az900Guide onStart={noop} />],
-  ["sc900", GUIDE_META.sc900, <Sc900Guide onStart={noop} />],
-  ["ccna", GUIDE_META.ccna, <CcnaGuide onStart={noop} />],
-  ["az104", GUIDE_META.az104, <Az104Guide onStart={noop} />],
-  ["saa", GUIDE_META.saa, <SaaGuide onStart={noop} />],
-  ["hub", GUIDE_META.hub, <HubPage onStart={noop} />],
-  ["scores", GUIDE_META.scores, <ScoresPage onStart={noop} />],
-  ["order", GUIDE_META.order, <OrderPage onStart={noop} />],
+  ["aplus", GUIDE_META.aplus, <APlusGuide />],
+  ["aplus1", GUIDE_META.aplus1, <APlusCore1Guide />],
+  ["aplus2", GUIDE_META.aplus2, <APlusCore2Guide />],
+  ["nplus", GUIDE_META.nplus, <NPlusGuide />],
+  ["pbq", GUIDE_META.pbq, <PbqGuide />],
+  ["secplus", GUIDE_META.secplus, <SecplusGuide />],
+  ["aif", GUIDE_META.aif, <AifGuide />],
+  ["clf", GUIDE_META.clf, <ClfGuide />],
+  ["az900", GUIDE_META.az900, <Az900Guide />],
+  ["sc900", GUIDE_META.sc900, <Sc900Guide />],
+  ["ccna", GUIDE_META.ccna, <CcnaGuide />],
+  ["az104", GUIDE_META.az104, <Az104Guide />],
+  ["saa", GUIDE_META.saa, <SaaGuide />],
+  ["hub", GUIDE_META.hub, <HubPage />],
+  ["scores", GUIDE_META.scores, <ScoresPage />],
+  ["order", GUIDE_META.order, <OrderPage />],
 ]
 
 for (const [key, meta, el] of pages) {

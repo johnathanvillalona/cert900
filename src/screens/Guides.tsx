@@ -1,7 +1,10 @@
 import { EXAM_META } from "@/data/meta"
 import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "@/data/guide-meta"
 import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
+import { examPath } from "@/data/routes"
 import { GuideResources } from "@/components/GuideResources"
+import { SiteFooter } from "@/components/SiteFooter"
+import { Wordmark } from "@/components/Wordmark"
 import { ArrowRight, Check } from "lucide-react"
 
 /**
@@ -137,7 +140,39 @@ function StudyPath({ examId }: { examId: string }) {
   )
 }
 
+/**
+ * The full page for a guide, chrome included.
+ *
+ * These pages are served as static HTML with NO JavaScript: tools/prerender.tsx
+ * strips the module scripts from their output. So the shell carries its own
+ * header and footer (the prerendered pages used to ship with neither, and the
+ * SPA used to blank the page and rebuild it just to add them). Everything here
+ * must work as plain markup -- real links, native <details>, no handlers. The
+ * pre-paint theme script in index.html still runs, so dark mode is respected;
+ * there is just no toggle on these pages.
+ */
 export function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-[100dvh] flex-col">
+      <header className="border-b">
+        <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+          <a href="/" className="brand-link flex items-center rounded-md text-sm" aria-label="cert900 home" data-testid="brand">
+            <Wordmark className="text-sm" />
+          </a>
+          <a href="/" className="text-muted-foreground text-sm underline-offset-2 hover:text-foreground hover:underline">
+            All exams
+          </a>
+        </nav>
+      </header>
+      <div className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">
+        <GuideArticle meta={meta}>{children}</GuideArticle>
+      </div>
+      <SiteFooter />
+    </div>
+  )
+}
+
+function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   return (
     <main className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
@@ -188,20 +223,27 @@ export function GuideShell({ meta, children }: { meta: GuideMeta; children: Reac
   )
 }
 
-export function Cta({ label, onGo, testid }: { label: string; onGo: () => void; testid: string }) {
+/**
+ * A real link, not a callback. The guide pages are served as pure static HTML
+ * with no SPA boot, so the CTA must work with zero JavaScript -- and a real
+ * navigation is also what guarantees nothing loaded on a guide (analytics, ads
+ * someday) can follow the reader into the study app. parseExamPath resolves
+ * /exam/:id to the exam menu on a cold load, so the destination already works.
+ */
+export function Cta({ label, examId, testid }: { label: string; examId: string; testid: string }) {
   return (
-    <button
-      onClick={onGo}
+    <a
+      href={examPath(examId)}
       data-testid={testid}
       className="pressable inline-flex cursor-pointer items-center gap-2 self-start rounded-md bg-primary px-5 py-2.5 font-medium text-primary-foreground transition-[transform,background-color] duration-200 hover:bg-primary/90"
     >
       {label}
       <ArrowRight className="size-4" strokeWidth={2} />
-    </button>
+    </a>
   )
 }
 
-export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function APlusGuide() {
   const meta = GUIDE_META.aplus
   const c1 = EXAM_META["220-1201"]
   const c2 = EXAM_META["220-1202"]
@@ -220,7 +262,7 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
           exam simulation with {c1.examMC} questions plus {c1.examPBQ} PBQs in {c1.examMinutes} minutes, scored on the
           real 100 to 900 scale. Every topic links to the matching free Professor Messer video.
         </p>
-        <Cta label="Start the free A+ practice test" onGo={() => onStart("220-1201")} testid="guide-cta" />
+        <Cta label="Start the free A+ practice test" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section>
@@ -245,13 +287,13 @@ export function APlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.aplus} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="220-1201" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function APlusCore1Guide({ onStart }: { onStart: (examId: string) => void }) {
+export function APlusCore1Guide() {
   const meta = GUIDE_META.aplus1
   const ex = EXAM_META["220-1201"]
   return (
@@ -269,7 +311,7 @@ export function APlusCore1Guide({ onStart }: { onStart: (examId: string) => void
           the real 100 to 900 scale with Core 1's actual 675 pass line. Every topic links to the matching free
           Professor Messer video.
         </p>
-        <Cta label="Start the free Core 1 practice test" onGo={() => onStart("220-1201")} testid="guide-cta" />
+        <Cta label="Start the free Core 1 practice test" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section>
@@ -293,13 +335,13 @@ export function APlusCore1Guide({ onStart }: { onStart: (examId: string) => void
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.aplus1} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="220-1201" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function APlusCore2Guide({ onStart }: { onStart: (examId: string) => void }) {
+export function APlusCore2Guide() {
   const meta = GUIDE_META.aplus2
   const ex = EXAM_META["220-1202"]
   return (
@@ -316,7 +358,7 @@ export function APlusCore2Guide({ onStart }: { onStart: (examId: string) => void
           the real 100 to 900 scale with Core 2's actual 700 pass line. Every topic links to the matching free
           Professor Messer video.
         </p>
-        <Cta label="Start the free Core 2 practice test" onGo={() => onStart("220-1202")} testid="guide-cta" />
+        <Cta label="Start the free Core 2 practice test" examId="220-1202" testid="guide-cta" />
       </section>
 
       <section>
@@ -340,13 +382,13 @@ export function APlusCore2Guide({ onStart }: { onStart: (examId: string) => void
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.aplus2} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("220-1202")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="220-1202" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function AifGuide() {
   const meta = GUIDE_META.aif
   const ex = EXAM_META["aif-c01"]
   return (
@@ -364,7 +406,7 @@ export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
           on the real 100 to 1,000 scale with the 700 pass line. Every topic links into the free 15-hour freeCodeCamp
           course at the matching chapter.
         </p>
-        <Cta label="Start the free AIF-C01 practice test" onGo={() => onStart("aif-c01")} testid="guide-cta" />
+        <Cta label="Start the free AIF-C01 practice test" examId="aif-c01" testid="guide-cta" />
       </section>
 
       <section>
@@ -379,13 +421,13 @@ export function AifGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.aif} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("aif-c01")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="aif-c01" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function ClfGuide() {
   const meta = GUIDE_META.clf
   const ex = EXAM_META["clf-c02"]
   return (
@@ -401,7 +443,7 @@ export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
           {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 700 pass line. Every topic
           links into the free 13-hour freeCodeCamp course at the matching chapter.
         </p>
-        <Cta label="Start the free CLF-C02 practice test" onGo={() => onStart("clf-c02")} testid="guide-cta" />
+        <Cta label="Start the free CLF-C02 practice test" examId="clf-c02" testid="guide-cta" />
       </section>
 
       <section>
@@ -416,13 +458,13 @@ export function ClfGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.clf} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("clf-c02")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="clf-c02" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
+export function Az900Guide() {
   const meta = GUIDE_META.az900
   const ex = EXAM_META["az-900"]
   return (
@@ -439,7 +481,7 @@ export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
           interactive items all-or-nothing the way Microsoft does, and links every topic to the matching video in John
           Savill's free per-topic AZ-900 course.
         </p>
-        <Cta label="Start the free AZ-900 practice test" onGo={() => onStart("az-900")} testid="guide-cta" />
+        <Cta label="Start the free AZ-900 practice test" examId="az-900" testid="guide-cta" />
       </section>
 
       <section>
@@ -455,13 +497,13 @@ export function Az900Guide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.az900} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("az-900")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="az-900" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function Sc900Guide({ onStart }: { onStart: (examId: string) => void }) {
+export function Sc900Guide() {
   const meta = GUIDE_META.sc900
   const ex = EXAM_META["sc-900"]
   return (
@@ -478,7 +520,7 @@ export function Sc900Guide({ onStart }: { onStart: (examId: string) => void }) {
           interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
           Savill's free SC-900 study video.
         </p>
-        <Cta label="Start the free SC-900 practice test" onGo={() => onStart("sc-900")} testid="guide-cta" />
+        <Cta label="Start the free SC-900 practice test" examId="sc-900" testid="guide-cta" />
       </section>
 
       <section>
@@ -494,13 +536,13 @@ export function Sc900Guide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.sc900} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("sc-900")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="sc-900" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function CcnaGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function CcnaGuide() {
   const meta = GUIDE_META.ccna
   const ex = EXAM_META["ccna-200-301"]
   return (
@@ -518,7 +560,7 @@ export function CcnaGuide({ onStart }: { onStart: (examId: string) => void }) {
           terminal that accepts real IOS commands and clickable network diagrams. Every topic links to the matching free
           Jeremy's IT Lab video.
         </p>
-        <Cta label="Start the free CCNA practice test" onGo={() => onStart("ccna-200-301")} testid="guide-cta" />
+        <Cta label="Start the free CCNA practice test" examId="ccna-200-301" testid="guide-cta" />
       </section>
 
       <section>
@@ -534,13 +576,13 @@ export function CcnaGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.ccna} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("ccna-200-301")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="ccna-200-301" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function Az104Guide({ onStart }: { onStart: (examId: string) => void }) {
+export function Az104Guide() {
   const meta = GUIDE_META.az104
   const ex = EXAM_META["az-104"]
   return (
@@ -557,7 +599,7 @@ export function Az104Guide({ onStart }: { onStart: (examId: string) => void }) {
           interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
           Savill's free AZ-104 study video.
         </p>
-        <Cta label="Start the free AZ-104 practice test" onGo={() => onStart("az-104")} testid="guide-cta" />
+        <Cta label="Start the free AZ-104 practice test" examId="az-104" testid="guide-cta" />
       </section>
 
       <section>
@@ -573,13 +615,13 @@ export function Az104Guide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.az104} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("az-104")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="az-104" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function SaaGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function SaaGuide() {
   const meta = GUIDE_META.saa
   const ex = EXAM_META["saa-c03"]
   return (
@@ -595,7 +637,7 @@ export function SaaGuide({ onStart }: { onStart: (examId: string) => void }) {
           {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 720 pass line. Every topic links
           into Andrew Brown's free freeCodeCamp course at the matching chapter.
         </p>
-        <Cta label="Start the free SAA-C03 practice test" onGo={() => onStart("saa-c03")} testid="guide-cta" />
+        <Cta label="Start the free SAA-C03 practice test" examId="saa-c03" testid="guide-cta" />
       </section>
 
       <section>
@@ -610,13 +652,13 @@ export function SaaGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.saa} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("saa-c03")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="saa-c03" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function NPlusGuide() {
   const meta = GUIDE_META.nplus
   const nx = EXAM_META["n10-009"]
   return (
@@ -634,7 +676,7 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
           under time. The PBQ lab here simulates those formats, including a command-line terminal and clickable network
           diagrams. Every topic links to the matching free Professor Messer video.
         </p>
-        <Cta label="Start the free Network+ practice test" onGo={() => onStart("n10-009")} testid="guide-cta" />
+        <Cta label="Start the free Network+ practice test" examId="n10-009" testid="guide-cta" />
       </section>
 
       <section>
@@ -649,13 +691,13 @@ export function NPlusGuide({ onStart }: { onStart: (examId: string) => void }) {
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.nplus} />
         
-        <Cta label={`Practice all ${EXAM_META["n10-009"].questionCount} free`} onGo={() => onStart("n10-009")} testid="guide-cta-2" />
+        <Cta label={`Practice all ${EXAM_META["n10-009"].questionCount} free`} examId="n10-009" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
 }
 
-export function SecplusGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function SecplusGuide() {
   const meta = GUIDE_META.secplus
   const sx = EXAM_META["sy0-701"]
   return (
@@ -674,7 +716,7 @@ export function SecplusGuide({ onStart }: { onStart: (examId: string) => void })
           incident-response ordering, and clickable network diagrams. Every topic links to the matching free Professor
           Messer video.
         </p>
-        <Cta label="Start the free Security+ practice test" onGo={() => onStart("sy0-701")} testid="guide-cta" />
+        <Cta label="Start the free Security+ practice test" examId="sy0-701" testid="guide-cta" />
       </section>
 
       <section>
@@ -690,7 +732,7 @@ export function SecplusGuide({ onStart }: { onStart: (examId: string) => void })
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
         <Samples examIds={GUIDE_EXAMS.secplus} />
         
-        <Cta label="Practice all of them free" onGo={() => onStart("sy0-701")} testid="guide-cta-2" />
+        <Cta label="Practice all of them free" examId="sy0-701" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -705,7 +747,7 @@ const PBQ_KINDS: [string, string][] = [
   ["Ordering", "Put troubleshooting or procedure steps into the correct sequence."],
 ]
 
-export function PbqGuide({ onStart }: { onStart: (examId: string) => void }) {
+export function PbqGuide() {
   const meta = GUIDE_META.pbq
   const total = ["220-1201", "220-1202", "n10-009"].reduce((a, id) => a + EXAM_META[id].pbqCount, 0)
   return (
@@ -717,7 +759,7 @@ export function PbqGuide({ onStart }: { onStart: (examId: string) => void }) {
           has {total} free PBQs across A+ Core 1, Core 2, and Network+, in six interaction styles modeled on the formats
           CompTIA describes: simulations, virtual environments, and drag-and-drop.
         </p>
-        <Cta label="Open the free PBQ lab" onGo={() => onStart("220-1201")} testid="guide-cta" />
+        <Cta label="Open the free PBQ lab" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section>
@@ -750,7 +792,7 @@ export function PbqGuide({ onStart }: { onStart: (examId: string) => void }) {
           In the simulator you type these yourself, each correct command prints realistic output, and partial credit is
           scored per objective, the same way CompTIA says PBQs are graded.
         </p>
-        <Cta label="Try it yourself, free" onGo={() => onStart("220-1201")} testid="guide-cta-2" />
+        <Cta label="Try it yourself, free" examId="220-1201" testid="guide-cta-2" />
       </section>
       <StudyPath examId="220-1201" />
       <StudyPath examId="220-1201" />
