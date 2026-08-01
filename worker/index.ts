@@ -174,6 +174,20 @@ async function handleAdmin(req: Request, env: Env, pathname: string): Promise<Re
   const session = await createAuth(env).api.getSession({ headers: req.headers })
   if (!isAdminEmail(env, session?.user.email, session?.user.emailVerified)) return notFound
 
+  // "Am I an admin, and is there anything waiting?" The client cannot know the
+  // allowlist, and probing the reports endpoint just to decide whether to draw
+  // a menu item would run the grouped query on every page load. 404 for
+  // everyone else falls out of the gate above, so this leaks nothing.
+  if (pathname === "/api/admin/whoami" && req.method === "GET") {
+    const row = await env.DB.prepare(
+      `SELECT COUNT(*) AS open FROM (
+         SELECT 1 FROM reports
+          WHERE exam_id != '__auth' AND resolved_at IS NULL
+          GROUP BY exam_id, ref)`,
+    ).first<{ open: number }>()
+    return json({ admin: true, open: row?.open ?? 0 })
+  }
+
   if (pathname === "/api/admin/reports" && req.method === "GET") {
     const wantResolved = new URL(req.url).searchParams.get("status") === "resolved"
     // Grouped, because five people reporting one question is the signal and
