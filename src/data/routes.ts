@@ -73,6 +73,16 @@ export const LEGAL_PATHS = ["/privacy", "/terms", "/delete-account"] as const
  */
 export const APP_PATHS = ["/exams", "/progress"] as const
 
+/**
+ * Owner-only report triage. Kept out of APP_PATHS, which is the list of
+ * user-facing screens, but it still has to be a known path or the worker would
+ * 404 the shell and the page could never be opened directly.
+ *
+ * That 404 was never the access control — /api/admin/* checks the session. This
+ * just avoids advertising the route in the footer, sitemap or nav.
+ */
+export const ADMIN_PATH = "/admin"
+
 /** Sub-pages under /exam/:id. "" is the exam's own menu. */
 export const EXAM_SUBPATHS = ["", "drill", "quiz", "results", "stats"] as const
 
@@ -103,6 +113,7 @@ export const KNOWN_PATHS: readonly string[] = [
   ...Object.values(GUIDE_PATHS),
   ...LEGAL_PATHS,
   ...APP_PATHS,
+  ADMIN_PATH,
 ]
 
 /** `true` for a path the site actually serves, tolerating one trailing slash. */

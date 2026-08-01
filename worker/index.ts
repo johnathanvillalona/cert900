@@ -2,6 +2,7 @@ import { createAuth, type Env } from "./auth"
 import { dailySocialPost, weeklyRedditScan, weeklyIndexNow } from "./social"
 import { mailEnabled } from "./mail"
 import { isKnownPath } from "../src/data/routes"
+import { EXAM_IDS } from "../src/data/exam-ids"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
 
@@ -77,6 +78,32 @@ async function ipHash(req: Request): Promise<string> {
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("")
 }
 
+/**
+ * Report payload guard.
+ *
+ * `examId` must be a REAL exam id, not merely a short string. That is a security
+ * check rather than tidiness: the credential throttle below keeps its counters in
+ * this same table under the sentinel exam_id '__auth', and the report rate
+ * limiter excludes exactly those rows -- so a client posting {"examId":"__auth"}
+ * wrote rows that never counted against its own quota, i.e. unbounded D1 writes.
+ *
+ * `ref` is pinned to the two shapes ReportButton actually sends (`q:<id>` and
+ * `pbq:<title>`). It used to accept any 200-char string, which now matters more
+ * than it did: the admin triage screen renders it.
+ */
+const REF_RE = /^(?:q:\d{1,7}|pbq:[^\n\r]{1,160})$/
+
+export function isValidReport(
+  b: { examId?: unknown; ref?: unknown },
+): b is { examId: string; ref: string } {
+  return (
+    typeof b.examId === "string" &&
+    EXAM_IDS.includes(b.examId) &&
+    typeof b.ref === "string" &&
+    REF_RE.test(b.ref)
+  )
+}
+
 /** Anonymous question reports, rate limited per IP and globally. */
 async function handleReport(req: Request, env: Env): Promise<Response> {
   if (req.method !== "POST") return json({ error: "method not allowed" }, 405)
@@ -87,13 +114,8 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
   } catch {
     return json({ error: "bad json" }, 400)
   }
+  if (!isValidReport(body)) return json({ error: "bad payload" }, 400)
   const { examId, ref } = body
-  if (
-    typeof examId !== "string" || !examId || examId.length > 32 ||
-    typeof ref !== "string" || !ref || ref.length > 200
-  ) {
-    return json({ error: "bad payload" }, 400)
-  }
 
   const hash = await ipHash(req)
   const dayAgo = Date.now() - 86_400_000
@@ -115,6 +137,90 @@ async function handleReport(req: Request, env: Env): Promise<Response> {
     .bind(examId, ref, hash, Date.now())
     .run()
   return json({ ok: true })
+}
+
+/**
+ * Is this session the site owner?
+ *
+ * Two conditions, both required. The allowlist is obvious; `emailVerified` is
+ * the one that is easy to leave out and would matter. Email/password signup is
+ * enabled with `requireEmailVerification: false`, so without the second check
+ * anyone who knows an allowlisted address that does not yet have an account
+ * could register it with a password and be handed admin. The owner's address
+ * happens to already be taken by a Google account, but the gate must not rest
+ * on that accident -- adding a second admin later would reopen it.
+ *
+ * Social logins arrive verified, so this costs the owner nothing.
+ */
+export function isAdminEmail(env: Env, email: unknown, emailVerified: unknown): boolean {
+  if (typeof email !== "string" || emailVerified !== true) return false
+  const list = (env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+  return list.includes(email.trim().toLowerCase())
+}
+
+/**
+ * Owner-only report triage.
+ *
+ * Non-admins get 404, not 401/403: the endpoint should not confirm it exists.
+ * Every query excludes the '__auth' sentinel rows and NEVER selects `ip_hash`,
+ * which exists only as a rate-limit key and has no reason to leave the worker.
+ */
+async function handleAdmin(req: Request, env: Env, pathname: string): Promise<Response> {
+  const notFound = json({ error: "not found" }, 404)
+  const session = await createAuth(env).api.getSession({ headers: req.headers })
+  if (!isAdminEmail(env, session?.user.email, session?.user.emailVerified)) return notFound
+
+  if (pathname === "/api/admin/reports" && req.method === "GET") {
+    const wantResolved = new URL(req.url).searchParams.get("status") === "resolved"
+    // Grouped, because five people reporting one question is the signal and
+    // five separate rows are noise. A group counts as open while ANY of its
+    // rows is unresolved -- MAX(resolved_at) would mark a question handled the
+    // moment one old report was cleared, hiding every report that came after.
+    const rows = await env.DB.prepare(
+      `SELECT exam_id AS examId, ref,
+              COUNT(*) AS reports,
+              SUM(CASE WHEN resolved_at IS NULL THEN 1 ELSE 0 END) AS open,
+              MIN(created_at) AS firstAt,
+              MAX(created_at) AS lastAt
+         FROM reports
+        WHERE exam_id != '__auth'
+        GROUP BY exam_id, ref
+       HAVING open ${wantResolved ? "= 0" : "> 0"}
+        ORDER BY reports DESC, lastAt DESC
+        LIMIT 500`,
+    ).all()
+    return json({ reports: rows.results })
+  }
+
+  if (pathname === "/api/admin/reports/resolve" && req.method === "POST") {
+    let body: { examId?: unknown; ref?: unknown }
+    try {
+      body = await req.json()
+    } catch {
+      return json({ error: "bad json" }, 400)
+    }
+    const { examId, ref } = body
+    // Looser than isValidReport on purpose: rows predating that validation
+    // (an "exam" called live-check, for one) are exactly the junk the owner
+    // needs to be able to clear. Still parameterized, still never '__auth'.
+    if (
+      typeof examId !== "string" || !examId || examId.length > 32 || examId === "__auth" ||
+      typeof ref !== "string" || !ref || ref.length > 200
+    ) {
+      return json({ error: "bad payload" }, 400)
+    }
+    const res = await env.DB.prepare(
+      "UPDATE reports SET resolved_at = ? WHERE exam_id = ? AND ref = ? AND resolved_at IS NULL",
+    )
+      .bind(Date.now(), examId, ref)
+      .run()
+    return json({ ok: true, resolved: res.meta.changes })
+  }
+
+  return notFound
 }
 
 /**
@@ -230,6 +336,9 @@ async function route(req: Request, env: Env): Promise<Response> {
   }
   if (url.pathname === "/api/report") {
     return handleReport(req, env)
+  }
+  if (url.pathname.startsWith("/api/admin/")) {
+    return handleAdmin(req, env, url.pathname)
   }
   // Which optional auth methods this deploy actually offers, so the clients can
   // render the right buttons instead of showing a form that would 400. Cached
