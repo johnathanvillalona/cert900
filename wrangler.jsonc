@@ -42,6 +42,11 @@
   ],
   "vars": {
     "BETTER_AUTH_URL": "https://cert900.com",
+    // Who can open /admin and read reported questions. Comma-separated. A
+    // session only counts as admin if its address is BOTH on this list and
+    // verified, so listing an address that has no account yet cannot be claimed
+    // by password signup. Empty/unset = no admins, and /api/admin/* 404s.
+    "ADMIN_EMAILS": "johnathanv16@gmail.com",
     // The address transactional mail is sent from. Setting it enables
     // email/password sign-in.
     //

@@ -25,7 +25,7 @@ import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { NotFound } from "@/screens/NotFound"
 import { GUIDE_META } from "@/data/guide-meta"
-import { examPath, parseExamPath } from "@/data/routes"
+import { ADMIN_PATH, examPath, parseExamPath } from "@/data/routes"
 import { SiteFooter } from "@/components/SiteFooter"
 
 // Charts (recharts) load only when someone opens detailed progress.
@@ -66,6 +66,9 @@ const HubPage = info("HubPage")
 const ScoresPage = info("ScoresPage")
 const OrderPage = info("OrderPage")
 
+// Owner-only, so it must not cost every other visitor a byte of the entry chunk.
+const Admin = lazy(() => import("@/screens/Admin").then((m) => ({ default: m.Admin })))
+
 export type Screen =
   | { kind: "landing" }
   | { kind: "dashboard" }
@@ -94,6 +97,7 @@ export type Screen =
   | { kind: "guide-hub" }
   | { kind: "guide-scores" }
   | { kind: "guide-order" }
+  | { kind: "admin" }
   | { kind: "not-found" }
 
 /** Deep-linkable paths (legal + SEO guides); everything else is app state under "/". */
@@ -103,6 +107,9 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   // Google Play's Data safety form requires a public deletion URL a reviewer
   // can open without installing the app.
   "/delete-account": "delete-account",
+  // Not in APP_PATHS (see routes.ts) but it still needs an entry here, or
+  // pathForScreen falls through to "/" and the URL fights the render.
+  [ADMIN_PATH]: "admin",
   [GUIDE_META.aplus.path]: "guide-aplus",
   [GUIDE_META.aplus1.path]: "guide-aplus1",
   [GUIDE_META.aplus2.path]: "guide-aplus2",
@@ -125,6 +132,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
   "delete-account": "Delete your account | Cert900",
+  admin: "Reported questions | Cert900",
   "not-found": "Page not found | Cert900",
   "guide-aplus": GUIDE_META.aplus.title,
   "guide-aplus1": GUIDE_META.aplus1.title,
@@ -484,13 +492,14 @@ export default function App() {
             page is opened first pays the load and the rest are instant. */}
         <Suspense
           fallback={
-            screen.kind.startsWith("guide-") ? (
-              <div className="flex justify-center py-24" aria-label="Loading guide">
+            screen.kind.startsWith("guide-") || screen.kind === "admin" ? (
+              <div className="flex justify-center py-24" aria-label="Loading page">
                 <LoaderCircle className="size-6 animate-spin text-muted-foreground" strokeWidth={2} />
               </div>
             ) : null
           }
         >
+        {screen.kind === "admin" && <Admin onHome={() => setScreen({ kind: "landing" })} />}
         {screen.kind === "guide-aplus" && <APlusGuide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus1" && <APlusCore1Guide onStart={startExamFromGuide} />}
         {screen.kind === "guide-aplus2" && <APlusCore2Guide onStart={startExamFromGuide} />}

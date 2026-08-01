@@ -22,6 +22,12 @@ export interface Env {
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
   /**
+   * Comma-separated allowlist for the owner-only report triage at /admin.
+   * Unset (the default) means nobody is an admin and /api/admin/* 404s for
+   * everyone, which is the right behaviour for a fork or a local checkout.
+   */
+  ADMIN_EMAILS?: string
+  /**
    * Transactional mail. `AUTH_EMAIL_FROM` plus ONE transport is what enables
    * email/password sign-in at all (see worker/mail.ts): without a working
    * reset, a forgotten password is a permanent lockout.

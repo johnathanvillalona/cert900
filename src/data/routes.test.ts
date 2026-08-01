@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isKnownPath, parseExamPath } from "./routes"
+import { ADMIN_PATH, APP_PATHS, EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isKnownPath, parseExamPath } from "./routes"
 import { EXAM_IDS } from "./exam-ids"
 import { GUIDE_META } from "./guide-meta"
 
@@ -79,5 +79,17 @@ describe("app screen paths", () => {
     for (const p of ["/exams", "/progress", "/exam/sy0-701", "/exam/az-104/stats"]) {
       expect(isKnownPath(p), p).toBe(true)
     }
+  })
+
+  /**
+   * /admin must resolve (so it can be opened directly) without joining the
+   * user-facing screen list that the footer and nav iterate. Access control is
+   * the session check on /api/admin/*, never the 404.
+   */
+  it("resolves /admin without listing it as a user-facing screen", () => {
+    expect(isKnownPath(ADMIN_PATH)).toBe(true)
+    expect(APP_PATHS).not.toContain(ADMIN_PATH)
+    expect(Object.values(GUIDE_PATHS)).not.toContain(ADMIN_PATH)
+    expect(LEGAL_PATHS).not.toContain(ADMIN_PATH)
   })
 })
