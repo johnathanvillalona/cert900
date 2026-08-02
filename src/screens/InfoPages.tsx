@@ -333,3 +333,77 @@ export function OrderPage() {
     </GuideShell>
   )
 }
+
+/**
+ * The trust page: how questions get written, verified, and fixed. Written to
+ * be checkable rather than reassuring -- it names the mechanisms (rule suite,
+ * adversarial review, the 2026-08 sample audit, the report queue) instead of
+ * asserting quality. The audit figures are dated facts, deliberately frozen
+ * in copy; the bank counts stay derived like every other number on the site.
+ */
+export function MethodPage() {
+  const meta = GUIDE_META.method
+  const totalQ = exams().reduce((a, e) => a + e.questionCount, 0)
+  const totalPbq = exams().reduce((a, e) => a + e.pbqCount, 0)
+  return (
+    <GuideShell meta={meta}>
+      <section>
+        <p className="text-lg leading-relaxed">
+          This site currently holds {totalQ.toLocaleString()} multiple-choice questions and {totalPbq}{" "}
+          performance-based and interactive questions across {exams().length} certification exams.
+          Every one of them is original work written against the exam's published objectives. None of
+          it comes from real exams: braindumps violate the vendors' agreements, can void a
+          certification, and train recall instead of understanding.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">How a question gets written</h2>
+        <p className="mt-3 leading-relaxed">
+          Questions are drafted per exam domain against the official objective list, then held to a
+          fixed item-writing standard: one defensibly correct answer, distractors that are plausible
+          to someone who half-knows the topic, no all-of-the-above patterns, and an explanation that
+          argues for the right answer and against the wrong ones. Every question links to a free
+          training video covering its exact topic.
+        </p>
+        <p className="mt-3 leading-relaxed">
+          The same standard bans what test-takers call test-wiseness tells: the longest option being
+          the answer, stem words echoed only in the key, grammatical giveaways, or negatives hidden in
+          lowercase. An automated lint checks the measurable ones on every change, and the build fails
+          if a bank violates the structural rules.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">How it is verified</h2>
+        <p className="mt-3 leading-relaxed">
+          Before a batch ships, independent reviewers whose job is to refute it go through every
+          question: is the keyed answer actually right, is any distractor also defensible, does the
+          explanation hold? Only what survives lands in the bank.
+        </p>
+        <p className="mt-3 leading-relaxed">
+          In August 2026 we ran a second, adversarial audit on the live bank: a stratified sample of
+          931 questions (25 percent of every exam, plus every question shown publicly) and all 138
+          performance-based questions. Findings had to survive a reviewer trying to refute them, and
+          any proposed answer-key change also had to match the independent answer of a reviewer who
+          never saw the claim. The result: 20 confirmed defects, exactly one of them a wrong answer
+          key (an Azure platform change from 2024), all fixed. The full report, with citations, ships
+          in the site's public history.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">When something is still wrong</h2>
+        <p className="mt-3 leading-relaxed">
+          Every question carries a report button. Reports are anonymous, land in a triage queue, and a
+          confirmed problem is fixed in the bank itself, so the correction reaches everyone at once.
+          If a question here cost you a point unfairly, that is the fastest way to make it cost nobody
+          else one.
+        </p>
+        <div className="mt-6">
+          <Cta label="Start practicing" examId="sy0-701" testid="method-cta" />
+        </div>
+      </section>
+    </GuideShell>
+  )
+}
