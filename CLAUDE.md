@@ -41,6 +41,13 @@ already-merged PBQs by title, since add-content only ever appends.
 Anti-tell lint: `node tools/content-lint.mjs` (long-answer,
 lone-parenthetical acronym, near-dupe stems, config freebies) must report 0
 flags; `tools/apply-fixes.mjs` merges agent fix batches by question id.
+**2026-08 sample audit** (tools/fixes/audit-2026-08/REPORT.md): 931 MC (25%,
+stratified via tools/audit-sample.mts) + ALL 138 PBQs through finder ->
+refuter + blind-key verification. 12 MC + 8 PBQ defects fixed (1 wrong key,
+az-104 q112); defects concentrate in saa-c03 (5.2%) / az-104 (2.5%) cloud
+currency — full sweep of those two banks recommended, rest ~1% minor.
+social.ts now shuffles options before posting (stored keys are position-
+biased; that post was the one surface rendering stored order).
 **Explanations must never name an option by position** ("the second option") -
 every runtime path shuffles, so the reference points at a random distractor.
 **Stored answer keys must stay positionally unbiased**: authors default to
