@@ -1,0 +1,34 @@
+{
+ "examId": "saa-c03",
+ "_note": "2026-08 full cloud-bank sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 38,
+   "o": [
+    "Changing the root user's email address and closing the AWS account",
+    "Launching EC2 instances in a newly enabled AWS Region",
+    "Creating an S3 bucket that has object versioning enabled",
+    "Attaching a managed IAM policy to a developer user group"
+   ],
+   "e": "Closing a standalone AWS account and changing the root user's email address are among the few tasks that require signing in as the root user. Launching instances, creating buckets, and attaching IAM policies can all be delegated to IAM administrators, and even AWS Support plan changes can now be performed by IAM identities granted the supportplans permissions.",
+   "_why": "The keyed option and explanation state that changing the AWS Support plan is a root-user-only task, which has been false since September 2022, when AWS added IAM controls (supportplans:UpdateSupportPlan and AWS managed policies) that let IAM identities change or cancel support plans. [https://aws.amazon.com/about-aws/whats-new/2022/09/aws-updated-support-plans-console-new-iam-controls]"
+  },
+  {
+   "id": 161,
+   "x": "An application reads from a DynamoDB global table that uses the default multi-Region eventual consistency mode. It reads in its local Region immediately after another Region wrote the same item. Which read behavior should the developers expect?",
+   "e": "In the default multi-Region eventual consistency mode, cross-Region replication is asynchronous, so a read in another Region is eventually consistent and may briefly return stale data. Strongly consistent reads from any Region require opting into the separate multi-Region strong consistency mode when the global table is configured, which is not the default.",
+   "_why": "The explanation states 'DynamoDB does not offer strongly consistent reads across Regions,' which has been false since June 30, 2025, when multi-Region strong consistency (MRSC) for global tables went GA; without pinning the stem to the default mode, the distractor 'Strongly consistent reads across all Regions' is now a defensible real capability. [https://aws.amazon.com/about-aws/whats-new/2025/06/amazon-dynamo-db-global-tables-multi-region-strong-consistency-generally-available/]"
+  },
+  {
+   "id": 303,
+   "o": [
+    "Aurora Serverless v2 with a minimum capacity of 0 ACUs",
+    "Aurora Serverless v1",
+    "A provisioned Aurora cluster stopped on a schedule",
+    "Aurora Global Database with a secondary Region"
+   ],
+   "e": "Aurora Serverless v2 pauses automatically when its minimum capacity is set to 0 ACUs: after a period with no connections it scales to zero, compute charges stop, and it resumes on the next connection attempt. Aurora Serverless v1 offered auto-pause but reached end of life on March 31, 2025, so it can no longer be deployed. A provisioned cluster stopped on a schedule needs custom automation and cannot restart itself when a connection arrives, and Aurora Global Database targets cross-Region disaster recovery, not idle-time cost.",
+   "_why": "The keyed option 'Aurora Serverless v2 with a minimum of 2 ACUs' cannot auto-pause (auto-pause requires a 0-ACU minimum), and the stored explanation argues for the distractor 'Aurora Serverless v1' instead of the key. [https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2-auto-pause.html]"
+  }
+ ]
+}

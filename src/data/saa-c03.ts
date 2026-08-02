@@ -887,13 +887,13 @@ export const exam: ExamDef = {
    "t": "root-account-mfa",
    "x": "A team is documenting which operations require the AWS account root user. Which task can ONLY be performed by the root user and not by an IAM administrator?",
    "o": [
-    "Changing the account support plan and closing the AWS account",
+    "Changing the root user's email address and closing the AWS account",
     "Launching EC2 instances in a newly enabled AWS Region",
     "Creating an S3 bucket that has object versioning enabled",
     "Attaching a managed IAM policy to a developer user group"
    ],
    "a": 0,
-   "e": "Certain actions such as changing the support plan and closing the account are reserved for the root user. Launching instances, creating buckets, and attaching policies can be delegated to IAM administrators.",
+   "e": "Closing a standalone AWS account and changing the root user's email address are among the few tasks that require signing in as the root user. Launching instances, creating buckets, and attaching IAM policies can all be delegated to IAM administrators, and even AWS Support plan changes can now be performed by IAM identities granted the supportplans permissions.",
    "d": 1
   },
   {
@@ -2767,7 +2767,7 @@ export const exam: ExamDef = {
   {
    "id": 161,
    "t": "dynamodb-global-tables",
-   "x": "An application reads from a DynamoDB global table in its local Region immediately after another Region wrote the same item. Which read behavior should the developers expect?",
+   "x": "An application reads from a DynamoDB global table that uses the default multi-Region eventual consistency mode. It reads in its local Region immediately after another Region wrote the same item. Which read behavior should the developers expect?",
    "o": [
     "Automatic strong consistency once streams are enabled",
     "Reads blocked until every Region confirms the write",
@@ -2775,7 +2775,7 @@ export const exam: ExamDef = {
     "Strongly consistent reads across all Regions"
    ],
    "a": 2,
-   "e": "Cross-Region replication in global tables is asynchronous, so a read in another Region is eventually consistent and may briefly return stale data. DynamoDB does not offer strongly consistent reads across Regions.",
+   "e": "In the default multi-Region eventual consistency mode, cross-Region replication is asynchronous, so a read in another Region is eventually consistent and may briefly return stale data. Strongly consistent reads from any Region require opting into the separate multi-Region strong consistency mode when the global table is configured, which is not the default.",
    "d": 2
   },
   {
@@ -4932,13 +4932,13 @@ export const exam: ExamDef = {
    "t": "aurora-serverless-cost",
    "x": "A team wants an Aurora deployment that can automatically pause and resume for a rarely used test database so they pay almost nothing when it is inactive. Which Aurora option supports automatic pause during inactivity?",
    "o": [
-    "Aurora Serverless v2 with a minimum of 2 ACUs",
+    "Aurora Serverless v2 with a minimum capacity of 0 ACUs",
     "Aurora Serverless v1",
     "A provisioned Aurora cluster stopped on a schedule",
     "Aurora Global Database with a secondary Region"
    ],
    "a": 0,
-   "e": "Aurora Serverless v1 can pause automatically after a period of inactivity and resume on the next connection, so a rarely used test database costs almost nothing while idle. A Serverless v2 cluster pinned to a 2-ACU minimum keeps that capacity billed continuously, and a provisioned cluster stopped on a schedule needs custom automation and cannot restart itself when a connection arrives. Aurora Global Database targets cross-Region disaster recovery, not idle-time cost.",
+   "e": "Aurora Serverless v2 pauses automatically when its minimum capacity is set to 0 ACUs: after a period with no connections it scales to zero, compute charges stop, and it resumes on the next connection attempt. Aurora Serverless v1 offered auto-pause but reached end of life on March 31, 2025, so it can no longer be deployed. A provisioned cluster stopped on a schedule needs custom automation and cannot restart itself when a connection arrives, and Aurora Global Database targets cross-Region disaster recovery, not idle-time cost.",
    "d": 4
   },
   {

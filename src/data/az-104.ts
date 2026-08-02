@@ -1676,7 +1676,7 @@ export const exam: ExamDef = {
     "A service SAS"
    ],
    "a": 1,
-   "e": "A user delegation SAS is signed with a key obtained through Entra ID, making it more secure than key-signed tokens. Account, service, and ad hoc SAS are all signed with the account key.",
+   "e": "A user delegation SAS is signed with a user delegation key obtained through Microsoft Entra ID, making it more secure than key-signed tokens. Account SAS and service SAS are signed with the storage account key, and ad hoc only describes a SAS whose start, expiry, and permissions are set in the URI rather than a stored access policy - any SAS type, including user delegation, can be ad hoc.",
    "d": 2
   },
   {
@@ -3357,10 +3357,10 @@ export const exam: ExamDef = {
     "Function app",
     "Static content",
     "Code",
-    "Docker Container"
+    "Container"
    ],
    "a": 3,
-   "e": "Choosing the Docker Container publish option lets App Service pull and run a container image. The Code option deploys application source directly, and a function app is a separate resource type.",
+   "e": "Choosing the Container publish option (formerly labeled Docker Container) lets App Service pull and run a container image. The Code option deploys application source directly, and a function app is a separate resource type.",
    "d": 3
   },
   {
@@ -4825,15 +4825,15 @@ export const exam: ExamDef = {
   {
    "id": 289,
    "t": "network-watcher",
-   "x": "An administrator wants to record IP traffic through an NSG to a storage account for later analysis. Which Network Watcher capability provides this?",
+   "x": "An administrator wants to record IP traffic flowing through a virtual network to a storage account for later analysis. Which Network Watcher capability provides this?",
    "o": [
-    "NSG flow logs",
+    "Virtual network flow logs",
     "Effective security rules",
     "IP flow verify",
     "Connection troubleshoot"
    ],
    "a": 0,
-   "e": "NSG flow logs capture ingress and egress IP traffic metadata to a storage account for traffic analytics. Effective security rules only display the aggregated rule set, not live traffic.",
+   "e": "Virtual network flow logs capture ingress and egress IP traffic metadata to a storage account for later analysis and traffic analytics, and they replace the retiring NSG flow logs feature, which no longer allows new flow logs to be created. Effective security rules only display the aggregated rule set, not live traffic.",
    "d": 5
   },
   {
@@ -4966,7 +4966,7 @@ export const exam: ExamDef = {
   {
    "id": 298,
    "t": "backup-policy",
-   "x": "Which Azure VM backup policy type is required to protect a Trusted Launch VM and allows multiple backups per day?",
+   "x": "Which Azure VM backup policy type supports multiple backups per day and newer disk offerings such as Ultra Disk and Premium SSD v2?",
    "o": [
     "Legacy policy",
     "Basic policy",
@@ -4974,7 +4974,7 @@ export const exam: ExamDef = {
     "Standard policy"
    ],
    "a": 2,
-   "e": "The Enhanced backup policy supports hourly backups and Trusted Launch VMs. The Standard policy allows only one scheduled backup per day and does not cover Trusted Launch machines.",
+   "e": "The Enhanced backup policy supports hourly backups, as frequently as every four hours, and covers newer offerings such as Ultra Disk and Premium SSD v2. The Standard policy allows only one scheduled backup per day and does not protect those newer disk types; Trusted Launch VMs can now be backed up with either policy type.",
    "d": 5
   },
   {
