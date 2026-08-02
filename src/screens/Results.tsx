@@ -56,7 +56,7 @@ function ResultsSupport({ examId, celebrate }: { examId: string; celebrate: bool
             target="_blank"
             rel="noopener noreferrer"
             data-testid="results-donate"
-            className="text-brand inline-flex items-center gap-1 underline-offset-2 hover:underline"
+            className="text-brand inline-flex items-center gap-1 underline underline-offset-2"
           >
             <Heart className="size-3" strokeWidth={2.5} /> Support the project
           </a>
@@ -102,6 +102,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
     }
     return (
       <main>
+        <h1 className="sr-only">Session results</h1>
         <Card className="p-8 text-center" data-testid="score-hero">
           <p className="font-mono text-5xl font-bold tabular-nums">
             {correct}/{outcome.review.length}
@@ -145,6 +146,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   const misses = outcome.review.filter((r) => !r.ok)
   return (
     <main>
+      <h1 className="sr-only">Exam results</h1>
       <Card className="p-8 text-center" data-testid="score-hero">
         <p className="relative inline-block">
           <span className={cn("verdict-pop block font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>

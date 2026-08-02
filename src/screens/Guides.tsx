@@ -154,8 +154,14 @@ function StudyPath({ examId }: { examId: string }) {
 export function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   return (
     <div className="flex min-h-[100dvh] flex-col">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
+      >
+        Skip to content
+      </a>
       <header className="border-b">
-        <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+        <nav aria-label="Primary" className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
           <a href="/" className="brand-link flex items-center rounded-md text-sm" aria-label="cert900 home" data-testid="brand">
             <Wordmark className="text-sm" />
           </a>
@@ -174,7 +180,7 @@ export function GuideShell({ meta, children }: { meta: GuideMeta; children: Reac
 
 function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   return (
-    <main className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
+    <main id="main" className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
       <div className="mt-6 flex flex-col gap-10">{children}</div>
       <section className="mt-12">

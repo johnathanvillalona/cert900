@@ -144,6 +144,9 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
 
   return (
     <main>
+      <h1 className="sr-only">
+        {isExam ? `Timed ${exam.cert} ${exam.name} practice exam` : `${exam.cert} ${exam.name} practice drill`}
+      </h1>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="font-mono text-sm text-muted-foreground" data-testid="qcount">
           Question {session.idx + 1} of {session.items.length}
@@ -422,6 +425,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
       )}
       {graded && (
         <div
+          role="status"
           className={cn("enter-fade-rise mt-4 rounded-md border p-4", ok ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
@@ -475,6 +479,7 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
       )}
       {graded && (
         <div
+          role="status"
           className={cn("enter-fade-rise mt-4 rounded-md border p-4", frac >= 0.8 ? "border-success/50 bg-success/10" : "border-destructive/40 bg-destructive/5")}
           data-testid="feedback"
         >
