@@ -954,21 +954,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "vendor": "aws",
   "kind": "mc",
   "domain": "Design Secure Architectures",
-  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=178409s",
-  "videoName": "freeCodeCamp SAA-C03: WAF & Shield",
+  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=168023s",
+  "videoName": "freeCodeCamp SAA-C03: ACM & TLS in transit",
   "q": {
-   "id": 76,
-   "t": "waf-shield-ddos",
+   "id": 74,
+   "t": "acm-tls-in-transit",
    "d": 1,
-   "x": "A public web application on an Application Load Balancer is receiving SQL injection and cross-site scripting attempts. Which service should be deployed to filter these malicious HTTP requests?",
+   "x": "To ensure an ACM certificate renews automatically without manual steps, which validation method should be chosen when requesting it?",
    "o": [
-    "Amazon GuardDuty threat detection",
-    "AWS WAF with managed rule groups",
-    "AWS Shield Standard on the load balancer",
-    "AWS Network Firewall in every subnet"
+    "Manual validation by uploading a token to the web server",
+    "Phone validation confirmed with the registrar",
+    "DNS validation using a CNAME record in Route 53",
+    "Email validation sent to the domain administrator"
    ],
-   "a": 1,
-   "e": "AWS WAF inspects HTTP and HTTPS requests and blocks SQL injection and XSS using managed or custom rules at the ALB, CloudFront, or API Gateway. Shield addresses DDoS, and GuardDuty only detects."
+   "a": 2,
+   "e": "DNS validation lets ACM renew certificates automatically as long as the CNAME record stays in place. Email validation can require manual action at renewal time."
   }
  },
  {
@@ -1713,21 +1713,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "vendor": "aws",
   "kind": "mc",
   "domain": "Design Resilient Architectures",
-  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=79040s",
-  "videoName": "freeCodeCamp SAA-C03: Route 53 routing & failover",
+  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=78614s",
+  "videoName": "freeCodeCamp SAA-C03: Elastic Load Balancing",
   "q": {
-   "id": 144,
-   "t": "route53-dns-failover",
+   "id": 142,
+   "t": "elastic-load-balancing",
    "d": 2,
-   "x": "A global API is deployed in three Regions, and the company wants each user directed to the Region that gives them the lowest network latency. Which Route 53 routing policy should be used?",
+   "x": "A company needs to terminate TLS, inspect HTTP headers for routing, and attach an AWS WAF web ACL directly to the load balancer. Which option supports all of these together?",
    "o": [
-    "Weighted routing",
-    "Failover routing",
-    "Latency-based routing",
-    "Multivalue answer routing"
+    "Application Load Balancer",
+    "Network Load Balancer",
+    "A managed NAT gateway",
+    "Gateway Load Balancer"
    ],
-   "a": 2,
-   "e": "Latency-based routing sends each user to the Region that provides the lowest measured latency for their location. Failover routing only chooses between a primary and a standby and ignores latency."
+   "a": 0,
+   "e": "An Application Load Balancer terminates TLS, reads HTTP headers for routing decisions, and supports a directly associated AWS WAF web ACL. A Network Load Balancer cannot host a web ACL because it does not process layer 7 traffic."
   }
  },
  {
@@ -2219,21 +2219,21 @@ export const QOTD_POOL: QotdEntry[] = [
   "vendor": "aws",
   "kind": "mc",
   "domain": "Design High-Performing Architectures",
-  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=82238s",
-  "videoName": "freeCodeCamp SAA-C03: FSx",
+  "videoUrl": "https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=69243s",
+  "videoName": "freeCodeCamp SAA-C03: EC2 instance types",
   "q": {
-   "id": 188,
-   "t": "fsx-file-systems",
+   "id": 190,
+   "t": "ec2-instance-types",
    "d": 3,
-   "x": "An FSx for Lustre file system is linked to an S3 bucket, and the team wants processed results written back to S3 automatically. Which capability provides this?",
+   "x": "A memory-intensive in-memory database needs the highest RAM-to-vCPU ratio available. Which EC2 instance family is MOST appropriate?",
    "o": [
-    "An S3 lifecycle policy on the linked bucket",
-    "Cross-Region replication of the file system",
-    "Enabling S3 Transfer Acceleration on the linked bucket",
-    "A data repository association that exports changes to S3"
+    "Memory optimized R family",
+    "Compute optimized C family",
+    "General purpose T family",
+    "Storage optimized I family"
    ],
-   "a": 3,
-   "e": "FSx for Lustre data repository associations synchronize the file system with S3, importing input data and exporting new or changed results back to the bucket. Transfer Acceleration and lifecycle rules do not sync the file system."
+   "a": 0,
+   "e": "R-family instances are memory optimized, giving a high RAM-to-vCPU ratio for in-memory databases and caches. C-family favors CPU and I-family favors local NVMe storage."
   }
  },
  {

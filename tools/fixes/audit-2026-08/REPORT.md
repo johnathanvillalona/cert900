@@ -61,6 +61,21 @@ is worth it; a whole-corpus sweep of the other nine banks is optional — the
 projected remaining defects there are low-severity at ~1% density. Decision
 deferred to the owner.
 
+## Cloud-bank full sweep (2026-08-02, owner-approved)
+
+The remaining 460 questions of saa-c03 (227) and az-104 (233) went through
+the identical find → refute → blind-key pipeline. **7 found, 7 confirmed,
+7 fixed** (1.5% — half the sample's cloud rate, consistent with the sample
+having force-included the public questions): one more wrong key (saa-c03
+q303 — Aurora Serverless v2 auto-pause requires a 0-ACU minimum, and v1 is
+EOL since 2025-03), plus six currency defects (root-user tasks vs. 2022 IAM
+support-plan controls, DynamoDB multi-Region strong consistency GA 2025-06,
+user-delegation SAS signing, the App Service "Container" publish label, NSG
+flow logs retiring in favor of VNet flow logs, and a Trusted Launch backup
+policy stem). Batches: `saa-c03-sweep.json`, `az-104-sweep.json`. Both cloud
+banks are now 100% audited; the other nine banks remain sampled-only (owner
+plans a circle-back sweep).
+
 ## Side-finding (not part of this audit's scope)
 
 Stored answer-key positions remain heavily index-0 biased in the pre-debias
