@@ -121,7 +121,7 @@ export const GUIDE_SAMPLES: Record<string, GuideSample[]> = {
     "Cat 6a"
    ],
    "a": 3,
-   "e": "Cat 6a supports 10GBASE-T to 100 m with improved shielding; Cat 5e tops out at 1 Gbps over that distance.",
+   "e": "Cat 6a supports 10GBASE-T to a full 100 m thanks to its 500 MHz bandwidth and tighter alien-crosstalk limits; Cat 5e tops out at 1 Gbps over that distance.",
    "domain": "3.0 Hardware",
    "topic": "Network Cables"
   }

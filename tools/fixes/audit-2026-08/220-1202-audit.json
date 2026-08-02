@@ -1,0 +1,16 @@
+{
+ "examId": "220-1202",
+ "_note": "2026-08 sample audit, confirmed by refuter pass",
+ "fixes": [
+  {
+   "id": 8,
+   "o": [
+    "Clean install from USB",
+    "In-place upgrade",
+    "Image deployment",
+    "Repair installation"
+   ],
+   "_why": "Clang association: the stem phrase \"without touching each machine\" was echoed only by the keyed option \"Zero-touch / image deployment\", so a test-wise candidate could answer with no content knowledge. Renamed the key to the objectives term \"Image deployment\"; index, stem, and explanation unchanged."
+  }
+ ]
+}
