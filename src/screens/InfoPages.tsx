@@ -1,5 +1,6 @@
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { GUIDE_META } from "@/data/guide-meta"
+import { REF_SHEETS } from "@/data/ref-sheets"
 import { GUIDE_PATHS } from "@/data/routes"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import type { Vendor } from "@/data/types"
@@ -404,6 +405,92 @@ export function MethodPage() {
           <Cta label="Start practicing" examId="sy0-701" testid="method-cta" />
         </div>
       </section>
+    </GuideShell>
+  )
+}
+
+/**
+ * Reference sheets: printable, table-first pages rendered from
+ * src/data/ref-sheets.ts (authored + adversarially fact-checked 2026-08).
+ * One shared renderer so all four stay visually identical; the FAQ lives in
+ * GUIDE_META (rendered by GuideShell) so it also ships as FAQPage JSON-LD.
+ */
+function RefSheetBody({ sheetKey, ctaLabel, ctaExam, testid }: { sheetKey: keyof typeof REF_SHEETS; ctaLabel: string; ctaExam: string; testid: string }) {
+  const sheet = REF_SHEETS[sheetKey]
+  return (
+    <>
+      <section>
+        <p className="text-lg leading-relaxed">{sheet.intro}</p>
+      </section>
+      {sheet.sections.map((sec) => (
+        <section key={sec.heading}>
+          <h2 className="font-heading text-2xl font-semibold tracking-tight">{sec.heading}</h2>
+          <div className="overflow-x-auto">
+            <table className="mt-3 w-full min-w-160 border-collapse text-sm">
+              <thead>
+                <tr className="border-b text-left">
+                  {sec.columns.map((c) => (
+                    <th key={c} className="py-2 pr-4 font-semibold">{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sec.rows.map((row, i) => (
+                  <tr key={i} className="border-b align-top">
+                    {row.map((cell, j) => (
+                      <td key={j} className={j === 0 ? "py-2 pr-4 font-mono text-xs font-semibold tabular-nums whitespace-nowrap" : "py-2 pr-4"}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {sec.note && <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{sec.note}</p>}
+        </section>
+      ))}
+      <section>
+        <p className="leading-relaxed">
+          Reading a sheet is recognition; the exam tests recall. The fastest way to make this stick is
+          answering questions that use it.
+        </p>
+        <div className="mt-6">
+          <Cta label={ctaLabel} examId={ctaExam} testid={testid} />
+        </div>
+      </section>
+    </>
+  )
+}
+
+export function PortsPage() {
+  return (
+    <GuideShell meta={GUIDE_META.ports}>
+      <RefSheetBody sheetKey="ports" ctaLabel="Drill ports until they stick" ctaExam="n10-009" testid="ports-cta" />
+    </GuideShell>
+  )
+}
+
+export function CcnaCliPage() {
+  return (
+    <GuideShell meta={GUIDE_META.ccnacli}>
+      <RefSheetBody sheetKey="ccnacli" ctaLabel="Practice CCNA questions and CLI sims" ctaExam="ccna-200-301" testid="ccnacli-cta" />
+    </GuideShell>
+  )
+}
+
+export function CablesPage() {
+  return (
+    <GuideShell meta={GUIDE_META.cables}>
+      <RefSheetBody sheetKey="cables" ctaLabel="Practice A+ Core 1 questions" ctaExam="220-1201" testid="cables-cta" />
+    </GuideShell>
+  )
+}
+
+export function CloudSvcPage() {
+  return (
+    <GuideShell meta={GUIDE_META.cloudsvc}>
+      <RefSheetBody sheetKey="cloudsvc" ctaLabel="Practice AWS and Azure questions" ctaExam="clf-c02" testid="cloudsvc-cta" />
     </GuideShell>
   )
 }

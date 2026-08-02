@@ -9,6 +9,7 @@
  */
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { GUIDE_PATHS, type GuideKey } from "@/data/routes"
+import { REF_SHEETS } from "@/data/ref-sheets"
 
 export interface GuideMeta {
   path: string
@@ -33,7 +34,7 @@ const APLUS = inventory("220-1201", "220-1202")
 const NPLUS = inventory("n10-009")
 const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
 
-const EXAM_GUIDE_META: Record<Exclude<GuideKey, "hub" | "scores" | "order" | "method">, GuideMeta> = {
+const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   secplus: {
     path: GUIDE_PATHS.secplus,
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -379,7 +380,9 @@ const EXAM_GUIDE_EXAMS = {
 const N_EXAMS = EXAM_ORDER.length
 const TOTAL_Q = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
 
-const INFO_META: Record<"hub" | "scores" | "order" | "method", GuideMeta> = {
+type InfoKey = "hub" | "scores" | "order" | "method" | "ports" | "ccnacli" | "cables" | "cloudsvc"
+
+const INFO_META: Record<InfoKey, GuideMeta> = {
   hub: {
     path: GUIDE_PATHS.hub,
     title: "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900",
@@ -476,6 +479,38 @@ const INFO_META: Record<"hub" | "scores" | "order" | "method", GuideMeta> = {
       ],
     ],
   },
+  ports: {
+    path: GUIDE_PATHS.ports,
+    title: "Common Network Ports & Protocols Cheat Sheet | Cert900",
+    description:
+      "Every port CompTIA Network+ (N10-009) and Security+ (SY0-701) expect you to know cold: the number, TCP or UDP, what the service does, and the secure replacement for each insecure protocol. With the lookalike ports the exams use as traps.",
+    h1: "Common network ports and protocols",
+    faq: REF_SHEETS.ports.faq,
+  },
+  ccnacli: {
+    path: GUIDE_PATHS.ccnacli,
+    title: "CCNA CLI Commands Quick Reference (200-301) | Cert900",
+    description:
+      "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type.",
+    h1: "CCNA CLI quick reference",
+    faq: REF_SHEETS.ccnacli.faq,
+  },
+  cables: {
+    path: GUIDE_PATHS.cables,
+    title: "CompTIA A+ Cables and Connectors Reference | Cert900",
+    description:
+      "Every cable and connector on the CompTIA A+ Core 1 (220-1201) objectives with exam-accurate speeds and distances: Cat 5e through Cat 8, fiber types and connectors, HDMI vs DisplayPort vs DVI, USB generations and Power Delivery, SATA, M.2, and NVMe.",
+    h1: "A+ cables and connectors",
+    faq: REF_SHEETS.cables.faq,
+  },
+  cloudsvc: {
+    path: GUIDE_PATHS.cloudsvc,
+    title: "AWS vs Azure: Equivalent Services Side by Side | Cert900",
+    description:
+      "The AWS-to-Azure service map for CLF-C02, SAA-C03, AZ-900, and AZ-104 candidates: compute, storage, networking, database, identity, and governance equivalents in one table, using 2026-current service names on both sides.",
+    h1: "AWS and Azure services, side by side",
+    faq: REF_SHEETS.cloudsvc.faq,
+  },
 }
 
 /** Every guide and informational page, keyed exactly like GUIDE_PATHS. */
@@ -488,6 +523,10 @@ export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
   scores: [],
   order: [],
   method: [],
+  ports: [],
+  ccnacli: [],
+  cables: [],
+  cloudsvc: [],
 }
 
 /**

@@ -35,6 +35,11 @@ export const GUIDE_PATHS = {
   scores: "/it-certification-passing-scores",
   order: "/which-it-certification-first",
   method: "/how-our-questions-are-made",
+  // Reference sheets: same static-page machinery, evergreen search surfaces.
+  ports: "/common-network-ports",
+  ccnacli: "/ccna-cli-commands",
+  cables: "/a-plus-cables-and-connectors",
+  cloudsvc: "/aws-azure-service-comparison",
 } as const
 
 export type GuideKey = keyof typeof GUIDE_PATHS
@@ -58,6 +63,10 @@ export const GUIDE_LABELS: Record<GuideKey, string> = {
   scores: "Passing scores",
   order: "Which cert first?",
   method: "How questions are made",
+  ports: "Ports & protocols",
+  ccnacli: "CCNA CLI commands",
+  cables: "Cables & connectors",
+  cloudsvc: "AWS vs Azure services",
 }
 
 export const GUIDE_KEYS = Object.keys(GUIDE_PATHS) as GuideKey[]

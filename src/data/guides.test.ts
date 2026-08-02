@@ -67,7 +67,7 @@ describe("guide/exam wiring", () => {
    * no multiple-choice samples) and the three informational pages. Any other
    * key landing here means a guide silently lost its questions.
    */
-  const SAMPLE_LESS = ["pbq", "hub", "scores", "order", "method"]
+  const SAMPLE_LESS = ["pbq", "hub", "scores", "order", "method", "ports", "ccnacli", "cables", "cloudsvc"]
 
   it("gives every exam guide questions to show", () => {
     const empty = GUIDE_KEYS.filter((k) => GUIDE_EXAMS[k].length === 0)
