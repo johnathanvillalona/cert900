@@ -57,10 +57,26 @@ export function Privacy() {
       <section>
         <h2>Cookies and the app session</h2>
         <p className="mt-2">
-          Signed-in users get one session cookie so you stay signed in. That is the only cookie we
-          set. There are no advertising or cross-site tracking cookies. The app has no browser and
-          no cookies: it keeps the same session in your device's secure storage, the keychain on iOS
-          and the keystore on Android, and signing out removes it.
+          Signed-in users get one session cookie so you stay signed in. There are no advertising or
+          cross-site tracking cookies anywhere on this site. The app has no browser and no cookies:
+          it keeps the same session in your device's secure storage, the keychain on iOS and the
+          keystore on Android, and signing out removes it.
+        </p>
+        <p className="mt-2">
+          Our study-guide articles (the pages linked in the footer) run Grow, a small
+          content-sharing widget by Mediavine. It sets a first-party cookie that records only its
+          own script version, identifies nobody, and does not follow you across sites. Grow never
+          loads inside the practice app itself. If you choose to sign in to Grow to save favorite
+          articles, that is a separate, optional account governed by{" "}
+          <a
+            className="text-brand underline-offset-2 hover:underline"
+            href="https://www.mediavine.com/privacy-policy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mediavine's privacy policy
+          </a>
+          .
         </p>
       </section>
 
