@@ -304,12 +304,13 @@ const CSP = [
   "object-src 'none'",
 ].join("; ")
 
+const GROW_HOSTS = "https://grow.me https://*.grow.me"
+
 /**
  * The 16 static guide pages get their own, slightly wider CSP: the app policy
- * above plus the grow.me hosts for the Grow script (see tools/prerender.tsx --
- * the tag exists only in those pages' HTML, so the app policy never needs
- * these hosts). frame-src exists here and not above because Grow's favourites
- * sign-in renders in an iframe; the app CSP inherits frame-src from
+ * above plus the grow.me hosts for the Grow script (see tools/prerender.tsx).
+ * frame-src exists here and not above because Grow's favourites sign-in
+ * renders in an iframe; the strict app CSP inherits frame-src from
  * `default-src 'self'` and stays closed.
  *
  * If ads ever go live (the September decision), this policy -- NOT the app
@@ -319,15 +320,39 @@ const CSP = [
  */
 const GUIDE_CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://grow.me https://*.grow.me",
+  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com ${GROW_HOSTS}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://grow.me https://*.grow.me",
+  `img-src 'self' data: ${GROW_HOSTS}`,
   "font-src 'self'",
-  "connect-src 'self' https://cloudflareinsights.com https://grow.me https://*.grow.me",
-  "frame-src https://grow.me https://*.grow.me",
+  `connect-src 'self' https://cloudflareinsights.com ${GROW_HOSTS}`,
+  `frame-src ${GROW_HOSTS}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
+  "object-src 'none'",
+].join("; ")
+
+/**
+ * The homepage carries a pathname-gated Grow snippet (Grow's install
+ * verification fetches the domain root, so "/" must serve it -- see
+ * tools/prerender.tsx). This is the app CSP with ONLY the grow.me hosts
+ * added: NOT a reuse of GUIDE_CSP, because the landing has the Google
+ * sign-in and must keep `form-action https://accounts.google.com` (and the
+ * ethicalads hosts, since a session that cold-loads "/" lives under this
+ * policy for its whole SPA lifetime, Dashboard included). Every app path
+ * other than "/" keeps the strict CSP above.
+ */
+const HOME_CSP = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io ${GROW_HOSTS}`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: https://media.ethicalads.io ${GROW_HOSTS}`,
+  "font-src 'self'",
+  `connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io ${GROW_HOSTS}`,
+  `frame-src ${GROW_HOSTS}`,
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://accounts.google.com",
   "object-src 'none'",
 ].join("; ")
 
@@ -340,7 +365,7 @@ function withSecurityHeaders(res: Response, pathname: string): Response {
   out.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
   out.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
   if ((out.headers.get("content-type") ?? "").includes("text/html")) {
-    out.headers.set("Content-Security-Policy", isGuidePath(pathname) ? GUIDE_CSP : CSP)
+    out.headers.set("Content-Security-Policy", isGuidePath(pathname) ? GUIDE_CSP : pathname === "/" ? HOME_CSP : CSP)
   }
   return out
 }

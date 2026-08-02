@@ -52,6 +52,30 @@ function noscriptBlock(): string {
   return `<noscript><h1>Cert900 — free certification practice exams</h1><p>${esc(siteTagline())}</p><ul>${links}</ul></noscript>`
 }
 
+/**
+ * Grow by Mediavine. Empty siteId = neither tag exists in the output, and this
+ * is the ONLY place either is ever emitted. Grow is the 30-day prerequisite
+ * for applying to Journey; it serves no ads itself.
+ *
+ * Two variants of the official manual-install snippet:
+ * - `growTag` goes into the 16 guide pages, unconditional.
+ * - `growHomeTag` goes into dist/index.html ONLY (never the guide template)
+ *   because Grow's install verification fetches the domain root. It is gated
+ *   at runtime on hostname + pathname === "/", so of all the app routes the
+ *   shell serves, the script executes on the homepage alone -- a cold load of
+ *   /exam/* or /progress never runs it. Their bot passes either way: an
+ *   HTML scan sees the snippet; a headless browser on "/" clears the gate.
+ *   (Grow does survive client-side navigation out of the landing, which is
+ *   why index.css hides its UI under html.spa.)
+ */
+const growSnippet = GROW.siteId
+  ? `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");e.type="text/javascript";e.src="https://faves.grow.me/main.js";e.defer=!0;e.setAttribute("data-grow-faves-site-id",${JSON.stringify(GROW.siteId)});var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`
+  : ""
+const growTag = growSnippet ? `<script data-grow-initializer="">${growSnippet}</script>` : ""
+const growHomeTag = growSnippet
+  ? `<script data-grow-home="">location.hostname===${JSON.stringify(new URL(SITE_URL).hostname)}&&location.pathname==="/"&&${growSnippet}</script>`
+  : ""
+
 // Inject into the template so every prerendered guide gets the preloads, and
 // patch dist/index.html so the SPA entry (homepage/app) gets them too.
 // Idempotent: re-running prerender without a fresh build must not double-inject.
@@ -69,8 +93,10 @@ const template = withFonts
   .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
 // The homepage's FAQPage/ItemList goes ONLY into index.html, never into the
 // shared template: each guide emits its own FAQPage, and two FAQPage entities
-// on one URL are competing claims about what the page is.
-writeFileSync(resolve(dist, "index.html"), template.replace("</head>", `${homeJsonLd()}</head>`))
+// on one URL are competing claims about what the page is. The gated Grow
+// snippet rides along here (re-run guarded, like the font preloads).
+const growHome = template.includes("data-grow-home") ? "" : growHomeTag
+writeFileSync(resolve(dist, "index.html"), template.replace("</head>", `${homeJsonLd()}${growHome}</head>`))
 console.log(`font preloads: ${fontPreloads ? (fontPreloads.match(/href="([^"]+)"/g) ?? []).join(" ") : "(none found)"}`)
 console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links`)
 
@@ -189,17 +215,6 @@ function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
 }
 
-/**
- * Grow by Mediavine, guide pages only. Empty siteId = the tag simply does not
- * exist in the output, and this is the ONLY place it is ever emitted --
- * dist/index.html and therefore the whole app can never carry it. Grow is the
- * 30-day prerequisite for applying to Journey; it serves no ads itself.
- * The official manual-install snippet, verbatim, with the id substituted.
- */
-const growTag = GROW.siteId
-  ? `<script data-grow-initializer="">!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");e.type="text/javascript";e.src="https://faves.grow.me/main.js";e.defer=!0;e.setAttribute("data-grow-faves-site-id",${JSON.stringify(GROW.siteId)});var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();</script>`
-  : ""
-
 function page(key: GuideKey, meta: GuideMeta, body: string): string {
   const url = `${SITE_URL}${meta.path}`
   return template
@@ -223,6 +238,10 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     // also what let anything loaded on a guide follow the reader into the app.
     .replace(/<script type="module"[^>]*><\/script>/, "")
     .replace(/<link rel="modulepreload"[^>]*>/g, "")
+    // Guides get the unconditional growTag above; if a prerender re-run built
+    // this template from an already-patched index.html, drop the homepage's
+    // gated copy rather than shipping two initializers.
+    .replace(/<script data-grow-home[^>]*>[\s\S]*?<\/script>/, "")
 }
 
 const pages: [GuideKey, GuideMeta, React.ReactElement][] = [

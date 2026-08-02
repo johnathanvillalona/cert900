@@ -22,6 +22,12 @@ window.addEventListener("vite:preloadError", (event) => {
   window.location.reload()
 })
 
+// Marks "the SPA booted" for CSS. The prerendered guide pages ship zero JS, so
+// this class can never appear there -- index.css uses it to hide Grow's widget
+// inside the app (the gated homepage snippet survives client-side navigation)
+// without touching the guides, which share the same stylesheet.
+document.documentElement.classList.add("spa")
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
