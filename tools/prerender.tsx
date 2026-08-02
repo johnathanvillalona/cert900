@@ -72,8 +72,13 @@ const growSnippet = GROW.siteId
   ? `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");e.type="text/javascript";e.src="https://faves.grow.me/main.js";e.defer=!0;e.setAttribute("data-grow-faves-site-id",${JSON.stringify(GROW.siteId)});var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`
   : ""
 const growTag = growSnippet ? `<script data-grow-initializer="">${growSnippet}</script>` : ""
+// The homepage tag carries data-grow-initializer TOO, and first: Grow's
+// install checker greps the fetched HTML for its own marker (the 2026-08-02
+// deploy without it still failed verification), and a naive scanner may
+// anchor on `<script data-grow-initializer`. data-grow-home is ours, for the
+// guide-template strip below.
 const growHomeTag = growSnippet
-  ? `<script data-grow-home="">location.hostname===${JSON.stringify(new URL(SITE_URL).hostname)}&&location.pathname==="/"&&${growSnippet}</script>`
+  ? `<script data-grow-initializer="" data-grow-home="">location.hostname===${JSON.stringify(new URL(SITE_URL).hostname)}&&location.pathname==="/"&&${growSnippet}</script>`
   : ""
 
 // Inject into the template so every prerendered guide gets the preloads, and
@@ -240,8 +245,9 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     .replace(/<link rel="modulepreload"[^>]*>/g, "")
     // Guides get the unconditional growTag above; if a prerender re-run built
     // this template from an already-patched index.html, drop the homepage's
-    // gated copy rather than shipping two initializers.
-    .replace(/<script data-grow-home[^>]*>[\s\S]*?<\/script>/, "")
+    // gated copy rather than shipping two initializers. Keyed on
+    // data-grow-home (ours) so it can never strip the guides' own tag.
+    .replace(/<script[^>]*data-grow-home[^>]*>[\s\S]*?<\/script>/, "")
 }
 
 const pages: [GuideKey, GuideMeta, React.ReactElement][] = [
