@@ -1,0 +1,45 @@
+{
+ "examId": "saa-c03",
+ "_note": "2026-08 sample audit round 2 (post-limit-reset verification)",
+ "fixes": [
+  {
+   "id": 72,
+   "x": "An architect wants to place an ACM public certificate that was issued with default settings directly onto a standalone EC2 web server's local TLS stack. Why is this not supported?",
+   "o": [
+    "EC2 instances are unable to terminate TLS connections at all",
+    "ACM certificates expire within 24 hours on EC2",
+    "Default ACM public certificates do not allow private key export",
+    "ACM certificates only work with DynamoDB tables"
+   ],
+   "e": "ACM public certificates issued with default settings keep their private keys inside ACM, so they can be used only with integrated services such as ALB, CloudFront, and API Gateway. ACM can also issue exportable public certificates for an additional charge, but exportability must be chosen when the certificate is requested; to terminate TLS directly on EC2 you would use an exportable or imported certificate.",
+   "_why": "The keyed option and explanation state that ACM public certificates cannot be exported, but since June 17, 2025 ACM issues exportable public certificates whose private keys can be installed on EC2, containers, or on-premises hosts. [https://aws.amazon.com/blogs/aws/aws-certificate-manager-introduces-exportable-public-ssl-tls-certificates-to-use-anywhere]"
+  },
+  {
+   "id": 93,
+   "o": [
+    "Amazon MQ",
+    "Amazon Data Firehose",
+    "Amazon SQS",
+    "AWS Batch"
+   ],
+   "_why": "A distractor uses the retired service name 'Amazon Kinesis Data Firehose'; AWS renamed the service to 'Amazon Data Firehose' on February 9, 2024. [https://aws.amazon.com/about-aws/whats-new/2024/02/amazon-data-firehose-formerly-kinesis-data-firehose]"
+  },
+  {
+   "id": 175,
+   "x": "An application repeatedly needs only the first few megabytes of each very large log object stored in Amazon S3. Which request technique reduces the data transferred per read?",
+   "o": [
+    "A byte-range fetch using the HTTP Range header",
+    "Downloading each full object and filtering in the application",
+    "Enabling cross-Region replication of the bucket",
+    "Converting the bucket to Intelligent-Tiering"
+   ],
+   "e": "A ranged GET retrieves only the requested byte range of an object, so each request transfers just the portion the application needs. Downloading whole objects moves far more data than necessary, and replication and Intelligent-Tiering change where or how objects are stored, not how much data a read transfers. S3 Select, which once filtered rows and columns server-side, is no longer available to new customers.",
+   "_why": "The keyed answer recommends S3 Select as the most cost-effective solution, but Amazon S3 Select is no longer available to new customers, so the item teaches a retired capability as the best practice. [https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html]"
+  },
+  {
+   "id": 261,
+   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares. Note that since October 2024 FSx File Gateway is closed to new customers; existing gateways keep working, and AWS points new local-cache needs at FSx for NetApp ONTAP or direct access to FSx for Windows File Server.",
+   "_why": "The item presents Amazon FSx File Gateway as the solution to a current need without noting that AWS closed FSx File Gateway to new customers effective October 28, 2024, so a candidate could walk away believing it is adoptable for new deployments in 2026. [https://aws.amazon.com/blogs/storage/switch-your-file-share-access-from-amazon-fsx-file-gateway-to-amazon-fsx-for-windows-file-server]"
+  }
+ ]
+}

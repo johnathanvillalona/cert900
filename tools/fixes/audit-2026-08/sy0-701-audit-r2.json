@@ -1,0 +1,11 @@
+{
+ "examId": "sy0-701",
+ "_note": "2026-08 sample audit round 2 (post-limit-reset verification)",
+ "fixes": [
+  {
+   "id": 357,
+   "x": "Of the following security properties, which one is NOT a core goal of the CIA triad?",
+   "_why": "The negative qualifier in the stem (\"which one is not a core goal\") is lowercase and typographically unemphasized, so a skimming candidate reads the item as a positive stem and picks a triad member. "
+  }
+ ]
+}

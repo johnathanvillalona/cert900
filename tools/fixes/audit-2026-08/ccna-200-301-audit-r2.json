@@ -1,0 +1,18 @@
+{
+ "examId": "ccna-200-301",
+ "_note": "2026-08 sample audit round 2 (post-limit-reset verification)",
+ "fixes": [
+  {
+   "id": 326,
+   "o": [
+    "Character",
+    "Date",
+    "Undefined",
+    "String",
+    "Boolean"
+   ],
+   "e": "JSON values may be strings, numbers, booleans, arrays, objects, or null. Character, date, and undefined are types found in other languages such as JavaScript or Java, but they are not JSON value types; dates, for example, are carried as strings.",
+   "_why": "All three distractors (Trunk, Subnet, Interface) are networking nouns that no candidate would consider JSON value types, so the two keyed options are the only data-type words and can be picked by word category alone without any JSON knowledge. "
+  }
+ ]
+}

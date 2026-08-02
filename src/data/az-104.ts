@@ -2142,15 +2142,15 @@ export const exam: ExamDef = {
   {
    "id": 112,
    "t": "files-share",
-   "x": "An administrator needs a single standard SMB file share to hold 60 TiB of data. What must be configured so the share can grow beyond the default size limit?",
+   "x": "A standard SMB file share on a storage account created this year must grow to hold 60 TiB of data. What should the administrator configure so the share can reach that size?",
    "o": [
     "Enable large file shares on the account",
     "Raise the share quota in the share properties",
     "Convert the account to premium provisioned throughput",
     "Enable the hierarchical namespace"
    ],
-   "a": 0,
-   "e": "A standard share's quota cannot exceed the 5 TiB default until large file shares is enabled on the storage account, which lifts the ceiling to 100 TiB. Simply raising the share quota fails at the default cap, converting to premium abandons the required standard share, and hierarchical namespace applies to Data Lake blob storage rather than file shares.",
+   "a": 1,
+   "e": "All standard pay-as-you-go file shares on current storage accounts can grow to 100 TiB, so raising the share quota is the only change needed. Large file shares is a legacy setting that mattered only on old accounts predating the feature, converting to premium abandons the required standard share, and hierarchical namespace applies to Data Lake blob storage rather than file shares.",
    "d": 2
   },
   {
@@ -5181,11 +5181,11 @@ export const exam: ExamDef = {
    "o": [
     "Azure Monitor metrics",
     "Network Watcher",
-    "Backup center",
+    "Azure Business Continuity Center",
     "Recovery Services vault overview"
    ],
    "a": 2,
-   "e": "Backup center provides a single pane to manage jobs, policies, and alerts across vaults and subscriptions. A single vault overview blade shows only that one vault.",
+   "e": "Azure Business Continuity Center, the successor to the retired Backup center, is the single pane for managing jobs, policies, and alerts across vaults and subscriptions. A single vault overview blade shows only that one vault, and Azure Monitor metrics and Network Watcher do not manage backups.",
    "d": 5
   }
  ],
