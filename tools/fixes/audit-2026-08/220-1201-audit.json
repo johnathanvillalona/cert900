@@ -1,0 +1,16 @@
+{
+ "examId": "220-1201",
+ "_note": "2026-08 sample audit, confirmed by refuter pass",
+ "fixes": [
+  {
+   "id": 114,
+   "e": "Cat 6a supports 10GBASE-T to a full 100 m thanks to its 500 MHz bandwidth and tighter alien-crosstalk limits; Cat 5e tops out at 1 Gbps over that distance.",
+   "_why": "The old explanation credited \"improved shielding\", but shielding is optional in Cat 6a (U/UTP 6a fully meets 10GBASE-T at 100 m); the real enablers are 500 MHz bandwidth and ANEXT limits. Keyed answer unchanged. https://en.wikipedia.org/wiki/Category_6_cable"
+  },
+  {
+   "id": 210,
+   "e": "A loose or damaged video cable is the most common cause of intermittent flicker; refresh-rate and driver settings are checked next.",
+   "_why": "Dropped a garbled editing artifact (\"In other words: and then refresh rate settings.\") from the end of the explanation. Key unchanged."
+  }
+ ]
+}

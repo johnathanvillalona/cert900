@@ -574,7 +574,7 @@ export const exam: ExamDef = {
     "Cat 5e"
    ],
    "a": 0,
-   "e": "Cat 6a supports 10 Gbps to 100 m with tighter specifications and shielding to limit crosstalk.",
+   "e": "Cat 6a is rated to 500 MHz with tighter alien-crosstalk limits, supporting 10GBASE-T to the full 100 m; shielding is optional, and unshielded Cat 6a meets the spec. Plain Cat 6 only carries 10 Gbps about 55 m.",
    "d": 1
   },
   {

@@ -1950,7 +1950,7 @@ export const exam: ExamDef = {
     "Cat 6a"
    ],
    "a": 3,
-   "e": "Cat 6a supports 10GBASE-T to 100 m with improved shielding; Cat 5e tops out at 1 Gbps over that distance.",
+   "e": "Cat 6a supports 10GBASE-T to a full 100 m thanks to its 500 MHz bandwidth and tighter alien-crosstalk limits; Cat 5e tops out at 1 Gbps over that distance.",
    "d": 3
   },
   {
@@ -3294,7 +3294,7 @@ export const exam: ExamDef = {
     "The monitor's contrast setting"
    ],
    "a": 0,
-   "e": "A loose or damaged video cable is the most common flicker cause; refresh-rate/driver settings come next. In other words: and then refresh rate settings.",
+   "e": "A loose or damaged video cable is the most common cause of intermittent flicker; refresh-rate and driver settings are checked next.",
    "d": 5
   },
   {
@@ -5857,7 +5857,7 @@ export const exam: ExamDef = {
   {
    "kind": "hotspot",
    "t": "troubleshooting-networks",
-   "title": "Printer Can't Reach the LAN",
+   "title": "East Wall Can't Reach the Printer",
    "scen": "Every PC can print EXCEPT the two on the east wall, which also can't reach file shares. All east-wall drops run through one unmanaged switch in the ceiling.",
    "prompt": "Select the device most likely at fault.",
    "nodes": [

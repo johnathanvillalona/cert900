@@ -1,0 +1,11 @@
+{
+ "examId": "n10-009",
+ "_note": "2026-08 sample audit, confirmed by refuter pass",
+ "fixes": [
+  {
+   "id": 10,
+   "e": "Cat 6a is rated to 500 MHz with tighter alien-crosstalk limits, supporting 10GBASE-T to the full 100 m; shielding is optional, and unshielded Cat 6a meets the spec. Plain Cat 6 only carries 10 Gbps about 55 m.",
+   "_why": "The old explanation taught that shielding is what lets Cat 6a do 10 Gbps at 100 m; shielding is optional in Cat 6a and unshielded 6a meets the spec via ANEXT limits. Keyed answer unchanged. https://en.wikipedia.org/wiki/Category_6_cable"
+  }
+ ]
+}

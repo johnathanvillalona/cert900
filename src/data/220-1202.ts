@@ -520,7 +520,7 @@ export const exam: ExamDef = {
    "o": [
     "Clean install from USB",
     "In-place upgrade",
-    "Zero-touch / image deployment",
+    "Image deployment",
     "Repair installation"
    ],
    "a": 2,
