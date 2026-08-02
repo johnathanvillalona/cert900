@@ -34,6 +34,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
   })
   const [confirmEnd, setConfirmEnd] = useState(false)
   const [confirmQuit, setConfirmQuit] = useState(false)
+  const [showKeys, setShowKeys] = useState(false)
   const finishedRef = useRef(false)
 
   // Exam-mode completion (manual end or time-up): record results once, then leave.
@@ -89,6 +90,12 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
       if (t.closest('input, textarea, select, [role="dialog"], [role="listbox"]')) return
       // Let native activation handle Enter/Space on focused controls.
       if ((e.key === "Enter" || e.key === " ") && t.closest("button, a")) return
+
+      if (e.key === "?") {
+        e.preventDefault()
+        setShowKeys((v) => !v)
+        return
+      }
 
       const cur = session.items[session.idx]
       const curGraded = session.graded[session.idx] !== undefined
@@ -253,6 +260,15 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
           : isExam
             ? "Keys: ← → move"
             : ""}
+        {" · "}
+        <button
+          type="button"
+          className="cursor-pointer underline decoration-dotted underline-offset-4 hover:text-foreground"
+          onClick={() => setShowKeys(true)}
+          data-testid="key-help"
+        >
+          ? shortcuts
+        </button>
       </p>
 
       <div className="mt-4">
@@ -260,6 +276,38 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
           Quit
         </Button>
       </div>
+
+      <Dialog open={showKeys} onOpenChange={setShowKeys}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Keyboard shortcuts</DialogTitle>
+            <DialogDescription>Work the whole session without the mouse.</DialogDescription>
+          </DialogHeader>
+          <dl className="grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-2 text-sm">
+            {(
+              [
+                ["A–D / 1–4", "Answer (A–E on choose-two questions)"],
+                ["Enter", isExam ? "Next question" : "Check answer / next question"],
+                ["→", "Next question"],
+                ...(isExam
+                  ? ([
+                      ["←", "Previous question"],
+                      ["F", "Flag for review"],
+                    ] as const)
+                  : []),
+                ["?", "Show or hide this help"],
+              ] as const
+            ).map(([keys, what]) => (
+              <div key={keys} className="contents">
+                <dt>
+                  <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-xs">{keys}</kbd>
+                </dt>
+                <dd className="text-muted-foreground">{what}</dd>
+              </div>
+            ))}
+          </dl>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={confirmEnd} onOpenChange={setConfirmEnd}>
         <DialogContent>
