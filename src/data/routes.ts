@@ -34,6 +34,7 @@ export const GUIDE_PATHS = {
   hub: "/it-certification-practice-tests",
   scores: "/it-certification-passing-scores",
   order: "/which-it-certification-first",
+  method: "/how-our-questions-are-made",
 } as const
 
 export type GuideKey = keyof typeof GUIDE_PATHS
@@ -56,6 +57,7 @@ export const GUIDE_LABELS: Record<GuideKey, string> = {
   hub: "All IT cert practice tests",
   scores: "Passing scores",
   order: "Which cert first?",
+  method: "How questions are made",
 }
 
 export const GUIDE_KEYS = Object.keys(GUIDE_PATHS) as GuideKey[]

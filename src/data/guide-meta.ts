@@ -33,7 +33,7 @@ const APLUS = inventory("220-1201", "220-1202")
 const NPLUS = inventory("n10-009")
 const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
 
-const EXAM_GUIDE_META: Record<Exclude<GuideKey, "hub" | "scores" | "order">, GuideMeta> = {
+const EXAM_GUIDE_META: Record<Exclude<GuideKey, "hub" | "scores" | "order" | "method">, GuideMeta> = {
   secplus: {
     path: GUIDE_PATHS.secplus,
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
@@ -379,7 +379,7 @@ const EXAM_GUIDE_EXAMS = {
 const N_EXAMS = EXAM_ORDER.length
 const TOTAL_Q = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
 
-const INFO_META: Record<"hub" | "scores" | "order", GuideMeta> = {
+const INFO_META: Record<"hub" | "scores" | "order" | "method", GuideMeta> = {
   hub: {
     path: GUIDE_PATHS.hub,
     title: "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900",
@@ -452,6 +452,30 @@ const INFO_META: Record<"hub" | "scores" | "order", GuideMeta> = {
       ],
     ],
   },
+  method: {
+    path: GUIDE_PATHS.method,
+    title: "How Our Practice Questions Are Made and Verified | Cert900",
+    description: `How the ${TOTAL_Q} practice questions on Cert900 are written, reviewed, and kept current: original items only, adversarial verification of every bank, an August 2026 audit of 931 sampled questions and all 138 performance-based questions, and a report button on every question that feeds a real triage queue.`,
+    h1: "How our practice questions are made",
+    faq: [
+      [
+        "Are these real exam questions?",
+        "No, and that is deliberate. Every question is original work written for this site against each exam's published objectives. Using leaked exam content (braindumps) violates the vendors' agreements, can void your certification, and teaches recall instead of understanding.",
+      ],
+      [
+        "How do you know the answers are correct?",
+        "Every bank passes an automated rule suite and an adversarial review in which independent reviewers try to refute each question's keyed answer. In August 2026 we additionally audited a 25% stratified sample of the whole bank plus every performance-based question; the handful of confirmed defects were fixed and the changes are public in the site's history.",
+      ],
+      [
+        "What happens when I report a question?",
+        "Reports land in a triage queue that the site's maintainer reviews. A confirmed problem gets fixed in the bank itself, and because the site deploys from a single source, the fix reaches everyone at once. Reports are anonymous.",
+      ],
+      [
+        "Why is this free?",
+        "The marginal cost of serving practice questions is near zero, and certification study is expensive enough already. The site runs on donations and, on the article pages only, may eventually carry ads; the practice tool itself stays free and unregistered.",
+      ],
+    ],
+  },
 }
 
 /** Every guide and informational page, keyed exactly like GUIDE_PATHS. */
@@ -463,6 +487,7 @@ export const GUIDE_EXAMS: Record<GuideKey, string[]> = {
   hub: [],
   scores: [],
   order: [],
+  method: [],
 }
 
 /**

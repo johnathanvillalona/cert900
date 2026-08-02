@@ -7,7 +7,7 @@ import { resolve } from "node:path"
 import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide} from "../src/screens/Guides"
-import { HubPage, ScoresPage, OrderPage } from "../src/screens/InfoPages"
+import { HubPage, ScoresPage, OrderPage, MethodPage } from "../src/screens/InfoPages"
 import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "../src/data/guide-meta"
 import { GUIDE_SAMPLES } from "../src/data/guide-samples"
 import { EXAM_META } from "../src/data/meta"
@@ -276,6 +276,7 @@ const pages: [GuideKey, GuideMeta, React.ReactElement][] = [
   ["hub", GUIDE_META.hub, <HubPage />],
   ["scores", GUIDE_META.scores, <ScoresPage />],
   ["order", GUIDE_META.order, <OrderPage />],
+  ["method", GUIDE_META.method, <MethodPage />],
 ]
 
 for (const [key, meta, el] of pages) {
