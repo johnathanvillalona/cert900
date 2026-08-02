@@ -277,6 +277,12 @@ export default function App() {
   return (
     <ProgressContext.Provider value={store}>
       <div className="flex min-h-[100dvh] flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
+        >
+          Skip to content
+        </a>
         <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
             {/* items-center, not items-baseline: Wordmark is a flex container whose
@@ -328,7 +334,7 @@ export default function App() {
             </div>
           </div>
         </header>
-        <div className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">
+        <div id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">
 
         {screen.kind === "dashboard" && (
           <Dashboard

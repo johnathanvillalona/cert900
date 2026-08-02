@@ -77,7 +77,9 @@
     --muted-foreground: oklch(0.446 0.043 257.3);
     --accent: oklch(0.955 0.035 78);
     --accent-foreground: oklch(0.42 0.1 60);
-    --destructive: oklch(0.577 0.245 27.325);
+    /* 0.55 L, was 0.577: "Incorrect" text on the destructive-tinted feedback
+       panel measured 4.41:1 against AA's 4.5 for 14px text. */
+    --destructive: oklch(0.55 0.245 27.325);
     --border: oklch(0.916 0.013 255.5);
     --input: oklch(0.916 0.013 255.5);
     --ring: oklch(0.62 0.14 60);
@@ -86,7 +88,9 @@
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.554 0.046 257.42);
     --chart-5: oklch(0.645 0.246 16.44);
-    --success: oklch(0.527 0.154 150.1);
+    /* 0.50 L, was 0.527: "Correct" text on the success-tinted feedback panel
+       measured 4.3:1, just under WCAG AA's 4.5 for 14px text. */
+    --success: oklch(0.5 0.154 150.1);
     --success-foreground: oklch(0.985 0.005 155);
     /* Ambient surface tints. Decoration only, never carry meaning. */
     --grid-line: oklch(0.208 0.042 265.8 / 0.045);
@@ -99,7 +103,9 @@
     --vendor-aws: oklch(0.58 0.024 246);
     --vendor-azure: oklch(0.64 0.018 262);
     --vendor-cisco: oklch(0.60 0.026 250);
-    --brand: oklch(0.55 0.135 60);
+    /* 0.53 L, was 0.55: brand links on tinted panels (video link in graded
+       feedback) measured 4.38:1 against AA's 4.5. */
+    --brand: oklch(0.53 0.135 60);
     --radius: 0.5rem;
     --sidebar: oklch(0.995 0.002 247.9);
     --sidebar-foreground: oklch(0.208 0.042 265.8);

@@ -53,7 +53,7 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
         </nav>
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
           <Wordmark className="text-xs text-muted-foreground" iconClassName="size-4" />
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
+          <nav aria-label="Legal and contact" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
             {/* Real <a> elements, not buttons: on the static guide pages there
                 is no JavaScript, so a button with a handler would be dead. */}
             <a

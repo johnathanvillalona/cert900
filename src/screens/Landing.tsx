@@ -50,7 +50,7 @@ function LiveQuestion() {
         <p className="mt-2 font-medium leading-snug">{pick.pbq.title}</p>
         <QotdPbq pick={pick} onGraded={() => setPbqGraded(true)} />
         {pbqGraded && (
-          <div className="enter-fade-rise">
+          <div role="status" className="enter-fade-rise">
             <QotdPbqFooter pick={pick} />
             <p className="text-muted-foreground mt-2 font-mono text-xs">
               Every question works like this. A new one lands tomorrow.
@@ -103,7 +103,7 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
         })}
       </div>
       {graded && (
-        <div className="enter-fade-rise mt-3 border-t pt-3 text-sm">
+        <div role="status" className="enter-fade-rise mt-3 border-t pt-3 text-sm">
           <p className="font-semibold">{ok ? "Correct." : "Not quite."}</p>
           <p className="text-muted-foreground mt-1">{q.e}</p>
           <a
@@ -234,10 +234,12 @@ function Stat({ n, label }: { n: number; label: string }) {
   const { value, ref } = useCountUp(n)
   return (
     <div>
-      {/* aria-label carries the final number so a screen reader announces the
-          fact, not whatever frame the count happened to be on. */}
-      <p ref={ref} className="font-heading text-3xl font-semibold tabular-nums" aria-label={`${n} ${label}`}>
+      {/* A visually-hidden span carries the final number so a screen reader
+          announces the fact, not whatever frame the count happened to be on.
+          (Not aria-label: that attribute is prohibited on a generic <p>.) */}
+      <p ref={ref} className="font-heading text-3xl font-semibold tabular-nums">
         <span aria-hidden="true">{value}</span>
+        <span className="sr-only">{n}</span>
       </p>
       <p className="text-muted-foreground mt-1 text-sm">{label}</p>
     </div>
@@ -294,9 +296,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
   return (
     <div className="min-h-[100dvh]">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
+      >
+        Skip to content
+      </a>
       {/* nav */}
       <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+        <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="brand-link pressable flex cursor-pointer items-center rounded-md text-sm transition-colors duration-200 hover:text-brand"
@@ -323,6 +331,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
         </nav>
       </header>
 
+      <main id="main">
       {/* hero */}
       <section className="ambient mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-20">
         {/* Sibling of the content, never an ancestor: pointer-events-none plus
@@ -462,6 +471,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
       {/* faq */}
       <FaqSection />
+      </main>
 
       <SiteFooter full onNavigate={onNavigate} />
     </div>
