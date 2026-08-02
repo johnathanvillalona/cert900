@@ -8,6 +8,9 @@ import { Glyph } from "@/components/pbq-art"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
+import { reviewCount } from "@/lib/review"
+import { dayNumber } from "@/lib/progress"
+import { allSessions, studyStreak } from "@/lib/stats"
 import { questionOfTheDay, type DailyPick } from "@/lib/qotd"
 import { siteFaq } from "@/lib/copy"
 import { QotdPbq, QotdPbqFooter } from "@/components/QotdPbq"
@@ -173,17 +176,27 @@ function HeroIconField() {
   )
 }
 
-function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answered: number; lastScaled: number | null }[]; onChoose: (id: string) => void }) {
+function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta; answered: number; lastScaled: number | null; due: number }[]; streak: number; onChoose: (id: string) => void }) {
+  const totalDue = started.reduce((a, s) => a + s.due, 0)
   return (
     <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-5">
         <h1 className="font-heading text-4xl font-semibold tracking-tight md:text-5xl">Welcome back</h1>
         <p className="text-muted-foreground mt-4 max-w-md text-lg">
-          Everything is where you left it.
+          {totalDue > 0
+            ? `${totalDue} ${totalDue === 1 ? "question is" : "questions are"} due for review today.`
+            : "Everything is where you left it."}
         </p>
+        {/* The streak is a fact, not a nag: shown from the second day, never
+            paired with guilt copy when it resets. */}
+        {streak >= 2 && (
+          <p className="mt-3 inline-flex items-center gap-2 rounded-md border bg-card px-3 py-1.5 font-mono text-xs tabular-nums" data-testid="streak-chip">
+            <span className="text-brand font-semibold">{streak}-day</span> study streak
+          </p>
+        )}
       </div>
       <div className="flex flex-col gap-3 lg:col-span-7">
-        {started.map(({ exam, answered, lastScaled }) => (
+        {started.map(({ exam, answered, lastScaled, due }) => (
           <button
             key={exam.id}
             onClick={() => onChoose(exam.id)}
@@ -196,10 +209,13 @@ function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answer
               </span>
               <span className="text-muted-foreground mt-1 block font-mono text-xs tabular-nums">
                 {answered} answered{lastScaled !== null && ` · last exam ${lastScaled}`}
+                {due > 0 && (
+                  <span className="text-brand"> · {due} due for review</span>
+                )}
               </span>
             </span>
             <span className="flex items-center gap-2 font-medium text-brand">
-              Continue
+              {due > 0 ? "Review" : "Continue"}
               <ArrowRight className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1" strokeWidth={2} />
             </span>
           </button>
@@ -259,15 +275,20 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
   const totalPBQ = exams.reduce((a, e) => a + e.pbqCount, 0)
   const totalVideos = useMemo(() => new Set(exams.flatMap((e) => Object.values(e.videos).map((v) => v.u))).size, [exams])
 
+  const today = dayNumber()
   const started = exams
     .map((exam) => {
       const p = store.all[exam.id]
       const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
       const lastScaled = p && p.exams.length ? p.exams[p.exams.length - 1].scaled : null
-      return { exam, answered, lastScaled }
+      // reviewCount needs only the progress blob, never the bank, so the
+      // landing can show due-work without pulling a single question chunk.
+      const due = p ? reviewCount(p, today) : 0
+      return { exam, answered, lastScaled, due }
     })
     .filter((x) => x.answered > 0)
   const returning = started.length > 0
+  const streak = returning ? studyStreak(allSessions(store.all), new Date().toISOString().slice(0, 10)) : 0
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
 
@@ -310,7 +331,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
             both hero branches. */}
         <HeroIconField />
         {returning ? (
-          <ContinueHero started={started} onChoose={onChooseExam} />
+          <ContinueHero started={started} streak={streak} onChoose={onChooseExam} />
         ) : (
           <div className="relative z-10 grid gap-10 lg:grid-cols-12 lg:items-center">
             {/* 400ms, not 700: the documented budget is under 300ms and a
