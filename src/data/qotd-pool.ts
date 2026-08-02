@@ -2133,7 +2133,7 @@ export const QOTD_POOL: QotdEntry[] = [
    "id": 357,
    "t": "the-cia-triad",
    "d": 1,
-   "x": "Of the following security properties, which one is not a core goal of the CIA triad?",
+   "x": "Of the following security properties, which one is NOT a core goal of the CIA triad?",
    "o": [
     "Availability",
     "Non-repudiation",
@@ -2846,7 +2846,7 @@ export const QOTD_POOL: QotdEntry[] = [
     "Tape Gateway"
    ],
    "a": 2,
-   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares."
+   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares. Note that since October 2024 FSx File Gateway is closed to new customers; existing gateways keep working, and AWS points new local-cache needs at FSx for NetApp ONTAP or direct access to FSx for Windows File Server."
   }
  },
  {

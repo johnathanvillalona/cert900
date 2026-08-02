@@ -1406,15 +1406,15 @@ export const exam: ExamDef = {
   {
    "id": 72,
    "t": "acm-tls-in-transit",
-   "x": "An architect wants to place an ACM public certificate directly onto a standalone EC2 web server's local TLS stack. Why is this not supported?",
+   "x": "An architect wants to place an ACM public certificate that was issued with default settings directly onto a standalone EC2 web server's local TLS stack. Why is this not supported?",
    "o": [
     "EC2 instances are unable to terminate TLS connections at all",
     "ACM certificates expire within 24 hours on EC2",
-    "ACM public certificates cannot be exported for use elsewhere",
+    "Default ACM public certificates do not allow private key export",
     "ACM certificates only work with DynamoDB tables"
    ],
    "a": 2,
-   "e": "The private keys of ACM public certificates cannot be exported, so they are used with integrated services like ALB, CloudFront, and API Gateway. To terminate TLS on EC2 you would import your own certificate instead.",
+   "e": "ACM public certificates issued with default settings keep their private keys inside ACM, so they can be used only with integrated services such as ALB, CloudFront, and API Gateway. ACM can also issue exportable public certificates for an additional charge, but exportability must be chosen when the certificate is requested; to terminate TLS directly on EC2 you would use an exportable or imported certificate.",
    "d": 1
   },
   {
@@ -1733,7 +1733,7 @@ export const exam: ExamDef = {
    "x": "A web application submits image-processing jobs to a fleet of backend workers. During traffic spikes the workers fall behind and requests are dropped. Which service decouples the tiers so jobs are buffered until workers can process them?",
    "o": [
     "Amazon MQ",
-    "Amazon Kinesis Data Firehose",
+    "Amazon Data Firehose",
     "Amazon SQS",
     "AWS Batch"
    ],
@@ -2983,15 +2983,15 @@ export const exam: ExamDef = {
   {
    "id": 175,
    "t": "s3-performance",
-   "x": "A data lake query engine repeatedly retrieves only a few columns from large CSV objects in S3. Which feature reduces data scanned and transferred per request MOST cost-effectively?",
+   "x": "An application repeatedly needs only the first few megabytes of each very large log object stored in Amazon S3. Which request technique reduces the data transferred per read?",
    "o": [
-    "S3 Select to return only the needed rows and columns",
+    "A byte-range fetch using the HTTP Range header",
     "Downloading each full object and filtering in the application",
     "Enabling cross-Region replication of the bucket",
     "Converting the bucket to Intelligent-Tiering"
    ],
    "a": 0,
-   "e": "S3 Select pushes filtering into S3 so only the needed subset of an object is returned, cutting transfer and cost. Downloading whole objects moves far more data than necessary.",
+   "e": "A ranged GET retrieves only the requested byte range of an object, so each request transfers just the portion the application needs. Downloading whole objects moves far more data than necessary, and replication and Intelligent-Tiering change where or how objects are stored, not how much data a read transfers. S3 Select, which once filtered rows and columns server-side, is no longer available to new customers.",
    "d": 3
   },
   {
@@ -4295,7 +4295,7 @@ export const exam: ExamDef = {
     "Tape Gateway"
    ],
    "a": 2,
-   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares.",
+   "e": "Amazon FSx File Gateway caches the managed Windows file shares locally while preserving SMB access and Active Directory integration for on-premises users. Amazon S3 File Gateway also serves SMB but maps files to S3 objects rather than a managed Windows file system, and Volume Gateway and Tape Gateway present block volumes and virtual tapes, not file shares. Note that since October 2024 FSx File Gateway is closed to new customers; existing gateways keep working, and AWS points new local-cache needs at FSx for NetApp ONTAP or direct access to FSx for Windows File Server.",
    "d": 4
   },
   {

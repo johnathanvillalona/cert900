@@ -5369,14 +5369,14 @@ export const exam: ExamDef = {
    "t": "json-data",
    "x": "Which two of the following are valid JSON value types? Choose TWO.",
    "o": [
-    "Trunk",
-    "Subnet",
-    "Interface",
+    "Character",
+    "Date",
+    "Undefined",
     "String",
     "Boolean"
    ],
    "a": 3,
-   "e": "JSON values may be strings, numbers, booleans, arrays, objects, or null; interface, subnet, and trunk are networking terms, not JSON types.",
+   "e": "JSON values may be strings, numbers, booleans, arrays, objects, or null. Character, date, and undefined are types found in other languages such as JavaScript or Java, but they are not JSON value types; dates, for example, are carried as strings.",
    "d": 6,
    "as": [
     3,

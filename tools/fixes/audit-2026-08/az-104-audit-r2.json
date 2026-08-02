@@ -1,0 +1,24 @@
+{
+ "examId": "az-104",
+ "_note": "2026-08 sample audit round 2 (post-limit-reset verification)",
+ "fixes": [
+  {
+   "id": 112,
+   "x": "A standard SMB file share on a storage account created this year must grow to hold 60 TiB of data. What should the administrator configure so the share can reach that size?",
+   "a": 1,
+   "e": "All standard pay-as-you-go file shares on current storage accounts can grow to 100 TiB, so raising the share quota is the only change needed. Large file shares is a legacy setting that mattered only on old accounts predating the feature, converting to premium abandons the required standard share, and hierarchical namespace applies to Data Lake blob storage rather than file shares.",
+   "_why": "The keyed answer (enable large file shares) is outdated for 2026: all standard pay-as-you-go file shares now grow to 100 TiB without the legacy large-file-shares toggle, so raising the share quota is the correct action. [https://learn.microsoft.com/en-us/azure/storage/files/storage-files-scale-targets]"
+  },
+  {
+   "id": 312,
+   "o": [
+    "Azure Monitor metrics",
+    "Network Watcher",
+    "Azure Business Continuity Center",
+    "Recovery Services vault overview"
+   ],
+   "e": "Azure Business Continuity Center, the successor to the retired Backup center, is the single pane for managing jobs, policies, and alerts across vaults and subscriptions. A single vault overview blade shows only that one vault, and Azure Monitor metrics and Network Watcher do not manage backups.",
+   "_why": "The keyed answer names Backup center, which Microsoft has deprecated and removed from Azure portal search in favor of Azure Business Continuity Center (rebranded Resiliency in Azure in 2026), so the item teaches a retired interface name. [https://learn.microsoft.com/en-us/azure/backup/backup-center-overview]"
+  }
+ ]
+}

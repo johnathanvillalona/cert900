@@ -5625,7 +5625,7 @@ export const exam: ExamDef = {
   {
    "id": 357,
    "t": "the-cia-triad",
-   "x": "Of the following security properties, which one is not a core goal of the CIA triad?",
+   "x": "Of the following security properties, which one is NOT a core goal of the CIA triad?",
    "o": [
     "Availability",
     "Non-repudiation",

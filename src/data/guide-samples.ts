@@ -830,7 +830,7 @@ export const GUIDE_SAMPLES: Record<string, GuideSample[]> = {
    "x": "A web application submits image-processing jobs to a fleet of backend workers. During traffic spikes the workers fall behind and requests are dropped. Which service decouples the tiers so jobs are buffered until workers can process them?",
    "o": [
     "Amazon MQ",
-    "Amazon Kinesis Data Firehose",
+    "Amazon Data Firehose",
     "Amazon SQS",
     "AWS Batch"
    ],
