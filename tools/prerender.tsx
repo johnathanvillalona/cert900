@@ -2,7 +2,7 @@
 // QOTD feed the worker cron reads. Runs after `vite build` via tsx (npm run
 // build). Uses dist/index.html as the template so asset hashes, the theme
 // boot script, and the analytics beacon are always current.
-import { readdirSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
@@ -222,6 +222,13 @@ function esc(s: string): string {
 
 function page(key: GuideKey, meta: GuideMeta, body: string): string {
   const url = `${SITE_URL}${meta.path}`
+  // Per-guide OG card if one has been rendered (public/og/<slug>.png via
+  // tools/gen-og-data.mts + scratchpad qa/og-guides.js). Falls back to the
+  // site-wide og.png from the template when the file is missing, so a
+  // forgotten render degrades to a valid image, never a 404.
+  const ogImage = existsSync(resolve(dist, "og", `${meta.path.slice(1)}.png`))
+    ? `${SITE_URL}/og/${meta.path.slice(1)}.png`
+    : null
   return template
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`)
     .replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
@@ -231,6 +238,8 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(meta.title)}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(meta.description)}$2`)
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
+    .replace(/(<meta property="og:image" content=")[^"]*(")/, ogImage ? `$1${ogImage}$2` : "$&")
+    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, ogImage ? `$1${ogImage}$2` : "$&")
     .replace("</head>", `${jsonLd(key, meta)}${growTag}</head>`)
     // Root now carries a <noscript> fallback (see index.html); match the whole
     // block, not the old empty `<div id="root"></div>`. GuideShell brings its
