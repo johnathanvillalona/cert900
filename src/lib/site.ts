@@ -70,7 +70,8 @@ export const ADS = {
 }
 
 /**
- * Grow by Mediavine, on the STATIC GUIDE PAGES ONLY.
+ * Grow by Mediavine, on the 16 static guide pages plus a pathname-gated tag
+ * on the homepage.
  *
  * Grow serves no ads. It is the prerequisite for Journey by Mediavine (the one
  * ad network reachable at this traffic level -- 1,000 sessions/month): their
@@ -79,10 +80,12 @@ export const ADS = {
  * is a separate decision (privacy-policy rewrite, public messaging) recorded
  * in the plan and CLAUDE.md.
  *
- * The script is injected by tools/prerender.tsx into the 16 guide pages'
- * static HTML, never into dist/index.html -- so the app cannot carry it even
- * by accident. Leaving a guide is a real navigation, so it cannot follow a
- * reader into the quiz.
+ * tools/prerender.tsx emits both tags: unconditional in the guide pages'
+ * static HTML, and a hostname+pathname==="/"-gated copy in dist/index.html
+ * (Grow's install verification fetches the domain root, so "/" has to carry
+ * it). The gate means a cold load of any other app route never runs Grow;
+ * because it survives client-side navigation off the landing, index.css hides
+ * its widget under html.spa, so it is never VISIBLE anywhere in the app.
  *
  * Get the id from grow.me: create a site, choose manual install, and the
  * snippet's data-grow-initializer contains it.

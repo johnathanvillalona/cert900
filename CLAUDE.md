@@ -248,9 +248,15 @@ url.protocol (wrangler dev simulates the route host and would loop).
   renders on exam guides only — never pbq/hub/scores/order/ccna (tests pin it).
   `npm run dev` cannot serve guide routes; use `npm run build && npx vite preview`.
 - **Journey by Mediavine on-ramp (decided 2026-08-01)**: `GROW.siteId` in
-  site.ts (empty = inert) injects the Grow script into guide HTML ONLY via
-  prerender; guide paths get a wider CSP (`isGuidePath` in routes.ts picks
-  GUIDE_CSP vs CSP in the worker — app CSP has no frame-src, keep it that way).
+  site.ts (empty = inert) injects the Grow script via prerender into guide
+  HTML plus a hostname+pathname==="/"-gated copy in dist/index.html (added
+  2026-08-02: Grow's install verification fetches the domain root). Three
+  CSPs in the worker: guides GUIDE_CSP, "/" HOME_CSP (app CSP + grow.me hosts
+  + frame-src; keeps form-action accounts.google.com for the landing's
+  sign-in — do NOT reuse GUIDE_CSP there), everything else the strict app CSP
+  with no frame-src, keep it that way. Grow survives client-side nav off the
+  landing, so index.css hides its widget under `html.spa` (stamped by
+  main.tsx; guides ship no JS, so they keep the widget).
   Grow serves no ads and starts Journey's mandatory 30-day clock. **The
   ads-on decision is DEFERRED to ~September and gated on**: rewriting four
   privacy claims in Legal.tsx (lines ~26/61/70/81 — "never sell or share" is

@@ -425,6 +425,23 @@
     }
 }
 
+/* Grow (Mediavine) UI belongs on the static guide pages, not inside the app.
+   The script itself only ever executes on "/" (tools/prerender.tsx gates it),
+   but it survives client-side navigation, so any widget it rendered on the
+   landing would follow the reader into the quiz. html.spa exists only when
+   the SPA booted (main.tsx stamps it; guides ship zero JS), so this hides
+   Grow everywhere in the app while the guides -- same stylesheet -- keep it.
+   Grow renders no visible UI today (widget features are off in the portal);
+   these selectors cover its known container patterns in case that changes.
+   No app element matches them: no app id starts with "grow" and Tailwind's
+   grow-* utilities never contain the substring "grow-me". */
+html.spa [id^="grow-me"],
+html.spa [id^="grow-"],
+html.spa [class*="grow-me"],
+html.spa iframe[src*="grow.me"] {
+    display: none !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

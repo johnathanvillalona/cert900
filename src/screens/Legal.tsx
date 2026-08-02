@@ -1,12 +1,16 @@
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site"
 
 const EFFECTIVE = "July 20, 2026"
+// The privacy policy moves alone when its substance changes (the Grow
+// disclosure); Terms and the deletion page did not change, so their date
+// staying put is the honest reading of "the effective date changes with it".
+const PRIVACY_EFFECTIVE = "August 2, 2026"
 
-function LegalShell({ title, children }: { title: string; children: React.ReactNode }) {
+function LegalShell({ title, effective = EFFECTIVE, children }: { title: string; effective?: string; children: React.ReactNode }) {
   return (
     <main className="mx-auto max-w-2xl" data-testid="legal-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight">{title}</h1>
-      <p className="text-muted-foreground mt-1 font-mono text-xs">Effective {EFFECTIVE}</p>
+      <p className="text-muted-foreground mt-1 font-mono text-xs">Effective {effective}</p>
       <div className="mt-6 flex flex-col gap-6 text-sm leading-relaxed [&_h2]:font-heading [&_h2]:text-lg [&_h2]:font-semibold [&_p]:text-muted-foreground [&_li]:text-muted-foreground">
         {children}
       </div>
@@ -16,7 +20,7 @@ function LegalShell({ title, children }: { title: string; children: React.ReactN
 
 export function Privacy() {
   return (
-    <LegalShell title="Privacy policy">
+    <LegalShell title="Privacy policy" effective={PRIVACY_EFFECTIVE}>
       <section>
         <h2>The short version</h2>
         <p className="mt-2">
@@ -63,11 +67,11 @@ export function Privacy() {
           keystore on Android, and signing out removes it.
         </p>
         <p className="mt-2">
-          Our study-guide articles (the pages linked in the footer) run Grow, a small
-          content-sharing widget by Mediavine. It sets a first-party cookie that records only its
-          own script version, identifies nobody, and does not follow you across sites. Grow never
-          loads inside the practice app itself. If you choose to sign in to Grow to save favorite
-          articles, that is a separate, optional account governed by{" "}
+          Our homepage and study-guide articles run Grow, a small content-sharing widget by
+          Mediavine. It sets a first-party cookie that records only its own script version,
+          identifies nobody, and does not follow you across sites. It loads on those pages only,
+          never on the practice screens themselves. If you choose to sign in to Grow to save
+          favorite articles, that is a separate, optional account governed by{" "}
           <a
             className="text-brand underline-offset-2 hover:underline"
             href="https://www.mediavine.com/privacy-policy/"
