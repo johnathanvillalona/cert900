@@ -7145,7 +7145,7 @@ export const exam: ExamDef = {
      "accept": [
       "(?:sudo )?ss -(?=[tanpu]*t)(?=[tanpu]*n)[tanpu]{2,5}(?: state established)?",
       "(?:sudo )?netstat -(?=[antpu]*n)(?=[antpu]*[at])[antpu]{2,5}",
-      "(?:sudo )?(?:ss|netstat) -[a-z]{2,6} \\| grep -i (?:established|estab)"
+      "(?:sudo )?(?:ss|netstat) -(?![a-z]*l)[a-z]{1,6} \\| grep(?: -i)? (?:established|estab)"
      ],
      "output": "State Recv-Q Send-Q Local Address:Port  Peer Address:Port    Process\nESTAB 0      0      10.20.4.31:22       10.20.4.9:52210      users:((\"sshd\",pid=812,fd=4))\nESTAB 0      312    10.20.4.31:4444     203.0.113.66:51044   users:((\"updatesvc\",pid=8823,fd=5))\n(The updatesvc process is holding an open session to an external address.)"
     },
@@ -7198,7 +7198,8 @@ export const exam: ExamDef = {
       "openssl x509 -noout -text -in payments\\.pem",
       "openssl x509 -text -noout -in payments\\.pem",
       "openssl x509 -in payments\\.pem -noout -ext subjectAltName",
-      "openssl x509 -noout -ext subjectAltName -in payments\\.pem"
+      "openssl x509 -noout -ext subjectAltName -in payments\\.pem",
+      "openssl x509 -noout -in payments\\.pem -text"
      ],
      "output": "        Issuer: C = US, O = Example Trust CA, CN = Example Trust TLS RSA CA G2\n        Subject: CN = payments.example.com\n        Signature Algorithm: sha256WithRSAEncryption\n        X509v3 Subject Alternative Name:\n            DNS:payments.example.com, DNS:pay.example.com"
     },

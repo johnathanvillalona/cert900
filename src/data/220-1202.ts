@@ -6053,10 +6053,8 @@ export const exam: ExamDef = {
     {
      "prompt": "Confirm the new permissions on the file.",
      "accept": [
-      "ls -l",
-      "ls -l config\\.yml",
-      "ls -la",
-      "stat config\\.yml"
+      "stat config\\.yml",
+      "ls -(?:l|la|al)(?: config\\.yml)?"
      ],
      "output": "-rw-r-----  1 user app   412 Jul 14 09:12 config.yml"
     }
