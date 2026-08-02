@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
-import type { ExamMeta } from "@/data/types"
+import type { ConnectorGlyph, ExamMeta } from "@/data/types"
 import { useCountUp } from "@/hooks/useCountUp"
+import { useRepelField } from "@/hooks/useRepelField"
+import { Glyph } from "@/components/pbq-art"
 import { useProgress } from "@/hooks/useProgress"
 import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
@@ -120,9 +122,60 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
   )
 }
 
+/**
+ * Decorative IT-icon field behind the hero. Reuses the PBQ bench glyphs
+ * (currentColor, theme-aware) -- no icon library, no new art. Hand-placed
+ * toward the edges so neither hero branch's copy fights it; a few icons are
+ * hidden on phones. Idle drift is pure CSS (.hero-icon-drift); the
+ * pointer-repel is the useRepelField rAF (see that file for the rules).
+ * Negative animation-delay values desync loops that share a duration.
+ */
+const HERO_ICONS: { g: ConnectorGlyph; x: number; y: number; s: number; dur: number; delay: number; cls?: string }[] = [
+  { g: "rj45", x: 3, y: 14, s: 30, dur: 26, delay: 0 },
+  { g: "multimeter", x: 9, y: 44, s: 24, dur: 31, delay: 9, cls: "hidden lg:block" },
+  { g: "shield", x: 6, y: 80, s: 36, dur: 23, delay: 4, cls: "text-brand" },
+  { g: "usb-c", x: 27, y: 6, s: 24, dur: 29, delay: 13, cls: "hidden sm:block" },
+  { g: "coax", x: 38, y: 90, s: 26, dur: 27, delay: 6, cls: "hidden sm:block" },
+  { g: "lock", x: 50, y: 12, s: 22, dur: 24, delay: 16, cls: "hidden lg:block" },
+  { g: "punchdown", x: 55, y: 66, s: 24, dur: 33, delay: 2, cls: "hidden lg:block" },
+  { g: "hdmi", x: 64, y: 4, s: 26, dur: 28, delay: 11, cls: "hidden sm:block" },
+  { g: "badge", x: 71, y: 93, s: 24, dur: 25, delay: 19, cls: "hidden sm:block" },
+  { g: "keypad", x: 84, y: 8, s: 28, dur: 30, delay: 7 },
+  { g: "tester", x: 96, y: 34, s: 30, dur: 22, delay: 14, cls: "text-brand" },
+  { g: "fan", x: 92, y: 84, s: 36, dur: 34, delay: 3 },
+]
+
+function HeroIconField() {
+  const { fieldRef, itemRefs } = useRepelField(HERO_ICONS)
+  return (
+    <div ref={fieldRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+      {HERO_ICONS.map(({ g, x, y, s, dur, delay, cls }, i) => (
+        <div
+          key={g}
+          ref={(el) => {
+            itemRefs.current[i] = el
+          }}
+          // Centered with negative margins, NOT translate utilities: the repel
+          // loop owns style.transform on this element and must never clobber
+          // (or be clobbered by) a centering transform.
+          className={cn("absolute", cls)}
+          style={{ left: `${x}%`, top: `${y}%`, marginLeft: -s / 2, marginTop: -s / 2 }}
+        >
+          <div
+            className={cn("hero-icon-drift opacity-[0.13] dark:opacity-[0.17]", !cls?.includes("text-brand") && "text-muted-foreground")}
+            style={{ width: s, height: s, animationDuration: `${dur}s`, animationDelay: `-${delay}s` }}
+          >
+            <Glyph g={g} className="size-full" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function ContinueHero({ started, onChoose }: { started: { exam: ExamMeta; answered: number; lastScaled: number | null }[]; onChoose: (id: string) => void }) {
   return (
-    <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+    <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-5">
         <h1 className="font-heading text-4xl font-semibold tracking-tight md:text-5xl">Welcome back</h1>
         <p className="text-muted-foreground mt-4 max-w-md text-lg">
@@ -251,10 +304,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
       {/* hero */}
       <section className="ambient mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-20">
+        {/* Sibling of the content, never an ancestor: pointer-events-none plus
+            this ordering makes click interception structurally impossible. The
+            content wrappers below carry z-10 so the field (z-0) stays behind
+            both hero branches. */}
+        <HeroIconField />
         {returning ? (
           <ContinueHero started={started} onChoose={onChooseExam} />
         ) : (
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="relative z-10 grid gap-10 lg:grid-cols-12 lg:items-center">
             {/* 400ms, not 700: the documented budget is under 300ms and a
                 once-per-visit hero entrance is the fair exception to it, but
                 700ms had drifted past reading as intentional. */}

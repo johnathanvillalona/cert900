@@ -338,9 +338,13 @@
    Two inert decorative layers behind content:
      ::before  a STATIC hairline grid (light = lab bench, dark = editor gutter)
      ::after   ONE very slow amber drift, transform only
-   No canvas, no rAF, no library. Both layers are absolutely positioned at
+   No canvas, no library. Both layers are absolutely positioned at
    z-index -1 inside an isolated stacking context, so they add zero layout
    and zero CLS, and a CSS background-image is never LCP-eligible.
+   (One sanctioned rAF exception rides on top of this system: the landing
+   hero's icon field uses useRepelField for its pointer repel, because CSS
+   cannot express cursor-distance effects. Its idle drift is still pure CSS,
+   .hero-icon-drift below.)
 
    REDUCED MOTION: the global rule above collapses every animation to 0.01ms
    with iteration-count 1, so an infinite loop would SNAP to its last frame.
@@ -402,6 +406,25 @@
 }
 @media (prefers-reduced-motion: reduce) {
     .ambient::after { animation: none !important; }
+}
+
+/* Idle float for the landing hero's icon field. Same contract as
+   ambient-drift: transform only, translate3d self-promotion, no will-change,
+   100% byte-identical to 0% so the reduced-motion snap is a no-op -- and the
+   explicit animation:none below stops it outright. Duration and (negative)
+   delay are set inline per icon to desync the loops. */
+.hero-icon-drift {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    animation: hero-icon-drift 26s var(--ease-in-out-strong) infinite;
+}
+@keyframes hero-icon-drift {
+    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    30% { transform: translate3d(6px, -8px, 0) rotate(1.2deg); }
+    65% { transform: translate3d(-5px, 6px, 0) rotate(-1deg); }
+    100% { transform: translate3d(0, 0, 0) rotate(0deg); } /* == 0%, by contract */
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-icon-drift { animation: none !important; }
 }
 
 /* One-shot bloom behind a passing verdict. Base IS the end state, so the
