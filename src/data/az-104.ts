@@ -5469,7 +5469,7 @@ export const exam: ExamDef = {
     "Create the resource group",
     "Create the virtual network and subnet",
     "Create the network security group and its rules",
-    "Create the public IP and network interface",
+    "Create the network interface",
     "Create the virtual machine",
     "Connect securely through Azure Bastion"
    ]

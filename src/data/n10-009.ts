@@ -5644,7 +5644,8 @@ export const exam: ExamDef = {
     "Identify the problem",
     "Establish a theory of probable cause",
     "Test the theory to determine the cause",
-    "Establish a plan of action and implement the solution",
+    "Establish a plan of action to resolve the problem and identify potential effects",
+    "Implement the solution or escalate as necessary",
     "Verify full system functionality and implement preventive measures",
     "Document findings, actions, and outcomes"
    ]
@@ -5869,36 +5870,29 @@ export const exam: ExamDef = {
     {
      "prompt": "Check the status and error counters of interface Gi0/24 (the uplink).",
      "accept": [
-      "show interface gi0/24",
-      "show interfaces gi0/24",
-      "show interface gigabitethernet0/24",
-      "show interfaces gigabitethernet0/24"
+      "sh(?:ow)? int(?:erfaces?)? (?:gi|gigabitethernet) ?0/24"
      ],
      "output": "GigabitEthernet0/24 is up, line protocol is up\n  0 input errors, 0 CRC"
     },
     {
      "prompt": "Display the VLAN table to confirm VLAN 30 exists and has ports.",
      "accept": [
-      "show vlan",
-      "show vlan brief"
+      "sh(?:ow)? vlan(?: br(?:ief)?)?"
      ],
      "output": "30   ENGINEERING   active   (no ports assigned!)"
     },
     {
      "prompt": "Display the running configuration to see what changed.",
      "accept": [
-      "show running-config",
-      "show run"
+      "sh(?:ow)? run(?:ning-config)?"
      ],
      "output": "! interface range gi0/1-12\n!  switchport access vlan 300   <-- typo from last night"
     },
     {
      "prompt": "Save the corrected configuration so it survives a reboot.",
      "accept": [
-      "copy running-config startup-config",
-      "copy run start",
-      "write memory",
-      "wr"
+      "copy run(?:ning-config)? start(?:up-config)?",
+      "wr(?:ite)?(?: mem(?:ory)?)?"
      ],
      "output": "Building configuration... [OK]"
     }

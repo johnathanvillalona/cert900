@@ -5545,7 +5545,7 @@ export const exam: ExamDef = {
     "Shine a flashlight at the screen to check for a faint image (backlight failure)",
     "Connect an external monitor to test video output",
     "If external works, reseat or inspect the internal display cable",
-    "If external is also black, reseat RAM and test with minimal hardware",
+    "Otherwise, if the external monitor is also black, reseat RAM and test with minimal hardware",
     "Replace the display assembly or escalate to board-level repair"
    ]
   },
