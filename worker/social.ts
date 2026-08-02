@@ -52,7 +52,24 @@ export async function todaysQuestion(env: Env): Promise<FeedEntry | null> {
   const feed = (await res.json()) as FeedEntry[]
   if (!feed.length) return null
   const dayIndex = Math.floor(Date.now() / 86_400_000)
-  return feed[((dayIndex % feed.length) + feed.length) % feed.length]
+  const q = feed[((dayIndex % feed.length) + feed.length) % feed.length]
+  // Shuffle options before rendering: stored banks keep the key at biased
+  // positions (2026-08 audit: 220-1201 stores 83% of keys at index 0), and
+  // this post is the ONE surface that renders stored order. Seeded by day so
+  // a retried cron composes the identical post.
+  let s = dayIndex | 0
+  const rand = () => {
+    s = (s + 0x6d2b79f5) | 0
+    let t = Math.imul(s ^ (s >>> 15), 1 | s)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+  const options = [...q.options]
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1))
+    ;[options[i], options[j]] = [options[j], options[i]]
+  }
+  return { ...q, options }
 }
 
 /** Compose the post under `limit` chars; drop options, then truncate, to fit. */
