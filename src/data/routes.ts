@@ -95,7 +95,7 @@ export const APP_PATHS = ["/exams", "/progress"] as const
 export const ADMIN_PATH = "/admin"
 
 /** Sub-pages under /exam/:id. "" is the exam's own menu. */
-export const EXAM_SUBPATHS = ["", "drill", "quiz", "results", "stats"] as const
+export const EXAM_SUBPATHS = ["", "drill", "quiz", "results", "stats", "plan"] as const
 
 export const examPath = (examId: string, sub: (typeof EXAM_SUBPATHS)[number] = "") =>
   sub ? `/exam/${examId}/${sub}` : `/exam/${examId}`
