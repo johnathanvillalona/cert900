@@ -13,7 +13,7 @@ import { siteTitle } from "@/lib/copy"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
-import { ChartLine } from "lucide-react"
+import { CalendarDays, ChartLine } from "lucide-react"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
@@ -22,6 +22,7 @@ import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { StudyPlan } from "@/screens/StudyPlan"
+import { PlanWizard } from "@/screens/PlanWizard"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
@@ -47,6 +48,7 @@ export type Screen =
   | { kind: "results"; outcome: QuizOutcome }
   | { kind: "progress" }
   | { kind: "plan" }
+  | { kind: "plan-wizard" }
   | { kind: "privacy" }
   | { kind: "terms" }
   | { kind: "delete-account" }
@@ -64,6 +66,11 @@ export type Screen =
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
   "/privacy": "privacy",
   "/terms": "terms",
+  // The study-plan funnel. Listed here rather than in screenForPath's
+  // if-chain (where /exams and /progress live) because this table is
+  // bidirectional: SCREEN_PATHS derives from it, so one entry gives both
+  // "URL -> screen" and "screen -> URL".
+  "/plan": "plan-wizard",
   // Google Play's Data safety form requires a public deletion URL a reviewer
   // can open without installing the app.
   "/delete-account": "delete-account",
@@ -75,6 +82,7 @@ const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
+  "plan-wizard": "Build a study plan | Cert900",
   "delete-account": "Delete your account | Cert900",
   // Deliberately says nothing about what this page is. The API 404s rather than
   // 403s for the same reason: someone who guesses the path should learn
@@ -316,6 +324,16 @@ export default function App() {
             <div className="flex items-center gap-1.5">
               <SearchPalette onChooseExam={chooseExam} onNavigate={openPath} onDrillTopic={drillTopic} />
               <Button
+                variant={screen.kind === "plan-wizard" ? "secondary" : "ghost"}
+                size="sm"
+                data-testid="nav-plan"
+                aria-label="Study plan"
+                onClick={() => setScreen({ kind: "plan-wizard" })}
+              >
+                <CalendarDays className="size-4 sm:hidden" strokeWidth={2} />
+                <span className="hidden sm:inline">Plan</span>
+              </Button>
+              <Button
                 variant={screen.kind === "dashboard" ? "secondary" : "ghost"}
                 size="sm"
                 data-testid="nav-progress"
@@ -446,6 +464,17 @@ export default function App() {
             onBack={() => setScreen({ kind: "home" })}
             onDrillDomain={(d) => startQuiz({ mode: "practice", n: 15, domain: d, focusWeak: true })}
             onFullExam={() => startQuiz({ mode: "exam" })}
+          />
+        )}
+
+        {screen.kind === "plan-wizard" && (
+          <PlanWizard
+            onCancel={() => setScreen({ kind: "landing" })}
+            onFinish={(id, date) => {
+              store.setExamDate(id, date)
+              setExamId(id)
+              setScreen({ kind: "plan" })
+            }}
           />
         )}
 

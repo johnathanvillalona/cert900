@@ -82,7 +82,7 @@ export const LEGAL_PATHS = ["/privacy", "/terms", "/delete-account"] as const
  * site. These are client-rendered (no prerender), so they stay out of the
  * sitemap, but they must resolve rather than 404.
  */
-export const APP_PATHS = ["/exams", "/progress"] as const
+export const APP_PATHS = ["/exams", "/progress", "/plan"] as const
 
 /**
  * Owner-only report triage. Kept out of APP_PATHS, which is the list of
