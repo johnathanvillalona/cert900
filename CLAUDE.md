@@ -135,6 +135,16 @@ url.protocol (wrangler dev simulates the route host and would loop).
   (stat tiles + charts + mastery map; **lazy-loaded** so recharts stays out of
   the entry chunk), Legal (`Privacy`/`Terms`; deep-linkable at `/privacy` and
   `/terms` via minimal pushState routing in App — the only real URLs besides `/`).
+  **Study plans (2026-08-03)**: `/plan` is the hub (`Plans.tsx`) — it lists
+  active plans via the shared `components/PlanCard.tsx` and renders
+  `PlanWizard.tsx` when you have none or press "New study plan"; the
+  week-by-week plan itself stays at `/exam/:id/plan` (`StudyPlan.tsx`).
+  A plan is **active when `examDate` OR `planStartedOn` is set** (`activePlans`
+  in `lib/plan.ts`), because the wizard's no-date path would otherwise leave no
+  trace. `buildPlan` takes a structural `PlanExam` (like `readiness`), so
+  EXAM_META feeds it and the hub never loads a bank. `Dashboard` shows the same
+  cards under "Plans in progress" and its zero-progress early return yields to
+  an active plan, exactly as it already yields to a passed exam.
 - `worker/` — `index.ts` (router), `auth.ts` (Better Auth config; Google provider;
   email/password ONLY when BETTER_AUTH_URL contains localhost), `schema.sql`.
 - Platform pieces: `ErrorBoundary` (wraps App in main.tsx), `SiteFooter`
