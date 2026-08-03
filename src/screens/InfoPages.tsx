@@ -384,7 +384,8 @@ export function MethodPage() {
         </p>
         <p className="mt-3 leading-relaxed">
           In August 2026 we ran a second, adversarial audit over the ENTIRE live bank: every
-          multiple-choice question and every performance-based question, across all eleven exams.
+          multiple-choice question and every performance-based question, across all {exams().length}{" "}
+          exams.
           Findings had to survive a reviewer trying to refute them, and any proposed answer-key
           change also had to match the independent answer of a reviewer who never saw the claim. The
           result: 44 confirmed defects fixed, of which exactly three could have mis-graded anyone -
