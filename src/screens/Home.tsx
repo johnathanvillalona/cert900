@@ -24,6 +24,7 @@ export function Home(props: {
   onPbqLab: () => void
   onProgress: () => void
   onReview: (ids: number[]) => void
+  onStudyPlan: () => void
 }) {
   const { exam } = props
   const store = useProgress()
@@ -171,6 +172,14 @@ export function Home(props: {
                   {countdownCopy(p.examDate, today)}
                 </span>
               )}
+              <button
+                onClick={props.onStudyPlan}
+                data-testid="open-plan"
+                className="text-brand inline-flex cursor-pointer items-center gap-1 text-sm font-medium underline-offset-4 hover:underline"
+              >
+                Build my study plan
+                <ArrowRight className="size-3.5" strokeWidth={2} />
+              </button>
             </div>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <span className="text-muted-foreground text-sm">Already sat the real exam?</span>

@@ -21,6 +21,7 @@ import { SearchPalette } from "@/components/SearchPalette"
 import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
+import { StudyPlan } from "@/screens/StudyPlan"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
@@ -45,6 +46,7 @@ export type Screen =
   | { kind: "quiz"; cfg: QuizConfig; sessionKey: number }
   | { kind: "results"; outcome: QuizOutcome }
   | { kind: "progress" }
+  | { kind: "plan" }
   | { kind: "privacy" }
   | { kind: "terms" }
   | { kind: "delete-account" }
@@ -85,7 +87,7 @@ const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
 const DEFAULT_TITLE = siteTitle()
 
 /** Screens that need the exam's question bank, so they wait on its chunk. */
-const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress"])
+const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress", "plan"])
 
 /**
  * The URL a screen should live at.
@@ -112,6 +114,8 @@ function pathForScreen(screen: Screen, examId: string | null): string {
       return examId ? examPath(examId, "results") : "/exams"
     case "progress":
       return examId ? examPath(examId, "stats") : "/exams"
+    case "plan":
+      return examId ? examPath(examId, "plan") : "/exams"
     default:
       return "/"
   }
@@ -122,6 +126,7 @@ const EXAM_SUB_SCREENS: Record<string, Screen["kind"]> = {
   "": "home",
   drill: "setup",
   stats: "progress",
+  plan: "plan",
   // A quiz and its results live entirely in memory (a QuizConfig, a graded
   // QuizOutcome). Nothing can rebuild them from a URL, so a cold load of those
   // lands on the exam's menu rather than a broken screen.
@@ -389,6 +394,7 @@ export default function App() {
             onPbqLab={() => startQuiz({ mode: "pbq" })}
             onProgress={openProgress}
             onReview={(ids) => startQuiz({ mode: "practice", ids })}
+            onStudyPlan={() => setScreen({ kind: "plan" })}
           />
         )}
 
@@ -432,6 +438,15 @@ export default function App() {
           >
             <ProgressScreen exam={exam} onHome={() => setScreen({ kind: "home" })} />
           </Suspense>
+        )}
+
+        {exam && screen.kind === "plan" && (
+          <StudyPlan
+            exam={exam}
+            onBack={() => setScreen({ kind: "home" })}
+            onDrillDomain={(d) => startQuiz({ mode: "practice", n: 15, domain: d, focusWeak: true })}
+            onFullExam={() => startQuiz({ mode: "exam" })}
+          />
         )}
 
         {screen.kind === "privacy" && <Privacy />}
