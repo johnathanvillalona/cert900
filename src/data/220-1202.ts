@@ -1386,7 +1386,7 @@ export const exam: ExamDef = {
    "t": "linux-cmd1",
    "x": "Which Linux command lists the files in the current directory?",
    "o": [
-    "dir",
+    "readdir",
     "ls",
     "list",
     "pwd"
@@ -1742,7 +1742,7 @@ export const exam: ExamDef = {
     "RDP"
    ],
    "a": 1,
-   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services. SAML = with SSO.",
+   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services. SAML = Security Assertion Markup Language.",
    "d": 2
   },
   {
@@ -2913,9 +2913,9 @@ export const exam: ExamDef = {
    "x": "A user reports their PC reboots spontaneously with no error message. Which sequence of checks is most appropriate?",
    "o": [
     "Check Event Viewer, then hardware",
-    "Reinstall the browser",
-    "Delete temp files",
-    "Change DNS servers"
+    "Reinstall Windows, then restore a file backup",
+    "Delete temp files, then defragment the drive",
+    "Change DNS servers, then flush the resolver cache"
    ],
    "a": 0,
    "e": "Random reboots suggest system-level faults: review logs first, then investigate overheating, power supply, and memory. In other words: heat, PSU, RAM.",
@@ -3277,9 +3277,9 @@ export const exam: ExamDef = {
    "x": "App store downloads sit at 'pending' forever on one phone. Which checks are reasonable? (Choose the BEST set.)",
    "o": [
     "Check connectivity and storage, then re-sign in",
-    "Replace the phone's SIM card",
-    "Disable the lock-screen PIN",
-    "Switch off the dark-mode theme"
+    "Replace the SIM card, then re-register the phone",
+    "Disable the lock-screen PIN, then clear saved passwords",
+    "Switch off dark mode, then lower the display brightness"
    ],
    "a": 0,
    "e": "Stuck store downloads are almost always connectivity, storage, or account-session issues — the basics resolve them.",

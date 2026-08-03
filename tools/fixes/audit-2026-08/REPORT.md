@@ -61,6 +61,32 @@ is worth it; a whole-corpus sweep of the other nine banks is optional — the
 projected remaining defects there are low-severity at ~1% density. Decision
 deferred to the owner.
 
+## FINAL STATUS: the whole corpus is audited
+
+As of 2026-08-03 every one of the 3,666 multiple-choice questions and all 138
+PBQs across all 11 exams has been through the find → refute → blind-key
+pipeline (sample 931 + cloud sweep 460 + circle-back 2,275). Totals:
+
+| phase | audited | confirmed & fixed |
+|---|---|---|
+| Stratified sample | 931 MC | 12 |
+| All PBQs | 138 | 8 |
+| Cloud-bank sweep (saa-c03, az-104) | 460 | 7 |
+| Circle-back sweep (nine banks) | 2,275 | 17 (1 refuted) |
+| **Whole corpus** | **3,666 MC + 138 PBQs** | **44** |
+
+Overall MC defect rate 36/3,666 = **0.98%**, of which only three findings
+were in the answer-key class (az-104 q112's wrong key, saa-c03 q303's
+impossible keyed configuration, 220-1202 q70's dual-correct distractor) —
+**0.08% of the corpus could mis-grade a candidate; everything else was
+explanation quality, currency, or distractor polish.** sy0-701, aif-c01, and
+sc-900 swept completely clean outside the sample. Circle-back highlights:
+an LC connector taught with SC's characteristics, GNU coreutils `dir` as a
+second correct Linux answer, a corrupted "$200" free-tier figure, four
+superseded product names (AWS Health Dashboard, DDoS Network Protection,
+Snowball's 2025 closure, Azure Blueprints' retirement), and a VRRP distractor
+made defensible by RFC 9568's master→active rename.
+
 ## Cloud-bank full sweep (2026-08-02, owner-approved)
 
 The remaining 460 questions of saa-c03 (227) and az-104 (233) went through

@@ -1,0 +1,41 @@
+{
+ "examId": "220-1202",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 70,
+   "o": [
+    "readdir",
+    "ls",
+    "list",
+    "pwd"
+   ],
+   "_why": "The distractor \"dir\" is also a correct answer: dir is a real GNU coreutils command that lists the files in the current directory on virtually all Linux distributions. [https://www.gnu.org/software/coreutils/manual/html_node/dir-invocation.html]"
+  },
+  {
+   "id": 95,
+   "e": "SAML is a common standard enabling single sign-on: the identity provider authenticates once and asserts identity to services. SAML = Security Assertion Markup Language.",
+   "_why": "The explanation's closing acronym gloss 'SAML = with SSO.' is garbled and reads as a false expansion of the SAML acronym."
+  },
+  {
+   "id": 179,
+   "o": [
+    "Check Event Viewer, then hardware",
+    "Reinstall Windows, then restore a file backup",
+    "Delete temp files, then defragment the drive",
+    "Change DNS servers, then flush the resolver cache"
+   ],
+   "_why": "The stem asks 'Which sequence of checks is most appropriate?' but the keyed option is the only sequence; all three distractors are single actions, so the answer is identifiable purely from grammatical form."
+  },
+  {
+   "id": 205,
+   "o": [
+    "Check connectivity and storage, then re-sign in",
+    "Replace the SIM card, then re-register the phone",
+    "Disable the lock-screen PIN, then clear saved passwords",
+    "Switch off dark mode, then lower the display brightness"
+   ],
+   "_why": "The stem says 'Which checks are reasonable? (Choose the BEST set.)' but the keyed option is the only multi-item set; every distractor is a single action, cueing the answer on form alone."
+  }
+ ]
+}

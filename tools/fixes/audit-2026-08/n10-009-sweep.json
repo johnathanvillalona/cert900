@@ -1,0 +1,32 @@
+{
+ "examId": "n10-009",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 37,
+   "o": [
+    "5060 and 5061",
+    "80 and 443",
+    "20 and 21",
+    "67 and 68"
+   ],
+   "e": "The Session Initiation Protocol signals VoIP calls on port 5060, with 5061 used for TLS-encrypted signaling; the voice media itself travels separately over RTP.",
+   "_why": "The stem asks which \"ports\" (plural) SIP uses, but the keyed option is the only single-port option while all three distractors are port pairs, and the explanation contains a garbled fragment (\"5060 = and 5061 for TLS.\"). [https://isc.sans.edu/diary/7405]"
+  },
+  {
+   "id": 85,
+   "e": "Unroutable packets are discarded, and the router may return an ICMP Destination Unreachable to the sender; a default route is what prevents this for internet-bound traffic.",
+   "_why": "The explanation ends in a garbled, non-grammatical fragment: \"In other words: and may send an ICMP unreachable.\""
+  },
+  {
+   "id": 48,
+   "o": [
+    "SFP+",
+    "SFP",
+    "QSFP28 only",
+    "GBIC"
+   ],
+   "_why": "Distractor \"RJ45 DIMM\" is a fabricated component that does not exist — a DIMM is a memory module, not a transceiver form factor — so no competent candidate would consider it."
+  }
+ ]
+}

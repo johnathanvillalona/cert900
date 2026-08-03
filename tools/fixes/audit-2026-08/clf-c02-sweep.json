@@ -1,0 +1,33 @@
+{
+ "examId": "clf-c02",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 152,
+   "o": [
+    "Free allowances unlock after the account's first Reserved Instance purchase",
+    "New accounts can receive up to $200 in AWS credits under the free account plan",
+    "Free usage is limited to accounts subscribed to a paid support plan",
+    "Some services include a monthly allowance that stays free beyond the first year",
+    "Allowance sizes grow automatically as an account's total monthly spend increases"
+   ],
+   "e": "The current Free Tier gives new accounts a credit-based free plan (up to $200 in credits), and separately some services carry always-free monthly allowances that continue indefinitely. Free usage is not tied to support plans, purchases, or spend levels.",
+   "_why": "The keyed option and the explanation both state 'up to 00 in AWS credits' — the dollar amount '$200' was corrupted to '00' (the '$2' was stripped, likely by shell/regex substitution during authoring), making the keyed-correct option nonsensical. [https://aws.amazon.com/about-aws/whats-new/2025/07/aws-free-tier-credits-month-free-plan/]"
+  },
+  {
+   "id": 273,
+   "e": "Snowball devices are shipped to the site, loaded over the local network, and returned to AWS, which beats any network path when the circuit cannot carry the volume in reasonable time. A VPN still rides that same slow internet link, so it does not address the constraint. Note that AWS is winding down the Snow family (new orders were limited to existing Snow customers in November 2025 and support ends December 31, 2026), steering future offline-transfer needs toward options such as AWS Data Transfer Terminal.",
+   "_why": "The keyed answer presents AWS Snowball as an ordinarily orderable service, but AWS closed Snowball Edge to new customers on November 7, 2025 and discontinues support in all commercial Regions on December 31, 2026; the explanation teaches nothing about this retirement. [https://docs.aws.amazon.com/snowball/latest/developer-guide/snowball-edge-availability-change.html]"
+  },
+  {
+   "id": 347,
+   "o": [
+    "The AWS Management Console",
+    "The AWS Billing dashboard",
+    "The AWS Health Dashboard",
+    "The AWS SDK"
+   ],
+   "_why": "The distractor 'The AWS Personal Health Dashboard' uses a superseded product name; AWS unified it into the AWS Health Dashboard in 2022, and that is the name the CLF-C02 exam guide uses. [https://aws.amazon.com/about-aws/whats-new/2022/02/aws-health-dashboard-first-iteration]"
+  }
+ ]
+}
