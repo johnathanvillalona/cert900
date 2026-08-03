@@ -3536,7 +3536,7 @@ export const exam: ExamDef = {
    "o": [
     "Azure Firewall",
     "Azure Private Link",
-    "Azure DDoS Protection Standard",
+    "Azure DDoS Network Protection",
     "Network security groups on each spoke"
    ],
    "a": 0,
@@ -3972,7 +3972,7 @@ export const exam: ExamDef = {
     "Azure Automation"
    ],
    "a": 1,
-   "e": "Azure Blueprints packages multiple artifact types into one definition that can be assigned repeatedly to produce consistent environments. Azure Automation runs runbooks and configuration tasks but does not compose governance artifacts into a deployable package. Azure Lighthouse handles cross-tenant delegated management, which is a different problem from environment provisioning.",
+   "e": "Azure Blueprints is the feature that packages resource groups, ARM templates, role assignments, and policy assignments into one definition that can be assigned repeatedly to produce consistent environments. Be aware it never left preview and entered phased retirement in mid-2026, with Microsoft directing new work to template specs plus deployment stacks, so treat it as the named packaging feature rather than the go-forward choice. Azure Automation runs runbooks and configuration tasks but does not compose governance artifacts into a deployable package, and Azure Lighthouse handles cross-tenant delegated management, a different problem from environment provisioning.",
    "d": 3
   },
   {

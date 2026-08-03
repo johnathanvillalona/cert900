@@ -946,13 +946,13 @@ export const exam: ExamDef = {
    "t": "common-ports",
    "x": "Which ports does SIP use for VoIP call signaling?",
    "o": [
-    "5060",
+    "5060 and 5061",
     "80 and 443",
     "20 and 21",
     "67 and 68"
    ],
    "a": 0,
-   "e": "The Session Initiation Protocol signals VoIP calls on 5060, with 5061 for TLS-encrypted signaling. 5060 = and 5061 for TLS.",
+   "e": "The Session Initiation Protocol signals VoIP calls on port 5060, with 5061 used for TLS-encrypted signaling; the voice media itself travels separately over RTP.",
    "d": 1
   },
   {
@@ -1103,7 +1103,7 @@ export const exam: ExamDef = {
     "SFP+",
     "SFP",
     "QSFP28 only",
-    "RJ45 DIMM"
+    "GBIC"
    ],
    "a": 0,
    "e": "SFP+ handles 10 Gbps; SFP tops out at ~1 Gbps; QSFP/QSFP28 modules carry 40/100 Gbps.",
@@ -1624,7 +1624,7 @@ export const exam: ExamDef = {
     "It queues until a route appears"
    ],
    "a": 0,
-   "e": "Unroutable packets are discarded; a default route is what prevents this for internet-bound traffic. In other words: and may send an ICMP unreachable.",
+   "e": "Unroutable packets are discarded, and the router may return an ICMP Destination Unreachable to the sender; a default route is what prevents this for internet-bound traffic.",
    "d": 2
   },
   {

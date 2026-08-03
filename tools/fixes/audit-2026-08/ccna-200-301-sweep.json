@@ -1,0 +1,34 @@
+{
+ "examId": "ccna-200-301",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 15,
+   "o": [
+    "Runts",
+    "Interface resets",
+    "Output queue drops",
+    "Unknown protocol drops",
+    "CRC errors"
+   ],
+   "e": "Frames damaged in transit fail the FCS check or arrive undersized, so the receiving interface increments its CRC error and runt counters. Interface resets track line-protocol restarts, output queue drops reflect congestion, and unknown protocol drops count intact frames with unrecognized payload types, so none of those increment because of frame damage.",
+   "_why": "In an exact-set multiple-response item asking which show interfaces COUNTERS increment on frame damage, all three distractors are configuration states rather than counters, so the category mismatch alone gives away both keyed answers."
+  },
+  {
+   "id": 182,
+   "e": "show ip ospf neighbor lists each neighbor with its state, and show ip ospf interface reveals timers, area, and the local DR/BDR role. show ip ospf database summary is a valid command but displays type 3 summary LSAs rather than neighbor states, and the remaining strings are not valid IOS syntax.",
+   "_why": "The explanation falsely states that 'show ip ospf database summary' is not valid IOS syntax; it is a real command that displays type 3 summary LSAs. [https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/ospf-s1.html]"
+  },
+  {
+   "id": 204,
+   "o": [
+    "The designated router",
+    "The primary forwarder",
+    "The master router",
+    "The standby router"
+   ],
+   "e": "Cisco VRRP implementations call the forwarding router the master and the other group members backups. Standby is an HSRP role, and designated router is an OSPF election result, so neither term applies to VRRP.",
+   "_why": "The distractor 'The active router' is now defensibly correct for VRRP: RFC 9568 (April 2024, obsoletes RFC 5798) renamed the VRRP Master Router to 'Active Router' as the current IETF-standard term. [https://datatracker.ietf.org/doc/html/rfc9568]"
+  }
+ ]
+}

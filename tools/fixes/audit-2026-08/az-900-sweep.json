@@ -1,0 +1,21 @@
+{
+ "examId": "az-900",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 241,
+   "e": "Azure Blueprints is the feature that packages resource groups, ARM templates, role assignments, and policy assignments into one definition that can be assigned repeatedly to produce consistent environments. Be aware it never left preview and entered phased retirement in mid-2026, with Microsoft directing new work to template specs plus deployment stacks, so treat it as the named packaging feature rather than the go-forward choice. Azure Automation runs runbooks and configuration tasks but does not compose governance artifacts into a deployable package, and Azure Lighthouse handles cross-tenant delegated management, a different problem from environment provisioning.",
+   "_why": "The item presents Azure Blueprints as the current way to stand up new client environments, but Blueprints (which never left preview) entered phased retirement on July 31, 2026 and is replaced by template specs plus deployment stacks; the explanation says nothing about this. [https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement]"
+  },
+  {
+   "id": 212,
+   "o": [
+    "Azure Firewall",
+    "Azure Private Link",
+    "Azure DDoS Network Protection",
+    "Network security groups on each spoke"
+   ],
+   "_why": "The distractor \"Azure DDoS Protection Standard\" uses a superseded product name; the Standard tier was renamed DDoS Network Protection (alongside the newer DDoS IP Protection tier). [https://learn.microsoft.com/en-us/azure/ddos-protection/ddos-protection-sku-comparison]"
+  }
+ ]
+}

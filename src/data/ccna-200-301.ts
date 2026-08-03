@@ -545,13 +545,13 @@ export const exam: ExamDef = {
    "x": "Which two show interfaces counters increment when frames are damaged in transit on a copper link? Choose TWO.",
    "o": [
     "Runts",
-    "Configured interface descriptions",
-    "Manually configured MTU values",
-    "Administratively down transitions",
+    "Interface resets",
+    "Output queue drops",
+    "Unknown protocol drops",
     "CRC errors"
    ],
    "a": 0,
-   "e": "Damaged frames raise the CRC and runt counters on the receiving interface; MTU values, descriptions, and an administrative shutdown are configuration states, not error counters.",
+   "e": "Frames damaged in transit fail the FCS check or arrive undersized, so the receiving interface increments its CRC error and runt counters. Interface resets track line-protocol restarts, output queue drops reflect congestion, and unknown protocol drops count intact frames with unrecognized payload types, so none of those increment because of frame damage.",
    "d": 1,
    "as": [
     0,
@@ -3135,7 +3135,7 @@ export const exam: ExamDef = {
     "show ip ospf neighbor"
    ],
    "a": 3,
-   "e": "show ip ospf neighbor lists each neighbor with its state, and show ip ospf interface reveals timers, area, and the local DR/BDR role. The other listed strings are not valid IOS syntax.",
+   "e": "show ip ospf neighbor lists each neighbor with its state, and show ip ospf interface reveals timers, area, and the local DR/BDR role. show ip ospf database summary is a valid command but displays type 3 summary LSAs rather than neighbor states, and the remaining strings are not valid IOS syntax.",
    "d": 3,
    "as": [
     3,
@@ -3469,10 +3469,10 @@ export const exam: ExamDef = {
     "The designated router",
     "The primary forwarder",
     "The master router",
-    "The active router"
+    "The standby router"
    ],
    "a": 2,
-   "e": "VRRP calls the forwarding router the master and the others backups. Active and standby are HSRP terms, and designated router is an OSPF role.",
+   "e": "Cisco VRRP implementations call the forwarding router the master and the other group members backups. Standby is an HSRP role, and designated router is an OSPF election result, so neither term applies to VRRP.",
    "d": 3
   },
   {

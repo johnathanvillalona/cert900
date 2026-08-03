@@ -383,13 +383,14 @@ export function MethodPage() {
           explanation hold? Only what survives lands in the bank.
         </p>
         <p className="mt-3 leading-relaxed">
-          In August 2026 we ran a second, adversarial audit on the live bank: a stratified sample of
-          931 questions (25 percent of every exam, plus every question shown publicly) and all 138
-          performance-based questions. Findings had to survive a reviewer trying to refute them, and
-          any proposed answer-key change also had to match the independent answer of a reviewer who
-          never saw the claim. The result: 20 confirmed defects, exactly one of them a wrong answer
-          key (an Azure platform change from 2024), all fixed. The full report, with citations, ships
-          in the site's public history.
+          In August 2026 we ran a second, adversarial audit over the ENTIRE live bank: every
+          multiple-choice question and every performance-based question, across all eleven exams.
+          Findings had to survive a reviewer trying to refute them, and any proposed answer-key
+          change also had to match the independent answer of a reviewer who never saw the claim. The
+          result: 44 confirmed defects fixed, of which exactly three could have mis-graded anyone -
+          under a tenth of a percent of the bank. The rest were explanation wording, product renames,
+          and distractor quality. The full report, with citations, ships in the site's public
+          history.
         </p>
       </section>
 

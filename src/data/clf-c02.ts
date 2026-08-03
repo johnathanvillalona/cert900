@@ -2659,13 +2659,13 @@ export const exam: ExamDef = {
    "x": "Which statements accurately describe the AWS Free Tier? (Select TWO.)",
    "o": [
     "Free allowances unlock after the account's first Reserved Instance purchase",
-    "New accounts can receive up to 00 in AWS credits under the free account plan",
+    "New accounts can receive up to $200 in AWS credits under the free account plan",
     "Free usage is limited to accounts subscribed to a paid support plan",
     "Some services include a monthly allowance that stays free beyond the first year",
     "Allowance sizes grow automatically as an account's total monthly spend increases"
    ],
    "a": 1,
-   "e": "The current Free Tier gives new accounts a credit-based free plan (up to 00 in credits), and separately some services carry always-free monthly allowances that continue indefinitely. Free usage is not tied to support plans, purchases, or spend levels.",
+   "e": "The current Free Tier gives new accounts a credit-based free plan (up to $200 in credits), and separately some services carry always-free monthly allowances that continue indefinitely. Free usage is not tied to support plans, purchases, or spend levels.",
    "d": 4,
    "as": [
     1,
@@ -4493,7 +4493,7 @@ export const exam: ExamDef = {
     "Replicate the data through Amazon CloudFront"
    ],
    "a": 1,
-   "e": "Snowball devices are shipped to the site, loaded over the local network, and returned to AWS, which beats any network path when the circuit cannot carry the volume in reasonable time. A VPN still rides that same slow internet link, so it does not address the constraint.",
+   "e": "Snowball devices are shipped to the site, loaded over the local network, and returned to AWS, which beats any network path when the circuit cannot carry the volume in reasonable time. A VPN still rides that same slow internet link, so it does not address the constraint. Note that AWS is winding down the Snow family (new orders were limited to existing Snow customers in November 2025 and support ends December 31, 2026), steering future offline-transfer needs toward options such as AWS Data Transfer Terminal.",
    "d": 3
   },
   {
@@ -5595,7 +5595,7 @@ export const exam: ExamDef = {
    "o": [
     "The AWS Management Console",
     "The AWS Billing dashboard",
-    "The AWS Personal Health Dashboard",
+    "The AWS Health Dashboard",
     "The AWS SDK"
    ],
    "a": 3,

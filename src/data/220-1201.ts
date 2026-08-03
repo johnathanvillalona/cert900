@@ -2180,7 +2180,7 @@ export const exam: ExamDef = {
   {
    "id": 131,
    "t": "fiber-connectors",
-   "x": "Which small square fiber connector snaps in with a push-pull motion and is common in modern high-density switches?",
+   "x": "Which small form-factor fiber connector, secured by a latch tab similar to an RJ45 plug, is common in modern high-density switches?",
    "o": [
     "LC",
     "ST",
@@ -2188,7 +2188,7 @@ export const exam: ExamDef = {
     "RJ45"
    ],
    "a": 0,
-   "e": "The LC connector is a small form-factor push-pull fiber connector, standard on modern SFP transceivers.",
+   "e": "The LC is the small form-factor fiber connector with an RJ45-style latch tab, standard on SFP transceivers and high-density switch line cards. ST is a legacy bayonet-style fiber connector, while F-type and RJ45 terminate copper media, not fiber.",
    "d": 3
   },
   {
@@ -3627,7 +3627,7 @@ export const exam: ExamDef = {
     "A wrong or corrupted print driver",
     "An empty paper tray",
     "A dirty fuser",
-    "Low DNS"
+    "A worn pickup roller"
    ],
    "a": 0,
    "e": "Garbled output usually means the wrong page-description language or a corrupt driver — reinstall the correct driver for that model.",

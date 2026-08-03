@@ -1,0 +1,22 @@
+{
+ "examId": "220-1201",
+ "_note": "2026-08 whole-corpus sweep (complement of the sample)",
+ "fixes": [
+  {
+   "id": 131,
+   "x": "Which small form-factor fiber connector, secured by a latch tab similar to an RJ45 plug, is common in modern high-density switches?",
+   "e": "The LC is the small form-factor fiber connector with an RJ45-style latch tab, standard on SFP transceivers and high-density switch line cards. ST is a legacy bayonet-style fiber connector, while F-type and RJ45 terminate copper media, not fiber.",
+   "_why": "The stem and explanation describe the LC connector using the SC connector's defining characteristics: 'square' body and 'push-pull' coupling belong to SC, while LC is the small form-factor connector secured by an RJ45-style latch tab. [https://thenetworkinstallers.com/blog/lc-vs-sc-fiber-connector/]"
+  },
+  {
+   "id": 234,
+   "o": [
+    "A wrong or corrupted print driver",
+    "An empty paper tray",
+    "A dirty fuser",
+    "A worn pickup roller"
+   ],
+   "_why": "The distractor \"Low DNS\" is a nonsense phrase, not a real concept, and its fragment form breaks the grammatical parallelism of the other three options, cueing its elimination."
+  }
+ ]
+}
