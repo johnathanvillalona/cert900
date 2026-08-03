@@ -35,6 +35,14 @@ export interface ProgressStore {
   logSession(examId: string, s: SessionRecord): void
   /** Set or clear (null) the user's real exam date, ISO "YYYY-MM-DD". */
   setExamDate(examId: string, date: string | null): void
+  /**
+   * Commit to a study plan. Writes the date (or clears it) and stamps
+   * planStartedOn only if absent, so changing the date later does not reset
+   * how long the plan has been running.
+   */
+  startPlan(examId: string, date: string | null): void
+  /** End a plan: drops the date and the start stamp. Progress is untouched. */
+  clearPlan(examId: string): void
   /** Manual "I passed the real exam" milestone; never inferred from practice. */
   setPassed(examId: string, passed: boolean): void
   resetExam(examId: string): void
@@ -177,6 +185,18 @@ export function useProgressStore(): ProgressStore {
       update(examId, (p) => {
         if (date) return { ...p, examDate: date }
         const { examDate: _drop, ...rest } = p
+        return rest as ExamProgress
+      }),
+    startPlan: (examId, date) =>
+      update(examId, (p) => {
+        const startedOn = p.planStartedOn ?? new Date().toISOString().slice(0, 10)
+        if (date) return { ...p, examDate: date, planStartedOn: startedOn }
+        const { examDate: _drop, ...rest } = p
+        return { ...rest, planStartedOn: startedOn } as ExamProgress
+      }),
+    clearPlan: (examId) =>
+      update(examId, (p) => {
+        const { examDate: _d, planStartedOn: _s, ...rest } = p
         return rest as ExamProgress
       }),
     setPassed: (examId, passed) =>

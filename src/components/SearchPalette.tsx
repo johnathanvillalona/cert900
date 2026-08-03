@@ -43,7 +43,7 @@ function buildIndex(): Hit[] {
   }
   // App screens worth finding by name. The guides above come from the
   // registry; this one is a client-rendered screen with no GUIDE_META entry.
-  hits.push({ kind: "page", id: "page:/plan", path: "/plan", title: "Build a study plan", sub: "Pick an exam and a date" })
+  hits.push({ kind: "page", id: "page:/plan", path: "/plan", title: "Study plans", sub: "See your plans or start a new one" })
   return hits
 }
 

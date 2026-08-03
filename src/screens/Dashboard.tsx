@@ -1,9 +1,11 @@
-import { ArrowRight, BadgeCheck, Flame } from "lucide-react"
+import { ArrowRight, BadgeCheck, CalendarDays, Flame } from "lucide-react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import type { ExamMeta } from "@/data/types"
 import { VENDORS } from "@/data/vendors"
 import { ExamEmblem } from "@/components/exam-art"
+import { PlanCard } from "@/components/PlanCard"
 import { useProgress } from "@/hooks/useProgress"
+import { activePlans } from "@/lib/plan"
 import { domainAccuracy, readiness, studyStreak, allSessions, type Readiness } from "@/lib/stats"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -11,10 +13,12 @@ import { AdSlot } from "@/components/AdSlot"
 import { cn } from "@/lib/utils"
 
 /** One friendly overview for all exams. Detail lives in each exam's progress page. */
-export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
+export function Dashboard({ onContinue, onDetails, onBrowseExams, onOpenPlan, onNewPlan }: {
   onContinue: (examId: string) => void
   onDetails: (examId: string) => void
   onBrowseExams: () => void
+  onOpenPlan: (examId: string) => void
+  onNewPlan: () => void
 }) {
   const store = useProgress()
   const exams = EXAM_ORDER.map((id) => EXAM_META[id])
@@ -52,10 +56,13 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
     return q ? Math.round((c / q) * 100) : null
   })()
   const streak = studyStreak(allSessions(store.all), new Date().toISOString().slice(0, 10))
+  const plans = activePlans(store.all, EXAM_ORDER)
 
   // A passed exam is worth showing even with no practice behind it, so the
-  // milestone someone just marked does not vanish behind the empty state.
-  if (totalAnswered === 0 && !perExam.some((x) => x.passed)) {
+  // milestone someone just marked does not vanish behind the empty state. A
+  // study plan is the same kind of thing: an explicit commitment, and the page
+  // that says "nothing tracked" while you hold two plans is simply wrong.
+  if (totalAnswered === 0 && !perExam.some((x) => x.passed) && plans.length === 0) {
     return (
       <main>
         <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
@@ -92,7 +99,38 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams }: {
         </Card>
       </div>
 
-      <div className="mt-3 flex flex-col gap-3">
+      {/* Directly under the tiles: what you have committed to comes before the
+          per-exam scoreboard, because it is the thing you act on. */}
+      <section className="mt-8" data-testid="dash-plans">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-heading text-xl font-semibold tracking-tight">Plans in progress</h2>
+          {plans.length > 0 && (
+            <Button variant="ghost" size="sm" onClick={onNewPlan} data-testid="dash-manage-plans">
+              Manage plans
+              <ArrowRight className="size-3.5" strokeWidth={2} />
+            </Button>
+          )}
+        </div>
+        {plans.length > 0 ? (
+          <div className="mt-3 flex flex-col gap-3">
+            {plans.map((id) => (
+              <PlanCard key={id} examId={id} compact onOpen={() => onOpenPlan(id)} />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="text-muted-foreground text-sm">
+              No study plans yet. Pick an exam and a date, and the weeks get weighted for you.
+            </p>
+            <Button size="sm" onClick={onNewPlan} data-testid="dash-new-plan">
+              <CalendarDays className="size-3.5" strokeWidth={2} />
+              Build a study plan
+            </Button>
+          </div>
+        )}
+      </section>
+
+      <div className="mt-8 flex flex-col gap-3">
         {perExam.map(({ exam, answered, accuracy, lastExam, weakest, ready, passed, passedOn }, i) => (
           <ExamSummaryCard
             style={{ "--i": i + 3 } as React.CSSProperties}

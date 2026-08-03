@@ -55,10 +55,16 @@ export interface ExamProgress {
    * examDate: the user's REAL exam date as an ISO "YYYY-MM-DD" — powers the
    * countdown on the exam home. passed/passedOn: a manual milestone the user
    * sets after passing the real exam; never inferred from practice scores.
+   *
+   * planStartedOn: the day a study plan was committed to, ISO "YYYY-MM-DD".
+   * Set once and kept across date changes, so "started 3 weeks ago" stays
+   * true. It exists because a plan built WITHOUT a date would otherwise leave
+   * no trace at all — examDate alone cannot answer "do I have a plan?".
    */
   examDate?: string
   passed?: boolean
   passedOn?: string
+  planStartedOn?: string
 }
 
 /** UTC day index. Same epoch arithmetic qotd.ts uses for the daily rotation. */
