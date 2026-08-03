@@ -36,10 +36,12 @@ const PRESETS = [
   { label: "In 90 days", days: 90 },
 ] as const
 
-export function PlanWizard({ onFinish, onCancel }: {
+export function PlanWizard({ onFinish, onCancel, backLabel = "Never mind" }: {
   /** Sets the exam date, then routes to that exam's plan. */
   onFinish: (examId: string, date: string | null) => void
   onCancel: () => void
+  /** "Back to plans" when the hub has a list to return to; cancel copy otherwise. */
+  backLabel?: string
 }) {
   const store = useProgress()
   const today = dayNumber()
@@ -125,7 +127,7 @@ export function PlanWizard({ onFinish, onCancel }: {
             ))}
           </div>
           <Button variant="ghost" className="mt-6" onClick={onCancel} data-testid="plan-cancel">
-            Never mind
+            {backLabel}
           </Button>
         </section>
       ) : (

@@ -1,6 +1,6 @@
 import type { ExamDef } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
-import { buildPlan } from "@/lib/plan"
+import { buildPlan, planExam } from "@/lib/plan"
 import { countdownCopy, dayNumber } from "@/lib/progress"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -21,7 +21,7 @@ export function StudyPlan({ exam, onBack, onDrillDomain, onFullExam }: {
   const store = useProgress()
   const p = store.get(exam.id)
   const today = dayNumber()
-  const plan = buildPlan(exam, p, today)
+  const plan = buildPlan(planExam(exam), p, today)
 
   return (
     <main>

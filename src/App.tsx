@@ -22,7 +22,7 @@ import { Wordmark } from "@/components/Wordmark"
 import { Home } from "@/screens/Home"
 import { DrillSetup } from "@/screens/DrillSetup"
 import { StudyPlan } from "@/screens/StudyPlan"
-import { PlanWizard } from "@/screens/PlanWizard"
+import { Plans } from "@/screens/Plans"
 import { Quiz } from "@/screens/Quiz"
 import { Results } from "@/screens/Results"
 import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
@@ -48,7 +48,7 @@ export type Screen =
   | { kind: "results"; outcome: QuizOutcome }
   | { kind: "progress" }
   | { kind: "plan" }
-  | { kind: "plan-wizard" }
+  | { kind: "plans" }
   | { kind: "privacy" }
   | { kind: "terms" }
   | { kind: "delete-account" }
@@ -66,11 +66,12 @@ export type Screen =
 const PATH_SCREENS: Record<string, Screen["kind"]> = {
   "/privacy": "privacy",
   "/terms": "terms",
-  // The study-plan funnel. Listed here rather than in screenForPath's
-  // if-chain (where /exams and /progress live) because this table is
-  // bidirectional: SCREEN_PATHS derives from it, so one entry gives both
-  // "URL -> screen" and "screen -> URL".
-  "/plan": "plan-wizard",
+  // The study-plan hub. Listed here rather than in screenForPath's if-chain
+  // (where /exams and /progress live) because this table is bidirectional:
+  // SCREEN_PATHS derives from it, so one entry gives both "URL -> screen" and
+  // "screen -> URL". Creating a plan is a view inside this screen, not its own
+  // route: there is nothing about a half-filled form worth bookmarking.
+  "/plan": "plans",
   // Google Play's Data safety form requires a public deletion URL a reviewer
   // can open without installing the app.
   "/delete-account": "delete-account",
@@ -82,7 +83,7 @@ const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]
 const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
   privacy: "Privacy policy | Cert900",
   terms: "Terms of use | Cert900",
-  "plan-wizard": "Build a study plan | Cert900",
+  plans: "Study plans | Cert900",
   "delete-account": "Delete your account | Cert900",
   // Deliberately says nothing about what this page is. The API 404s rather than
   // 403s for the same reason: someone who guesses the path should learn
@@ -234,6 +235,13 @@ export default function App() {
   // current screen up while the chunk loads instead of aborting the render.
   const openProgress = () => startTransition(() => setScreen({ kind: "progress" }))
 
+  /** Open one exam's week-by-week plan, from the hub or the dashboard. */
+  const openPlan = (id: string) => {
+    setExamId(id)
+    setScreen({ kind: "plan" })
+    window.scrollTo(0, 0)
+  }
+
   // Chrome (header, picker) renders from metadata only; the heavy bank loads
   // on demand so a visitor never downloads all seven.
   const meta = examId ? EXAM_META[examId] : null
@@ -324,14 +332,14 @@ export default function App() {
             <div className="flex items-center gap-1.5">
               <SearchPalette onChooseExam={chooseExam} onNavigate={openPath} onDrillTopic={drillTopic} />
               <Button
-                variant={screen.kind === "plan-wizard" ? "secondary" : "ghost"}
+                variant={screen.kind === "plans" ? "secondary" : "ghost"}
                 size="sm"
                 data-testid="nav-plan"
                 aria-label="Study plan"
-                onClick={() => setScreen({ kind: "plan-wizard" })}
+                onClick={() => setScreen({ kind: "plans" })}
               >
                 <CalendarDays className="size-4 sm:hidden" strokeWidth={2} />
-                <span className="hidden sm:inline">Plan</span>
+                <span className="hidden sm:inline">Study plan</span>
               </Button>
               <Button
                 variant={screen.kind === "dashboard" ? "secondary" : "ghost"}
@@ -373,6 +381,8 @@ export default function App() {
               setExamId(null)
               setScreen({ kind: "picker" })
             }}
+            onOpenPlan={openPlan}
+            onNewPlan={() => setScreen({ kind: "plans" })}
           />
         )}
 
@@ -467,13 +477,13 @@ export default function App() {
           />
         )}
 
-        {screen.kind === "plan-wizard" && (
-          <PlanWizard
+        {screen.kind === "plans" && (
+          <Plans
             onCancel={() => setScreen({ kind: "landing" })}
+            onOpenPlan={openPlan}
             onFinish={(id, date) => {
-              store.setExamDate(id, date)
-              setExamId(id)
-              setScreen({ kind: "plan" })
+              store.startPlan(id, date)
+              openPlan(id)
             }}
           />
         )}

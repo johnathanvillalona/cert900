@@ -138,7 +138,7 @@ const HERO_ICONS: { g: ConnectorGlyph; x: number; y: number; s: number; dur: num
   { g: "sata", x: 12, y: 26, s: 22, dur: 32, delay: 21, cls: "hidden lg:block" },
   { g: "multimeter", x: 9, y: 44, s: 24, dur: 31, delay: 9, cls: "hidden lg:block" },
   { g: "molex", x: 17, y: 70, s: 26, dur: 24, delay: 17, cls: "hidden sm:block" },
-  { g: "shield", x: 6, y: 80, s: 36, dur: 23, delay: 4, cls: "text-brand" },
+  { g: "shield", x: 6, y: 80, s: 36, dur: 23, delay: 4 },
   { g: "usb-c", x: 27, y: 6, s: 24, dur: 29, delay: 13, cls: "hidden sm:block" },
   { g: "power", x: 30, y: 84, s: 24, dur: 30, delay: 23 },
   { g: "coax", x: 38, y: 90, s: 26, dur: 27, delay: 6, cls: "hidden sm:block" },
@@ -149,7 +149,7 @@ const HERO_ICONS: { g: ConnectorGlyph; x: number; y: number; s: number; dur: num
   { g: "lc-fiber", x: 78, y: 20, s: 24, dur: 25, delay: 30, cls: "hidden sm:block" },
   { g: "badge", x: 71, y: 93, s: 24, dur: 25, delay: 19, cls: "hidden sm:block" },
   { g: "keypad", x: 84, y: 8, s: 28, dur: 30, delay: 7 },
-  { g: "tester", x: 96, y: 34, s: 30, dur: 22, delay: 14, cls: "text-brand" },
+  { g: "tester", x: 96, y: 34, s: 30, dur: 22, delay: 14 },
   { g: "dp", x: 88, y: 58, s: 24, dur: 34, delay: 12, cls: "hidden sm:block" },
   { g: "fan", x: 92, y: 84, s: 36, dur: 34, delay: 3 },
 ]
@@ -170,8 +170,11 @@ function HeroIconField() {
           className={cn("absolute", cls)}
           style={{ left: `${x}%`, top: `${y}%`, marginLeft: -s / 2, marginTop: -s / 2 }}
         >
+          {/* One colour for the whole field: text-brand, at the opacity below.
+              A mixed grey/amber field read as two unrelated things rather than
+              one piece of texture. */}
           <div
-            className={cn("hero-icon-drift opacity-[0.20] dark:opacity-[0.26]", !cls?.includes("text-brand") && "text-muted-foreground")}
+            className="hero-icon-drift text-brand opacity-[0.20] dark:opacity-[0.26]"
             style={{ width: s, height: s, animationDuration: `${dur}s`, animationDelay: `-${delay}s` }}
           >
             <Glyph g={g} className="size-full" />
@@ -329,7 +332,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
               className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               <CalendarDays className="size-4 sm:hidden" strokeWidth={2} />
-              <span className="hidden sm:inline">Plan</span>
+              <span className="hidden sm:inline">Study plan</span>
             </button>
             <button onClick={onOpenDashboard} data-testid="landing-progress" aria-label="Progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
