@@ -17,7 +17,7 @@ import { QotdPbq, QotdPbqFooter } from "@/components/QotdPbq"
 import { NewsletterSignup } from "@/components/NewsletterSignup"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowRight, ChartLine, Check, Plus, X } from "lucide-react"
+import { ArrowRight, CalendarDays, ChartLine, Check, Plus, X } from "lucide-react"
 import { ExamEmblem } from "@/components/exam-art"
 import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
@@ -135,16 +135,22 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
  */
 const HERO_ICONS: { g: ConnectorGlyph; x: number; y: number; s: number; dur: number; delay: number; cls?: string }[] = [
   { g: "rj45", x: 3, y: 14, s: 30, dur: 26, delay: 0 },
+  { g: "sata", x: 12, y: 26, s: 22, dur: 32, delay: 21, cls: "hidden lg:block" },
   { g: "multimeter", x: 9, y: 44, s: 24, dur: 31, delay: 9, cls: "hidden lg:block" },
+  { g: "molex", x: 17, y: 70, s: 26, dur: 24, delay: 17, cls: "hidden sm:block" },
   { g: "shield", x: 6, y: 80, s: 36, dur: 23, delay: 4, cls: "text-brand" },
   { g: "usb-c", x: 27, y: 6, s: 24, dur: 29, delay: 13, cls: "hidden sm:block" },
+  { g: "power", x: 30, y: 84, s: 24, dur: 30, delay: 23 },
   { g: "coax", x: 38, y: 90, s: 26, dur: 27, delay: 6, cls: "hidden sm:block" },
   { g: "lock", x: 50, y: 12, s: 22, dur: 24, delay: 16, cls: "hidden lg:block" },
+  { g: "crimper", x: 44, y: 46, s: 24, dur: 28, delay: 26, cls: "hidden lg:block" },
   { g: "punchdown", x: 55, y: 66, s: 24, dur: 33, delay: 2, cls: "hidden lg:block" },
   { g: "hdmi", x: 64, y: 4, s: 26, dur: 28, delay: 11, cls: "hidden sm:block" },
+  { g: "lc-fiber", x: 78, y: 20, s: 24, dur: 25, delay: 30, cls: "hidden sm:block" },
   { g: "badge", x: 71, y: 93, s: 24, dur: 25, delay: 19, cls: "hidden sm:block" },
   { g: "keypad", x: 84, y: 8, s: 28, dur: 30, delay: 7 },
   { g: "tester", x: 96, y: 34, s: 30, dur: 22, delay: 14, cls: "text-brand" },
+  { g: "dp", x: 88, y: 58, s: 24, dur: 34, delay: 12, cls: "hidden sm:block" },
   { g: "fan", x: 92, y: 84, s: 36, dur: 34, delay: 3 },
 ]
 
@@ -165,7 +171,7 @@ function HeroIconField() {
           style={{ left: `${x}%`, top: `${y}%`, marginLeft: -s / 2, marginTop: -s / 2 }}
         >
           <div
-            className={cn("hero-icon-drift opacity-[0.13] dark:opacity-[0.17]", !cls?.includes("text-brand") && "text-muted-foreground")}
+            className={cn("hero-icon-drift opacity-[0.20] dark:opacity-[0.26]", !cls?.includes("text-brand") && "text-muted-foreground")}
             style={{ width: s, height: s, animationDuration: `${dur}s`, animationDelay: `-${delay}s` }}
           >
             <Glyph g={g} className="size-full" />
@@ -316,6 +322,15 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
           </button>
           <div className="flex items-center gap-1 sm:gap-2">
             <SearchPalette onChooseExam={onChooseExam} onNavigate={onNavigate} onDrillTopic={onDrillTopic} />
+            <button
+              onClick={() => onNavigate("/plan")}
+              data-testid="landing-plan"
+              aria-label="Study plan"
+              className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <CalendarDays className="size-4 sm:hidden" strokeWidth={2} />
+              <span className="hidden sm:inline">Plan</span>
+            </button>
             <button onClick={onOpenDashboard} data-testid="landing-progress" aria-label="Progress" className="cursor-pointer rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               <ChartLine className="size-4 sm:hidden" strokeWidth={2} />
               <span className="hidden sm:inline">Progress</span>
