@@ -1,0 +1,20 @@
+# Line endings are LF everywhere: the repo moved from a Windows laptop
+# (core.autocrlf=true) to Ubuntu on 2026-09-05 and must check out identically
+# on both. Binary types listed explicitly so autodetection can never misfire.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.aab binary
+*.apk binary
+*.keystore binary
+*.p8 binary
+*.pyc binary
+*.pdf binary
+*.zip binary

@@ -1,0 +1,29 @@
+# Manual-only Linux smoke test. Workers Builds already proves `npm ci && npm run build`
+# on Linux for every push; this adds `npm test`, the mobile typecheck, and the handoff
+# script's syntax, and only runs when dispatched (gh workflow run linux-smoke.yml).
+name: linux-smoke
+on:
+  workflow_dispatch: {}
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: line endings are LF and the handoff script parses
+        run: |
+          test "$(git ls-files --eol | grep -c 'w/crlf' || true)" = 0
+          bash -n docs/handoff/setup-ubuntu.sh
+          ! grep -q $'\r' docs/handoff/setup-ubuntu.sh
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: mobile typecheck
+        working-directory: mobile
+        run: |
+          npm ci
+          npm run typecheck

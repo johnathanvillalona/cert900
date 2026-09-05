@@ -223,7 +223,8 @@ function esc(s: string): string {
 function page(key: GuideKey, meta: GuideMeta, body: string): string {
   const url = `${SITE_URL}${meta.path}`
   // Per-guide OG card if one has been rendered (public/og/<slug>.png via
-  // tools/gen-og-data.mts + scratchpad qa/og-guides.js). Falls back to the
+  // tools/gen-og-data.mts + an OG renderer; the original scratchpad renderer
+  // qa/og-guides.js was lost 2026-09-05, re-author on demand). Falls back to the
   // site-wide og.png from the template when the file is missing, so a
   // forgotten render degrades to a valid image, never a 404.
   const ogImage = existsSync(resolve(dist, "og", `${meta.path.slice(1)}.png`))

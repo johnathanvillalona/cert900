@@ -29,7 +29,7 @@
       },
       "ios": {
         "ascAppId": "6792990489",
-        "ascApiKeyPath": "C:/Users/user/secure/AuthKey_AAD22D8LBT.p8",
+        "ascApiKeyPath": "./AuthKey_AAD22D8LBT.p8",
         "ascApiKeyId": "AAD22D8LBT",
         "ascApiKeyIssuerId": "adf2c3f3-e5c5-475d-ae19-457322ec5c6f",
         "metadataPath": "./store.config.json"

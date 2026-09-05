@@ -78,6 +78,15 @@ URL 301s here; www redirects to apex via worker CANONICAL_HOST logic)
 **Repo**: private GitHub `johnathanvillalona/comptia-practice-trainer`. Commits
 must use the GitHub noreply email (set in local git config).
 
+**Dev machine (since 2026-09-05)**: Ubuntu 24.04, repo at `~/cert900` (moved off
+a Windows laptop; the stand-up runbook is `docs/handoff-ubuntu.md`, the script
+`docs/handoff/setup-ubuntu.sh`). Publishing keys live in `~/secure` (App Store
+Connect TEAM key `AuthKey_AAD22D8LBT.p8`, Play service account
+`grimoire-publishing-*.json`, see `docs/store-api-setup.md`); `mobile/eas.json`
+points at `./AuthKey_AAD22D8LBT.p8`, a gitignored symlink into `~/secure` - never
+copy a key into the tree. Local worker secrets: `.dev.vars` (gitignored). Line
+endings are pinned LF by `.gitattributes`; Node 24 via `.nvmrc`.
+
 ## Stack
 React 19 + Vite 7 + TypeScript + Tailwind v4 + shadcn (radix-vega style), deployed
 as a **Cloudflare Worker with static assets**: `worker/index.ts` serves `/api/*`
@@ -154,13 +163,14 @@ url.protocol (wrangler dev simulates the route host and would loop).
   in `src/lib/site.ts`; only placements: Results bottom, Dashboard bottom).
   `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL/ADS.
 - `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml,
-  IndexNow key file. Icons/og are RENDERED artifacts: regenerate with scratchpad
-  `qa/brand-render.js` (dial-9 mark, slate #151b29 + amber #f2b27c). Brand mark
-  = the "dial-9": a gauge arc that resolves into the 9 of 900 (the perfect
-  CompTIA score). Same path data lives in `public/favicon.svg`,
-  `src/components/Wordmark.tsx`, and the render scripts — keep all in sync.
-  Mobile icons: scratchpad `qa/mobile-icons.js` -> `mobile/assets/*.png`;
-  RN mark in `mobile/src/mark.tsx`. Wordmark = "cert900" with "900" in Geist Mono.
+  IndexNow key file. Icons/og are RENDERED artifacts (dial-9 mark, slate
+  #151b29 + amber #f2b27c); their scratchpad renderer `qa/brand-render.js` was
+  LOST in the 2026-09-05 temp cleanup, so re-author one from `public/favicon.svg`
+  when they next need regenerating. Brand mark = the "dial-9": a gauge arc that
+  resolves into the 9 of 900 (the perfect CompTIA score). Same path data lives
+  in `public/favicon.svg` and `src/components/Wordmark.tsx` — keep both in sync.
+  Mobile icons `mobile/assets/*.png` (renderer `qa/mobile-icons.js` also lost;
+  RN mark in `mobile/src/mark.tsx`). Wordmark = "cert900" with "900" in Geist Mono.
 - SEO guides: `src/screens/Guides.tsx` (3 pages: /comptia-a-plus-practice-test,
   /network-plus-practice-test, /comptia-pbq-practice; hook-free so they SSR).
   `tools/prerender.tsx` (runs in `npm run build` via tsx) writes static
@@ -204,7 +214,8 @@ url.protocol (wrangler dev simulates the route host and would loop).
   index.css: movement removed, opacity/color kept, spinners exempt. Never
   animate keyboard-triggered actions; UI motion stays under 300ms.
 - **Quiz keyboard map**: A-D/1-4 answer, Enter/ArrowRight next, ArrowLeft prev
-  (exam), F flag (exam). Hints under the quiz nav; drive-v3 tests these.
+  (exam), F flag (exam). Hints under the quiz nav (the drive-v3 QA script that
+  exercised these was lost with the scratchpad, see Conventions).
 
 ## Auth & sync
 - Optional Google sign-in (Better Auth). Anonymous = localStorage only.
@@ -223,15 +234,19 @@ url.protocol (wrangler dev simulates the route host and would loop).
   uncontrolled, so its internal selection persists into the next question and
   displays an answer the reducer never recorded (shipped bug, fixed cf147f9:
   match rows looked correctly answered but graded wrong). `src/screens/
-  pbq-bindings.test.ts` locks both invariants; `qa/match-repro.js` proves it
-  end-to-end by answering every match PBQ by visible label and asserting 100%.
+  pbq-bindings.test.ts` locks both invariants; the Playwright proof
+  `qa/match-repro.js` (answer every match PBQ by visible label, assert 100%)
+  was lost with the scratchpad on 2026-09-05 — re-author it on demand.
 - Content batch flow: edit `src/data/*.ts` → `npm test` →
   `node tools/content-lint.mjs` (must be 0 flags) → `node tools/linkcheck.js`
   (spot-check new slugs) → commit → push (CI deploys).
 - Professor Messer slugs: verify against the live course index before adding.
 - Progress shape is backward-compatible with v1; never break `comptia-trainer-v1`.
-- QA driver: `scratchpad qa/drive-v3.js` pattern (testids are the contract —
-  keep `data-testid` attributes stable).
+- QA drivers were Playwright scripts in the session scratchpad (`qa/drive-v3.js`,
+  `qa/match-repro.js`, `qa/og-guides.js`, `qa/brand-render.js`,
+  `qa/mobile-icons.js`); ALL were lost in the 2026-09-05 temp cleanup. Testids
+  remain the contract — keep `data-testid` attributes stable and re-author a
+  driver on demand.
 
 ## Deploy
 - `npx wrangler deploy` builds nothing — run `npm run build` first.

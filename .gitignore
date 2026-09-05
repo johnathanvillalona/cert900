@@ -28,3 +28,7 @@ tsconfig.tsbuildinfo
 *serviceaccount*.json
 google-play-*.json
 AuthKey_*.p8
+
+# Python bytecode from the ui-ux-pro-max skill scripts (was tracked by accident)
+__pycache__/
+*.pyc
