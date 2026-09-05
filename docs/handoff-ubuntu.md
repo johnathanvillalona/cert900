@@ -141,9 +141,9 @@ not rename them.
 ## 7. Cloudflare CI after the repo rename
 
 Workers Builds deploys on every push to `main` (build `npm ci && npm run build`, deploy
-`npx wrangler deploy`). The rename was probed with a docs-only push right after it; the
-outcome is recorded in `README-FIRST.md` on the drive and in Claude's
-`ubuntu-migration-2026-09-05.md` memory. If a push ever stops deploying: Cloudflare
+`npx wrangler deploy`). The rename was probed with a docs-only push right after it
+(c51ec75, 2026-09-05 18:41Z): Workers Builds fired and deployed normally, so the GitHub
+App follows the rename and nothing needed reconnecting. If a push ever stops deploying: Cloudflare
 dashboard, Workers & Pages, `comptia-practice-trainer`, Settings, Builds, disconnect and
 reconnect the repository as `johnathanvillalona/cert900` with the same build and deploy
 commands. Until then `npm run build && npx wrangler deploy` from `~/cert900` keeps

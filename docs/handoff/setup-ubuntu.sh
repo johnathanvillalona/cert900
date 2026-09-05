@@ -169,7 +169,7 @@ if want secrets; then
   git config --global user.email >/dev/null 2>&1 || run git config --global user.email "johnathanv16@gmail.com"
   run git config --global init.defaultBranch main
   run git config --global pull.rebase false
-  echo "keys in ~/secure:"; ls -l "$HOME/secure"
+  if [ -d "$HOME/secure" ]; then echo "keys in ~/secure:"; ls -l "$HOME/secure"; fi
 fi
 
 # ---------------------------------------------------------------- claude
@@ -217,7 +217,7 @@ JSON
   else
     echo "claude not on PATH yet: after installing it run   claude mcp add -s user -t http agentopus https://api.opus.pro/api/agent-mcp"
   fi
-  echo "restored into $P:"; ls "$P"
+  if [ -d "$P" ]; then echo "restored into $P:"; ls "$P"; fi
   echo "If Claude creates a DIFFERENT dir under ~/.claude/projects on first launch, re-run:"
   echo "  bash $HANDOFF/setup-ubuntu.sh --phase claude --dest <the path claude used>"
 fi
