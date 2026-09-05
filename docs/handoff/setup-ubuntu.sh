@@ -27,7 +27,7 @@ DRIVE="$SCRIPT_DIR"
 DEST=""
 PHASE=all
 DRY=0
-HANDOFF="$HOME/.cert900-handoff"
+HANDOFF="${CERT900_HANDOFF:-$HOME/.cert900-handoff}"
 NOREPLY="129530641+johnathanvillalona@users.noreply.github.com"
 SESSION_ID="2503b3e1-5d3d-4149-a12d-230bc62f53b2"
 ASC_KEY="AuthKey_AAD22D8LBT.p8"
@@ -108,7 +108,7 @@ if want repo; then
     run cp "$SCRIPT_PATH" "$HANDOFF/setup-ubuntu.sh"
     run find "$DRIVE/repo" -mindepth 1 -maxdepth 1 -exec mv -t "$DRIVE" {} +
     run rmdir "$DRIVE/repo"
-    if [ "$DRY" = 0 ]; then rm -f "$SCRIPT_PATH"; fi   # the running copy is safe to delete; re-run from $HANDOFF
+    if [ "$DRY" = 0 ]; then rm -f "$SCRIPT_PATH" || true; fi   # bash keeps the running copy open; re-run from $HANDOFF
     DRIVE="$HANDOFF"
     echo "this script now lives at $HANDOFF/setup-ubuntu.sh"
   else
