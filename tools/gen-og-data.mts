@@ -1,5 +1,6 @@
-// Emits the per-guide data the OG-image renderer consumes (scratchpad
-// qa/og-guides.js). Derived from GUIDE_META/EXAM_META so the cards can never
+// Emits the per-guide data the OG-image renderer consumes (the original
+// scratchpad renderer qa/og-guides.js was lost 2026-09-05; re-author one that
+// matches public/og/*.png). Derived from GUIDE_META/EXAM_META so the cards can never
 // drift from the live registry: rerun this, then the renderer, after adding
 // an exam. Run from repo root: npx tsx tools/gen-og-data.mts <outFile>
 import { writeFileSync } from "node:fs"

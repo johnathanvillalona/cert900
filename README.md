@@ -1,6 +1,6 @@
 # CompTIA Practice Trainer
 
-**Live at: https://comptia-practice-trainer.johnathanv16.workers.dev**
+**Live at: https://cert900.com**
 
 A free practice-exam platform for three CompTIA certifications:
 

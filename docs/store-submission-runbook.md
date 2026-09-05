@@ -1,7 +1,7 @@
 # cert900 mobile — store submission runbook
 
 Complete, ordered path to get the Expo app in [`mobile/`](../mobile) onto the **App
-Store** and **Google Play**, from Windows (no Mac). Verified against Apple, Google,
+Store** and **Google Play**, from Linux or Windows (no Mac). Verified against Apple, Google,
 and Expo docs (July 2026). Steps marked **(you)** need your accounts/credentials or a
 physical device and can't be scripted here; everything else is already done in the repo.
 
@@ -99,7 +99,7 @@ STALE and must be replaced). A **fresh production `.aab`** (§C) — the one und
 ---
 
 ## Phase A — run it on your phone first **(you)**
-```powershell
+```bash
 cd mobile
 npm install
 npm start
@@ -109,7 +109,7 @@ Open **Expo Go** (App Store / Play Store) and scan the QR. Confirm drills work a
 splash screen only shows in a real build, not Expo Go — that's expected.)
 
 ## Phase B — EAS one-time setup **(you)**
-```powershell
+```bash
 cd mobile
 npm install --global eas-cli      # or prefix every command with: npx eas-cli
 eas login                         # free Expo account
@@ -118,16 +118,16 @@ eas init                          # creates the EAS project + writes extra.eas.p
 ```
 **Commit the app.json change** `eas init` makes — the cloud builder reads the committed
 `projectId`, and a missing one fails the build even though it's present locally:
-```powershell
+```bash
 git add mobile/app.json ; git commit -m "eas: add projectId"
 ```
 
 ## Phase C — build the binaries **(you)**
-```powershell
+```bash
 # Android production bundle (.aab) — EAS offers to generate & store your keystore: say Yes, then BACK IT UP
 eas build --profile production --platform android
 
-# iOS production build (.ipa) — runs on Expo's macOS cloud from Windows.
+# iOS production build (.ipa) — runs on Expo's macOS cloud from any OS.
 # Prompts for Apple ID + 2FA the first time; EAS then auto-registers the bundle id and
 # creates/stores your distribution cert + provisioning profile.
 eas build --profile production --platform ios
@@ -235,7 +235,7 @@ tap fails. Set these **before** you submit for review, and before any public rel
   `com.cert900.app`, `aud` = `https://appleid.apple.com`, ≤6 month expiry). **It expires and must
   be regenerated on that cadence** — set a reminder.
 - Set both worker secrets, pasted (never printed):
-  ```powershell
+  ```bash
   npx wrangler secret put APPLE_CLIENT_ID     # com.cert900.app
   npx wrangler secret put APPLE_CLIENT_SECRET  # the ES256 JWT
   ```
@@ -252,7 +252,7 @@ it during the Phase C build), SKU e.g. `cert900-ios-001`. **App Information → 
 ### E3. Wire submit credentials, then submit to TestFlight
 Add to `mobile/eas.json` under `submit.production.ios`: `ascApiKeyPath`, `ascApiKeyIssuerId`,
 `ascApiKeyId` (from E1) and `ascAppId` (from E2). Then:
-```powershell
+```bash
 eas submit --profile production --platform ios --latest
 ```
 The build lands in **TestFlight** (Processing ~5–30 min). Add your own Apple ID as an
@@ -310,7 +310,7 @@ Capture on a phone or emulator/simulator running a **preview/production** build:
   5. The **ExamHome** review-misses tile (drill a few wrong answers first so it appears)
 - Use the captions from [`store-listing-copy.md`](./store-listing-copy.md).
 
-> Tip: iOS Simulator (needs a Mac) or a physical iPhone gives exact 6.9" pixels; on Windows,
+> Tip: iOS Simulator (needs a Mac) or a physical iPhone gives exact 6.9" pixels; without a Mac,
 > a physical iPhone 15/16 Pro Max screenshot is simplest. Android: any phone or the emulator.
 
 ---
@@ -324,7 +324,7 @@ Capture on a phone or emulator/simulator running a **preview/production** build:
 - Bump `version` in `app.json` per release; the production profile auto-increments build numbers.
 
 ## Command cheat-sheet
-```powershell
+```bash
 cd mobile
 eas login
 eas init                                                   # commit app.json after

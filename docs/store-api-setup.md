@@ -4,12 +4,12 @@ How to give this repo's tooling the same publishing access Codemagic already
 has, so store listings can be updated without opening either console.
 
 Two credentials, one per store. **Neither belongs in this repo.** Put them in a
-folder outside it (`C:\Users\user\keys\` or similar) and pass the path with
+folder outside it (`~/secure/`) and pass the path with
 `--key`. Both are live publishing credentials.
 
 ### Current status (verified 2026-07-28)
 
-Both credentials already exist in `C:\Users\user\secure` and **both work**:
+Both credentials already exist in `~/secure` on the Ubuntu machine (moved from the Windows laptop 2026-09-05) and **both work**:
 
 | Store | Credential | Status |
 |---|---|---|
