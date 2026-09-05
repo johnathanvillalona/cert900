@@ -75,7 +75,7 @@ links to its Professor Messer video.
 
 **Live**: https://cert900.com (Cloudflare Registrar, same account; workers.dev
 URL 301s here; www redirects to apex via worker CANONICAL_HOST logic)
-**Repo**: private GitHub `johnathanvillalona/comptia-practice-trainer`. Commits
+**Repo**: private GitHub `johnathanvillalona/cert900` (renamed from comptia-practice-trainer 2026-09-05; old URL redirects). Commits
 must use the GitHub noreply email (set in local git config).
 
 **Dev machine (since 2026-09-05)**: Ubuntu 24.04, repo at `~/cert900` (moved off
