@@ -63,7 +63,7 @@ chrome-devtools MCP additionally wants a real Chrome (`google-chrome-stable` .de
 |---|---|---|
 | prereqs | needs git/curl/rsync/python3 (prints the apt line and stops otherwise); installs Node 24 via nvm, GitHub CLI, Claude Code and eas-cli into `$HOME` when missing, no sudo | a system package is missing |
 | repo | verifies repo/ against `MANIFEST.sha256` (`.git/index` excluded) and claude-state/ + secure/ against `CLAUDE-STATE.sha256`, unpacks or copies, chmod 755/644 (`.dev.vars` 600), git config (`ignorecase false`, `autocrlf false`, `filemode true`, unset `symlinks`, noreply email), `git fsck`, then `git rm --cached -r . && git reset --hard` to rewrite the 92 CRLF working files as LF; an interrupted rewrite is detected and repaired on re-run | a manifest mismatch, an fsck failure, or `git status` not clean before/after |
-| secrets | re-verifies `CLAUDE-STATE.sha256`; `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists); origin switched to SSH when the key authenticates to GitHub, gh logged in with the laptop's token (`gh auth setup-git` if SSH does not), Expo session restored, fresh global git identity | the key symlink would not be ignored |
+| secrets | re-verifies `CLAUDE-STATE.sha256`; `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists); origin switched to SSH when the key authenticates to GitHub (gh logged in only if `secure/gh-token.txt` was provided; `gh auth setup-git` when SSH is refused), fresh global git identity | the key symlink would not be ignored |
 | claude | re-verifies `CLAUDE-STATE.sha256`; project key from the repo path (or `--project-key`), transcript + memory into `~/.claude/projects/<key>/`, settings.json (if absent), plan, skills + `~/.agents/skills` + symlinks, a Linux `settings.local.json`, `claude mcp add` agentopus; prints the transcript size and the last Windows refresh stamp | |
 | deps | `npm ci` (root and mobile), `npm test`, `npm run build` | tests or build fail |
 | verify | prints state and the interactive NEXT list | |
@@ -78,12 +78,15 @@ All 407 tracked files are mode 100644.
 
 ## 4. Logins
 
-The script does them: GitHub CLI with the laptop's token (`gh auth status` to confirm),
-git over SSH with the bundled registered key (or https through gh's credential helper if
-the key does not authenticate), the Expo session (`eas whoami`, owner `sorannex`), and
-wrangler's token (`npx wrangler whoami`; if it has expired, `npx wrangler login` opens a
-browser once). Only Claude's own login is interactive. `cd ~/cert900 && git pull` should
-be a no-op: the drive snapshot was taken after the last push.
+Git needs none: origin is switched to SSH with the bundled registered key (or, if that key
+is not accepted, gh's credential helper after `gh auth login`). eas needs none: the script
+and the docs use `EXPO_TOKEN` from `.dev.vars` (`EXPO_TOKEN=$(sed -n 's/^EXPO_TOKEN=//p'
+.dev.vars) eas whoami`; owner `sorannex`). Two remain optional browser steps: `gh auth login`
+for GitHub API features (`gh run`, `gh api`; if you drop the laptop's `gh auth token`
+output into `secure/gh-token.txt` before running the setup, it logs gh in for you), and
+`npx wrangler login` if the copied wrangler token has expired by your first deploy
+(`npx wrangler whoami` tells). `cd ~/cert900 && git pull` should be a no-op: the drive
+snapshot was taken after the last push.
 
 ## 5. First Claude session
 

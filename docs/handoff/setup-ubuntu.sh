@@ -241,7 +241,9 @@ if want secrets; then
       echo "git: SSH key not accepted by GitHub; origin stays https (gh's credential helper is set up below)"
     fi
     if need gh && [ -f "$DRIVE/secure/gh-token.txt" ] && ! gh auth status >/dev/null 2>&1; then
-      if gh auth login --with-token < "$DRIVE/secure/gh-token.txt" >/dev/null 2>&1; then echo "gh: logged in with the laptop's token"; else echo "gh: token login failed; run 'gh auth login' when you need the GitHub API"; fi
+      if gh auth login --with-token < "$DRIVE/secure/gh-token.txt" >/dev/null 2>&1; then echo "gh: logged in with the token from secure/gh-token.txt"; else echo "gh: token login failed; run 'gh auth login' when you need the GitHub API"; fi
+    elif need gh && ! gh auth status >/dev/null 2>&1; then
+      echo "gh: not logged in (git itself needs no login); run 'gh auth login' once if you use GitHub API features"
     fi
     if need gh && gh auth status >/dev/null 2>&1; then
       if [ "$ssh_ok" = 1 ]; then gh config set git_protocol ssh >/dev/null 2>&1 || true; else gh auth setup-git >/dev/null 2>&1 || true; fi
@@ -336,7 +338,11 @@ if want verify; then
   if [ -d "$DEST/.git" ]; then ( cd "$DEST" && echo "git: $(git status --porcelain | wc -l) dirty files, origin $(git remote get-url origin)" ); else echo "$DEST is not a repository yet (run --phase repo first)"; fi
   echo "node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing), gh $(gh --version 2>/dev/null | head -1 | cut -d' ' -f3 || echo missing)"
   if need gh; then gh auth status 2>&1 | grep -m1 -iE 'logged in|not logged' | sed 's/^ *//' || true; fi
-  if need eas && [ "$DRY" = 0 ]; then echo "eas: $(eas whoami 2>/dev/null | head -1 || true)"; fi
+  if need eas && [ "$DRY" = 0 ]; then
+    # eas reads EXPO_TOKEN; .dev.vars carries the account token, so no `eas login` is needed.
+    tok="$(sed -n 's/^EXPO_TOKEN=//p' "$DEST/.dev.vars" 2>/dev/null | head -1)"
+    echo "eas: $(EXPO_TOKEN="$tok" eas whoami 2>/dev/null | head -1 || true) (via EXPO_TOKEN from .dev.vars)"
+  fi
   if [ -d "$DEST/node_modules" ] && [ "$DRY" = 0 ]; then ( cd "$DEST" && echo "wrangler: $(timeout 90 npx wrangler whoami 2>/dev/null | grep -m1 -oE 'associated with[^.]*|not authenticated' || echo 'token expired; run npx wrangler login before the first deploy')" ); fi
   KEY="${PROJECT_KEY:-$(printf '%s' "$DEST" | sed 's/[^A-Za-z0-9]/-/g')}"
   if [ -d "$HOME/.claude/projects/$KEY" ]; then echo "claude project dir: $(ls "$HOME/.claude/projects/$KEY" | tr '\n' ' ')"; fi
