@@ -336,7 +336,7 @@ if want verify; then
   if [ -d "$DEST/.git" ]; then ( cd "$DEST" && echo "git: $(git status --porcelain | wc -l) dirty files, origin $(git remote get-url origin)" ); else echo "$DEST is not a repository yet (run --phase repo first)"; fi
   echo "node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing), gh $(gh --version 2>/dev/null | head -1 | cut -d' ' -f3 || echo missing)"
   if need gh; then gh auth status 2>&1 | grep -m1 -iE 'logged in|not logged' | sed 's/^ *//' || true; fi
-  if need eas && [ "$DRY" = 0 ]; then echo "eas: $(eas whoami 2>/dev/null || echo 'not logged in (eas login)')"; fi
+  if need eas && [ "$DRY" = 0 ]; then echo "eas: $(eas whoami 2>/dev/null | head -1 || true)"; fi
   if [ -d "$DEST/node_modules" ] && [ "$DRY" = 0 ]; then ( cd "$DEST" && echo "wrangler: $(timeout 90 npx wrangler whoami 2>/dev/null | grep -m1 -oE 'associated with[^.]*|not authenticated' || echo 'token expired; run npx wrangler login before the first deploy')" ); fi
   KEY="${PROJECT_KEY:-$(printf '%s' "$DEST" | sed 's/[^A-Za-z0-9]/-/g')}"
   if [ -d "$HOME/.claude/projects/$KEY" ]; then echo "claude project dir: $(ls "$HOME/.claude/projects/$KEY" | tr '\n' ' ')"; fi
