@@ -68,8 +68,12 @@ verify_state() {
 }
 # copy-if-absent. Not "cp -n": coreutils 9.2-9.4 (Ubuntu 24.04 ships 9.4) exit 1 when it skips.
 sync_in() { run rsync -rlt --chmod=D755,F644 --ignore-existing "$1" "$2"; }
+put()  { run cp "$1" "$2"; run chmod "$3" "$2"; }      # put SRC DST MODE
+mkd()  { run mkdir -p "$1"; run chmod "$2" "$1"; }     # mkd DIR MODE
 
-# Mode: in place (the bundle already sits where the repo should live) or copy.
+# Mode: in place (the bundle already sits where the repo should live) or copy. After an
+# in-place unpack the handoff dir remembers the repo path (dest.txt) so re-runs need no --dest.
+if [ -z "$DEST" ] && [ -f "$SCRIPT_DIR/dest.txt" ]; then DEST="$(head -1 "$SCRIPT_DIR/dest.txt")"; fi
 if [ -z "$DEST" ]; then
   if [ -d "$DRIVE/repo/.git" ] && ! on_removable "$DRIVE"; then DEST="$DRIVE"; else DEST="$HOME/cert900"; fi
 fi
@@ -133,7 +137,8 @@ if want repo; then
     rmdir "$DRIVE/repo"
     rm -f "$SCRIPT_PATH" || true   # bash keeps the running copy open; re-run from $HANDOFF
     DRIVE="$HANDOFF"
-    echo "this script now lives at $HANDOFF/setup-ubuntu.sh"
+    printf '%s\n' "$DEST" > "$HANDOFF/dest.txt"
+    echo "this script now lives at $HANDOFF/setup-ubuntu.sh (it remembers the repo path in dest.txt)"
   else
     [ -d "$DRIVE/repo/.git" ] || die "no repo/.git under $DRIVE"
     log "copy repo/ -> $DEST"
@@ -179,26 +184,26 @@ if want secrets; then
   log "secrets -> ~/secure, .dev.vars, eas key symlink, wrangler, ssh, git identity"
   [ -d "$DRIVE/secure" ] || die "no secure/ under $DRIVE (after an in-place unpack it is $HANDOFF/secure)"
   if [ "$DRY" = 0 ]; then verify_state; fi
-  run install -d -m 700 "$HOME/secure"
+  mkd "$HOME/secure" 700
   for f in "$DRIVE"/secure/*; do
     [ -f "$f" ] || continue
     b="$(basename "$f")"
     case "$b" in wrangler-default.toml|dev.vars) continue ;; esac
-    if [ ! -e "$HOME/secure/$b" ]; then run install -m 600 "$f" "$HOME/secure/$b"; fi
+    if [ ! -e "$HOME/secure/$b" ]; then put "$f" "$HOME/secure/$b" 600; fi
   done
-  if [ ! -f "$DEST/.dev.vars" ] && [ -f "$DRIVE/secure/dev.vars" ]; then run install -m 600 "$DRIVE/secure/dev.vars" "$DEST/.dev.vars"; fi
-  [ -f "$DEST/.dev.vars" ] && run chmod 600 "$DEST/.dev.vars"
+  if [ ! -f "$DEST/.dev.vars" ] && [ -f "$DRIVE/secure/dev.vars" ]; then put "$DRIVE/secure/dev.vars" "$DEST/.dev.vars" 600; fi
+  if [ -f "$DEST/.dev.vars" ]; then run chmod 600 "$DEST/.dev.vars"; fi
   run ln -sfn "$HOME/secure/$ASC_KEY" "$DEST/mobile/$ASC_KEY"
   if [ "$DRY" = 0 ]; then ( cd "$DEST" && git check-ignore -q "mobile/$ASC_KEY" ) || die "mobile/$ASC_KEY is NOT gitignored; refusing to leave a key in the tree"; fi
   W="$HOME/.config/.wrangler/config"
   if [ ! -f "$W/default.toml" ] && [ -f "$DRIVE/secure/wrangler-default.toml" ]; then
-    run install -d -m 700 "$W"; run install -m 600 "$DRIVE/secure/wrangler-default.toml" "$W/default.toml"
+    mkd "$W" 700; put "$DRIVE/secure/wrangler-default.toml" "$W/default.toml" 600
   fi
   if [ ! -f "$HOME/.ssh/id_ed25519" ] && [ -f "$DRIVE/secure/ssh/id_ed25519" ]; then
-    run install -d -m 700 "$HOME/.ssh"
-    run install -m 600 "$DRIVE/secure/ssh/id_ed25519" "$HOME/.ssh/id_ed25519"
-    run install -m 644 "$DRIVE/secure/ssh/id_ed25519.pub" "$HOME/.ssh/id_ed25519.pub"
-    if [ -f "$DRIVE/secure/ssh/known_hosts" ] && [ ! -f "$HOME/.ssh/known_hosts" ]; then run install -m 644 "$DRIVE/secure/ssh/known_hosts" "$HOME/.ssh/known_hosts"; fi
+    mkd "$HOME/.ssh" 700
+    put "$DRIVE/secure/ssh/id_ed25519" "$HOME/.ssh/id_ed25519" 600
+    put "$DRIVE/secure/ssh/id_ed25519.pub" "$HOME/.ssh/id_ed25519.pub" 644
+    if [ -f "$DRIVE/secure/ssh/known_hosts" ] && [ ! -f "$HOME/.ssh/known_hosts" ]; then put "$DRIVE/secure/ssh/known_hosts" "$HOME/.ssh/known_hosts" 644; fi
   fi
   # Fresh global identity. The Windows ~/.gitconfig is deliberately NOT carried over
   # (git-lfs filters marked required, Windows-only editor and credential helpers).
@@ -220,7 +225,7 @@ if want claude; then
   run mkdir -p "$P" "$HOME/.claude/plans" "$HOME/.claude/skills" "$HOME/.agents/skills"
   sync_in "$DRIVE/claude-state/project/" "$P/"
   if [ ! -f "$HOME/.claude/settings.json" ]; then
-    run install -m 600 "$DRIVE/claude-state/settings.json" "$HOME/.claude/settings.json"
+    put "$DRIVE/claude-state/settings.json" "$HOME/.claude/settings.json" 600
   elif ! diff -q "$DRIVE/claude-state/settings.json" "$HOME/.claude/settings.json" >/dev/null; then
     echo "~/.claude/settings.json already exists and differs from the bundled one; merge by hand:"; diff "$DRIVE/claude-state/settings.json" "$HOME/.claude/settings.json" || true
   fi
@@ -269,20 +274,24 @@ fi
 
 # ---------------------------------------------------------------- deps
 if want deps; then
-  cd "$DEST"
-  log "npm ci (root)";   run npm ci
-  log "npm ci (mobile)"; ( cd mobile && run npm ci )
-  log "npm test";        run npm test
-  log "npm run build";   run npm run build
+  if [ "$DRY" = 1 ]; then
+    echo "[dry-run] deps: npm ci (root and mobile), npm test, npm run build in $DEST"
+  else
+    cd "$DEST"
+    log "npm ci (root)";   npm ci
+    log "npm ci (mobile)"; ( cd mobile && npm ci )
+    log "npm test";        npm test
+    log "npm run build";   npm run build
+  fi
   echo "Playwright/chrome-devtools MCP browsers (optional, needs sudo once):"
   echo "  sudo npx playwright install-deps chromium && npx playwright install chromium"
 fi
 
 # ---------------------------------------------------------------- verify
 if want verify; then
-  cd "$DEST"
   log "state"
-  git status --short; git remote -v; echo "node $(node -v), npm $(npm -v)"
+  if [ -d "$DEST/.git" ]; then ( cd "$DEST" && git status --short && git remote -v ); else echo "$DEST is not a repository yet (run --phase repo first)"; fi
+  echo "node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing)"
   KEY="${PROJECT_KEY:-$(printf '%s' "$DEST" | sed 's/[^A-Za-z0-9]/-/g')}"
   if [ -d "$HOME/.claude/projects/$KEY" ]; then ls "$HOME/.claude/projects/$KEY"; fi
   cat <<EOF
