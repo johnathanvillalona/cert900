@@ -14,6 +14,8 @@ cert900/
   README-FIRST.md            short version of this file
   setup-ubuntu.sh            this repo's docs/handoff/setup-ubuntu.sh, LF, ready to run
   refresh-claude-state.cmd   WINDOWS ONLY: re-mirrors the final transcript after /exit
+  refresh-claude-state.ps1   the script the .cmd runs (also refreshes the wrangler token copy)
+  STATE-REFRESHED.txt        stamp written by that refresh (when; transcript size)
   repo/                      the whole working tree incl. .git and .dev.vars
                              (no node_modules, dist, .wrangler; the .aab is included)
   claude-state/              ~/.claude/projects/<project>/ (transcript, subagents, memory/),
@@ -36,7 +38,7 @@ home directory so it is `~/cert900`, then:
 bash ~/cert900/setup-ubuntu.sh
 ```
 
-It verifies the copy against `MANIFEST.sha256`, then unpacks in place: `repo/*` moves up
+It verifies the copy against both manifests, then unpacks in place: `repo/*` moves up
 so `~/cert900` *is* the repository, `claude-state/` and `secure/` are installed to their
 homes, and the handoff files (including the script) move to `~/.cert900-handoff/`.
 
@@ -60,7 +62,7 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
 sudo apt update && sudo apt install -y gh
 curl -fsSL https://claude.ai/install.sh | bash      # Claude Code; run `claude` once and log in to the subscription
-npm i -g eas-cli                                    # Expo builds/submits
+sudo npm i -g eas-cli                               # Expo builds/submits (NodeSource's npm prefix is /usr)
 ```
 
 Optional, for the Playwright and chrome-devtools MCP servers and any QA driver:
@@ -74,14 +76,14 @@ chrome-devtools MCP additionally wants a real Chrome (`google-chrome-stable` .de
 | phase | does | aborts when |
 |---|---|---|
 | prereqs | checks git/node>=22/npm/gh/python3/curl/rsync, prints installs | something is missing |
-| repo | manifest verify, unpack or copy, chmod 755/644, git config (`ignorecase false`, `autocrlf false`, `filemode true`, unset `symlinks`, noreply email), `git fsck`, then `git rm --cached -r . && git reset --hard` to rewrite the 93 CRLF working files as LF | manifest mismatch, or `git status` not clean before/after |
-| secrets | `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists), fresh global git identity | the key symlink would not be ignored |
-| claude | project key from the repo path, transcript + memory into `~/.claude/projects/<key>/`, settings.json (if absent), plan, skills + `~/.agents/skills` + symlinks, a Linux `settings.local.json`, `claude mcp add` agentopus | |
+| repo | verifies repo/ against `MANIFEST.sha256` (`.git/index` excluded) and claude-state/ + secure/ against `CLAUDE-STATE.sha256`, unpacks or copies, chmod 755/644 (`.dev.vars` 600), git config (`ignorecase false`, `autocrlf false`, `filemode true`, unset `symlinks`, noreply email), `git fsck`, then `git rm --cached -r . && git reset --hard` to rewrite the 92 CRLF working files as LF; an interrupted rewrite is detected and repaired on re-run | a manifest mismatch, an fsck failure, or `git status` not clean before/after |
+| secrets | re-verifies `CLAUDE-STATE.sha256`; `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists), fresh global git identity | the key symlink would not be ignored |
+| claude | re-verifies `CLAUDE-STATE.sha256`; project key from the repo path (or `--project-key`), transcript + memory into `~/.claude/projects/<key>/`, settings.json (if absent), plan, skills + `~/.agents/skills` + symlinks, a Linux `settings.local.json`, `claude mcp add` agentopus; prints the transcript size and the last Windows refresh stamp | |
 | deps | `npm ci` (root and mobile), `npm test`, `npm run build` | tests or build fail |
 | verify | prints state and the interactive NEXT list | |
 
-Why the line-ending rewrite: the Windows checkout had `core.autocrlf=true`, so 93 tracked
-files are CRLF on disk while the index is LF. `.gitattributes` (`* text=auto eol=lf`,
+Why the line-ending rewrite: the Windows checkout had `core.autocrlf=true`, so 92 tracked
+files (plus 4 mixed) are CRLF on disk while the index is LF. `.gitattributes` (`* text=auto eol=lf`,
 committed 2026-09-05) keeps the tree quiet either way, but `git reset --hard` alone would
 not touch them (git already considers them clean), hence the `rm --cached` first.
 
@@ -92,7 +94,7 @@ All 407 tracked files are mode 100644.
 
 ```bash
 gh auth login && gh auth setup-git && (cd ~/cert900 && git pull)   # origin -> johnathanvillalona/cert900 (renamed 2026-09-05)
-npx wrangler whoami   # the copied token usually works; otherwise: npx wrangler login
+npx wrangler whoami   # the copied token is usually expired by now; if so: npx wrangler login
 eas login             # Expo owner: sorannex
 ```
 
@@ -112,8 +114,9 @@ Log in to the subscription, accept the trust prompt, then `/resume` and pick the
 `/plugin install stripe@claude-plugins-official`, which `settings.json` already enables.
 
 If Claude created a different directory under `~/.claude/projects/` than the one the script
-filled (symlinked home, different folder), re-run `bash ~/.cert900-handoff/setup-ubuntu.sh
---phase claude --dest <the path claude shows>`.
+filled (symlinked home, different folder), find it with `ls -dt ~/.claude/projects/*/ | head -1`
+and re-run `bash ~/.cert900-handoff/setup-ubuntu.sh --phase claude --project-key <that
+directory's basename>` (`--dest` is the repository path, never the projects entry).
 
 ## 6. Where things live now
 
@@ -123,7 +126,7 @@ filled (symlinked home, different folder), re-run `bash ~/.cert900-handoff/setup
 | GitHub | `johnathanvillalona/comptia-practice-trainer` | `johnathanvillalona/cert900` (renamed; old URL redirects) |
 | App Store Connect team key | `C:\Users\user\secure\AuthKey_AAD22D8LBT.p8` | `~/secure/AuthKey_AAD22D8LBT.p8`, issuer `adf2c3f3-e5c5-475d-ae19-457322ec5c6f` |
 | Play service account | `C:\Users\user\secure\grimoire-publishing-3e2e8396afec.json` | `~/secure/grimoire-publishing-3e2e8396afec.json` |
-| second Apple key (unidentified) | `C:\Users\user\Documents\AuthKey_78NC6JJDLV.p8` | `~/secure/AuthKey_78NC6JJDLV.p8` |
+| Sign in with Apple key (mints the worker secret `APPLE_CLIENT_SECRET`; that JWT expires 2027-01-17, see memory `mobile-submission-state.md`) | `C:\Users\user\Documents\AuthKey_78NC6JJDLV.p8` | `~/secure/AuthKey_78NC6JJDLV.p8` |
 | grimoire-era files (other app) | `~/secure/*` | `~/secure/*` (keystore, Codemagic token, iOS dist key) |
 | `eas submit` key path | absolute Windows path in `mobile/eas.json` | `./AuthKey_AAD22D8LBT.p8`, a gitignored symlink into `~/secure` |
 | local worker secrets | `.dev.vars` | `.dev.vars` (600) |
@@ -142,7 +145,7 @@ not rename them.
 
 Workers Builds deploys on every push to `main` (build `npm ci && npm run build`, deploy
 `npx wrangler deploy`). The rename was probed with a docs-only push right after it
-(c51ec75, 2026-09-05 18:41Z): Workers Builds fired and deployed normally, so the GitHub
+(c51ec75, pushed 2026-09-05 18:40Z): Workers Builds fired and deployed at 18:42Z, so the GitHub
 App follows the rename and nothing needed reconnecting. If a push ever stops deploying: Cloudflare
 dashboard, Workers & Pages, `comptia-practice-trainer`, Settings, Builds, disconnect and
 reconnect the repository as `johnathanvillalona/cert900` with the same build and deploy
@@ -153,9 +156,13 @@ production current.
 
 - **manifest mismatch**: a file changed in transit. Re-copy `cert900/` from the drive (the
   drive copy was verified byte for byte, see `VERIFY-REPORT.txt`) and re-run.
-- **dirty tree after copy**: `git status --short` names the files. Modes (0777 from NTFS)
-  are the usual cause; the script chmods first, so anything left is real. Do not
-  `reset --hard` blindly; look first.
+- **dirty tree after copy**: `git status --short` names the files. Nothing uncommitted
+  exists in this copy, so if the list is only mode or line-ending noise, `git reset --hard`
+  and re-run `--phase repo`. An interrupted LF rewrite (every file listed as deleted) is
+  detected and repaired by the script itself on re-run.
+- **manifest mismatch only under `.git/`**: something ran git inside `repo/` before the
+  setup (an editor scanning for repositories, for instance). `.git/index` is already
+  excluded from the check; any other `.git/` mismatch means re-copy.
 - **`npm ci` complains about optional dependencies** (rollup/lightningcss/esbuild native
   binaries): `rm -rf node_modules && npm ci`. Both lockfiles already list the Linux builds.
 - **Wrong Claude project dir**: see section 5.

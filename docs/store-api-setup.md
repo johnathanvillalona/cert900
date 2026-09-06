@@ -9,7 +9,9 @@ folder outside it (`~/secure/`) and pass the path with
 
 ### Current status (verified 2026-07-28)
 
-Both credentials already exist in `~/secure` on the Ubuntu machine (moved from the Windows laptop 2026-09-05) and **both work**:
+Both credentials live in `~/secure` (installed there by `docs/handoff/setup-ubuntu.sh`
+when the workspace moved to Ubuntu on 2026-09-05; verified working on the laptop on
+2026-07-28, re-verify with the dry-runs in `docs/handoff-ubuntu.md` section 6):
 
 | Store | Credential | Status |
 |---|---|---|
@@ -106,7 +108,7 @@ Notes that matter:
 ### 2. Use it
 
 ```bash
-export ASC_ISSUER_ID=57246542-96fe-1a63-e053-0824d011072a
+export ASC_ISSUER_ID=adf2c3f3-e5c5-475d-ae19-457322ec5c6f   # this team's issuer id (also in mobile/eas.json)
 node tools/appstore-listing.mjs --key /path/to/AuthKey_ABCD123456.p8
 node tools/appstore-listing.mjs --key /path/to/AuthKey_ABCD123456.p8 --commit
 ```

@@ -1,5 +1,13 @@
 # cert900 mobile — store submission runbook
 
+> **Status note (2026-09-05):** this runbook was written for the seven-exam app in July
+> 2026 and has not been re-walked since the platform grew to eleven exams. Exam counts,
+> the "fresh screenshots" claim in Phase F, and checklist items 11 and 14 are stale: the
+> App Store Connect key and the Play service account exist and work (see
+> `store-api-setup.md`), `eas.json` already carries the submit credentials, the Play
+> listing is published, and iOS v1.0 was submitted. Treat the store-console steps as a
+> reference and Claude's `resume-ledger` memory as the record of what is done.
+
 Complete, ordered path to get the Expo app in [`mobile/`](../mobile) onto the **App
 Store** and **Google Play**, from Linux or Windows (no Mac). Verified against Apple, Google,
 and Expo docs (July 2026). Steps marked **(you)** need your accounts/credentials or a
