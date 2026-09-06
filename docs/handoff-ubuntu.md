@@ -27,43 +27,29 @@ cert900/
   VERIFY-REPORT.txt          the drive-side read-back that ran after the copy
 ```
 
-## 1. Choose how to run the setup
+## 1. Run the setup (three steps; everything else is automatic)
 
-Both end with `~/cert900` as the repo root and Claude's project key pointing at it.
+1. Drag the `cert900` folder from the drive into your home directory (`~/cert900`).
+2. Open a terminal there and run `claude` (if the machine lacks Claude Code:
+   `curl -fsSL https://claude.ai/install.sh | bash`, then a new terminal). Log in and
+   accept the trust prompt.
+3. Claude reads the bundle's `CLAUDE.md` and runs `bash setup-ubuntu.sh` itself. When it
+   reports `SETUP-COMPLETE`, exit and run `claude` again: the repository's own CLAUDE.md
+   and memory load, and `/resume` lists the 2026-09-05 session.
 
-**A. Drag and drop (the intended path).** Copy the `cert900` folder from the drive to your
-home directory so it is `~/cert900`, then:
+`bash ~/cert900/setup-ubuntu.sh` from a terminal is the same thing. Run straight from the
+drive mount (`bash "/media/$USER/John Villa/cert900/setup-ubuntu.sh"`) it copies `repo/`
+to `~/cert900` instead of unpacking in place; both end with `~/cert900` as the repo root
+and Claude's project key pointing at it.
 
-```bash
-bash ~/cert900/setup-ubuntu.sh
-```
+## 2. System packages
 
-It verifies the copy against both manifests, then unpacks in place: `repo/*` moves up
-so `~/cert900` *is* the repository, `claude-state/` and `secure/` are installed to their
-homes, and the handoff files (including the script) move to `~/.cert900-handoff/`.
-
-**B. Straight from the drive.**
-
-```bash
-bash "/media/$USER/John Villa/cert900/setup-ubuntu.sh"        # copies repo/ to ~/cert900
-```
-
-Or open Claude Code in the dragged folder and say: *read README-FIRST.md and run the setup.*
-
-## 2. System installs (once)
-
-The script checks for these and prints the same commands if anything is missing.
-
-```bash
-sudo apt update && sudo apt install -y git curl rsync python3 build-essential
-curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash - && sudo apt install -y nodejs   # Node 24 (apt's is 18)
-sudo mkdir -p -m 755 /etc/apt/keyrings
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
-sudo apt update && sudo apt install -y gh
-curl -fsSL https://claude.ai/install.sh | bash      # Claude Code; run `claude` once and log in to the subscription
-sudo npm i -g eas-cli                               # Expo builds/submits (NodeSource's npm prefix is /usr)
-```
+Ubuntu Desktop already ships curl, rsync and python3; git usually needs
+`sudo apt install -y git`. That is the only sudo the setup can ask for: it prints the exact
+line and stops if any of the four is missing. Node 24 (nvm, into `~/.nvm`), GitHub CLI
+(release tarball into `~/.local/bin`), Claude Code and eas-cli are installed by the script
+itself, without sudo, when they are missing. The GitHub Actions job
+`handoff-prereqs-from-scratch` proves that path on a runner with node and gh removed.
 
 Optional, for the Playwright and chrome-devtools MCP servers and any QA driver:
 `sudo npx playwright install-deps chromium && npx playwright install chromium`. The
@@ -75,9 +61,9 @@ chrome-devtools MCP additionally wants a real Chrome (`google-chrome-stable` .de
 
 | phase | does | aborts when |
 |---|---|---|
-| prereqs | checks git/node>=22/npm/gh/python3/curl/rsync, prints installs | something is missing |
+| prereqs | needs git/curl/rsync/python3 (prints the apt line and stops otherwise); installs Node 24 via nvm, GitHub CLI, Claude Code and eas-cli into `$HOME` when missing, no sudo | a system package is missing |
 | repo | verifies repo/ against `MANIFEST.sha256` (`.git/index` excluded) and claude-state/ + secure/ against `CLAUDE-STATE.sha256`, unpacks or copies, chmod 755/644 (`.dev.vars` 600), git config (`ignorecase false`, `autocrlf false`, `filemode true`, unset `symlinks`, noreply email), `git fsck`, then `git rm --cached -r . && git reset --hard` to rewrite the 92 CRLF working files as LF; an interrupted rewrite is detected and repaired on re-run | a manifest mismatch, an fsck failure, or `git status` not clean before/after |
-| secrets | re-verifies `CLAUDE-STATE.sha256`; `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists), fresh global git identity | the key symlink would not be ignored |
+| secrets | re-verifies `CLAUDE-STATE.sha256`; `~/secure` 700/600, `.dev.vars` 600, `mobile/AuthKey_AAD22D8LBT.p8 -> ~/secure/...` symlink (asserted gitignored), wrangler token, ssh key (only if none exists); origin switched to SSH when the key authenticates to GitHub, gh logged in with the laptop's token (`gh auth setup-git` if SSH does not), Expo session restored, fresh global git identity | the key symlink would not be ignored |
 | claude | re-verifies `CLAUDE-STATE.sha256`; project key from the repo path (or `--project-key`), transcript + memory into `~/.claude/projects/<key>/`, settings.json (if absent), plan, skills + `~/.agents/skills` + symlinks, a Linux `settings.local.json`, `claude mcp add` agentopus; prints the transcript size and the last Windows refresh stamp | |
 | deps | `npm ci` (root and mobile), `npm test`, `npm run build` | tests or build fail |
 | verify | prints state and the interactive NEXT list | |
@@ -90,15 +76,14 @@ not touch them (git already considers them clean), hence the `rm --cached` first
 Why `filemode=true` only after a chmod pass: files copied off an NTFS mount arrive 0777.
 All 407 tracked files are mode 100644.
 
-## 4. Logins (interactive, after the script)
+## 4. Logins
 
-```bash
-gh auth login && gh auth setup-git && (cd ~/cert900 && git pull)   # origin -> johnathanvillalona/cert900 (renamed 2026-09-05)
-npx wrangler whoami   # the copied token is usually expired by now; if so: npx wrangler login
-eas login             # Expo owner: sorannex
-```
-
-`git pull` should be a no-op: the drive snapshot was taken after the last push.
+The script does them: GitHub CLI with the laptop's token (`gh auth status` to confirm),
+git over SSH with the bundled registered key (or https through gh's credential helper if
+the key does not authenticate), the Expo session (`eas whoami`, owner `sorannex`), and
+wrangler's token (`npx wrangler whoami`; if it has expired, `npx wrangler login` opens a
+browser once). Only Claude's own login is interactive. `cd ~/cert900 && git pull` should
+be a no-op: the drive snapshot was taken after the last push.
 
 ## 5. First Claude session
 
@@ -123,7 +108,7 @@ directory's basename>` (`--dest` is the repository path, never the projects entr
 | thing | Windows | Ubuntu |
 |---|---|---|
 | repo | `C:\Users\user\Desktop\(CLAUDE) Comptia practice exam` | `~/cert900` |
-| GitHub | `johnathanvillalona/comptia-practice-trainer` | `johnathanvillalona/cert900` (renamed; old URL redirects) |
+| GitHub | `johnathanvillalona/comptia-practice-trainer` (https) | `johnathanvillalona/cert900` (renamed; old URL redirects; origin over SSH) |
 | App Store Connect team key | `C:\Users\user\secure\AuthKey_AAD22D8LBT.p8` | `~/secure/AuthKey_AAD22D8LBT.p8`, issuer `adf2c3f3-e5c5-475d-ae19-457322ec5c6f` |
 | Play service account | `C:\Users\user\secure\grimoire-publishing-3e2e8396afec.json` | `~/secure/grimoire-publishing-3e2e8396afec.json` |
 | Sign in with Apple key (mints the worker secret `APPLE_CLIENT_SECRET`; that JWT expires 2027-01-17, see memory `mobile-submission-state.md`) | `C:\Users\user\Documents\AuthKey_78NC6JJDLV.p8` | `~/secure/AuthKey_78NC6JJDLV.p8` |

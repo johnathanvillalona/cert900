@@ -27,3 +27,22 @@ jobs:
         run: |
           npm ci
           npm run typecheck
+  # The handoff script must be able to install Node 24, GitHub CLI, Claude Code and
+  # eas-cli by itself (no sudo). Hide the runner's node and gh, then run its prereqs phase.
+  handoff-prereqs-from-scratch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: remove the runner's node and gh
+        run: |
+          for b in node npm npx corepack gh; do p="$(command -v "$b" || true)"; if [ -n "$p" ]; then sudo rm -f "$p"; fi; done
+          ! command -v node
+          ! command -v gh
+      - name: prereqs phase installs them into $HOME
+        run: bash docs/handoff/setup-ubuntu.sh --phase prereqs --dest "$PWD"
+      - name: assert
+        run: |
+          test -x "$HOME/.local/bin/gh" && "$HOME/.local/bin/gh" --version | head -1
+          . "$HOME/.nvm/nvm.sh" && node -v | grep -q '^v24' && npm -v && command -v eas
+          "$HOME/.local/bin/claude" --version

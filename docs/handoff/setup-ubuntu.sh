@@ -15,12 +15,15 @@
 #   MANIFEST.sha256  every file under repo/, hashed on the source machine
 #
 # Two ways to run it:
-#   1. Drag the whole cert900 folder to ~/cert900, then:  bash ~/cert900/setup-ubuntu.sh
+#   1. Drag the whole cert900 folder to ~/cert900, open `claude` there (the bundle's
+#      CLAUDE.md makes it run this script), or run:  bash ~/cert900/setup-ubuntu.sh
 #      It unpacks IN PLACE: ~/cert900 becomes the repo root, state/secrets move to their
 #      homes, and the handoff files (this script included) move to ~/.cert900-handoff/.
 #   2. Run it straight from the drive:  bash "/media/$USER/John Villa/cert900/setup-ubuntu.sh"
 #      It copies repo/ to --dest (default ~/cert900) and leaves the drive untouched.
-# Every phase is idempotent. Re-run one with --phase; nothing inside needs sudo.
+# Non-interactive and idempotent. Re-run one phase with --phase. Nothing inside needs sudo:
+# Node 24 (nvm), GitHub CLI, Claude Code and eas-cli are installed into $HOME when missing;
+# only git/curl/rsync/python3 are left to apt (it prints the line and stops if one is absent).
 set -euo pipefail
 
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
@@ -87,31 +90,49 @@ echo "phase:  $PHASE"
 
 # ---------------------------------------------------------------- prereqs
 if want prereqs; then
-  log "prerequisites"
+  log "prerequisites (everything below installs without sudo)"
   missing=()
-  for c in git node npm gh python3 curl rsync; do need "$c" || missing+=("$c"); done
+  for c in git curl rsync python3; do need "$c" || missing+=("$c"); done
   if [ ${#missing[@]} -gt 0 ]; then
-    cat <<EOF
-Missing: ${missing[*]}
-
-  sudo apt update && sudo apt install -y git curl rsync python3 build-essential
-  # Node 24 (Ubuntu's apt nodejs is 18, too old for Vite 7 / Wrangler 4 / Expo):
-  curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash - && sudo apt install -y nodejs
-  # GitHub CLI:
-  sudo mkdir -p -m 755 /etc/apt/keyrings
-  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null
-  echo "deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
-  sudo apt update && sudo apt install -y gh
-
-Then re-run this script.
-EOF
+    printf 'Missing system packages: %s\nRun this once, then run the setup again:\n\n  sudo apt update && sudo apt install -y git curl rsync python3\n\n' "${missing[*]}"
     exit 1
   fi
-  major="$(node -p 'process.versions.node.split(".")[0]')"
-  [ "$major" -ge 22 ] || die "node >= 22 required (have $(node -v)); see the NodeSource line above"
-  need claude || echo "claude is not installed yet:  curl -fsSL https://claude.ai/install.sh | bash   (then run 'claude' once and log in)"
-  need eas    || echo "eas-cli is not installed yet:  sudo npm i -g eas-cli   (NodeSource's npm prefix is /usr; then 'eas login')"
-  echo "git $(git --version | cut -d' ' -f3), node $(node -v), npm $(npm -v), gh $(gh --version | head -1 | cut -d' ' -f3)"
+  mkdir -p "$HOME/.local/bin"
+  case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
+  node_ok=0
+  if need node && [ "$(node -p 'process.versions.node.split(".")[0]')" -ge 22 ]; then node_ok=1; fi
+  if [ "$DRY" = 1 ]; then
+    echo "[dry-run] prereqs: node>=22 $([ "$node_ok" = 1 ] && echo present || echo 'would install via nvm'), gh $(need gh && echo present || echo 'would install to ~/.local/bin'), claude $(need claude && echo present || echo 'would install'), eas $(need eas && echo present || echo 'would install')"
+  else
+    if [ "$node_ok" = 0 ]; then
+      export NVM_DIR="$HOME/.nvm"
+      if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+        log "installing nvm (Node version manager, into ~/.nvm)"
+        curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
+      fi
+      log "installing Node 24 via nvm (Ubuntu's apt nodejs is 18, too old for Vite 7 / Wrangler 4 / Expo)"
+      set +eu; . "$NVM_DIR/nvm.sh"; nvm install 24 >/dev/null 2>&1; nvm alias default 24 >/dev/null 2>&1; nvm use 24 >/dev/null 2>&1; set -eu
+      need node || die "node is still missing after the nvm install; open a new terminal and run the setup again"
+    fi
+    if ! need gh; then
+      log "installing GitHub CLI into ~/.local/bin"
+      arch="$(uname -m)"; case "$arch" in x86_64) arch=amd64 ;; aarch64|arm64) arch=arm64 ;; esac
+      ver="$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)"
+      [ -n "$ver" ] || die "could not determine the latest GitHub CLI release (network?)"
+      tmp="$(mktemp -d)"
+      curl -fsSL "https://github.com/cli/cli/releases/download/v${ver}/gh_${ver}_linux_${arch}.tar.gz" | tar -xz -C "$tmp"
+      cp "$tmp/gh_${ver}_linux_${arch}/bin/gh" "$HOME/.local/bin/gh"; chmod 755 "$HOME/.local/bin/gh"; rm -rf "$tmp"
+    fi
+    if ! need claude; then
+      log "installing Claude Code"
+      curl -fsSL https://claude.ai/install.sh | bash >/dev/null 2>&1 || echo "Claude Code install failed; run:  curl -fsSL https://claude.ai/install.sh | bash"
+    fi
+    if ! need eas; then
+      log "installing eas-cli"
+      npm i -g eas-cli >/dev/null 2>&1 || echo "eas-cli install failed (a system-wide npm needs: sudo npm i -g eas-cli)"
+    fi
+  fi
+  echo "git $(git --version | cut -d' ' -f3), node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing), gh $(gh --version 2>/dev/null | head -1 | cut -d' ' -f3 || echo missing), claude $(need claude && echo yes || echo no), eas $(need eas && echo yes || echo no)"
 fi
 
 # ---------------------------------------------------------------- repo
@@ -129,7 +150,7 @@ if want repo; then
     verify_state
     log "unpack in place: $DEST becomes the repo root; handoff files -> $HANDOFF"
     mkdir -p "$HANDOFF"
-    for f in claude-state secure README-FIRST.md MANIFEST.sha256 CLAUDE-STATE.sha256 VERIFY-REPORT.txt STATE-REFRESHED.txt refresh-claude-state.cmd refresh-claude-state.ps1; do
+    for f in claude-state secure CLAUDE.md README-FIRST.md MANIFEST.sha256 CLAUDE-STATE.sha256 VERIFY-REPORT.txt STATE-REFRESHED.txt refresh-claude-state.cmd refresh-claude-state.ps1; do
       if [ -e "$DRIVE/$f" ]; then rm -rf "${HANDOFF:?}/$f"; mv "$DRIVE/$f" "$HANDOFF/"; fi
     done
     cp "$SCRIPT_PATH" "$HANDOFF/setup-ubuntu.sh"
@@ -205,6 +226,28 @@ if want secrets; then
     put "$DRIVE/secure/ssh/id_ed25519.pub" "$HOME/.ssh/id_ed25519.pub" 644
     if [ -f "$DRIVE/secure/ssh/known_hosts" ] && [ ! -f "$HOME/.ssh/known_hosts" ]; then put "$DRIVE/secure/ssh/known_hosts" "$HOME/.ssh/known_hosts" 644; fi
   fi
+  # GitHub without a browser: git over SSH when the registered key authenticates (else https
+  # through gh's credential helper), and gh itself with the laptop's token.
+  if [ "$DRY" = 0 ]; then
+    ssh_ok=0
+    if [ -f "$HOME/.ssh/id_ed25519" ]; then
+      out="$(ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 -T git@github.com 2>&1 || true)"
+      case "$out" in *"successfully authenticated"*) ssh_ok=1 ;; esac
+    fi
+    if [ "$ssh_ok" = 1 ]; then
+      ( cd "$DEST" && git remote set-url origin "git@github.com:johnathanvillalona/cert900.git" )
+      echo "git: origin uses SSH (the key in ~/.ssh authenticates to GitHub)"
+    else
+      echo "git: SSH key not accepted by GitHub; origin stays https (gh's credential helper is set up below)"
+    fi
+    if need gh && [ -f "$DRIVE/secure/gh-token.txt" ] && ! gh auth status >/dev/null 2>&1; then
+      if gh auth login --with-token < "$DRIVE/secure/gh-token.txt" >/dev/null 2>&1; then echo "gh: logged in with the laptop's token"; else echo "gh: token login failed; run 'gh auth login' when you need the GitHub API"; fi
+    fi
+    if need gh && gh auth status >/dev/null 2>&1; then
+      if [ "$ssh_ok" = 1 ]; then gh config set git_protocol ssh >/dev/null 2>&1 || true; else gh auth setup-git >/dev/null 2>&1 || true; fi
+    fi
+  fi
+  if [ -f "$DRIVE/secure/expo-state.json" ] && [ ! -f "$HOME/.expo/state.json" ]; then mkd "$HOME/.expo" 700; put "$DRIVE/secure/expo-state.json" "$HOME/.expo/state.json" 600; fi
   # Fresh global identity. The Windows ~/.gitconfig is deliberately NOT carried over
   # (git-lfs filters marked required, Windows-only editor and credential helpers).
   git config --global user.name  >/dev/null 2>&1 || run git config --global user.name  "Johnathan Villalona"
@@ -290,21 +333,21 @@ fi
 # ---------------------------------------------------------------- verify
 if want verify; then
   log "state"
-  if [ -d "$DEST/.git" ]; then ( cd "$DEST" && git status --short && git remote -v ); else echo "$DEST is not a repository yet (run --phase repo first)"; fi
-  echo "node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing)"
+  if [ -d "$DEST/.git" ]; then ( cd "$DEST" && echo "git: $(git status --porcelain | wc -l) dirty files, origin $(git remote get-url origin)" ); else echo "$DEST is not a repository yet (run --phase repo first)"; fi
+  echo "node $(node -v 2>/dev/null || echo missing), npm $(npm -v 2>/dev/null || echo missing), gh $(gh --version 2>/dev/null | head -1 | cut -d' ' -f3 || echo missing)"
+  if need gh; then gh auth status 2>&1 | grep -m1 -iE 'logged in|not logged' | sed 's/^ *//' || true; fi
+  if need eas && [ "$DRY" = 0 ]; then echo "eas: $(eas whoami 2>/dev/null || echo 'not logged in (eas login)')"; fi
+  if [ -d "$DEST/node_modules" ] && [ "$DRY" = 0 ]; then ( cd "$DEST" && echo "wrangler: $(timeout 90 npx wrangler whoami 2>/dev/null | grep -m1 -oE 'associated with[^.]*|not authenticated' || echo 'token expired; run npx wrangler login before the first deploy')" ); fi
   KEY="${PROJECT_KEY:-$(printf '%s' "$DEST" | sed 's/[^A-Za-z0-9]/-/g')}"
-  if [ -d "$HOME/.claude/projects/$KEY" ]; then ls "$HOME/.claude/projects/$KEY"; fi
+  if [ -d "$HOME/.claude/projects/$KEY" ]; then echo "claude project dir: $(ls "$HOME/.claude/projects/$KEY" | tr '\n' ' ')"; fi
   cat <<EOF
 
-NEXT, interactive and in this order:
-  gh auth login && gh auth setup-git && (cd $DEST && git pull)
-  npx wrangler whoami        # the copied token is usually expired by now; if so: npx wrangler login
-  eas login                  # Expo owner: sorannex
-  cd $DEST && claude         # log in, accept the trust prompt, then:
-      /resume                # pick the 2026-09-05 session (or: claude --resume $SESSION_ID)
-      /memory  /mcp          # 6 memory files; shadcn, playwright, chrome-devtools, agentopus
-      /plugin install stripe@claude-plugins-official
-  optional local D1:  npx wrangler d1 execute comptia-trainer --local --file=worker/schema.sql
-  when ~/secure is confirmed:  rm -rf "<drive>/cert900/secure"   (and $HANDOFF/secure)
+Still manual, both optional:
+  browsers for the Playwright / chrome-devtools MCP servers:  sudo npx playwright install-deps chromium && npx playwright install chromium
+  when everything works, delete the plain-text keys from the drive:  rm -rf "<drive>/cert900/secure" "$HANDOFF/secure"
 EOF
+  if [ "$PHASE" = all ] && [ "$DRY" = 0 ]; then
+    log "SETUP-COMPLETE"
+    echo "Exit Claude (/exit) and run 'claude' in $DEST again: the project's own CLAUDE.md and memory load, and /resume lists the 2026-09-05 session (or: claude --resume $SESSION_ID)."
+  fi
 fi
