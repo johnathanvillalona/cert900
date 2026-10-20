@@ -1,9 +1,10 @@
 import { useId, useState, type ReactNode } from "react"
-import { ChevronDown, FlaskConical, ListOrdered, RotateCcw, ShieldCheck } from "lucide-react"
+import { ChevronDown, FlaskConical, ListOrdered, RotateCcw, ShieldCheck, type LucideIcon } from "lucide-react"
 import { cn } from "../../lib/utils"
 
-export type AdministrationPage = "policy" | "traffic"
-export function AdministrationWorkspace({ device, title, description, revision, locked, page, onPage, onReset, workOrder, children }: {
+export type AdministrationPage = "policy" | "traffic" | "overview" | "inbound" | "outbound"
+export function AdministrationWorkspace({ device, title, description, revision, locked, page, onPage, onReset, workOrder, children, navigation, workOrderLabel = "Work order & topology", resetTestId = "acl-reset" }: {
+  navigation?: readonly (readonly [AdministrationPage, string, LucideIcon])[]; workOrderLabel?: string; resetTestId?: string
   title: string; description: string
   device: string; revision: number; locked: boolean; page: AdministrationPage; onPage: (page: AdministrationPage) => void
   onReset: () => void; workOrder: ReactNode; children: ReactNode
@@ -22,15 +23,15 @@ export function AdministrationWorkspace({ device, title, description, revision, 
     </header>
     <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-muted/40 px-3 py-2 sm:px-5">
       <nav className="flex flex-wrap gap-1" aria-label="Firewall workspace">
-        {([['policy','Access policy',ListOrdered],['traffic','Traffic tests',FlaskConical]] as const).map(([id,label,Icon])=><button key={id} type="button" onClick={()=>onPage(id)} aria-current={page===id?'page':undefined}
+        {(navigation ?? ([['policy','Access policy',ListOrdered],['traffic','Traffic tests',FlaskConical]] as const)).map(([id,label,Icon])=><button key={id} type="button" onClick={()=>onPage(id)} aria-current={page===id?'page':undefined}
           className={cn("inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring",page===id?"bg-background text-foreground shadow-sm ring-1 ring-border":"text-muted-foreground hover:bg-background/70")}
           data-testid={`firewall-nav-${id}`}><Icon className="size-4" aria-hidden/>{label}</button>)}
       </nav>
-      <button type="button" disabled={locked} onClick={onReset} data-testid="acl-reset" className="inline-flex min-h-11 items-center gap-2 rounded-md border bg-background px-3 text-sm font-medium outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-45"><RotateCcw className="size-4" aria-hidden/>Reset simulation</button>
+      <button type="button" disabled={locked} onClick={onReset} data-testid={resetTestId} className="inline-flex min-h-11 items-center gap-2 rounded-md border bg-background px-3 text-sm font-medium outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-45"><RotateCcw className="size-4" aria-hidden/>Reset simulation</button>
     </div>
     <div className="grid min-w-0 lg:grid-cols-[180px_minmax(0,1fr)]">
       <aside className="min-w-0 border-b bg-muted/20 lg:border-r lg:border-b-0">
-        <button type="button" className="flex min-h-12 w-full items-center justify-between gap-2 p-4 text-left text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring lg:hidden" onClick={()=>setInstructionsOpen(v=>!v)} aria-expanded={instructionsOpen} aria-controls={instructionsId} data-testid="firewall-work-order-toggle">Work order & topology<ChevronDown className="size-4 shrink-0" aria-hidden/></button>
+        <button type="button" className="flex min-h-12 w-full items-center justify-between gap-2 p-4 text-left text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring lg:hidden" onClick={()=>setInstructionsOpen(v=>!v)} aria-expanded={instructionsOpen} aria-controls={instructionsId} data-testid="firewall-work-order-toggle">{workOrderLabel}<ChevronDown className="size-4 shrink-0" aria-hidden/></button>
         <div id={instructionsId} className={cn("space-y-5 p-4 text-sm leading-6",instructionsOpen?'block':'hidden','lg:block')}>{workOrder}</div>
       </aside>
       <div className="min-w-0 p-3 sm:p-4">{children}</div>

@@ -45,7 +45,7 @@ describe('Windows policy semantics, independent from ordered ACLs',()=>{
 })
 describe('approved effective-policy objectives',()=>{
   it.each([
-    ['empty',[],0],['correct',[program()],1],['Domain only',[program({profiles:['domain']})],2/3],
+    ['empty',[],0],['correct',[program()],1],['wrong application',[program({application:'helper'})],0],['Domain only',[program({profiles:['domain']})],2/3],
     ['Private only',[program({profiles:['private']})],2/3],['Public exposure',[program({profiles:['domain','private','public']})],2/3],
     ['all programs',[program({application:'any'})],0],['outbound only',[program({direction:'outbound'})],0],
     ['conflicting Domain Block',[program(),program({id:2,action:'block',profiles:['domain']})],2/3],
@@ -68,6 +68,19 @@ describe('approved effective-policy objectives',()=>{
     const raw={...validateWindowsRule({...emptyWindowsForm(),name:'Block one port',kind:'port',protocol:'tcp',localPorts:'1',public:'false'}).rule!,id:2,enabled:true,action:'block' as const}
     expect(analyzeWindows([program(),raw])).toMatchObject({domain:false,private:false,isolation:true,incomplete:true,insecure:false})
     expect(score([program(),program({id:2,direction:'outbound',action:'block',application:'any'})])).toBe(1)
+  })
+  it('agrees with operational evaluation on overlapping intervals and denies masked exposure',()=>{
+    const raw=(id:number,localPorts:string,remotePorts:string,action:'allow'|'block'):WindowsRule=>({...validateWindowsRule({...emptyWindowsForm(),name:`Overlap ${id}`,kind:'port',protocol:'tcp',localPorts,remotePorts,public:'false'}).rule!,id,enabled:true,action})
+    const rules=[program(),raw(2,'10-20','100-200','allow'),raw(3,'15-25','150-250','block')]
+    expect(evaluateWindows(rules,flow({application:'other',localPort:14,remotePort:149})).action).toBe('allow')
+    expect(evaluateWindows(rules,flow({application:'other',localPort:15,remotePort:150})).action).toBe('block')
+    expect(evaluateWindows([...rules].reverse(),flow({localPort:20,remotePort:200})).action).toBe('block')
+    const analysis=analyzeWindows(rules)
+    expect(analysis).toMatchObject({domain:false,private:false,isolation:false,incomplete:true,insecure:true})
+    expect(evaluateWindows(rules,analysis.missingExample!).action).toBe('block')
+    expect(evaluateWindows(rules,analysis.exposureExample!).action).toBe('allow')
+    const disabled=rules.map(r=>({...r,enabled:false}))
+    expect(analyzeWindows(disabled)).toMatchObject({domain:false,private:false,isolation:false,incomplete:true,insecure:false,constructionViolation:false})
   })
   it('is order independent and exact over worst-case port boundaries within defensive limits',()=>{
     const rules=Array.from({length:12},(_,i)=>({...validateWindowsRule({...emptyWindowsForm(),name:`Rule ${i}`,kind:'port',protocol:i%2?'tcp':'udp',localPorts:`${i*100+1}-${i*100+2}`,remotePorts:`${i*200+3}-${i*200+4}`}).rule!,id:i+1,enabled:true,action:'block' as const}))
