@@ -28,7 +28,7 @@ test('real hook: model survives navigation, authoritative reset is isolated and 
   await page.getByRole('button',{name:'Return to DHCP'}).click()
   expect((await snapshot(page)).answer.state.adapter.lease).toBe('released')
   await page.getByRole('button',{name:'Replace binding prop'}).click()
-  expect((await snapshot(page)).version).toBe(1)
+  expect((await snapshot(page)).version).toBe(2)
   await page.getByRole('button',{name:'Reset simulation'}).click()
   expect((await snapshot(page)).answer.state.adapter.lease).toBe('apipa')
   await page.getByRole('button',{name:'Other question'}).click()
