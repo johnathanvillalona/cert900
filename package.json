@@ -13,7 +13,8 @@
     "extract-data": "node tools/extract-data.mjs",
     "test:browser": "playwright test",
     "test:worker": "node tools/qa/isolated-worker.mjs",
-    "preview:isolated": "node tools/qa/isolated-worker.mjs --serve --port=4174"
+    "preview:isolated": "node tools/qa/isolated-worker.mjs --serve --port=4174",
+    "test:simulations": "playwright test --config playwright.simulations.config.ts"
   },
   "dependencies": {
     "@better-auth/expo": "^1.6.23",

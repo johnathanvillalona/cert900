@@ -227,7 +227,7 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
               const blank =
                 it.kind === "mc"
                   ? mcAnswerBlank(a as number | number[] | undefined)
-                  : a === undefined || pbqAnswerBlank(it.p, a as PBQAnswer)
+                  : a === undefined || pbqAnswerBlank(it.p, a as PBQAnswer, session.simulations[i])
               const answered = session.touched.has(i) && !blank
               return (
                 <button
@@ -493,7 +493,7 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
                 {frac === 1 ? "Correct" : "Incorrect"}
               </p>
               {frac !== 1 && (() => {
-                const raw = pbqScore(p, session.answers[session.idx] as PBQAnswer)
+                const raw = pbqScore(p, session.answers[session.idx] as PBQAnswer, session.simulation)
                 return raw > 0 ? (
                   <p className="mt-1 text-sm">
                     You had {Math.round(raw * 100)}% of it, but this question type awards credit only when every part
