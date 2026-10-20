@@ -1,0 +1,2 @@
+/* Capture the full simulator without the application's sticky header over it. */
+header:not([data-testid="firewall-banner"]) { visibility: hidden !important; }

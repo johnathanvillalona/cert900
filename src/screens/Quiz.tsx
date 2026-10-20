@@ -29,7 +29,7 @@ type Prepared = { exam: ExamDef; bindings: SimulationBindings; views: Readonly<R
 /** Resolve the opt-in pilot and its renderer before mounting the timed session. */
 export function Quiz(props: QuizProps) {
   const {exam,cfg,onQuit}=props
-  const enabled=exam.id === "220-1201" && cfg.mode !== "practice"
+  const enabled=(exam.id === "220-1201" || exam.id === "n10-009") && cfg.mode !== "practice"
   const [prepared,setPrepared]=useState<Prepared|null>(null)
   const [failed,setFailed]=useState(false)
   const [retry,setRetry]=useState(0)

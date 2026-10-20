@@ -115,10 +115,148 @@ overlap 4.57ms, complete 11.97ms. A repeat Chrome run at 4× CPU measured p95
 Chrome 155.0.8059.39, x86_64 Ubuntu. No source/lockfile security dependency
 changes. Both dependency audit baselines remain zero.
 
-Final workspace validation, measured results, screenshots and exact preview
-instructions are recorded with the workspace checkpoint. Manual physical-device
-keyboard, screen-reader and IME review remains required; emulation is not a
-substitute. State persists within the attempt, not across page reloads.
+Foundation commit: `fc16c667c5823b596c3a99099c6fb31f4af501c4`.
+
+Final workspace validation:
+
+| Check | Result |
+|---|---|
+| Full unit suite, including bank integrity | 412 tests / 25 files pass |
+| Production build | Pass; existing >500kB chunk-size warning remains |
+| Full / production-only npm audits | 0 / 0 findings |
+| `npm ls --all` | Pass, no conflicts |
+| Combined production PBQ browser suite | 62 pass: existing 40 + new 22; no baseline updates during final run |
+| Isolated hook/performance browser suite | 5 pass, including ACL batched Apply/grade and exactly-once callback |
+| Isolated Worker suite | All 13 groups pass; zero outbound attempts |
+| Browser/fixture TypeScript check | Pass using project aliases and Node/DOM types |
+| `git diff --check` | Pass |
+
+Final warmed runtime-grade performance, milliseconds:
+
+| Workload | Node p95 / max (25 samples) | Chrome 4× CPU p95 / max (10 samples) |
+|---|---:|---:|
+| Maximum boundaries | 16.69 / 21.86 | 77.40 / 77.40 |
+| Overlapping CIDRs/ports | 5.96 / 6.25 | 20.90 / 20.90 |
+| Complete policy + additional rules | 11.27 / 11.92 | 43.80 / 43.80 |
+
+All results are below the 250ms Node / 750ms throttled-Chrome p95 targets.
+The maximum-boundary workload evaluates 43,740 cells and 524,814 rule visits.
+Bounds are hard assertions; timings measure this machine and are not a promise
+about every physical device. Five warm-ups precede each measured workload.
+
+Full browser coverage includes all supported grading examples, input/selector
+normalization, escaped names, invalid Apply and Cancel, first-match reorder,
+disabled rules, editing/deleting, immutable default deny, maximum rule count,
+keyboard-only creation, touch, reset from an open draft, retained history across
+exam navigation, authoritative reset scoring and guarded module-load failure.
+Complete workflows run at all five widths in both themes with reduced motion;
+they assert no page overflow or browser errors, readable input and 44px actions.
+Virtual-keyboard-height checks cover the mobile editor. New screenshot
+candidates were inspected for desktop table layout, mobile cards and visible
+validation messages; user review is still the milestone gate.
+
+The Worker harness uses a temporary configuration, a fresh local D1 database,
+synthetic auth and isolated home/cache directories. Static assets/CSS, API
+errors, auth/session lifecycle, D1 reads/writes/restart persistence and disabled
+integrations pass. No production credentials/resources or existing secret files
+are used. No dependency/install-script approvals, production changes, push,
+merge or deployment occurred.
+
+Protected worktrees were rechecked clean at their original SHAs: PBQ b8f59b7,
+security 9155df9, integration 3fb230f, repairs ee4beba, and B2 f5f8fb1. The security
+checkpoint remains in this branch's ancestry. Original question banks, engine,
+session reducer, Worker code, package manifest and lockfile have no B3A diff.
+
+The workspace checkpoint enables the pilot only for Network+ PBQ lab and timed
+exam modes. MC practice and every unregistered question retain their current
+renderers. `src/screens/Quiz.tsx` prepares definitions plus a renderer map before
+mounting the timer and uses the scenario's explicit enhanced work-order text.
+`src/simulations/web-registry.ts` contains the two web opt-ins: DHCP and this ACL.
+No Windows scenario is enabled.
+
+The original administration surface uses existing fonts, tokens, Lucide icons,
+React, CSS and Radix dialogs. Its device banner, navigation, task/topology panel,
+revision indicator, rule table/cards, explicit default row and inspection log
+have no borrowed proprietary interface graphics. Desktop has a task sidebar
+and complete table; phones/tablets have full-size cards and collapsible tasks.
+At narrow widths editing uses a full-screen form with a scrolling body and
+reachable actions. Validation focuses the invalid control and scrolls its
+message into view. Run/reset/actions use at least 44px activation areas; entry
+fields are at least 16px. Selection and status always have text equivalents.
+
+### Workspace files
+
+- `src/simulations/scenarios/EdgeAclWorkspace.tsx`: scenario presentation,
+  session actions, rule/draft binding, operational context and post-grade review.
+- `src/simulations/ui/AdministrationWorkspace.tsx`: device/context shell,
+  navigation, instructions, reset and status layout.
+- `RuleCollection.tsx`: desktop table/mobile cards, enabled controls and safe
+  move/edit/delete actions; `RuleEditorDialog.tsx`: accessible form layout,
+  field validation, focus restoration and viewport handling.
+- `TrafficTester.tsx`: synthetic packet form and revision-tagged inspection log.
+- `tests/pbq/firewall-acl.spec.ts`, `firewall-helpers.ts`,
+  `firewall-responsive.spec.ts`, `firewall-screenshot.css`: maintained actual
+  production-asset browser coverage and B3A-only screenshot candidates.
+- The foundation's scenario tests also verify uncommitted draft persistence
+  across exam navigation and rejection of post-finish actions.
+
+Shared shell/editor/field components are reusable. The ACL-specific rule and
+traffic presentations can supply the layout patterns for Windows without
+reusing the ACL evaluator. B3B will need its own application/profile/direction
+controls and native Block precedence, after separate approval.
+
+### Local preview
+
+```sh
+cd '/home/sorannex/Claude Projects/cert900/firewall-b3a-worktree'
+# If dependencies are absent: npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+node tools/qa/isolated-worker.mjs --serve --port=4178
+```
+
+Open **http://127.0.0.1:4178** → **Network+ (N10-009)** → **PBQ Lab** →
+**Build the Edge ACL**. The lab is shuffled; Check/Next skips other questions.
+Full Exam also uses this pilot when drawn. The preview uses only fresh local
+synthetic resources. Keep the process running; Ctrl+C stops it. Stop it before
+rebuilding so the preview cannot retain an older asset manifest.
+
+Reproduce validation using installed Chrome, without browser downloads:
+
+```sh
+npm test
+npm run build
+npm run test:simulations
+CERT900_TEST_PORT=4177 npm run test:browser
+npm run test:worker
+npm audit
+npm audit --omit=dev
+npm ls --all
+```
+
+The alternate test port preserves the accepted B2 preview at :4176 and avoids
+the new B3A preview at :4178. The error-path browser test preserves the existing
+application-level one-time chunk-reload behavior and exercises its guarded
+failure path before a timer/session starts.
+
+### Screenshot review and limits
+
+Thirty new candidates cover policy, validation/editor and traffic views at
+320/375/390/768/1440px, light/dark and reduced motion. Existing B1/B2 baselines
+are not updated. Examples:
+
+- [Desktop policy](../tests/pbq/firewall-responsive.spec.ts-snapshots/acl-policy-1440-light-linux.png)
+- [390px policy](../tests/pbq/firewall-responsive.spec.ts-snapshots/acl-policy-390-dark-linux.png)
+- [320px editor validation](../tests/pbq/firewall-responsive.spec.ts-snapshots/acl-editor-320-light-linux.png)
+- [375px traffic inspection](../tests/pbq/firewall-responsive.spec.ts-snapshots/acl-traffic-375-light-linux.png)
+
+These are candidates for the user's review, not an automatic approval of visual
+quality. Physical iOS/Android keyboard, screen-reader and IME review remains
+manual; viewport emulation and 4× CPU throttling are not physical-device tests.
+The editor body intentionally scrolls when all fields cannot fit. This is a
+12-rule stateless IPv4 policy simulator, not a complete enterprise firewall or
+packet stack. No NAT/IPv6, connection state, address groups, payload inspection
+or general network troubleshooting is implemented. History retains 20 tests.
+State persists within the attempt, not across page reloads.
 
 Do not begin B3B, push, merge or deploy from this milestone. Rollback uses the
 previous isolated checkpoint; preserved branches/worktrees are not reset.
