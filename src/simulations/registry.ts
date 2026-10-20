@@ -10,7 +10,7 @@ interface Registration {
 /** Metadata only. No eager bank, CLI, or renderer imports. */
 export const SCENARIOS: readonly Registration[] = Object.freeze([
   Object.freeze({
-    id: "a-plus.dhcp-lease", version: 1,
+    id: "a-plus.dhcp-lease", version: 2,
     binding: Object.freeze({ exam: "220-1201", kind: "terminal" as const, topic: "troubleshooting-networks", title: "Fix a Stale DHCP Lease" }),
     load: async () => {
       const [{ compileScenario }, { dhcpDefinition }] = await Promise.all([import("./core/transition"), import("./scenarios/dhcp-lease")])

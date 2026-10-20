@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react"
+import type { SimulationBindings } from "@/simulations/core/contracts"
+import type { SimulationViewProps } from "@/simulations/ui/contracts"
+import { useEffect, useRef, useState, type ComponentType } from "react"
 import { flushSync } from "react-dom"
 import type { ExamDef, PBQMatch, PBQOrder } from "@/data/types"
 import { TerminalView, ConfigView, HotspotView, DragConnectView } from "@/components/pbq-sims"
@@ -21,17 +23,47 @@ function fmtTime(s: number) {
   return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`
 }
 
-export function Quiz({ exam, cfg, onFinish, onQuit }: {
+type QuizProps = { exam: ExamDef; cfg: QuizConfig; onFinish: (o: QuizOutcome) => void; onQuit: () => void }
+type Prepared = { exam: ExamDef; bindings: SimulationBindings; View: ComponentType<SimulationViewProps> }
+
+/** Resolve the opt-in pilot and its renderer before mounting the timed session. */
+export function Quiz(props: QuizProps) {
+  const {exam,cfg,onQuit}=props
+  const enabled=exam.id === "220-1201" && cfg.mode !== "practice"
+  const [prepared,setPrepared]=useState<Prepared|null>(null)
+  const [failed,setFailed]=useState(false)
+  const [retry,setRetry]=useState(0)
+  useEffect(()=>{
+    if(!enabled) return
+    let cancelled=false
+    setFailed(false)
+    Promise.all([import("@/simulations/registry"),import("@/simulations/scenarios/DhcpWorkspace")])
+      .then(async ([registry,view])=>({exam,bindings:await registry.prepareSimulationBindings(exam,["a-plus.dhcp-lease"]),View:view.DhcpWorkspace}))
+      .then(result=>{if(!cancelled)setPrepared(result)})
+      .catch(()=>{if(!cancelled)setFailed(true)})
+    return ()=>{cancelled=true}
+  },[enabled,exam,retry])
+  if(!enabled) return <QuizAttempt {...props}/>
+  if(!prepared || prepared.exam!==exam) return <div className="rounded-lg border p-5" data-testid="simulation-loading">
+    <p role={failed?"alert":"status"} className="text-sm">{failed?"The virtual workstation could not be loaded. Retry, or return to exam selection.":"Preparing the virtual workstation. The exam timer has not started."}</p>
+    <div className="mt-3 flex flex-wrap gap-2">{failed&&<Button onClick={()=>setRetry(v=>v+1)}>Retry</Button>}<Button variant="outline" onClick={onQuit}>Back to exam selection</Button></div>
+  </div>
+  return <QuizAttempt {...props} simulations={prepared.bindings} SimulationView={prepared.View}/>
+}
+
+function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, SimulationView }: {
   exam: ExamDef
   cfg: QuizConfig
   onFinish: (o: QuizOutcome) => void
   onQuit: () => void
+  simulations?: SimulationBindings
+  SimulationView?: ComponentType<SimulationViewProps>
 }) {
   const store = useProgress()
   const session = useQuizSession(exam, store.get(exam.id), cfg, {
     onResult: (topic, frac, questionId) => store.recordResult(exam.id, topic, frac, questionId),
     onSeen: (ids) => store.markSeen(exam.id, ids),
-  })
+  }, simulations)
   const [confirmEnd, setConfirmEnd] = useState(false)
   const [confirmQuit, setConfirmQuit] = useState(false)
   const [showKeys, setShowKeys] = useState(false)
@@ -174,11 +206,11 @@ export function Quiz({ exam, cfg, onFinish, onQuit }: {
         </div>
       </div>
 
-      <Card className="p-6" data-testid="qcard">
+      <Card className={session.simulation ? "p-3 sm:p-6" : "p-6"} data-testid="qcard">
         {item.kind === "mc" ? (
           <MCView exam={exam} session={session} item={item} isExam={isExam} />
         ) : (
-          <PBQView exam={exam} session={session} item={item} isExam={isExam} />
+          <PBQView exam={exam} session={session} item={item} isExam={isExam} SimulationView={SimulationView} />
         )}
       </Card>
 
@@ -443,7 +475,7 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
   )
 }
 
-function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "pbq" }>; isExam: boolean }) {
+function PBQView({ exam, session, item, isExam, SimulationView }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "pbq" }>; isExam: boolean; SimulationView?: ComponentType<SimulationViewProps> }) {
   const p = item.p
   const fmt = VENDOR_FORMATS[exam.vendor]
   const graded = !isExam && session.graded[session.idx] !== undefined
@@ -465,12 +497,14 @@ function PBQView({ exam, session, item, isExam }: { exam: ExamDef; session: Quiz
           log, the drag-connect held item. Without a per-question key React
           reconciles the same instances across questions and that state bleeds
           forward, showing values the reducer never recorded. */}
+      {session.simulation && SimulationView ? <SimulationView key={session.idx} p={p} session={session} graded={graded}/> : <>
       {p.kind === "match" && <MatchView key={session.idx} p={p} session={session} graded={graded} choiceOrder={item.choiceOrder} />}
       {p.kind === "order" && <OrderView key={session.idx} p={p} session={session} graded={graded} />}
       {p.kind === "terminal" && <TerminalView key={session.idx} p={p} session={session} graded={graded} />}
       {p.kind === "config" && <ConfigView key={session.idx} p={p} session={session} graded={graded} />}
       {p.kind === "hotspot" && <HotspotView key={session.idx} p={p} session={session} graded={graded} />}
       {p.kind === "dragconnect" && <DragConnectView key={session.idx} p={p} session={session} graded={graded} />}
+      </>}
 
       {!isExam && !graded && (
         <Button className="mt-4" onClick={session.gradePbq} data-testid="check-pbq">

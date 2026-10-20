@@ -105,14 +105,14 @@ test('hotspot HTML and diagram share selection, limits, wrong penalties and lock
   await expect(page.getByTestId(`hotspot-control-${wrong.id}`)).toBeDisabled()
 })
 
-test('terminal accepts the unchanged sequential commands, diagnostics remain unscored and log scrolls', async ({ page }) => {
+test('unregistered terminal retains sequential acceptance, generic diagnostics and scrolling', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 540 })
   await openLab(page)
-  await findQuestion(page, 'Fix a Stale DHCP Lease')
+  await findQuestion(page, 'First Response at the Command Line')
   const input = page.getByTestId('terminal-input')
-  await input.fill('ipconfig /all'); await input.press('Enter')
+  await input.fill('ipconfig'); await input.press('Enter')
   await expect(page.getByRole('log')).toContainText('does not complete the current objective')
-  for(const cmd of ['ipconfig /release','ipconfig /renew','ipconfig /flushdns']) {
+  for(const cmd of ['ipconfig /all','ping 192.168.10.1','nslookup comptia.org','tracert 8.8.8.8']) {
     await input.fill(cmd); await input.press('Enter')
   }
   await expect(input).toBeDisabled()

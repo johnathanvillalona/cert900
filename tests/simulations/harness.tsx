@@ -55,7 +55,7 @@ function Attempt({mode,onResult}:{mode:QuizMode;onResult:(frac:number)=>void}) {
     <button onClick={()=>session.jump(session.items.findIndex(it=>it.kind==='pbq' && it.p.title===p.title))}>Return to DHCP</button>
     <button onClick={()=>session.jump(session.items.findIndex(it=>it.kind==='pbq' && it.p.title===other.title))}>Other question</button>
     <button onClick={()=>{session.setMatch(0,0)}}>Set legacy match</button>
-    <button onClick={()=>setBindings({[bindingKey(runtime.binding)]:compileScenario({...dhcpDefinition,version:2})})}>Replace binding prop</button>
+    <button onClick={()=>setBindings({[bindingKey(runtime.binding)]:compileScenario({...dhcpDefinition,version:runtime.version+1})})}>Replace binding prop</button>
     <button onClick={()=>session.setTerminal(0,'ipconfig /release')}>Legacy terminal setter</button>
     <button onClick={()=>{session.finish();session.finish()}}>Finish twice</button>
     <output data-testid="snapshot">{JSON.stringify({

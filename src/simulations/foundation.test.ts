@@ -93,7 +93,7 @@ describe("versioned adapter and grading boundary", () => {
     expect(pbqScore(question, answer)).toBe(0)
     expect(pbqAnswerBlank(question, answer)).toBe(true)
     for(const invalid of [
-      {...answer,scenarioVersion:2}, {...answer,schemaVersion:2}, {...answer,scenarioId:"other"}, {...answer,state:{}},
+      {...answer,scenarioVersion:runtime.version+1}, {...answer,schemaVersion:2}, {...answer,scenarioId:"other"}, {...answer,state:{}},
     ]) {
       expect(pbqScore(question, invalid as PBQAnswer, runtime)).toBe(0)
       expect(pbqAnswerBlank(question, invalid as PBQAnswer, runtime)).toBe(true)
@@ -167,7 +167,7 @@ describe("registry and opt-in session lifecycle", () => {
     const other=idx===0?1:0, otherAnswer=state.answers[other]
     state=quizSessionReducer(state,{type:"nav",to:other})
     expect(quizSessionReducer(state,{type:"reset-simulation",idx})).toBe(state)
-    expect(quizSessionReducer(state,{type:"simulation-action",idx,scenarioId:runtime.id,version:1,action:renew})).toBe(state)
+    expect(quizSessionReducer(state,{type:"simulation-action",idx,scenarioId:runtime.id,version:runtime.version,action:renew})).toBe(state)
     state=quizSessionReducer(state,{type:"nav",to:idx})
     expect(state.answers[idx]).toBe(old)
     state=quizSessionReducer(state,{type:"reset-simulation",idx})
@@ -178,8 +178,8 @@ describe("registry and opt-in session lifecycle", () => {
   it("keeps transcripts in the same authoritative envelope across navigation and reset", () => {
     // Fixture instrumentation of model actions, not the future command parser.
     const transcriptRuntime = compileScenario({ ...dhcpDefinition,
-      transition: (state, action) => ({ ...transitionDhcp(state, action), history: [
-        ...state.history, { command: action.type, output: "Fixture model transition", status: "info" as const },
+      transition: (state, action) => ({ ...dhcpDefinition.transition(state, action), console:{...state.console,nextId:state.console.nextId+1}, history: [
+        ...state.history, { id:state.console.nextId, command: action.type, output: "Fixture model transition", status: "info" as const },
       ] }),
     })
     let state = focus(createQuizState(exam, blankProgress(), {mode:"pbq"}, { [bindingKey(runtime.binding)]:transcriptRuntime }))
@@ -208,10 +208,10 @@ describe("registry and opt-in session lifecycle", () => {
   it("freezes the version for the attempt and ignores legacy answer setters", () => {
     const source={...bindings}
     const state=focus(createQuizState(exam,blankProgress(),{mode:"pbq"},source))
-    source[bindingKey(runtime.binding)]=compileScenario({...dhcpDefinition,version:2})
-    expect(state.simulations[state.idx].version).toBe(1)
+    source[bindingKey(runtime.binding)]=compileScenario({...dhcpDefinition,version:runtime.version+1})
+    expect(state.simulations[state.idx].version).toBe(runtime.version)
     expect(quizSessionReducer(state,{type:"set-terminal",taskIdx:0,command:"ipconfig /release"})).toBe(state)
-    expect(quizSessionReducer(state,{type:"simulation-action",idx:state.idx,scenarioId:runtime.id,version:2,action:release})).toBe(state)
-    expect(quizSessionReducer(state,{type:"reset-simulation",idx:state.idx}).answers[state.idx]).toMatchObject({scenarioVersion:1})
+    expect(quizSessionReducer(state,{type:"simulation-action",idx:state.idx,scenarioId:runtime.id,version:runtime.version+1,action:release})).toBe(state)
+    expect(quizSessionReducer(state,{type:"reset-simulation",idx:state.idx}).answers[state.idx]).toMatchObject({scenarioVersion:runtime.version})
   })
 })
