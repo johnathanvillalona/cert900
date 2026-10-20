@@ -10,6 +10,14 @@ interface Registration {
 /** Metadata only. No eager bank, CLI, or renderer imports. */
 export const SCENARIOS: readonly Registration[] = Object.freeze([
   Object.freeze({
+    id: "network-plus.edge-acl", version: 1,
+    binding: Object.freeze({ exam: "n10-009", kind: "config" as const, topic: "security-rules", title: "Build the Edge ACL" }),
+    load: async () => {
+      const [{ compileScenario }, { edgeAclDefinition }] = await Promise.all([import("./core/transition"), import("./scenarios/edge-acl")])
+      return compileScenario(edgeAclDefinition)
+    },
+  }),
+  Object.freeze({
     id: "a-plus.dhcp-lease", version: 2,
     binding: Object.freeze({ exam: "220-1201", kind: "terminal" as const, topic: "troubleshooting-networks", title: "Fix a Stale DHCP Lease" }),
     load: async () => {

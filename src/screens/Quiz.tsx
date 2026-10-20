@@ -1,6 +1,6 @@
 import type { SimulationBindings } from "@/simulations/core/contracts"
-import type { SimulationViewProps } from "@/simulations/ui/contracts"
-import { useEffect, useRef, useState, type ComponentType } from "react"
+import type { WebScenario } from "@/simulations/web-registry"
+import { useEffect, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 import type { ExamDef, PBQMatch, PBQOrder } from "@/data/types"
 import { TerminalView, ConfigView, HotspotView, DragConnectView } from "@/components/pbq-sims"
@@ -24,7 +24,7 @@ function fmtTime(s: number) {
 }
 
 type QuizProps = { exam: ExamDef; cfg: QuizConfig; onFinish: (o: QuizOutcome) => void; onQuit: () => void }
-type Prepared = { exam: ExamDef; bindings: SimulationBindings; View: ComponentType<SimulationViewProps> }
+type Prepared = { exam: ExamDef; bindings: SimulationBindings; views: Readonly<Record<string, WebScenario>> }
 
 /** Resolve the opt-in pilot and its renderer before mounting the timed session. */
 export function Quiz(props: QuizProps) {
@@ -37,8 +37,8 @@ export function Quiz(props: QuizProps) {
     if(!enabled) return
     let cancelled=false
     setFailed(false)
-    Promise.all([import("@/simulations/registry"),import("@/simulations/scenarios/DhcpWorkspace")])
-      .then(async ([registry,view])=>({exam,bindings:await registry.prepareSimulationBindings(exam,["a-plus.dhcp-lease"]),View:view.DhcpWorkspace}))
+    import("@/simulations/web-registry")
+      .then(async registry=>({exam,...await registry.prepareWebSimulations(exam)}))
       .then(result=>{if(!cancelled)setPrepared(result)})
       .catch(()=>{if(!cancelled)setFailed(true)})
     return ()=>{cancelled=true}
@@ -48,16 +48,16 @@ export function Quiz(props: QuizProps) {
     <p role={failed?"alert":"status"} className="text-sm">{failed?"The virtual workstation could not be loaded. Retry, or return to exam selection.":"Preparing the virtual workstation. The exam timer has not started."}</p>
     <div className="mt-3 flex flex-wrap gap-2">{failed&&<Button onClick={()=>setRetry(v=>v+1)}>Retry</Button>}<Button variant="outline" onClick={onQuit}>Back to exam selection</Button></div>
   </div>
-  return <QuizAttempt {...props} simulations={prepared.bindings} SimulationView={prepared.View}/>
+  return <QuizAttempt {...props} simulations={prepared.bindings} simulationViews={prepared.views}/>
 }
 
-function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, SimulationView }: {
+function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, simulationViews }: {
   exam: ExamDef
   cfg: QuizConfig
   onFinish: (o: QuizOutcome) => void
   onQuit: () => void
   simulations?: SimulationBindings
-  SimulationView?: ComponentType<SimulationViewProps>
+  simulationViews?: Readonly<Record<string, WebScenario>>
 }) {
   const store = useProgress()
   const session = useQuizSession(exam, store.get(exam.id), cfg, {
@@ -210,7 +210,7 @@ function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, SimulationView 
         {item.kind === "mc" ? (
           <MCView exam={exam} session={session} item={item} isExam={isExam} />
         ) : (
-          <PBQView exam={exam} session={session} item={item} isExam={isExam} SimulationView={SimulationView} />
+          <PBQView exam={exam} session={session} item={item} isExam={isExam} simulationViews={simulationViews} />
         )}
       </Card>
 
@@ -475,8 +475,10 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
   )
 }
 
-function PBQView({ exam, session, item, isExam, SimulationView }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "pbq" }>; isExam: boolean; SimulationView?: ComponentType<SimulationViewProps> }) {
+function PBQView({ exam, session, item, isExam, simulationViews }: { exam: ExamDef; session: QuizSession; item: Extract<QuizItem, { kind: "pbq" }>; isExam: boolean; simulationViews?: Readonly<Record<string, WebScenario>> }) {
   const p = item.p
+  const presentation = session.simulation ? simulationViews?.[session.simulation.id] : undefined
+  const SimulationView = presentation?.View
   const fmt = VENDOR_FORMATS[exam.vendor]
   const graded = !isExam && session.graded[session.idx] !== undefined
   const frac = session.graded[session.idx]
@@ -490,7 +492,7 @@ function PBQView({ exam, session, item, isExam, SimulationView }: { exam: ExamDe
         {exam.domains[exam.videos[p.t].d]}
       </p>
       <p className="text-lg font-semibold">{p.title}</p>
-      <p className="mt-2 whitespace-pre-line rounded-md border bg-muted/40 p-3 text-sm">{p.scen}</p>
+      <p className="mt-2 whitespace-pre-line rounded-md border bg-muted/40 p-3 text-sm">{presentation?.scenarioText ?? p.scen}</p>
 
       {/* key={session.idx}: every PBQ view holds state that must not outlive its
           question — Radix's internal Select value (match/config), the terminal
