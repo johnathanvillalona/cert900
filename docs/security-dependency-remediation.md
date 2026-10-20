@@ -61,11 +61,13 @@ Better Auth `1.6.23` accepts Vitest 4 through its optional peer range
 | Batch 1 | 263 / 18 files pass | Pass | 12: 2 critical, 7 high, 3 moderate | 6: 2 critical, 2 high, 2 moderate |
 | Batch 2 | 263 / 18 files pass | Pass | 9: 0 critical, 7 high, 2 moderate | 3: 0 critical, 2 high, 1 moderate |
 | Batch 3 | 263 / 18 files pass | Pass | 5: 0 critical, 3 high, 2 moderate | 3: 0 critical, 2 high, 1 moderate |
+| Batch 4 | 263 / 18 files pass | Pass | 0 findings | 0 findings |
 
 Batch 2 was tested after a reproducible `npm ci --ignore-scripts --no-audit
 --no-fund` installation. Commands: `npm test`, `npm run build`, `npm audit`,
-and `npm audit --omit=dev`. Audits return exit status 1 because findings remain;
-that is not a clean audit. The existing >500 kB bundle warning remains.
+and `npm audit --omit=dev`. Through Batch 3 the audits returned exit status 1
+because findings remained. After Batch 4 both audits return exit status 0 with
+zero findings. The existing >500 kB bundle warning remains.
 The final build also verifies inclusion of the exact static MIT license.
 
 After Batch 2, `npm install-scripts ls` reported unapproved scripts for esbuild `0.28.1`,
@@ -229,17 +231,128 @@ were kept inactive or outside the test; no production validation is claimed.
 No application/authentication logic, question content, grading, deployment
 configuration, production resources, or preserved PBQ work were changed.
 
-Later compatible transitive refreshes remain pending: PostCSS `8.5.31`, nanoid
-`3.3.20`, source-map-js `1.2.2`, browserslist `4.29.4`, and
-baseline-browser-mapping `2.11.30`. Reverify advisories and supported ranges
-before installing; no such updates were included in Batches 1–3. Batch 4 requires
-the user's next approval.
+## Batch 4: remaining compatible transitive fixes
+
+Started from clean Batch 3 commit
+`ca175d7000faa6b4a9eab36a275e9d0b1cfe721f` after explicit user approval.
+Published versions, engines, dependencies, and advisory patched ranges were
+verified again before updating. All five changes stay within the existing
+parent semver ranges; no incompatible major upgrades were needed.
+
+| Package | Before | Final installed | Parent dependency range |
+| --- | --- | --- | --- |
+| browserslist | 4.28.6 | 4.29.4 | Babel compilation targets: `^4.24.0` |
+| baseline-browser-mapping | 2.10.43 | 2.11.30 | browserslist: previously `^2.10.42`, now `^2.11.29` |
+| nanoid | 3.3.16 | 3.3.20 | PostCSS: previously `^3.3.12`, now `^3.3.20` |
+| PostCSS | 8.5.19 | 8.5.31 | Vite: `^8.5.6` |
+| source-map-js | 1.2.1 | 1.2.2 | Tailwind: `^1.2.1`; PostCSS: now `^1.2.2` |
+
+Fresh advisory review confirmed fixes at or above browserslist `4.28.7`
+([cache growth](https://github.com/advisories/GHSA-c83g-rgw3-j3cx),
+[custom stats](https://github.com/advisories/GHSA-73wf-gq98-2v4g)),
+baseline-browser-mapping `2.11.0`
+([process termination](https://github.com/advisories/GHSA-w5vr-8v7q-w6rv)),
+nanoid `3.3.18`
+([zero-size generator loop](https://github.com/advisories/GHSA-2v37-7h3g-55p8)),
+PostCSS `8.5.23`
+([sourceMappingURL file access](https://github.com/advisories/GHSA-fxqj-rqcc-2cmp)),
+and source-map-js `1.2.2`
+([indexed source-map denial of service](https://github.com/advisories/GHSA-68fv-2mgg-jv7q)).
+The final installed versions clear these advisories, and both complete npm
+audit modes report no other findings as of this checkpoint.
+
+### Exact scope of the lockfile change
+
+Used npm's supported targeted update, without changing `package.json`:
+
+```sh
+npm update browserslist baseline-browser-mapping nanoid postcss source-map-js --package-lock-only --ignore-scripts --no-audit --no-fund
+```
+
+Browserslist's published dependency constraints also require these four
+compatible browser-data/tool updates:
+
+- caniuse-lite: `1.0.30001805 → 1.0.30001817`.
+- electron-to-chromium: `1.5.389 → 1.5.461`.
+- node-releases: `2.0.51 → 2.0.59`.
+- update-browserslist-db: `1.2.3 → 1.3.4`.
+
+npm additionally records six already-bundled optional dependency entries under
+the unchanged `@tailwindcss/oxide-wasm32-wasi@4.3.2`: emnapi/core `1.11.1`,
+emnapi/runtime `1.11.1`, emnapi/wasi-threads `1.2.2`, napi-rs/wasm-runtime
+`1.1.4`, tybys/wasm-util `0.10.2`, and tslib `2.8.1`. The package's published
+`bundleDependencies` lists these six packages; all new entries have `inBundle`
+and `optional` set. This records bundled contents, with no Tailwind version
+upgrade. The WASM platform package is not installed on this Linux host.
+
+No packages were added to the root manifest, no overrides were introduced, and
+no unrelated application package versions changed. Wrangler, Miniflare, workerd,
+sharp, undici, esbuild, Vite, Vitest, React, Better Auth, and Tailwind remain at
+their prior versions. Only `package-lock.json` and this report change in Batch 4.
+
+### Final validation
+
+- `npm ci --ignore-scripts --no-audit --no-fund`: passed, 283 packages installed.
+- `npm test`: all 263 tests across 18 files passed.
+- `npm run build`: both TypeScript checks, Vite production build, and all 21
+  guide prerenders passed. The existing large-chunk warning remains.
+- Full `npm audit` and `npm audit --omit=dev`: both exited 0 with zero findings
+  at every severity. No audit fixes, exclusions, or advisory suppression used.
+- `npm ls --all --json`: no root or nested dependency problems. All seven
+  current parent dependency/peer ranges referencing the five target packages
+  were also checked with semver and satisfied.
+- Installed package manifests and lockfile entries show exactly one copy of
+  each of the five target packages, all at the final versions above; no old
+  vulnerable copies of these packages remain in the installed tree.
+- SHA-256 comparison of all 29 files in `dist/assets` is identical to Batch 3,
+  including compiled CSS, JavaScript, and fonts. The CSS is byte-for-byte
+  identical, and the built shadcn MIT attribution file matches its source.
+- `npm install-scripts ls` still lists esbuild `0.28.2` and workerd
+  `1.20261019.1` as unapproved. No scripts were approved or run by installation.
+
+### Repeated isolated Worker checks
+
+The reviewed, unchanged temporary harness
+`/tmp/cert900-batch3-worker-smoke.mjs` was rerun after the clean install and
+production build. All 13 check groups passed. Its Batch 4 redacted summary is
+`/tmp/cert900-batch3-xCdKfI/report.json` (the reused harness retains its original
+temporary-directory prefix).
+
+The run used another fresh temporary configuration and local D1 database,
+constructed process environment, isolated HOME/config/state, disabled secret
+and dotenv loading, local-only bindings, synthetic auth, no integration
+credentials, no cron triggers, and blocked outbound Worker networking. No
+production credentials or resources were accessed; outbound Worker attempts
+were zero. Both Worker instances were disposed after testing.
+
+Repeated checks covered static HTML/CSS/license assets, security/cache headers,
+`/api/config`, representative API error responses, synthetic signup/sign-in,
+session reads (including cookie-cache bypass), wrong-password rejection,
+sign-out/revocation, D1 initialization, progress writes/reads/deletion, independent
+local SQL reads, and session/data persistence after a full Worker restart.
+
+### Outstanding limits and next approval
+
+No npm-reported vulnerabilities remain in either audit mode at this checkpoint.
+That result is limited to current advisory coverage. The existing Miniflare 5
+beta, Node >=22 requirement, untested platforms and old local-state migration,
+and deliberately untested real OAuth/email/external integrations, scheduled
+jobs, and deployed Cloudflare runtime retain the limits recorded for Batch 3.
+No production behavior is claimed from these isolated tests.
+
+No UI or styling rules, schemas, authentication/application logic, question
+content, PBQ interactions or grading, or production settings changed. Browser
+review of the combined security/PBQ work has not been performed. Integration
+in a disposable worktree, browser review, pushing, merging, and deployment
+remain unperformed and require the next approval. Stop after this batch.
 
 ## Rollback
 
-All batches are local commits on the isolated branch. To undo Batch 3, revert
+All batches are local commits on the isolated branch. To undo Batch 4, revert
 its commit and run `npm ci --ignore-scripts --no-audit --no-fund`, tests, and
-build. To also undo earlier batches, revert Vitest commit `07e18bd` next, then
+build; this restores the five known findings that Batch 4 addressed. To also
+undo Batch 3, revert `ca175d7`. To undo earlier batches, revert Vitest commit
+`07e18bd` next, then
 `efb7c17560bf1ecba810dae0f7b6607fbcf70802` if required, and run
 `npm ci --ignore-scripts --no-audit --no-fund` followed by tests and build. Use
 revert commits rather than resetting or discarding work. The PBQ checkpoint and
