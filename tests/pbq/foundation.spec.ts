@@ -4,6 +4,7 @@ import { workstation, place } from './helpers'
 test('real PBQ session: placement, reset, zero grade and locking', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
   // Tests must never contact non-local services.
   await page.route('**/*', route => {
     const url = new URL(route.request().url())

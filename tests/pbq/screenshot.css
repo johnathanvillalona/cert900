@@ -1,0 +1,3 @@
+/* Keep the sticky header from covering the top of a full-question capture.
+   Header geometry has its own screenshots. This is applied only during capture. */
+header { visibility: hidden !important; }

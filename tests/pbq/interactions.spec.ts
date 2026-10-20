@@ -19,6 +19,13 @@ for (const exam of [core1, core2, network]) {
       const scene = page.getByTestId('dragconnect-scene').getByRole('img')
       await expect(scene).toHaveAttribute('alt', /.+/)
       if (p.scene !== 'pc-rear') await expect(scene).not.toHaveAttribute('alt', /workstation computer with peripheral ports/)
+      await page.setViewportSize({width:320,height:740})
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
+      for (const zone of p.zones) {
+        const control = page.getByTestId(`port-${zone.id}`)
+        await expect(control).toHaveAccessibleName(new RegExp(zone.label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
+        expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(44)
+      }
     })
   }
 }

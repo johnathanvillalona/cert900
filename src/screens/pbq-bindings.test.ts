@@ -20,9 +20,8 @@ import path from "node:path"
  *
  * These are source-level checks because the app's vitest environment is "node"
  * (no DOM), and Radix Select cannot be driven meaningfully in jsdom. The
- * end-to-end proof was the Playwright driver `qa/match-repro.js` (lost with the
- * session scratchpad on 2026-09-05; re-author on demand), which answered every
- * match PBQ by visible label and asserted a 100% grade.
+ * maintained browser proof now lives in tests/pbq/session.spec.ts: it drives
+ * real Radix controls by keyboard, checks grades, and checks question isolation.
  */
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..")
