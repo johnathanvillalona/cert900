@@ -161,6 +161,16 @@ describe("pbqScore", () => {
     expect(pbqScore(drag, {})).toBe(0)
   })
 
+  it("Provision the Sales Workstation retains four-part credit and ignores unused distractors", () => {
+    const workstation = core1.pbqs.find((p) => p.title === "Provision the Sales Workstation")
+    expect(workstation?.kind).toBe("dragconnect")
+    if (!workstation || workstation.kind !== "dragconnect") throw new Error("Workstation PBQ is missing")
+
+    expect(pbqScore(workstation, workstation.answer)).toBe(1)
+    expect(pbqScore(workstation, { ...workstation.answer, zvga: "hdmi" })).toBeCloseTo(0.75)
+    expect(pbqScore(workstation, { ...workstation.answer, zlan: "rj11" })).toBeCloseTo(0.75)
+  })
+
   // Regression: the exam palette crashed on non-array answer shapes
   // (dragconnect records) because it assumed number[] for every PBQ.
   it("pbqAnswerBlank handles every kind's answer shape without throwing", () => {

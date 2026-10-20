@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { Check, ChevronRight } from "lucide-react"
+import { AlertCircle, Check, ChevronRight, RotateCcw } from "lucide-react"
 import type { PBQConfig, PBQDragConnect, PBQHotspot, PBQTerminal, HotspotIcon, ConnectorGlyph } from "@/data/types"
 import type { QuizSession } from "@/lib/quiz-session"
 import { commandMatches } from "@/lib/engine"
@@ -266,6 +266,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
   const [heldItem, setHeldItem] = useState<string | null>(null)
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
+  const zoneRefs = useRef<(HTMLButtonElement | null)[]>([])
   const img = SCENE_IMG[p.scene]
   const H = img ? (100 * img.h) / img.w : SCENE_HEIGHT[p.scene]
 
@@ -295,21 +296,61 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
     }
   }
 
+  const reset = () => {
+    if (graded || !Object.keys(placed).length) return
+    // Clear the authoritative quiz-session answer through its existing API.
+    // Each item is removed from whichever zone currently contains it.
+    for (const item of p.items) session.placeItem(null, item.id)
+    setHeldItem(null)
+    setDrag(null)
+  }
+
   const pct = (v: number) => `${v}%`
   const pctY = (v: number) => `${(v / H) * 100}%`
 
   return (
-    <div className="mt-3" data-testid="dragconnect">
-      <p className="text-sm font-medium">{p.prompt}</p>
-      <p className="text-muted-foreground mt-0.5 text-xs">
-        Tap a connector, then tap its labeled target on the photo (or drag it there). Tap a placed connector to remove it.
-      </p>
+    <div
+      className="mt-4 space-y-4"
+      data-testid="dragconnect"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setHeldItem(null)
+          setDrag(null)
+        }
+      }}
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3 rounded-lg border bg-muted/30 p-3 sm:p-4">
+        <div className="min-w-0 flex-1">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Work order · Peripheral setup</p>
+          <p className="mt-1 text-sm font-semibold">{p.prompt}</p>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            Select a connector, then choose a labeled port. You can also drag a connector onto a port. Press Escape to clear a selection.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={reset}
+          disabled={graded || !Object.keys(placed).length}
+          className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-md border bg-background px-3 text-xs font-semibold transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-45"
+          data-testid="dragconnect-reset"
+        >
+          <RotateCcw className="size-3.5" aria-hidden />
+          Reset connections
+        </button>
+        <p role="status" aria-live="polite" className="sr-only" data-testid="dragconnect-status">
+          {graded
+            ? `${p.zones.filter((z) => placed[z.id] === p.answer[z.id]).length} of ${p.zones.length} connections correct.`
+            : heldItem
+              ? `${itemById[heldItem].label} selected. Choose a labeled port.`
+              : `${Object.keys(placed).length} of ${p.zones.length} ports connected.`}
+        </p>
+      </div>
 
-      <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_230px]">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         {/* scene */}
         <div
           ref={sceneRef}
-          className="relative w-full touch-none self-start overflow-hidden rounded-md border bg-muted/30"
+          className="relative w-full touch-none self-start overflow-hidden rounded-lg border bg-slate-950 shadow-sm"
           data-testid="dragconnect-scene"
           onPointerMove={(e) => drag && setDrag({ ...drag, x: e.clientX, y: e.clientY })}
           onPointerUp={(e) => {
@@ -320,37 +361,38 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
           }}
         >
           {img ? (
-            <img src={img.src} alt="" className="block w-full select-none" draggable={false} />
+            <img src={img.src} alt="Rear panel of a workstation computer with ports for the required connections." className="block w-full select-none" draggable={false} />
           ) : (
-            <svg viewBox={`0 0 100 ${H}`} className="block w-full">
+            <svg viewBox={`0 0 100 ${H}`} className="block w-full" role="img" aria-label="Illustrated workstation connection scene">
               <Scene scene={p.scene} />
             </svg>
           )}
 
-          {p.zones.map((z) => {
+          {p.zones.map((z, zi) => {
             const itemId = placed[z.id]
             const ok = graded && itemId === p.answer[z.id]
             const state = graded ? (ok ? "ok" : "bad") : itemId ? "filled" : heldItem ? "ready" : "empty"
             return (
               <button
                 key={z.id}
+                ref={(node) => { zoneRefs.current[zi] = node }}
                 disabled={graded}
                 data-testid={`zone-${z.id}`}
-                aria-label={`${z.label}${itemId ? `, contains ${itemById[itemId].label}` : ", empty"}`}
+                aria-label={`Port ${zi + 1}: ${z.label}${itemId ? `, contains ${itemById[itemId].label}` : ", empty"}${graded ? ok ? ", correct placement" : ", incorrect or empty" : ""}`}
                 className={cn(
-                  "absolute flex cursor-pointer items-center justify-center rounded-md border-2 outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring",
-                  state === "empty" && "border-dashed border-white/80 bg-black/25 hover:bg-black/40",
-                  state === "ready" && "border-brand border-dashed bg-black/45 shadow-[0_0_0_3px_rgba(0,0,0,0.25)]",
-                  state === "filled" && "border-white bg-black/50",
-                  state === "ok" && "border-[var(--success)] bg-black/50",
-                  state === "bad" && "border-[var(--destructive)] bg-black/50",
+                  "absolute flex cursor-pointer items-center justify-center rounded-md border-2 outline-none transition-[background-color,border-color,box-shadow] duration-150 focus-visible:z-20 focus-visible:ring-4 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
+                  state === "empty" && "border-dashed border-white/90 bg-slate-900/35 hover:bg-slate-900/60",
+                  state === "ready" && "border-amber-300 border-dashed bg-amber-300/20 shadow-[0_0_0_3px_rgba(0,0,0,0.35)]",
+                  state === "filled" && "border-sky-300 bg-slate-900/65",
+                  state === "ok" && "border-emerald-300 bg-emerald-950/70",
+                  state === "bad" && "border-rose-300 bg-rose-950/70",
                 )}
                 style={{ left: pct(z.x), top: pctY(z.y), width: pct(z.w), height: pctY(z.h) }}
                 onClick={() => place(z.id)}
               >
                 {itemId && (
                   <span className="pbq-pop pointer-events-none flex max-h-full max-w-full items-center justify-center p-0.5">
-                    <ItemThumb glyph={itemById[itemId].glyph} className="size-8 max-h-full shadow-md" />
+                    {graded ? ok ? <Check className="size-5 text-emerald-200 sm:size-7" aria-hidden /> : <AlertCircle className="size-5 text-rose-200 sm:size-7" aria-hidden /> : <ItemThumb glyph={itemById[itemId].glyph} className="size-7 max-h-full shadow-md sm:size-9" />}
                   </span>
                 )}
               </button>
@@ -358,7 +400,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
           })}
 
           {/* always-visible target labels */}
-          {p.zones.map((z) => {
+          {p.zones.map((z, zi) => {
             const itemId = placed[z.id]
             const ok = graded && itemId === p.answer[z.id]
             return (
@@ -366,43 +408,60 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
                 key={`label-${z.id}`}
                 aria-hidden
                 className={cn(
-                  "pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border px-1.5 py-px font-mono text-[10px] font-semibold whitespace-nowrap shadow-sm",
+                  "pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-md border px-1.5 py-0.5 text-center font-mono text-[8px] leading-tight font-semibold whitespace-normal shadow-md sm:px-2 sm:text-[10px]",
                   graded
                     ? ok
-                      ? "border-[var(--success)] bg-[var(--success)] text-white"
-                      : "border-[var(--destructive)] bg-[var(--destructive)] text-white"
-                    : "border-black/30 bg-white/95 text-slate-900",
+                      ? "border-emerald-200 bg-emerald-950 text-emerald-50"
+                      : "border-rose-200 bg-rose-950 text-rose-50"
+                    : heldItem
+                      ? "border-amber-300 bg-amber-50 text-slate-950"
+                      : "border-slate-300 bg-white text-slate-950",
                 )}
-                style={{ left: pct(z.x + z.w / 2), top: pctY(z.y + z.h) }}
+                style={{ left: pct(z.x + z.w / 2), top: pctY(z.y + z.h), maxWidth: "46%" }}
               >
-                {z.label}
+                {zi + 1}. {z.label}
               </span>
             )
           })}
         </div>
 
         {/* inventory */}
-        <div className="flex min-w-0 flex-col gap-1.5 self-start" data-testid="dragconnect-tray">
-          <p className="text-muted-foreground font-mono text-[11px] font-semibold tracking-wider uppercase">Connectors</p>
+        <div className="min-w-0 rounded-lg border bg-muted/20 p-3 sm:p-4" data-testid="dragconnect-tray">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <div>
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Parts inventory</p>
+              <p className="mt-0.5 text-sm font-semibold">Available connectors</p>
+            </div>
+            <span className="rounded-full border bg-background px-2 py-1 font-mono text-[10px] tabular-nums text-muted-foreground">{p.items.length} items</span>
+          </div>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1">
           {p.items.map((it) => {
             const inZone = zoneOf(it.id)
             const held = heldItem === it.id
+            const correct = graded && !!inZone && placed[inZone] === p.answer[inZone]
+            const isDistractor = !Object.values(p.answer).includes(it.id)
             return (
               <button
                 key={it.id}
                 disabled={graded}
                 data-testid={`item-${it.id}`}
                 aria-pressed={held}
+                aria-label={`${it.label}${inZone ? `, connected to ${zoneById[inZone].label}` : isDistractor ? ", unused distractor" : ", not connected"}${held ? ", selected" : ""}`}
                 className={cn(
-                  "pressable flex w-full cursor-grab touch-none items-center gap-2.5 rounded-md border bg-card p-1.5 text-left text-xs font-medium",
-                  held && "border-brand ring-ring/50 ring-2",
-                  inZone && !graded && "opacity-75",
+                  "pressable flex min-h-14 w-full cursor-grab touch-none items-center gap-3 rounded-md border bg-card p-2.5 text-left text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  held && "border-amber-500 bg-amber-50 ring-2 ring-amber-500/40 dark:bg-amber-950/30",
+                  inZone && !graded && "border-sky-300/80",
+                  correct && "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/25",
+                  graded && inZone && !correct && "border-rose-400 bg-rose-50 dark:bg-rose-950/25",
                   drag?.id === it.id && "opacity-40",
                 )}
-                onClick={() => {
+                onClick={(e) => {
                   if (graded) return
                   if (inZone) session.placeItem(null, it.id)
-                  else setHeldItem(held ? null : it.id)
+                  else {
+                    setHeldItem(held ? null : it.id)
+                    if (!held && e.detail === 0) requestAnimationFrame(() => zoneRefs.current[0]?.focus())
+                  }
                 }}
                 onPointerDown={(e) => {
                   if (graded || inZone) return
@@ -419,16 +478,21 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
                   }
                 }}
               >
-                <ItemThumb glyph={it.glyph} className="size-11 shrink-0 border" />
+                <ItemThumb glyph={it.glyph} className="size-12 shrink-0 border bg-white" />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate">{it.label}</span>
-                  <span className={cn("mt-0.5 block truncate text-[10px]", inZone ? "text-[var(--success)]" : "text-muted-foreground")}>
-                    {inZone ? `Connected: ${zoneById[inZone].label}` : held ? "Now tap a target" : "Not connected"}
+                  <span className="block leading-snug">{it.label}</span>
+                  <span className={cn("mt-1 block text-[10px] leading-snug", held ? "font-semibold text-amber-800 dark:text-amber-200" : inZone ? "text-sky-700 dark:text-sky-300" : "text-muted-foreground")}>
+                    {graded
+                      ? correct ? `Correct · ${zoneById[inZone!].label}` : inZone ? `Check · ${zoneById[inZone].label}` : isDistractor ? "Unused distractor" : "Not connected"
+                      : inZone ? `Connected · ${zoneById[inZone].label}` : held ? "Selected · choose a port" : "Available"}
                   </span>
                 </span>
+                {held && <span className="rounded-full bg-amber-200 px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-amber-950 dark:bg-amber-900 dark:text-amber-50">Selected</span>}
+                {graded && (correct ? <Check className="size-4 shrink-0 text-emerald-700 dark:text-emerald-300" aria-hidden /> : inZone ? <AlertCircle className="size-4 shrink-0 text-rose-700 dark:text-rose-300" aria-hidden /> : null)}
               </button>
             )
           })}
+          </div>
         </div>
       </div>
 
