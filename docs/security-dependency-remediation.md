@@ -60,6 +60,7 @@ Better Auth `1.6.23` accepts Vitest 4 through its optional peer range
 | Baseline | 263 / 18 files pass | Pass | 28: 3 critical, 18 high, 7 moderate | 6: 2 critical, 2 high, 2 moderate |
 | Batch 1 | 263 / 18 files pass | Pass | 12: 2 critical, 7 high, 3 moderate | 6: 2 critical, 2 high, 2 moderate |
 | Batch 2 | 263 / 18 files pass | Pass | 9: 0 critical, 7 high, 2 moderate | 3: 0 critical, 2 high, 1 moderate |
+| Batch 3 | 263 / 18 files pass | Pass | 5: 0 critical, 3 high, 2 moderate | 3: 0 critical, 2 high, 1 moderate |
 
 Batch 2 was tested after a reproducible `npm ci --ignore-scripts --no-audit
 --no-fund` installation. Commands: `npm test`, `npm run build`, `npm audit`,
@@ -67,13 +68,13 @@ and `npm audit --omit=dev`. Audits return exit status 1 because findings remain;
 that is not a clean audit. The existing >500 kB bundle warning remains.
 The final build also verifies inclusion of the exact static MIT license.
 
-`npm install-scripts ls` still reports unapproved scripts for esbuild `0.28.1`,
+After Batch 2, `npm install-scripts ls` reported unapproved scripts for esbuild `0.28.1`,
 sharp `0.34.5`, and workerd `1.20260708.1`. None were approved or executed during
 installation. Current tests/build work without approval. Do not approve these
 scripts merely to silence warnings; reassess the exact updated scripts if a
 specific platform/runtime check needs them.
 
-## Remaining audit findings and exposure
+## Audit findings after Batch 2 (historical)
 
 | Package | Installed version | Severity | Dependency path / affected context |
 | --- | --- | --- | --- |
@@ -101,11 +102,13 @@ source, configuration, maps, images, network responses, or untrusted changes.
 Do not expose development servers publicly or run privileged builds on
 untrusted inputs while the remaining fixes are pending.
 
-## Batch 3 approval checkpoint — not implemented
+## Batch 3: Cloudflare toolchain upgrade
 
-Proposed exact upstream versions, verified from public npm metadata:
+The user approved this batch after the Batches 1–2 checkpoint. The requested
+releases, Node engines, Wrangler peer range, and published dependency constraints
+were reverified against the public npm registry before installation.
 
-| Package | Proposed version |
+| Package | Actual resolved version |
 | --- | --- |
 | Wrangler | 4.151.3 |
 | @cloudflare/workers-types | 5.20261019.1 |
@@ -115,38 +118,129 @@ Proposed exact upstream versions, verified from public npm metadata:
 | undici (Miniflare dependency) | 7.29.1 |
 | esbuild (Wrangler dependency) | 0.28.2 |
 
-These are proposed package versions, not an installed/resolved full lockfile.
-Wrangler's stable release directly depends on Miniflare 5 beta:
+Wrangler and Workers types are pinned exactly. The remaining versions come from
+Wrangler's published dependency tree, with no overrides. The lockfile also
+updates platform binaries, sharp's libvips packages (`1.3.4`), unenv-preset
+(`2.16.2`), emnapi/runtime (`1.11.3`), and speed-highlight/core (`1.2.24`), and
+hoists the existing cookie dependency. Vite `7.3.6`, Vitest `4.1.12`, and all
+Better Auth `1.6.23` packages remain unchanged. Wrangler's stable release directly
+depends on Miniflare 5 beta:
 https://github.com/cloudflare/workers-sdk/releases/tag/wrangler%404.151.3
 
-Wrangler/Miniflare require Node >=22, satisfied locally. The major prerelease
-emulator transition and newer workerd/sharp warrant compatibility checks for
-local D1 persistence, binding behavior, assets, routing, Node compatibility,
-and authentication endpoints. No application or production configuration
-changes have been identified as necessary. Stop for approval if any become
-necessary; do not force transitive upgrades with overrides.
+Validation after the lockfile upgrade:
 
-After approval: install the pinned toolchain with scripts disabled, inspect
-the complete dependency diff, reproduce installation, rerun all tests/builds
-and both audits, then run isolated local Worker checks. A temporary standalone
-Wrangler config, dummy local-only auth settings, local D1 initialized from the
-tracked schema, separate state/config directories, sanitized child environment,
-disabled dotenv loading, localhost binding, and no remote bindings can avoid
-production credentials. Do not use the normal `.dev.vars` or user Cloudflare
-config. Do not trigger scheduled/social/email jobs. Verify assets, safe API
-responses, local D1, and auth routing; real OAuth, email delivery, and production
-Cloudflare integration remain outside that check. Worker runtime checks have
-not yet been executed at this checkpoint.
+- `npm ci --ignore-scripts --no-audit --no-fund`: passed (283 installed packages).
+- `npm test`: 263 tests across 18 files passed.
+- `npm run build`: both TypeScript checks, Vite, and 21-page prerender passed;
+  existing large-chunk warning remains.
+- `npm ls --all --json`: no root or nested dependency problems.
+- `npm audit`: 5 findings, detailed below; exit 1 because findings remain.
+- `npm audit --omit=dev`: 3 findings; exit 1 because findings remain.
+- esbuild works in production builds; workerd works in local Worker checks;
+  sharp `0.35.5` successfully creates/resizes/encodes a synthetic PNG using
+  libvips `8.18.7`, all without lifecycle script approval.
+- `npm install-scripts ls` now lists only esbuild `0.28.2` and workerd
+  `1.20261019.1` as unapproved. sharp `0.35.5` no longer declares an install
+  script. No scripts were approved; no binary workaround was necessary.
+
+### Isolated Worker verification
+
+All 13 smoke-check groups passed using Wrangler's `unstable_startWorker` API
+and the actual unmodified `worker/index.ts`. Temporary harness:
+`/tmp/cert900-batch3-worker-smoke.mjs`. Final redacted summary:
+`/tmp/cert900-batch3-AGkqiS/report.json`. These are local scratch artifacts,
+not application files. Running the harness again creates another fresh
+temporary database/configuration.
+
+Safety isolation:
+
+- Child process receives a constructed environment, not the parent environment.
+  HOME, XDG config/cache, Wrangler logs/registry, and persistence use fresh
+  temporary directories. No real account ID or credentials are supplied.
+- Explicit temporary Wrangler config and an empty temporary env-file override
+  prevent loading project `.dev.vars` or environment files. Dotenv loading,
+  process-env injection, and telemetry are disabled.
+- Config uses the unchanged production compatibility date `2026-07-14` and
+  `nodejs_compat`, built local assets, and a fresh local-only D1 binding. No
+  remote bindings, production database IDs, routes, or cron triggers are used.
+- Worker binds `127.0.0.1`; remote development and remote authentication are
+  disabled. Wrangler's outbound-service hook rejects every Worker network
+  request. An undici MockAgent blocks non-loopback controller requests.
+- No Google/Apple, mail, social, or other integration credentials or mail
+  bindings are provided. OAuth/callback and scheduled endpoints are not invoked.
+  Email and newsletter remain disabled; recorded outbound Worker attempts: zero.
+
+Verified behavior:
+
+1. `wrangler d1 execute DB --local` initializes the fresh D1 database from the
+   existing tracked schema; no remote SQL is executed.
+2. Wrangler starts the Worker and serves HTML, security headers, compiled CSS,
+   immutable asset caching, and the exact vendored MIT license.
+3. `/api/config` returns `{ emailAuth: false, newsletter: false }` and expected
+   cache headers. Local password testing remains available through the
+   application's existing localhost-only behavior; no auth code was changed.
+4. Unknown API 404, malformed/invalid report 400, unsupported report method 405,
+   signed-out progress 401, disabled newsletter 503, and unknown HTML page 404
+   with `noindex` all pass. Authenticated malformed progress JSON also returns 400.
+5. Synthetic email/password signup issues session cookies; session reads pass
+   both normally and with `disableCookieCache=true` to exercise D1-backed lookup.
+6. Authenticated progress writes/reads pass against local D1. After disposing the
+   Worker, an independent Wrangler local SQL query confirms the synthetic user,
+   session, and progress rows.
+7. A completely restarted Worker using the same temporary persistence directory
+   reads the existing progress and authenticates the existing session, including
+   a cookie-cache-bypassing session lookup.
+8. Progress deletion, sign-out, cleared-cookie handling, database-backed session
+   revocation, wrong-password rejection, and valid local password sign-in pass.
+
+The initial smoke harness incorrectly reused cookies that sign-out cleared.
+Only the temporary client harness was corrected to consume `Set-Cookie` like a
+browser; cache-bypassing revocation checks were added. No authentication or
+application changes were required. The final run passed, and Worker processes
+were disposed after testing.
+
+### Remaining findings after Batch 3
+
+| Package | Installed | Severity | `--omit=dev` |
+| --- | --- | --- | --- |
+| browserslist | 4.28.6 | High | No |
+| baseline-browser-mapping | 2.10.43 | Moderate | No |
+| nanoid | 3.3.16 | High | Yes |
+| PostCSS | 8.5.19 | Moderate | Yes |
+| source-map-js | 1.2.1 | High | Yes |
+
+The four Cloudflare-toolchain findings (Wrangler, Miniflare, sharp, undici) are
+absent from the new audit. The optional Better Auth → Vitest → Vite → PostCSS
+path still explains the last three production-only entries. Their versions and
+application import paths were not changed in this batch. Repeated in-memory
+esbuild analysis of the current Worker (595 inputs) found none of the five
+remaining audited packages in its import graph. Development/CI input-processing
+risks remain until Batch 4. No advisories were suppressed.
+
+### Compatibility limits
+
+Node >=22 is required by the updated Wrangler/Miniflare, satisfied by local
+Node `24.21.0`. Miniflare 5 is still beta; successful local checks do not establish
+compatibility on every platform. Migration/reuse of an existing Miniflare 4 local
+database was not tested because this validation intentionally used a fresh
+database. Real OAuth providers, email delivery, external integrations, scheduled
+jobs, remote D1, and the deployed Cloudflare runtime were not exercised. They
+were kept inactive or outside the test; no production validation is claimed.
+No application/authentication logic, question content, grading, deployment
+configuration, production resources, or preserved PBQ work were changed.
 
 Later compatible transitive refreshes remain pending: PostCSS `8.5.31`, nanoid
 `3.3.20`, source-map-js `1.2.2`, browserslist `4.29.4`, and
 baseline-browser-mapping `2.11.30`. Reverify advisories and supported ranges
-before installing; no such updates were included in Batches 1–2.
+before installing; no such updates were included in Batches 1–3. Batch 4 requires
+the user's next approval.
 
 ## Rollback
 
-Both batches are local commits on the isolated branch. Revert the Vitest batch
-first, then `efb7c17560bf1ecba810dae0f7b6607fbcf70802` if required, and run
+All batches are local commits on the isolated branch. To undo Batch 3, revert
+its commit and run `npm ci --ignore-scripts --no-audit --no-fund`, tests, and
+build. To also undo earlier batches, revert Vitest commit `07e18bd` next, then
+`efb7c17560bf1ecba810dae0f7b6607fbcf70802` if required, and run
 `npm ci --ignore-scripts --no-audit --no-fund` followed by tests and build. Use
 revert commits rather than resetting or discarding work. The PBQ checkpoint and
 production branch are unaffected.
