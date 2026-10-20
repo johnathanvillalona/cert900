@@ -10,7 +10,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "extract-data": "node tools/extract-data.mjs"
+    "extract-data": "node tools/extract-data.mjs",
+    "test:browser": "playwright test",
+    "test:worker": "node tools/qa/isolated-worker.mjs",
+    "preview:isolated": "node tools/qa/isolated-worker.mjs --serve --port=4174"
   },
   "dependencies": {
     "@better-auth/expo": "^1.6.23",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261019.1",
+    "@playwright/test": "1.64.1",
     "@tailwindcss/vite": "^4.1.0",
     "@types/node": "^24.13.3",
     "@types/react": "^19.1.0",
