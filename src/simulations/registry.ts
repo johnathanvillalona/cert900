@@ -10,6 +10,14 @@ interface Registration {
 /** Metadata only. No eager bank, CLI, or renderer imports. */
 export const SCENARIOS: readonly Registration[] = Object.freeze([
   Object.freeze({
+    id: "a-plus.inventory-firewall", version: 1,
+    binding: Object.freeze({ exam: "220-1202", kind: "config" as const, topic: "win-firewall-cfg", title: "Windows Defender Firewall: Allow the App" }),
+    load: async () => {
+      const [{ compileScenario }, { windowsFirewallDefinition }] = await Promise.all([import("./core/transition"), import("./scenarios/windows-firewall")])
+      return compileScenario(windowsFirewallDefinition)
+    },
+  }),
+  Object.freeze({
     id: "network-plus.edge-acl", version: 1,
     binding: Object.freeze({ exam: "n10-009", kind: "config" as const, topic: "security-rules", title: "Build the Edge ACL" }),
     load: async () => {
