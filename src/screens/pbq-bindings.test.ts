@@ -53,6 +53,20 @@ describe("PBQ view bindings", () => {
       expect(r, `PBQ view render is missing key={session.idx}: ${r}`).toContain("key={session.idx}")
     }
   })
+
+  it("reset-all clears placements through the authoritative quiz-session API", () => {
+    expect(SIMS).toMatch(/for \(const item of p\.items\) session\.placeItem\(null, item\.id\)/)
+    expect(SIMS).toContain('data-testid="dragconnect-reset"')
+    expect(SIMS).toContain("onClick={reset}")
+    expect(SIMS).toMatch(/if \(graded \|\| !Object\.keys\(placed\)\.length\) return/)
+  })
+
+  it("keeps the drag-connect task keyboard and screen-reader operable", () => {
+    expect(SIMS).toContain("e.key === \"Escape\"")
+    expect(SIMS).toMatch(/if \(!held && e\.detail === 0\) requestAnimationFrame\(\(\) => zoneRefs\.current\[0\]\?\.focus\(\)\)/)
+    expect(SIMS).toMatch(/role="status" aria-live="polite"/)
+    expect(SIMS).toMatch(/aria-label=\{`Port \$\{zi \+ 1\}/)
+  })
 })
 
 describe("exam palette answered-state", () => {
