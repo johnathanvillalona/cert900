@@ -55,7 +55,7 @@ for (const exam of [core1, aws]) {
 
 test('configuration keyboard selections grade correctly and retain complete labels', async ({ page }) => {
   await openLab(page, core2.code)
-  const p = core2.pbqs.find(p => p.title === 'Windows Defender Firewall: Allow the App')!
+  const p = core2.pbqs.find(p => p.kind === 'config' && p.title !== 'Windows Defender Firewall: Allow the App')!
   if(p.kind !== 'config') throw new Error('fixture')
   await findQuestion(page, p.title)
   await page.mouse.move(0,0)
