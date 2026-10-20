@@ -102,4 +102,22 @@ describe('authoritative ACL state and adapter',()=>{
     expect(quizSessionReducer(s,{type:'reset-simulation',idx})).toBe(s)
     expect(pbqScore(p,s.answers[idx] as PBQAnswer,runtime)).toBe(2/3)
   })
+  it('retains uncommitted drafts across navigation without earning credit, and ignores post-finish actions',()=>{
+    let s=createQuizState({...exam,pbqs:[p],examPBQ:1},blankProgress(),{mode:'exam'},bindings)
+    const idx=s.items.findIndex(q=>q.kind==='pbq'&&q.p.title===p.title)
+    s=quizSessionReducer(s,{type:'nav',to:idx})
+    const dispatch=(action:JsonValue)=>{s=quizSessionReducer(s,{type:'simulation-action',idx,scenarioId:runtime.id,version:1,action})}
+    dispatch({type:'edit',id:null});dispatch({type:'draft-field',field:'name',value:'Pending change'})
+    const saved=s.answers[idx]
+    s=quizSessionReducer(s,{type:'nav',to:idx===0?1:0})
+    s=quizSessionReducer(s,{type:'nav',to:idx})
+    expect(s.answers[idx]).toBe(saved)
+    expect(s.answers[idx]).toMatchObject({state:{draft:{form:{name:'Pending change'}}}})
+    expect(pbqScore(p,s.answers[idx] as PBQAnswer,runtime)).toBe(0)
+    s=quizSessionReducer(s,{type:'finish'})
+    const ended=s
+    dispatch({type:'apply'})
+    expect(s).toBe(ended)
+    expect(quizSessionReducer(s,{type:'reset-simulation',idx})).toBe(ended)
+  })
 })
