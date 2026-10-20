@@ -61,6 +61,15 @@ describe("PBQ view bindings", () => {
     expect(SIMS).toMatch(/if \(graded \|\| !Object\.keys\(placed\)\.length\) return/)
   })
 
+  it("does not disclose unused distractors before grading", () => {
+    expect(SIMS).toContain("const isDistractor = graded && !Object.values(p.answer).includes(it.id)")
+  })
+
+  it("cancels ordering without committing the preview", () => {
+    expect(QUIZ).toContain("onPointerCancel={cancelDrag}")
+    expect(QUIZ).not.toContain("onPointerCancel={endDrag}")
+  })
+
   it("keeps the drag-connect task keyboard and screen-reader operable", () => {
     expect(SIMS).toContain("e.key === \"Escape\"")
     expect(SIMS).toMatch(/if \(!held && e\.detail === 0\) requestAnimationFrame\(\(\) => zoneRefs\.current\[0\]\?\.focus\(\)\)/)
