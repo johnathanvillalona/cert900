@@ -7,13 +7,13 @@ import type { ConnectorGlyph } from "@/data/types"
  * Scenes carry their intrinsic pixel size so zone x/y/w/h (0-100 x 0-H
  * coordinates, H = 100*height/width) can be laid over the photo precisely.
  */
-export const SCENE_IMG: Record<string, { src: string; w: number; h: number }> = {
-  "pc-rear": { src: "/pbq/scene-pc-rear.jpg", w: 960, h: 255 },
-  "patch-panel": { src: "/pbq/scene-patch-panel.jpg", w: 920, h: 267 },
-  rack: { src: "/pbq/scene-rack.jpg", w: 1053, h: 880 },
-  desk: { src: "/pbq/scene-desk.jpg", w: 960, h: 640 },
-  mobo: { src: "/pbq/scene-mobo.jpg", w: 1000, h: 1002 },
-  bench: { src: "/pbq/scene-bench.jpg", w: 1100, h: 575 },
+export const SCENE_IMG: Record<string, { src: string; w: number; h: number; description: string }> = {
+  "pc-rear": { src: "/pbq/scene-pc-rear.jpg", w: 960, h: 255, description: "Rear panel of a workstation computer with peripheral ports." },
+  "patch-panel": { src: "/pbq/scene-patch-panel.jpg", w: 920, h: 267, description: "Network patch panel and cabling work area." },
+  rack: { src: "/pbq/scene-rack.jpg", w: 1053, h: 880, description: "Equipment rack containing network devices and cabling." },
+  desk: { src: "/pbq/scene-desk.jpg", w: 960, h: 640, description: "Office workstation and surrounding desk area for a physical security audit." },
+  mobo: { src: "/pbq/scene-mobo.jpg", w: 1000, h: 1002, description: "Inside a computer case showing the motherboard and component connections." },
+  bench: { src: "/pbq/scene-bench.jpg", w: 1100, h: 575, description: "Electronics workbench for preparing an ESD-safe workspace." },
 }
 
 /**

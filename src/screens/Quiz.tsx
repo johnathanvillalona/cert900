@@ -607,6 +607,11 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
     setDrag({ ...drag, dy, over })
   }
 
+  const cancelDrag = () => {
+    meta.current = null
+    setDrag(null)
+  }
+
   const endDrag = () => {
     if (drag && drag.from !== drag.over) session.reorderStep(drag.from, drag.over)
     meta.current = null
@@ -634,7 +639,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
   }
 
   return (
-    <div className="mt-3">
+    <div className="mt-3" onKeyDown={(e) => { if (e.key === "Escape") cancelDrag() }}>
       {!graded && (
         <p className="text-muted-foreground mb-2 text-xs">
           Drag a row by its handle to reorder, or use the arrows.
@@ -667,6 +672,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
                 <button
                   type="button"
                   data-testid="order-handle"
+                  tabIndex={-1}
                   aria-label={`Drag to reorder: ${p.steps[si]}`}
                   // touch-none only on the handle, so the list still scrolls on phones.
                   className={cn(
@@ -676,7 +682,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
                   onPointerDown={(e) => { e.preventDefault(); startDrag(pos, e) }}
                   onPointerMove={onDragMove}
                   onPointerUp={endDrag}
-                  onPointerCancel={endDrag}
+                  onPointerCancel={cancelDrag}
                 >
                   <GripVertical className="size-4" strokeWidth={2} />
                 </button>

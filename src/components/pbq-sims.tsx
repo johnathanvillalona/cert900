@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { AlertCircle, Check, ChevronRight, RotateCcw } from "lucide-react"
 import type { PBQConfig, PBQDragConnect, PBQHotspot, PBQTerminal, HotspotIcon, ConnectorGlyph } from "@/data/types"
 import type { QuizSession } from "@/lib/quiz-session"
@@ -267,6 +267,27 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
   const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
   const zoneRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const dragging = drag !== null
+  useEffect(() => {
+    if (!dragging) return
+    // Drop handlers own placement. The window handlers only clean presentation
+    // state, including releases outside the scene/tray and pointer cancellation.
+    const clear = () => setDrag(null)
+    const move = (e: PointerEvent) => setDrag(current => current && ({ ...current, x: e.clientX, y: e.clientY }))
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setHeldItem(null); clear() }
+    }
+    window.addEventListener("pointerup", clear)
+    window.addEventListener("pointercancel", clear)
+    window.addEventListener("pointermove", move)
+    window.addEventListener("keydown", escape)
+    return () => {
+      window.removeEventListener("pointerup", clear)
+      window.removeEventListener("pointercancel", clear)
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("keydown", escape)
+    }
+  }, [dragging])
   const img = SCENE_IMG[p.scene]
   const H = img ? (100 * img.h) / img.w : SCENE_HEIGHT[p.scene]
 
@@ -361,7 +382,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
           }}
         >
           {img ? (
-            <img src={img.src} alt="Rear panel of a workstation computer with ports for the required connections." className="block w-full select-none" draggable={false} />
+            <img src={img.src} alt={img.description} className="block w-full select-none" draggable={false} />
           ) : (
             <svg viewBox={`0 0 100 ${H}`} className="block w-full" role="img" aria-label="Illustrated workstation connection scene">
               <Scene scene={p.scene} />
@@ -439,7 +460,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
             const inZone = zoneOf(it.id)
             const held = heldItem === it.id
             const correct = graded && !!inZone && placed[inZone] === p.answer[inZone]
-            const isDistractor = !Object.values(p.answer).includes(it.id)
+            const isDistractor = graded && !Object.values(p.answer).includes(it.id)
             return (
               <button
                 key={it.id}
@@ -502,6 +523,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
           className="pointer-events-none fixed z-50 flex items-center gap-1.5 rounded-md border bg-card px-2 py-1 text-xs shadow-md"
           style={{ transform: `translate(${drag.x + 8}px, ${drag.y + 8}px)`, top: 0, left: 0 }}
           aria-hidden
+          data-testid="dragconnect-ghost"
         >
           <ItemThumb glyph={itemById[drag.id].glyph} className="size-6" />
           {itemById[drag.id].label}
