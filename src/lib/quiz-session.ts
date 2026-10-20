@@ -1,4 +1,6 @@
-import { useEffect, useReducer } from "react"
+import { isSimulationAnswer } from "../simulations/core/transition"
+import { bindingKey, questionKey, type JsonValue, type ScenarioRuntime, type SimulationBindings } from "../simulations/core/contracts"
+import { useEffect, useReducer, useRef } from "react"
 import type { ExamDef, PBQ, Question } from "@/data/types"
 import { mcAnswerBlank, mcCorrect, pbqAnswerBlank, pbqCredit, pbqScore, pickExamMC, pickExamPBQs, pickMC, scaledScore, shuffle, shuffledIndices, type PBQAnswer } from "./engine"
 import { VENDOR_FORMATS } from "@/data/vendors"
@@ -27,7 +29,10 @@ export interface QuizConfig {
   ids?: number[]
 }
 
-interface State {
+export interface QuizState {
+  readonly simulations: Readonly<Record<number, ScenarioRuntime>>
+  readonly vendor: ExamDef["vendor"]
+  readonly mode: QuizMode
   items: QuizItem[]
   idx: number
   answers: Record<number, Answer>
@@ -52,7 +57,10 @@ interface State {
   finished: boolean
 }
 
-type Action =
+export type QuizSessionAction =
+  | { type: "simulation-action"; idx: number; scenarioId: string; version: number; action: JsonValue }
+  | { type: "reset-simulation"; idx: number }
+  | { type: "grade-simulation"; idx: number }
   | { type: "answer-mc"; oi: number; grade: boolean }
   | { type: "toggle-mc"; oi: number; max: number }
   | { type: "grade-mc" }
@@ -156,7 +164,24 @@ function touch(touched: Set<number>, idx: number): Set<number> {
   return next
 }
 
-function reducer(state: State, action: Action): State {
+export function quizSessionReducer(state: QuizState, action: QuizSessionAction): QuizState {
+  const runtime = state.simulations[state.idx]
+  if (runtime && ["set-match", "set-terminal", "set-config-field", "toggle-hotspot", "place-item", "move-step", "reorder-step", "grade-pbq"].includes(action.type)) return state
+  if (action.type === "simulation-action" || action.type === "reset-simulation" || action.type === "grade-simulation") {
+    if (state.finished || action.idx !== state.idx || !runtime || state.graded[state.idx] !== undefined) return state
+    const item = state.items[state.idx]
+    const answer = state.answers[state.idx]
+    if (item.kind !== "pbq" || !isSimulationAnswer(answer)) return state
+    if (action.type === "grade-simulation") {
+      if (state.mode === "exam") return state
+      const frac = pbqCredit(state.vendor, pbqScore(item.p, answer, runtime))
+      return { ...state, graded: { ...state.graded, [state.idx]: frac } }
+    }
+    if (action.type === "simulation-action" && (action.scenarioId !== runtime.id || action.version !== runtime.version)) return state
+    const next = action.type === "reset-simulation" ? runtime.initialAnswer() : runtime.transition(answer, action.action)
+    if (next === answer) return state
+    return { ...state, answers: { ...state.answers, [state.idx]: next }, touched: touch(state.touched, state.idx) }
+  }
   const { idx } = state
   switch (action.type) {
     case "answer-mc": {
@@ -279,6 +304,10 @@ export interface QuizSession {
   placeItem(zoneId: string | null, itemId: string): void
   moveStep(pos: number, dir: -1 | 1): void
   reorderStep(from: number, to: number): void
+  readonly simulations: Readonly<Record<number, ScenarioRuntime>>
+  readonly simulation?: ScenarioRuntime
+  dispatchSimulation(action: JsonValue): void
+  resetSimulation(): void
   gradePbq(): void
   nav(delta: number): void
   jump(to: number): void
@@ -286,6 +315,39 @@ export interface QuizSession {
   finish(): void
   unansweredCount(): number
   outcome(): QuizOutcome
+}
+
+/** Synchronous entry: async definitions must have resolved before this starts the clock. */
+export function createQuizState(
+  exam: ExamDef, progress: ExamProgress, cfg: QuizConfig,
+  bindings: SimulationBindings = {}, now = Date.now(),
+): QuizState {
+  if (!bindings || typeof bindings !== "object" || Array.isArray(bindings) || typeof (bindings as { then?: unknown }).then === "function") {
+    throw new Error("Resolve simulation definitions before starting the quiz")
+  }
+  const frozen: Record<string, ScenarioRuntime> = {}
+  for (const [key, runtime] of Object.entries(bindings)) {
+    if (runtime.binding.exam !== exam.id || key !== bindingKey(runtime.binding) || exam.pbqs.filter(p => questionKey(exam.id, p) === key).length !== 1) {
+      throw new Error("Simulation binding does not uniquely match this exam")
+    }
+    frozen[key] = Object.freeze({ ...runtime, binding: Object.freeze({ ...runtime.binding }), metadata: Object.freeze({ ...runtime.metadata }) })
+  }
+  const items = buildItems(exam, progress, cfg)
+  const answers: Record<number, Answer> = {}
+  const simulations: Record<number, ScenarioRuntime> = {}
+  items.forEach((it, i) => {
+    const runtime = it.kind === "pbq" ? frozen[questionKey(exam.id, it.p)] : undefined
+    const answer = runtime ? runtime.initialAnswer() : initialAnswerFor(it)
+    if (runtime) simulations[i] = runtime
+    if (answer !== undefined) answers[i] = answer
+  })
+  return {
+    items, answers, simulations: Object.freeze(simulations), vendor: exam.vendor, mode: cfg.mode,
+    idx: 0, graded: {}, touched: new Set(), flags: new Set(),
+    remaining: cfg.mode === "exam" ? exam.examMinutes * 60 : -1,
+    endsAt: cfg.mode === "exam" ? now + exam.examMinutes * 60_000 : 0,
+    finished: false,
+  }
 }
 
 export function useQuizSession(
@@ -302,29 +364,25 @@ export function useQuizSession(
      */
     onSeen: (questionIds: number[]) => void
   },
+  simulations: SimulationBindings = {},
 ): QuizSession {
   // Build once per mount via the reducer's lazy initializer: unlike useMemo,
   // it is never re-invoked by interrupted concurrent renders, so the shuffle
   // inside buildItems stays out of render. Progress intentionally sampled at start.
-  const [state, dispatch] = useReducer(reducer, cfg, (c): State => {
-    const items = buildItems(exam, progress, c)
-    const answers: Record<number, Answer> = {}
-    items.forEach((it, i) => {
-      const a = initialAnswerFor(it)
-      if (a !== undefined) answers[i] = a
-    })
-    return {
-      items,
-      idx: 0,
-      answers,
-      graded: {},
-      touched: new Set(),
-      flags: new Set(),
-      remaining: c.mode === "exam" ? exam.examMinutes * 60 : -1,
-      endsAt: c.mode === "exam" ? Date.now() + exam.examMinutes * 60_000 : 0,
-      finished: false,
+  const [state, dispatch] = useReducer(quizSessionReducer, cfg, c => createQuizState(exam, progress, c, simulations))
+  const reportedPbqs = useRef(new Set<number>())
+
+  // Simulation grading is computed by the reducer from the authoritative state,
+  // including commands queued in the same event. Notify only committed grades.
+  useEffect(() => {
+    for (const [key, frac] of Object.entries(state.graded)) {
+      const idx = Number(key)
+      if (!state.simulations[idx] || reportedPbqs.current.has(idx)) continue
+      reportedPbqs.current.add(idx)
+      const item = state.items[idx]
+      if (item.kind === "pbq") callbacks.onResult(item.p.t, frac)
     }
-  })
+  }, [state.graded, state.simulations, state.items, callbacks])
 
   // mark questions seen once at session start, in one handoff
   useEffect(() => {
@@ -373,9 +431,20 @@ export function useQuizSession(
     placeItem: (zoneId, itemId) => dispatch({ type: "place-item", zoneId, itemId }),
     moveStep: (pos, dir) => dispatch({ type: "move-step", pos, dir }),
     reorderStep: (from, to) => dispatch({ type: "reorder-step", from, to }),
+    simulation: state.simulations[state.idx],
+    dispatchSimulation(action) {
+      const runtime = state.simulations[state.idx]
+      if (runtime) dispatch({ type: "simulation-action", idx: state.idx, scenarioId: runtime.id, version: runtime.version, action })
+    },
+    resetSimulation: () => dispatch({ type: "reset-simulation", idx: state.idx }),
     gradePbq() {
       const item = state.items[state.idx]
-      if (item.kind !== "pbq" || state.graded[state.idx] !== undefined) return
+      if (item.kind !== "pbq" || state.graded[state.idx] !== undefined || reportedPbqs.current.has(state.idx)) return
+      if (state.simulations[state.idx]) {
+        dispatch({ type: "grade-simulation", idx: state.idx })
+        return
+      }
+      reportedPbqs.current.add(state.idx)
       // Credit follows the vendor's rule: CompTIA partial, AWS/Azure all-or-nothing.
       const frac = pbqCredit(exam.vendor, pbqScore(item.p, state.answers[state.idx] as PBQAnswer))
       dispatch({ type: "grade-pbq", frac })
@@ -395,7 +464,7 @@ export function useQuizSession(
         const a = state.answers[i]
         if (it.kind === "mc") return mcAnswerBlank(a as number | number[] | undefined)
         if (a === undefined) return true
-        return pbqAnswerBlank(it.p, a as PBQAnswer)
+        return pbqAnswerBlank(it.p, a as PBQAnswer, state.simulations[i])
       }).length
     },
     outcome(): QuizOutcome {
@@ -425,7 +494,7 @@ export function useQuizSession(
           return { kind: "mc", q: it.q, sel, ok: ok === 1 }
         }
         const w = VENDOR_FORMATS[exam.vendor].itemWeight
-        const frac = pbqCredit(exam.vendor, pbqScore(it.p, state.answers[i] as PBQAnswer))
+        const frac = pbqCredit(exam.vendor, pbqScore(it.p, state.answers[i] as PBQAnswer, state.simulations[i]))
         const d = exam.videos[it.p.t].d
         pts += frac * w
         max += w

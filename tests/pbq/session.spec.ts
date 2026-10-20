@@ -191,12 +191,12 @@ test('ordering arrow keyboard alternative reaches the same correct positional an
   await expect(page.getByTestId('feedback')).toContainText('100% correct')
 })
 
-test('mobile touch selects, replaces and resets through external controls without overflow', async ({ browser }) => {
+test('mobile touch selects, replaces and resets through external controls without overflow', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ viewport:{width:320,height:740}, hasTouch:true, reducedMotion:'reduce' })
   const page = await context.newPage()
   await page.route('**/*', r => ['127.0.0.1','localhost'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort())
   // Explicit origin because this independently created context has no baseURL.
-  await page.goto('http://127.0.0.1:4174')
+  await page.goto(baseURL!)
   await page.getByTestId('exam-row').filter({hasText:core1.code}).tap()
   await page.getByTestId('mode-pbq').tap()
   await findQuestion(page,'Provision the Sales Workstation')

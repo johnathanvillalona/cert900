@@ -1,4 +1,4 @@
-// Copies the shared web logic (../../src/lib + ../../src/data) into mobile/vendor
+// Copies shared lib/data and portable simulations/core into mobile/vendor
 // so Metro can bundle it. The app imports these via the "@" alias, which points
 // at vendor (see metro.config.js + tsconfig paths).
 //
@@ -13,7 +13,8 @@ const path = require("path")
 const webSrc = path.resolve(__dirname, "..", "..", "src")
 const vendor = path.resolve(__dirname, "..", "vendor")
 
-const DIRS = ["lib", "data"]
+// Portable contracts only; scenario/UI modules remain web-only until native approval.
+const DIRS = ["lib", "data", "simulations/core"]
 
 for (const dir of DIRS) {
   const from = path.join(webSrc, dir)

@@ -1,3 +1,6 @@
+import type { ScenarioRuntime, SimulationAnswer } from "../simulations/core/contracts"
+import { hasSimulationKind } from "../simulations/core/transition"
+import { simulationBlank, simulationScore } from "../simulations/core/grading"
 import type { ExamDef, ExamTopics, PBQ, Question } from "@/data/types"
 import type { ExamProgress } from "./progress"
 
@@ -109,7 +112,8 @@ export function pickExamPBQs(exam: ExamDef, rng: Rng = Math.random): PBQ[] {
  *  match: choice index per item (-1 unset) · order: permutation of step indices ·
  *  terminal: typed command per task ("" unset) · config: current value per field ·
  *  hotspot: selected node ids · dragconnect: zoneId -> itemId placements. */
-export type PBQAnswer = number[] | string[] | (number | boolean | string)[] | Record<string, string>
+export type LegacyPBQAnswer = number[] | string[] | (number | boolean | string)[] | Record<string, string>
+export type PBQAnswer = LegacyPBQAnswer | SimulationAnswer
 
 /** Case-insensitive full match against any accepted pattern, whitespace-collapsed. */
 export function commandMatches(input: string, accept: string[]): boolean {
@@ -129,7 +133,8 @@ export function commandMatches(input: string, accept: string[]): boolean {
  * Answer shapes differ per kind (arrays vs records); this is the single
  * source of truth for "has the candidate interacted with this PBQ".
  */
-export function pbqAnswerBlank(p: PBQ, a: PBQAnswer): boolean {
+export function pbqAnswerBlank(p: PBQ, a: PBQAnswer, simulation?: ScenarioRuntime): boolean {
+  if (hasSimulationKind(a)) return simulationBlank(p, a, simulation)
   switch (p.kind) {
     case "match":
       return (a as number[]).some((x) => x === -1)
@@ -151,8 +156,9 @@ export function pbqAnswerBlank(p: PBQ, a: PBQAnswer): boolean {
 }
 
 /** Fraction correct for a PBQ answer (partial credit per CompTIA's model). */
-export function pbqScore(p: PBQ, ans: PBQAnswer | undefined): number {
+export function pbqScore(p: PBQ, ans: PBQAnswer | undefined, simulation?: ScenarioRuntime): number {
   if (!ans) return 0
+  if (hasSimulationKind(ans)) return simulationScore(p, ans, simulation, projected => pbqScore(p, projected))
   switch (p.kind) {
     case "match": {
       const a = ans as number[]
