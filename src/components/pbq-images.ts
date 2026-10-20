@@ -4,8 +4,9 @@ import type { ConnectorGlyph } from "@/data/types"
  * Photographic assets for the drag-to-connect "bench" (public/pbq/*, served
  * statically so they stay out of the JS bundle and load only in PBQs).
  * Sourced from Wikimedia Commons under free licenses; see public/pbq/CREDITS.md.
- * Scenes carry their intrinsic pixel size so zone x/y/w/h (0-100 x 0-H
- * coordinates, H = 100*height/width) can be laid over the photo precisely.
+ * Scenes retain their legacy metadata dimensions so zone x/y/w/h (0-100 x 0-H
+ * coordinates, H = 100*height/width) keep their existing mapping. The pc-rear
+ * photo/metadata height discrepancy is intentionally deferred to geometry review.
  */
 export const SCENE_IMG: Record<string, { src: string; w: number; h: number; description: string }> = {
   "pc-rear": { src: "/pbq/scene-pc-rear.jpg", w: 960, h: 255, description: "Rear panel of a workstation computer with peripheral ports." },

@@ -313,17 +313,17 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
       </a>
       {/* nav */}
       <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
-        <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+        <nav aria-label="Primary" className="mx-auto flex max-w-6xl flex-col items-start gap-2 px-4 py-2 sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-0">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="brand-link pressable flex cursor-pointer items-center rounded-md text-sm transition-colors duration-200 hover:text-brand"
+            className="brand-link pressable flex min-h-11 cursor-pointer sm:min-h-0 items-center rounded-md text-sm transition-colors duration-200 hover:text-brand"
             aria-label="cert900, back to top"
             title="cert900"
             data-testid="brand"
           >
             <Wordmark className="text-sm" />
           </button>
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="grid w-full grid-cols-6 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-2">
             <SearchPalette onChooseExam={onChooseExam} onNavigate={onNavigate} onDrillTopic={onDrillTopic} />
             <button
               onClick={() => onNavigate("/plan")}

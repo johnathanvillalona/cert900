@@ -1,5 +1,7 @@
 # PBQ browser checks
 
+Reference environment: Ubuntu 26.04.1 LTS, Node 24.21.0, npm 11.19.0,
+Google Chrome 155.0.8059.39, Playwright 1.64.1, device scale 1.
 Use Node 24 and installed Google Chrome on Ubuntu. No browser download or
 lifecycle-script approval is needed:
 
@@ -22,7 +24,9 @@ Do not publish traces: local synthetic session data may be present.
 
 For manual review after building, run `npm run preview:isolated` and open
 <http://127.0.0.1:4174>. Wait for the smoke checks and server startup. Stop with
-Ctrl+C. This preview uses disposable data, never production resources.
+Ctrl+C. Stop the preview before rebuilding `dist/`, then restart it; Workers
+asset manifests belong to the build they started with. This preview uses
+disposable data, never production resources.
 
 Visual baselines use installed Chrome on Ubuntu, device scale 1, self-hosted
 fonts, reduced motion and explicit theme/viewport settings. Record the Chrome

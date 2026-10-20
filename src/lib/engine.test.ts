@@ -9,6 +9,7 @@ import {
   pickExamMC,
   pickExamPBQs,
   pbqAnswerBlank,
+  pbqCredit,
   pbqScore,
   scaledScore,
   mcCorrect,
@@ -294,5 +295,24 @@ describe("shuffledIndices", () => {
   it("passes degenerate sizes through", () => {
     expect(shuffledIndices(0)).toEqual([])
     expect(shuffledIndices(1)).toEqual([0])
+  })
+})
+
+
+describe("experience repairs retain the single grading boundary", () => {
+  it("preserves vendor partial versus all-or-nothing credit at every quarter point", () => {
+    for (const fraction of [0, 0.25, 0.5, 0.75, 1]) {
+      for (const vendor of ["comptia", "cisco"]) expect(pbqCredit(vendor, fraction)).toBe(fraction)
+      for (const vendor of ["aws", "azure"]) expect(pbqCredit(vendor, fraction)).toBe(fraction === 1 ? 1 : 0)
+    }
+  })
+
+  it("preserves the workstation map, distractors and exact quarter-point grading", () => {
+    const p = core1.pbqs.find(p => p.title === "Provision the Sales Workstation")
+    if (!p || p.kind !== "dragconnect") throw new Error("Missing workstation")
+    expect(p.answer).toEqual({ zvga: "vga", zlan: "rj45", zusb: "usb", zaud: "aud" })
+    expect(p.items.filter(i => !Object.values(p.answer).includes(i.id)).map(i => i.id).sort()).toEqual(["hdmi", "pwr", "rj11"])
+    const entries = Object.entries(p.answer)
+    for (let n = 0; n <= 4; n++) expect(pbqScore(p, Object.fromEntries(entries.slice(0, n)))).toBe(n / 4)
   })
 })

@@ -527,7 +527,7 @@ function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: 
             graded && (ans[i] === item.a ? "border-success bg-success/10" : "border-destructive bg-destructive/10"),
           )}
         >
-          <span className="min-w-44 flex-1 text-sm">{item.l}</span>
+          <span className="min-w-0 basis-full break-words text-sm sm:flex-1 sm:basis-44">{item.l}</span>
           <Select
             disabled={graded}
             // "" (not undefined) keeps the Select CONTROLLED while unanswered:
@@ -537,7 +537,7 @@ function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: 
             value={ans[i] === -1 ? "" : String(ans[i])}
             onValueChange={(v) => session.setMatch(i, Number(v))}
           >
-            <SelectTrigger className="w-56" aria-label={`Answer for: ${item.l}`} data-testid="match-select">
+            <SelectTrigger className="w-full min-w-0 min-h-11 h-auto whitespace-normal text-left [&_[data-slot=select-value]]:line-clamp-none [&_[data-slot=select-value]]:whitespace-normal [&_[data-slot=select-value]]:break-words sm:w-64" aria-label={`Answer for: ${item.l}`} data-testid="match-select">
               <SelectValue placeholder="Choose" />
             </SelectTrigger>
             <SelectContent>
@@ -549,7 +549,7 @@ function MatchView({ p, session, graded, choiceOrder }: { p: PBQMatch; session: 
             </SelectContent>
           </Select>
           {graded && ans[i] !== item.a && (
-            <p className="w-full text-xs font-medium text-success">Correct: {p.choices[item.a]}</p>
+            <p className="w-full text-sm font-medium text-success">Correct: {p.choices[item.a]}</p>
           )}
         </div>
       ))}
@@ -568,9 +568,9 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
   const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
   // Motion explains the swap: View Transitions where supported, instant otherwise.
-  const moveWithTransition = (pos: number, dir: -1 | 1) => {
+  const moveWithTransition = (pos: number, dir: -1 | 1, animate: boolean) => {
     const apply = () => session.moveStep(pos, dir)
-    if (document.startViewTransition && !reduced()) {
+    if (animate && document.startViewTransition && !reduced()) {
       document.startViewTransition(() => flushSync(apply))
     } else {
       apply()
@@ -641,7 +641,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
   return (
     <div className="mt-3" onKeyDown={(e) => { if (e.key === "Escape") cancelDrag() }}>
       {!graded && (
-        <p className="text-muted-foreground mb-2 text-xs">
+        <p className="text-muted-foreground mb-2 text-sm">
           Drag a row by its handle to reorder, or use the arrows.
         </p>
       )}
@@ -663,7 +663,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
                 position: dragging ? "relative" : undefined,
               }}
               className={cn(
-                "flex items-center gap-3 rounded-md border bg-card p-3",
+                "flex flex-wrap items-center gap-2 rounded-md border bg-card p-3 sm:flex-nowrap sm:gap-3",
                 dragging && "select-none shadow-lg",
                 graded && (si === pos ? "border-success bg-success/10" : "border-destructive bg-destructive/10"),
               )}
@@ -676,7 +676,7 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
                   aria-label={`Drag to reorder: ${p.steps[si]}`}
                   // touch-none only on the handle, so the list still scrolls on phones.
                   className={cn(
-                    "text-muted-foreground -m-1 touch-none rounded p-1 transition-colors hover:text-foreground",
+                    "text-muted-foreground flex size-11 shrink-0 touch-none items-center justify-center rounded transition-colors hover:text-foreground",
                     dragging ? "cursor-grabbing" : "cursor-grab",
                   )}
                   onPointerDown={(e) => { e.preventDefault(); startDrag(pos, e) }}
@@ -688,13 +688,13 @@ function OrderView({ p, session, graded }: { p: PBQOrder; session: QuizSession; 
                 </button>
               )}
               <span className="min-w-6 font-mono text-sm font-bold text-muted-foreground">{previewPos(pos) + 1}</span>
-              <span className="flex-1 text-sm">{p.steps[si]}</span>
+              <span className="min-w-0 flex-1 break-words text-sm">{p.steps[si]}</span>
               {!graded && (
-                <span className="flex gap-1">
-                  <Button variant="outline" size="icon" className="size-8" aria-label="Move up" onClick={() => moveWithTransition(pos, -1)}>
+                <span className="ml-auto flex w-full justify-end gap-1 sm:w-auto">
+                  <Button variant="outline" size="icon" className="size-11" aria-label={`Move up: ${p.steps[si]}`} onClick={(e) => moveWithTransition(pos, -1, e.detail !== 0)}>
                     ↑
                   </Button>
-                  <Button variant="outline" size="icon" className="size-8" aria-label="Move down" onClick={() => moveWithTransition(pos, 1)}>
+                  <Button variant="outline" size="icon" className="size-11" aria-label={`Move down: ${p.steps[si]}`} onClick={(e) => moveWithTransition(pos, 1, e.detail !== 0)}>
                     ↓
                   </Button>
                 </span>

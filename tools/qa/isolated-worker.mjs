@@ -30,7 +30,13 @@ if (process.argv[2] !== '--isolated-child') {
   const child = spawn(process.execPath, [self, '--isolated-child', root,
     ...process.argv.slice(2)], { cwd: root, env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
   let logs = '';
-  for (const stream of [child.stdout, child.stderr]) stream.on('data', chunk => { logs += chunk; });
+  let announced = false;
+  for (const stream of [child.stdout, child.stderr]) stream.on('data', chunk => {
+    logs += chunk;
+    // Forward only the safe loopback readiness line, never raw Worker logs.
+    const ready = logs.match(/^Isolated preview: http:\/\/127\.0\.0\.1:\d+$/m);
+    if (ready && !announced) { announced = true; console.log(ready[0]); }
+  });
   for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, () => child.kill(signal));
   const timer = process.argv.includes('--serve') ? null : setTimeout(() => child.kill('SIGTERM'), 180000);
   const status = await new Promise(resolve => child.once('exit', code => resolve(code)));

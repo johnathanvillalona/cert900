@@ -1,6 +1,11 @@
 import { expect, type Page } from '@playwright/test'
 
 export async function openLab(page: Page, code = '220-1201') {
+  await page.addInitScript(() => {
+    let seed = 246813579
+    Math.random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296 }
+    localStorage.setItem('trainer-theme', 'light')
+  })
   await page.goto('/')
   await page.getByTestId('exam-row').filter({ hasText: code }).click()
   await page.getByTestId('mode-pbq').click()

@@ -305,13 +305,13 @@ export default function App() {
           Skip to content
         </a>
         <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
-          <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+          <div className="mx-auto flex max-w-5xl flex-col items-start gap-2 px-4 py-2 sm:h-14 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:py-0">
             {/* items-center, not items-baseline: Wordmark is a flex container whose
                 first item is the SVG mark, and a flex container exports its first
                 item's baseline. An SVG has no text baseline, so the UA synthesises
                 one from its bottom edge and the exam code lands ~5px low. */}
             <button
-              className="brand-link pressable flex cursor-pointer items-center gap-2 rounded-md text-sm transition-colors duration-200 hover:text-brand"
+              className="brand-link pressable flex min-h-11 cursor-pointer sm:min-h-0 items-center gap-2 rounded-md text-sm transition-colors duration-200 hover:text-brand"
               onClick={() => {
                 setExamId(null)
                 setScreen({ kind: "landing" })
@@ -329,7 +329,7 @@ export default function App() {
                 </span>
               )}
             </button>
-            <div className="flex items-center gap-1.5">
+            <div className="grid w-full grid-cols-6 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-1.5">
               <SearchPalette onChooseExam={chooseExam} onNavigate={openPath} onDrillTopic={drillTopic} />
               <Button
                 variant={screen.kind === "plans" ? "secondary" : "ghost"}
