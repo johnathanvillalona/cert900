@@ -35,3 +35,13 @@ describe("verified ads.txt asset without advertising", () => {
     expect(fetch).not.toHaveBeenCalled()
   })
 })
+
+describe("legal canonical-host redirects", () => {
+  it.each(["/privacy", "/terms", "/delete-account"])("preserves the exact canonical path for %s without touching data", async path => {
+    const { env, fetch } = fixture()
+    const response = await worker.fetch(new Request(`https://www.cert900.com${path}`), env)
+    expect(response.status).toBe(301)
+    expect(response.headers.get("location")).toBe(`https://cert900.com${path}`)
+    expect(fetch).not.toHaveBeenCalled()
+  })
+})

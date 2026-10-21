@@ -1,0 +1,71 @@
+{
+  "checkedOn": "2026-10-21",
+  "method": "Authorized read-only Search Console URL Inspection cached reports. No live test, indexing request, sitemap submission or setting change.",
+  "inspections": [
+    {
+      "url": "https://cert900.com/study/220-1201",
+      "checkedAt": "2026-10-21T22:14:49.724Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/220-1202",
+      "checkedAt": "2026-10-21T22:14:57.875Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/n10-009",
+      "checkedAt": "2026-10-21T22:15:07.155Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/sy0-701",
+      "checkedAt": "2026-10-21T22:17:18.097Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/ccna-200-301",
+      "checkedAt": "2026-10-21T22:17:28.443Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/aif-c01",
+      "checkedAt": "2026-10-21T22:17:33.204Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/clf-c02",
+      "checkedAt": "2026-10-21T22:17:54.272Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/saa-c03",
+      "checkedAt": "2026-10-21T22:17:59.145Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: URL is unknown to Google\n\nDiscovery\nSitemaps\nNo referring sitemaps detected\nReferring page\nNone detected\nURL might be known from other sources that are currently not reported\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\ninfo\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/az-900",
+      "checkedAt": "2026-10-21T22:18:04.333Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/sc-900",
+      "checkedAt": "2026-10-21T22:18:08.844Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: URL is unknown to Google\n\nDiscovery\nSitemaps\nNo referring sitemaps detected\nReferring page\nNone detected\nURL might be known from other sources that are currently not reported\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\ninfo\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/study/az-104",
+      "checkedAt": "2026-10-21T22:18:27.622Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/network-plus-practice-test",
+      "checkedAt": "2026-10-21T22:18:32.681Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Discovered - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/comptia-a-plus-practice-test\nCrawl\nLast crawl\nN/A\nCrawled as\nN/A\nCrawl allowed?\nN/A\nPage fetch\nN/A\nIndexing allowed?\nN/A\nIndexing\nUser-declared canonical\nN/A\nGoogle-selected canonical\n\nN/A\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    },
+    {
+      "url": "https://cert900.com/cisco-ccna-practice-test",
+      "checkedAt": "2026-10-21T22:18:36.983Z",
+      "report": "info\nURL is not on Google\nThis page is not indexed. Pages that aren't indexed can't be served on Google. See the details below to learn why it wasn't indexed. Learn more\nVIEW CRAWLED PAGE\nPage changed?\nREQUEST INDEXING\ninfo\nPage indexing\nPage is not indexed: Crawled - currently not indexed\n\nDiscovery\nSitemaps\nhttps://cert900.com/sitemap.xml\nReferring page\nhttps://cert900.com/comptia-a-plus-practice-test\nhttps://cert900.com/comptia-security-plus-practice-test\nCrawl\nLast crawl\nSep 18, 2026, 9:46:01 PM\nCrawled as\nGooglebot smartphone\nCrawl allowed?\nYes\nPage fetch\nSuccessful\nIndexing allowed?\nYes\nIndexing\nUser-declared canonical\nhttps://cert900.com/cisco-ccna-practice-test\nGoogle-selected canonical\n\nInspected URL\nLEARN MORE\nOPEN REPORT\nEnhancements & Experience\nOnly indexed URLs can have enhancements"
+    }
+  ]
+}
