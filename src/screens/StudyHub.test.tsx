@@ -16,6 +16,12 @@ describe("static certification Study Hubs", () => {
     expect(hub.description).not.toBe(primaryGuideForExam(examId)!.heading)
     expect(html.match(/<h1\b/g)).toHaveLength(1)
     expect(html.match(/data-testid="hub-domain"/g)).toHaveLength(Object.keys(exam.domains).length)
+    expect(html).toContain("configured practice allocation")
+    expect(html).toContain("Published exam weight ranges may differ")
+    expect(html).not.toContain("exam blueprint weight")
+    for (const weight of Object.values(exam.examSplit)) {
+      expect(html).toContain(`${Math.round(weight * 100)}% practice allocation`)
+    }
     expect(html.match(/data-testid="hub-video"/g)).toHaveLength(Object.keys(exam.videos).length)
     expect(html.match(/data-testid="hub-reference"/g) ?? []).toHaveLength(studyResourcesForExam(examId).references.length)
     expect(html.match(/data-testid="hub-related"/g) ?? []).toHaveLength(relatedGuidesForExam(examId).length)

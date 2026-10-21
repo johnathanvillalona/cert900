@@ -1,7 +1,7 @@
 import { EXAM_META } from "@/data/meta"
 import { GUIDE_EXAMS, GUIDE_META, guideExamsForPath, type GuideMeta } from "@/data/guide-meta"
-import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
-import { examPath } from "@/data/routes"
+import { selectGuideSamples } from "@/lib/guide-sample-selection"
+import { examPath, studyPath } from "@/data/routes"
 import { AdSlot } from "@/components/AdSlot"
 import { GuideResources } from "@/components/GuideResources"
 import { StaticContentShell } from "@/components/StaticContentShell"
@@ -24,30 +24,16 @@ import { ArrowRight, Check } from "lucide-react"
  * still hidden until a reader asks for it.
  */
 function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) {
-  // Interleave when a page covers more than one exam (the A+ hub covers both
-  // cores), so the set is not all Core 1 followed by all Core 2.
-  const lanes = examIds.map((id) => (GUIDE_SAMPLES[id] ?? []).map((q) => ({ q, code: EXAM_META[id].code })))
-  const merged: { q: GuideSample; code: string }[] = []
-  for (let i = 0; merged.length < limit; i++) {
-    let added = false
-    for (const lane of lanes) {
-      if (merged.length >= limit) break
-      if (i < lane.length) {
-        merged.push(lane[i])
-        added = true
-      }
-    }
-    if (!added) break
-  }
+  const merged = selectGuideSamples(examIds, limit)
 
   return (
     <div className="flex flex-col gap-4">
-      {merged.map(({ q, code }, n) => (
-        <div key={`${code}-${q.id}`} className="rounded-lg border bg-card p-5">
+      {merged.map(({ sample: q, examId }, n) => (
+        <div key={`${examId}-${q.id}`} data-testid="guide-sample" className="rounded-lg border bg-card p-5">
           <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            Sample question {n + 1} · {code} · {q.domain}
+            Sample question {n + 1} · {EXAM_META[examId].code} · {q.domain}
           </p>
-          <p className="mt-2 font-medium leading-snug">{q.x}</p>
+          <p data-testid="guide-sample-question" className="mt-2 font-medium leading-snug">{q.x}</p>
           <ol className="mt-3 flex flex-col gap-1.5 text-sm">
             {q.o.map((o, i) => (
               <li key={i} className="flex items-start gap-2.5 rounded-md border px-3 py-2">
@@ -63,7 +49,7 @@ function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) 
               Show answer and explanation
             </summary>
             <div className="mt-2 rounded-md border border-success/50 bg-success/10 p-3 text-sm">
-              <p className="flex items-center gap-1.5 font-semibold text-success">
+              <p data-testid="guide-sample-answer" className="flex items-center gap-1.5 font-semibold text-success">
                 <Check className="size-4" strokeWidth={2.5} /> {"ABCD"[q.a]}. {q.o[q.a]}
               </p>
               <p className="text-muted-foreground mt-1">{q.e}</p>
@@ -79,8 +65,8 @@ function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) 
 function DomainTable({ examId }: { examId: string }) {
   const exam = EXAM_META[examId]
   const keys = Object.keys(exam.domains).map(Number)
-  // The number of questions we hold per domain, so the table says what this
-  // site actually offers rather than only restating the published blueprint.
+  // An instructional allocation, not a measured bank inventory or a promise
+  // about the proprietary distribution of any particular certification exam.
   const perDomain = (d: number) => Math.round((exam.examSplit[d] ?? 0) * exam.questionCount)
   return (
     <div className="overflow-x-auto">
@@ -88,8 +74,8 @@ function DomainTable({ examId }: { examId: string }) {
         <thead>
           <tr className="border-b text-left">
             <th className="py-2 pr-4 font-semibold">{exam.code} domain</th>
-            <th className="py-2 pr-4 font-mono font-semibold">Exam weight</th>
-            <th className="py-2 font-mono font-semibold">Questions here</th>
+            <th className="py-2 pr-4 font-mono font-semibold">Practice allocation</th>
+            <th className="py-2 font-mono font-semibold">Illustrative count</th>
           </tr>
         </thead>
         <tbody>
@@ -102,6 +88,7 @@ function DomainTable({ examId }: { examId: string }) {
           ))}
         </tbody>
       </table>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Percentages are Cert900’s practice allocations. Counts illustrate those proportions across the bank; they are not measured domain totals. Official objective weightings may use ranges, and an individual exam’s mix can vary.</p>
     </div>
   )
 }
@@ -116,8 +103,9 @@ function StudyPath({ examId }: { examId: string }) {
         <li>
           <span className="font-semibold">Start with a timed exam.</span> {exam.examMC} questions
           {exam.examPBQ > 0 ? ` plus ${exam.examPBQ} performance-based items` : ""} in {exam.examMinutes} minutes,
-          scored on the real {exam.scale.max}-point scale with the actual {exam.scale.pass} cut line. A cold score tells
-          you which domains need the work.
+          using Cert900’s practice scoring on a {exam.scale.max}-point scale and a {exam.scale.pass} practice threshold.
+          Use the result to identify domains for review. Vendors use proprietary scoring; a practice score is not an
+          official result or a prediction of passing.
         </li>
         <li>
           <span className="font-semibold">Drill the weak domains.</span> Short adaptive rounds weight
@@ -129,11 +117,10 @@ function StudyPath({ examId }: { examId: string }) {
         </li>
         <li>
           <span className="font-semibold">Watch the linked video for each miss.</span> Every one of the{" "}
-          {Object.keys(exam.videos).length} topics links to free training video covering exactly that
-          objective.
+          {Object.keys(exam.videos).length} topics links to a free training video covering that topic.
         </li>
         <li>
-          <span className="font-semibold">Retake until the readiness band clears the cut line.</span>{" "}
+          <span className="font-semibold">Retake and review your readiness band.</span>{" "}
           The estimate is a range, not a promise, and it only appears once you have answered enough to mean something.
         </li>
       </ol>
@@ -739,13 +726,44 @@ export function SecplusGuide() {
 }
 
 const PBQ_KINDS: [string, string][] = [
-  ["Simulated terminal", "A working command line with objectives to complete. Type ipconfig /release, renew a DHCP lease, trace a route. Multiple command forms are accepted, and correct commands print realistic output."],
-  ["Configuration panels", "Router and OS settings screens with dropdowns, toggles, and text fields. Some settings start misconfigured, exactly like the exam's simulated interfaces."],
+  ["Simulated terminal", "Practice command-line tasks. The DHCP pilot models an adapter and DNS state; other terminal exercises guide you through supported commands for their scenario."],
+  ["Configuration panels", "Change router, operating-system and security settings. Some exercises use individual fields; the featured firewall pilots provide rule editors and traffic testing."],
   ["Network diagram hotspots", "A topology diagram where you click the device that answers the scenario: find the loop, place the firewall, spot the failed switch."],
-  ["Drag-to-connect cabling", "Drag connectors (RJ45, HDMI, USB-C, fiber) onto an illustrated PC rear panel, patch panel, or rack. Distractor connectors included."],
+  ["Drag-to-connect cabling", "Place connectors on photo-backed hardware scenes using numbered connection controls. Use pointer dragging or select a connector and a target; unused connectors provide distractors."],
   ["Matching", "Match terms to definitions or tools to tasks, the classic drag-and-drop PBQ format."],
   ["Ordering", "Put troubleshooting or procedure steps into the correct sequence."],
 ]
+
+const PBQ_PREVIEWS = [
+  {
+    id: "dhcp", title: "Windows DHCP Command Prompt", examId: "220-1201",
+    scenario: "Fix a Stale DHCP Lease", width: 944, height: 752,
+    description: "Inspect a Windows-style adapter after a DHCP outage, refresh its lease and check name resolution. Supported commands read or change a deterministic virtual system.",
+    skills: ["Read adapter and DNS evidence before choosing a troubleshooting step.", "Use command recall, diagnostic output and reset to practise the workflow again."],
+    alt: "Cert900 DHCP simulation with its Command Prompt console, adapter evidence and an ungraded diagnostic command.",
+  },
+  {
+    id: "network-acl", title: "Network+ Edge ACL", examId: "n10-009",
+    scenario: "Build the Edge ACL", width: 944, height: 1024,
+    description: "Build an inbound IPv4 policy with source and destination addresses, protocols, ports and Allow or Deny actions. Test simulated traffic against the effective policy.",
+    skills: ["See how first-match rule order, overlapping rules and default deny affect traffic.", "Balance required access with least privilege instead of adding a broad allow rule."],
+    alt: "Cert900 Network+ ACL administration workspace showing an empty ordered rule policy and its default-deny behavior.",
+  },
+  {
+    id: "windows-firewall", title: "Windows Defender Firewall", examId: "220-1202",
+    scenario: "Windows Defender Firewall: Allow the App", width: 944, height: 1272,
+    description: "Configure an application exception in a Windows-style administration workspace. Inspect inbound and outbound rules, choose which profiles a rule applies to and test application traffic.",
+    skills: ["Distinguish application rules from unrestricted port access.", "Explore Domain, Private and Public profiles, including Windows block/allow precedence."],
+    alt: "Cert900 Windows Firewall simulation showing profile status and application-rule administration before grading.",
+  },
+  {
+    id: "workstation", title: "Provision the Sales Workstation", examId: "220-1201",
+    scenario: "Provision the Sales Workstation", width: 944, height: 791,
+    description: "Read a workstation work order and connect the appropriate peripheral cables to a photographed rear panel. The connector inventory includes distractors.",
+    skills: ["Recognize cable and port types and match them to the stated requirements.", "Use drag, tap or keyboard placement with a full-size numbered port list."],
+    alt: "Cert900 Sales Workstation practice with a photographed rear panel, numbered port controls and unplaced connectors.",
+  },
+] as const
 
 export function PbqGuide() {
   const meta = GUIDE_META.pbq
@@ -754,12 +772,52 @@ export function PbqGuide() {
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
-          Performance-based questions are where most CompTIA candidates lose points, and where most free practice sites
-          offer nothing. PBQs ask you to do the task: type the command, fix the config, cable the workstation. This site
-          has {total} free PBQs across A+ Core 1, Core 2, and Network+, in six interaction styles modeled on the formats
-          CompTIA describes: simulations, virtual environments, and drag-and-drop.
+          Move from recognizing an answer to doing a task: inspect a network adapter, configure a firewall or connect
+          a workstation. Cert900 has {total} free PBQ exercises across A+ Core 1, A+ Core 2 and Network+, including the
+          four workspaces below and six interaction types.
         </p>
-        <Cta label="Open the free PBQ lab" examId="220-1201" testid="guide-cta" />
+        <p className="text-sm leading-relaxed text-muted-foreground">These are original Cert900 study scenarios, not official CompTIA questions. All commands, devices and traffic tests run in application state; they do not change your computer or network. Practice scoring uses Cert900’s instructional rubrics, not proprietary exam scoring.</p>
+        <Cta label="Open A+ Core 1 practice menu" examId="220-1201" testid="guide-cta" />
+      </section>
+
+      <section id="pbq-entry-points" aria-labelledby="pbq-entry-heading">
+        <h2 id="pbq-entry-heading" className="font-heading text-2xl font-semibold tracking-tight">Choose your certification</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Open an exam’s practice menu and choose PBQ Lab. The Study Hub brings its guide, relevant references and video resources together. Practice is available without an account.</p>
+        <nav aria-label="PBQ practice by certification" className="mt-4 grid gap-3 sm:grid-cols-3">
+          {(["220-1201", "220-1202", "n10-009"] as const).map(id => {
+            const exam = EXAM_META[id]
+            return <div key={id} className="min-w-0 rounded-lg border bg-card p-4">
+              <h3 className="font-heading text-base font-semibold">{exam.cert} {exam.name}</h3>
+              <p className="mt-1 font-mono text-sm text-muted-foreground">{exam.code} · {exam.pbqCount} PBQs</p>
+              <a href={examPath(id)} className="mt-3 flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${exam.code} practice menu`}>
+                Practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" />
+              </a>
+              <a href={studyPath(id)} className="flex min-h-11 items-center rounded-md text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${exam.code} Study Hub`}>Study Hub</a>
+            </div>
+          })}
+        </nav>
+      </section>
+
+      <section id="simulation-previews" aria-labelledby="simulation-preview-heading">
+        <h2 id="simulation-preview-heading" className="font-heading text-2xl font-semibold tracking-tight">Explore the simulation workspaces</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">These screenshots show actual, ungraded Cert900 exercises. They are noninteractive previews; use the practice menus to work through the scenarios yourself.</p>
+        <div className="mt-6 flex flex-col gap-8">
+          {PBQ_PREVIEWS.map(preview => <article key={preview.id} data-testid="pbq-preview" className="min-w-0 rounded-xl border bg-card p-4 sm:p-5">
+            <p className="font-mono text-sm text-brand">{EXAM_META[preview.examId].code}</p>
+            <h3 className="font-heading mt-2 text-xl font-semibold tracking-tight">{preview.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{preview.description}</p>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed">{preview.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+            <figure className="mt-4">
+              <img src={`/pbq-previews/${preview.id}.png`} width={preview.width} height={preview.height} loading="lazy" decoding="async" alt={preview.alt} className="h-auto w-full rounded-lg border bg-muted" />
+              <figcaption className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Noninteractive preview · {preview.scenario}
+                <a href={`/pbq-previews/${preview.id}.png`} className="flex min-h-11 w-fit items-center rounded-md font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`View full-size ${preview.title} preview`}>View full-size screenshot</a>
+                {preview.id === "workstation" && <span>Screenshot of the Cert900 simulation, including attributed hardware photographs. <a href="/pbq/CREDITS.md" className="inline-flex min-h-11 items-center rounded-md text-brand underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Photo authors, sources and licenses</a></span>}
+              </figcaption>
+            </figure>
+            <a href={examPath(preview.examId)} className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${EXAM_META[preview.examId].code} practice menu for ${preview.title}`}>Open practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></a>
+          </article>)}
+        </div>
       </section>
 
       <section>
@@ -777,7 +835,7 @@ export function PbqGuide() {
       <section className="flex flex-col gap-3">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What a terminal PBQ looks like</h2>
         <p className="text-muted-foreground leading-relaxed">
-          A real example from the Core 1 bank. Scenario: a laptop shows a 169.254.x.x address after sleeping through a
+          A worked study example from Cert900’s Core 1 bank. A laptop shows a 169.254.x.x address after sleeping through a
           DHCP outage. The server is healthy again; refresh the client. Three objectives:
         </p>
         <div className="rounded-lg border bg-card p-4 font-mono text-sm">
@@ -789,10 +847,11 @@ export function PbqGuide() {
           <p>C:\Users\tech&gt; ipconfig /flushdns</p>
         </div>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          In the simulator you type these yourself, each correct command prints realistic output, and partial credit is
-          scored per objective, the same way CompTIA says PBQs are graded.
+          The DHCP simulator lets you inspect the adapter with diagnostic commands before making changes. Its
+          deterministic output reflects the virtual state. Cert900 awards partial credit for this scenario’s completed
+          objectives; this is an instructional rubric, not a reproduction of CompTIA’s proprietary scoring.
         </p>
-        <Cta label="Try it yourself, free" examId="220-1201" testid="guide-cta-2" />
+        <Cta label="Open Core 1 practice and choose PBQ Lab" examId="220-1201" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )

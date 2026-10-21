@@ -12,8 +12,8 @@ import { StudyHub } from "../src/screens/StudyHub"
 import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "../src/data/guide-meta"
 import { studyHubForExam } from "../src/data/study-resources"
 import { EXAM_IDS } from "../src/data/exam-ids"
-import { GUIDE_SAMPLES } from "../src/data/guide-samples"
 import { EXAM_META } from "../src/data/meta"
+import { selectGuideSamples } from "../src/lib/guide-sample-selection"
 import { qotdPool } from "../src/lib/qotd"
 import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
 import { GUIDE_PATHS, LEGAL_PATHS, STUDY_PATHS, type GuideKey } from "../src/data/routes"
@@ -121,17 +121,14 @@ console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links an
 /**
  * Quiz markup for the sample questions the page actually renders.
  *
- * This is the "practice problems" rich result: `Quiz` with `hasPart` Questions,
- * each carrying the accepted answer and the distractors as suggested answers.
- * Driven by the same GUIDE_EXAMS map the page renders from, so the schema can
- * never advertise questions the page does not show.
+ * `Quiz` describes the visible samples; it does not promise a search rich
+ * result. The shared selector keeps the exact questions and ordering aligned
+ * with the page, including guides that cover more than one exam.
  */
 function quizNode(key: GuideKey, meta: GuideMeta) {
   const examIds = GUIDE_EXAMS[key]
   if (examIds.length === 0) return null
-  const questions = examIds
-    .flatMap((id) => (GUIDE_SAMPLES[id] ?? []).map((q) => ({ q, exam: EXAM_META[id] })))
-    .slice(0, 8)
+  const questions = selectGuideSamples(examIds)
   if (questions.length === 0) return null
 
   return {
@@ -147,7 +144,7 @@ function quizNode(key: GuideKey, meta: GuideMeta) {
       alignmentType: "educationalSubject",
       targetName: `${EXAM_META[id].cert} ${EXAM_META[id].name}`,
     })),
-    hasPart: questions.map(({ q }) => ({
+    hasPart: questions.map(({ sample: q }) => ({
       "@type": "Question",
       eduQuestionType: "Multiple choice",
       learningResourceType: "Practice problem",
@@ -356,23 +353,22 @@ for (const examId of EXAM_IDS) {
  * sitemap.xml, generated from the same route table the worker and footer use.
  *
  * Hand-maintaining it worked only because someone remembered; the four other
- * copies of this list did not survive contact with four new exams. `lastmod`
- * uses the build date for guides, which is honest here because their bodies are
- * interpolated from the question banks — a content batch really does change
- * them. Legal pages keep a fixed date so they do not claim daily churn.
+ * copies of this list did not survive contact with four new exams. Educational
+ * content modification dates are not tracked reliably, so omit `lastmod`
+ * rather than treating every infrastructure build as a content update. Legal
+ * pages retain their explicitly tracked effective date.
  */
-const buildDate = new Date().toISOString().slice(0, 10)
 const sitemap = [
   `<?xml version="1.0" encoding="UTF-8"?>`,
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
-  `<url><loc>${SITE_URL}/</loc><lastmod>${buildDate}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>`,
+  `<url><loc>${SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>`,
   ...Object.values(GUIDE_PATHS).map(
     (p) =>
-      `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
+      `<url><loc>${SITE_URL}${p}</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
   ),
   ...STUDY_PATHS.map(
     (p) =>
-      `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
+      `<url><loc>${SITE_URL}${p}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
   ),
   ...LEGAL_PATHS.map(
     (p) => `<url><loc>${SITE_URL}${p}</loc><lastmod>${LEGAL_EFFECTIVE_DATE}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>`,

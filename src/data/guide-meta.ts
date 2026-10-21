@@ -136,7 +136,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     faq: [
       [
         "How many questions are on the CCNA exam?",
-        "The CCNA 200-301 is a 120-minute exam with roughly 90 to 120 items, mixing multiple choice, multiple response, and hands-on simulations (sims and simlets). Cisco does not publish the exact count or cut score; a scaled score around 825 of 1,000 is widely cited to pass.",
+        "The CCNA 200-301 is a 120-minute exam with multiple-choice, multiple-response and hands-on items. Cisco does not publish a fixed question count or passing score. Cert900 uses 825 of 1,000 as its practice threshold; this is not an official Cisco cut score.",
       ],
       [
         "Do I need a prerequisite for CCNA?",
@@ -230,7 +230,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   aplus: {
     path: GUIDE_PATHS.aplus,
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
-    description: `Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): ${APLUS.q} original questions, ${APLUS.pbq} performance-based questions, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.`,
+    description: `Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): ${APLUS.q} original questions, ${APLUS.pbq} performance-based questions and timed practice using Cert900's instructional scoring model. No signup.`,
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
     faq: [
       [
@@ -239,7 +239,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What score do I need to pass the A+?",
-        "CompTIA scores on a 100 to 900 scale. Core 1 (220-1201) requires 675 and Core 2 (220-1202) requires 700. Our simulator uses the same scale so your practice scores read like the real thing.",
+        "CompTIA scores on a 100 to 900 scale. Core 1 (220-1201) requires 675 and Core 2 (220-1202) requires 700. Cert900 uses those published ranges and thresholds with its own practice scoring formula; practice results do not predict an official score.",
       ],
       [
         "Is this actually free?",
@@ -251,7 +251,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aplus1,
     title: "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900",
     description:
-      "Free CompTIA A+ Core 1 (220-1201) practice: original questions on hardware, mobile devices, networking, virtualization, and troubleshooting, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+      "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup.",
     h1: "Free CompTIA A+ Core 1 (220-1201) practice test",
     faq: [
       [
@@ -276,7 +276,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aplus2,
     title: "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900",
     description:
-      "Free CompTIA A+ Core 2 (220-1202) practice: original questions on operating systems, security, software troubleshooting, and operational procedures, plus simulated PBQs, timed 90-minute exam simulation scored on the real 100 to 900 scale. No signup.",
+      "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup.",
     h1: "Free CompTIA A+ Core 2 (220-1202) practice test",
     faq: [
       [
@@ -320,8 +320,8 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   pbq: {
     path: GUIDE_PATHS.pbq,
     title: "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900",
-    description: `Practice CompTIA performance-based questions free: simulated terminals, router config panels, network diagram hotspots, and drag-to-connect cabling for A+ and Network+. ${COMPTIA_PBQ.pbq} PBQs, no signup.`,
-    h1: "CompTIA PBQ practice: real simulations, free",
+    description: `Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. ${COMPTIA_PBQ.pbq} original PBQs. No signup.`,
+    h1: "CompTIA PBQ practice: interactive simulations, free",
     faq: [
       [
         "What is a PBQ?",
@@ -329,15 +329,15 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "How many PBQs are on the exam?",
-        "CompTIA does not publish an exact count, but most candidates see roughly 3 to 6, usually at the start of the exam. They take longer than multiple choice, so practicing the format matters.",
+        "CompTIA does not publish a fixed PBQ count. The number and task types can vary. Cert900's PBQ labs offer individual exercises, and its practice exams use a configured sample rather than predicting the items on your real exam.",
       ],
       [
         "Do PBQs get partial credit?",
-        "Yes. CompTIA confirms PBQs may be scored with partial credit. Our simulator grades the same way: complete 3 of 4 objectives and you earn 75% for that question.",
+        "CompTIA says PBQs may offer partial credit. Cert900 uses its own explicit instructional rubrics: for example, three of four equally weighted objectives earns 75% for that exercise. Requirements and weights vary by exercise; these are not CompTIA's proprietary scoring rules.",
       ],
       [
         "Should I do PBQs first or skip them?",
-        "Common advice is to flag PBQs and return after finishing multiple choice, so the timer never strands you. Practice both ways here and see which suits you; the simulator has the same flag-and-return controls.",
+        "If a task is taking too long, consider flagging it and returning after other questions. Cert900's timed practice exams support flagging and returning so you can try different time-management approaches.",
       ],
     ],
   },
@@ -386,7 +386,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
   hub: {
     path: GUIDE_PATHS.hub,
     title: "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900",
-    description: `Free practice tests for ${N_EXAMS} IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. ${TOTAL_Q} original questions, timed exam simulation on each exam's real scale. No signup.`,
+    description: `Free practice tests for ${N_EXAMS} IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. ${TOTAL_Q} original questions and timed practice. No signup.`,
     h1: "Free IT certification practice tests",
     faq: [
       [
@@ -399,7 +399,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
       ],
       [
         "How close is the simulation to the real exam?",
-        "Each timed exam uses that exam's real question count, time limit, question-type mix, and scoring scale, including the actual cut score. A practice score therefore reads the way a real score report does.",
+        "Cert900 offers timed practice with original questions, interactive exercises and exam-specific settings. Published durations, score ranges and passing scores inform those settings where available. Question counts, mixes and grading are Cert900's practice model, not a reproduction of a proprietary exam or a prediction of your result.",
       ],
       [
         "Which certification should I start with?",
@@ -410,7 +410,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
   scores: {
     path: GUIDE_PATHS.scores,
     title: "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900",
-    description: `Passing scores for ${N_EXAMS} IT certification exams, with each exam's scale, question count, and time limit. CompTIA A+ 675, Network+ 720, Security+ 750 on 100-900; AWS and Azure 700-720 and Cisco about 825 on 100-1,000. Free practice scored on the same scales.`,
+    description: `Published passing scores and Cert900 practice thresholds for ${N_EXAMS} IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score.`,
     h1: "IT certification passing scores, by exam",
     faq: [
       [
@@ -423,11 +423,11 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
       ],
       [
         "Do performance-based questions count for more?",
-        "On CompTIA and Cisco exams, yes: simulations carry more weight than a single multiple-choice question and award partial credit for the parts you get right. AWS and Azure interactive items are all-or-nothing and weighted like a normal question.",
+        "Cert900 gives CompTIA and Cisco interactive items twice the weight of one multiple-choice item and awards rubric-based partial credit. Its AWS and Azure interactive items use all-or-nothing credit and the same weight as one multiple-choice item. These are Cert900 instructional settings, not disclosed vendor scoring formulas.",
       ],
       [
         "Does Cisco publish the CCNA passing score?",
-        "No. Cisco does not publish the cut score or the exact question count for the CCNA 200-301, and it can vary between exam forms. A scaled score around 825 of 1,000 is the figure widely reported by candidates, and it is what this site scores against.",
+        "No. Cisco does not publish a fixed passing score or question count for the CCNA 200-301. Cert900 uses 825 of 1,000 as a practice threshold; it must not be treated as an official Cisco requirement.",
       ],
     ],
   },
@@ -457,8 +457,8 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
   },
   method: {
     path: GUIDE_PATHS.method,
-    title: "How Our Practice Questions Are Made and Verified | Cert900",
-    description: `How the ${TOTAL_Q} practice questions on Cert900 are written, reviewed, and kept current: original items only, adversarial verification of every bank, an August 2026 audit of 931 sampled questions and all 138 performance-based questions, and a report button on every question that feeds a real triage queue.`,
+    title: "How Our Practice Questions Are Made and Reviewed | Cert900",
+    description: `How Cert900's ${TOTAL_Q} original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error.`,
     h1: "How our practice questions are made",
     faq: [
       [
@@ -467,7 +467,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
       ],
       [
         "How do you know the answers are correct?",
-        "Every bank passes an automated rule suite and an adversarial review in which independent reviewers try to refute each question's keyed answer. In August 2026 we additionally audited a 25% stratified sample of the whole bank plus every performance-based question; the handful of confirmed defects were fixed and the changes are public in the site's history.",
+        "Automated checks validate structure and consistency, and internal review records document an August 2026 review and subsequent corrections. These checks reduce errors but do not guarantee accuracy. Use the Report control if you find a questionable answer or explanation.",
       ],
       [
         "What happens when I report a question?",
