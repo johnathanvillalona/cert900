@@ -1,5 +1,5 @@
 import { EXAM_META } from "@/data/meta"
-import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "@/data/guide-meta"
+import { GUIDE_EXAMS, GUIDE_META, guideExamsForPath, type GuideMeta } from "@/data/guide-meta"
 import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
 import { examPath } from "@/data/routes"
 import { GuideResources } from "@/components/GuideResources"
@@ -179,10 +179,15 @@ export function GuideShell({ meta, children }: { meta: GuideMeta; children: Reac
 }
 
 function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
+  const primaryExam = guideExamsForPath(meta.path)[0]
   return (
     <main id="main" className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
-      <div className="mt-6 flex flex-col gap-10">{children}</div>
+      <div className="mt-6 flex flex-col gap-10">
+        {children}
+        {/* One closing study path per exam guide; overview/reference pages have no exam binding. */}
+        {primaryExam && <StudyPath examId={primaryExam} />}
+      </div>
       <section className="mt-12">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Common questions</h2>
         <div className="mt-4 border-t">
@@ -800,18 +805,6 @@ export function PbqGuide() {
         </p>
         <Cta label="Try it yourself, free" examId="220-1201" testid="guide-cta-2" />
       </section>
-      <StudyPath examId="220-1201" />
-      <StudyPath examId="220-1201" />
-      <StudyPath examId="220-1202" />
-      <StudyPath examId="aif-c01" />
-      <StudyPath examId="clf-c02" />
-      <StudyPath examId="az-900" />
-      <StudyPath examId="sc-900" />
-      <StudyPath examId="ccna-200-301" />
-      <StudyPath examId="az-104" />
-      <StudyPath examId="saa-c03" />
-      <StudyPath examId="n10-009" />
-      <StudyPath examId="sy0-701" />
     </GuideShell>
   )
 }
