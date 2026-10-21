@@ -1,5 +1,9 @@
 # Phase B validation evidence
 
+For the subsequent ads.txt fix, fresh validation, and confirmed GA4 Realtime/
+DebugView ingestion, see [final readiness](../../monetization-phase-b-readiness.md).
+The original inspection results below describe the accepted Phase B checkpoint.
+
 2026-10-21. Ubuntu; Node 24.21.0, npm 11.19.0, installed Chrome
 155.0.8059.39, Playwright 1.64.1. Scripts-disabled reproducible installation;
 package.json and package-lock.json are unchanged. No lifecycle-script approvals,

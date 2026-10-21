@@ -1,5 +1,10 @@
 # Monetization Phase B: disabled manual AdSense infrastructure
 
+**Final readiness follow-up:** see [verified ads.txt and GA4 evidence](monetization-phase-b-readiness.md).
+The initial inspection below is historical: the follow-up adds Google's exact
+ads.txt record and confirms GA4 ingestion in DebugView and Realtime. Advertising
+remains disabled; no Google settings or production resources were changed.
+
 ## Release boundary
 
 Branch: `codex/monetization-phase-b`, based directly on verified GitHub main
