@@ -26,6 +26,7 @@ import { SearchPalette } from "@/components/SearchPalette"
 import { SiteFooter } from "@/components/SiteFooter"
 import { AppPromo } from "@/components/AppPromo"
 import { Wordmark } from "@/components/Wordmark"
+import { StudyGuideAction } from "@/components/StudyLinks"
 
 /**
  * Real product in the hero: the question of the day, fully answerable.
@@ -206,12 +207,14 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
       </div>
       <div className="flex flex-col gap-3 lg:col-span-7">
         {started.map(({ exam, answered, lastScaled, due }) => (
+          <article key={exam.id} data-testid="continue-entry" data-exam-id={exam.id} className="min-w-0 rounded-lg border bg-card">
           <button
-            key={exam.id}
             onClick={() => onChoose(exam.id)}
-            className="pressable group flex cursor-pointer items-center justify-between gap-4 rounded-lg border bg-card p-5 text-left transition-[color,background-color,border-color,transform] duration-200 hover:border-primary"
+            data-testid="continue-practice"
+            aria-label={`${due > 0 ? "Review" : "Continue"} practice for ${exam.code}`}
+            className="pressable group grid min-w-0 w-full cursor-pointer grid-cols-1 items-center gap-3 rounded-lg p-5 text-left transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 sm:flex sm:justify-between sm:gap-4"
           >
-            <span>
+            <span className="min-w-0">
               <span className="font-mono text-xs text-muted-foreground">{exam.code}</span>
               <span className="mt-0.5 block font-heading text-lg font-semibold">
                 {exam.cert} {exam.name}
@@ -223,11 +226,13 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
                 )}
               </span>
             </span>
-            <span className="flex items-center gap-2 font-medium text-brand">
+            <span className="flex min-h-11 shrink-0 items-center gap-2 font-medium text-brand">
               {due > 0 ? "Review" : "Continue"}
               <ArrowRight className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1" strokeWidth={2} />
             </span>
           </button>
+          <StudyGuideAction examId={exam.id} className="mx-5 mb-5" />
+          </article>
         ))}
       </div>
     </div>
@@ -426,35 +431,37 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                   const p = store.all[ex.id]
                   const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
                   return (
-                    // The reveal lives on the GROUP, not here. A filled
-                    // animation retains its final transform and would win over
-                    // this hover transition, so the row would stop lifting on
-                    // every browser that supports view().
+                    <article key={ex.id} data-testid="certification-entry" data-exam-id={ex.id}
+                      className="mt-3 grid min-w-0 grid-cols-1 items-center rounded-lg border bg-card lg:grid-cols-[minmax(0,1fr)_auto]">
                     <button
-                      key={ex.id}
                       onClick={() => onChooseExam(ex.id)}
                       data-testid="exam-row"
-                      className="group grid w-full cursor-pointer grid-cols-1 items-center gap-2 border-b px-2 py-6 text-left transition-[color,background-color,border-color,transform] duration-200 hover:bg-accent motion-safe:hover:-translate-y-px sm:grid-cols-12 sm:gap-4"
+                      aria-label={`Practice ${ex.cert} ${ex.name} (${ex.code})`}
+                      className="group grid min-w-0 w-full cursor-pointer grid-cols-1 items-center gap-2 rounded-lg px-4 py-5 text-left transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 lg:grid-cols-12 lg:gap-4"
                     >
-                      <span className="flex items-center gap-2.5 sm:col-span-2">
+                      <span className="flex items-center gap-2.5 lg:col-span-2">
                         <ExamEmblem examId={ex.id} className={cn("size-7", VENDORS[ex.vendor].tintClass)} />
                         <span className="font-mono text-sm text-muted-foreground">{ex.code}</span>
                       </span>
-                      <span className="sm:col-span-6">
+                      <span className="min-w-0 lg:col-span-5">
                         <span className="font-heading text-xl font-semibold md:text-2xl">
                           {ex.cert} {ex.name}
                         </span>
                         <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
                       </span>
-                      <span className="font-mono text-xs text-muted-foreground tabular-nums sm:col-span-3 sm:text-right">
+                      <span className="font-mono text-xs text-muted-foreground tabular-nums lg:col-span-3 lg:text-right">
                         {ex.questionCount} questions{ex.pbqCount > 0 && ` · ${ex.pbqCount} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
                         <span className="block">
                           {Object.keys(ex.domains).length} domains
                           {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
                         </span>
                       </span>
-                      <ArrowRight className="hidden size-5 justify-self-end text-brand transition-transform duration-200 motion-safe:group-hover:translate-x-1 sm:col-span-1 sm:block" strokeWidth={2} />
+                      <span className="inline-flex min-h-11 items-center justify-self-start gap-2 rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground lg:col-span-2 lg:justify-self-end">
+                        Practice<ArrowRight className="size-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+                      </span>
                     </button>
+                    <StudyGuideAction examId={ex.id} className="mx-4 mb-4 lg:mb-0" />
+                    </article>
                   )
                 })}
               </div>

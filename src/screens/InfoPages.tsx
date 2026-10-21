@@ -7,6 +7,7 @@ import type { Vendor } from "@/data/types"
 import { vendorList } from "@/lib/copy"
 import { CONTACT_EMAIL } from "@/lib/site"
 import { Cta, GuideShell } from "@/screens/Guides"
+import { primaryGuideForExam } from "@/data/study-resources"
 
 /**
  * Informational pages, prerendered alongside the exam guides.
@@ -79,20 +80,7 @@ function ExamTable({ showScores = false }: { showScores?: boolean }) {
 
 /** The guide slug for an exam id, so the tables link into the right page. */
 function guidePathFor(examId: string): string {
-  const map: Record<string, string> = {
-    "220-1201": GUIDE_PATHS.aplus1,
-    "220-1202": GUIDE_PATHS.aplus2,
-    "n10-009": GUIDE_PATHS.nplus,
-    "sy0-701": GUIDE_PATHS.secplus,
-    "ccna-200-301": GUIDE_PATHS.ccna,
-    "aif-c01": GUIDE_PATHS.aif,
-    "clf-c02": GUIDE_PATHS.clf,
-    "saa-c03": GUIDE_PATHS.saa,
-    "az-900": GUIDE_PATHS.az900,
-    "sc-900": GUIDE_PATHS.sc900,
-    "az-104": GUIDE_PATHS.az104,
-  }
-  return map[examId] ?? "/"
+  return primaryGuideForExam(examId)?.path ?? "/"
 }
 
 export function HubPage() {

@@ -9,6 +9,7 @@ import { useProgress } from "@/hooks/useProgress"
 import { weakTopics } from "@/lib/engine"
 import { countdownCopy, dayNumber } from "@/lib/progress"
 import { reviewQueue } from "@/lib/review"
+import { StudyLinks } from "@/components/StudyLinks"
 
 const MODES = [
   { key: "exam", icon: Timer, title: "Full Exam", desc: "" }, // computed per exam below
@@ -49,6 +50,7 @@ export function Home(props: {
         {exam.cert} {exam.name} · {exam.code}
       </p>
       <h1 className="font-heading mt-1 text-3xl font-semibold tracking-tight">Practice like it's exam day</h1>
+      <StudyLinks examId={exam.id} />
 
       {/* Only rendered once there is something to redo, so it never sits empty. */}
       {queue.length > 0 && (
