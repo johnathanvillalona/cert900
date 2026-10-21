@@ -3,8 +3,8 @@ import { GUIDE_EXAMS, GUIDE_META, guideExamsForPath, type GuideMeta } from "@/da
 import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
 import { examPath } from "@/data/routes"
 import { GuideResources } from "@/components/GuideResources"
-import { SiteFooter } from "@/components/SiteFooter"
-import { Wordmark } from "@/components/Wordmark"
+import { StaticContentShell } from "@/components/StaticContentShell"
+import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
 import { ArrowRight, Check } from "lucide-react"
 
 /**
@@ -152,37 +152,22 @@ function StudyPath({ examId }: { examId: string }) {
  * there is just no toggle on these pages.
  */
 export function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
-  return (
-    <div className="flex min-h-[100dvh] flex-col">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
-      >
-        Skip to content
-      </a>
-      <header className="border-b">
-        <nav aria-label="Primary" className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
-          <a href="/" className="brand-link flex items-center rounded-md text-sm" aria-label="cert900 home" data-testid="brand">
-            <Wordmark className="text-sm" />
-          </a>
-          <a href="/" className="text-muted-foreground text-sm underline-offset-2 hover:text-foreground hover:underline">
-            All exams
-          </a>
-        </nav>
-      </header>
-      <div className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">
-        <GuideArticle meta={meta}>{children}</GuideArticle>
-      </div>
-      <SiteFooter />
-    </div>
-  )
+  return <StaticContentShell><GuideArticle meta={meta}>{children}</GuideArticle></StaticContentShell>
 }
 
 function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   const primaryExam = guideExamsForPath(meta.path)[0]
+  const resource = STUDY_RESOURCES.find(resource => GUIDE_META[resource.page].path === meta.path)
+  const hubs = resource ? studyHubsForPage(resource.page) : []
   return (
     <main id="main" className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
       <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
+      {hubs.length > 0 && <nav aria-label="Related Study Hubs" className="mt-5 flex flex-col gap-2 rounded-lg border bg-card p-4 sm:flex-row sm:flex-wrap">
+        {hubs.map(hub => <a key={hub.examId} href={hub.path} data-testid="guide-study-hub"
+          className="flex min-h-11 items-center gap-2 rounded-md px-2 py-2 text-sm font-semibold text-brand hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2">
+          <ArrowRight className="size-4 shrink-0" aria-hidden="true" /><span>{EXAM_META[hub.examId].code} Study Hub</span>
+        </a>)}
+      </nav>}
       <div className="mt-6 flex flex-col gap-10">
         {children}
         {/* One closing study path per exam guide; overview/reference pages have no exam binding. */}

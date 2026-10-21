@@ -22,6 +22,7 @@ test.beforeEach(async ({ context }) => {
 async function checkMenu(page: Page, id: string) {
   await expect(page).toHaveURL(new RegExp(`/exam/${id}$`))
   const study = page.getByTestId('study-resources')
+  await expect(study.getByTestId('primary-study-hub')).toHaveAttribute('href', `/study/${id}`)
   await expect(study.getByTestId('primary-study-guide')).toHaveAttribute('href', GUIDE_PATHS[guides[id]])
   await expect(study.getByTestId('study-reference')).toHaveCount(references[id].length)
   for (const key of references[id]) await expect(study.locator(`a[href="${GUIDE_PATHS[key]}"]`)).toBeVisible()
@@ -34,24 +35,23 @@ async function checkMenu(page: Page, id: string) {
 }
 
 for (const [path, practiceId] of [['/', 'exam-row'], ['/exams', 'exam-card']]) {
-  test(`${path}: all 11 cards expose independent canonical Study Guide and unchanged Practice actions`, async ({ page }) => {
+  test(`${path}: all 11 cards expose Study Hub and unchanged Practice actions`, async ({ page }) => {
     const errors: string[] = []
     page.on('pageerror', e => errors.push(e.message))
-    for (const [id, key] of Object.entries(guides)) {
+    for (const id of Object.keys(guides)) {
       await page.goto(path)
       await expect(page.getByTestId('certification-entry')).toHaveCount(11)
       const card = page.locator(`[data-testid="certification-entry"][data-exam-id="${id}"]`)
       const study = card.getByTestId('study-guide-action')
-      await expect(study).toHaveAccessibleName(`${EXAM_META[id].code} Study Guide`)
-      await expect(study).toHaveAttribute('href', GUIDE_PATHS[key])
+      await expect(study).toHaveAccessibleName(`${EXAM_META[id].code} Study Hub`)
+      await expect(study).toHaveAttribute('href', `/study/${id}`)
       expect(await study.evaluate(e => e.closest('button') === null && !e.querySelector('button,a'))).toBe(true)
       await study.focus()
       await page.keyboard.press('Enter')
-      await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS[key]}$`))
-      await expect(page.getByTestId('guide-page')).toBeVisible()
-      await expect(page.getByRole('heading', { name: 'How to use this to pass', exact: true })).toHaveCount(1)
+      await expect(page).toHaveURL(new RegExp(`/study/${id}$`))
+      await expect(page.getByTestId('study-hub')).toHaveAttribute('data-exam-id', id)
       await page.reload()
-      await expect(page.getByTestId('guide-page')).toBeVisible()
+      await expect(page.getByTestId('study-hub')).toBeVisible()
       await page.goBack()
       await expect(page).toHaveURL(new RegExp(path === '/' ? '/$' : '/exams$'))
       await page.locator(`[data-testid="certification-entry"][data-exam-id="${id}"]`).getByTestId(practiceId).click()
@@ -69,11 +69,20 @@ test('every registered guide and reference is delivered at its existing canonica
     const html = await response.text()
     const canonical = await page.evaluate(html => new DOMParser().parseFromString(html, 'text/html').querySelector('link[rel=canonical]')?.getAttribute('href'), html)
     expect(canonical).toBe(`https://cert900.com${path}`)
+    if (Object.values(guides).some(key => GUIDE_PATHS[key] === path)) {
+      expect((html.match(/>How to use this to pass</g) ?? []).length, path).toBe(1)
+    }
   }
 })
 
-test('search discovers study guides and cheat sheets while topic selection still starts a drill', async ({ page }) => {
+test('search discovers hubs, original guides and cheat sheets while topic selection still starts a drill', async ({ page }) => {
   await page.goto('/')
+  await page.getByTestId('open-search').click()
+  await page.getByTestId('search-input').fill('study hub core 1')
+  await page.getByTestId('search-hit-page').filter({ hasText: '/study/220-1201' }).click()
+  await expect(page).toHaveURL(/\/study\/220-1201$/)
+  await expect(page.getByTestId('study-hub')).toBeVisible()
+  await page.goBack()
   await page.getByTestId('open-search').click()
   await page.getByTestId('search-input').fill('study guide core 1')
   const guide = page.getByTestId('search-hit-page').filter({ hasText: GUIDE_PATHS.aplus1 })
@@ -95,7 +104,7 @@ test('search discovers study guides and cheat sheets while topic selection still
 })
 
 for (const mode of ['exam', 'practice', 'pbq'] as const) {
-  test(`${mode}: completed results expose the free guide beside the score, never during an attempt`, async ({ page }) => {
+  test(`${mode}: completed results expose the hub and guide beside the score, never during an attempt`, async ({ page }) => {
     await page.goto('/exam/220-1201')
     await page.getByTestId(`mode-${mode === 'practice' ? 'drill' : mode}`).click()
     if (mode === 'practice') await page.getByTestId('start-drill').click()
@@ -123,9 +132,10 @@ for (const mode of ['exam', 'practice', 'pbq'] as const) {
     await expect(page).toHaveURL(/\/exam\/220-1201\/results$/)
     await expect(page.getByTestId('primary-study-guide')).toHaveAttribute('href', GUIDE_PATHS.aplus1)
     expect(await page.getByTestId('study-resources').evaluate(e => e.previousElementSibling?.getAttribute('data-testid'))).toBe('score-hero')
-    await page.getByTestId('primary-study-guide').focus()
+    await expect(page.getByTestId('primary-study-hub')).toHaveAttribute('href', '/study/220-1201')
+    await page.getByTestId('primary-study-hub').focus()
     await page.keyboard.press('Enter')
-    await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS.aplus1}$`))
+    await expect(page).toHaveURL(/\/study\/220-1201$/)
   })
 }
 
@@ -177,7 +187,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
   })
 }
 
-test('320px touch follows Study Guide without starting practice and preserves consent across documents', async ({ browser, baseURL }) => {
+test('320px touch follows Study Hub without starting practice and preserves consent across documents', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ baseURL, viewport: { width: 320, height: 740 }, hasTouch: true })
   try {
     const google: string[] = []
@@ -188,7 +198,7 @@ test('320px touch follows Study Guide without starting practice and preserves co
     await page.getByRole('button', { name: 'Decline', exact: true }).tap()
     const card = page.locator('[data-testid="certification-entry"][data-exam-id="220-1201"]')
     await card.getByTestId('study-guide-action').tap()
-    await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS.aplus1}$`))
+    await expect(page).toHaveURL(/\/study\/220-1201$/)
     await expect(page.locator('[data-analytics-status]')).toHaveText('Analytics declined.')
     await page.goBack()
     await page.locator('[data-testid="certification-entry"][data-exam-id="220-1201"]').getByTestId('exam-row').tap()
@@ -200,7 +210,7 @@ test('320px touch follows Study Guide without starting practice and preserves co
   } finally { await context.close() }
 })
 
-test('returning-user cards expose Study Guide at every width and preserve earned local progress', async ({ page }, info) => {
+test('returning-user cards expose Study Hub at every width and preserve earned local progress', async ({ page }, info) => {
   // Earn real synthetic local progress through the existing practice flow.
   await page.goto('/exam/220-1201')
   await page.getByTestId('mode-drill').click()
@@ -228,7 +238,7 @@ test('returning-user cards expose Study Guide at every width and preserve earned
       const card = page.getByTestId('continue-entry').filter({ hasText: '220-1201' })
       await expect(card.getByTestId('continue-practice')).toBeVisible()
       const study = card.getByTestId('study-guide-action')
-      await expect(study).toHaveAttribute('href', GUIDE_PATHS.aplus1)
+      await expect(study).toHaveAttribute('href', '/study/220-1201')
       expect((await study.boundingBox())!.height).toBeGreaterThanOrEqual(44)
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
       expect(await card.evaluate(e => !e.querySelector('button a,button button,a button,a a'))).toBe(true)
@@ -238,7 +248,7 @@ test('returning-user cards expose Study Guide at every width and preserve earned
       }
       await study.focus()
       await page.keyboard.press('Enter')
-      await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS.aplus1}$`))
+      await expect(page).toHaveURL(/\/study\/220-1201$/)
       expect(await page.evaluate(() => localStorage.getItem('comptia-trainer-v1'))).toBe(progress)
       await page.goBack()
       await page.getByTestId('continue-entry').getByTestId('continue-practice').click()

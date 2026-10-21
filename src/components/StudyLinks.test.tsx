@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server"
 import { describe, expect, it } from "vitest"
 import { EXAM_IDS } from "@/data/exam-ids"
-import { primaryGuideForExam, studyResourcesForExam, resolveStudyResource } from "@/data/study-resources"
+import { primaryGuideForExam, studyHubForExam, studyResourcesForExam, resolveStudyResource } from "@/data/study-resources"
 import { StudyGuideAction, StudyLinks } from "./StudyLinks"
 
 describe("free study discovery controls", () => {
@@ -9,12 +9,13 @@ describe("free study discovery controls", () => {
     it(`${id}: native canonical links, accessible action and relevant reference visibility`, () => {
       const primary = primaryGuideForExam(id)!
       const action = renderToStaticMarkup(<StudyGuideAction examId={id} />)
-      expect(action).toContain(`href="${primary.path}"`)
+      expect(action).toContain(`href="${studyHubForExam(id)!.path}"`)
       expect(action).toContain('aria-label="')
-      expect(action).toContain("Study Guide")
+      expect(action).toContain("Study Hub")
       expect(action).not.toMatch(/<button|<script|target=/)
       const html = renderToStaticMarkup(<StudyLinks examId={id} />)
       expect(html).toContain('data-testid="primary-study-guide"')
+      expect(html).toContain('data-testid="primary-study-hub"')
       expect(html).toContain(`href="${primary.path}"`)
       const references = studyResourcesForExam(id).references
       expect(html.match(/data-testid="study-reference"/g) ?? []).toHaveLength(references.length)

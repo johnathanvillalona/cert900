@@ -2,18 +2,21 @@
 // QOTD feed the worker cron reads. Runs after `vite build` via tsx (npm run
 // build). Uses dist/index.html as the template so asset hashes, the theme
 // boot script, and the analytics beacon are always current.
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 import * as React from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 import { AifGuide, APlusGuide, APlusCore1Guide, APlusCore2Guide, Az900Guide, ClfGuide, NPlusGuide, PbqGuide, SecplusGuide, Sc900Guide, CcnaGuide, Az104Guide, SaaGuide} from "../src/screens/Guides"
 import { HubPage, ScoresPage, OrderPage, MethodPage, PortsPage, CcnaCliPage, CablesPage, CloudSvcPage } from "../src/screens/InfoPages"
+import { StudyHub } from "../src/screens/StudyHub"
 import { GUIDE_EXAMS, GUIDE_META, type GuideMeta } from "../src/data/guide-meta"
+import { studyHubForExam } from "../src/data/study-resources"
+import { EXAM_IDS } from "../src/data/exam-ids"
 import { GUIDE_SAMPLES } from "../src/data/guide-samples"
 import { EXAM_META } from "../src/data/meta"
 import { qotdPool } from "../src/lib/qotd"
 import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
-import { GUIDE_PATHS, LEGAL_PATHS, type GuideKey } from "../src/data/routes"
+import { GUIDE_PATHS, LEGAL_PATHS, STUDY_PATHS, type GuideKey } from "../src/data/routes"
 import { GROW, SITE_URL } from "../src/lib/site"
 import { LEGAL_EFFECTIVE_DATE } from "../src/screens/Legal"
 
@@ -53,7 +56,12 @@ function noscriptBlock(): string {
   const links = Object.values(GUIDE_META)
     .map((g) => `<li><a href="${g.path}">${esc(g.title.replace(" | Cert900", ""))}</a></li>`)
     .join("")
-  return `<noscript><h1>Cert900 — free certification practice exams</h1><p>${esc(siteTagline())}</p><ul>${links}</ul></noscript>`
+  const hubs = EXAM_IDS.map((id) => {
+    const hub = studyHubForExam(id)
+    if (!hub) throw new Error(`Missing study hub: ${id}`)
+    return `<li><a href="${hub.path}">${esc(hub.heading)}</a></li>`
+  }).join("")
+  return `<noscript><h1>Cert900 — free certification practice exams</h1><p>${esc(siteTagline())}</p><h2>Study Hubs</h2><ul>${hubs}</ul><h2>Study guides and references</h2><ul>${links}</ul></noscript>`
 }
 
 /**
@@ -107,7 +115,7 @@ const template = withFonts
 const growHome = template.includes("data-grow-home") ? "" : growHomeTag
 writeFileSync(resolve(dist, "index.html"), template.replace("</head>", `${homeJsonLd()}${growHome}</head>`))
 console.log(`font preloads: ${fontPreloads ? (fontPreloads.match(/href="([^"]+)"/g) ?? []).join(" ") : "(none found)"}`)
-console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links`)
+console.log(`noscript fallback: ${Object.keys(GUIDE_META).length} guide links and ${STUDY_PATHS.length} study hubs`)
 
 /**
  * Quiz markup for the sample questions the page actually renders.
@@ -224,7 +232,32 @@ function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
 }
 
-function page(key: GuideKey, meta: GuideMeta, body: string): string {
+type StaticPageMeta = Pick<GuideMeta, "path" | "title" | "description">
+
+/** Hubs describe a collection of existing resources, never an unseen quiz or FAQ. */
+function studyJsonLd(meta: StaticPageMeta & { heading: string }): string {
+  const url = `${SITE_URL}${meta.path}`
+  const graph = [
+    {
+      "@type": "CollectionPage",
+      "@id": `${url}#study-hub`,
+      name: meta.heading,
+      description: meta.description,
+      url,
+      isPartOf: { "@type": "WebSite", name: "Cert900", url: `${SITE_URL}/` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: meta.heading, item: url },
+      ],
+    },
+  ]
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
+}
+
+function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false): string {
   const url = `${SITE_URL}${meta.path}`
   // Per-guide OG card if one has been rendered (public/og/<slug>.png via
   // tools/gen-og-data.mts + an OG renderer; the original scratchpad renderer
@@ -245,7 +278,7 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
     .replace(/(<meta property="og:image" content=")[^"]*(")/, ogImage ? `$1${ogImage}$2` : "$&")
     .replace(/(<meta name="twitter:image" content=")[^"]*(")/, ogImage ? `$1${ogImage}$2` : "$&")
-    .replace("</head>", `${jsonLd(key, meta)}${growTag}</head>`)
+    .replace("</head>", `${structuredData}${includeGrow ? growTag : ""}</head>`)
     // Root now carries a <noscript> fallback (see index.html); match the whole
     // block, not the old empty `<div id="root"></div>`. GuideShell brings its
     // own header/wrapper/footer, so the body goes in bare.
@@ -293,7 +326,19 @@ const pages: [GuideKey, GuideMeta, React.ReactElement][] = [
 for (const [key, meta, el] of pages) {
   const body = renderToStaticMarkup(el)
   const out = `${meta.path.slice(1)}.html` // flat file: /slug serves slug.html (no trailing-slash redirect)
-  writeFileSync(resolve(dist, out), page(key, meta, body))
+  writeFileSync(resolve(dist, out), page(meta, body, jsonLd(key, meta), true))
+  console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
+}
+
+mkdirSync(resolve(dist, "study"), { recursive: true })
+for (const examId of EXAM_IDS) {
+  const meta = studyHubForExam(examId)
+  if (!meta) throw new Error(`Missing study hub: ${examId}`)
+  const body = renderToStaticMarkup(<StudyHub examId={examId} />)
+  const out = `${meta.path.slice(1)}.html`
+  // Like existing guides, these are complete semantic documents without React
+  // hydration. The only client module handles optional consent and analytics.
+  writeFileSync(resolve(dist, out), page(meta, body, studyJsonLd(meta)))
   console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
 }
 
@@ -315,13 +360,17 @@ const sitemap = [
     (p) =>
       `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
   ),
+  ...STUDY_PATHS.map(
+    (p) =>
+      `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
+  ),
   ...LEGAL_PATHS.map(
     (p) => `<url><loc>${SITE_URL}${p}</loc><lastmod>${LEGAL_EFFECTIVE_DATE}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>`,
   ),
   `</urlset>`,
 ].join("\n")
 writeFileSync(resolve(dist, "sitemap.xml"), sitemap + "\n")
-console.log(`sitemap.xml: ${Object.keys(GUIDE_PATHS).length + LEGAL_PATHS.length + 1} urls`)
+console.log(`sitemap.xml: ${Object.keys(GUIDE_PATHS).length + STUDY_PATHS.length + LEGAL_PATHS.length + 1} urls`)
 
 // QOTD feed for the worker's daily social post. No answers or explanations.
 //

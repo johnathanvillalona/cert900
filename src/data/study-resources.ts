@@ -1,6 +1,7 @@
 import { EXAM_IDS } from "./exam-ids"
 import { GUIDE_META } from "./guide-meta"
-import { GUIDE_PATHS, type GuideKey } from "./routes"
+import { GUIDE_PATHS, studyPath, type GuideKey } from "./routes"
+import { EXAM_META } from "./meta"
 
 /** Discovery metadata only: no banks, answers, session state or simulator imports. */
 export interface StudyResource {
@@ -53,7 +54,7 @@ validateStudyResources()
 
 export function resolveStudyResource(resource: StudyResource) {
   const meta = GUIDE_META[resource.page]
-  return { ...resource, path: meta.path, title: meta.title, heading: meta.h1 }
+  return { ...resource, path: meta.path, title: meta.title, heading: meta.h1, description: meta.description }
 }
 
 export function studyResourcesForExam(examId: string) {
@@ -67,6 +68,31 @@ export function studyResourcesForExam(examId: string) {
 export function primaryGuideForExam(examId: string) {
   const primary = studyResourcesForExam(examId).primary
   return primary ? resolveStudyResource(primary) : null
+}
+
+/** Hub metadata composes the existing catalog; it is not a second resource list. */
+export function studyHubForExam(examId: string) {
+  if (!EXAM_IDS.includes(examId)) return null
+  const exam = EXAM_META[examId]
+  const name = `${exam.cert} ${exam.name}`.trim()
+  return {
+    examId,
+    path: studyPath(examId),
+    heading: `${name} Study Hub`,
+    title: `${name} (${exam.code}) Study Hub | Cert900`,
+    description: `Plan your ${exam.code} study around ${Object.keys(exam.domains).length} exam domains. Find the existing ${name} guide, topic videos, relevant references and free practice tools in one place.`,
+  }
+}
+
+export function relatedGuidesForExam(examId: string) {
+  return EXAM_IDS.includes(examId)
+    ? STUDY_RESOURCES.filter(resource => resource.kind === "guide" && !resource.primary && resource.examIds.includes(examId)).map(resolveStudyResource)
+    : []
+}
+
+export function studyHubsForPage(page: GuideKey) {
+  const ids = new Set(STUDY_RESOURCES.filter(resource => resource.page === page).flatMap(resource => resource.examIds))
+  return [...ids].map(id => studyHubForExam(id)!)
 }
 
 export function studySearchLabel(page: GuideKey): string {
