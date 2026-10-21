@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from "react"
 import type { ExamDef, Question } from "@/data/types"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import type { QuizOutcome } from "@/lib/quiz-session"
@@ -89,6 +90,15 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   onHome: () => void
   onReview: (ids: number[]) => void
 }) {
+  const heading = useRef<HTMLHeadingElement>(null)
+  useLayoutEffect(() => {
+    // A fresh completion mounts this screen. Position it after the DOM changes,
+    // before paint; later review/consent/progress rerenders must not reposition it.
+    // Leave history.scrollRestoration and all other navigation behavior alone.
+    heading.current?.focus({ preventScroll: true })
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+  }, [])
+
   // PBQs are excluded: the review queue serves MC only, since PBQ history has
   // no per-question id to schedule against.
   const missedIds = outcome.review.flatMap((r) => (!r.ok && r.kind === "mc" ? [r.q.id] : []))
@@ -103,7 +113,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
     }
     return (
       <main>
-        <h1 className="sr-only">Session results</h1>
+        <h1 ref={heading} tabIndex={-1} className="sr-only">Session results</h1>
         <Card className="p-8 text-center" data-testid="score-hero">
           <p className="font-mono text-5xl font-bold tabular-nums">
             {correct}/{outcome.review.length}
@@ -148,7 +158,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
   const misses = outcome.review.filter((r) => !r.ok)
   return (
     <main>
-      <h1 className="sr-only">Exam results</h1>
+      <h1 ref={heading} tabIndex={-1} className="sr-only">Exam results</h1>
       <Card className="p-8 text-center" data-testid="score-hero">
         <p className="relative inline-block">
           <span className={cn("verdict-pop block font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
