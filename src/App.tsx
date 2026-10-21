@@ -29,6 +29,8 @@ import { DeleteAccount, Privacy, Terms } from "@/screens/Legal"
 import { NotFound } from "@/screens/NotFound"
 import { ADMIN_PATH, examPath, isKnownPath, parseExamPath } from "@/data/routes"
 import { SiteFooter } from "@/components/SiteFooter"
+import { analytics } from "@/lib/analytics"
+import { initConsent, refreshConsentUI } from "@/lib/consent"
 
 // Charts (recharts) load only when someone opens detailed progress.
 const ProgressScreen = lazy(() =>
@@ -184,6 +186,12 @@ export default function App() {
     // into a quiz that has already been graded would restart it.
     const go = screen.kind === "results" ? window.history.replaceState : window.history.pushState
     go.call(window.history, null, "", want)
+  }, [screen, examId])
+
+  useEffect(() => {
+    initConsent(analytics.setConsent)
+    refreshConsentUI()
+    analytics.pageView(window.location.pathname)
   }, [screen, examId])
 
   /**

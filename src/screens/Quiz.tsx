@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils"
 import { mcAnswerBlank, pbqAnswerBlank, pbqScore, type PBQAnswer } from "@/lib/engine"
 import { VENDOR_FORMATS } from "@/data/vendors"
 import { GripVertical } from "lucide-react"
+import { analytics } from "@/lib/analytics"
 
 const LETTERS = "ABCDEF"
 
@@ -68,11 +69,18 @@ function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, simulationViews
   const [confirmQuit, setConfirmQuit] = useState(false)
   const [showKeys, setShowKeys] = useState(false)
   const finishedRef = useRef(false)
+  const analyticsCompletion = useRef<(() => void) | null>(null)
+  useEffect(() => {
+    if (analyticsCompletion.current) return
+    analytics.pageView(`/exam/${exam.id}/quiz`)
+    analyticsCompletion.current = analytics.startAttempt(exam.id, cfg.mode)
+  }, [exam.id, cfg.mode])
 
   // Exam-mode completion (manual end or time-up): record results once, then leave.
   useEffect(() => {
     if (!session.finished || finishedRef.current) return
     finishedRef.current = true
+    analyticsCompletion.current?.()
     const outcome = session.outcome()
     if (outcome.mode === "exam") {
       // One batched write: this loop used to re-serialize the whole progress

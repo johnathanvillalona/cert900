@@ -12,7 +12,9 @@ export default defineConfig({
     },
   },
   build: {
+    manifest: true,
     rollupOptions: {
+      input: { index: path.resolve(__dirname, "index.html"), content: path.resolve(__dirname, "src/content-client.ts") },
       output: {
         manualChunks(id) {
           // Tiny styling helpers shared by the app shell AND recharts. They must
