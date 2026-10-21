@@ -11,6 +11,7 @@ import { AppPromo } from "@/components/AppPromo"
 import { ShareResult } from "@/components/ShareResult"
 import { DONATE_URL } from "@/lib/site"
 import { cn } from "@/lib/utils"
+import { StudyLinks } from "@/components/StudyLinks"
 
 /**
  * Everything below the score: one paid study recommendation (secondary to the
@@ -109,6 +110,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           </p>
           <p className="text-muted-foreground mt-1 text-sm">answered correctly this {outcome.mode === "pbq" ? "PBQ session" : "drill"}</p>
         </Card>
+        <StudyLinks examId={exam.id} references={false} />
         {missedByTopic.size > 0 && (
           <Card className="mt-4 p-6">
             <h2 className="text-lg font-semibold">Topics to review</h2>
@@ -164,6 +166,7 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
         </p>
       </Card>
 
+      <StudyLinks examId={exam.id} references={false} />
       <Card className="mt-4 p-6">
         <h2 className="text-lg font-semibold">Score by domain</h2>
         <div className="mt-3 flex flex-col gap-3">

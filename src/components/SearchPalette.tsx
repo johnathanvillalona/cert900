@@ -8,6 +8,7 @@ import { ExamEmblem } from "@/components/exam-art"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
+import { studySearchLabel } from "@/data/study-resources"
 
 type Hit =
   | { kind: "exam"; id: string; title: string; sub: string }
@@ -39,7 +40,7 @@ function buildIndex(): Hit[] {
   }
   for (const key of Object.keys(GUIDE_META) as (keyof typeof GUIDE_META)[]) {
     const g = GUIDE_META[key]
-    hits.push({ kind: "page", id: `page:${g.path}`, path: g.path, title: g.h1, sub: g.path })
+    hits.push({ kind: "page", id: `page:${g.path}`, path: g.path, title: g.h1, sub: `${studySearchLabel(key)} · ${g.path}` })
   }
   // App screens worth finding by name. The guides above come from the
   // registry; this one is a client-rendered screen with no GUIDE_META entry.
