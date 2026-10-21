@@ -84,6 +84,27 @@ export function Privacy() {
           </a>
           .
         </p>
+        <p className="mt-2">
+          Optional Google Analytics 4 loads only after you choose Allow analytics and a Cert900
+          measurement stream is configured. It measures pageviews and practice, PBQ, and exam
+          starts and completions. Google also processes browser/device information, approximate
+          geography, and browser identifiers used to estimate sessions and visitors. This is not
+          anonymous tracking. We do not send your name, email, authentication information, answers,
+          scores, question text, or command transcripts to Analytics. Reported page addresses omit
+          query strings and fragments. Advertising personalization and Google Signals are disabled.
+        </p>
+        <p className="mt-2">
+          Allow and Decline are optional choices in the footer. Use Change preferences there to
+          withdraw permission. Your choice is saved on this browser for up to 180 days; if storage
+          is unavailable it applies only until this page is reloaded or left. Analytics cookies may last up to
+          180 days, subject to browser limits. Withdrawal stops future collection through this
+          integration and removes its first-party Analytics cookies; it does not erase data already
+          processed by Google. Retention is governed by the Analytics property's settings; aggregate
+          reports can remain available longer. Google explains its processing in its{" "}
+          <a className="text-brand underline underline-offset-2" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">partner-sites policy</a>.
+          {" "}These analytics controls do not authorize advertising. Essential sign-in and progress
+          storage, and the disclosed Cloudflare measurements, are separate.
+        </p>
       </section>
 
       <section>

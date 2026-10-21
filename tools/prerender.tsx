@@ -18,6 +18,9 @@ import { GROW, SITE_URL } from "../src/lib/site"
 import { LEGAL_EFFECTIVE_DATE } from "../src/screens/Legal"
 
 const dist = resolve(import.meta.dirname, "../dist")
+const manifest = JSON.parse(readFileSync(resolve(dist, ".vite/manifest.json"), "utf8"))
+const contentEntry = manifest["src/content-client.ts"]?.file
+if (typeof contentEntry !== "string" || !/^assets\/[a-zA-Z0-9_.-]+\.js$/.test(contentEntry)) throw new Error("Missing static content entry")
 
 /**
  * Preload the two primary Latin faces (body/headings + mono). Fonts otherwise
@@ -247,13 +250,15 @@ function page(key: GuideKey, meta: GuideMeta, body: string): string {
     // block, not the old empty `<div id="root"></div>`. GuideShell brings its
     // own header/wrapper/footer, so the body goes in bare.
     .replace(/<div id="root">[\s\S]*?<\/div>/, `<div id="root">${body}</div>`)
-    // THE point of the static guides: no SPA boot. Strip the module script and
-    // its preloads so these pages ship zero JavaScript beyond the inline theme
-    // stamp and the analytics beacon. The SPA used to blank the painted page
+    // Preserve the static guides' no-SPA boundary. Strip the app module and its
+    // preloads, then add only the small progressive consent/analytics entry.
+    // The SPA used to blank the painted page
     // (createRoot clears #root) and re-render it ~255KB of JS later, which is
     // also what let anything loaded on a guide follow the reader into the app.
     .replace(/<script type="module"[^>]*><\/script>/, "")
     .replace(/<link rel="modulepreload"[^>]*>/g, "")
+    // A small consent/analytics entry; never hydrate the static article with React.
+    .replace("</body>", `<script type="module" src="/${contentEntry}"></script></body>`)
     // Guides get the unconditional growTag above; if a prerender re-run built
     // this template from an already-patched index.html, drop the homepage's
     // gated copy rather than shipping two initializers. Keyed on

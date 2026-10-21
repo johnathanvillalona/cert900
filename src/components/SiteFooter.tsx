@@ -115,6 +115,23 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
             )}
           </nav>
         </div>
+        <section data-analytics-preferences aria-label="Optional analytics" className="mt-5 max-w-xl rounded-md border p-4 text-sm">
+          <h2 className="font-semibold">Optional analytics</h2>
+          <p className="text-muted-foreground mt-1">
+            Allow optional Google Analytics cookies to help improve Cert900 with page and practice-activity counts. No answers, scores, or
+            command history are included. Declining keeps all learning features available.
+            {" "}<a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Privacy details</a>.
+          </p>
+          <p data-analytics-fallback className="text-muted-foreground mt-2">Optional analytics is off until you allow it using JavaScript-enabled controls.</p>
+          <div data-analytics-controls hidden>
+            <p data-analytics-status role="status" className="text-muted-foreground mt-2" />
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button type="button" data-analytics-choice="allow" className="min-h-11 rounded-md border px-4 font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2">Allow analytics</button>
+              <button type="button" data-analytics-choice="decline" className="min-h-11 rounded-md border px-4 font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2">Decline</button>
+              <button type="button" data-analytics-change hidden className="min-h-11 rounded-md border px-4 font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2">Change preferences</button>
+            </div>
+          </div>
+        </section>
         {/* Required whenever affiliate links are live, and gated so it does not
             appear before any of them are configured. Amazon's wording is
             prescribed by their operating agreement, so it stays verbatim and

@@ -293,11 +293,11 @@ const CANONICAL_HOST = "cert900.com"
 // enabling, in case EthicalAds changes it.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io",
+  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://media.ethicalads.io",
+  "img-src 'self' data: https://media.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com",
   "font-src 'self'",
-  "connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io",
+  "connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self' https://accounts.google.com",
@@ -320,11 +320,11 @@ const GROW_HOSTS = "https://grow.me https://*.grow.me"
  */
 const GUIDE_CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com ${GROW_HOSTS}`,
+  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com ${GROW_HOSTS}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: ${GROW_HOSTS}`,
+  `img-src 'self' data: https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
   "font-src 'self'",
-  `connect-src 'self' https://cloudflareinsights.com ${GROW_HOSTS}`,
+  `connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
   `frame-src ${GROW_HOSTS}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -344,11 +344,11 @@ const GUIDE_CSP = [
  */
 const HOME_CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io ${GROW_HOSTS}`,
+  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io https://www.googletagmanager.com ${GROW_HOSTS}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: https://media.ethicalads.io ${GROW_HOSTS}`,
+  `img-src 'self' data: https://media.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
   "font-src 'self'",
-  `connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io ${GROW_HOSTS}`,
+  `connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
   `frame-src ${GROW_HOSTS}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
