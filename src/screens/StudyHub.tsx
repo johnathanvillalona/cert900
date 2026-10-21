@@ -74,13 +74,13 @@ export function StudyHub({ examId }: { examId: string }) {
 
       <section id="domains" aria-labelledby="domains-title" className="mt-10 scroll-mt-4">
         <h2 id="domains-title" className="font-heading text-2xl font-semibold tracking-tight">Study by exam domain</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">Expand a domain for its existing topic video links. Percentages show the exam blueprint weight, not your progress. Videos open on an external site in a new tab; some topics share a lesson or course chapter.</p>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">Expand a domain for its existing topic video links. Percentages show Cert900's configured practice allocation. Published exam weight ranges may differ; these figures do not measure your progress. Videos open on an external site in a new tab; some topics share a lesson or course chapter.</p>
         <div className="mt-5 flex flex-col gap-3">
           {domains.map(([key, label]) => {
             const topics = Object.entries(exam.videos).filter(([, video]) => video.d === Number(key))
             return <details key={key} data-testid="hub-domain" className="group min-w-0 rounded-lg border bg-card">
               <summary className="flex min-h-16 cursor-pointer list-none items-center gap-3 rounded-lg p-4 focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
-                <span className="min-w-0 flex-1"><span className="block text-base font-semibold">{label}</span><span className="mt-1 block text-sm text-muted-foreground">{topics.length} topic links · {Math.round((exam.examSplit[Number(key)] ?? 0) * 100)}% of exam</span></span>
+                <span className="min-w-0 flex-1"><span className="block text-base font-semibold">{label}</span><span className="mt-1 block text-sm text-muted-foreground">{topics.length} topic links · {Math.round((exam.examSplit[Number(key)] ?? 0) * 100)}% practice allocation</span></span>
                 <ArrowRight className="size-4 shrink-0 text-brand transition-transform group-open:rotate-90" aria-hidden="true" />
               </summary>
               <ul className="grid gap-2 border-t p-3 sm:grid-cols-2 sm:p-4">{topics.map(([topic, video]) => <li key={topic} className="min-w-0">

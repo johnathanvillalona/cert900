@@ -14,9 +14,10 @@ import { primaryGuideForExam } from "@/data/study-resources"
  *
  * These target the query classes a per-exam guide cannot: the generic "IT
  * certification practice test" head term, and the two questions candidates ask
- * before they pick an exam ("what score do I need" and "which one first"). Every
- * number on them comes from the exam registry, so they cannot go stale, and
- * they are hook-free like the guides because they are rendered to static HTML.
+ * before they pick an exam ("what score do I need" and "which one first").
+ * Practice settings come from the exam registry. Published exam facts still
+ * need editorial review when vendors update them. Keep these pages hook-free
+ * because they are rendered to static HTML.
  */
 
 const exams = () => EXAM_ORDER.map((id) => EXAM_META[id])
@@ -33,14 +34,14 @@ function ExamTable({ showScores = false }: { showScores?: boolean }) {
             <th className="py-2 pr-4 font-mono font-semibold">Code</th>
             {showScores ? (
               <>
-                <th className="py-2 pr-4 font-mono font-semibold">Scale</th>
-                <th className="py-2 pr-4 font-mono font-semibold">Pass</th>
+                <th className="py-2 pr-4 font-mono font-semibold">Practice scale</th>
+                <th className="py-2 pr-4 font-mono font-semibold">Pass / practice threshold</th>
               </>
             ) : (
               <th className="py-2 pr-4 font-mono font-semibold">Questions here</th>
             )}
-            <th className="py-2 pr-4 font-mono font-semibold">Exam length</th>
-            <th className="py-2 font-mono font-semibold">Time</th>
+            <th className="py-2 pr-4 font-mono font-semibold">Practice items</th>
+            <th className="py-2 font-mono font-semibold">Practice time</th>
           </tr>
         </thead>
         <tbody>
@@ -96,8 +97,8 @@ export function HubPage() {
         <p className="text-lg leading-relaxed">
           {totalQ} original practice questions and {totalPbq} performance-based and interactive items
           across {all.length} certification exams, free with no account. Every exam runs as a timed
-          simulation using its real question mix, time limit, and scoring scale, and every question
-          links to a free training video for its topic.
+          practice session with exam-specific settings, and every question links to a free training
+          video for its topic. Question mixes and scoring use Cert900's instructional model.
         </p>
         <p className="text-muted-foreground mt-4 leading-relaxed">
           Nothing here is a copy of a real exam. Every question is written from the current published
@@ -113,7 +114,8 @@ export function HubPage() {
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Every exam covered</h2>
         <p className="text-muted-foreground mt-2 text-sm">
-          "Questions here" is what this site holds; "exam length" is what the real exam serves.
+          "Questions here" is this site's inventory. "Practice items" and "Practice time" describe
+          Cert900's configured sessions; they do not promise a particular real-exam question count or mix.
         </p>
         <ExamTable />
       </section>
@@ -146,7 +148,7 @@ export function HubPage() {
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What you get on every exam</h2>
         <ul className="mt-4 flex flex-col gap-2 text-sm leading-relaxed">
-          <li>A timed full exam in the real format, scored on the real scale against the real cut line.</li>
+          <li>Timed practice with original questions, exam-specific settings and Cert900's instructional scoring.</li>
           <li>Adaptive drills that weight your weakest topics and explain every answer as you go.</li>
           <li>A spaced-repetition review queue that brings back what you missed until it sticks.</li>
           <li>Per-domain accuracy and a readiness band, shown as a range rather than a promise.</li>
@@ -164,15 +166,19 @@ export function ScoresPage() {
     <GuideShell meta={meta}>
       <section>
         <p className="text-lg leading-relaxed">
-          Certification exams almost never report a percentage. They report a scaled score, and the
-          number you need is fixed per exam. Here is the cut line for every exam on this site,
-          alongside the scale it sits on and how long you get.
+          Many certification exams report a scaled score instead of a percentage. This table brings
+          together published passing scores where available and the thresholds used by Cert900's
+          practice sessions, alongside their configured item counts and time limits.
         </p>
         <ExamTable showScores />
         <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-          Cisco does not publish the CCNA cut score or question count, and both can vary by exam form;
-          the figure above is the one candidates consistently report and what this site scores
-          against. Every other number comes from the vendor's own exam page.
+          Cisco does not publish a fixed CCNA passing score or question count. The 825 threshold above
+          is a Cert900 practice setting, not an official Cisco requirement. Other passing scores use
+          published vendor thresholds. Practice item counts are Cert900 settings.
+        </p>
+        <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+          Cert900 uses its own practice scoring formula. Vendors use proprietary scoring, so a practice
+          score is learning feedback rather than an official result or a prediction of your exam score.
         </p>
       </section>
 
@@ -192,18 +198,17 @@ export function ScoresPage() {
       </section>
 
       <section>
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Performance-based questions are worth more</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">How Cert900 scores interactive practice</h2>
         <p className="mt-3 leading-relaxed">
-          On CompTIA and Cisco exams, simulations carry more weight than a single multiple-choice
-          question, and they award partial credit: getting three of four configuration steps right
-          scores three quarters of that item rather than zero. They are also usually presented first,
-          which is why running out of time on them hurts disproportionately. AWS and Azure interactive
-          items work differently — ordering and matching questions are all-or-nothing and weighted like
-          any other question.
+          In Cert900's CompTIA and Cisco practice sessions, each interactive item carries twice the
+          weight of one multiple-choice question and can earn rubric-based partial credit. For example,
+          completing three of four equally weighted fields correctly earns three quarters of that item. Some
+          exercises instead assess the effective configuration against their stated requirements.
         </p>
         <p className="mt-3 leading-relaxed">
-          The simulator here follows each vendor's rule, so a practice score is scored the way the real
-          one will be.
+          Cert900's AWS and Azure interactive items use all-or-nothing credit and the same weight as
+          one multiple-choice item. These are Cert900 instructional settings. Vendor exams may use
+          different scoring rules, which are not reproduced or inferred from these practice scores.
         </p>
         <div className="mt-6">
           <Cta label="See where you would land today" examId="sy0-701" testid="scores-cta" />
@@ -313,8 +318,8 @@ export function OrderPage() {
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">A shortcut that actually works</h2>
         <p className="mt-3 leading-relaxed">
-          Sit a timed practice exam cold before you buy anything. It costs nothing here, it is scored on
-          the real scale, and it answers the question far better than any recommendation can: if you are
+          Sit a timed practice exam cold before you buy anything. It costs nothing here and gives you
+          feedback using Cert900's practice model: if you are
           already near the cut line, start higher up the ladder.
         </p>
         <div className="mt-6">
@@ -326,11 +331,9 @@ export function OrderPage() {
 }
 
 /**
- * The trust page: how questions get written, verified, and fixed. Written to
- * be checkable rather than reassuring -- it names the mechanisms (rule suite,
- * adversarial review, the 2026-08 sample audit, the report queue) instead of
- * asserting quality. The audit figures are dated facts, deliberately frozen
- * in copy; the bank counts stay derived like every other number on the site.
+ * The trust page describes original content, automated checks, retained internal
+ * review records and learner reports. Records document review activity; they do
+ * not establish an independent guarantee of accuracy or review completeness.
  */
 export function MethodPage() {
   const meta = GUIDE_META.method
@@ -381,22 +384,18 @@ export function MethodPage() {
       </section>
 
       <section>
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">How it is verified</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">How questions are checked</h2>
         <p className="mt-3 leading-relaxed">
-          Before a batch ships, independent reviewers whose job is to refute it go through every
-          question: is the keyed answer actually right, is any distractor also defensible, does the
-          explanation hold? Only what survives lands in the bank.
+          Automated checks validate question structure and consistency. Internal review looks for
+          incorrect keys, defensible distractors, unclear wording and explanations that need correction.
+          Those checks help identify problems; they do not guarantee that every answer is correct.
         </p>
         <p className="mt-3 leading-relaxed">
-          In August 2026 we ran a second, adversarial audit over the ENTIRE live bank: every
-          multiple-choice question and every performance-based question, across all {exams().length}{" "}
-          exams.
-          Findings had to survive a reviewer trying to refute them, and any proposed answer-key
-          change also had to match the independent answer of a reviewer who never saw the claim. The
-          result: 44 confirmed defects fixed, of which exactly three could have mis-graded anyone -
-          under a tenth of a percent of the bank. The rest were explanation wording, product renames,
-          and distractor quality. The audit findings and supporting citations are retained in the
-          project's internal review records.
+          The project's internal review records document an August 2026 review and subsequent
+          corrections, including answer keys, explanations and product references. These records
+          describe the work performed; they are not an independent certification of accuracy. Product
+          changes can also make previously correct material out of date, so learner reports remain
+          an important part of maintenance.
         </p>
       </section>
 

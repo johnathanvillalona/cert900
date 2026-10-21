@@ -3,6 +3,7 @@ import { GUIDE_EXAMS, GUIDE_META } from "./guide-meta"
 import { GUIDE_SAMPLES } from "./guide-samples"
 import { EXAM_META, EXAM_ORDER } from "./meta"
 import { GUIDE_KEYS } from "./routes"
+import { selectGuideSamples } from "../lib/guide-sample-selection"
 
 /**
  * The guide pages are the site's whole organic surface, and their bodies are
@@ -34,8 +35,8 @@ describe("guide sample questions", () => {
         expect(q.o.length, `${id} q${q.id} option count`).toBe(4)
         expect(q.a).toBeGreaterThanOrEqual(0)
         expect(q.a, `${id} q${q.id} answer index`).toBeLessThan(q.o.length)
-        // The answer sits in a <details> and in the Quiz schema; an empty
-        // explanation would ship a rich result with nothing in it.
+        // The answer sits in a <details> and in the Quiz schema; both should
+        // offer a meaningful explanation without promising a rich result.
         expect(q.e.length, `${id} q${q.id} explanation`).toBeGreaterThan(20)
         expect(new Set(q.o).size, `${id} q${q.id} duplicate options`).toBe(q.o.length)
       }
@@ -47,6 +48,60 @@ describe("guide sample questions", () => {
       const ids = GUIDE_SAMPLES[id].map((q) => q.id)
       expect(new Set(ids).size, `${id} repeats a sample`).toBe(ids.length)
     }
+  })
+})
+
+describe("shared public guide sample selection", () => {
+  it("preserves a single exam's generated order and default limit", () => {
+    for (const examId of EXAM_ORDER) {
+      expect(selectGuideSamples([examId])).toEqual(
+        GUIDE_SAMPLES[examId].slice(0, 8).map((sample) => ({ examId, sample })),
+      )
+    }
+  })
+
+  it("alternates both A+ cores so visible samples and structured data agree", () => {
+    const exams = ["220-1201", "220-1202"] as const
+    expect(selectGuideSamples(exams)).toEqual(
+      Array.from({ length: 4 }, (_, index) =>
+        exams.map((examId) => ({ examId, sample: GUIDE_SAMPLES[examId][index] })),
+      ).flat(),
+    )
+  })
+
+  it("honors shorter limits without taking an extra question from a lane", () => {
+    const selected = selectGuideSamples(["220-1201", "220-1202"], 3)
+    expect(selected.map(({ examId }) => examId)).toEqual(["220-1201", "220-1202", "220-1201"])
+    expect(selected[2].sample).toBe(GUIDE_SAMPLES["220-1201"][1])
+    expect(selectGuideSamples(["220-1201"], 0)).toEqual([])
+    expect(selectGuideSamples(["220-1201"], -1)).toEqual([])
+  })
+
+  it("stops at the available samples and safely skips missing exams", () => {
+    expect(selectGuideSamples([])).toEqual([])
+    expect(selectGuideSamples(["not-an-exam"])).toEqual([])
+    const selected = selectGuideSamples(["not-an-exam", "220-1201"], 100)
+    expect(selected).toEqual(GUIDE_SAMPLES["220-1201"].map((sample) => ({ examId: "220-1201", sample })))
+  })
+
+  it("returns all samples in each exam's order when the limit exceeds the catalog", () => {
+    const examIds = ["220-1201", "220-1202"]
+    const selected = selectGuideSamples(examIds, 100)
+    expect(selected).toHaveLength(examIds.reduce((count, id) => count + GUIDE_SAMPLES[id].length, 0))
+    for (const examId of examIds) {
+      expect(selected.filter((entry) => entry.examId === examId).map(({ sample }) => sample))
+        .toEqual(GUIDE_SAMPLES[examId])
+    }
+  })
+
+  it("does not mutate exam IDs or generated samples", () => {
+    const examIds = Object.freeze(["220-1201", "220-1202"])
+    const before = JSON.stringify(GUIDE_SAMPLES)
+    const selected = selectGuideSamples(examIds)
+    selected.reverse()
+    expect(examIds).toEqual(["220-1201", "220-1202"])
+    expect(JSON.stringify(GUIDE_SAMPLES)).toBe(before)
+    expect(selectGuideSamples(examIds)[0].sample).toBe(GUIDE_SAMPLES["220-1201"][0])
   })
 })
 
@@ -62,10 +117,9 @@ describe("guide/exam wiring", () => {
   })
 
   /**
-   * Pages with no exam show no sample questions and get no Quiz schema. Only
-   * these four qualify: the PBQ overview (about interaction formats, which have
-   * no multiple-choice samples) and the three informational pages. Any other
-   * key landing here means a guide silently lost its questions.
+   * Pages with no exam show no sample questions and get no Quiz schema. These
+   * are the PBQ overview, informational pages and reference sheets. Any other
+   * key landing here means an exam guide silently lost its questions.
    */
   const SAMPLE_LESS = ["pbq", "hub", "scores", "order", "method", "ports", "ccnacli", "cables", "cloudsvc"]
 

@@ -1,0 +1,164 @@
+{
+  "capturedAt": "2026-10-21T20:48:32.605Z",
+  "sourceCommit": "39b6f13480c957d4a2d2628df864d92ee810a2b5",
+  "browser": "155.0.8059.39",
+  "platform": "linux",
+  "deviceScaleFactor": 1,
+  "theme": "light",
+  "reducedMotion": "reduce",
+  "capture": "Native PNG screenshots of actual ungraded renderers. No image editing or composites.",
+  "isolatedPreview": "http://127.0.0.1:4197",
+  "buildManifestSha256": "4c4ea257df270c0797b30c833588bbe258060c304712e575004f50560f0be20e",
+  "networkPolicy": "Only the isolated loopback origin is allowed. All other browser requests and DNS are blocked; Worker outbound services are blocked by the maintained isolated harness.",
+  "blockedOrigins": [],
+  "captures": [
+    {
+      "file": "public/pbq-previews/dhcp.png",
+      "title": "Fix a Stale DHCP Lease",
+      "exam": "220-1201",
+      "state": "Ungraded APIPA adapter diagnostics only; ipconfig /all does not earn credit.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "target": "[data-testid=\"command-prompt-workspace\"]",
+      "intrinsicWidth": 944,
+      "intrinsicHeight": 752,
+      "sha256": "e8d47ed3f561f705a6f69c3107a48304203d071c32673e3d532e1d49f76a5d09"
+    },
+    {
+      "file": "public/pbq-previews/network-acl.png",
+      "title": "Build the Edge ACL",
+      "exam": "n10-009",
+      "state": "Ungraded initial policy; no allow rules have been added.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "target": "[data-testid=\"firewall-workspace\"]",
+      "intrinsicWidth": 944,
+      "intrinsicHeight": 1024,
+      "sha256": "d4bfd206f99901c2e653ea2e05ce6f9d09f4cd409c72e5f0699896f785eb4ff1"
+    },
+    {
+      "file": "public/pbq-previews/windows-firewall.png",
+      "title": "Windows Defender Firewall: Allow the App",
+      "exam": "220-1202",
+      "state": "Ungraded initial firewall overview; no application exception has been added.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "target": "[data-testid=\"firewall-workspace\"]",
+      "intrinsicWidth": 944,
+      "intrinsicHeight": 1272,
+      "sha256": "bca1091adf19d61b507729e1f2e28c9821071ab7b5d5c7b0bc7462182d8bf8eb"
+    },
+    {
+      "file": "public/pbq-previews/workstation.png",
+      "title": "Provision the Sales Workstation",
+      "exam": "220-1201",
+      "state": "Ungraded initial workstation; every connection target is empty.",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "target": "[data-testid=\"dragconnect\"]",
+      "intrinsicWidth": 944,
+      "intrinsicHeight": 791,
+      "sha256": "c260e8fd5370c3da18844eb8d28cc902d7c4ae5dfe0eff0b02fba048467f2e84"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/dhcp-390.png",
+      "title": "Fix a Stale DHCP Lease",
+      "exam": "220-1201",
+      "state": "Ungraded APIPA adapter diagnostics only; ipconfig /all does not earn credit.",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "target": "[data-testid=\"command-prompt-workspace\"]",
+      "intrinsicWidth": 334,
+      "intrinsicHeight": 846,
+      "sha256": "d0aba27919b4fe619e6bd36961fcd734d38acf1be5527b010913cf4c8f34cdef"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/network-acl-390.png",
+      "title": "Build the Edge ACL",
+      "exam": "n10-009",
+      "state": "Ungraded initial policy; no allow rules have been added.",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "target": "[data-testid=\"firewall-workspace\"]",
+      "intrinsicWidth": 334,
+      "intrinsicHeight": 991,
+      "sha256": "6fd030d24aaf16f7fb4d2740f8d002e0b5efa87f06431d888703b46016cefbb6"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/windows-firewall-390.png",
+      "title": "Windows Defender Firewall: Allow the App",
+      "exam": "220-1202",
+      "state": "Ungraded initial firewall overview; no application exception has been added.",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "target": "[data-testid=\"firewall-workspace\"]",
+      "intrinsicWidth": 334,
+      "intrinsicHeight": 1733,
+      "sha256": "5546815ec33d1438576e5a53172861ac3b8d762004ac7773f8aca0a81e3463c3"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/workstation-390.png",
+      "title": "Provision the Sales Workstation",
+      "exam": "220-1201",
+      "state": "Ungraded initial workstation; every connection target is empty.",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "target": "[data-testid=\"dragconnect\"]",
+      "intrinsicWidth": 310,
+      "intrinsicHeight": 1284,
+      "sha256": "238deddf7f27d3e857a11902808cd85c5efc92cff8e3e17e086ef5ee28182da5"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/pbq-guide-before-320.png",
+      "kind": "before",
+      "path": "/comptia-pbq-practice",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "intrinsicWidth": 320,
+      "intrinsicHeight": 5045,
+      "sha256": "5aa9795c358f7b853b00fe059e67c37d5aaed3b09f25ebcedadb55688eef426c"
+    },
+    {
+      "file": "docs/qa/seo-phase-1/pbq-guide-before-1440.png",
+      "kind": "before",
+      "path": "/comptia-pbq-practice",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "intrinsicWidth": 1440,
+      "intrinsicHeight": 2970,
+      "sha256": "447daebdc7d3d1824fd86d145bf9cd233ab0f71d3d2173b0a04870790bb86144"
+    }
+  ],
+  "photoCredits": {
+    "file": "public/pbq/CREDITS.md",
+    "url": "/pbq/CREDITS.md",
+    "sha256": "8883e51d0013f1675810ac62398e9e7d7b7491655a6502cf1bc0d42d4f244d53",
+    "requiredAttribution": "Workstation preview includes Wikimedia Commons photographs. Preserve the author/source/license links in the existing credits alongside the public preview.",
+    "rearPanel": {
+      "title": "Computer ports.JPG",
+      "author": "The High Fin Sperm Whale",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Computer_ports.JPG"
+    }
+  }
+}
