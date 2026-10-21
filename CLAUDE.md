@@ -88,6 +88,17 @@ copy a key into the tree. Local worker secrets: `.dev.vars` (gitignored). Line
 endings are pinned LF by `.gitattributes`; Node 24 via `.nvmrc`.
 
 ## Stack
+
+**Monetization readiness, owner-approved 2026-10-21:** AdSense is pending site
+verification/review. The public `google-adsense-account` meta tag verifies
+ownership only; it must not be replaced with an advertising loader during
+readiness. `ADS.enabled` remains false. The owner explicitly paused Grow by
+clearing `GROW.siteId`, superseding the earlier Journey continuity instruction
+below. No new consent-dependent advertising requests are enabled. A future
+ads launch requires separate approval, accurate disclosures, and appropriate
+consent handling; Google review submission and production promotion each
+require approval. See `docs/adsense-readiness.md`.
+
 React 19 + Vite 7 + TypeScript + Tailwind v4 + shadcn (radix-vega style), deployed
 as a **Cloudflare Worker with static assets**: `worker/index.ts` serves `/api/*`
 (Better Auth at `/api/auth/*`, progress sync at `/api/progress`, anonymous
