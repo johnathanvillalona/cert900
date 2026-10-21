@@ -18,6 +18,7 @@ import { qotdPool } from "../src/lib/qotd"
 import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
 import { GUIDE_PATHS, LEGAL_PATHS, STUDY_PATHS, type GuideKey } from "../src/data/routes"
 import { GROW, SITE_URL } from "../src/lib/site"
+import { GUIDE_PLACEMENTS, placementForGuide } from "../src/lib/advertising-policy"
 import { LEGAL_EFFECTIVE_DATE } from "../src/screens/Legal"
 
 const dist = resolve(import.meta.dirname, "../dist")
@@ -257,6 +258,15 @@ function studyJsonLd(meta: StaticPageMeta & { heading: string }): string {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
 }
 
+// No ad entry is emitted anywhere while policy is disabled. Never share this
+// bootstrap with the SPA, hubs, or generic content/analytics entry.
+function advertisingEntry(path: string): string {
+  if (!GUIDE_PLACEMENTS.some(placement => placementForGuide(path, placement))) return ""
+  const file = manifest["src/advertising-client.ts"]?.file
+  if (typeof file !== "string" || !/^assets\/[a-zA-Z0-9_.-]+\.js$/.test(file)) throw new Error("Missing advertising entry")
+  return `<script type="module" src="/${file}"></script>`
+}
+
 function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false): string {
   const url = `${SITE_URL}${meta.path}`
   // Per-guide OG card if one has been rendered (public/og/<slug>.png via
@@ -291,7 +301,7 @@ function page(meta: StaticPageMeta, body: string, structuredData: string, includ
     .replace(/<script type="module"[^>]*><\/script>/, "")
     .replace(/<link rel="modulepreload"[^>]*>/g, "")
     // A small consent/analytics entry; never hydrate the static article with React.
-    .replace("</body>", `<script type="module" src="/${contentEntry}"></script></body>`)
+    .replace("</body>", `<script type="module" src="/${contentEntry}"></script>${advertisingEntry(meta.path)}</body>`)
     // Guides get the unconditional growTag above; if a prerender re-run built
     // this template from an already-patched index.html, drop the homepage's
     // gated copy rather than shipping two initializers. Keyed on

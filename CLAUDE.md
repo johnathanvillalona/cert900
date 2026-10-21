@@ -89,10 +89,11 @@ endings are pinned LF by `.gitattributes`; Node 24 via `.nvmrc`.
 
 ## Stack
 
-**Monetization readiness, owner-approved 2026-10-21:** AdSense is pending site
-verification/review. The public `google-adsense-account` meta tag verifies
+**Monetization readiness, owner-approved 2026-10-21:** AdSense ownership is
+verified and review is requested; site approval is still pending. The public `google-adsense-account` meta tag verifies
 ownership only; it must not be replaced with an advertising loader during
-readiness. `ADS.enabled` remains false. The owner explicitly paused Grow by
+readiness. `ADVERTISING.enabled` in `src/lib/advertising-policy.ts` remains
+false. The owner explicitly paused Grow by
 clearing `GROW.siteId`, superseding the earlier Journey continuity instruction
 below. No new consent-dependent advertising requests are enabled. A future
 ads launch requires separate approval, accurate disclosures, and appropriate
@@ -170,9 +171,9 @@ url.protocol (wrangler dev simulates the route host and would loop).
 - Platform pieces: `ErrorBoundary` (wraps App in main.tsx), `SiteFooter`
   (Privacy/Terms/Contact + optional donate link; landing gets `full` disclaimer),
   `ReportButton` (drill/PBQ feedback + exam review; POST `/api/report`,
-  20/day/IP + 1k/day global rate limit), `AdSlot` (inert until `ADS.enabled`
-  in `src/lib/site.ts`; only placements: Results bottom, Dashboard bottom).
-  `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL/ADS.
+  20/day/IP + 1k/day global rate limit), `AdSlot` (static-guide-only, disabled manual AdSense infrastructure; see
+  `docs/monetization-phase-b.md`; no Dashboard/Results advertising loader).
+  `src/lib/site.ts` holds SITE_URL/CONTACT_EMAIL/DONATE_URL.
 - `public/` — favicon.svg, PWA manifest + icons, og.png, robots.txt, sitemap.xml,
   IndexNow key file. Icons/og are RENDERED artifacts (dial-9 mark, slate
   #151b29 + amber #f2b27c); their scratchpad renderer `qa/brand-render.js` was
@@ -281,9 +282,9 @@ url.protocol (wrangler dev simulates the route host and would loop).
   comptia/azure, Tutorials Dojo for aws) **outranks** the Amazon book and only
   one ever renders. Cisco maps to nothing on purpose. All inert until configured.
   **CompTIA has no affiliate program and its voucher terms forbid resale** — do
-  not go looking. `ADS.enabled` stays false; EthicalAds needs 50k pageviews/mo
-  and must be the only ad on the page, so Journey by Mediavine (1,000 sessions)
-  is the realistic first rung.
+  not go looking. The later owner-approved AdSense plan supersedes the
+  EthicalAds/Journey direction: advertising remains disabled in
+  `advertising-policy.ts`; Grow is paused. See `docs/monetization-phase-b.md`.
 - **Guides are STATIC DOCUMENTS (2026-08-01)**: the 16 prerendered pages ship
   zero JS (prerender strips the module script), carry their own header/footer
   via `GuideShell`, and the SPA no longer renders them at all — `openPath`
@@ -374,11 +375,9 @@ url.protocol (wrangler dev simulates the route host and would loop).
   footer + a soft nudge on Results); **affiliate** study-guide link on Results
   (`src/lib/affiliate.ts` + `StudyGuideLink.tsx`, Amazon Associates, inert until
   `AFFILIATE.amazonTag` set in `site.ts`, FTC disclosure in footer + block);
-  **EthicalAds** on the **Dashboard only** (`AdSlot`, inert until `ADS.enabled` +
-  `publisherId`; CSP in `worker/index.ts` already allows media/server
-  .ethicalads.io; they require ~50k views/mo). One monetization unit per page,
-  NEVER in the quiz or landing hero. Results = affiliate + donate; Dashboard =
-  EthicalAds.
+  Historical EthicalAds Dashboard support was removed in Monetization Phase B;
+  no learning-application advertising loader remains. Disabled manual AdSense
+  infrastructure is restricted to one allowlisted static guide.
 - Add content via tools/additions/*.mjs + tools/add-content.mjs (validates
   topics/ids/duplicates, derives id and d automatically).
 - Security+ (SY0-701) SHIPPED 2026-07-20. AI-901 still deferred. Future exam

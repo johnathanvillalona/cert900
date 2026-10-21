@@ -3,16 +3,17 @@ import { renderToStaticMarkup } from "react-dom/server"
 import { describe, expect, it } from "vitest"
 import { AdSlot } from "@/components/AdSlot"
 import { SiteFooter } from "@/components/SiteFooter"
-import { ADS, CONTACT_EMAIL, GROW } from "@/lib/site"
+import { CONTACT_EMAIL, GROW } from "@/lib/site"
+import { ADVERTISING } from "./advertising-policy"
 import { GUIDE_PATHS } from "@/data/routes"
 
 describe("AdSense ownership readiness without advertising", () => {
   it("keeps advertising and the optional Grow integration inactive", () => {
-    expect(ADS.enabled).toBe(false)
-    expect(ADS.publisherId).toBe("")
+    expect(ADVERTISING.enabled).toBe(false)
+    expect(ADVERTISING.siteApproved).toBe(false)
     expect(GROW.siteId).toBe("")
-    for (const slot of ["results", "dashboard"] as const) {
-      expect(renderToStaticMarkup(<AdSlot slot={slot} />)).toBe("")
+    for (const path of Object.values(GUIDE_PATHS)) {
+      expect(renderToStaticMarkup(<AdSlot path={path} />)).toBe("")
     }
   })
 

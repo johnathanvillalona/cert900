@@ -2,6 +2,7 @@ import { EXAM_META } from "@/data/meta"
 import { GUIDE_EXAMS, GUIDE_META, guideExamsForPath, type GuideMeta } from "@/data/guide-meta"
 import { GUIDE_SAMPLES, type GuideSample } from "@/data/guide-samples"
 import { examPath } from "@/data/routes"
+import { AdSlot } from "@/components/AdSlot"
 import { GuideResources } from "@/components/GuideResources"
 import { StaticContentShell } from "@/components/StaticContentShell"
 import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
@@ -187,6 +188,9 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
           ))}
         </div>
       </section>
+
+      {/* One explicitly allowlisted static-guide pilot, away from practice controls. */}
+      <AdSlot path={meta.path} />
 
       {/* Paid resources AFTER the FAQ, never above the fold: the free CTA is
           the page's primary action and the reason these pages rank. Inert until
