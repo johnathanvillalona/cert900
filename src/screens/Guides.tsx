@@ -808,9 +808,11 @@ export function PbqGuide() {
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{preview.description}</p>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed">{preview.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
             <figure className="mt-4">
-              <img src={`/pbq-previews/${preview.id}.png`} width={preview.width} height={preview.height} loading="lazy" decoding="async" alt={preview.alt} className="h-auto w-full rounded-lg border bg-muted" />
+              <a href={`/pbq-previews/${preview.id}.png`} aria-label={`Enlarge ${preview.title} screenshot`} className="block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4">
+                <img src={`/pbq-previews/${preview.id}.png`} width={preview.width} height={preview.height} loading="lazy" decoding="async" alt={preview.alt} className="h-auto w-full cursor-zoom-in rounded-lg border bg-muted" />
+              </a>
               <figcaption className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Noninteractive preview · {preview.scenario}
+                Noninteractive preview · {preview.scenario}. Tap or click the screenshot to enlarge; use Back to return.
                 <a href={`/pbq-previews/${preview.id}.png`} className="flex min-h-11 w-fit items-center rounded-md font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`View full-size ${preview.title} preview`}>View full-size screenshot</a>
                 {preview.id === "workstation" && <span>Screenshot of the Cert900 simulation, including attributed hardware photographs. <a href="/pbq/CREDITS.md" className="inline-flex min-h-11 items-center rounded-md text-brand underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Photo authors, sources and licenses</a></span>}
               </figcaption>

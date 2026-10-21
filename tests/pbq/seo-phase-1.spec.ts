@@ -110,6 +110,25 @@ for (const width of [320, 375, 390, 768, 1440]) {
         expect(dimensions.declared).toEqual(dimensions.actual)
         expect(dimensions.alt.length).toBeGreaterThan(30)
       }
+      for (const preview of await page.getByTestId('pbq-preview').all()) {
+        const enlarge = preview.getByRole('link', { name: /^Enlarge .* screenshot$/ })
+        const imagePath = await enlarge.getAttribute('href')
+        await enlarge.scrollIntoViewIfNeeded()
+        await enlarge.focus()
+        await expect(enlarge).toBeFocused()
+        const previousScroll = await page.evaluate(() => scrollY)
+        await page.keyboard.press('Enter')
+        await expect(page).toHaveURL(new RegExp(imagePath!.replaceAll('.', '\\.') + '$'))
+        await expect.poll(() => page.locator('img').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(944)
+        await page.goBack()
+        await expect(page.getByTestId('pbq-preview')).toHaveCount(4)
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(previousScroll)
+      }
+      // Back navigation can reload the static page with offscreen lazy images.
+      for (const image of await page.locator('main img').all()) {
+        await image.scrollIntoViewIfNeeded()
+        await image.evaluate((element: HTMLImageElement) => element.decode())
+      }
       await settled(page)
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
       for (const link of await page.locator('nav[aria-label="PBQ practice by certification"] a').all()) {
@@ -133,7 +152,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
         }
         await settled(page)
         await page.evaluate(() => window.scrollTo(0, 0))
-        const directory = resolve('docs/qa/seo-phase-1')
+        const directory = resolve('docs/qa/seo-phase-1-final')
         mkdirSync(directory, { recursive: true })
         const screenshot = `pbq-guide-after-${width}-${theme}.png`
         await page.screenshot({ path: resolve(directory, screenshot), fullPage: true, animations: 'disabled' })
@@ -144,3 +163,20 @@ for (const width of [320, 375, 390, 768, 1440]) {
     expect(tracking).toEqual([])
   })
 }
+
+
+test('phone touch opens each full-resolution preview and returns to the guide', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ baseURL, viewport: { width: 375, height: 800 }, hasTouch: true, isMobile: true })
+  await context.route('**/*', route => ['127.0.0.1', 'localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort())
+  const page = await context.newPage()
+  await page.goto(GUIDE_PATHS.pbq)
+  await page.getByRole('button', { name: 'Decline', exact: true }).click()
+  for (const preview of await page.getByTestId('pbq-preview').all()) {
+    const enlarge = preview.getByRole('link', { name: /^Enlarge .* screenshot$/ })
+    await enlarge.tap()
+    await expect(page).toHaveURL(/\/pbq-previews\/[^/]+\.png$/)
+    await page.goBack()
+    await expect(page.getByRole('status')).toHaveText('Analytics declined.')
+  }
+  await context.close()
+})

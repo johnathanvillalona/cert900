@@ -55,6 +55,8 @@ describe("static guide instructional content", () => {
       expect(html).toContain(name)
     }
     expect(html.match(/data-testid="pbq-preview"/g)).toHaveLength(4)
+    expect(html.match(/aria-label="Enlarge [^"<>]+ screenshot"/g)).toHaveLength(4)
+    expect(html).toContain("Tap or click the screenshot to enlarge; use Back to return.")
     for (const id of ["dhcp", "network-acl", "windows-firewall", "workstation"]) {
       expect(html).toContain(`src="/pbq-previews/${id}.png"`)
     }
