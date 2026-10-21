@@ -21,7 +21,7 @@ All new analytics code is first-party and uses existing project dependencies.
 | Static progressive entry/build | `src/content-client.ts`, `vite.config.ts`, `tools/prerender.tsx` |
 | Narrow analytics CSP permissions | `worker/index.ts` |
 | New tests | `src/lib/analytics.test.ts`, `tests/pbq/analytics.spec.ts` |
-| Report and screenshots | `docs/monetization-phase-a.md`, `docs/screenshots/monetization-phase-a/consent-{320,390,1440}.png` |
+| Report and screenshots | `docs/monetization-phase-a.md`, `docs/screenshots/monetization-phase-a/consent-{320,390,1440}.png`, `docs/screenshots/monetization-phase-a/ga4-{stream,retention}.png` |
 
 The static progressive entry and its shared dependency total about 7.4 KB
 uncompressed and do not import React. Package manifests/lockfile, question banks,
@@ -34,35 +34,45 @@ simulation implementations, quiz-session reducer and grading engine are unchange
 previews cannot send events to a production property. Never put an API secret,
 access token, account credential, or Measurement Protocol secret in this file.
 
-The authorized browser inspection opened an unrelated existing Analytics property.
-An email-preferences prompt required owner action; the owner dismissed it and
-reported no visible Cert900 property. No unrelated reports or account settings
-were inspected or changed. A Cert900 measurement ID remains an owner setup item
-unless subsequently supplied and independently verified.
+The owner requested hands-off setup through the authenticated Playwright Chrome
+session. On 2026-10-21, the free **Cert900** property and web stream were created
+in the existing Analytics account. No unrelated property or account-wide sharing
+settings were changed. No paid service, extra account, product link, payment
+setting or new terms acceptance was needed.
 
-Use the free Standard GA4 service, not Analytics 360:
+| Public setting | Created and verified value |
+| --- | --- |
+| Property | **Cert900**, ID `559949129` |
+| Reporting timezone / currency | **America/New_York / USD** |
+| Web stream | **Cert900 Web**, ID `16174995362` |
+| Stream URL | `https://cert900.com` |
+| Measurement ID | **`G-BBMQ8EC9G6`**, saved in the public config |
+| Enhanced measurement | **Off**; explicit application events own collection |
+| Google Signals / user-provided data collection | **Off** |
+| Advertising personalization | **Disallowed in all 307 regions**, saved and read back |
+| Event / user data retention | **2 months / 2 months**, saved and read back |
+| Reset on new user activity | **Off**, explicitly owner-approved, saved and read back |
+| Custom dimensions | **certification** and **mode**, both event-scoped with matching parameters |
 
-1. In Google Analytics Admin, create/select a dedicated **Cert900** property.
-   Select **America/New_York** reporting timezone and **USD** currency. The owner
-   handles any business-information questions or terms acceptance.
-2. Add a **Web** stream for `https://cert900.com`, named **Cert900 Web**.
-3. Turn **Enhanced measurement OFF**, including automatic history pageviews,
-   forms, site search, video, downloads and outbound interactions. This
-   integration owns pageviews and the two learning events.
-4. Keep Google Signals, advertising personalization, User-ID, Ads audiences,
-   cross-domain tracking, and advertising product links disabled. Do not enable
-   a second Google tag or Tag Manager installation.
-5. Set event-data retention to **2 months**. Aggregated reports have different
-   retention. Review Google data-sharing choices and the applicable processing
-   terms; do not enable optional sharing without owner review.
-6. Confirm the stream URL and public `G-…` **Measurement ID**. Put only that ID
-   in `public/analytics-config.json`, retaining production host restrictions.
-7. Register event-scoped custom dimensions **certification** and **mode**.
-   Mark `learning_attempt_complete` as a key event if desired; do not mark a
-   result as a paid conversion or send scores to Google.
-8. Use GA4 reports for views, sessions, total users, country, device category,
-   and the two learning events. Continue using Search Console for organic search
-   queries/clicks/impressions and Cloudflare for broad cookieless trends and CWV.
+Automatic approval review initially rejected changing the additional activity-reset
+switch because that setting was not explicit in the setup plan. The owner then
+explicitly approved disabling it. It was saved and verified after leaving and
+reopening the retention screen. Google notes that retention changes take effect
+after 24 hours. Aggregated reports have different retention. Existing account-wide
+data-sharing choices were not altered.
+
+No User-ID is sent and no advertising links, audiences or cross-domain tracking
+were added. Do not install a second tag or enable Enhanced measurement: this
+integration already sends pageviews and sanitized attempt events. The optional
+`learning_attempt_complete` key-event designation is deferred until collection
+is verified; event reporting does not require that designation.
+
+No further property creation or manual measurement-ID setup is required. After
+an approved production release, verify a genuinely consented visit in GA4
+Realtime and check reporting after processing. Use reports for views, sessions,
+total users, country, device category and the two learning events. Continue
+using Search Console for organic queries/clicks/impressions and Cloudflare for
+broad cookieless trends and CWV.
 
 Do not claim that Cloudflare visits are GA4 sessions, or that GA4 browser-based
 users are exact unique people. Do not add the two systems' counts together.
@@ -130,15 +140,29 @@ navigation persistence and withdrawal worked; no Google advertising/Grow loaders
 failed resources or page overflow were observed. The final preview was restarted
 after the final build to refresh the local Worker asset manifest.
 
+After setting the verified production measurement ID, all 488 unit tests,
+production build, both zero-finding audits, dependency checks and all 13 isolated
+Worker groups passed again. The complete 107 browser tests also passed in two
+bounded shards (62 + 45), without screenshot updates. An earlier repeat had
+received SIGTERM after 84 passing checks; no failing assertion was reported and
+the complete shard rerun resolved the incomplete validation. MCP verified that
+loopback consent still loads no Google or advertising resources with the real ID.
+
 Review artifacts (consent region captured at the specified viewport width):
 [320px](screenshots/monetization-phase-a/consent-320.png),
 [390px](screenshots/monetization-phase-a/consent-390.png),
 [1440px](screenshots/monetization-phase-a/consent-1440.png).
+The new property's public stream metadata and retention settings were also
+captured separately: [GA4 stream](screenshots/monetization-phase-a/ga4-stream.png),
+[retention](screenshots/monetization-phase-a/ga4-retention.png).
 
-**Outstanding setup:** the measurement ID is deliberately empty. Real GA4
-ingestion, its remote property settings and reporting are not validated. Automated
-Google-tag transport checks use a stub, not the real Google SDK. No inactive
-Cloudflare version was necessary; no upload, push, merge or deployment occurred.
+**Remaining validation:** the real property and public measurement ID are now
+configured, but production is unchanged. Actual GA4 ingestion and processed
+reports require an approved production release and a consented visit. Automated
+Google-tag transport checks use a stub, not the real Google SDK; production
+hostname restrictions prevent loopback tests from sending artificial GA data.
+No inactive Cloudflare version was necessary; no upload, push, merge or deployment
+occurred.
 
 ```sh
 cd '/home/sorannex/Claude Projects/cert900/monetization-phase-a-worktree'
