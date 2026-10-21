@@ -15,6 +15,7 @@ import { qotdPool } from "../src/lib/qotd"
 import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
 import { GUIDE_PATHS, LEGAL_PATHS, type GuideKey } from "../src/data/routes"
 import { GROW, SITE_URL } from "../src/lib/site"
+import { LEGAL_EFFECTIVE_DATE } from "../src/screens/Legal"
 
 const dist = resolve(import.meta.dirname, "../dist")
 
@@ -310,7 +311,7 @@ const sitemap = [
       `<url><loc>${SITE_URL}${p}</loc><lastmod>${buildDate}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`,
   ),
   ...LEGAL_PATHS.map(
-    (p) => `<url><loc>${SITE_URL}${p}</loc><lastmod>2026-07-21</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>`,
+    (p) => `<url><loc>${SITE_URL}${p}</loc><lastmod>${LEGAL_EFFECTIVE_DATE}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>`,
   ),
   `</urlset>`,
 ].join("\n")

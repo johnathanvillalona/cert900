@@ -33,8 +33,8 @@ function ResultsSupport({ examId, celebrate }: { examId: string; celebrate: bool
         <div className="mt-6 rounded-lg border bg-card p-5 text-center" data-testid="results-donate-block">
           <p className="font-heading text-lg font-semibold">Did this get you there?</p>
           <p className="text-muted-foreground mx-auto mt-2 max-w-md text-sm leading-relaxed">
-            Cert900 has no ads, no paywall and no account requirement, and it stays that way. It is
-            paid for out of pocket. If it was worth something to you, five dollars keeps it running.
+            Cert900 is free to use, with no paywall or account requirement. If it was worth
+            something to you, five dollars helps keep it running.
           </p>
           <a
             href={DONATE_URL}

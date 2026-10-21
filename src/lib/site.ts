@@ -91,10 +91,10 @@ export const ADS = {
  * snippet's data-grow-initializer contains it.
  */
 export const GROW = {
-  // The 30-day Journey clock started when this shipped: 2026-08-01. Grow must
-  // run continuously until the Journey application (~2026-09-01 at the
-  // earliest), so do not blank this while that is pending.
-  siteId: "U2l0ZTpkOTg0ZDJkZC0yOGY3LTQ4YzgtYTBlOC1hMDI2ZjMwZjk4Yzc=",
+  // Paused by the owner on 2026-10-21 during AdSense ownership readiness.
+  // Keep this empty until any future integration and consent are reviewed.
+  // The previous public site ID remains available in Git history.
+  siteId: "",
 }
 
 /**

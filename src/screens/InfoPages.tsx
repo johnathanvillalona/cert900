@@ -4,6 +4,8 @@ import { REF_SHEETS } from "@/data/ref-sheets"
 import { GUIDE_PATHS } from "@/data/routes"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
 import type { Vendor } from "@/data/types"
+import { vendorList } from "@/lib/copy"
+import { CONTACT_EMAIL } from "@/lib/site"
 import { Cta, GuideShell } from "@/screens/Guides"
 
 /**
@@ -348,6 +350,21 @@ export function MethodPage() {
   const totalPbq = exams().reduce((a, e) => a + e.pbqCount, 0)
   return (
     <GuideShell meta={meta}>
+      <section id="about" aria-labelledby="about-cert900-heading" className="scroll-mt-6">
+        <h2 id="about-cert900-heading" className="font-heading text-2xl font-semibold tracking-tight">About Cert900</h2>
+        <p className="mt-3 leading-relaxed">
+          Cert900 is an independent, free study resource for {vendorList()} certification candidates,
+          covering {exams().length} exams. Practice is available without an account; optional sign-in
+          adds progress sync across devices.
+        </p>
+        <p className="mt-3 leading-relaxed">
+          The interactive labs model troubleshooting and configuration in a virtual workspace.
+          Commands and settings change simulated scenario state only, without running operating-system
+          commands on your computer or changing real devices. These are original study exercises, not
+          official exam questions or certification vendors' software.
+        </p>
+      </section>
+
       <section>
         <p className="text-lg leading-relaxed">
           This site currently holds {totalQ.toLocaleString()} multiple-choice questions and {totalPbq}{" "}
@@ -390,8 +407,8 @@ export function MethodPage() {
           change also had to match the independent answer of a reviewer who never saw the claim. The
           result: 44 confirmed defects fixed, of which exactly three could have mis-graded anyone -
           under a tenth of a percent of the bank. The rest were explanation wording, product renames,
-          and distractor quality. The full report, with citations, ships in the site's public
-          history.
+          and distractor quality. The audit findings and supporting citations are retained in the
+          project's internal review records.
         </p>
       </section>
 
@@ -406,6 +423,18 @@ export function MethodPage() {
         <div className="mt-6">
           <Cta label="Start practicing" examId="sy0-701" testid="method-cta" />
         </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-cert900-heading" className="scroll-mt-6">
+        <h2 id="contact-cert900-heading" className="font-heading text-2xl font-semibold tracking-tight">Contact</h2>
+        <p className="mt-3 leading-relaxed">
+          For feedback, site support or privacy questions, email{" "}
+          <a className="break-all text-brand underline underline-offset-2" href={`mailto:${CONTACT_EMAIL}`}>
+            {CONTACT_EMAIL}
+          </a>
+          . For a question-specific correction, use its Report button so the report includes the
+          relevant question reference.
+        </p>
       </section>
     </GuideShell>
   )

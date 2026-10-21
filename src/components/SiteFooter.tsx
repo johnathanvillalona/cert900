@@ -54,6 +54,12 @@ export function SiteFooter({ full = false, onNavigate }: { full?: boolean; onNav
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
           <Wordmark className="text-xs text-muted-foreground" iconClassName="size-4" />
           <nav aria-label="Legal and contact" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
+            <a
+              href={`${GUIDE_PATHS.method}#about`}
+              className="text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
+            >
+              About Cert900
+            </a>
             {/* Real <a> elements, not buttons: on the static guide pages there
                 is no JavaScript, so a button with a handler would be dead. */}
             <a
