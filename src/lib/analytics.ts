@@ -1,5 +1,5 @@
 import { EXAM_IDS } from "../data/exam-ids"
-import { APP_PATHS, GUIDE_PATHS, parseExamPath } from "../data/routes"
+import { APP_PATHS, GUIDE_PATHS, STUDY_PATHS, parseExamPath } from "../data/routes"
 import type { AnalyticsConsent } from "./consent"
 
 type Mode = "exam" | "practice" | "pbq"
@@ -15,7 +15,7 @@ export type AnalyticsRuntime = {
   referrer?: () => string
 }
 
-const paths = new Set<string>(["/", ...APP_PATHS, ...Object.values(GUIDE_PATHS), "/privacy", "/terms"])
+const paths = new Set<string>(["/", ...APP_PATHS, ...Object.values(GUIDE_PATHS), ...STUDY_PATHS, "/privacy", "/terms"])
 /** Only known paths; raw query strings, hashes, unknown slugs and auth paths never leave the browser. */
 export function analyticsPath(input: string): string | null {
   const path = input.split(/[?#]/, 1)[0]

@@ -100,6 +100,15 @@ export const EXAM_SUBPATHS = ["", "drill", "quiz", "results", "stats", "plan"] a
 export const examPath = (examId: string, sub: (typeof EXAM_SUBPATHS)[number] = "") =>
   sub ? `/exam/${examId}/${sub}` : `/exam/${examId}`
 
+/** Static educational collections. Keep this bank-free for the Worker. */
+export const studyPath = (examId: string) => `/study/${examId}`
+export const STUDY_PATHS: readonly string[] = EXAM_IDS.map(studyPath)
+
+export function parseStudyPath(pathname: string): string | null {
+  const match = /^\/study\/([^/]+)\/?$/.exec(pathname)
+  return match && EXAM_IDS.includes(match[1]) ? match[1] : null
+}
+
 /**
  * Parse `/exam/:id[/sub]`. Returns null for anything else, and for an exam id
  * that does not exist — otherwise `/exam/nonsense` would answer 200 and put the
@@ -122,6 +131,7 @@ export function parseExamPath(pathname: string): { examId: string; sub: string }
 export const KNOWN_PATHS: readonly string[] = [
   "/",
   ...Object.values(GUIDE_PATHS),
+  ...STUDY_PATHS,
   ...LEGAL_PATHS,
   ...APP_PATHS,
   ADMIN_PATH,

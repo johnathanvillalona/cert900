@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { ADMIN_PATH, APP_PATHS, EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, examPath, isGuidePath, isKnownPath, parseExamPath } from "./routes"
+import { ADMIN_PATH, APP_PATHS, EXAM_SUBPATHS, GUIDE_KEYS, GUIDE_LABELS, GUIDE_PATHS, KNOWN_PATHS, LEGAL_PATHS, STUDY_PATHS, examPath, isGuidePath, isKnownPath, parseExamPath, parseStudyPath, studyPath } from "./routes"
 import { EXAM_IDS } from "./exam-ids"
 import { GUIDE_META } from "./guide-meta"
 
@@ -24,7 +24,7 @@ describe("route table", () => {
   })
 
   it("has no duplicate paths", () => {
-    const all = [...Object.values(GUIDE_PATHS), ...LEGAL_PATHS]
+    const all = [...Object.values(GUIDE_PATHS), ...STUDY_PATHS, ...LEGAL_PATHS]
     expect(new Set(all).size).toBe(all.length)
   })
 
@@ -43,6 +43,40 @@ describe("route table", () => {
       "/privacy/extra",
     ]) {
       expect(isKnownPath(bad), bad).toBe(false)
+    }
+  })
+})
+
+describe("static study hub paths", () => {
+  it("covers each supported certification once and preserves canonical guide paths", () => {
+    expect(STUDY_PATHS).toEqual(EXAM_IDS.map(id => `/study/${id}`))
+    expect(STUDY_PATHS).toHaveLength(11)
+    expect(new Set(STUDY_PATHS).size).toBe(EXAM_IDS.length)
+    for (const id of EXAM_IDS) {
+      const path = studyPath(id)
+      expect(path).toBe(`/study/${id}`)
+      expect(parseStudyPath(path)).toBe(id)
+      expect(parseStudyPath(`${path}/`)).toBe(id)
+      expect(isKnownPath(path), path).toBe(true)
+      expect(isKnownPath(`${path}/`), `${path}/`).toBe(true)
+      // Hubs retain the strict application CSP rather than admitting ads.
+      expect(isGuidePath(path), path).toBe(false)
+      expect(isGuidePath(`${path}/`), `${path}/`).toBe(false)
+      expect(Object.values(GUIDE_PATHS)).not.toContain(path)
+    }
+  })
+
+  it("rejects unavailable hubs, nested paths and malformed separators", () => {
+    for (const path of [
+      "/study", "/study/", "/study/not-an-exam", "/study/220-1201/extra",
+      "/study/220-1201//", "/study//220-1201", "//study/220-1201",
+      "/Study/220-1201", "/study/SY0-701", "/study/220-1201?query=1",
+      "/study/220-1201#topic", "/exam/220-1201", "/study/220-1201/../sy0-701",
+    ]) {
+      expect(parseStudyPath(path), path).toBeNull()
+    }
+    for (const path of ["/study/not-an-exam", "/study/220-1201/extra", "/study//220-1201", "/study/220-1201//"]) {
+      expect(isKnownPath(path), path).toBe(false)
     }
   })
 })

@@ -8,7 +8,7 @@ import { ExamEmblem } from "@/components/exam-art"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import { studySearchLabel } from "@/data/study-resources"
+import { studyHubForExam, studySearchLabel } from "@/data/study-resources"
 
 type Hit =
   | { kind: "exam"; id: string; title: string; sub: string }
@@ -27,6 +27,8 @@ function buildIndex(): Hit[] {
       title: `${ex.cert} ${ex.name}`,
       sub: `${ex.code} · ${ex.questionCount} questions`,
     })
+    const hub = studyHubForExam(id)!
+    hits.push({ kind: "page", id: `page:${hub.path}`, path: hub.path, title: hub.heading, sub: `${ex.code} · Study resources · ${hub.path}` })
     for (const [topic, v] of Object.entries(ex.videos)) {
       hits.push({
         kind: "topic",

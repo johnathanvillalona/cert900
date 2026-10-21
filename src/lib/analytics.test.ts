@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest"
 import { analyticsConfig, analyticsPath, analyticsReferrer, createAnalytics, type AnalyticsRuntime } from "./analytics"
 import { CONSENT_LIFETIME, consentRecord, readConsent } from "./consent"
+import { EXAM_IDS } from "../data/exam-ids"
 
 const id = "G-TEST900123"
 const settle = async () => { for (let i = 0; i < 15; i++) await Promise.resolve() }
@@ -34,6 +35,10 @@ describe("analytics-only consent", () => {
 })
 
 describe("analytics privacy and configuration", () => {
+  it("allows only the eleven published Study Hubs and strips query/fragment data", () => {
+    for (const examId of EXAM_IDS) expect(analyticsPath(`/study/${examId}?email=private#topic`)).toBe(`/study/${examId}`)
+    for (const path of ["/study/private", "/study/220-1201/unknown", "/study/../../admin", "/study//220-1201"]) expect(analyticsPath(path)).toBeNull()
+  })
   it.each(["/api/auth/callback/google?code=private", "/admin", "/delete-account", "/unknown/private@example.com", "/exam/not-an-exam/quiz"])("excludes %s", path => {
     expect(analyticsPath(path)).toBeNull()
   })
