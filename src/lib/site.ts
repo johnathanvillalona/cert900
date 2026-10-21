@@ -21,7 +21,7 @@ export const DONATE = {
 export const DONATE_URL = DONATE.kofi || DONATE.bmc
 
 /**
- * Affiliate config. Every field is inert until set, exactly like ADS: an empty
+ * Affiliate config. Every field is inert until set, an empty
  * value renders nothing rather than a broken link.
  *
  * Worth knowing before wiring more of these up:
@@ -51,22 +51,6 @@ export const AFFILIATE = {
    * their portal (Billing Account > Register as an Affiliate).
    */
   tutorialsDojoUrl: "",
-}
-
-/**
- * EthicalAds config. Stays off until they approve us (they require ~50k
- * pageviews/month) and a publisherId is filled in. When enabled the AdSlot
- * renders on the **Dashboard only** -- Results carries the affiliate
- * study-guide link instead, so a page never shows two monetization units
- * (EthicalAds requires being the only ad on the page). Never inside the quiz
- * or landing hero. To go live: set publisherId + enabled here and deploy; the
- * CSP already allows the EthicalAds hosts (worker/index.ts).
- */
-export const ADS = {
-  enabled: false as boolean,
-  provider: "ethicalads" as "ethicalads" | "",
-  /** From the EthicalAds publisher dashboard after approval. */
-  publisherId: "",
 }
 
 /**
@@ -101,7 +85,7 @@ export const GROW = {
  * Mobile-app promo config. While both URLs are empty the AppPromo component
  * renders a "coming soon" line; once the apps clear review, paste the store
  * URLs here and deploy -- the promo flips to real download links with no other
- * change (the same inert-until-set pattern as ADS and AFFILIATE above).
+ * change (the same inert-until-set pattern as AFFILIATE above).
  */
 export const APP = {
   /** e.g. "https://apps.apple.com/app/id6792990489" once approved. */

@@ -138,7 +138,11 @@ export function Privacy() {
         </p>
         <p className="mt-2">
           Before enabling advertising, we will update this policy and put applicable consent and
-          privacy choices in place. Google explains its advertising data practices and controls
+          privacy choices in place. Optional analytics permission does not authorize advertising.
+          Disabled manual-placement infrastructure is limited to an explicitly selected static guide;
+          it makes no advertising requests. Any future advertising consent will use a certified
+          consent provider where required, separately from our analytics controls. Declining
+          advertising will not restrict access to our free study resources. Google explains its advertising data practices and controls
           in{" "}
           <a className="text-brand underline underline-offset-2" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">
             how Google uses information from partner sites and apps

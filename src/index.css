@@ -505,3 +505,19 @@ html.spa iframe[src*="grow.me"] {
     @apply font-sans;
     }
 }
+/* Manual guide inventory: fixed-height creative area, reserved before any SDK.
+   No absolute positioning, overlays, animations, or page-width expansion. */
+.guide-ad {
+    width: 100%;
+    max-width: 728px;
+    margin: 4rem auto;
+    padding-block: 1rem;
+    border-block: 1px solid var(--border);
+    color: var(--muted-foreground);
+    text-align: center;
+}
+.guide-ad-label { display: block; margin-bottom: .75rem; font-size: 14px; line-height: 1.5; }
+.guide-ad-surface { width: 100%; height: 250px; background: var(--muted); }
+.guide-ad-surface > ins.adsbygoogle { display: block; width: 100%; height: 250px; }
+.guide-ad-preferences { min-height: 44px; margin-top: .75rem; padding: .5rem; font-size: 14px; text-decoration: underline; }
+.guide-ad-preferences:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
