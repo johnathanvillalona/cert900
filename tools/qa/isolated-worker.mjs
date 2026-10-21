@@ -153,7 +153,25 @@ if (process.argv[2] !== '--isolated-child') {
     result = await req('/licenses/shadcn-MIT.txt');
     assert.equal(result.response.status, 200);
     assert.equal(result.text, readFileSync(path.join(repo, 'public/licenses/shadcn-MIT.txt'), 'utf8'));
-    record('HTML, security headers, compiled CSS, immutable caching, and MIT license asset served');
+    result = await req('/ads.txt');
+    assert.equal(result.response.status, 200);
+    assert.match(result.response.headers.get('content-type'), /^text\/plain(?:;|$)/);
+    assert.equal(result.text, readFileSync(path.join(repo, 'public/ads.txt'), 'utf8'));
+    result = await req('/ads.txt', { method: 'HEAD' });
+    assert.equal(result.response.status, 200);
+    assert.match(result.response.headers.get('content-type'), /^text\/plain(?:;|$)/);
+    assert.equal(result.text, '');
+    // Direct dispatch stays inside the local runtime; no public DNS or traffic.
+    for (const method of ['GET', 'HEAD']) {
+      const canonical = await worker.fetch('https://cert900.com/ads.txt', { method, redirect: 'manual' });
+      assert.equal(canonical.status, 200);
+      assert.match(canonical.headers.get('content-type'), /^text\/plain(?:;|$)/);
+      assert.equal(await canonical.text(), method === 'GET' ? readFileSync(path.join(repo, 'public/ads.txt'), 'utf8') : '');
+      const www = await worker.fetch('https://www.cert900.com/ads.txt', { method, redirect: 'manual' });
+      assert.equal(www.status, 301);
+      assert.equal(www.headers.get('location'), 'https://cert900.com/ads.txt');
+    }
+    record('HTML, security headers, compiled CSS, immutable caching, MIT license, and verified ads.txt served');
     result = await req('/api/config');
     assert.equal(result.response.status, 200);
     assert.deepEqual(result.data, { emailAuth: false, newsletter: false });
