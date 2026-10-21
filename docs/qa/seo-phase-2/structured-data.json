@@ -1,0 +1,465 @@
+{
+  "checkedOn": "2026-10-21",
+  "pages": [
+    {
+      "path": "/",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "ItemList"
+      ],
+      "h1": [
+        "Cert900 \u2014 free certification practice exams"
+      ]
+    },
+    {
+      "path": "/comptia-a-plus-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free CompTIA A+ practice test: Core 1 and Core 2"
+      ]
+    },
+    {
+      "path": "/comptia-a-plus-core-1-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free CompTIA A+ Core 1 (220-1201) practice test"
+      ]
+    },
+    {
+      "path": "/comptia-a-plus-core-2-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free CompTIA A+ Core 2 (220-1202) practice test"
+      ]
+    },
+    {
+      "path": "/network-plus-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free CompTIA Network+ (N10-009) practice test"
+      ]
+    },
+    {
+      "path": "/comptia-security-plus-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free CompTIA Security+ (SY0-701) practice test"
+      ]
+    },
+    {
+      "path": "/comptia-pbq-practice",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CompTIA PBQ practice: interactive simulations, free"
+      ]
+    },
+    {
+      "path": "/cisco-ccna-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free Cisco CCNA (200-301) practice test"
+      ]
+    },
+    {
+      "path": "/aws-ai-practitioner-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free AWS Certified AI Practitioner (AIF-C01) practice test"
+      ]
+    },
+    {
+      "path": "/aws-cloud-practitioner-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free AWS Cloud Practitioner (CLF-C02) practice test"
+      ]
+    },
+    {
+      "path": "/aws-solutions-architect-associate-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free AWS Solutions Architect Associate (SAA-C03) practice test"
+      ]
+    },
+    {
+      "path": "/azure-fundamentals-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free Microsoft Azure Fundamentals (AZ-900) practice test"
+      ]
+    },
+    {
+      "path": "/azure-administrator-az-104-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free Microsoft AZ-104 (Azure Administrator) practice test"
+      ]
+    },
+    {
+      "path": "/microsoft-sc-900-practice-test",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList",
+        "Quiz"
+      ],
+      "h1": [
+        "Free Microsoft SC-900 (Security, Compliance, and Identity) practice test"
+      ]
+    },
+    {
+      "path": "/it-certification-practice-tests",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Free IT certification practice tests"
+      ]
+    },
+    {
+      "path": "/it-certification-passing-scores",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "IT certification passing scores, by exam"
+      ]
+    },
+    {
+      "path": "/which-it-certification-first",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Which IT certification should you take first?"
+      ]
+    },
+    {
+      "path": "/how-our-questions-are-made",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "How our practice questions are made"
+      ]
+    },
+    {
+      "path": "/common-network-ports",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Common network ports and protocols"
+      ]
+    },
+    {
+      "path": "/ccna-cli-commands",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CCNA CLI quick reference"
+      ]
+    },
+    {
+      "path": "/a-plus-cables-and-connectors",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "A+ cables and connectors"
+      ]
+    },
+    {
+      "path": "/aws-azure-service-comparison",
+      "types": [
+        "Organization",
+        "WebSite",
+        "FAQPage",
+        "Course",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "AWS and Azure services, side by side"
+      ]
+    },
+    {
+      "path": "/study/220-1201",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CompTIA A+ Core 1 Study Hub"
+      ]
+    },
+    {
+      "path": "/study/220-1202",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CompTIA A+ Core 2 Study Hub"
+      ]
+    },
+    {
+      "path": "/study/n10-009",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CompTIA Network+ Study Hub"
+      ]
+    },
+    {
+      "path": "/study/sy0-701",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "CompTIA Security+ Study Hub"
+      ]
+    },
+    {
+      "path": "/study/ccna-200-301",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Cisco CCNA Study Hub"
+      ]
+    },
+    {
+      "path": "/study/aif-c01",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "AWS Certified AI Practitioner Study Hub"
+      ]
+    },
+    {
+      "path": "/study/clf-c02",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "AWS Certified Cloud Practitioner Study Hub"
+      ]
+    },
+    {
+      "path": "/study/saa-c03",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "AWS Certified Solutions Architect Associate Study Hub"
+      ]
+    },
+    {
+      "path": "/study/az-900",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Microsoft Certified Azure Fundamentals Study Hub"
+      ]
+    },
+    {
+      "path": "/study/sc-900",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Microsoft Certified Security, Compliance, and Identity Fundamentals Study Hub"
+      ]
+    },
+    {
+      "path": "/study/az-104",
+      "types": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "h1": [
+        "Microsoft Certified Azure Administrator Associate Study Hub"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "types": [
+        "Organization",
+        "WebSite"
+      ],
+      "h1": [
+        "Privacy policy"
+      ]
+    },
+    {
+      "path": "/terms",
+      "types": [
+        "Organization",
+        "WebSite"
+      ],
+      "h1": [
+        "Terms of use"
+      ]
+    },
+    {
+      "path": "/delete-account",
+      "types": [
+        "Organization",
+        "WebSite"
+      ],
+      "h1": [
+        "Delete your account"
+      ]
+    }
+  ],
+  "result": "All 36 pages parsed. Hub CollectionPage names match visible headings; own breadcrumb URLs match canonicals; legal pages contain no unrelated FAQ/ItemList. Visible Quiz sample parity is covered separately by browser regressions."
+}

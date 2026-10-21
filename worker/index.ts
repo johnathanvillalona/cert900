@@ -4,6 +4,7 @@ import { dailyNewsletter, handleConfirm, handleSubscribe, handleUnsubscribe } fr
 import { mailEnabled } from "./mail"
 import { isGuidePath, isKnownPath } from "../src/data/routes"
 import { EXAM_IDS } from "../src/data/exam-ids"
+import { METADATA_SELECTORS, NOT_FOUND_METADATA, metadataForPath, metadataMarkup } from "../src/lib/page-metadata"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
 
@@ -366,6 +367,17 @@ function withSecurityHeaders(res: Response, pathname: string): Response {
   out.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
   if ((out.headers.get("content-type") ?? "").includes("text/html")) {
     out.headers.set("Content-Security-Policy", isGuidePath(pathname) ? GUIDE_CSP : pathname === "/" ? HOME_CSP : CSP)
+    // Metadata-only adaptation of the public HTML shell. API/auth handlers,
+    // bindings, routing, sessions and database operations remain untouched.
+    const meta = pathname.startsWith("/api/") ? null : out.status === 404 ? NOT_FOUND_METADATA : metadataForPath(pathname)
+    if (meta) {
+      if (!meta.indexable) out.headers.set("X-Robots-Tag", "noindex")
+      if (out.body) return new HTMLRewriter()
+        .on(METADATA_SELECTORS, { element(element) { element.remove() } })
+        .on('head script[data-home-jsonld]', { element(element) { element.remove() } })
+        .on("head", { element(element) { element.append(metadataMarkup(meta), { html: true }) } })
+        .transform(out)
+    }
   }
   return out
 }

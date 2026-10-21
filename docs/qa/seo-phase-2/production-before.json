@@ -1,0 +1,3199 @@
+{
+  "checkedAt": "2026-10-21T22:07:53.115Z",
+  "redirects": [
+    {
+      "url": "http://cert900.com/privacy",
+      "status": 301,
+      "location": "https://cert900.com/privacy"
+    },
+    {
+      "url": "https://www.cert900.com/privacy",
+      "status": 301,
+      "location": "https://cert900.com/privacy"
+    },
+    {
+      "url": "https://cert900.com/privacy/",
+      "status": 200,
+      "location": null
+    },
+    {
+      "url": "https://cert900.com/study/n10-009/",
+      "status": 307,
+      "location": "/study/n10-009"
+    }
+  ],
+  "errors": [],
+  "adRequests": [],
+  "completed": true,
+  "method": "Fresh local Chrome inspection of public production routes, with optional third-party requests blocked; metadata only, no account data.",
+  "pages": [
+    {
+      "path": "/",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/"
+    },
+    {
+      "path": "/comptia-a-plus-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 715 original questions, 42 performance-based questions and timed practice using Cert900's instructional scoring model. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 715 original questions, 42 performance-based questions and timed practice using Cert900's instructional scoring model. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 715 original questions, 42 performance-based questions and timed practice using Cert900's instructional scoring model. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): 715 original questions, 42 performance-based questions and timed practice using Cert900's instructional scoring model. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/comptia-a-plus-practice-test"
+    },
+    {
+      "path": "/comptia-a-plus-core-1-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-core-1-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-core-1-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-core-1-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-core-1-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/comptia-a-plus-core-1-practice-test"
+    },
+    {
+      "path": "/comptia-a-plus-core-2-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-core-2-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-core-2-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-a-plus-core-2-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-a-plus-core-2-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/comptia-a-plus-core-2-practice-test"
+    },
+    {
+      "path": "/network-plus-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA Network+ N10-009 practice: 355 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/network-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA Network+ N10-009 practice: 355 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/network-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA Network+ N10-009 practice: 355 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/network-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA Network+ N10-009 practice: 355 original questions, 20 performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/network-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA Network+ Practice Test (N10-009) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/network-plus-practice-test"
+    },
+    {
+      "path": "/comptia-security-plus-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-security-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-security-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "description": [
+          "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-security-plus-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "ogDescription": [
+          "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-security-plus-practice-test"
+        ],
+        "twitterTitle": [
+          "Free CompTIA Security+ Practice Test (SY0-701) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/comptia-security-plus-practice-test"
+    },
+    {
+      "path": "/comptia-pbq-practice",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "description": [
+          "Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. 62 original PBQs. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-pbq-practice"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "ogDescription": [
+          "Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. 62 original PBQs. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-pbq-practice"
+        ],
+        "twitterTitle": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "description": [
+          "Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. 62 original PBQs. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/comptia-pbq-practice"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "ogDescription": [
+          "Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. 62 original PBQs. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/comptia-pbq-practice"
+        ],
+        "twitterTitle": [
+          "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/comptia-pbq-practice"
+    },
+    {
+      "path": "/cisco-ccna-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "description": [
+          "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/cisco-ccna-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "ogDescription": [
+          "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/cisco-ccna-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "description": [
+          "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/cisco-ccna-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "ogDescription": [
+          "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/cisco-ccna-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Cisco CCNA 200-301 Practice Test | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/cisco-ccna-practice-test"
+    },
+    {
+      "path": "/aws-ai-practitioner-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-ai-practitioner-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-ai-practitioner-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-ai-practitioner-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-ai-practitioner-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/aws-ai-practitioner-practice-test"
+    },
+    {
+      "path": "/aws-cloud-practitioner-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-cloud-practitioner-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-cloud-practitioner-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-cloud-practitioner-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-cloud-practitioner-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/aws-cloud-practitioner-practice-test"
+    },
+    {
+      "path": "/aws-solutions-architect-associate-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-solutions-architect-associate-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-solutions-architect-associate-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "description": [
+          "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-solutions-architect-associate-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "ogDescription": [
+          "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-solutions-architect-associate-practice-test"
+        ],
+        "twitterTitle": [
+          "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/aws-solutions-architect-associate-practice-test"
+    },
+    {
+      "path": "/azure-fundamentals-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/azure-fundamentals-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/azure-fundamentals-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/azure-fundamentals-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/azure-fundamentals-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Azure Fundamentals Practice Test (AZ-900) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/azure-fundamentals-practice-test"
+    },
+    {
+      "path": "/azure-administrator-az-104-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/azure-administrator-az-104-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/azure-administrator-az-104-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/azure-administrator-az-104-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/azure-administrator-az-104-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/azure-administrator-az-104-practice-test"
+    },
+    {
+      "path": "/microsoft-sc-900-practice-test",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/microsoft-sc-900-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/microsoft-sc-900-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "description": [
+          "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/microsoft-sc-900-practice-test"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "ogDescription": [
+          "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/microsoft-sc-900-practice-test"
+        ],
+        "twitterTitle": [
+          "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList",
+          "Quiz"
+        ]
+      },
+      "finalPath": "/microsoft-sc-900-practice-test"
+    },
+    {
+      "path": "/it-certification-practice-tests",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "description": [
+          "Free practice tests for 11 IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. 3666 original questions and timed practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/it-certification-practice-tests"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "ogDescription": [
+          "Free practice tests for 11 IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. 3666 original questions and timed practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/it-certification-practice-tests"
+        ],
+        "twitterTitle": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "description": [
+          "Free practice tests for 11 IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. 3666 original questions and timed practice. No signup."
+        ],
+        "canonical": [
+          "https://cert900.com/it-certification-practice-tests"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "ogDescription": [
+          "Free practice tests for 11 IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. 3666 original questions and timed practice. No signup."
+        ],
+        "ogUrl": [
+          "https://cert900.com/it-certification-practice-tests"
+        ],
+        "twitterTitle": [
+          "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/it-certification-practice-tests"
+    },
+    {
+      "path": "/it-certification-passing-scores",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "description": [
+          "Published passing scores and Cert900 practice thresholds for 11 IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score."
+        ],
+        "canonical": [
+          "https://cert900.com/it-certification-passing-scores"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "ogDescription": [
+          "Published passing scores and Cert900 practice thresholds for 11 IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score."
+        ],
+        "ogUrl": [
+          "https://cert900.com/it-certification-passing-scores"
+        ],
+        "twitterTitle": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "description": [
+          "Published passing scores and Cert900 practice thresholds for 11 IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score."
+        ],
+        "canonical": [
+          "https://cert900.com/it-certification-passing-scores"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "ogDescription": [
+          "Published passing scores and Cert900 practice thresholds for 11 IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score."
+        ],
+        "ogUrl": [
+          "https://cert900.com/it-certification-passing-scores"
+        ],
+        "twitterTitle": [
+          "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/it-certification-passing-scores"
+    },
+    {
+      "path": "/which-it-certification-first",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "description": [
+          "Which IT certification to take first, by track: CompTIA A+ then Network+ then Security+ for support and security, Cisco CCNA for networking, and the AWS and Azure fundamentals exams before their associate-level certifications. With free practice tests for each."
+        ],
+        "canonical": [
+          "https://cert900.com/which-it-certification-first"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "ogDescription": [
+          "Which IT certification to take first, by track: CompTIA A+ then Network+ then Security+ for support and security, Cisco CCNA for networking, and the AWS and Azure fundamentals exams before their associate-level certifications. With free practice tests for each."
+        ],
+        "ogUrl": [
+          "https://cert900.com/which-it-certification-first"
+        ],
+        "twitterTitle": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "description": [
+          "Which IT certification to take first, by track: CompTIA A+ then Network+ then Security+ for support and security, Cisco CCNA for networking, and the AWS and Azure fundamentals exams before their associate-level certifications. With free practice tests for each."
+        ],
+        "canonical": [
+          "https://cert900.com/which-it-certification-first"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "ogDescription": [
+          "Which IT certification to take first, by track: CompTIA A+ then Network+ then Security+ for support and security, Cisco CCNA for networking, and the AWS and Azure fundamentals exams before their associate-level certifications. With free practice tests for each."
+        ],
+        "ogUrl": [
+          "https://cert900.com/which-it-certification-first"
+        ],
+        "twitterTitle": [
+          "Which IT Certification Should You Take First? | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/which-it-certification-first"
+    },
+    {
+      "path": "/how-our-questions-are-made",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "description": [
+          "How Cert900's 3666 original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error."
+        ],
+        "canonical": [
+          "https://cert900.com/how-our-questions-are-made"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "ogDescription": [
+          "How Cert900's 3666 original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error."
+        ],
+        "ogUrl": [
+          "https://cert900.com/how-our-questions-are-made"
+        ],
+        "twitterTitle": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "description": [
+          "How Cert900's 3666 original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error."
+        ],
+        "canonical": [
+          "https://cert900.com/how-our-questions-are-made"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "ogDescription": [
+          "How Cert900's 3666 original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error."
+        ],
+        "ogUrl": [
+          "https://cert900.com/how-our-questions-are-made"
+        ],
+        "twitterTitle": [
+          "How Our Practice Questions Are Made and Reviewed | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/how-our-questions-are-made"
+    },
+    {
+      "path": "/common-network-ports",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "description": [
+          "Every port CompTIA Network+ (N10-009) and Security+ (SY0-701) expect you to know cold: the number, TCP or UDP, what the service does, and the secure replacement for each insecure protocol. With the lookalike ports the exams use as traps."
+        ],
+        "canonical": [
+          "https://cert900.com/common-network-ports"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "ogDescription": [
+          "Every port CompTIA Network+ (N10-009) and Security+ (SY0-701) expect you to know cold: the number, TCP or UDP, what the service does, and the secure replacement for each insecure protocol. With the lookalike ports the exams use as traps."
+        ],
+        "ogUrl": [
+          "https://cert900.com/common-network-ports"
+        ],
+        "twitterTitle": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "description": [
+          "Every port CompTIA Network+ (N10-009) and Security+ (SY0-701) expect you to know cold: the number, TCP or UDP, what the service does, and the secure replacement for each insecure protocol. With the lookalike ports the exams use as traps."
+        ],
+        "canonical": [
+          "https://cert900.com/common-network-ports"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "ogDescription": [
+          "Every port CompTIA Network+ (N10-009) and Security+ (SY0-701) expect you to know cold: the number, TCP or UDP, what the service does, and the secure replacement for each insecure protocol. With the lookalike ports the exams use as traps."
+        ],
+        "ogUrl": [
+          "https://cert900.com/common-network-ports"
+        ],
+        "twitterTitle": [
+          "Common Network Ports & Protocols Cheat Sheet | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/common-network-ports"
+    },
+    {
+      "path": "/ccna-cli-commands",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "description": [
+          "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type."
+        ],
+        "canonical": [
+          "https://cert900.com/ccna-cli-commands"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "ogDescription": [
+          "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type."
+        ],
+        "ogUrl": [
+          "https://cert900.com/ccna-cli-commands"
+        ],
+        "twitterTitle": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "description": [
+          "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type."
+        ],
+        "canonical": [
+          "https://cert900.com/ccna-cli-commands"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "ogDescription": [
+          "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type."
+        ],
+        "ogUrl": [
+          "https://cert900.com/ccna-cli-commands"
+        ],
+        "twitterTitle": [
+          "CCNA CLI Commands Quick Reference (200-301) | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/ccna-cli-commands"
+    },
+    {
+      "path": "/a-plus-cables-and-connectors",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "description": [
+          "Every cable and connector on the CompTIA A+ Core 1 (220-1201) objectives with exam-accurate speeds and distances: Cat 5e through Cat 8, fiber types and connectors, HDMI vs DisplayPort vs DVI, USB generations and Power Delivery, SATA, M.2, and NVMe."
+        ],
+        "canonical": [
+          "https://cert900.com/a-plus-cables-and-connectors"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "ogDescription": [
+          "Every cable and connector on the CompTIA A+ Core 1 (220-1201) objectives with exam-accurate speeds and distances: Cat 5e through Cat 8, fiber types and connectors, HDMI vs DisplayPort vs DVI, USB generations and Power Delivery, SATA, M.2, and NVMe."
+        ],
+        "ogUrl": [
+          "https://cert900.com/a-plus-cables-and-connectors"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "description": [
+          "Every cable and connector on the CompTIA A+ Core 1 (220-1201) objectives with exam-accurate speeds and distances: Cat 5e through Cat 8, fiber types and connectors, HDMI vs DisplayPort vs DVI, USB generations and Power Delivery, SATA, M.2, and NVMe."
+        ],
+        "canonical": [
+          "https://cert900.com/a-plus-cables-and-connectors"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "ogDescription": [
+          "Every cable and connector on the CompTIA A+ Core 1 (220-1201) objectives with exam-accurate speeds and distances: Cat 5e through Cat 8, fiber types and connectors, HDMI vs DisplayPort vs DVI, USB generations and Power Delivery, SATA, M.2, and NVMe."
+        ],
+        "ogUrl": [
+          "https://cert900.com/a-plus-cables-and-connectors"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Cables and Connectors Reference | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/a-plus-cables-and-connectors"
+    },
+    {
+      "path": "/aws-azure-service-comparison",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "description": [
+          "The AWS-to-Azure service map for CLF-C02, SAA-C03, AZ-900, and AZ-104 candidates: compute, storage, networking, database, identity, and governance equivalents in one table, using 2026-current service names on both sides."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-azure-service-comparison"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "ogDescription": [
+          "The AWS-to-Azure service map for CLF-C02, SAA-C03, AZ-900, and AZ-104 candidates: compute, storage, networking, database, identity, and governance equivalents in one table, using 2026-current service names on both sides."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-azure-service-comparison"
+        ],
+        "twitterTitle": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "description": [
+          "The AWS-to-Azure service map for CLF-C02, SAA-C03, AZ-900, and AZ-104 candidates: compute, storage, networking, database, identity, and governance equivalents in one table, using 2026-current service names on both sides."
+        ],
+        "canonical": [
+          "https://cert900.com/aws-azure-service-comparison"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "ogDescription": [
+          "The AWS-to-Azure service map for CLF-C02, SAA-C03, AZ-900, and AZ-104 candidates: compute, storage, networking, database, identity, and governance equivalents in one table, using 2026-current service names on both sides."
+        ],
+        "ogUrl": [
+          "https://cert900.com/aws-azure-service-comparison"
+        ],
+        "twitterTitle": [
+          "AWS vs Azure: Equivalent Services Side by Side | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Course",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/aws-azure-service-comparison"
+    },
+    {
+      "path": "/study/220-1201",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 220-1201 study around 5 exam domains. Find the existing CompTIA A+ Core 1 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/220-1201"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 220-1201 study around 5 exam domains. Find the existing CompTIA A+ Core 1 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/220-1201"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 220-1201 study around 5 exam domains. Find the existing CompTIA A+ Core 1 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/220-1201"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 220-1201 study around 5 exam domains. Find the existing CompTIA A+ Core 1 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/220-1201"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Core 1 (220-1201) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/220-1201"
+    },
+    {
+      "path": "/study/220-1202",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 220-1202 study around 4 exam domains. Find the existing CompTIA A+ Core 2 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/220-1202"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 220-1202 study around 4 exam domains. Find the existing CompTIA A+ Core 2 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/220-1202"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 220-1202 study around 4 exam domains. Find the existing CompTIA A+ Core 2 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/220-1202"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 220-1202 study around 4 exam domains. Find the existing CompTIA A+ Core 2 guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/220-1202"
+        ],
+        "twitterTitle": [
+          "CompTIA A+ Core 2 (220-1202) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/220-1202"
+    },
+    {
+      "path": "/study/n10-009",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your N10-009 study around 5 exam domains. Find the existing CompTIA Network+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/n10-009"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your N10-009 study around 5 exam domains. Find the existing CompTIA Network+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/n10-009"
+        ],
+        "twitterTitle": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your N10-009 study around 5 exam domains. Find the existing CompTIA Network+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/n10-009"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your N10-009 study around 5 exam domains. Find the existing CompTIA Network+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/n10-009"
+        ],
+        "twitterTitle": [
+          "CompTIA Network+ (N10-009) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/n10-009"
+    },
+    {
+      "path": "/study/sy0-701",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SY0-701 study around 5 exam domains. Find the existing CompTIA Security+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/sy0-701"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SY0-701 study around 5 exam domains. Find the existing CompTIA Security+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/sy0-701"
+        ],
+        "twitterTitle": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SY0-701 study around 5 exam domains. Find the existing CompTIA Security+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/sy0-701"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SY0-701 study around 5 exam domains. Find the existing CompTIA Security+ guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/sy0-701"
+        ],
+        "twitterTitle": [
+          "CompTIA Security+ (SY0-701) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/sy0-701"
+    },
+    {
+      "path": "/study/ccna-200-301",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 200-301 study around 6 exam domains. Find the existing Cisco CCNA guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/ccna-200-301"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 200-301 study around 6 exam domains. Find the existing Cisco CCNA guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/ccna-200-301"
+        ],
+        "twitterTitle": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your 200-301 study around 6 exam domains. Find the existing Cisco CCNA guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/ccna-200-301"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your 200-301 study around 6 exam domains. Find the existing Cisco CCNA guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/ccna-200-301"
+        ],
+        "twitterTitle": [
+          "Cisco CCNA (200-301) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/ccna-200-301"
+    },
+    {
+      "path": "/study/aif-c01",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AIF-C01 study around 5 exam domains. Find the existing AWS Certified AI Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/aif-c01"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AIF-C01 study around 5 exam domains. Find the existing AWS Certified AI Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/aif-c01"
+        ],
+        "twitterTitle": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AIF-C01 study around 5 exam domains. Find the existing AWS Certified AI Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/aif-c01"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AIF-C01 study around 5 exam domains. Find the existing AWS Certified AI Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/aif-c01"
+        ],
+        "twitterTitle": [
+          "AWS Certified AI Practitioner (AIF-C01) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/aif-c01"
+    },
+    {
+      "path": "/study/clf-c02",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your CLF-C02 study around 4 exam domains. Find the existing AWS Certified Cloud Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/clf-c02"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your CLF-C02 study around 4 exam domains. Find the existing AWS Certified Cloud Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/clf-c02"
+        ],
+        "twitterTitle": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your CLF-C02 study around 4 exam domains. Find the existing AWS Certified Cloud Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/clf-c02"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your CLF-C02 study around 4 exam domains. Find the existing AWS Certified Cloud Practitioner guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/clf-c02"
+        ],
+        "twitterTitle": [
+          "AWS Certified Cloud Practitioner (CLF-C02) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/clf-c02"
+    },
+    {
+      "path": "/study/saa-c03",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SAA-C03 study around 4 exam domains. Find the existing AWS Certified Solutions Architect Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/saa-c03"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SAA-C03 study around 4 exam domains. Find the existing AWS Certified Solutions Architect Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/saa-c03"
+        ],
+        "twitterTitle": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SAA-C03 study around 4 exam domains. Find the existing AWS Certified Solutions Architect Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/saa-c03"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SAA-C03 study around 4 exam domains. Find the existing AWS Certified Solutions Architect Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/saa-c03"
+        ],
+        "twitterTitle": [
+          "AWS Certified Solutions Architect Associate (SAA-C03) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/saa-c03"
+    },
+    {
+      "path": "/study/az-900",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AZ-900 study around 3 exam domains. Find the existing Microsoft Certified Azure Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/az-900"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AZ-900 study around 3 exam domains. Find the existing Microsoft Certified Azure Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/az-900"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AZ-900 study around 3 exam domains. Find the existing Microsoft Certified Azure Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/az-900"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AZ-900 study around 3 exam domains. Find the existing Microsoft Certified Azure Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/az-900"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Azure Fundamentals (AZ-900) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/az-900"
+    },
+    {
+      "path": "/study/sc-900",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SC-900 study around 4 exam domains. Find the existing Microsoft Certified Security, Compliance, and Identity Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/sc-900"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SC-900 study around 4 exam domains. Find the existing Microsoft Certified Security, Compliance, and Identity Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/sc-900"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your SC-900 study around 4 exam domains. Find the existing Microsoft Certified Security, Compliance, and Identity Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/sc-900"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your SC-900 study around 4 exam domains. Find the existing Microsoft Certified Security, Compliance, and Identity Fundamentals guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/sc-900"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Security, Compliance, and Identity Fundamentals (SC-900) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/sc-900"
+    },
+    {
+      "path": "/study/az-104",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AZ-104 study around 5 exam domains. Find the existing Microsoft Certified Azure Administrator Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/az-104"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AZ-104 study around 5 exam domains. Find the existing Microsoft Certified Azure Administrator Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/az-104"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "description": [
+          "Plan your AZ-104 study around 5 exam domains. Find the existing Microsoft Certified Azure Administrator Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "canonical": [
+          "https://cert900.com/study/az-104"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "ogDescription": [
+          "Plan your AZ-104 study around 5 exam domains. Find the existing Microsoft Certified Azure Administrator Associate guide, topic videos, relevant references and free practice tools in one place."
+        ],
+        "ogUrl": [
+          "https://cert900.com/study/az-104"
+        ],
+        "twitterTitle": [
+          "Microsoft Certified Azure Administrator Associate (AZ-104) Study Hub | Cert900"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ]
+      },
+      "finalPath": "/study/az-104"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Privacy policy | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/privacy"
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Terms of use | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/terms"
+    },
+    {
+      "path": "/delete-account",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Delete your account | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/delete-account"
+    },
+    {
+      "path": "/exams",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/exams"
+    },
+    {
+      "path": "/progress",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/progress"
+    },
+    {
+      "path": "/plan",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Study plans | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/plan"
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/admin"
+    },
+    {
+      "path": "/exam/220-1201",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/exam/220-1201"
+    },
+    {
+      "path": "/exam/220-1201/quiz",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/exam/220-1201"
+    },
+    {
+      "path": "/exam/220-1201/results",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/exam/220-1201"
+    },
+    {
+      "path": "/exam/220-1201/stats",
+      "status": 200,
+      "xRobots": null,
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/exam/220-1201/stats"
+    },
+    {
+      "path": "/login",
+      "status": 404,
+      "xRobots": "noindex",
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Page not found | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/login"
+    },
+    {
+      "path": "/account",
+      "status": 404,
+      "xRobots": "noindex",
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Page not found | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/account"
+    },
+    {
+      "path": "/seo-phase-2-unknown",
+      "status": 404,
+      "xRobots": "noindex",
+      "raw": {
+        "titles": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "dom": {
+        "titles": [
+          "Page not found | Cert900"
+        ],
+        "description": [
+          "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up."
+        ],
+        "canonical": [
+          "https://cert900.com/"
+        ],
+        "robots": [],
+        "ogTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "ogDescription": [
+          "Free certification practice exams with timed simulations, performance-based questions, adaptive drills, and a free study video for every topic. No sign-up, progress tracking built in."
+        ],
+        "ogUrl": [
+          "https://cert900.com/"
+        ],
+        "twitterTitle": [
+          "Cert900 \u2014 Free CompTIA, Cisco, AWS & Azure Practice Exams"
+        ],
+        "schemaTypes": [
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "ItemList"
+        ]
+      },
+      "finalPath": "/seo-phase-2-unknown"
+    }
+  ]
+}

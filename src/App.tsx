@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/lib/quiz-session"
 import { siteTitle } from "@/lib/copy"
+import { homeMetadata, metadataForPath } from "@/lib/page-metadata"
+import { updateDocumentHead } from "@/lib/document-head"
 import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
@@ -82,20 +84,7 @@ const PATH_SCREENS: Record<string, Screen["kind"]> = {
   [ADMIN_PATH]: "admin",
 }
 const SCREEN_PATHS = Object.fromEntries(Object.entries(PATH_SCREENS).map(([p, k]) => [k, p]))
-const SCREEN_TITLES: Partial<Record<Screen["kind"], string>> = {
-  privacy: "Privacy policy | Cert900",
-  terms: "Terms of use | Cert900",
-  plans: "Study plans | Cert900",
-  "delete-account": "Delete your account | Cert900",
-  // Deliberately says nothing about what this page is. The API 404s rather than
-  // 403s for the same reason: someone who guesses the path should learn
-  // nothing, and the title is rendered before any auth check has run.
-  admin: "Cert900",
-  "not-found": "Page not found | Cert900",
-}
-// Derived so the SPA title cannot drift from index.html's, which it had (one
-// listed Cisco, the other did not).
-const DEFAULT_TITLE = siteTitle()
+const HOME_METADATA = homeMetadata(siteTitle())
 
 /** Screens that need the exam's question bank, so they wait on its chunk. */
 const EXAM_SCREENS = new Set<Screen["kind"]>(["home", "setup", "quiz", "results", "progress", "plan"])
@@ -171,7 +160,8 @@ export default function App() {
   const restoring = useRef(false)
 
   useEffect(() => {
-    document.title = SCREEN_TITLES[screen.kind] ?? DEFAULT_TITLE
+    const metadataPath = screen.kind === "not-found" ? window.location.pathname : pathForScreen(screen, examId)
+    updateDocumentHead(metadataForPath(metadataPath) ?? HOME_METADATA, metadataPath === "/")
     if (restoring.current) {
       restoring.current = false
       return

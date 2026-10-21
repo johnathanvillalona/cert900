@@ -19,7 +19,9 @@ import { siteFaq, siteTagline, siteTitle } from "../src/lib/copy"
 import { GUIDE_PATHS, LEGAL_PATHS, STUDY_PATHS, type GuideKey } from "../src/data/routes"
 import { GROW, SITE_URL } from "../src/lib/site"
 import { GUIDE_PLACEMENTS, placementForGuide } from "../src/lib/advertising-policy"
-import { LEGAL_EFFECTIVE_DATE } from "../src/screens/Legal"
+import { DeleteAccount, LEGAL_EFFECTIVE_DATE, Privacy, Terms } from "../src/screens/Legal"
+import { StaticContentShell } from "../src/components/StaticContentShell"
+import { LEGAL_METADATA, homeMetadata } from "../src/lib/page-metadata"
 
 const dist = resolve(import.meta.dirname, "../dist")
 const manifest = JSON.parse(readFileSync(resolve(dist, ".vite/manifest.json"), "utf8"))
@@ -98,17 +100,24 @@ const growHomeTag = growSnippet
 // patch dist/index.html so the SPA entry (homepage/app) gets them too.
 // Idempotent: re-running prerender without a fresh build must not double-inject.
 const rawTemplate = readFileSync(resolve(dist, "index.html"), "utf8")
+  .replace(/<script[^>]*data-home-jsonld[^>]*>[\s\S]*?<\/script>/g, "")
 const withFonts = rawTemplate.includes('as="font"')
   ? rawTemplate
   : rawTemplate.replace("</head>", `${fontPreloads}</head>`)
 // Idempotent by construction: the regex matches the generated block too. The
 // title is stamped from the registry as well, so index.html and the SPA's
-// DEFAULT_TITLE cannot drift apart again (one listed Cisco, the other did not).
+// home metadata cannot drift apart again (one listed Cisco, the other did not).
+const homeMeta = homeMetadata(siteTitle())
 const template = withFonts
   .replace(/<noscript>[\s\S]*?<\/noscript>/, noscriptBlock())
   .replace(/<title>[^<]*<\/title>/, `<title>${esc(siteTitle())}</title>`)
   .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
   .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(siteTitle())}$2`)
+  .replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(homeMeta.description)}$2`)
+  .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${esc(homeMeta.description)}$2`)
+  .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(homeMeta.description)}$2`)
+  .replace(/<meta name="robots"[^>]*>/g, "")
+  .replace("</head>", '<meta name="robots" content="index, follow"></head>')
 // The homepage's FAQPage/ItemList goes ONLY into index.html, never into the
 // shared template: each guide emits its own FAQPage, and two FAQPage entities
 // on one URL are competing claims about what the page is. The gated Grow
@@ -223,7 +232,7 @@ function homeJsonLd(): string {
       })),
     },
   ]
-  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
+  return `<script type="application/ld+json" data-home-jsonld>${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`
 }
 
 function esc(s: string): string {
@@ -264,7 +273,7 @@ function advertisingEntry(path: string): string {
   return `<script type="module" src="/${file}"></script>`
 }
 
-function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false): string {
+function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false, keepApp = false): string {
   const url = `${SITE_URL}${meta.path}`
   // Per-guide OG card if one has been rendered (public/og/<slug>.png via
   // tools/gen-og-data.mts + an OG renderer; the original scratchpad renderer
@@ -295,10 +304,10 @@ function page(meta: StaticPageMeta, body: string, structuredData: string, includ
     // The SPA used to blank the painted page
     // (createRoot clears #root) and re-render it ~255KB of JS later, which is
     // also what let anything loaded on a guide follow the reader into the app.
-    .replace(/<script type="module"[^>]*><\/script>/, "")
-    .replace(/<link rel="modulepreload"[^>]*>/g, "")
+    .replace(/<script type="module"[^>]*><\/script>/, match => keepApp ? match : "")
+    .replace(/<link rel="modulepreload"[^>]*>/g, match => keepApp ? match : "")
     // A small consent/analytics entry; never hydrate the static article with React.
-    .replace("</body>", `<script type="module" src="/${contentEntry}"></script>${advertisingEntry(meta.path)}</body>`)
+    .replace("</body>", keepApp ? "</body>" : `<script type="module" src="/${contentEntry}"></script>${advertisingEntry(meta.path)}</body>`)
     // Guides get the unconditional growTag above; if a prerender re-run built
     // this template from an already-patched index.html, drop the homepage's
     // gated copy rather than shipping two initializers. Keyed on
@@ -347,6 +356,17 @@ for (const examId of EXAM_IDS) {
   // hydration. The only client module handles optional consent and analytics.
   writeFileSync(resolve(dist, out), page(meta, body, studyJsonLd(meta)))
   console.log(`prerendered ${meta.path} -> dist/${out} (${(body.length / 1024).toFixed(1)} KB body)`)
+}
+
+// Public legal content is delivered even without JavaScript. Retain the existing
+// SPA entry so internal navigation, account controls and consent behavior do not
+// change. createRoot replaces this fallback; it does not append a second copy.
+for (const [path, Page] of [["/privacy", Privacy], ["/terms", Terms], ["/delete-account", DeleteAccount]] as const) {
+  const meta = LEGAL_METADATA[path]
+  const body = renderToStaticMarkup(<StaticContentShell><Page /></StaticContentShell>)
+  const html = page({ ...meta, path }, body, "", false, true)
+  writeFileSync(resolve(dist, `${path.slice(1)}.html`), html)
+  console.log(`prerendered public legal page ${path}`)
 }
 
 /**
