@@ -3,11 +3,15 @@ import { AIF_CURRICULUM, AIF_LESSONS, AIF_REVIEWED_ON, AIF_SOURCES, aifSourcesFo
 import { examPath, studyPath } from "@/data/routes"
 
 export interface LessonContent {
+  intro: ReactNode
   explanation: ReactNode
+  scenarioTitle: string
   scenario: ReactNode
   comparison?: ReactNode
   diagram?: ReactNode
   misconception: string
+  takeaway: string
+  advanced: { title: string; content: ReactNode }
   check: { prompt: string; explanation: ReactNode }
 }
 
@@ -31,19 +35,26 @@ const awsResources: LearningResources = {
 export function LearningLesson({ lesson, content, resources = awsResources }: { lesson: GuideLessonDescriptor; content: LessonContent; resources?: LearningResources }) {
   return <section aria-labelledby={lesson.id} data-testid="learning-lesson" className="min-w-0 scroll-mt-6 border-t pt-8">
     <h2 id={lesson.id} tabIndex={-1} className="scroll-mt-6 font-heading text-2xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4">{lesson.title}</h2>
-    <p className="mt-3 rounded-lg border-l-4 border-primary bg-muted/40 p-4 text-base leading-relaxed"><strong>Learning goal:</strong> {lesson.objective}</p>
-    <p className="mt-3 text-sm text-muted-foreground">{resources.taskLabel}: {lesson.objectiveRefs.join(", ")}.</p>
-    <div data-testid="lesson-explanation" className="mt-5 space-y-4 text-base leading-relaxed [&_li]:mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5">{content.explanation}</div>
-    {content.comparison && <div className="mt-5 min-w-0">{content.comparison}</div>}
-    {content.diagram && <div className="mt-6 min-w-0">{content.diagram}</div>}
-    <div className="mt-6 rounded-lg border bg-card p-4 sm:p-5">
-      <h3 className="font-heading text-lg font-semibold">Worked scenario: {lesson.title.replace(/^\d+\. /, "")}</h3>
-      <div data-testid="lesson-scenario" className="mt-3 space-y-3 text-base leading-relaxed [&_li]:mt-2 [&_ol]:list-decimal [&_ol]:pl-5">{content.scenario}</div>
+    <p className="mt-3 max-w-[65ch] text-base leading-relaxed text-muted-foreground"><strong className="text-foreground">You will learn:</strong> {lesson.objective}</p>
+    <div data-testid="lesson-explanation" className="mt-6 space-y-6 text-base leading-relaxed">
+      <div data-testid="lesson-intro" className="max-w-[65ch] space-y-3">{content.intro}</div>
+      {content.diagram && <div className="min-w-0">{content.diagram}</div>}
+      <div data-testid="lesson-concepts" className="space-y-7">{content.explanation}</div>
     </div>
-    <p className="mt-5 text-base leading-relaxed"><strong>Common misconception:</strong> {content.misconception}</p>
+    {content.comparison && <div className="mt-5 min-w-0">{content.comparison}</div>}
+    <div className="mt-7 rounded-lg border-l-4 border-brand/50 bg-muted/25 p-4 sm:p-5">
+      <h3 className="font-heading text-lg font-semibold">Try the idea: {content.scenarioTitle}</h3>
+      <div data-testid="lesson-scenario" className="mt-3 max-w-[65ch] space-y-3 text-base leading-relaxed">{content.scenario}</div>
+    </div>
+    <p className="mt-5 max-w-[65ch] text-base leading-relaxed"><strong>Watch out:</strong> {content.misconception}</p>
+    <p data-testid="lesson-takeaway" className="mt-5 rounded-lg bg-primary/10 p-4 text-base leading-relaxed"><strong>Takeaway:</strong> {content.takeaway}</p>
     <details data-testid="lesson-check" className="group mt-5 rounded-lg border bg-muted/30">
       <summary className="min-h-11 cursor-pointer rounded-lg p-4 text-base font-semibold leading-relaxed text-brand focus-visible:outline-2 focus-visible:outline-offset-2">Check your understanding: {content.check.prompt}</summary>
-      <div className="space-y-3 border-t p-4 text-base leading-relaxed"><p className="text-sm font-medium text-muted-foreground">Unscored self-check. Nothing is submitted or saved.</p>{content.check.explanation}</div>
+      <div className="space-y-3 border-t p-4 text-base leading-relaxed [&>p]:max-w-[65ch]"><p className="text-sm font-medium text-muted-foreground">Unscored self-check. Nothing is submitted or saved.</p>{content.check.explanation}</div>
+    </details>
+    <details data-testid="lesson-advanced" className="mt-5 rounded-lg border">
+      <summary className="min-h-11 cursor-pointer rounded-lg p-4 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">More detail: {content.advanced.title}</summary>
+      <div className="space-y-6 border-t p-4 text-base leading-relaxed sm:p-5 [&>p]:max-w-[65ch]">{content.advanced.content}</div>
     </details>
     <nav aria-label={`Study links for ${lesson.title}`} className="mt-5 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-5">
       <a className={`${link} inline-flex min-h-11 items-center`} href={`${studyPath(resources.examId)}#domain-${lesson.domains[0]}`}>Related domain videos</a>
@@ -53,9 +64,25 @@ export function LearningLesson({ lesson, content, resources = awsResources }: { 
     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">In drill setup, choose {lesson.domains.map(d => `domain ${d}`).join(" or ")}. Links do not preselect a topic. {resources.videoNotice}</p>
     <details className="mt-3">
       <summary className="min-h-11 cursor-pointer py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Official references for lesson {lesson.title.split(".")[0]}</summary>
+      <p className="mb-3 text-sm text-muted-foreground">{resources.taskLabel}: {lesson.objectiveRefs.join(", ")}.</p>
       <ul className="space-y-2 pb-2 text-sm">{resources.resolveSources(lesson).map(source => <li key={source.url}><a className={link} href={source.url}>{source.title} <span className="text-muted-foreground">({resources.providerLabel}, external)</span></a></li>)}</ul>
     </details>
   </section>
+}
+
+/** A short connected explanation under a descriptive heading, never a generic FAQ row. */
+export function LessonConcept({ title, children }: { title: string; children: ReactNode }) {
+  return <div data-testid="lesson-concept" className="min-w-0">
+    <h3 className="font-heading text-lg font-semibold leading-snug">{title}</h3>
+    <div className="mt-3 max-w-[65ch] space-y-3 text-base leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mt-2">{children}</div>
+  </div>
+}
+
+export function TeachingSteps({ steps }: { steps: readonly { title: string; body: ReactNode }[] }) {
+  return <ol className="space-y-4">{steps.map((step, index) => <li key={step.title} className="flex min-w-0 gap-3 text-base leading-relaxed">
+    <span aria-hidden="true" className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-sm font-semibold">{index + 1}</span>
+    <div className="min-w-0 flex-1"><p className="font-semibold">{step.title}</p><div className="mt-1 max-w-[65ch] space-y-2">{step.body}</div></div>
+  </li>)}</ol>
 }
 
 export function ComparisonTable({ caption, columns, rows }: { caption: string; columns: readonly string[]; rows: readonly (readonly string[])[] }) {

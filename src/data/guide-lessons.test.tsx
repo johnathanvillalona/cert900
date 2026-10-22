@@ -42,7 +42,7 @@ describe("reviewed AIF-C01 learning content", () => {
     expect(html.match(/data-testid="learning-lesson"/g)).toHaveLength(9)
     expect(html.match(/data-testid="lesson-scenario"/g)).toHaveLength(9)
     expect(html.match(/data-testid="lesson-check"/g)).toHaveLength(9)
-    expect(html.match(/data-testid="learning-diagram"/g)).toHaveLength(4)
+    expect(html.match(/data-testid="learning-diagram"/g)).toHaveLength(8)
     expect(html.match(/Nothing is submitted or saved\./g)).toHaveLength(9)
     expect(html).toContain("not a complete certification course")
     expect(html).toContain("Official AIF-C01 domain weights")

@@ -207,6 +207,12 @@ url.protocol (wrangler dev simulates the route host and would loop).
   copy `.dev.vars.example` → `.dev.vars` for local auth.
 
 ## Design system (approved via ui-ux-pro-max + design-taste-frontend skills)
+
+**Educational content:** follow `docs/educational-content-standard.md` for guides,
+lessons, diagrams, Study Hub instruction, checks, walkthroughs and future course,
+video/animation script and transcript work. Preserve coverage while teaching
+beginners with short explanations, useful visuals and optional technical depth.
+
 - Type: **Geist** (display+body), **Geist Mono** (labels, numbers — always
   `tabular-nums`). Self-hosted via fontsource.
 - Color: cool slate neutrals; **brand accent = pale orange** (`--primary` fills

@@ -1,6 +1,4 @@
 import { test, expect, type BrowserContext, type Page } from '@playwright/test'
-import { mkdirSync } from 'node:fs'
-import { resolve } from 'node:path'
 import { GUIDE_META } from '../../src/data/guide-meta'
 import { GUIDE_PATHS } from '../../src/data/routes'
 import { selectGuideSamples } from '../../src/lib/guide-sample-selection'
@@ -124,7 +122,7 @@ type GuideDocument = ReturnType<typeof guideDocument>
 function assertGuideDocument(info: GuideDocument) {
   expect(info.canonical).toEqual([canonical])
   expect(info.lessons).toHaveLength(9)
-  expect(info.figures).toHaveLength(4)
+  expect(info.figures).toHaveLength(8)
   expect(info.figures.every(figure => figure.tag === 'FIGURE' && figure.caption.length > 20)).toBe(true)
   expect(new Set(info.ids).size, 'duplicate document IDs').toBe(info.ids.length)
   const headingNames = info.headings.map(heading => heading.text)
@@ -192,7 +190,7 @@ function assertGuideDocument(info: GuideDocument) {
 async function expectGuide(page: Page) {
   await expect(page.getByTestId('learning-lesson')).toHaveCount(9)
   await expect(page.getByTestId('lesson-check')).toHaveCount(9)
-  await expect(page.getByTestId('learning-diagram')).toHaveCount(4)
+  await expect(page.getByTestId('learning-diagram')).toHaveCount(8)
   await expect(page.getByTestId('guide-sample')).toHaveCount(8)
   await expect(page.locator('script[src*="adsbygoogle"], ins.adsbygoogle')).toHaveCount(0)
 }
@@ -297,7 +295,7 @@ for (const javaScriptEnabled of [false, true]) {
 }
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`AWS lessons and open disclosures are readable without overflow at ${width}px in both themes`, async ({ page }) => {
+  test(`AWS lessons and open disclosures are readable without overflow at ${width}px in both themes`, async ({ page }, testInfo) => {
     const observed = observe(page)
     await page.setViewportSize({ width, height: 1000 })
     for (const theme of ['light', 'dark']) {
@@ -316,6 +314,8 @@ for (const width of [320, 375, 390, 768, 1440]) {
         const body = lesson.locator('[data-testid="lesson-explanation"] p, [data-testid="lesson-explanation"] li, [data-testid="lesson-scenario"] p, [data-testid="lesson-scenario"] li')
         expect(await body.count(), 'lesson paragraphs').toBeGreaterThan(0)
         for (const paragraph of await body.all()) {
+          // Diagram captions are supporting text; prose and scenario steps remain 16px.
+          if (await paragraph.evaluate(element => Boolean(element.closest('figure')))) continue
           expect(await paragraph.evaluate(element => parseFloat(getComputedStyle(element).fontSize)), `${width}/${theme}: lesson body font`).toBeGreaterThanOrEqual(16)
         }
         for (const summary of await lesson.locator('summary').all()) {
@@ -336,12 +336,10 @@ for (const width of [320, 375, 390, 768, 1440]) {
       }
       // Evidence images are separate from the established screenshot baselines.
       if ([320, 390, 1440].includes(width)) {
-        const directory = resolve(process.cwd(), 'docs/qa/seo-phase-3-aif')
-        mkdirSync(directory, { recursive: true })
         await settled(page)
-        await page.getByRole('navigation', { name: 'AWS lesson contents', exact: true }).screenshot({ path: resolve(directory, `aif-toc-${width}-${theme}.png`) })
-        await page.getByTestId('learning-lesson').first().screenshot({ path: resolve(directory, `aif-lesson-${width}-${theme}.png`) })
-        await page.getByTestId('learning-diagram').first().screenshot({ path: resolve(directory, `aif-diagram-${width}-${theme}.png`) })
+        await page.getByRole('navigation', { name: 'AWS lesson contents', exact: true }).screenshot({ path: testInfo.outputPath(`aif-toc-${width}-${theme}.png`) })
+        await page.getByTestId('learning-lesson').first().screenshot({ path: testInfo.outputPath(`aif-lesson-${width}-${theme}.png`) })
+        await page.getByTestId('learning-diagram').first().screenshot({ path: testInfo.outputPath(`aif-diagram-${width}-${theme}.png`) })
       }
       await page.goto(hubPath)
       await page.evaluate(() => document.querySelectorAll('main details').forEach(details => details.setAttribute('open', '')))
