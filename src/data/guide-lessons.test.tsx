@@ -69,14 +69,14 @@ describe("reviewed AIF-C01 learning content", () => {
     expect(html.match(/How to use this to pass/g)).toHaveLength(1)
   })
 
-  it("links all lessons from the AWS hub without adding lessons to other certifications", () => {
+  it("links all lessons from the AWS hub and keeps unrelated certifications unchanged", () => {
     const aws = renderToStaticMarkup(createElement(StudyHub, { examId: "aif-c01" }))
     expect(aws.match(/data-testid="hub-guide-lesson"/g)).toHaveLength(9)
     for (const lesson of AIF_LESSONS) expect(aws).toContain(`href="/aws-ai-practitioner-practice-test#${lesson.id}"`)
-    for (const id of ["az-900", "clf-c02", "220-1201"]) {
+    for (const id of ["clf-c02", "220-1201"]) {
       expect(renderToStaticMarkup(createElement(StudyHub, { examId: id }))).not.toContain('data-testid="hub-guide-lesson"')
     }
-    expect(renderToStaticMarkup(createElement(Az900Guide))).not.toContain('data-testid="learning-lesson"')
+    expect(renderToStaticMarkup(createElement(Az900Guide)).match(/data-testid="learning-lesson"/g)).toHaveLength(10)
   })
 
   it("keeps authored lessons out of the synchronous descriptor and static consent entry", () => {

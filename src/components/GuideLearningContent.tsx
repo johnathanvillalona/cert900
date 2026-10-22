@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { AIF_CURRICULUM, AIF_LESSONS, AIF_REVIEWED_ON, AIF_SOURCES, aifSourcesForLesson, type GuideLessonDescriptor } from "@/data/guide-lessons"
 import { examPath, studyPath } from "@/data/routes"
+import { AZ900_CURRICULUM, AZ900_LESSONS, AZ900_REVIEWED_ON, AZ900_SKILLS_EFFECTIVE, AZ900_SOURCES } from "@/data/az900-lessons"
 
 export interface LessonContent {
   intro: ReactNode
@@ -24,6 +25,7 @@ export interface LearningResources {
   taskLabel: string
   providerLabel: string
   videoNotice: string
+  referenceLinkClassName?: string
   resolveSources: (lesson: GuideLessonDescriptor) => readonly { title: string; url: string }[]
 }
 const awsResources: LearningResources = {
@@ -65,7 +67,7 @@ export function LearningLesson({ lesson, content, resources = awsResources }: { 
     <details className="mt-3">
       <summary className="min-h-11 cursor-pointer py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Official references for lesson {lesson.title.split(".")[0]}</summary>
       <p className="mb-3 text-sm text-muted-foreground">{resources.taskLabel}: {lesson.objectiveRefs.join(", ")}.</p>
-      <ul className="space-y-2 pb-2 text-sm">{resources.resolveSources(lesson).map(source => <li key={source.url}><a className={link} href={source.url}>{source.title} <span className="text-muted-foreground">({resources.providerLabel}, external)</span></a></li>)}</ul>
+      <ul className="space-y-2 pb-2 text-sm">{resources.resolveSources(lesson).map(source => <li key={source.url}><a className={resources.referenceLinkClassName ? `${link} ${resources.referenceLinkClassName}` : link} href={source.url}>{source.title} <span className="text-muted-foreground">({resources.providerLabel}, external)</span></a></li>)}</ul>
     </details>
   </section>
 }
@@ -110,5 +112,22 @@ export function AifCurriculum() {
     <p className="mt-3 text-base leading-relaxed text-muted-foreground">AWS organizes the AIF-C01 objectives into five domains. The percentages below are the official domain weights; Cert900 uses its own practice scoring. Use the weights to help plan your study, rather than to predict the questions on an individual exam.</p>
     <ComparisonTable caption="Official AIF-C01 domain weights" columns={["AWS exam domain", "Scored content"]} rows={AIF_CURRICULUM.map(domain => [domain.title, `${domain.weight}%`])} />
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Curriculum and service references reviewed {AIF_REVIEWED_ON}, against guide revision 1.1, published April 30, 2026. AWS can revise objectives without changing the exam code. <a className={link} href={AIF_SOURCES.curriculum.url}>Read the official exam guide</a> and <a className={link} href={AIF_SOURCES.revisions.url}>revision history</a>.</p>
+  </>
+}
+
+/** The same native presentation and disclosure boundary used by the AWS guide. */
+export function Az900LessonContents() {
+  return <nav aria-label="Azure lesson contents" className="scroll-mt-6 rounded-xl border bg-card p-5 sm:p-6">
+    <h2 id="az900-lesson-contents" tabIndex={-1} className="scroll-mt-6 font-heading text-2xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4">Learn the Azure foundations</h2>
+    <p className="mt-3 text-base leading-relaxed text-muted-foreground">Start with what the cloud changes, then work through a small application’s design and operation. You can read these ten lessons in order or return to a concept when you need it. This is a study guide, not a complete certification course. Examples and unscored checks are original Cert900 teaching material.</p>
+    <ol className="mt-4 grid gap-1 sm:grid-cols-2">{AZ900_LESSONS.map(lesson => <li key={lesson.id} className="min-w-0"><a className="flex min-h-11 items-center rounded-md px-2 py-3 text-base font-medium text-brand hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-4" href={`#${lesson.id}`}>{lesson.title}</a></li>)}</ol>
+  </nav>
+}
+
+export function Az900Curriculum() {
+  return <>
+    <p className="mt-3 text-base leading-relaxed text-muted-foreground">Microsoft publishes ranges for the share of exam content in each domain. Cert900’s practice allocation is a separate teaching choice. Neither the ranges nor a practice result predict the questions or result on your certification exam.</p>
+    <ComparisonTable caption="Official AZ-900 domain weight ranges" columns={["Microsoft exam domain", "Published range"]} rows={AZ900_CURRICULUM.map(domain => [domain.title, domain.weightRange])} />
+    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Reviewed {AZ900_REVIEWED_ON} against the skills measured from {AZ900_SKILLS_EFFECTIVE}. The official guide’s change log describes the July update; it lists no later skills version at this review. <a className={link} href={AZ900_SOURCES.curriculum.url}>Check Microsoft’s current AZ-900 study guide</a> before booking.</p>
   </>
 }

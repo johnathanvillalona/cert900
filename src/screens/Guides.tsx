@@ -9,6 +9,8 @@ import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
 import { ArrowRight, Check } from "lucide-react"
 import { AifCurriculum, AifLessonContents } from "@/components/GuideLearningContent"
 import { AifLessons } from "@/content/guides/aif-c01"
+import { Az900Curriculum, Az900LessonContents } from "@/components/GuideLearningContent"
+import { Az900Lessons } from "@/content/guides/az900"
 
 /**
  * SEO guide pages. These components are prerendered to static HTML at build
@@ -469,27 +471,35 @@ export function Az900Guide() {
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
         <p className="text-muted-foreground leading-relaxed">
-          Microsoft Azure Fundamentals (AZ-900) proves you can describe cloud concepts, core Azure architecture and
-          services, and the tools Azure gives you for management and governance. This site gives you{" "}
+          Microsoft Azure Fundamentals (AZ-900) introduces cloud concepts, Azure architecture and services,
+          and tools for management and governance. This site gives you{" "}
           {ex.questionCount} original questions plus {ex.pbqCount} drag-and-drop and build-list items in
-          Microsoft's own interactive formats, free and without an account.
+          Cert900 practice formats, free and without an account. The ten lessons below explain the ideas behind
+          those questions through original examples, diagrams and optional self-checks.
         </p>
         <p className="text-muted-foreground leading-relaxed">
-          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
-          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching video in John
-          Savill's free per-topic AZ-900 course.
+          Timed practice runs for {ex.examMinutes} minutes using Cert900’s own instructional scoring. It doesn’t
+          reproduce Microsoft’s proprietary scoring or predict your exam result. Existing topic links open John
+          Savill’s free videos; older recordings may use earlier service names or omit current objectives.
         </p>
         <Cta label="Start the free AZ-900 practice test" examId="az-900" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What AZ-900 covers</h2>
-        <DomainTable examId="az-900" />
+        <Az900Curriculum />
+        <details className="mt-4 rounded-lg border p-4">
+          <summary className="min-h-11 cursor-pointer py-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Compare Cert900’s practice allocation</summary>
+          <DomainTable examId="az-900" />
+        </details>
         <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: typically 40-60 questions, about 45 minutes, scaled to 1,000 with a 700 pass line. The
-          certification never expires.
+          Microsoft lists 45 minutes for the assessment and a passing score of 700 or higher; question counts and
+          formats can vary. Fundamentals certifications do not expire. Check the official exam information before booking.
         </p>
       </section>
+
+      <Az900LessonContents />
+      <Az900Lessons />
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
