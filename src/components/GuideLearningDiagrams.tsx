@@ -1,7 +1,11 @@
-type DiagramKind = "ai-map" | "lifecycle" | "rag" | "agent" | "precision-recall" | "service-choice" | "responsible-review" | "security-boundaries"
+type DiagramKind = "ai-map" | "lifecycle" | "rag" | "agent" | "precision-recall" | "service-choice" | "responsible-review" | "security-boundaries" | "azure-responsibility" | "azure-hierarchy" | "azure-regions" | "azure-network"
 type Step = readonly [title: string, detail: string]
 
 const descriptions: Record<DiagramKind, readonly [string, string]> = {
+  "azure-responsibility": ["Who looks after each part of the service?", "Read each row across the three service models. Moving to a managed service transfers some operating work to Microsoft, while your organization still controls its data, accounts and devices. On premises, your organization also handles the physical infrastructure."],
+  "azure-hierarchy": ["Follow one branch of the management hierarchy", "The example runs from a management group down to individual resources. Policies and role assignments can be inherited from higher scopes. The Microsoft Entra tenant supplies identity context; it isn’t a geographic location or another resource group."],
+  "azure-regions": ["A zone is inside a region", "This example region has three zones, each with separate infrastructure. It shows a possible layout, not a rule about every region or service. A second region is a different recovery boundary and needs its own design."],
+  "azure-network": ["Trace a request through a small application", "The public website connects privately to a managed database. The private endpoint’s network interface sits in the VNet, while the database service remains outside it. DNS, network rules and service permissions must all be configured."],
   "ai-map": ["How AI, machine learning, and deep learning relate", "Machine learning is one approach within AI, and deep learning is an approach within machine learning. The smaller boxes show those relationships. Beside them, you can see what generative AI does and how an agent is organized."],
   lifecycle: ["A machine learning lifecycle", "Start with the decision the business needs to improve, then follow the steps through to everyday use. What you learn during evaluation or monitoring may send you back to an earlier step."],
   rag: ["How a RAG assistant can find information before answering", "This example has two parts: preparing a searchable index and finding permitted information for a question. It uses vectors to find similar content, but other RAG designs can retrieve information differently."],
@@ -158,6 +162,45 @@ export function LearningDiagram({ kind }: { kind: DiagramKind }) {
           ["Keep protected evidence", "Keep useful records of access and actions, while protecting sensitive prompts and following the rules for how long information is retained."],
         ]} />
       )}
+      {kind === "azure-responsibility" && <ul className="space-y-4">{[
+        ['Data, accounts and access settings', 'Your organization', 'Your organization', 'Your organization'],
+        ['Client devices', 'Your organization', 'Your organization', 'Shared support; you still protect endpoints'],
+        ['Guest operating system', 'Your organization', 'Microsoft', 'Microsoft'],
+        ['Application operation', 'Your team runs its application', 'Shared: your team maintains its code; Microsoft runs the platform', 'Shared: Microsoft runs the product; your team configures its use'],
+        ['Physical hosts and datacenters', 'Microsoft', 'Microsoft', 'Microsoft'],
+      ].map(([area, ...owners]) => <li key={area} className="min-w-0 rounded-lg border bg-background p-3">
+        <p className="text-base font-semibold">{area}</p>
+        <dl className="mt-3 grid gap-3 sm:grid-cols-3">{owners.map((owner, i) => <div key={i} className="min-w-0 rounded-md bg-muted/40 p-3"><dt className="text-sm font-semibold text-brand">{['IaaS', 'PaaS', 'SaaS'][i]}</dt><dd className="mt-1 text-sm leading-relaxed">{owner}</dd></div>)}</dl>
+      </li>)}</ul>}
+      {kind === "azure-hierarchy" && <>
+        <p className="mb-4 rounded-lg bg-muted/40 p-3 text-sm leading-relaxed">Identity context: one Microsoft Entra tenant can be associated with several Azure subscriptions.</p>
+        <Flow steps={[
+          ['Management group: Training company', 'Applies common management rules to the subscriptions below it. Management groups can also be nested.'],
+          ['Subscription: Development', 'Provides a billing, access and resource-limit scope. Other subscriptions can sit beside it.'],
+          ['Resource group: Booking test', 'Groups related resources that the team manages through a shared lifecycle.'],
+          ['Resources: web app and storage account', 'Individual services managed within the resource group. Their region is a separate placement choice.'],
+        ]} />
+      </>}
+      {kind === "azure-regions" && <div className="space-y-4">
+        <div className="min-w-0 rounded-lg border border-brand/50 bg-brand/5 p-3">
+          <p className="text-base font-semibold">Region A: the application’s primary region</p>
+          <ol className="mt-3 grid gap-3 md:grid-cols-3">{['1', '2', '3'].map(n => <li key={n} className="min-w-0 rounded-lg border bg-background p-3"><p className="text-base font-semibold">Example zone {n}</p><p className="mt-2 text-sm leading-relaxed">One or more datacenters, with independent power, cooling and networking.</p></li>)}</ol>
+          <p className="mt-3 text-sm leading-relaxed">A zonal resource uses its selected zone. A supported zone-redundant configuration uses multiple zones; check the service’s requirements.</p>
+        </div>
+        <div className="min-w-0 rounded-lg border border-dashed p-3"><p className="text-base font-semibold">Region B: a possible recovery location</p><p className="mt-2 text-sm leading-relaxed">A separate region can help with regional failures. Replication, traffic failover and recovery still need to be planned and tested. Not all regions are paired.</p></div>
+      </div>}
+      {kind === "azure-network" && <div className="space-y-4">
+        <div className="rounded-lg border bg-background p-3"><p className="text-base font-semibold">1. Visitor finds the public website</p><p className="mt-2 text-sm leading-relaxed">DNS resolves its name. A permitted web request reaches the public entry point.</p></div>
+        <div className="min-w-0 rounded-lg border border-brand/50 bg-brand/5 p-3">
+          <p className="text-base font-semibold">Application VNet</p>
+          <ol start={2} className="mt-3 grid gap-3 sm:grid-cols-2">
+            <li className="min-w-0 rounded-lg border bg-background p-3"><p className="text-base font-semibold">2. Web subnet</p><p className="mt-2 text-sm leading-relaxed">A VM serves the website. Network rules allow the intended web and database traffic.</p></li>
+            <li className="min-w-0 rounded-lg border bg-background p-3"><p className="text-base font-semibold">3. Endpoint subnet</p><p className="mt-2 text-sm leading-relaxed">The database’s private endpoint has a private IP address here. The web tier resolves and connects to it.</p></li>
+          </ol>
+        </div>
+        <div className="rounded-lg border bg-background p-3"><p className="text-base font-semibold">4. Managed Azure SQL Database</p><p className="mt-2 text-sm leading-relaxed">Private Link carries the connection to the service outside the VNet. Database permissions still apply; public network access is restricted separately.</p></div>
+        <p className="text-sm leading-relaxed text-muted-foreground">This is a teaching example of the connection path, not a production-ready availability or security blueprint.</p>
+      </div>}
     </figure>
   )
 }

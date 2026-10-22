@@ -9,7 +9,7 @@ explanations, knowledge checks, diagram captions, help text, instructional UI co
 walkthroughs, courses, video scripts, animation scripts and transcripts. Apply it
 when creating or revising those resources.
 Existing material outside an approved task is audited separately, not silently
-rewritten. The current refinement changes AWS lessons only; Azure remains deferred.
+rewritten. Each implementation follows its approved content scope; shared standards do not authorize unrelated content changes.
 
 ## Design the learning sequence before writing
 

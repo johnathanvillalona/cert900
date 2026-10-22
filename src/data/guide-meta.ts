@@ -85,12 +85,12 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.az900,
     title: "Free Azure Fundamentals Practice Test (AZ-900) | Cert900",
     description:
-      "Free Microsoft Azure Fundamentals (AZ-900) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+      "Learn Azure fundamentals with ten beginner lessons, practical examples and original diagrams. Try eight samples, timed AZ-900 practice and topic drills. Free, no signup.",
     h1: "Free Microsoft Azure Fundamentals (AZ-900) practice test",
     faq: [
       [
         "How many questions are on the AZ-900 exam?",
-        "Typically 40 to 60 questions with about 45 minutes of exam time. Most are multiple choice and multiple select, with occasional drag-and-drop and build-list items. Passing requires 700 on a scale up to 1,000.",
+        "Microsoft lists 45 minutes for the AZ-900 assessment. Question counts and formats can vary. A score of 700 or greater is required to pass; Cert900 practice uses its own instructional scoring and does not reproduce the official scoring model.",
       ],
       [
         "Does AZ-900 expire?",
@@ -98,7 +98,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What does AZ-900 cover?",
-        "Three skill areas: cloud concepts (25-30%), Azure architecture and services (35-40%), and Azure management and governance (30-35%). Every topic here links to the matching video in John Savill's free AZ-900 course.",
+        "Three skill areas: cloud concepts (25-30%), Azure architecture and services (35-40%), and Azure management and governance (30-35%). The ten lessons introduce those ideas, with links to existing John Savill videos and official Microsoft references. Older videos may use earlier names or omit current objectives.",
       ],
     ],
   },
