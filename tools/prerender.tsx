@@ -22,6 +22,7 @@ import { GUIDE_PLACEMENTS, placementForGuide } from "../src/lib/advertising-poli
 import { DeleteAccount, LEGAL_EFFECTIVE_DATE, Privacy, Terms } from "../src/screens/Legal"
 import { StaticContentShell } from "../src/components/StaticContentShell"
 import { LEGAL_METADATA, homeMetadata } from "../src/lib/page-metadata"
+import { AIF_LESSONS } from "../src/data/guide-lessons"
 
 const dist = resolve(import.meta.dirname, "../dist")
 const manifest = JSON.parse(readFileSync(resolve(dist, ".vite/manifest.json"), "utf8"))
@@ -184,12 +185,16 @@ function jsonLd(key: GuideKey, meta: GuideMeta): string {
       })),
     },
     {
-      "@type": "Course",
+      "@type": key === "aif" ? "LearningResource" : "Course",
       name: meta.h1,
       description: meta.description,
       url,
       provider: { "@type": "Organization", name: "Cert900", url: `${SITE_URL}/` },
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD", category: "Free" },
+      ...(key === "aif" ? {
+        learningResourceType: "Study guide",
+        isAccessibleForFree: true,
+        hasPart: AIF_LESSONS.map(lesson => ({ "@type": "LearningResource", name: lesson.title, url: `${url}#${lesson.id}`, learningResourceType: "Lesson", teaches: lesson.objective })),
+      } : { offers: { "@type": "Offer", price: "0", priceCurrency: "USD", category: "Free" } }),
     },
     {
       "@type": "BreadcrumbList",
