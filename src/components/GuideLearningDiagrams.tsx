@@ -1,4 +1,4 @@
-type DiagramKind = "ai-map" | "lifecycle" | "rag" | "agent"
+type DiagramKind = "ai-map" | "lifecycle" | "rag" | "agent" | "precision-recall" | "service-choice" | "responsible-review" | "security-boundaries"
 type Step = readonly [title: string, detail: string]
 
 const descriptions: Record<DiagramKind, readonly [string, string]> = {
@@ -6,6 +6,10 @@ const descriptions: Record<DiagramKind, readonly [string, string]> = {
   lifecycle: ["A machine learning lifecycle", "Follow the numbered steps from a business goal to monitoring. Feedback can send work back to an earlier step; retraining depends on the evidence."],
   rag: ["A common vector retrieval augmented generation pattern", "Prepare a searchable index first, then retrieve permitted context for each question. This is one common RAG design; RAG does not always require vectors."],
   agent: ["An agent working within a permission boundary", "Follow a request through an agent, an allowed tool, its result, and a response. Tool access and approval rules apply throughout the flow."],
+  "precision-recall": ["Two questions about the same scam detector", "Out of 1,000 messages, 20 are scams. The detector raises 25 alerts: 15 scams and 10 ordinary messages. It misses 5 scams."],
+  "service-choice": ["Choose a service from the work you need to do", "These are different starting points, not steps in a process. Capabilities overlap; check the particular feature and operating needs."],
+  "responsible-review": ["Check who experiences the errors", "A useful overall result can hide worse outcomes for one group. Investigate the cause, improve the system and check again."],
+  "security-boundaries": ["Keep data and actions inside the user's permissions", "This assistant example checks access at each boundary. A private connection protects a network path; it does not grant permission to read data or use a tool."],
 }
 
 function Flow({ steps }: { steps: readonly Step[] }) {
@@ -106,6 +110,53 @@ export function LearningDiagram({ kind }: { kind: DiagramKind }) {
             <p className="rounded-lg border bg-muted/30 p-3 text-sm leading-relaxed"><span className="block text-base font-semibold">Memory is context</span> Remembered information can inform a decision. It does not grant tool permissions or approval.</p>
           </div>
         </div>
+      )}
+      {kind === "precision-recall" && (
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-lg border bg-background p-4">
+            <p className="text-base font-semibold">Precision: can I trust an alert?</p>
+            <p className="mt-3 text-base leading-relaxed">15 real scams ÷ 25 alerts = <strong>60%</strong></p>
+            <div aria-hidden="true" className="my-3 h-3 overflow-hidden rounded-full bg-muted"><div className="h-full w-3/5 bg-brand" /></div>
+            <p className="text-sm leading-relaxed text-muted-foreground">The other 10 alerts are false alarms. Higher precision means fewer false alarms among the alerts.</p>
+          </div>
+          <div className="rounded-lg border bg-background p-4">
+            <p className="text-base font-semibold">Recall: how many scams did I find?</p>
+            <p className="mt-3 text-base leading-relaxed">15 found ÷ 20 actual scams = <strong>75%</strong></p>
+            <div aria-hidden="true" className="my-3 h-3 overflow-hidden rounded-full bg-muted"><div className="h-full w-3/4 bg-brand" /></div>
+            <p className="text-sm leading-relaxed text-muted-foreground">The other 5 scams were missed. Higher recall means fewer missed scams among all the actual scams.</p>
+          </div>
+        </div>
+      )}
+      {kind === "service-choice" && (
+        <dl className="grid gap-3 lg:grid-cols-3">
+          {[
+            ["Use model capabilities in an application", "Amazon Bedrock", "Build with foundation models and related capabilities without operating the underlying model infrastructure."],
+            ["Develop, train and operate a model", "Amazon SageMaker AI", "Use tools across the machine-learning lifecycle when your team needs model development and operating control."],
+            ["Work with connected business information", "Amazon Quick", "Use a business workspace with capabilities for finding information, analyzing it and taking supported actions."],
+          ].map(([job, service, detail]) => (
+            <div key={service} className="min-w-0 rounded-lg border bg-background p-4">
+              <dt className="text-base leading-snug"><span className="block font-semibold">{job}</span><span className="mt-3 block font-semibold text-brand">{service}</span></dt>
+              <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{detail}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {kind === "responsible-review" && (
+        <Flow steps={[
+          ["Compare relevant outcomes", "Check false alarms and missed cases for relevant groups, with appropriate privacy safeguards."],
+          ["Investigate the gap", "Review examples, data coverage, labels and the decision being made. A gap needs investigation, not an assumed cause."],
+          ["Improve and evaluate again", "Change the data, design or operating process, then test both overall and group outcomes."],
+          ["Provide a correction route", "Make important decisions reviewable and give affected people a useful way to challenge an error."],
+        ]} />
+      )}
+      {kind === "security-boundaries" && (
+        <Flow steps={[
+          ["Identify the requester", "Authenticate the user, then check what that identity is authorized to do."],
+          ["Retrieve permitted information", "Enforce document access before text reaches the model. Do not rely on the model to hide forbidden passages."],
+          ["Check generated output", "Treat a response as a proposal that may contain errors or unsafe instructions."],
+          ["Authorize the tool action", "Apply least privilege and required approval before any high-impact action executes."],
+          ["Keep protected evidence", "Record appropriate access and action evidence without exposing sensitive prompts or retaining data indefinitely."],
+        ]} />
       )}
     </figure>
   )

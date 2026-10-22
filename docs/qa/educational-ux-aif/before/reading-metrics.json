@@ -1,0 +1,83 @@
+[
+  {
+    "id": "aif-ai-ml-approaches",
+    "coreWords": 473,
+    "maxParagraphWords": 91,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 998,
+    "checks": 1
+  },
+  {
+    "id": "aif-ml-lifecycle",
+    "coreWords": 417,
+    "maxParagraphWords": 83,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 940,
+    "checks": 1
+  },
+  {
+    "id": "aif-model-performance",
+    "coreWords": 412,
+    "maxParagraphWords": 81,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 843,
+    "checks": 1
+  },
+  {
+    "id": "aif-foundation-models-services",
+    "coreWords": 582,
+    "maxParagraphWords": 121,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 1084,
+    "checks": 1
+  },
+  {
+    "id": "aif-prompting-context",
+    "coreWords": 454,
+    "maxParagraphWords": 90,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 901,
+    "checks": 1
+  },
+  {
+    "id": "aif-retrieval-customization",
+    "coreWords": 470,
+    "maxParagraphWords": 90,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 1084,
+    "checks": 1
+  },
+  {
+    "id": "aif-agents-evaluation",
+    "coreWords": 517,
+    "maxParagraphWords": 90,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 1068,
+    "checks": 1
+  },
+  {
+    "id": "aif-responsible-ai",
+    "coreWords": 439,
+    "maxParagraphWords": 91,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 895,
+    "checks": 1
+  },
+  {
+    "id": "aif-security-governance",
+    "coreWords": 524,
+    "maxParagraphWords": 87,
+    "coreSubheadings": 0,
+    "optionalWords": 0,
+    "totalWords": 1003,
+    "checks": 1
+  }
+]
