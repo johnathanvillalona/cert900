@@ -28,14 +28,14 @@ export interface LearningResources {
 }
 const awsResources: LearningResources = {
   examId: "aif-c01", contentsId: "aif-lesson-contents", taskLabel: "AWS task references", providerLabel: "AWS",
-  videoNotice: "Existing video chapters may use older names or omit newer objectives.", resolveSources: aifSourcesForLesson,
+  videoNotice: "Some linked videos were recorded before the latest updates, so they may use older names or leave out newer objectives.", resolveSources: aifSourcesForLesson,
 }
 
 /** Pure presentation: no attempt, answer, analytics or consent state. Native HTML works without JS. */
 export function LearningLesson({ lesson, content, resources = awsResources }: { lesson: GuideLessonDescriptor; content: LessonContent; resources?: LearningResources }) {
   return <section aria-labelledby={lesson.id} data-testid="learning-lesson" className="min-w-0 scroll-mt-6 border-t pt-8">
     <h2 id={lesson.id} tabIndex={-1} className="scroll-mt-6 font-heading text-2xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4">{lesson.title}</h2>
-    <p className="mt-3 max-w-[65ch] text-base leading-relaxed text-muted-foreground"><strong className="text-foreground">You will learn:</strong> {lesson.objective}</p>
+    <p className="mt-3 max-w-[65ch] text-base leading-relaxed text-muted-foreground"><strong className="text-foreground">You’ll learn to</strong> {lesson.objective}</p>
     <div data-testid="lesson-explanation" className="mt-6 space-y-6 text-base leading-relaxed">
       <div data-testid="lesson-intro" className="max-w-[65ch] space-y-3">{content.intro}</div>
       {content.diagram && <div className="min-w-0">{content.diagram}</div>}
@@ -43,25 +43,25 @@ export function LearningLesson({ lesson, content, resources = awsResources }: { 
     </div>
     {content.comparison && <div className="mt-5 min-w-0">{content.comparison}</div>}
     <div className="mt-7 rounded-lg border-l-4 border-brand/50 bg-muted/25 p-4 sm:p-5">
-      <h3 className="font-heading text-lg font-semibold">Try the idea: {content.scenarioTitle}</h3>
+      <h3 className="font-heading text-lg font-semibold">Worked example: {content.scenarioTitle}</h3>
       <div data-testid="lesson-scenario" className="mt-3 max-w-[65ch] space-y-3 text-base leading-relaxed">{content.scenario}</div>
     </div>
     <p className="mt-5 max-w-[65ch] text-base leading-relaxed"><strong>Watch out:</strong> {content.misconception}</p>
     <p data-testid="lesson-takeaway" className="mt-5 rounded-lg bg-primary/10 p-4 text-base leading-relaxed"><strong>Takeaway:</strong> {content.takeaway}</p>
     <details data-testid="lesson-check" className="group mt-5 rounded-lg border bg-muted/30">
       <summary className="min-h-11 cursor-pointer rounded-lg p-4 text-base font-semibold leading-relaxed text-brand focus-visible:outline-2 focus-visible:outline-offset-2">Check your understanding: {content.check.prompt}</summary>
-      <div className="space-y-3 border-t p-4 text-base leading-relaxed [&>p]:max-w-[65ch]"><p className="text-sm font-medium text-muted-foreground">Unscored self-check. Nothing is submitted or saved.</p>{content.check.explanation}</div>
+      <div className="space-y-3 border-t p-4 text-base leading-relaxed [&>p]:max-w-[65ch]"><p data-testid="lesson-check-note" className="text-sm font-medium text-muted-foreground">This is just for practice. It isn’t graded, and your answer isn’t collected or saved.</p>{content.check.explanation}</div>
     </details>
     <details data-testid="lesson-advanced" className="mt-5 rounded-lg border">
       <summary className="min-h-11 cursor-pointer rounded-lg p-4 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">More detail: {content.advanced.title}</summary>
       <div className="space-y-6 border-t p-4 text-base leading-relaxed sm:p-5 [&>p]:max-w-[65ch]">{content.advanced.content}</div>
     </details>
     <nav aria-label={`Study links for ${lesson.title}`} className="mt-5 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-5">
-      <a className={`${link} inline-flex min-h-11 items-center`} href={`${studyPath(resources.examId)}#domain-${lesson.domains[0]}`}>Related domain videos</a>
-      <a className={`${link} inline-flex min-h-11 items-center`} href={examPath(resources.examId, "drill")}>Open practice drill setup</a>
+      <a className={`${link} inline-flex min-h-11 items-center`} href={`${studyPath(resources.examId)}#domain-${lesson.domains[0]}`}>Watch related topic videos</a>
+      <a className={`${link} inline-flex min-h-11 items-center`} href={examPath(resources.examId, "drill")}>Set up a practice drill</a>
       <a className={`${link} inline-flex min-h-11 items-center`} href={`#${resources.contentsId}`}>Back to lesson contents</a>
     </nav>
-    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">In drill setup, choose {lesson.domains.map(d => `domain ${d}`).join(" or ")}. Links do not preselect a topic. {resources.videoNotice}</p>
+    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">When you set up the drill, choose {lesson.domains.map(d => `domain ${d}`).join(" or ")}. You’ll choose the topic there; the link doesn’t select one for you. {resources.videoNotice}</p>
     <details className="mt-3">
       <summary className="min-h-11 cursor-pointer py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Official references for lesson {lesson.title.split(".")[0]}</summary>
       <p className="mb-3 text-sm text-muted-foreground">{resources.taskLabel}: {lesson.objectiveRefs.join(", ")}.</p>
@@ -100,14 +100,14 @@ export function ComparisonTable({ caption, columns, rows }: { caption: string; c
 export function AifLessonContents() {
   return <nav aria-label="AWS lesson contents" className="scroll-mt-6 rounded-xl border bg-card p-5 sm:p-6">
     <h2 id="aif-lesson-contents" tabIndex={-1} className="scroll-mt-6 font-heading text-2xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4">Learn the AIF-C01 foundations</h2>
-    <p className="mt-3 text-base leading-relaxed text-muted-foreground">Work through these nine lessons in order, or return to a concept you want to clarify. They are a foundation for further study, not a complete certification course. Worked examples and self-checks are original Cert900 teaching material.</p>
+    <p className="mt-3 text-base leading-relaxed text-muted-foreground">You can work through these nine lessons in order or jump to something you want to understand better. They’re a foundation for further study, not a complete certification course. The worked examples and practice checks are original Cert900 teaching material.</p>
     <ol className="mt-4 grid gap-1 sm:grid-cols-2">{AIF_LESSONS.map(lesson => <li key={lesson.id} className="min-w-0"><a className="flex min-h-11 items-center rounded-md px-2 py-3 text-base font-medium text-brand hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2" href={`#${lesson.id}`}>{lesson.title}</a></li>)}</ol>
   </nav>
 }
 
 export function AifCurriculum() {
   return <>
-    <p className="mt-3 text-base leading-relaxed text-muted-foreground">The official AIF-C01 guide organizes scored content into five domains. The weights below are AWS's published values, not a promise about an individual exam or Cert900's scoring formula.</p>
+    <p className="mt-3 text-base leading-relaxed text-muted-foreground">AWS organizes the AIF-C01 objectives into five domains. The percentages below are the official domain weights; Cert900 uses its own practice scoring. Use the weights to help plan your study, rather than to predict the questions on an individual exam.</p>
     <ComparisonTable caption="Official AIF-C01 domain weights" columns={["AWS exam domain", "Scored content"]} rows={AIF_CURRICULUM.map(domain => [domain.title, `${domain.weight}%`])} />
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Curriculum and service references reviewed {AIF_REVIEWED_ON}, against guide revision 1.1, published April 30, 2026. AWS can revise objectives without changing the exam code. <a className={link} href={AIF_SOURCES.curriculum.url}>Read the official exam guide</a> and <a className={link} href={AIF_SOURCES.revisions.url}>revision history</a>.</p>
   </>
