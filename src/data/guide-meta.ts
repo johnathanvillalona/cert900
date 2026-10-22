@@ -206,7 +206,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aif,
     title: "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900",
     description:
-      "Free AWS Certified AI Practitioner (AIF-C01) practice: original questions in the real formats (multiple response, ordering, matching), timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+      "Learn AIF-C01 foundations with nine free lessons on AI, AWS services, prompting, RAG, agents and responsible AI, plus original practice questions. No signup.",
     h1: "Free AWS Certified AI Practitioner (AIF-C01) practice test",
     faq: [
       [
@@ -215,7 +215,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What score do I need to pass?",
-        "AWS reports a scaled score from 100 to 1,000 with a minimum passing score of 700. Scoring is compensatory: you pass on the overall exam, not on each section.",
+        "AWS reports a scaled score from 100 to 1,000 with a minimum passing score of 700. Scoring is compensatory: you pass on the overall exam, not on each section. Cert900 uses its own instructional practice scoring; its results do not reproduce AWS's proprietary scoring or predict an official score.",
       ],
       [
         "Do I need AWS experience first?",
@@ -223,7 +223,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Is this actually free?",
-        "Yes. Every question, the exam simulator, and progress tracking are free with no account. Topic reviews link to Andrew Brown's free 15-hour AIF-C01 course on freeCodeCamp's YouTube channel.",
+        "Yes. The lessons, questions, exam simulator and progress tracking are free with no account. Existing topic reviews link to Andrew Brown's free AIF-C01 course on freeCodeCamp's YouTube channel. Some topics share older course chapters, which may not cover newer objectives or current service names.",
       ],
     ],
   },

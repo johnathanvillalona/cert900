@@ -7,6 +7,8 @@ import { GuideResources } from "@/components/GuideResources"
 import { StaticContentShell } from "@/components/StaticContentShell"
 import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
 import { ArrowRight, Check } from "lucide-react"
+import { AifCurriculum, AifLessonContents } from "@/components/GuideLearningContent"
+import { AifLessons } from "@/content/guides/aif-c01"
 
 /**
  * SEO guide pages. These components are prerendered to static HTML at build
@@ -385,24 +387,33 @@ export function AifGuide() {
           The AWS Certified AI Practitioner (AIF-C01) validates a foundational understanding of AI, machine learning,
           and generative AI on AWS: what the technologies are, when to apply them, and how to use them responsibly and
           securely. This site gives you {ex.questionCount} original practice questions plus {ex.pbqCount} interactive
-          items in the exam's own formats, free and without an account.
+          matching and ordering items, free and without an account. The lessons below explain the ideas behind
+          the questions, with original worked scenarios and optional self-checks.
         </p>
         <p className="text-muted-foreground leading-relaxed">
           AIF-C01 is not just multiple choice: the real exam also uses multiple-response ("Select TWO"), ordering, and
-          matching questions. Our simulator reproduces all four formats, runs {ex.examMinutes} timed minutes, and scores
-          on the real 100 to 1,000 scale with the 700 pass line. Every topic links into the free 15-hour freeCodeCamp
-          course at the matching chapter.
+          matching questions. Cert900 offers practice in those formats and runs {ex.examMinutes}-minute timed sessions
+          using its own instructional scoring model. A practice score does not reproduce AWS's proprietary scaled scoring
+          or predict an official result. Existing topic links open chapters of a free freeCodeCamp course; older chapters
+          may use previous service names and do not cover every newer objective.
         </p>
         <Cta label="Start the free AIF-C01 practice test" examId="aif-c01" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What AIF-C01 covers</h2>
-        <DomainTable examId="aif-c01" />
+        <AifCurriculum />
+        <details className="mt-4 rounded-lg border p-4">
+          <summary className="min-h-11 cursor-pointer py-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Compare Cert900's practice allocation</summary>
+          <DomainTable examId="aif-c01" />
+        </details>
         <p className="text-muted-foreground mt-3 text-sm">
           Real exam facts: 65 questions (50 scored, 15 unscored), 90 minutes, scaled 100 to 1,000, passing score 700.
         </p>
       </section>
+
+      <AifLessonContents />
+      <AifLessons />
 
       <section className="flex flex-col gap-4">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
