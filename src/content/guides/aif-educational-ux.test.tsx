@@ -44,7 +44,8 @@ describe('beginner AWS lesson structure and preserved depth', () => {
       expect(text(renderToStaticMarkup(createElement('div', null, content.scenario)))).toContain(' ')
       expect(renderToStaticMarkup(createElement('div', null, content.scenario))).toContain('<ol')
       expect(html.match(/data-testid="lesson-check"/g)).toHaveLength(1)
-      expect(html).toContain('Nothing is submitted or saved.')
+      expect(html).toContain('data-testid="lesson-check-note"')
+      expect(html).toContain('It isn’t graded, and your answer isn’t collected or saved.')
       expect(html).not.toMatch(/<script|<iframe|<form|<input|onClick=|onToggle=/)
       // A guard against dense paragraphs, not a target word count for authors.
       for (const paragraph of html.matchAll(/<p(?:\s[^>]*)?>([\s\S]*?)<\/p>/g)) {

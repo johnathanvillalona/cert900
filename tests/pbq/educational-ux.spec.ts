@@ -55,6 +55,9 @@ test('native lesson checks and extensions leave learner progress and consent unc
       await summary.focus()
       await page.keyboard.press('Enter')
       await expect(disclosure).toHaveAttribute('open', '')
+      if (testId === 'lesson-check') {
+        await expect(disclosure.getByTestId('lesson-check-note')).toHaveText('This is just for practice. It isn’t graded, and your answer isn’t collected or saved.')
+      }
       await page.keyboard.press('Enter')
       await expect(disclosure).not.toHaveAttribute('open')
     }
