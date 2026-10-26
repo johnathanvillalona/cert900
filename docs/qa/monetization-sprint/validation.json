@@ -8,8 +8,8 @@
   "focusedBrowserTests": 40,
   "focusedBrowserDuration": "1.1m",
   "focusedBrowserEvidence": "focused-recheck.log",
-  "persistentBrowserReconnection": "Blocked pending existing connection troubleshooting; no fresh external account inspection",
-  "temporaryTabCleanup": "Blocked until persistent browser connection returns; preserve pre-existing tabs and sessions",
+  "persistentBrowserReconnection": "2026-10-26: fresh installed official MCP process automatically authenticated using saved owner-authorized private extension configuration; existing Codex process may need one-time reload",
+  "temporaryTabCleanup": "New QA tab created this turn closed after read-only checks; prior client group not visible and cleanup remains unverified; original tabs preserved",
   "simulatorTests": 7,
   "workerGroups": 13,
   "workerOutboundAttempts": 0,
@@ -52,6 +52,13 @@
   "manualLimits": [
     "Physical device and screen-reader review",
     "Provider approval, actual contracts, production consent/CMP and SDK adapters remain future gates",
-    "Persistent browser reconnection and interrupted temporary-tab cleanup remain blocked; focused local checks do not establish fresh external statuses"
-  ]
+    "Earlier-client temporary-tab cleanup and publisher inbox follow-up remain unverified; account rejection reason requires investigation before any new attestation/resubmission"
+  ],
+  "authenticatedAccountFollowUp": {
+    "date": "2026-10-26",
+    "adsenseStatus": "Your account wasn't approved",
+    "specificReasonVisible": false,
+    "accountSettingsChanged": false,
+    "resubmitted": false
+  }
 }

@@ -1,6 +1,6 @@
 # Cert900 monetization, UX and SEO sprint
 
-Prepared October 26, 2026 (America/New_York). Publisher/account observations below are dated **October 24**; they are not claims of a fresh October 26 dashboard or inbox inspection. No publisher application or email was repeated during continuation.
+Prepared October 26, 2026 (America/New_York). Publisher outreach and traffic observations below are dated **October 24**. AdSense onboarding was rechecked read-only on **October 26** and has changed; no fresh inbox inspection was performed. No publisher application or email was repeated during continuation.
 
 ## Local candidate and production boundary
 
@@ -15,13 +15,13 @@ The unfinished LMS lineage is excluded. Its accepted worktree remains clean at `
 
 ## Completed publisher workflows
 
-| Provider | Actual result, October 24 | Confirmation | Remaining gate |
+| Provider | Actual result (October 24 unless dated otherwise) | Confirmation | Remaining gate |
 |---|---|---|---|
 | Carbon Ads | One nonbinding invitation request submitted | **Thank you! Our team will be in touch.** No numeric reference supplied | Await response. No account, exclusive agreement or ad activation was accepted. |
 | Media.net | One nonbinding publisher-sales inquiry sent | Gmail **Message sent**; a narrowly scoped Sent search contains the outgoing message | Await eligibility, placement, consent and commercial response. Email is not publisher approval/enrollment. |
 | Infolinks | One nonbinding eligibility inquiry sent; registration paused as instructed | Gmail **Message sent**, corroborated by the scoped Sent search | Owner declined service-agreement acceptance. Ask provider for an application-only path and manual/static-only compatibility. |
 | Journey | Contact step reached the required Google/GA4 connection; owner deferred further work | Captured OAuth gate, **not** a submitted application | Measured traffic below current premium-session threshold, unreviewed OAuth scope and incompatible-looking automated placements. |
-| AdSense | Existing account/site and review request preserved | **Getting ready**, **Review requested**, ownership marked verified | Not approved. Dashboard still said ads.txt **Not found**, despite correct public serving. |
+| AdSense | Existing account/site preserved; **October 26** read-only onboarding recheck | **Your account wasn't approved**; **You need to fix some issues before you can use AdSense** | The screen requests program-policy compliance confirmation and offers Resubmit, but gives no specific violation. Neither control was used. October 24 ads.txt recognition remains historical. |
 
 Private workflow tracker: `.publisher-private/tracker.json`. Evidence includes Carbon's confirmation, the two-email scoped Sent snapshot, the Journey gate, AdSense status and analytics reports. This directory is Git-ignored and absent from public build output. No credentials, browser tokens, payment details or identity documents are stored. The Infolinks toast expired before a later evaluation; the scoped Sent evidence is its durable corroboration. Do not resend an inquiry because a transient toast is no longer visible.
 
@@ -38,7 +38,7 @@ See the [dated official-source terms review](monetization-sprint-provider-terms.
 
 Provider replies after October 24 have not been inspected in this report. No approval, rejection or delivery to a provider's inbox is inferred from Gmail's sent confirmation.
 
-**October 26 browser limitation:** Playwright waited for its extension connection after the interruption. A request to reconnect the existing localhost review tab is pending. The alternate available browser connector also reported Chrome unavailable. No session, cookies or security settings were changed to work around that boundary. A fresh dashboard/inbox check and final temporary-tab cleanup are blocked until connection returns. The two completed compose tabs were closed after sending; later provider-tab cleanup was interrupted and its final state is unverified. List tabs before cleanup, preserve pre-existing tabs and the connection, and close only completed temporary sprint tabs. Do not restart applications to check their status.
+**October 26 connection follow-up:** With explicit owner authorization, the profile-specific extension authentication was saved privately in the existing user-level MCP configuration. A fresh instance of the already-installed official Playwright MCP 0.0.83 connected automatically without an approval dialog. No packages, browser cookies or extension security settings changed; no credential was displayed or committed. Localhost navigation, DOM inspection, scrolling and screenshot capture passed. The same newly created QA tab was reused for the read-only AdSense check and then closed; the connection remains available. This separate client cannot see the earlier client's tab group, so that earlier interrupted cleanup remains unverified. Preserve original tabs; do not claim all Chrome tabs were cleaned. No inbox was inspected or application repeated. The previously loaded Codex MCP process may need a one-time reload/restart to use its saved environment; automatic authentication itself was tested successfully.
 
 ## Verified traffic and measurement gaps
 
@@ -95,7 +95,7 @@ Emergency source controls: keep `PUBLISHER_POLICY.enabled` and `ADVERTISING.enab
 ## Fastest responsible route to first revenue
 
 1. Keep the existing optional support link available without changing payment setup. Its destination is already configured; account/payout health was not inspected, and no new financial capability is claimed.
-2. Await the three completed publisher contacts and existing AdSense review. Evaluate the first actual compatible offer; do not automatically accept Carbon exclusivity or Infolinks terms to accelerate onboarding.
+2. Await the three completed publisher contacts. AdSense is now blocked by the October 26 account-not-approved state: investigate the specific rejection reason before considering any policy attestation or resubmission. Evaluate the first actual compatible offer; do not automatically accept Carbon exclusivity or Infolinks terms to accelerate onboarding.
 3. Prefer one manual static educational placement after provider approval, owner contract approval where required, a verified consent/CMP design, provider-specific adapter testing and separate activation/release authorization. Do not activate ads merely by flipping a source flag.
 4. Consider one relevant affiliate relationship after its live agreement and eligibility are reviewed. TryHackMe, Hack The Box, Pearson IT Certification and Pluralsight are documented opportunities, **not approved Cert900 relationships**. No affiliate account, contract, tracking link or payment setup was activated. Direct CompTIA voucher affiliate eligibility was not verified; do not resell vouchers.
 5. For direct sponsorship, use a short factual media sheet with dated measured traffic, intended audience, one disclosed static placement and no tracking pixel by default. Do not quote a guaranteed reach, sell a placement or sign a term without approval. No bulk outreach was sent.
@@ -108,7 +108,7 @@ See [validation evidence](qa/monetization-sprint/README.md) and machine-readable
 
 Automated coverage passes: **670 units, 216 browser cases, seven simulator cases, 13 isolated Worker groups**, build/TypeScript, all 36 sitemap URLs/11 hubs, metadata/visible structured-data parity, consent/withdrawal and no-ad requests, keyboard/touch and both themes at five widths. Physical-device, screen-reader and owner visual approval remain manual. Provider agreement/privacy compatibility, actual account approval and SDK behavior cannot be established by mock tests.
 
-The **October 26 focused browser recheck passed 40 cases in 1.1 minutes**: learning destinations, technical SEO, analytics consent, disabled/mocked advertising and ads.txt. [Exact run log](qa/monetization-sprint/focused-recheck.log). This isolated local Chrome run is separate from the October 24 full suite and does not establish a persistent-browser reconnection, temporary-tab cleanup or fresh external publisher/account status. Those browser follow-up limits remain as documented above.
+The **October 26 focused browser recheck passed 40 cases in 1.1 minutes**: learning destinations, technical SEO, analytics consent, disabled/mocked advertising and ads.txt. [Exact run log](qa/monetization-sprint/focused-recheck.log). This isolated local Chrome run is separate from the October 24 full suite and does not establish a persistent-browser reconnection, temporary-tab cleanup or fresh external publisher/account status. The later authenticated October 26 connection and AdSense check are separate evidence, described above; earlier-client cleanup and inbox follow-up remain unverified.
 
 Root production audit: **zero findings**. Full root audit: **three existing development findings** through Undici/Miniflare/Wrangler. Zod stays **4.6.6**. Native-mobile findings were not remediated or re-audited; do not call the whole repository vulnerability-free. No dependency version changed. `npm ls --all` passes from the dependency-owning checkout; the temporary symlink-traversal artifact is documented.
 
