@@ -3,6 +3,7 @@ import { GUIDE_EXAMS, GUIDE_META, guideExamsForPath, type GuideMeta } from "@/da
 import { selectGuideSamples } from "@/lib/guide-sample-selection"
 import { examPath, studyPath } from "@/data/routes"
 import { AdSlot } from "@/components/AdSlot"
+import { DONATE_URL } from "@/lib/site"
 import { GuideResources } from "@/components/GuideResources"
 import { StaticContentShell } from "@/components/StaticContentShell"
 import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
@@ -187,6 +188,16 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
           the page's primary action and the reason these pages rank. Inert until
           the AFFILIATE fields in src/lib/site.ts are filled in. */}
       <GuideResources path={meta.path} />
+
+      {/* One optional invitation after the PBQ guide, never inside learning screens. */}
+      {meta.path === GUIDE_META.pbq.path && DONATE_URL && <aside aria-labelledby="guide-support-heading" data-testid="guide-support" className="mt-10 border-t pt-6">
+        <h2 id="guide-support-heading" className="font-heading text-lg font-semibold">Help keep Cert900 free</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Enjoying Cert900? Help keep free IT certification practice available.</p>
+        <a href={DONATE_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center rounded-md px-3 py-2 text-sm font-semibold text-brand underline underline-offset-4 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2">
+          Support Cert900<span className="sr-only"> on Buy Me a Coffee (opens in a new tab)</span>
+        </a>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">Support is optional. Every exam and study guide stays free.</p>
+      </aside>}
 
       {/* Crawlable internal links: guide -> sibling guides + home. Real <a>
           hrefs (unlike the in-app CTA buttons) so search crawlers can walk the
@@ -838,7 +849,10 @@ export function PbqGuide() {
                 {preview.id === "workstation" && <span>Screenshot of the Cert900 simulation, including attributed hardware photographs. <a href="/pbq/CREDITS.md" className="inline-flex min-h-11 items-center rounded-md text-brand underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Photo authors, sources and licenses</a></span>}
               </figcaption>
             </figure>
-            <a href={examPath(preview.examId)} className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${EXAM_META[preview.examId].code} practice menu for ${preview.title}`}>Open practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></a>
+            <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:gap-x-5">
+              <a href={examPath(preview.examId)} className="inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${EXAM_META[preview.examId].code} practice menu for ${preview.title}`}>Open practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></a>
+              <a href={`${studyPath(preview.examId)}#resources`} data-testid="pbq-preview-study" className="inline-flex min-h-11 items-center rounded-md text-sm font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2">Review {EXAM_META[preview.examId].code} study resources</a>
+            </div>
           </article>)}
         </div>
       </section>

@@ -1,0 +1,22 @@
+
+> comptia-practice-trainer@2.0.0 test:simulations
+> playwright test --config playwright.simulations.config.ts
+
+[WebServer] (node:2791509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:2791572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ACL Chrome 4x CPU performance: [{"name":"boundary","samples":10,"p95":53.30000001192093,"max":53.30000001192093,"cells":43740,"ruleVisits":524814},{"name":"overlap","samples":10,"p95":12.099999994039536,"max":12.099999994039536,"cells":14336,"ruleVisits":113820},{"name":"complete","samples":10,"p95":61.70000001788139,"max":61.70000001788139,"cells":27508,"ruleVisits":329568}]
+  ✓  1 tests/simulations/acl-performance.spec.ts:2:1 › exact ACL grading stays bounded at 4x CPU throttling (2.1s)
+  ✓  2 tests/simulations/acl-session.spec.ts:2:1 › ACL Apply and repeated grading in one event use committed rules and notify once (618ms)
+  ✓  3 tests/simulations/foundation.spec.ts:6:1 › real hook: batched action then grading, exactly-once notification and locked state (738ms)
+  ✓  4 tests/simulations/foundation.spec.ts:21:1 › real hook: model survives navigation, authoritative reset is isolated and version is frozen (600ms)
+  ✓  5 tests/simulations/foundation.spec.ts:37:1 › exam: same scoring entry, vendor weight/scaling, one progress fold and post-finish lock (775ms)
+Windows runtime Chrome 4x CPU: {"p95":38.30000001192093,"max":38.30000001192093,"cells":15000,"ruleVisits":180000}
+  ✓  6 tests/simulations/windows-performance.spec.ts:2:1 › exact Windows runtime grading remains bounded at Chrome 4x CPU (966ms)
+  ✓  7 tests/simulations/windows-session.spec.ts:2:1 › Windows batched Apply and grade sees effective policy, locks and notifies exactly once (533ms)
+
+  7 passed (8.4s)

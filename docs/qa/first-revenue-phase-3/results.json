@@ -1,0 +1,36 @@
+{
+  "baseline": "d6b7ba2e231f347ee93f847fc10b5e146c5e425d",
+  "unitTests": 674,
+  "unitFiles": 45,
+  "browserTests": 224,
+  "focusedRerunTests": 8,
+  "simulatorTests": 7,
+  "workerGroups": 13,
+  "workerOutboundAttempts": 0,
+  "buildPassed": true,
+  "productionAuditFindings": 0,
+  "fullAuditFindings": {
+    "high": 1,
+    "moderate": 2,
+    "total": 3
+  },
+  "resolvedZod": "4.6.6",
+  "sitemapUrls": 36,
+  "studyHubs": 11,
+  "cssWidths": [
+    320,
+    375,
+    390,
+    768,
+    1440
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "screenshots": 20,
+  "productionChanged": false,
+  "dependenciesChanged": false,
+  "adsActivated": false,
+  "privateEvidenceCommitted": false
+}

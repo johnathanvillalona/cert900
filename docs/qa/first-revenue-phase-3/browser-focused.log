@@ -1,0 +1,21 @@
+
+> comptia-practice-trainer@2.0.0 test:browser
+> playwright test tests/pbq/first-revenue-phase-3.spec.ts
+
+[WebServer] (node:2871871) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:2872167) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/pbq/first-revenue-phase-3.spec.ts:12:1 › support is a native optional link after teaching, not a payment widget (531ms)
+  ✓  2 tests/pbq/first-revenue-phase-3.spec.ts:37:1 › contextual preview links reach existing Study Hub resource anchors (824ms)
+  ✓  3 tests/pbq/first-revenue-phase-3.spec.ts:50:1 › revised snippets match delivered and rendered metadata without moving canonical URLs (470ms)
+  ✓  4 tests/pbq/first-revenue-phase-3.spec.ts:66:3 › optional support and contextual links stay accessible at 320px in both themes (3.3s)
+  ✓  5 tests/pbq/first-revenue-phase-3.spec.ts:66:3 › optional support and contextual links stay accessible at 375px in both themes (3.0s)
+  ✓  6 tests/pbq/first-revenue-phase-3.spec.ts:66:3 › optional support and contextual links stay accessible at 390px in both themes (3.1s)
+  ✓  7 tests/pbq/first-revenue-phase-3.spec.ts:66:3 › optional support and contextual links stay accessible at 768px in both themes (3.1s)
+  ✓  8 tests/pbq/first-revenue-phase-3.spec.ts:66:3 › optional support and contextual links stay accessible at 1440px in both themes (3.3s)
+
+  8 passed (25.1s)

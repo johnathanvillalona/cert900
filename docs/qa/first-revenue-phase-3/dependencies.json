@@ -1,0 +1,10 @@
+{
+  "dependencyOwner": "<workspace>/hotfix-zod-production-worktree",
+  "reusedWithoutInstall": true,
+  "packageJsonUnchanged": true,
+  "lockfileUnchanged": true,
+  "ownerLockfileMatches": true,
+  "resolvedZod": "4.6.6",
+  "ownerTreeProblems": [],
+  "nativeMobile": "Unchanged; not re-audited in this root-only change. Prior separate findings including critical remain unresolved."
+}

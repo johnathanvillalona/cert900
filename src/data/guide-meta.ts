@@ -32,7 +32,6 @@ const inventory = (...ids: string[]) => ({
 })
 const APLUS = inventory("220-1201", "220-1202")
 const NPLUS = inventory("n10-009")
-const COMPTIA_PBQ = inventory("220-1201", "220-1202", "n10-009")
 
 const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   secplus: {
@@ -230,7 +229,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   aplus: {
     path: GUIDE_PATHS.aplus,
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
-    description: `Free CompTIA A+ practice tests for Core 1 (220-1201) and Core 2 (220-1202): ${APLUS.q} original questions, ${APLUS.pbq} performance-based questions and timed practice using Cert900's instructional scoring model. No signup.`,
+    description: "Free A+ Core 1 (220-1201) and Core 2 (220-1202) practice tests, eight explained sample questions and links to both Study Hubs. No signup required.",
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
     faq: [
       [
@@ -319,9 +318,9 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   },
   pbq: {
     path: GUIDE_PATHS.pbq,
-    title: "Free CompTIA PBQ Practice: Simulated Performance-Based Questions | Cert900",
-    description: `Free A+ and Network+ PBQ practice: Windows command troubleshooting, firewall configuration, network diagrams and photo-backed cabling. ${COMPTIA_PBQ.pbq} original PBQs. No signup.`,
-    h1: "CompTIA PBQ practice: interactive simulations, free",
+    title: "Free CompTIA PBQ Practice Labs: A+ & Network+ | Cert900",
+    description: "Practice A+ and Network+ PBQs: Windows command troubleshooting, firewall configuration, ACL simulation and photo-backed cabling. Free, no signup.",
+    h1: "Free CompTIA PBQ practice labs for A+ and Network+",
     faq: [
       [
         "What is a PBQ?",
