@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { SiteFooter } from "@/components/SiteFooter"
 import { Wordmark } from "@/components/Wordmark"
+import { LearningDestinations } from "@/components/LearningDestinations"
 
 /** Complete document chrome shared by prerendered guides and Study Hubs. */
 export function StaticContentShell({ children }: { children: ReactNode }) {
@@ -9,11 +10,11 @@ export function StaticContentShell({ children }: { children: ReactNode }) {
       Skip to content
     </a>
     <header className="border-b">
-      <nav aria-label="Primary" className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
+      <nav aria-label="Primary" className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-1 px-4 py-2 min-[375px]:flex-row min-[375px]:items-center min-[375px]:gap-3">
         <a href="/" className="brand-link flex min-h-11 items-center rounded-md text-sm" aria-label="cert900 home" data-testid="brand">
           <Wordmark className="text-sm" />
         </a>
-        <a href="/" className="inline-flex min-h-11 items-center text-sm text-muted-foreground underline-offset-2 hover:text-foreground hover:underline">All exams</a>
+        <LearningDestinations />
       </nav>
     </header>
     <div className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 pt-8">{children}</div>

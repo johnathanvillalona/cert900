@@ -1,0 +1,53 @@
+
+> comptia-practice-trainer@2.0.0 test:browser
+> playwright test tests/pbq/learning-destinations.spec.ts tests/pbq/technical-seo.spec.ts tests/pbq/analytics.spec.ts tests/pbq/advertising.spec.ts tests/pbq/ads-txt.spec.ts
+
+[WebServer] (node:2558972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 40 tests using 1 worker
+
+(node:2559266) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/pbq/ads-txt.spec.ts:7:1 › ads.txt is a real plain-text asset on GET and HEAD, without advertising requests (701ms)
+  ✓   2 tests/pbq/advertising.spec.ts:80:1 › production HTML for all static content contains no inventory or advertising bootstrap (2.4s)
+  ✓   3 tests/pbq/advertising.spec.ts:123:3 › mock manual unit: consent, stable layout, withdrawal and accessible controls at 320px (816ms)
+  ✓   4 tests/pbq/advertising.spec.ts:123:3 › mock manual unit: consent, stable layout, withdrawal and accessible controls at 375px (747ms)
+  ✓   5 tests/pbq/advertising.spec.ts:123:3 › mock manual unit: consent, stable layout, withdrawal and accessible controls at 390px (698ms)
+  ✓   6 tests/pbq/advertising.spec.ts:123:3 › mock manual unit: consent, stable layout, withdrawal and accessible controls at 768px (739ms)
+  ✓   7 tests/pbq/advertising.spec.ts:123:3 › mock manual unit: consent, stable layout, withdrawal and accessible controls at 1440px (727ms)
+  ✓   8 tests/pbq/advertising.spec.ts:168:1 › CMP withdrawal unloads a loaded SDK and prevents new requests after refresh (480ms)
+  ✓   9 tests/pbq/advertising.spec.ts:180:1 › unsupported routes and learning SPA marker cannot bootstrap even with a mock enabled policy (863ms)
+  ✓  10 tests/pbq/advertising.spec.ts:194:1 › a blocked advertising SDK never prevents guide navigation or analytics choice (471ms)
+  ✓  11 tests/pbq/advertising.spec.ts:206:1 › 320px touch: advertising choices stay reachable and rejection never starts the SDK (468ms)
+  ✓  12 tests/pbq/advertising.spec.ts:223:1 › future secondary unit uses one SDK and one request per enabled unit (240ms)
+  ✓  13 tests/pbq/analytics.spec.ts:33:1 › no GA4 before choice; decline persists; withdrawal removes GA cookies without touching progress (1.1s)
+  ✓  14 tests/pbq/analytics.spec.ts:60:1 › static articles and the SPA share consent without hydrating guide content or duplicating views (973ms)
+  ✓  15 tests/pbq/analytics.spec.ts:77:1 › cross-tab withdrawal and storage clearing stop collection in an already-open tab (776ms)
+  ✓  16 tests/pbq/analytics.spec.ts:93:1 › unavailable storage and blocked SDK never break practice or create advertising requests (738ms)
+  ✓  17 tests/pbq/analytics.spec.ts:111:3 › exam: consented attempt start and completion occur once and contain only approved fields (1.1s)
+  ✓  18 tests/pbq/analytics.spec.ts:111:3 › practice: consented attempt start and completion occur once and contain only approved fields (1.9s)
+  ✓  19 tests/pbq/analytics.spec.ts:111:3 › pbq: consented attempt start and completion occur once and contain only approved fields (3.2s)
+  ✓  20 tests/pbq/analytics.spec.ts:149:3 › consent controls: keyboard, static/SPA, light/dark at 320px (2.5s)
+  ✓  21 tests/pbq/analytics.spec.ts:149:3 › consent controls: keyboard, static/SPA, light/dark at 375px (2.0s)
+  ✓  22 tests/pbq/analytics.spec.ts:149:3 › consent controls: keyboard, static/SPA, light/dark at 390px (2.0s)
+  ✓  23 tests/pbq/analytics.spec.ts:149:3 › consent controls: keyboard, static/SPA, light/dark at 768px (1.6s)
+  ✓  24 tests/pbq/analytics.spec.ts:149:3 › consent controls: keyboard, static/SPA, light/dark at 1440px (1.8s)
+  ✓  25 tests/pbq/analytics.spec.ts:175:1 › 320px touch controls grant, edit and withdraw without an overlay or page overflow (694ms)
+  ✓  26 tests/pbq/analytics.spec.ts:191:1 › expired choices and disabled production configuration remain safely off (423ms)
+  ✓  27 tests/pbq/learning-destinations.spec.ts:11:1 › homepage practice destination opens the existing eleven-exam picker (773ms)
+  ✓  28 tests/pbq/learning-destinations.spec.ts:24:1 › homepage study destination exposes all existing primary guides (786ms)
+  ✓  29 tests/pbq/learning-destinations.spec.ts:36:1 › static educational navigation works without JavaScript (551ms)
+  ✓  30 tests/pbq/learning-destinations.spec.ts:54:1 › primary links stay readable and keyboard accessible at all five widths in both themes (2.8s)
+  ✓  31 tests/pbq/technical-seo.spec.ts:26:1 › all 36 sitemap URLs have unique, self-canonical, coherent initial and rendered metadata (7.8s)
+  ✓  32 tests/pbq/technical-seo.spec.ts:66:1 › public legal pages deliver their unchanged content and metadata without JavaScript (536ms)
+  ✓  33 tests/pbq/technical-seo.spec.ts:82:1 › private application, auth-looking and unknown routes have safe initial metadata, with no homepage FAQ (3.1s)
+  ✓  34 tests/pbq/technical-seo.spec.ts:102:1 › SPA footer, home, refresh and Back/Forward replace metadata once without changing history or consent (1.0s)
+  ✓  35 tests/pbq/technical-seo.spec.ts:130:1 › redirects, robots.txt and all educational links retain canonical destinations (824ms)
+  ✓  36 tests/pbq/technical-seo.spec.ts:146:3 › legal metadata/content, keyboard links and consent at 320px in both themes (1.7s)
+  ✓  37 tests/pbq/technical-seo.spec.ts:146:3 › legal metadata/content, keyboard links and consent at 375px in both themes (1.5s)
+  ✓  38 tests/pbq/technical-seo.spec.ts:146:3 › legal metadata/content, keyboard links and consent at 390px in both themes (1.9s)
+  ✓  39 tests/pbq/technical-seo.spec.ts:146:3 › legal metadata/content, keyboard links and consent at 768px in both themes (1.6s)
+  ✓  40 tests/pbq/technical-seo.spec.ts:146:3 › legal metadata/content, keyboard links and consent at 1440px in both themes (2.0s)
+
+  40 passed (1.1m)

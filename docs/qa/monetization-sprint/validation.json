@@ -1,0 +1,57 @@
+{
+  "regressionDate": "2026-10-24",
+  "unitAndBuildRecheckDate": "2026-10-26",
+  "unitTests": 670,
+  "unitFiles": 44,
+  "browserTests": 216,
+  "focusedBrowserRecheckDate": "2026-10-26",
+  "focusedBrowserTests": 40,
+  "focusedBrowserDuration": "1.1m",
+  "focusedBrowserEvidence": "focused-recheck.log",
+  "persistentBrowserReconnection": "Blocked pending existing connection troubleshooting; no fresh external account inspection",
+  "temporaryTabCleanup": "Blocked until persistent browser connection returns; preserve pre-existing tabs and sessions",
+  "simulatorTests": 7,
+  "workerGroups": 13,
+  "workerOutboundAttempts": 0,
+  "sitemapURLs": 36,
+  "studyHubs": 11,
+  "unchangedContentAddressedCodeAssets": 45,
+  "protectedPathsUnchanged": [
+    "src/data",
+    "src/simulations",
+    "src/hooks/useQuizSession.ts",
+    "src/lib/engine.ts",
+    "src/lib/progress.ts",
+    "src/lib/sync.ts",
+    "src/lib/analytics.ts",
+    "src/lib/analytics-consent.ts",
+    "src/lib/advertising-policy.ts",
+    "src/lib/advertising-browser.ts",
+    "src/lib/advertising-consent.ts",
+    "worker",
+    "mobile",
+    "package.json",
+    "package-lock.json",
+    "wrangler.jsonc"
+  ],
+  "unpublishedCourseHTML": false,
+  "cssViewports": [
+    320,
+    375,
+    390,
+    768,
+    1440
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "localhostZoom": "80%, preserved; requested widths256/300/312/615/1152 gave measured CSS320/375/390/768/1440. Initial uncalibrated images replaced.",
+  "overflow": false,
+  "adResourcesInReviewedHomepage": 0,
+  "manualLimits": [
+    "Physical device and screen-reader review",
+    "Provider approval, actual contracts, production consent/CMP and SDK adapters remain future gates",
+    "Persistent browser reconnection and interrupted temporary-tab cleanup remain blocked; focused local checks do not establish fresh external statuses"
+  ]
+}

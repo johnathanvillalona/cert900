@@ -27,6 +27,7 @@ import { SiteFooter } from "@/components/SiteFooter"
 import { AppPromo } from "@/components/AppPromo"
 import { Wordmark } from "@/components/Wordmark"
 import { StudyGuideAction } from "@/components/StudyLinks"
+import { HomepageLearningLinks } from "@/components/LearningDestinations"
 
 /**
  * Real product in the hero: the question of the day, fully answerable.
@@ -204,6 +205,7 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
             <span className="text-brand font-semibold">{streak}-day</span> study streak
           </p>
         )}
+        <HomepageLearningLinks />
       </div>
       <div className="flex flex-col gap-3 lg:col-span-7">
         {started.map(({ exam, answered, lastScaled, due }) => (
@@ -306,8 +308,6 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
   const returning = started.length > 0
   const streak = returning ? studyStreak(allSessions(store.all), new Date().toISOString().slice(0, 10)) : 0
 
-  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
-
   return (
     <div className="min-h-[100dvh]">
       <a
@@ -371,17 +371,13 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                 700ms had drifted past reading as intentional. */}
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-400 lg:col-span-6">
               <h1 className="font-heading text-[1.9rem] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.6rem]">
-                The practice exam that studies&nbsp;you&nbsp;back.
+                Free practice exams.<br />Clear study guides.
               </h1>
               <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">
-                {totalQ} original questions across {exams.length} certification exams, adapting to your weak spots.
-                Free, no sign-up.
+                Prepare for {exams.length} IT certification exams with original questions,
+                clear explanations and free study resources. No sign-up required.
               </p>
-              <div className="mt-7">
-                <Button size="lg" onClick={() => scrollTo("exams")} className="motion-safe:active:scale-[0.98]" data-testid="hero-cta">
-                  Start practicing
-                </Button>
-              </div>
+              <HomepageLearningLinks />
             </div>
             <div className="animate-in fade-in slide-in-from-bottom-4 delay-150 duration-400 lg:col-span-6">
               <LiveQuestion />
@@ -404,16 +400,11 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
         </div>
       </section>
 
-      {/* mobile-app promo: below the hero and stats, never inside the hero */}
-      <section className="mx-auto max-w-6xl px-4 pt-10">
-        <AppPromo />
-      </section>
-
       {/* exam index */}
       <section id="exams" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-        <h2 className="font-heading text-3xl font-semibold tracking-tight">Pick your exam</h2>
+        <h2 className="font-heading text-3xl font-semibold tracking-tight">Choose your certification</h2>
         <p className="text-muted-foreground mt-2 max-w-lg">
-          Progress is tracked separately for each. Start with the one on your calendar.
+          Go straight to practice, or open a Study Hub for its guide, videos and reference sheets.
         </p>
         <div className="mt-8">
           {VENDOR_ORDER.map((v) => {
@@ -470,6 +461,11 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
         </div>
       </section>
 
+      {/* Certification choices come before optional app promotion. */}
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <AppPromo />
+      </section>
+
       {/* how it works */}
       <section id="how" className="border-t bg-card">
         <div className="mx-auto grid max-w-6xl scroll-mt-20 gap-10 px-4 py-20 lg:grid-cols-12">
@@ -482,7 +478,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
           <div className="flex flex-col gap-8 lg:col-span-7">
             {[
               ["Drill", "Short adaptive rounds with an explanation after every answer. Weak topics come back more often until they stick."],
-              ["Simulate", "Full timed exams in each certification's real format, question mix, and time limit, with flagging and a question palette. Scored on the real exam's scale with its pass line."],
+              ["Simulate", "Timed practice with exam-specific settings, flagging and a question palette. Scores use Cert900's instructional model and published vendor scales where available."],
               ["Review", "Every miss links to the exact free training video for that topic. Watch, then drill it again."],
             ].map(([verb, body]) => (
               <div key={verb} className="reveal grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">

@@ -1,0 +1,63 @@
+
+> comptia-practice-trainer@2.0.0 test:worker
+> node tools/qa/isolated-worker.mjs
+
+Isolated test directory: /tmp/cert900-integration-C7uTK8
+{
+  "checks": [
+    {
+      "name": "fresh local D1 initialized from tracked schema via Wrangler --local",
+      "passed": true
+    },
+    {
+      "name": "Wrangler starts actual unmodified Worker on localhost with outbound requests blocked",
+      "passed": true
+    },
+    {
+      "name": "HTML, security headers, compiled CSS, immutable caching, MIT license, and verified ads.txt served",
+      "passed": true
+    },
+    {
+      "name": "/api/config reports email/newsletter integrations disabled",
+      "passed": true
+    },
+    {
+      "name": "representative API 400/401/404/405/503 responses and unknown-page soft-404 handling",
+      "passed": true
+    },
+    {
+      "name": "synthetic local signup, session cookie issuance, and authenticated session read",
+      "passed": true
+    },
+    {
+      "name": "authenticated application API writes and reads fresh local D1 data",
+      "passed": true
+    },
+    {
+      "name": "first Worker fully stopped",
+      "passed": true
+    },
+    {
+      "name": "independent Wrangler D1 SQL read confirms persisted synthetic user, session, and progress rows",
+      "passed": true
+    },
+    {
+      "name": "Worker restart preserves session authentication and local D1 application data",
+      "passed": true
+    },
+    {
+      "name": "local progress deletion, sign-out, and session invalidation",
+      "passed": true
+    },
+    {
+      "name": "synthetic wrong-password rejection and valid local password sign-in",
+      "passed": true
+    },
+    {
+      "name": "no integration credentials, remote bindings, cron triggers, OAuth flows, or outbound Worker requests",
+      "passed": true
+    }
+  ],
+  "completed": true,
+  "workerOutboundAttempts": 0
+}
