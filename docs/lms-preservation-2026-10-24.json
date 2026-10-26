@@ -1,0 +1,975 @@
+{
+  "checkedAtUtc": "2026-10-24T19:42:09.582705+00:00",
+  "scope": "Read-only local LMS/source/media preservation inspection; no installation, build, render, browser, network, upload or production operation.",
+  "worktree": "/home/sorannex/Claude Projects/cert900/course-production-m8c-windows-worktree",
+  "checkpoint": "322b7a03f395d1859c01d044d9981a09ef074534",
+  "branch": "codex/m8c-windows-first",
+  "trackedWorktreeClean": true,
+  "baselineFile": "course-studio/authentic-media/clean-presentation/baseline.json",
+  "protectedFileCount": 103,
+  "protectedFiles": [
+    {
+      "path": "course-production/data/lesson-plan.json",
+      "expectedSha256": "7ca3f08ba4ebb0687659cb12f5b82a333f5c556d18590bc535c5a489256a9c06",
+      "actualSha256": "7ca3f08ba4ebb0687659cb12f5b82a333f5c556d18590bc535c5a489256a9c06",
+      "matches": true
+    },
+    {
+      "path": "course-production/data/production-manifest.json",
+      "expectedSha256": "1a53b9503aa2eb5f4e168b6e870042365b762a00e52c12c0c1b62dc8a2b7c5fc",
+      "actualSha256": "1a53b9503aa2eb5f4e168b6e870042365b762a00e52c12c0c1b62dc8a2b7c5fc",
+      "matches": true
+    },
+    {
+      "path": "course-production/data/resources.json",
+      "expectedSha256": "1486ae07d82e5089f3af6f2fe7caf766bcc3bd64da6edf7b3d635f5fee7d9356",
+      "actualSha256": "1486ae07d82e5089f3af6f2fe7caf766bcc3bd64da6edf7b3d635f5fee7d9356",
+      "matches": true
+    },
+    {
+      "path": "course-production/data/source-inventory.json",
+      "expectedSha256": "49422b3d4a1b38e6c4e49a22771a5fbdd3cb8f5605b9363fd0e470d245a311cd",
+      "actualSha256": "49422b3d4a1b38e6c4e49a22771a5fbdd3cb8f5605b9363fd0e470d245a311cd",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/capture-receipt.json",
+      "expectedSha256": "c4c3a1094bf5e1b0941e7dd73f66caa62ce61eed63de00a6baaab4055987fba1",
+      "actualSha256": "c4c3a1094bf5e1b0941e7dd73f66caa62ce61eed63de00a6baaab4055987fba1",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/narration-receipt.json",
+      "expectedSha256": "5afcd2c980e2293acf496c57198925be98b2082f73c6ec360e787f6f58ec9ef3",
+      "actualSha256": "5afcd2c980e2293acf496c57198925be98b2082f73c6ec360e787f6f58ec9ef3",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/output/narration.wav",
+      "expectedSha256": "12fa56f9560dbc09c1418d9f2d1ccce243cce8a54ce1160fa66bdcf3d261f37c",
+      "actualSha256": "12fa56f9560dbc09c1418d9f2d1ccce243cce8a54ce1160fa66bdcf3d261f37c",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/output/network-configuration-revised.mp4",
+      "expectedSha256": "a24e04fd625eff04baba09122ab8a06e33231ca66b24a3cbb6779669148b87f3",
+      "actualSha256": "a24e04fd625eff04baba09122ab8a06e33231ca66b24a3cbb6779669148b87f3",
+      "matches": true,
+      "bytes": 20448077,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "681.388021"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/output/network-settings-practical.mp4",
+      "expectedSha256": "fef722615b5a60124a294d4e0420648040d4386bd0fab6f653ea166a2299ee1f",
+      "actualSha256": "fef722615b5a60124a294d4e0420648040d4386bd0fab6f653ea166a2299ee1f",
+      "matches": true,
+      "bytes": 4981510,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "130.066667"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/output/timed-narration.wav",
+      "expectedSha256": "f5da8bd74ce86c09ef585c265b28117bfaa9dd3faf7d058f8ce8199c494d90e1",
+      "actualSha256": "f5da8bd74ce86c09ef585c265b28117bfaa9dd3faf7d058f8ce8199c494d90e1",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/raw/settings.png",
+      "expectedSha256": "6d6098cc2913d2c8cd9ee52c987e41ea449f51be2cb43b88e92cd23579ac947e",
+      "actualSha256": "6d6098cc2913d2c8cd9ee52c987e41ea449f51be2cb43b88e92cd23579ac947e",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/raw/terminal.mp4",
+      "expectedSha256": "ce4fe21aeeab38a34b26e78dad1ddbde89e2a2c776690ef2a578277ab660bd1c",
+      "actualSha256": "ce4fe21aeeab38a34b26e78dad1ddbde89e2a2c776690ef2a578277ab660bd1c",
+      "matches": true,
+      "bytes": 252746,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 2196,
+            "height": 1026,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "25.000000"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/script.json",
+      "expectedSha256": "20168a3d852629f35daeb94cd90fa18f5d06cbf1040b03077ce4853a73128944",
+      "actualSha256": "20168a3d852629f35daeb94cd90fa18f5d06cbf1040b03077ce4853a73128944",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/timeline.json",
+      "expectedSha256": "6dd51d6ffddfbfcda330ed83f9050d21b1f0c145db7c56403fd6f25de46f7a2d",
+      "actualSha256": "6dd51d6ffddfbfcda330ed83f9050d21b1f0c145db7c56403fd6f25de46f7a2d",
+      "matches": true
+    },
+    {
+      "path": "course-studio/authentic-media/timing.json",
+      "expectedSha256": "4d23b8fafa243531a9dabe35dde0972e6e80bff46e20f49893f6b5e9ab098ee1",
+      "actualSha256": "4d23b8fafa243531a9dabe35dde0972e6e80bff46e20f49893f6b5e9ab098ee1",
+      "matches": true
+    },
+    {
+      "path": "course-studio/lessons/computer-network/output/lesson-computer-network.mp4",
+      "expectedSha256": "0640f4b501ce508e0117a17d1b0aa582f6f15c2f1ab5a1b06cb53dc78119d0e2",
+      "actualSha256": "0640f4b501ce508e0117a17d1b0aa582f6f15c2f1ab5a1b06cb53dc78119d0e2",
+      "matches": true,
+      "bytes": 11077622,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "389.633333"
+        }
+      }
+    },
+    {
+      "path": "course-studio/lessons/ip-address/output/lesson-ip-address.mp4",
+      "expectedSha256": "208f33dc92c45831dabefac89e381a2b06b8315b773dc2c550ccfb58802a9f35",
+      "actualSha256": "208f33dc92c45831dabefac89e381a2b06b8315b773dc2c550ccfb58802a9f35",
+      "matches": true,
+      "bytes": 14046690,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "455.566667"
+        }
+      }
+    },
+    {
+      "path": "course-studio/lessons/network-configuration/output/lesson-network-configuration.mp4",
+      "expectedSha256": "33484868374d766c3392301558a3db2f671113cc46ea9ad5a8ceefa3f28ca678",
+      "actualSha256": "33484868374d766c3392301558a3db2f671113cc46ea9ad5a8ceefa3f28ca678",
+      "matches": true,
+      "bytes": 15464653,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "551.300000"
+        }
+      }
+    },
+    {
+      "path": "course-studio/pilots/dhcp-apipa/output/pilot-dhcp-apipa.mp4",
+      "expectedSha256": "394630069bd07adedcc75921357c060902a6b4e957909c778862fbb37414a81e",
+      "actualSha256": "394630069bd07adedcc75921357c060902a6b4e957909c778862fbb37414a81e",
+      "matches": true,
+      "bytes": 10056091,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "417.833333"
+        }
+      }
+    },
+    {
+      "path": "package-lock.json",
+      "expectedSha256": "7dbd7341ae59af1dccb0eecb2159437bf4f2efd15d6810929658c5e29f3fea02",
+      "actualSha256": "7dbd7341ae59af1dccb0eecb2159437bf4f2efd15d6810929658c5e29f3fea02",
+      "matches": true
+    },
+    {
+      "path": "package.json",
+      "expectedSha256": "0785fc4ce45dfa43a10684bcfa556373b9bbd3e662e206e80e414d53ef4c65a7",
+      "actualSha256": "0785fc4ce45dfa43a10684bcfa556373b9bbd3e662e206e80e414d53ef4c65a7",
+      "matches": true
+    },
+    {
+      "path": "public/course-assets/system-media/captions.vtt",
+      "expectedSha256": "048e7e508089d3b9120f7bbc91adbee440d75e21ca2170f236658dc73d47e66e",
+      "actualSha256": "048e7e508089d3b9120f7bbc91adbee440d75e21ca2170f236658dc73d47e66e",
+      "matches": true
+    },
+    {
+      "path": "public/course-assets/system-media/revised-captions.vtt",
+      "expectedSha256": "e4eeefed5561e8618e55f94c1a351d572d505f067b726439469299051dd835c1",
+      "actualSha256": "e4eeefed5561e8618e55f94c1a351d572d505f067b726439469299051dd835c1",
+      "matches": true
+    },
+    {
+      "path": "public/course-assets/system-media/ubuntu-network-settings.webp",
+      "expectedSha256": "d99727e806727b0418eec90f1741dfdb9967b272fbd2031e6c4e8d3271956afe",
+      "actualSha256": "d99727e806727b0418eec90f1741dfdb9967b272fbd2031e6c4e8d3271956afe",
+      "matches": true
+    },
+    {
+      "path": "src/data/220-1201.ts",
+      "expectedSha256": "4b289e29ab406a2d7031d08e89817bdef5375809c95f1b3fafc78f5decbe5ecd",
+      "actualSha256": "4b289e29ab406a2d7031d08e89817bdef5375809c95f1b3fafc78f5decbe5ecd",
+      "matches": true
+    },
+    {
+      "path": "src/data/220-1202.ts",
+      "expectedSha256": "9cf1777f19a1596f744b95c7596183113a926b0ec5abe759c04e5730d1ac388e",
+      "actualSha256": "9cf1777f19a1596f744b95c7596183113a926b0ec5abe759c04e5730d1ac388e",
+      "matches": true
+    },
+    {
+      "path": "src/data/aif-c01.ts",
+      "expectedSha256": "f2f428534f10711682c58fe206ddae3b2c1832fd94b20e4dde7d12f44a2a5c18",
+      "actualSha256": "f2f428534f10711682c58fe206ddae3b2c1832fd94b20e4dde7d12f44a2a5c18",
+      "matches": true
+    },
+    {
+      "path": "src/data/az-104.ts",
+      "expectedSha256": "4a1eb108e8d0bf8e3d8cb6df849b3d1389ef4891c8161a93818d52aed4d3d0ce",
+      "actualSha256": "4a1eb108e8d0bf8e3d8cb6df849b3d1389ef4891c8161a93818d52aed4d3d0ce",
+      "matches": true
+    },
+    {
+      "path": "src/data/az-900.ts",
+      "expectedSha256": "f12a60e727a19c9e1203ffbc9b87576287d1c5b3d10b4d42f798af304219b2f6",
+      "actualSha256": "f12a60e727a19c9e1203ffbc9b87576287d1c5b3d10b4d42f798af304219b2f6",
+      "matches": true
+    },
+    {
+      "path": "src/data/az900-lessons.ts",
+      "expectedSha256": "90f740b85b86643cc0980cde40b4842e2bb4b9af76625a5c57bfc79a6b153de3",
+      "actualSha256": "90f740b85b86643cc0980cde40b4842e2bb4b9af76625a5c57bfc79a6b153de3",
+      "matches": true
+    },
+    {
+      "path": "src/data/banks.ts",
+      "expectedSha256": "1978519f6be83c659919cb0f80734ae718543119f23761c0574cc96cad6b64ab",
+      "actualSha256": "1978519f6be83c659919cb0f80734ae718543119f23761c0574cc96cad6b64ab",
+      "matches": true
+    },
+    {
+      "path": "src/data/bundle.test.ts",
+      "expectedSha256": "a0174b0005ef9d2f0ef2435d9e178175ed6e950436ce348943b87dcab9912076",
+      "actualSha256": "a0174b0005ef9d2f0ef2435d9e178175ed6e950436ce348943b87dcab9912076",
+      "matches": true
+    },
+    {
+      "path": "src/data/ccna-200-301.ts",
+      "expectedSha256": "5bf6ff36af0638d84ad6f0718f545d859f4b87fd8ad3daeec56695a050fab2ad",
+      "actualSha256": "5bf6ff36af0638d84ad6f0718f545d859f4b87fd8ad3daeec56695a050fab2ad",
+      "matches": true
+    },
+    {
+      "path": "src/data/clf-c02.ts",
+      "expectedSha256": "558e0bf112a0d9dbf682b3ce233af08d106fcbd4dc5465cd24247c52644944be",
+      "actualSha256": "558e0bf112a0d9dbf682b3ce233af08d106fcbd4dc5465cd24247c52644944be",
+      "matches": true
+    },
+    {
+      "path": "src/data/copy.test.ts",
+      "expectedSha256": "d3edbcb3aecaef0f7847bc6f6c524f6acc3e268916195c026fd5120b0531aee7",
+      "actualSha256": "d3edbcb3aecaef0f7847bc6f6c524f6acc3e268916195c026fd5120b0531aee7",
+      "matches": true
+    },
+    {
+      "path": "src/data/data.test.ts",
+      "expectedSha256": "c22365f14a16ded2ac77f3bff2676aef1f904a7e37199e62fdaeb2d5dd484077",
+      "actualSha256": "c22365f14a16ded2ac77f3bff2676aef1f904a7e37199e62fdaeb2d5dd484077",
+      "matches": true
+    },
+    {
+      "path": "src/data/exam-ids.ts",
+      "expectedSha256": "8e8a29c1076543d864324d9f0ecf685156d87cdc5a608813ca81ea4a3bb5da85",
+      "actualSha256": "8e8a29c1076543d864324d9f0ecf685156d87cdc5a608813ca81ea4a3bb5da85",
+      "matches": true
+    },
+    {
+      "path": "src/data/guide-lessons.test.tsx",
+      "expectedSha256": "27596f3f0b7cf119b061a5181ab2103e65695fcb4fc20df8f62deddfd74289e6",
+      "actualSha256": "27596f3f0b7cf119b061a5181ab2103e65695fcb4fc20df8f62deddfd74289e6",
+      "matches": true
+    },
+    {
+      "path": "src/data/guide-lessons.ts",
+      "expectedSha256": "803aa58529200339b2656992559c50ae6410ca13648cd23a60b3c328faf8a6cf",
+      "actualSha256": "803aa58529200339b2656992559c50ae6410ca13648cd23a60b3c328faf8a6cf",
+      "matches": true
+    },
+    {
+      "path": "src/data/guide-meta.ts",
+      "expectedSha256": "20c0f67b77423a4d30fa35c33c533959b084ae304b80cd3072334147aa7f4aeb",
+      "actualSha256": "20c0f67b77423a4d30fa35c33c533959b084ae304b80cd3072334147aa7f4aeb",
+      "matches": true
+    },
+    {
+      "path": "src/data/guide-samples.ts",
+      "expectedSha256": "be470c55d1b68f1d95f4ce446568afbe20a64fe0492fbfb40a7117703f0ec033",
+      "actualSha256": "be470c55d1b68f1d95f4ce446568afbe20a64fe0492fbfb40a7117703f0ec033",
+      "matches": true
+    },
+    {
+      "path": "src/data/guides.test.ts",
+      "expectedSha256": "38f2a854ca0f026c5ee634bf2d0cc858abe76770cd8a84ed0833832e68e1b1e4",
+      "actualSha256": "38f2a854ca0f026c5ee634bf2d0cc858abe76770cd8a84ed0833832e68e1b1e4",
+      "matches": true
+    },
+    {
+      "path": "src/data/index.ts",
+      "expectedSha256": "7d7f41b979b4d3d15f239fbb98ce5d07b171f1f053382cb7f1dce942781f7d59",
+      "actualSha256": "7d7f41b979b4d3d15f239fbb98ce5d07b171f1f053382cb7f1dce942781f7d59",
+      "matches": true
+    },
+    {
+      "path": "src/data/labels.ts",
+      "expectedSha256": "3eecfbefd352ff66192d37404e58da0c780168c8bfa87bc425068215af082a24",
+      "actualSha256": "3eecfbefd352ff66192d37404e58da0c780168c8bfa87bc425068215af082a24",
+      "matches": true
+    },
+    {
+      "path": "src/data/meta.ts",
+      "expectedSha256": "9e999bdbb13ec96c5b8470b840fb937525c39d2a3626433ca733b68a3cd12f81",
+      "actualSha256": "9e999bdbb13ec96c5b8470b840fb937525c39d2a3626433ca733b68a3cd12f81",
+      "matches": true
+    },
+    {
+      "path": "src/data/n10-009.ts",
+      "expectedSha256": "5212c04955202633f2b6bc5955946854d6b9b72458073f8a5501a445d0bd45d6",
+      "actualSha256": "5212c04955202633f2b6bc5955946854d6b9b72458073f8a5501a445d0bd45d6",
+      "matches": true
+    },
+    {
+      "path": "src/data/qotd-pool.ts",
+      "expectedSha256": "989e5419675fe44ed6e8c625a871e210cf731376b248d99b3719dd751403ec6b",
+      "actualSha256": "989e5419675fe44ed6e8c625a871e210cf731376b248d99b3719dd751403ec6b",
+      "matches": true
+    },
+    {
+      "path": "src/data/ref-sheets.ts",
+      "expectedSha256": "54ce69502a00370ce0d1061a03409acb542513fd5ed38b934c6fd154357c18c8",
+      "actualSha256": "54ce69502a00370ce0d1061a03409acb542513fd5ed38b934c6fd154357c18c8",
+      "matches": true
+    },
+    {
+      "path": "src/data/routes.test.ts",
+      "expectedSha256": "caa6a41992b9d801d15d5e018feb4ddfa742e793c495463c8c1e6333780f451e",
+      "actualSha256": "caa6a41992b9d801d15d5e018feb4ddfa742e793c495463c8c1e6333780f451e",
+      "matches": true
+    },
+    {
+      "path": "src/data/routes.ts",
+      "expectedSha256": "3d9bcf80fece5ac2c779eef98222a384343778086d515799a96775c1fa3d5d37",
+      "actualSha256": "3d9bcf80fece5ac2c779eef98222a384343778086d515799a96775c1fa3d5d37",
+      "matches": true
+    },
+    {
+      "path": "src/data/saa-c03.ts",
+      "expectedSha256": "9273847d273e2db0d2c697ea46df652f3dfe13d12b24f2c34b86ab80ec6f6e8b",
+      "actualSha256": "9273847d273e2db0d2c697ea46df652f3dfe13d12b24f2c34b86ab80ec6f6e8b",
+      "matches": true
+    },
+    {
+      "path": "src/data/sc-900.ts",
+      "expectedSha256": "d40670039d5f19be6a5479ce168f16985591abd5b5bf4a28cd79d3120c5682dc",
+      "actualSha256": "d40670039d5f19be6a5479ce168f16985591abd5b5bf4a28cd79d3120c5682dc",
+      "matches": true
+    },
+    {
+      "path": "src/data/study-resources.test.ts",
+      "expectedSha256": "97ec08707c3c2b717caa6ea381498d310f142fb79e670ae6cbc72fd9ae9a14ca",
+      "actualSha256": "97ec08707c3c2b717caa6ea381498d310f142fb79e670ae6cbc72fd9ae9a14ca",
+      "matches": true
+    },
+    {
+      "path": "src/data/study-resources.ts",
+      "expectedSha256": "de3b0655976e1ff5d2004ba88c9ee9639b063b1cbc02935ed6d30b748637dd06",
+      "actualSha256": "de3b0655976e1ff5d2004ba88c9ee9639b063b1cbc02935ed6d30b748637dd06",
+      "matches": true
+    },
+    {
+      "path": "src/data/sy0-701.ts",
+      "expectedSha256": "7950f94bf9650b10fffc7e0ad8cd326b78f00d57a5fefd2392359e51d41d6fde",
+      "actualSha256": "7950f94bf9650b10fffc7e0ad8cd326b78f00d57a5fefd2392359e51d41d6fde",
+      "matches": true
+    },
+    {
+      "path": "src/data/types.ts",
+      "expectedSha256": "7610575206c9888e79de5c1ad68c8cc916b67e72326b9e282cc7b003b5131b49",
+      "actualSha256": "7610575206c9888e79de5c1ad68c8cc916b67e72326b9e282cc7b003b5131b49",
+      "matches": true
+    },
+    {
+      "path": "src/data/vendors.ts",
+      "expectedSha256": "768fca51f0e57b686224c9f5faab7d18c607835e4b9bafe6f4ded9b267c7f33d",
+      "actualSha256": "768fca51f0e57b686224c9f5faab7d18c607835e4b9bafe6f4ded9b267c7f33d",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/cli/CommandPromptWorkspace.tsx",
+      "expectedSha256": "b49787e2025d62895cd07eb140f0194ce346518ca39641351d46b266ef18d5fc",
+      "actualSha256": "b49787e2025d62895cd07eb140f0194ce346518ca39641351d46b266ef18d5fc",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/cli/command-prompt.test.ts",
+      "expectedSha256": "df084ce3f6057f2cd0fc393afc7dd1b2396c273506db0aac0df20525e085f9e3",
+      "actualSha256": "df084ce3f6057f2cd0fc393afc7dd1b2396c273506db0aac0df20525e085f9e3",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/cli/command-prompt.ts",
+      "expectedSha256": "5c42fb85f733a90fc4f9c46b455e4d74f00ceb3094b5f609968985eb6b6dbd33",
+      "actualSha256": "5c42fb85f733a90fc4f9c46b455e4d74f00ceb3094b5f609968985eb6b6dbd33",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/core/contracts.ts",
+      "expectedSha256": "6df3439a50d9efb788e90fa9a96858020416c7b2a43055f02fd46195df591a8f",
+      "actualSha256": "6df3439a50d9efb788e90fa9a96858020416c7b2a43055f02fd46195df591a8f",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/core/grading.ts",
+      "expectedSha256": "9802c35569e77b3898d82ff912031b2198588745b581ee8c9471f93d0e34adc2",
+      "actualSha256": "9802c35569e77b3898d82ff912031b2198588745b581ee8c9471f93d0e34adc2",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/core/transition.ts",
+      "expectedSha256": "a2f5908b94ad8ecb8cba46a589a382ea805481b84fbbe436138e0b76c91fc99a",
+      "actualSha256": "a2f5908b94ad8ecb8cba46a589a382ea805481b84fbbe436138e0b76c91fc99a",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall-scenarios.test.ts",
+      "expectedSha256": "cb21fc7a3102e3eb9dfe779dc73c7b414bf81f0e2ef67fca1fe10efab713f307",
+      "actualSha256": "cb21fc7a3102e3eb9dfe779dc73c7b414bf81f0e2ef67fca1fe10efab713f307",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/acl.test.ts",
+      "expectedSha256": "15741f9aee4a694844637d5d11dec69019b70499285417eb28e49835383f705b",
+      "actualSha256": "15741f9aee4a694844637d5d11dec69019b70499285417eb28e49835383f705b",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/acl.ts",
+      "expectedSha256": "4b3738f70aaeedd914ceb995ad88a3c06ca4b47b0705a44d387e32f570307436",
+      "actualSha256": "4b3738f70aaeedd914ceb995ad88a3c06ca4b47b0705a44d387e32f570307436",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/partition.ts",
+      "expectedSha256": "6ca5a2de9795a0dcd41617f7c825cd526ffe51d37a244c575b6cb06d55e0c62d",
+      "actualSha256": "6ca5a2de9795a0dcd41617f7c825cd526ffe51d37a244c575b6cb06d55e0c62d",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/performance.test.ts",
+      "expectedSha256": "0cad2ca69a2281b0eb4fa1fbe564eb0992ff9c49f9a004a460bff30fd1a3589e",
+      "actualSha256": "0cad2ca69a2281b0eb4fa1fbe564eb0992ff9c49f9a004a460bff30fd1a3589e",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/primitives.test.ts",
+      "expectedSha256": "d098bafa15c963920081d099173758f8928f432f7987dcb53ecdaaa02120a278",
+      "actualSha256": "d098bafa15c963920081d099173758f8928f432f7987dcb53ecdaaa02120a278",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/primitives.ts",
+      "expectedSha256": "0501ea4c7d45cb032022577d5dc037453d1892ab4ffe8a178b189e5921542930",
+      "actualSha256": "0501ea4c7d45cb032022577d5dc037453d1892ab4ffe8a178b189e5921542930",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/windows.test.ts",
+      "expectedSha256": "5dd3da999d5c511dc51581b52b755f56e3c9a5370736a95da680c30be5cb76aa",
+      "actualSha256": "5dd3da999d5c511dc51581b52b755f56e3c9a5370736a95da680c30be5cb76aa",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/firewall/windows.ts",
+      "expectedSha256": "21054f90cc97762c71d59cab10d850388cc8328a6099097b3a343f2d1869885d",
+      "actualSha256": "21054f90cc97762c71d59cab10d850388cc8328a6099097b3a343f2d1869885d",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/foundation.test.ts",
+      "expectedSha256": "7576960440404b5bdd0b73b24c1fb81fa941501d547bcdb4c818da6cb2cfe31c",
+      "actualSha256": "7576960440404b5bdd0b73b24c1fb81fa941501d547bcdb4c818da6cb2cfe31c",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/registry.ts",
+      "expectedSha256": "24c4b92755a644997bb277041ae24770805e9653f2a03c09d44a307c2ef683da",
+      "actualSha256": "24c4b92755a644997bb277041ae24770805e9653f2a03c09d44a307c2ef683da",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/DhcpWorkspace.tsx",
+      "expectedSha256": "9c5b99e4a3c7222ce8eff27f0a71f1caa322cf2a782773ff0902656a6085a855",
+      "actualSha256": "9c5b99e4a3c7222ce8eff27f0a71f1caa322cf2a782773ff0902656a6085a855",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/EdgeAclWorkspace.tsx",
+      "expectedSha256": "3834339c76e9fd4f121f0a2d889ec2057094c57a9faa2feed06d209e96738e77",
+      "actualSha256": "3834339c76e9fd4f121f0a2d889ec2057094c57a9faa2feed06d209e96738e77",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/WindowsFirewallWorkspace.tsx",
+      "expectedSha256": "7b779f57baf1058ea87dc79a221ade3bb021818f993f3955f5083092483bb929",
+      "actualSha256": "7b779f57baf1058ea87dc79a221ade3bb021818f993f3955f5083092483bb929",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/dhcp-commands.ts",
+      "expectedSha256": "569582d4a68b94783e92e89345ece3118a519c5c066a78f775cc671230ed7a58",
+      "actualSha256": "569582d4a68b94783e92e89345ece3118a519c5c066a78f775cc671230ed7a58",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/dhcp-lease.ts",
+      "expectedSha256": "50ce869b7295365d68becb53227cda392afa5bbb7e02cba5a832a48692f6788f",
+      "actualSha256": "50ce869b7295365d68becb53227cda392afa5bbb7e02cba5a832a48692f6788f",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/dhcp-model.ts",
+      "expectedSha256": "1164e6b36765a0e380635fd380d69b25cf15e1850f4dd1a994cbc041f711fc10",
+      "actualSha256": "1164e6b36765a0e380635fd380d69b25cf15e1850f4dd1a994cbc041f711fc10",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/edge-acl.ts",
+      "expectedSha256": "c5213d0176018bf34a9adb11aeb4cfcf8e0490941138d7cee568bfa1e1891fcf",
+      "actualSha256": "c5213d0176018bf34a9adb11aeb4cfcf8e0490941138d7cee568bfa1e1891fcf",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/scenarios/windows-firewall.ts",
+      "expectedSha256": "2b2a06453a26ed490bb4bae77816d5bc39f150631fa1e7825250aefe3c1a645e",
+      "actualSha256": "2b2a06453a26ed490bb4bae77816d5bc39f150631fa1e7825250aefe3c1a645e",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/AdministrationWorkspace.tsx",
+      "expectedSha256": "d4c5d1ee1d094009c9b892001ba7ee1ce817e6ee5392b9f43ef52a05ee0b9197",
+      "actualSha256": "d4c5d1ee1d094009c9b892001ba7ee1ce817e6ee5392b9f43ef52a05ee0b9197",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/RuleCollection.tsx",
+      "expectedSha256": "b27fb22b8e1c3e278bd3f25b3c99d09a893f78f42116b01582a9adaef9cbeaa3",
+      "actualSha256": "b27fb22b8e1c3e278bd3f25b3c99d09a893f78f42116b01582a9adaef9cbeaa3",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/RuleEditorDialog.tsx",
+      "expectedSha256": "b75412126bbe1d3baf755fd16b3a514a4f531859039b47234cfb3d5ad12e44fc",
+      "actualSha256": "b75412126bbe1d3baf755fd16b3a514a4f531859039b47234cfb3d5ad12e44fc",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/TrafficTester.tsx",
+      "expectedSha256": "462baef73649f4e4ae0cbc41280fb6a7f7c51db0209129ff8cac8d5f314f46c2",
+      "actualSha256": "462baef73649f4e4ae0cbc41280fb6a7f7c51db0209129ff8cac8d5f314f46c2",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/WindowsRuleCollection.tsx",
+      "expectedSha256": "4f6e20d3ad437e57ee92666e9121b7d1e8d0779246b990bcc2a9c7791e3bfca4",
+      "actualSha256": "4f6e20d3ad437e57ee92666e9121b7d1e8d0779246b990bcc2a9c7791e3bfca4",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/ui/contracts.ts",
+      "expectedSha256": "f9539ffe2196b59c8238eac0d0797480750f7154abdb23a3f9c0f39b70da1d26",
+      "actualSha256": "f9539ffe2196b59c8238eac0d0797480750f7154abdb23a3f9c0f39b70da1d26",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/web-registry.test.ts",
+      "expectedSha256": "be1c33174f6b883587922833b531ad6ae479bb9b1abc31a117f9d42dbc69f428",
+      "actualSha256": "be1c33174f6b883587922833b531ad6ae479bb9b1abc31a117f9d42dbc69f428",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/web-registry.ts",
+      "expectedSha256": "8894dc292bd30f96b56fe713f99c4e2260d4741e8f414b320f90d34c8e0f0cf3",
+      "actualSha256": "8894dc292bd30f96b56fe713f99c4e2260d4741e8f414b320f90d34c8e0f0cf3",
+      "matches": true
+    },
+    {
+      "path": "src/simulations/windows-firewall-scenarios.test.ts",
+      "expectedSha256": "3096c6ac6e90f997371786be1eafd4a547705d28794cdb3a893920daabcd3076",
+      "actualSha256": "3096c6ac6e90f997371786be1eafd4a547705d28794cdb3a893920daabcd3076",
+      "matches": true
+    },
+    {
+      "path": "worker/assets.test.ts",
+      "expectedSha256": "3f608a3d5a390970fbf17f900b607210aafc4179c4c186dc68afe1a611857c5c",
+      "actualSha256": "3f608a3d5a390970fbf17f900b607210aafc4179c4c186dc68afe1a611857c5c",
+      "matches": true
+    },
+    {
+      "path": "worker/auth.test.ts",
+      "expectedSha256": "43956486dca7889df0921f317029a1148980e737325abd20102fc4a6d5d4f066",
+      "actualSha256": "43956486dca7889df0921f317029a1148980e737325abd20102fc4a6d5d4f066",
+      "matches": true
+    },
+    {
+      "path": "worker/auth.ts",
+      "expectedSha256": "1fd284809ee990c22a3b61e239cbac1c776a7663a5c3b635d9137a3c57fcb6d5",
+      "actualSha256": "1fd284809ee990c22a3b61e239cbac1c776a7663a5c3b635d9137a3c57fcb6d5",
+      "matches": true
+    },
+    {
+      "path": "worker/index.ts",
+      "expectedSha256": "2e706d8f273e50ad84238c2a08d95f5f05d8efb1154284720139a4c8ddf333df",
+      "actualSha256": "2e706d8f273e50ad84238c2a08d95f5f05d8efb1154284720139a4c8ddf333df",
+      "matches": true
+    },
+    {
+      "path": "worker/mail.test.ts",
+      "expectedSha256": "f730e8b8ba63406aaba8fa7668f1886a22b8b88e06b707455a4c564162ad2a1e",
+      "actualSha256": "f730e8b8ba63406aaba8fa7668f1886a22b8b88e06b707455a4c564162ad2a1e",
+      "matches": true
+    },
+    {
+      "path": "worker/mail.ts",
+      "expectedSha256": "95b52553df65c76e109d1dd5c22ed9374537a2c907435ddcb03b8311d169bf30",
+      "actualSha256": "95b52553df65c76e109d1dd5c22ed9374537a2c907435ddcb03b8311d169bf30",
+      "matches": true
+    },
+    {
+      "path": "worker/newsletter.test.ts",
+      "expectedSha256": "344cb3221fdcd06adadeded40fa67fa673a8be588153b99f51816849a34bc4aa",
+      "actualSha256": "344cb3221fdcd06adadeded40fa67fa673a8be588153b99f51816849a34bc4aa",
+      "matches": true
+    },
+    {
+      "path": "worker/newsletter.ts",
+      "expectedSha256": "07c992c60577a132b0b99a156c6d4eef5e4a2a7fb0d905d6571118d1d95c8927",
+      "actualSha256": "07c992c60577a132b0b99a156c6d4eef5e4a2a7fb0d905d6571118d1d95c8927",
+      "matches": true
+    },
+    {
+      "path": "worker/report.test.ts",
+      "expectedSha256": "028adc43985c325012f0de78fc9573c13b31dbf1452c4cfc2a85470b637c2dcf",
+      "actualSha256": "028adc43985c325012f0de78fc9573c13b31dbf1452c4cfc2a85470b637c2dcf",
+      "matches": true
+    },
+    {
+      "path": "worker/schema.sql",
+      "expectedSha256": "f006aeaaf57f388eb8cc85769116488186dafe009b088b80ac2a975b00cc74f3",
+      "actualSha256": "f006aeaaf57f388eb8cc85769116488186dafe009b088b80ac2a975b00cc74f3",
+      "matches": true
+    },
+    {
+      "path": "worker/social.test.ts",
+      "expectedSha256": "2d36c6af9a40662831b18d352c386086943b8c47ac0f7415bbdf28fbbdb3dcca",
+      "actualSha256": "2d36c6af9a40662831b18d352c386086943b8c47ac0f7415bbdf28fbbdb3dcca",
+      "matches": true
+    },
+    {
+      "path": "worker/social.ts",
+      "expectedSha256": "de4cfae0bee9f76baecbf719ee2336d19f2b3441e0e09a481e85ddb5ef9449f7",
+      "actualSha256": "de4cfae0bee9f76baecbf719ee2336d19f2b3441e0e09a481e85ddb5ef9449f7",
+      "matches": true
+    }
+  ],
+  "media": [
+    {
+      "path": "course-studio/authentic-media/output/network-configuration-revised.mp4",
+      "expectedSha256": "a24e04fd625eff04baba09122ab8a06e33231ca66b24a3cbb6779669148b87f3",
+      "actualSha256": "a24e04fd625eff04baba09122ab8a06e33231ca66b24a3cbb6779669148b87f3",
+      "matches": true,
+      "bytes": 20448077,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "681.388021"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/output/network-settings-practical.mp4",
+      "expectedSha256": "fef722615b5a60124a294d4e0420648040d4386bd0fab6f653ea166a2299ee1f",
+      "actualSha256": "fef722615b5a60124a294d4e0420648040d4386bd0fab6f653ea166a2299ee1f",
+      "matches": true,
+      "bytes": 4981510,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "130.066667"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/raw/terminal.mp4",
+      "expectedSha256": "ce4fe21aeeab38a34b26e78dad1ddbde89e2a2c776690ef2a578277ab660bd1c",
+      "actualSha256": "ce4fe21aeeab38a34b26e78dad1ddbde89e2a2c776690ef2a578277ab660bd1c",
+      "matches": true,
+      "bytes": 252746,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 2196,
+            "height": 1026,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "25.000000"
+        }
+      }
+    },
+    {
+      "path": "course-studio/lessons/computer-network/output/lesson-computer-network.mp4",
+      "expectedSha256": "0640f4b501ce508e0117a17d1b0aa582f6f15c2f1ab5a1b06cb53dc78119d0e2",
+      "actualSha256": "0640f4b501ce508e0117a17d1b0aa582f6f15c2f1ab5a1b06cb53dc78119d0e2",
+      "matches": true,
+      "bytes": 11077622,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "389.633333"
+        }
+      }
+    },
+    {
+      "path": "course-studio/lessons/ip-address/output/lesson-ip-address.mp4",
+      "expectedSha256": "208f33dc92c45831dabefac89e381a2b06b8315b773dc2c550ccfb58802a9f35",
+      "actualSha256": "208f33dc92c45831dabefac89e381a2b06b8315b773dc2c550ccfb58802a9f35",
+      "matches": true,
+      "bytes": 14046690,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "455.566667"
+        }
+      }
+    },
+    {
+      "path": "course-studio/lessons/network-configuration/output/lesson-network-configuration.mp4",
+      "expectedSha256": "33484868374d766c3392301558a3db2f671113cc46ea9ad5a8ceefa3f28ca678",
+      "actualSha256": "33484868374d766c3392301558a3db2f671113cc46ea9ad5a8ceefa3f28ca678",
+      "matches": true,
+      "bytes": 15464653,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "551.300000"
+        }
+      }
+    },
+    {
+      "path": "course-studio/pilots/dhcp-apipa/output/pilot-dhcp-apipa.mp4",
+      "expectedSha256": "394630069bd07adedcc75921357c060902a6b4e957909c778862fbb37414a81e",
+      "actualSha256": "394630069bd07adedcc75921357c060902a6b4e957909c778862fbb37414a81e",
+      "matches": true,
+      "bytes": 10056091,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "417.833333"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/output/network-settings-practical-clean-v2.mp4",
+      "expectedSha256": "6187341ca5aa56ccf391e5002fdaa03b6aeec0333467dfb69ae59ed0099c20fb",
+      "actualSha256": "6187341ca5aa56ccf391e5002fdaa03b6aeec0333467dfb69ae59ed0099c20fb",
+      "matches": true,
+      "bytes": 4757599,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "130.066667"
+        }
+      }
+    },
+    {
+      "path": "course-studio/authentic-media/output/network-configuration-revised-clean-v2.mp4",
+      "expectedSha256": "a3ccde0c09862112dbfc0dcd9a7f5b577920bd2f8ae031b59a8c853664b45c47",
+      "actualSha256": "a3ccde0c09862112dbfc0dcd9a7f5b577920bd2f8ae031b59a8c853664b45c47",
+      "matches": true,
+      "bytes": 20224166,
+      "gitIgnored": true,
+      "gitTracked": false,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "681.388021"
+        }
+      }
+    }
+  ],
+  "curriculum": {
+    "lessons": 151,
+    "modules": 18,
+    "numberedObjectives": 63,
+    "sourceItems": 1309,
+    "assignments": 1309,
+    "uniqueLessonIds": 151,
+    "prerequisiteReferencesValid": true,
+    "prerequisiteCycleFound": false
+  },
+  "backup": {
+    "verifiedIndependentExternalCopies": 0,
+    "status": "Not verified. Scoped project records explicitly state ignored local masters require separately approved backup; no off-device backup is claimed.",
+    "inspectionLimit": "Read-only project records and current accepted worktree only; no unrelated drives/accounts/services inspected. Same-disk working copies are not independent backups.",
+    "requiredBeforePublication": "Two verified controlled archival copies, checksum index, approved storage and rights/hosting review."
+  },
+  "publication": "paused-unpublished; Windows practical coverage and other owner gates remain incomplete"
+}

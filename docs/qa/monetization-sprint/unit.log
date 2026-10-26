@@ -1,0 +1,12 @@
+
+> comptia-practice-trainer@2.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /home/sorannex/Claude Projects/cert900/monetization-ux-seo-m1-worktree
+
+
+ Test Files  44 passed (44)
+      Tests  670 passed (670)
+   Start at  09:54:08
+   Duration  8.46s (transform 10.50s, setup 0ms, import 21.56s, tests 14.93s, environment 9ms)

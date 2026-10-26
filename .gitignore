@@ -32,3 +32,9 @@ AuthKey_*.p8
 # Python bytecode from the ui-ux-pro-max skill scripts (was tracked by accident)
 __pycache__/
 *.pyc
+
+# Private publisher application evidence; never publish or commit account records.
+.publisher-private/
+
+# Also ignore the local dependency-reuse symlink.
+/node_modules

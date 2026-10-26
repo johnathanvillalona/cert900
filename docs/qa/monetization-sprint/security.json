@@ -1,0 +1,30 @@
+{
+  "checkedDate": "2026-10-26",
+  "zod": "4.6.6",
+  "production": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "full": {
+    "info": 0,
+    "low": 0,
+    "moderate": 2,
+    "high": 1,
+    "critical": 0,
+    "total": 3
+  },
+  "developmentPackages": [
+    "miniflare",
+    "undici",
+    "wrangler"
+  ],
+  "owningCheckout": "/home/sorannex/Claude Projects/cert900/hotfix-zod-production-worktree",
+  "owningTreeProblems": [],
+  "manifestUnchanged": true,
+  "mobile": "Untouched, not re-audited; prior reported mobile findings remain separate.",
+  "symlinkInspection": "npm ls through reused node_modules symlink reported extraneous/missing; owning checkout passes with identical manifest and lockfile."
+}

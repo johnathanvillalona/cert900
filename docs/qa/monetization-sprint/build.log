@@ -1,0 +1,96 @@
+
+> comptia-practice-trainer@2.0.0 build
+> tsc --noEmit && tsc --noEmit -p tsconfig.worker.json && vite build && tsx tools/prerender.tsx
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2628 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                   5.68 kB │ gzip:   2.04 kB
+dist/assets/geist-mono-symbols2-wght-normal-GZpp1pK2.woff2        5.80 kB
+dist/assets/geist-mono-cyrillic-ext-wght-normal-I4S5GZfc.woff2    6.18 kB
+dist/assets/geist-cyrillic-ext-wght-normal-DjL33-gN.woff2         7.42 kB
+dist/assets/geist-mono-vietnamese-wght-normal-D8KDMBhC.woff2      7.72 kB
+dist/assets/geist-vietnamese-wght-normal-6IgcOCM7.woff2           8.00 kB
+dist/.vite/manifest.json                                         12.70 kB │ gzip:   1.69 kB
+dist/assets/geist-mono-cyrillic-wght-normal-BmXc_FBt.woff2       12.88 kB
+dist/assets/geist-mono-latin-ext-wght-normal-DrnZ1wKl.woff2      14.78 kB
+dist/assets/geist-cyrillic-wght-normal-BEAKL7Jp.woff2            15.08 kB
+dist/assets/geist-latin-ext-wght-normal-DC-KSUi6.woff2           16.51 kB
+dist/assets/geist-latin-wght-normal-BgDaEnEv.woff2               29.40 kB
+dist/assets/geist-mono-latin-wght-normal-B_7UjwxQ.woff2          29.90 kB
+dist/assets/index-9hpL7Hr3.css                                  114.04 kB │ gzip:  19.99 kB
+dist/assets/content-Cm8eUaa6.js                                   0.12 kB │ gzip:   0.13 kB
+dist/assets/circle-x-CD0O-haU.js                                  0.21 kB │ gzip:   0.18 kB
+dist/assets/primitives-COycSDYg.js                                1.14 kB │ gzip:   0.63 kB
+dist/assets/routes-Vfo5G42i.js                                    2.25 kB │ gzip:   1.04 kB
+dist/assets/dhcp-model-Bh_VCqS3.js                                3.56 kB │ gzip:   1.52 kB
+dist/assets/web-registry-D5wmXIEE.js                              3.76 kB │ gzip:   1.40 kB
+dist/assets/advertising-BNc1MbNh.js                               4.55 kB │ gzip:   2.04 kB
+dist/assets/consent-D0wjzn2i.js                                   5.19 kB │ gzip:   2.34 kB
+dist/assets/Admin-C3DuuWCk.js                                     6.50 kB │ gzip:   2.55 kB
+dist/assets/dhcp-lease-DgzyGzpi.js                                7.10 kB │ gzip:   3.04 kB
+dist/assets/edge-acl-cw-mqoCf.js                                  8.26 kB │ gzip:   3.20 kB
+dist/assets/RuleEditorDialog-CZ4_Ko-i.js                          8.88 kB │ gzip:   3.08 kB
+dist/assets/windows-firewall-CFDECgWs.js                          9.70 kB │ gzip:   3.51 kB
+dist/assets/DhcpWorkspace-C_giYGl1.js                            10.05 kB │ gzip:   3.63 kB
+dist/assets/ProgressScreen-MBvTlsE3.js                           16.15 kB │ gzip:   5.65 kB
+dist/assets/EdgeAclWorkspace-DApEu4yT.js                         20.22 kB │ gzip:   6.22 kB
+dist/assets/WindowsFirewallWorkspace-DKh8lpeB.js                 24.04 kB │ gzip:   7.28 kB
+dist/assets/ui-utils-BLsR-C0C.js                                 28.17 kB │ gzip:   8.98 kB
+dist/assets/sc-900-DziKeOE5.js                                  147.51 kB │ gzip:  40.23 kB
+dist/assets/study-resources-3y3nX3r6.js                         147.68 kB │ gzip:  30.23 kB
+dist/assets/bank-220-1201-DqP1oiLV.js                           163.28 kB │ gzip:  54.07 kB
+dist/assets/bank-n10-009-BvgGkITJ.js                            165.08 kB │ gzip:  54.99 kB
+dist/assets/bank-220-1202-CPt1AUEm.js                           175.78 kB │ gzip:  58.52 kB
+dist/assets/az-104-CDAmem-y.js                                  177.85 kB │ gzip:  49.44 kB
+dist/assets/ccna-200-301-DVBDU-pH.js                            182.28 kB │ gzip:  56.27 kB
+dist/assets/react-CrXXQDmi.js                                   192.94 kB │ gzip:  60.54 kB
+dist/assets/saa-c03-D2mRBMCG.js                                 205.99 kB │ gzip:  59.92 kB
+dist/assets/bank-az-900-0LdyXIoX.js                             219.77 kB │ gzip:  68.55 kB
+dist/assets/bank-aif-c01-KuSzDuIn.js                            247.94 kB │ gzip:  79.74 kB
+dist/assets/bank-clf-c02-4FCzFJaD.js                            252.20 kB │ gzip:  78.38 kB
+dist/assets/bank-sy0-701-DZIMgLQI.js                            335.97 kB │ gzip: 106.74 kB
+dist/assets/charts-ChcQp2Hs.js                                  365.65 kB │ gzip: 108.49 kB
+dist/assets/index-XM-qV7Do.js                                   495.67 kB │ gzip: 149.05 kB
+✓ built in 4.63s
+font preloads: href="/assets/geist-latin-wght-normal-BgDaEnEv.woff2" href="/assets/geist-mono-latin-wght-normal-B_7UjwxQ.woff2"
+noscript fallback: 21 guide links and 11 study hubs
+prerendered /comptia-a-plus-practice-test -> dist/comptia-a-plus-practice-test.html (41.9 KB body)
+prerendered /comptia-a-plus-core-1-practice-test -> dist/comptia-a-plus-core-1-practice-test.html (40.4 KB body)
+prerendered /comptia-a-plus-core-2-practice-test -> dist/comptia-a-plus-core-2-practice-test.html (40.8 KB body)
+prerendered /network-plus-practice-test -> dist/network-plus-practice-test.html (39.0 KB body)
+prerendered /comptia-pbq-practice -> dist/comptia-pbq-practice.html (37.2 KB body)
+prerendered /comptia-security-plus-practice-test -> dist/comptia-security-plus-practice-test.html (42.9 KB body)
+prerendered /aws-ai-practitioner-practice-test -> dist/aws-ai-practitioner-practice-test.html (191.7 KB body)
+prerendered /aws-cloud-practitioner-practice-test -> dist/aws-cloud-practitioner-practice-test.html (42.7 KB body)
+prerendered /azure-fundamentals-practice-test -> dist/azure-fundamentals-practice-test.html (169.0 KB body)
+prerendered /microsoft-sc-900-practice-test -> dist/microsoft-sc-900-practice-test.html (41.8 KB body)
+prerendered /cisco-ccna-practice-test -> dist/cisco-ccna-practice-test.html (42.9 KB body)
+prerendered /azure-administrator-az-104-practice-test -> dist/azure-administrator-az-104-practice-test.html (42.3 KB body)
+prerendered /aws-solutions-architect-associate-practice-test -> dist/aws-solutions-architect-associate-practice-test.html (42.1 KB body)
+prerendered /it-certification-practice-tests -> dist/it-certification-practice-tests.html (28.6 KB body)
+prerendered /it-certification-passing-scores -> dist/it-certification-passing-scores.html (26.0 KB body)
+prerendered /which-it-certification-first -> dist/which-it-certification-first.html (21.8 KB body)
+prerendered /how-our-questions-are-made -> dist/how-our-questions-are-made.html (21.8 KB body)
+prerendered /common-network-ports -> dist/common-network-ports.html (32.8 KB body)
+prerendered /ccna-cli-commands -> dist/ccna-cli-commands.html (34.4 KB body)
+prerendered /a-plus-cables-and-connectors -> dist/a-plus-cables-and-connectors.html (31.4 KB body)
+prerendered /aws-azure-service-comparison -> dist/aws-azure-service-comparison.html (33.3 KB body)
+prerendered /study/220-1201 -> dist/study/220-1201.html (115.8 KB body)
+prerendered /study/220-1202 -> dist/study/220-1202.html (130.1 KB body)
+prerendered /study/n10-009 -> dist/study/n10-009.html (135.2 KB body)
+prerendered /study/sy0-701 -> dist/study/sy0-701.html (191.4 KB body)
+prerendered /study/ccna-200-301 -> dist/study/ccna-200-301.html (106.2 KB body)
+prerendered /study/aif-c01 -> dist/study/aif-c01.html (112.9 KB body)
+prerendered /study/clf-c02 -> dist/study/clf-c02.html (120.3 KB body)
+prerendered /study/saa-c03 -> dist/study/saa-c03.html (102.1 KB body)
+prerendered /study/az-900 -> dist/study/az-900.html (112.2 KB body)
+prerendered /study/sc-900 -> dist/study/sc-900.html (103.3 KB body)
+prerendered /study/az-104 -> dist/study/az-104.html (138.3 KB body)
+prerendered public legal page /privacy
+prerendered public legal page /terms
+prerendered public legal page /delete-account
+sitemap.xml: 36 urls
+qotd-feed.json: 104 multiple-choice entries (of 121 in the pool)
