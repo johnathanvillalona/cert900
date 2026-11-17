@@ -286,7 +286,7 @@ beginners with short explanations, useful visuals and optional technical depth.
   `key={session.idx}` (Quiz.tsx PBQView) and any `<Select>` bound to an
   unanswered value uses `""`, NEVER `undefined` — `undefined` makes Radix
   uncontrolled, so its internal selection persists into the next question and
-  displays an answer the reducer never recorded (shipped bug, fixed cf147f9:
+  displays an answer the reducer never recorded (shipped bug, fixed f6fc204:
   match rows looked correctly answered but graded wrong). `src/screens/
   pbq-bindings.test.ts` locks both invariants; the Playwright proof
   `qa/match-repro.js` (answer every match PBQ by visible label, assert 100%)

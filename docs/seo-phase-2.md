@@ -4,7 +4,7 @@
 
 - Branch: `feature/seo-phase-2`.
 - Worktree: `<workspace>/seo-phase-2-worktree`.
-- Freshly verified main/baseline: `ed4266879574ba9ccfe5b4cc9425be54fc5e2fcd`.
+- Freshly verified main/baseline: `387fdd01d78edb035f94d36a94bd35cf36115986`.
 - Read-only production checkpoint: Worker `comptia-practice-trainer`, version
   `318a5dae-3110-4d0e-a6f2-ed7a0346f213`, 100% traffic, deployment
   `7386d283-8ce3-4d60-bbc9-2e0413648596`.

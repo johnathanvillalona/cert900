@@ -14,9 +14,9 @@ Private tracker and confirmation evidence: `.publisher-private/tracker.json` and
 
 ## Development checkpoints
 
-- Production parent: `8f64becefa1575a97a69e2bb959306bf3ac9f73a`.
+- Production parent: `53e91bc3955b562562cd2c2a41ff4b398dac0363`.
 - Branch: `feature/monetization-ux-seo-m1`.
-- Validated implementation checkpoint: `5d5176b83335805a037410751ea0ea1ea2571ec3`; subsequent report-only follow-up records browser reconnection and changed AdSense status.
+- Validated implementation checkpoint: `f6e738d567dc79ddf7e6eee66196001c7e289080`; subsequent report-only follow-up records browser reconnection and changed AdSense status.
 - Worktree: `<workspace>/monetization-ux-seo-m1-worktree`.
 - LMS stays clean and paused at `322b7a03f395d1859c01d044d9981a09ef074534`, `feature/m8c-windows-first`. See root `LMS-RESUME.md`. Do not merge this lineage.
 - No push, merge, upload, deployment, traffic change, database migration, analytics/consent change or ad activation is authorized.
@@ -41,4 +41,4 @@ Browser screenshots use actual measured CSS widths **320, 375, 390, 768, 1440**.
 4. Keep the isolated synthetic local preview at `http://127.0.0.1:4298/` available for review. If it exited, restart with `node tools/qa/isolated-worker.mjs --serve --port=4298` after checking the port. Never use the production Wrangler configuration for local tests.
 5. Confirm the local report-only follow-up is clean, then deliver the changed AdSense status and connection outcome. Do not check the policy attestation or resubmit automatically. Future rejection investigation, staging and promotion require their appropriate approval; do not restart completed publisher outreach.
 
-October 26 read-only recheck: remote main still `8f64becefa1575a97a69e2bb959306bf3ac9f73a`; deployment `0e3b3986-4329-443b-a0d7-9fdc5af033d0` still routes 100% to `4ba3782a-89ef-4e8e-997b-20b023934875`. No new Worker version was uploaded by this sprint.
+October 26 read-only recheck: remote main still `53e91bc3955b562562cd2c2a41ff4b398dac0363`; deployment `0e3b3986-4329-443b-a0d7-9fdc5af033d0` still routes 100% to `4ba3782a-89ef-4e8e-997b-20b023934875`. No new Worker version was uploaded by this sprint.

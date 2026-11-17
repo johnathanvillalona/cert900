@@ -3,7 +3,7 @@
 ## Isolation and scope
 
 Branch: `feature/monetization-phase-a`, based on GitHub main
-`f20717a6dc7634f6a9533ca6060c553be65cf0aa`.
+`01d0fca10159fb228b23afe11043e9828bc13844`.
 Worktree: `monetization-phase-a-worktree`.
 
 No advertising code, publisher SDK, Google advertising CMP, affiliate activation,

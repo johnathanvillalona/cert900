@@ -5,7 +5,7 @@
 - Worktree: `<workspace>/security-worktree`.
 - Branch: `feature/security-dependency-updates`.
 - Verified production baseline (`origin/main`):
-  `5e25e23c458ec25914cb61f9d13ebcfedec80d0d`.
+  `9c6d7fb64f16624a77dcd0819870546fabd01e71`.
 - PBQ work remains separate and clean on `feature/pbq-workstation-pilot`, at
   `b8f59b7622865439133d3357e373ec743d0b2667`. Its three pilot files are not
   included in this branch.
@@ -15,7 +15,7 @@
 
 ## Batch 1: remove the shadcn CLI
 
-Commit: `efb7c17560bf1ecba810dae0f7b6607fbcf70802`.
+Commit: `6fc6dfe36219da83bb9925024682748b3d3b7d00`.
 
 Removed the unused `shadcn@4.13.0` CLI dependency, but retained its required
 Tailwind stylesheet locally. See `src/styles/vendor/README.md` for the verified
@@ -234,7 +234,7 @@ configuration, production resources, or preserved PBQ work were changed.
 ## Batch 4: remaining compatible transitive fixes
 
 Started from clean Batch 3 commit
-`ca175d7000faa6b4a9eab36a275e9d0b1cfe721f` after explicit user approval.
+`5f7e1bfff37f32dd45211368e28b5588fe2521f4` after explicit user approval.
 Published versions, engines, dependencies, and advisory patched ranges were
 verified again before updating. All five changes stay within the existing
 parent semver ranges; no incompatible major upgrades were needed.
@@ -351,9 +351,9 @@ remain unperformed and require the next approval. Stop after this batch.
 All batches are local commits on the isolated branch. To undo Batch 4, revert
 its commit and run `npm ci --ignore-scripts --no-audit --no-fund`, tests, and
 build; this restores the five known findings that Batch 4 addressed. To also
-undo Batch 3, revert `ca175d7`. To undo earlier batches, revert Vitest commit
-`07e18bd` next, then
-`efb7c17560bf1ecba810dae0f7b6607fbcf70802` if required, and run
+undo Batch 3, revert `5f7e1bf`. To undo earlier batches, revert Vitest commit
+`42a8dac` next, then
+`6fc6dfe36219da83bb9925024682748b3d3b7d00` if required, and run
 `npm ci --ignore-scripts --no-audit --no-fund` followed by tests and build. Use
 revert commits rather than resetting or discarding work. The PBQ checkpoint and
 production branch are unaffected.

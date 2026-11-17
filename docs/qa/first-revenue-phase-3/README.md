@@ -1,7 +1,7 @@
 # First Revenue Phase 3 — validation evidence
 
 October 26, 2026. Local worktree: `first-revenue-phase-3-worktree`.
-Branch: `feature/first-revenue-phase-3`. Base: `d6b7ba2e231f347ee93f847fc10b5e146c5e425d`.
+Branch: `feature/first-revenue-phase-3`. Base: `87b3b9f697c07e87ed1da970735f9d15124c811e`.
 
 ## Results
 

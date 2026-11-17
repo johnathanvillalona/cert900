@@ -6,7 +6,7 @@ Prepared October 26, 2026 (America/New_York). Publisher outreach and traffic obs
 
 - Branch: `feature/monetization-ux-seo-m1`.
 - Worktree: `<workspace>/monetization-ux-seo-m1-worktree`.
-- Direct production parent: `8f64becefa1575a97a69e2bb959306bf3ac9f73a`.
+- Direct production parent: `53e91bc3955b562562cd2c2a41ff4b398dac0363`.
 - October 26 read-only verification: remote main still matches that parent. Cloudflare deployment `0e3b3986-4329-443b-a0d7-9fdc5af033d0` still routes **100%** to `4ba3782a-89ef-4e8e-997b-20b023934875`.
 - This sprint made no push, merge, Cloudflare version upload, staging deployment, traffic change, account-setting change, purchase or database migration.
 - The local commit containing this report identifies the candidate; obtain its full SHA with `git rev-parse HEAD`. It is not an uploaded Worker version.

@@ -1,7 +1,7 @@
 {
   "task": "Advertising readiness: runtime kill switch, pilot-only CSP, Google CMP bootstrap, regional policy flag, conditional privacy disclosure; everything ships disabled",
   "branch": "feature/advertising-readiness",
-  "base": "b88a7cf467056c5c638330e4662141518097b29d",
+  "base": "7ffda811a768d708a0bd39ffdbc55daa6fc27dff",
   "date": "2026-11-17",
   "unit": {
     "files": 49,

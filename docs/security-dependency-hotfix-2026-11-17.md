@@ -1,6 +1,6 @@
 # Dependency security hotfix — 2026-11-17
 
-Branch `feature/security-deps-2026-11-17` from `main` at `fe2ec30`, worktree
+Branch `feature/security-deps-2026-11-17` from `main` at `43ef0de`, worktree
 `security-hotfix-2026-11-17-worktree`. Dependency versions only; no source,
 schema, configuration or test change.
 

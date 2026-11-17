@@ -9,7 +9,7 @@ No other pilot is enabled.
 
 Branch: `feature/pbq-simulator-foundation`.
 Worktree: `<workspace>/simulator-worktree`.
-Checkpoint/base: `ee4beba8f525e5c23ead280cb63f9d2c1a7650f5` (reviewed Plan A).
+Checkpoint/base: `e3bb0827f7bb7a12e3ed896c9235b784aff9c326` (reviewed Plan A).
 The repair, integration, security and preserved PBQ branches/worktrees remain
 unchanged. No push, merge, deployment, install-script approval or dependency
 change was performed. Question banks, authentication, backend, D1 schemas and

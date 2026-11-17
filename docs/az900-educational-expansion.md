@@ -2,7 +2,7 @@
 
 ## Checkpoint and scope
 
-- Accepted parent: `f70234776b516cb5f9856e50e07b3878ff3be9b9`.
+- Accepted parent: `925aca5c423c744afe415ffc61fba0f906ab5048`.
 - Branch: `feature/seo-phase-3-az900`.
 - Worktree: `<workspace>/seo-phase-3-az900-worktree`.
 - Editorial/source review date: **2026-10-21**, America/New_York.

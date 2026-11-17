@@ -2,7 +2,7 @@
   "change": "Light-only UI, Commissioner type and copy refresh",
   "date": "2026-11-17",
   "branch": "feature/humanize-ui",
-  "base": "3d475cc",
+  "base": "b8360a0",
   "unit": {
     "files": 50,
     "tests": 755,

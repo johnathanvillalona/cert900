@@ -5,7 +5,7 @@
 - Branch: `feature/seo-phase-1`.
 - Worktree: `<workspace>/seo-phase-1-worktree`.
 - Freshly verified GitHub main and starting commit:
-  `39b6f13480c957d4a2d2628df864d92ee810a2b5`.
+  `5563fc8eb3fa59a0b43b9bccad0162a0837fe851`.
 - No push, merge, Cloudflare upload/deployment, Search Console submission, Google
   setting change or advertising activation is part of this change.
 

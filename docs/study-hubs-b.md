@@ -4,7 +4,7 @@
 
 - Branch: `feature/study-hubs-b`.
 - Worktree: `<workspace>/study-hubs-worktree`.
-- Accepted parent: `9f7462e1b13c647eb7f59fded2a8509833391952`.
+- Accepted parent: `521dffadd84ec2991f8bc2193c4859fe6780c246`.
 - Final commit: recorded in the completion response after validation.
 
 This branch adds static resource hubs and navigation to existing learning tools.

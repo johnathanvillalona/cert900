@@ -8,7 +8,7 @@ remains disabled; no Google settings or production resources were changed.
 ## Release boundary
 
 Branch: `feature/monetization-phase-b`, based directly on verified GitHub main
-`f31a07d297c34ea06a35e1ad69c431de0f46e863`.
+`af3a7ae1615e0431959c0dd4e3d56259fa324443`.
 Worktree: `<workspace>/monetization-phase-b-worktree`.
 
 This is a disabled infrastructure milestone, not an advertising launch. No

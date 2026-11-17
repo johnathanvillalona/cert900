@@ -1,7 +1,7 @@
 # B3B: Warehouse Windows Firewall simulator
 
 Isolated branch `feature/pbq-firewall-b3b`, based on accepted B3A
-`9921615826f2c3de85ebc8248d162df6b5ea70df`. Original worktrees are preserved.
+`e02f48c13df8a0ba74d534ebb7e4c0d5d6b0bda6`. Original worktrees are preserved.
 No bank, engine/session API, backend, schema, production configuration or
 runtime dependency change is required.
 
@@ -76,7 +76,7 @@ Foundation validation: 443 unit tests pass, including unchanged bank integrity,
 DHCP and ACL suites; production build passes (existing chunk-size warning).
 Definition registered but learner opt-in waits for the workspace checkpoint.
 
-Foundation checkpoint: `75570fb2582662026bc34a56f7ccd3d9e05393aa`.
+Foundation checkpoint: `9b283922d847f83d7ac39e10e4dc6aac14a4ee7d`.
 
 ## Workspace and reuse
 
@@ -238,8 +238,8 @@ handling, D1 initialization/read/write/restart persistence and disabled outbound
 integrations all pass. No existing secret/env files or production services are
 used. Lifecycle scripts are not approved; no dependencies were changed.
 
-Preserved worktrees were rechecked clean: PBQ b8f59b7, security 9155df9,
-integration 3fb230f, repairs ee4beba, B2 f5f8fb1 and B3A 9921615. The security
+Preserved worktrees were rechecked clean: PBQ b8f59b7, security f569645,
+integration 9af7163, repairs e3bb082, B2 a3543d2 and B3A e02f48c. The security
 and accepted B2 commits remain ancestors. No question bank, engine/session API,
 authentication/Worker code, database schema, production config, package manifest
 or lockfile has a B3B diff. No push, merge or deployment occurred.

@@ -1,6 +1,6 @@
 # Light-only UI and copy refresh, 2026-11-17
 
-Branch `feature/humanize-ui` from `main` at `3d475cc`. Front-end, copy, test and
+Branch `feature/humanize-ui` from `main` at `b8360a0`. Front-end, copy, test and
 documentation changes only. No question-bank, grading, scoring, authentication,
 consent, advertising-policy, Worker or mobile change. `data-testid` values are
 unchanged.

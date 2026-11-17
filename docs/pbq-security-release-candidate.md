@@ -4,7 +4,7 @@
 
 - Branch: `feature/release-pbq-security-rc`.
 - Worktree: `<workspace>/release-candidate-worktree`.
-- Application/test checkpoint: `43ae9d279ac68230fb04cc4519a00cefda3fceb0`.
+- Application/test checkpoint: `f2d355ee7ac6a3afe74138d9dc5ead48b6ef42bf`.
 - This branch adds only this release report to that already consolidated tree.
   Obtain the final report-inclusive commit with `git rev-parse HEAD`; its exact
   SHA is also supplied in the release handoff.
@@ -14,7 +14,7 @@
 ## Production source and rollback evidence
 
 Fresh `git fetch --no-tags origin main` confirms both `origin/main` and local
-`main` at **`5e25e23c458ec25914cb61f9d13ebcfedec80d0d`**. GitHub's read-only
+`main` at **`9c6d7fb64f16624a77dcd0819870546fabd01e71`**. GitHub's read-only
 check-run metadata records **Workers Builds: comptia-practice-trainer** as
 successful for that exact SHA on **2026-09-06 06:24:23 UTC**, build
 `b2dd0b9a-ed53-4fa7-9a0c-b43df2cf52f5`. The two GitHub smoke/handoff checks also
@@ -35,24 +35,24 @@ All accepted changes are already in its ancestry; no merge/cherry-pick is needed
 
 | Accepted milestone | Included commit |
 |---|---|
-| shadcn CLI removal; exact vendored CSS and MIT attribution | `efb7c17560bf1ecba810dae0f7b6607fbcf70802` |
-| Vitest update and supported Tinypool removal | `07e18bd22dfe70257ad69b884ec9bc8a342c9c11` |
-| Wrangler/Cloudflare dependency remediation | `ca175d7000faa6b4a9eab36a275e9d0b1cfe721f` |
-| Remaining compatible transitive security updates | `9155df986bfb4e70ae49005a02c6f770193ae235` |
-| Integrated workstation pilot | `3fb230fae3d97d16254d5b2bd782dfa5c0142393` |
-| Isolated Worker and Chrome PBQ testing foundation | `f8f1f84fa608151f54ea6d2258b3be766962091f` |
-| Pregrade disclosure and drag cancellation repairs | `1e3fc24cdafb13de3d96154328d76e13b5b94312` |
-| Shared responsive/mobile/keyboard accessibility repairs | `ee4beba8f525e5c23ead280cb63f9d2c1a7650f5` |
-| B1 authoritative simulator/session foundation | `8c39a6948d238eac48f329d379bce6dec09cfae5` |
-| B2 Windows DHCP command console | `f5f8fb10f450c14da68a0b87fd64b31c30a73e93` |
-| B3A exact ACL evaluator and grading foundation | `fc16c667c5823b596c3a99099c6fb31f4af501c4` |
-| B3A Network+ administration workspace | `9921615826f2c3de85ebc8248d162df6b5ea70df` |
-| B3B separate Windows policy foundation | `75570fb2582662026bc34a56f7ccd3d9e05393aa` |
-| B3B Windows application firewall workspace | `bc3fc13e6f5f401c3c8452f244df206e59bf74b5` |
-| Final Vite security patch | `43ae9d279ac68230fb04cc4519a00cefda3fceb0` |
+| shadcn CLI removal; exact vendored CSS and MIT attribution | `6fc6dfe36219da83bb9925024682748b3d3b7d00` |
+| Vitest update and supported Tinypool removal | `42a8dac149edc18e10cb23f056c9e2bdb4d7b7f7` |
+| Wrangler/Cloudflare dependency remediation | `5f7e1bfff37f32dd45211368e28b5588fe2521f4` |
+| Remaining compatible transitive security updates | `f5696454a902e6aef1a9d6887af5e957c33b3a59` |
+| Integrated workstation pilot | `9af716315c0603a3463693d158a5b934758f3576` |
+| Isolated Worker and Chrome PBQ testing foundation | `d6693e4ab4b70bc29bfca80b7bbfcf59afbe532f` |
+| Pregrade disclosure and drag cancellation repairs | `2e35e354bee535d263574e3276996763ef9bc613` |
+| Shared responsive/mobile/keyboard accessibility repairs | `e3bb0827f7bb7a12e3ed896c9235b784aff9c326` |
+| B1 authoritative simulator/session foundation | `05310ac37be525fc9e03698e0d1d1374a31c6c78` |
+| B2 Windows DHCP command console | `a3543d2af16e48db1e9712065d8c510965b42cae` |
+| B3A exact ACL evaluator and grading foundation | `3a3de455c57b32b8d308a30c0cb7601851aed5a6` |
+| B3A Network+ administration workspace | `e02f48c13df8a0ba74d534ebb7e4c0d5d6b0bda6` |
+| B3B separate Windows policy foundation | `9b283922d847f83d7ac39e10e4dc6aac14a4ee7d` |
+| B3B Windows application firewall workspace | `7274ef119cc6508d1f439d5d17fa800543fefa89` |
+| Final Vite security patch | `f2d355ee7ac6a3afe74138d9dc5ead48b6ef42bf` |
 
 Original workstation checkpoint `b8f59b7622865439133d3357e373ec743d0b2667`
-is not an ancestor because it was cherry-picked as `3fb230f`. Their stable
+is not an ancestor because it was cherry-picked as `9af7163`. Their stable
 patch IDs are identical: `c3393ec3678d6c150b2e4db6f3969a1d8bb5a9af`.
 Do not apply it twice. The historical WIP subject does not indicate missing work.
 All other feature branches have zero additional unique commits. No accepted
@@ -104,7 +104,7 @@ was downloaded and no lifecycle script was approved.
 
 | Release check | Result |
 |---|---|
-| Reproducible lockfile installation | `npm ci --ignore-scripts --no-audit --no-fund` passes; package files exactly match 43ae9d2 |
+| Reproducible lockfile installation | `npm ci --ignore-scripts --no-audit --no-fund` passes; package files exactly match f2d355e |
 | Unit/integration/bank/scoring suite | **445 tests / 27 files pass** |
 | Production PBQ browser regressions | **84 pass**, no screenshot update flag; all 86 tracked baselines unchanged |
 | Simulator real-hook/performance browser suite | **7 pass** |
@@ -113,7 +113,7 @@ was downloaded and no lifecycle script was approved.
 | Installed dependency consistency | `npm ls --all` passes; no conflicts |
 | Isolated Worker suite | **13 groups pass**, zero outbound requests |
 | Supplemental release smoke suite | **9 groups pass**, detailed below |
-| Whitespace and code-boundary checks | Pass; no source/config/package diff from 43ae9d2 |
+| Whitespace and code-boundary checks | Pass; no source/config/package diff from f2d355e |
 
 Additional release-only checks used temporary scripts and a second fresh local
 Worker on port 4182; that test server was stopped and closure verified:
@@ -285,7 +285,7 @@ resources or run migrations. These flags were verified in pinned Wrangler
 
 ## Rollback procedure — not executed
 
-The source rollback checkpoint is `5e25e23c458ec25914cb61f9d13ebcfedec80d0d`,
+The source rollback checkpoint is `9c6d7fb64f16624a77dcd0819870546fabd01e71`,
 subject to confirming the actual active deployment before release. Preserve all
 current worktrees and commits. For an approved emergency rollback, use the
 recorded Cloudflare version ID, not the Git hash:
@@ -320,7 +320,7 @@ rollback. See [Cloudflare rollback documentation](https://developers.cloudflare.
 
 ## Exact application/test file manifest against source baseline
 
-Generated by `git diff --name-status 5e25e23..43ae9d2`. This excludes only the
+Generated by `git diff --name-status 9c6d7fb..f2d355e`. This excludes only the
 new release report itself. Full code review remains available with the same
 Git range; no accepted branch content was selected blindly.
 

@@ -13,7 +13,7 @@ this unpublished lineage as part of a monetization release.
 | Accepted LMS branch | `feature/m8c-windows-first` |
 | Accepted LMS worktree | `<workspace>/course-production-m8c-windows-worktree` |
 | LMS tracked working tree at inspection | Clean; HEAD and branch match the accepted checkpoint |
-| Production/main baseline for this sprint | `8f64becefa1575a97a69e2bb959306bf3ac9f73a` |
+| Production/main baseline for this sprint | `53e91bc3955b562562cd2c2a41ff4b398dac0363` |
 | Production Worker checkpoint supplied by owner | `4ba3782a-89ef-4e8e-997b-20b023934875` |
 | Rollback Worker checkpoint supplied by owner | `8ba0cf42-fcf9-4aaf-b13e-7396549f6d6f` |
 | Separate monetization worktree containing this document | `<workspace>/monetization-ux-seo-m1-worktree` |

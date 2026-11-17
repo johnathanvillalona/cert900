@@ -4,7 +4,7 @@
 
 - Branch: `feature/results-scroll-fix`.
 - Worktree: `<workspace>/results-scroll-worktree`.
-- Based directly on freshly fetched GitHub main `977819f527ddd340b7016c92ad140f5928ec119c`.
+- Based directly on freshly fetched GitHub main `a84f327e76dd4d9ab48f175ddd5df7279f84c586`.
 - Baseline main and release worktrees were clean; original branches/worktrees are preserved.
 - No push, merge into main, deployment, advertising activation, or GA4 setting change.
 - Existing dependencies installed using `npm ci --ignore-scripts --no-audit --no-fund`.
