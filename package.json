@@ -17,10 +17,10 @@
     "test:simulations": "playwright test --config playwright.simulations.config.ts"
   },
   "dependencies": {
-    "@better-auth/expo": "^1.6.23",
+    "@better-auth/expo": "^1.7.25",
     "@fontsource-variable/geist": "^5.2.9",
     "@fontsource-variable/geist-mono": "^5.2.8",
-    "better-auth": "^1.6.23",
+    "better-auth": "^1.7.25",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "kysely": "^0.29.3",
