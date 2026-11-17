@@ -8,7 +8,7 @@
   "focusedBrowserTests": 40,
   "focusedBrowserDuration": "1.1m",
   "focusedBrowserEvidence": "focused-recheck.log",
-  "persistentBrowserReconnection": "2026-10-26: fresh installed official MCP process automatically authenticated using saved owner-authorized private extension configuration; existing browser process may need one-time reload",
+  "persistentBrowserReconnection": "2026-10-26: fresh installed official MCP process automatically authenticated using saved owner-authorized private extension configuration; existing browser automation process may need one-time reload",
   "temporaryTabCleanup": "New QA tab created this turn closed after read-only checks; prior client group not visible and cleanup remains unverified; original tabs preserved",
   "simulatorTests": 7,
   "workerGroups": 13,

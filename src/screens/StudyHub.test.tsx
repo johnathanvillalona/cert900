@@ -28,7 +28,7 @@ describe("static certification Study Hubs", () => {
     expect(html.match(/data-testid="hub-lab"/g) ?? []).toHaveLength(exam.pbqCount ? 1 : 0)
     expect(html).toContain(`href="${primaryGuideForExam(examId)!.path}"`)
     for (const sub of ["drill", "plan", "stats"]) expect(html).toContain(`href="/exam/${examId}/${sub}"`)
-    expect(html).not.toMatch(/<script|adsbygoogle|\/quiz|\/results|How to use this to pass/)
+    expect(html).not.toMatch(/<script|adsbygoogle|\/quiz|\/results|Prepare for the exam/)
     for (const video of Object.values(exam.videos)) {
       expect(exam.domains[video.d]).toBeTruthy()
       const url = new URL(video.u)

@@ -101,7 +101,7 @@ byproduct.
   tracking is ever wanted, it stays on the ad-platform side (their click
   attribution), never as a tag on our pages.
 - **No AdSense.** Same reason (tracking + consent cost); monetization stays
-  EthicalAds (privacy-first) + affiliate + donate, per `PROJECT-GUIDE.md`.
+  EthicalAds (privacy-first) + affiliate + donate, per `AGENTS.md`.
 
 ## Suggested ramp
 

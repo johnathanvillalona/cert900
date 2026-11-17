@@ -164,7 +164,6 @@ export function Results({ exam, outcome, onRetake, onDrillAgain, onProgress, onH
           <span className={cn("verdict-pop block font-mono text-6xl font-bold tabular-nums", outcome.pass ? "text-success" : "text-destructive")}>
             {outcome.scaled}
           </span>
-          {outcome.pass && <span className="ambient-bloom" aria-hidden />}
           {outcome.pass && <span className="ring-pulse" aria-hidden />}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">

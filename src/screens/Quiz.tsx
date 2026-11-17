@@ -254,7 +254,7 @@ function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, simulationViews
       {isExam && (
         <div className="mt-6">
           <p className="text-muted-foreground text-sm">
-            Question palette. Tap to jump. <span className="text-sky-600 dark:text-sky-400">⚑ flagged</span>
+            Question palette. Tap to jump. <span className="text-sky-600">⚑ flagged</span>
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5" data-testid="palette">
             {session.items.map((it, i) => {
@@ -276,7 +276,7 @@ function QuizAttempt({ exam, cfg, onFinish, onQuit, simulations, simulationViews
                   className={cn(
                     "size-9 rounded-md border font-mono text-xs",
                     answered && "border-primary bg-primary/10 font-bold text-brand",
-                    session.flags.has(i) && "border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400",
+                    session.flags.has(i) && "border-sky-500 bg-sky-500/10 text-sky-600",
                     i === session.idx && "ring-2 ring-foreground",
                   )}
                 >
@@ -402,11 +402,11 @@ function MCView({ exam, session, item, isExam }: { exam: ExamDef; session: QuizS
 
   return (
     <div>
-      <p className="mb-3 mr-2 inline-block rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+      <p className="mb-3 mr-2 inline-block rounded border px-2 py-0.5 text-xs font-medium text-muted-foreground">
         {exam.domains[q.d]} · {exam.videos[q.t].n}
       </p>
       {multi && (
-        <p className="mb-3 inline-block rounded bg-foreground px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-background" data-testid="choose-n">
+        <p className="mb-3 inline-block rounded bg-foreground px-2 py-0.5 text-xs font-medium text-background" data-testid="choose-n">
           Choose {CHOOSE_WORDS[need] ?? need}
         </p>
       )}
@@ -493,10 +493,10 @@ function PBQView({ exam, session, item, isExam, simulationViews }: { exam: ExamD
 
   return (
     <div>
-      <p className="mb-3 mr-2 inline-block rounded bg-foreground px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-background">
-        {fmt.itemBadge[p.kind] ?? "Performance-Based Question"}
+      <p className="mb-3 mr-2 inline-block rounded bg-foreground px-2 py-0.5 text-xs font-medium text-background">
+        {fmt.itemBadge[p.kind] ?? "Performance-based question"}
       </p>
-      <p className="mb-3 inline-block rounded border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+      <p className="mb-3 inline-block rounded border px-2 py-0.5 text-xs font-medium text-muted-foreground">
         {exam.domains[exam.videos[p.t].d]}
       </p>
       <p className="text-lg font-semibold">{p.title}</p>

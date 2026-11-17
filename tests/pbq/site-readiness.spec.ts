@@ -72,13 +72,12 @@ test('footer navigation and privacy refresh expose current disclosures without a
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`readiness pages at ${width}px in both themes: complete text, links, no overflow`, async ({ page }, testInfo) => {
+  test(`readiness pages at ${width}px in light mode: complete text, links, no overflow`, async ({ page }, testInfo) => {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       for (const path of ['/privacy', `${GUIDE_PATHS.method}#about`]) {
         await page.goto(path)
         await settled(page)

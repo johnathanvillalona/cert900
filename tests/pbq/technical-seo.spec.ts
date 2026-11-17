@@ -143,14 +143,13 @@ test('redirects, robots.txt and all educational links retain canonical destinati
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`legal metadata/content, keyboard links and consent at ${width}px in both themes`, async ({ page }, info) => {
+  test(`legal metadata/content, keyboard links and consent at ${width}px in light mode`, async ({ page }, info) => {
     const errors: string[] = [], ads: string[] = []
     page.on('pageerror', e => errors.push(e.message))
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()) })
     page.on('request', r => { if (/googlesyndication|doubleclick|fundingchoices|grow\.me/.test(r.url())) ads.push(r.url()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(t => localStorage.setItem('trainer-theme', t), theme)
+    for (const theme of ['light']) {
       for (const path of LEGAL_PATHS) {
         await page.goto(path)
         await expect(page).toHaveTitle(LEGAL_METADATA[path].title)
@@ -175,3 +174,25 @@ for (const width of [320, 375, 390, 768, 1440]) {
     expect(ads).toEqual([])
   })
 }
+
+test('self-hosted typefaces are preloaded, served and applied on app and static pages', async ({ page, request }) => {
+  for (const path of ['/', '/comptia-a-plus-practice-test', '/study/n10-009']) {
+    const html = await (await request.get(path)).text()
+    const preloads = [...html.matchAll(/<link rel="preload" href="([^"]+)" as="font" type="font\/woff2" crossorigin>/g)].map(m => m[1])
+    expect(preloads, path).toHaveLength(2)
+    expect(preloads[0], path).toMatch(/^\/assets\/commissioner-latin-wght-normal-[\w-]+\.woff2$/)
+    expect(preloads[1], path).toMatch(/^\/assets\/red-hat-mono-latin-wght-normal-[\w-]+\.woff2$/)
+    for (const href of preloads) {
+      const font = await request.get(href)
+      expect(font.status(), href).toBe(200)
+      expect(font.headers()['content-type'], href).toContain('font/woff2')
+    }
+    expect(html, path).not.toMatch(/geist/i)
+  }
+  await page.goto('/comptia-a-plus-practice-test')
+  await page.evaluate(() => document.fonts.ready)
+  expect(await page.evaluate(() => document.fonts.check('16px "Commissioner Variable"'))).toBe(true)
+  expect(await page.evaluate(() => document.fonts.check('16px "Red Hat Mono Variable"'))).toBe(true)
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector('h1')!).fontFamily)).toContain('Commissioner Variable')
+  expect(await page.evaluate(() => getComputedStyle(document.body).fontFamily)).toContain('Commissioner Variable')
+})

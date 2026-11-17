@@ -1,6 +1,6 @@
 # Manual-only Linux smoke test. Workers Builds already proves `npm ci && npm run build`
-# on Linux for every push; this adds `npm test`, the mobile typecheck, and the handoff
-# script's syntax, and only runs when dispatched (gh workflow run linux-smoke.yml).
+# on Linux for every push; this adds `npm test`, the mobile typecheck, and an LF line-ending
+# check, and only runs when dispatched (gh workflow run linux-smoke.yml).
 name: linux-smoke
 on:
   workflow_dispatch: {}
@@ -14,11 +14,8 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - name: line endings are LF and the handoff script parses
-        run: |
-          test "$(git ls-files --eol | grep -c 'w/crlf' || true)" = 0
-          bash -n docs/handoff/setup-ubuntu.sh
-          ! grep -q $'\r' docs/handoff/setup-ubuntu.sh
+      - name: line endings are LF
+        run: test "$(git ls-files --eol | grep -c 'w/crlf' || true)" = 0
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -27,21 +24,3 @@ jobs:
         run: |
           npm ci
           npm run typecheck
-  # The handoff script must be able to install Node 24, GitHub CLI, the editor CLI and
-  # eas-cli by itself (no sudo). Hide the runner's node and gh, then run its prereqs phase.
-  handoff-prereqs-from-scratch:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - name: remove the runner's node and gh
-        run: |
-          for b in node npm npx corepack gh; do p="$(command -v "$b" || true)"; if [ -n "$p" ]; then sudo rm -f "$p"; fi; done
-          ! command -v node
-          ! command -v gh
-      - name: prereqs phase installs them into $HOME
-        run: bash docs/handoff/setup-ubuntu.sh --phase prereqs --dest "$PWD"
-      - name: assert
-        run: |
-          test -x "$HOME/.local/bin/gh" && "$HOME/.local/bin/gh" --version | head -1
-          . "$HOME/.nvm/nvm.sh" && node -v | grep -q '^v24' && npm -v && command -v eas

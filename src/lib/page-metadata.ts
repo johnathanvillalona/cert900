@@ -31,7 +31,7 @@ export const LEGAL_METADATA = {
 
 export function homeMetadata(title: string): PageMetadata {
   return { title, canonical: `${SITE_URL}/`, indexable: true,
-    description: "Free practice exams for CompTIA (A+, Network+, Security+), Cisco (CCNA), AWS, and Microsoft Azure certifications. Timed simulations in each exam's real format, performance-based questions, adaptive drills, and a free study video for every topic you miss. No sign-up." }
+    description: "Free practice exams and study guides for CompTIA A+, Network+, and Security+, Cisco CCNA, AWS, and Microsoft Azure certifications. Each exam topic links to a free training video." }
 }
 
 export const NOT_FOUND_METADATA: PageMetadata = {

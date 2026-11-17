@@ -7,7 +7,7 @@ import { DONATE_URL } from "@/lib/site"
 import { GuideResources } from "@/components/GuideResources"
 import { StaticContentShell } from "@/components/StaticContentShell"
 import { STUDY_RESOURCES, studyHubsForPage } from "@/data/study-resources"
-import { ArrowRight, Check } from "lucide-react"
+import { Check, Plus } from "lucide-react"
 import { AifCurriculum, AifLessonContents } from "@/components/GuideLearningContent"
 import { AifLessons } from "@/content/guides/aif-c01"
 import { Az900Curriculum, Az900LessonContents } from "@/components/GuideLearningContent"
@@ -35,14 +35,14 @@ function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) 
     <div className="flex flex-col gap-4">
       {merged.map(({ sample: q, examId }, n) => (
         <div key={`${examId}-${q.id}`} data-testid="guide-sample" className="rounded-lg border bg-card p-5">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            Sample question {n + 1} · {EXAM_META[examId].code} · {q.domain}
+          <p className="text-sm text-muted-foreground">
+            Question {n + 1} · <span className="font-mono">{EXAM_META[examId].code}</span> · {q.domain}
           </p>
           <p data-testid="guide-sample-question" className="mt-2 font-medium leading-snug">{q.x}</p>
           <ol className="mt-3 flex flex-col gap-1.5 text-sm">
             {q.o.map((o, i) => (
               <li key={i} className="flex items-start gap-2.5 rounded-md border px-3 py-2">
-                <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border font-mono text-[11px] font-semibold">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border text-xs font-semibold">
                   {"ABCD"[i]}
                 </span>
                 {o}
@@ -58,7 +58,7 @@ function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) 
                 <Check className="size-4" strokeWidth={2.5} /> {"ABCD"[q.a]}. {q.o[q.a]}
               </p>
               <p className="text-muted-foreground mt-1">{q.e}</p>
-              <p className="text-muted-foreground mt-2 font-mono text-xs">Topic: {q.topic}</p>
+              <p className="text-muted-foreground mt-2 text-xs">Topic: {q.topic}</p>
             </div>
           </details>
         </div>
@@ -70,63 +70,78 @@ function Samples({ examIds, limit = 8 }: { examIds: string[]; limit?: number }) 
 function DomainTable({ examId }: { examId: string }) {
   const exam = EXAM_META[examId]
   const keys = Object.keys(exam.domains).map(Number)
-  // An instructional allocation, not a measured bank inventory or a promise
-  // about the proprietary distribution of any particular certification exam.
-  const perDomain = (d: number) => Math.round((exam.examSplit[d] ?? 0) * exam.questionCount)
+  // An instructional allocation, not a promise about the proprietary
+  // distribution of any particular certification exam.
   return (
     <div className="overflow-x-auto">
-      <table className="mt-3 w-full min-w-105 border-collapse text-sm">
+      <table className="mt-3 w-full min-w-80 border-collapse text-sm">
         <thead>
           <tr className="border-b text-left">
             <th className="py-2 pr-4 font-semibold">{exam.code} domain</th>
-            <th className="py-2 pr-4 font-mono font-semibold">Practice allocation</th>
-            <th className="py-2 font-mono font-semibold">Illustrative count</th>
+            <th className="py-2 font-semibold">Practice allocation</th>
           </tr>
         </thead>
         <tbody>
           {keys.map((dk) => (
             <tr key={dk} className="border-b">
               <td className="py-2 pr-4">{exam.domains[dk]}</td>
-              <td className="py-2 pr-4 font-mono tabular-nums">{Math.round((exam.examSplit[dk] ?? 0) * 100)}%</td>
-              <td className="py-2 font-mono tabular-nums">about {perDomain(dk)}</td>
+              <td className="py-2 tabular-nums">{Math.round((exam.examSplit[dk] ?? 0) * 100)}%</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Percentages are Cert900’s practice allocations. Counts illustrate those proportions across the bank; they are not measured domain totals. Official objective weightings may use ranges, and an individual exam’s mix can vary.</p>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Percentages are Cert900’s practice allocations. Official objective weightings may use ranges, and the mix on an individual exam can vary.</p>
     </div>
   )
 }
 
-/** Closing section shared by every exam guide: how to actually use the site. */
+/** Published exam facts as label and value, the way the vendors list them. */
+function ExamFacts({ rows, note }: { rows: [string, React.ReactNode][]; note?: React.ReactNode }) {
+  return (
+    <div className="mt-5">
+      <h3 className="font-heading text-lg font-semibold">Exam details</h3>
+      <dl className="mt-2 grid gap-x-6 gap-y-1.5 sm:grid-cols-[max-content_1fr]">
+        {rows.map(([label, value]) => (
+          <div key={label} className="contents">
+            <dt className="font-medium">{label}</dt>
+            <dd className="mb-2 sm:mb-0">{value}</dd>
+          </div>
+        ))}
+      </dl>
+      {note && <p className="text-muted-foreground mt-3">{note}</p>}
+    </div>
+  )
+}
+
+/** Closing section shared by every exam guide: how to prepare with Cert900. */
 function StudyPath({ examId }: { examId: string }) {
   const exam = EXAM_META[examId]
   return (
     <section>
-      <h2 className="font-heading text-2xl font-semibold tracking-tight">How to use this to pass</h2>
-      <ol className="mt-4 flex flex-col gap-3 text-sm leading-relaxed">
+      <h2 className="font-heading text-2xl font-semibold tracking-tight">Prepare for the exam</h2>
+      <ol className="mt-4 flex list-decimal flex-col gap-3 pl-5 leading-relaxed">
         <li>
-          <span className="font-semibold">Start with a timed exam.</span> {exam.examMC} questions
-          {exam.examPBQ > 0 ? ` plus ${exam.examPBQ} performance-based items` : ""} in {exam.examMinutes} minutes,
-          using Cert900’s practice scoring on a {exam.scale.max}-point scale and a {exam.scale.pass} practice threshold.
-          Use the result to identify domains for review. Vendors use proprietary scoring; a practice score is not an
-          official result or a prediction of passing.
+          <span className="font-semibold">Take a timed practice exam.</span> The practice exam has {exam.examMC} questions
+          {exam.examPBQ > 0 ? ` and ${exam.examPBQ} performance-based questions` : ""} in {exam.examMinutes} minutes.
+          Cert900 scores it on a {exam.scale.max}-point scale and a {exam.scale.pass} practice threshold, and your
+          results show which domains to review. Vendors use their own scoring, so a practice score is not an official
+          result or a prediction of passing.
         </li>
         <li>
-          <span className="font-semibold">Drill the weak domains.</span> Short adaptive rounds weight
-          your weakest topics more heavily and explain every answer as you go.
+          <span className="font-semibold">Practice your weakest domains.</span> Short practice sets give you more
+          questions from the topics you miss most and explain each answer.
         </li>
         <li>
-          <span className="font-semibold">Clear the review queue.</span> Anything you miss comes back
-          on a spaced schedule until you get it right twice, so nothing quietly stays broken.
+          <span className="font-semibold">Work through your review list.</span> Questions you miss come back on a
+          spaced schedule until you answer them correctly twice.
         </li>
         <li>
-          <span className="font-semibold">Watch the linked video for each miss.</span> Every one of the{" "}
-          {Object.keys(exam.videos).length} topics links to a free training video covering that topic.
+          <span className="font-semibold">Watch the video for each topic you miss.</span> Each of the{" "}
+          {Object.keys(exam.videos).length} topics links to a free training video.
         </li>
         <li>
-          <span className="font-semibold">Retake and review your readiness band.</span>{" "}
-          The estimate is a range, not a promise, and it only appears once you have answered enough to mean something.
+          <span className="font-semibold">Retake the exam and check your readiness range.</span>{" "}
+          The readiness estimate is a range, not a guarantee, and it appears after you have answered enough questions.
         </li>
       </ol>
     </section>
@@ -140,9 +155,7 @@ function StudyPath({ examId }: { examId: string }) {
  * strips the module scripts from their output. So the shell carries its own
  * header and footer (the prerendered pages used to ship with neither, and the
  * SPA used to blank the page and rebuild it just to add them). Everything here
- * must work as plain markup -- real links, native <details>, no handlers. The
- * pre-paint theme script in index.html still runs, so dark mode is respected;
- * there is just no toggle on these pages.
+ * must work as plain markup: real links, native <details>, no handlers.
  */
 export function GuideShell({ meta, children }: { meta: GuideMeta; children: React.ReactNode }) {
   return <StaticContentShell><GuideArticle meta={meta}>{children}</GuideArticle></StaticContentShell>
@@ -153,12 +166,12 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
   const resource = STUDY_RESOURCES.find(resource => GUIDE_META[resource.page].path === meta.path)
   const hubs = resource ? studyHubsForPage(resource.page) : []
   return (
-    <main id="main" className="ambient ambient-still mx-auto max-w-3xl" data-testid="guide-page">
-      <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">{meta.h1}</h1>
+    <main id="main" className="guide-prose mx-auto max-w-3xl" data-testid="guide-page">
+      <h1 className="font-heading text-3xl font-bold tracking-tight md:text-4xl">{meta.h1}</h1>
       {hubs.length > 0 && <nav aria-label="Related Study Hubs" className="mt-5 flex flex-col gap-2 rounded-lg border bg-card p-4 sm:flex-row sm:flex-wrap">
         {hubs.map(hub => <a key={hub.examId} href={hub.path} data-testid="guide-study-hub"
           className="flex min-h-11 items-center gap-2 rounded-md px-2 py-2 text-sm font-semibold text-brand hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2">
-          <ArrowRight className="size-4 shrink-0" aria-hidden="true" /><span>{EXAM_META[hub.examId].code} Study Hub</span>
+          <span>{EXAM_META[hub.examId].code} Study Hub</span>
         </a>)}
       </nav>}
       <div className="mt-6 flex flex-col gap-10">
@@ -167,15 +180,15 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
         {primaryExam && <StudyPath examId={primaryExam} />}
       </div>
       <section className="mt-12">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Common questions</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Frequently asked questions</h2>
         <div className="mt-4 border-t">
           {meta.faq.map(([q, a]) => (
             <details key={q} className="group border-b">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-base font-semibold [&::-webkit-details-marker]:hidden">
                 {q}
-                <ArrowRight className="size-4 shrink-0 text-brand transition-transform duration-200 group-open:rotate-90" strokeWidth={2.5} />
+                <Plus className="size-4 shrink-0 text-brand transition-transform duration-200 group-open:rotate-45" strokeWidth={2.5} />
               </summary>
-              <p className="text-muted-foreground -mt-1 pb-4 text-sm leading-relaxed">{a}</p>
+              <p className="-mt-1 pb-4 leading-relaxed">{a}</p>
             </details>
           ))}
         </div>
@@ -191,8 +204,8 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
 
       {/* One optional invitation after the PBQ guide, never inside learning screens. */}
       {meta.path === GUIDE_META.pbq.path && DONATE_URL && <aside aria-labelledby="guide-support-heading" data-testid="guide-support" className="mt-10 border-t pt-6">
-        <h2 id="guide-support-heading" className="font-heading text-lg font-semibold">Help keep Cert900 free</h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Enjoying Cert900? Help keep free IT certification practice available.</p>
+        <h2 id="guide-support-heading" className="font-heading text-lg font-semibold">Support the project</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Cert900 is maintained by one person. If it helped you prepare, you can support it with a small contribution.</p>
         <a href={DONATE_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center rounded-md px-3 py-2 text-sm font-semibold text-brand underline underline-offset-4 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2">
           Support Cert900<span className="sr-only"> on Buy Me a Coffee (opens in a new tab)</span>
         </a>
@@ -203,7 +216,7 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
           hrefs (unlike the in-app CTA buttons) so search crawlers can walk the
           whole guide set from any single page. */}
       <section className="mt-12">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">More free practice tests</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Related practice tests</h2>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {Object.values(GUIDE_META)
             .filter((g) => g.path !== meta.path)
@@ -217,7 +230,7 @@ function GuideArticle({ meta, children }: { meta: GuideMeta; children: React.Rea
         </ul>
         <p className="mt-4 text-sm">
           <a href="/" className="text-brand underline-offset-4 hover:underline">
-            Back to all cert900 exams
+            Back to all Cert900 exams
           </a>
         </p>
       </section>
@@ -237,10 +250,9 @@ export function Cta({ label, examId, testid }: { label: string; examId: string; 
     <a
       href={examPath(examId)}
       data-testid={testid}
-      className="pressable inline-flex cursor-pointer items-center gap-2 self-start rounded-md bg-primary px-5 py-2.5 font-medium text-primary-foreground transition-[transform,background-color] duration-200 hover:bg-primary/90"
+      className="pressable inline-flex min-h-11 cursor-pointer items-center self-start rounded-md bg-primary px-5 py-2.5 font-semibold text-primary-foreground transition-[transform,background-color] duration-200 hover:bg-primary/90"
     >
       {label}
-      <ArrowRight className="size-4" strokeWidth={2} />
     </a>
   )
 }
@@ -248,48 +260,47 @@ export function Cta({ label, examId, testid }: { label: string; examId: string; 
 export function APlusGuide() {
   const meta = GUIDE_META.aplus
   const c1 = EXAM_META["220-1201"]
-  const c2 = EXAM_META["220-1202"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          The CompTIA A+ is two exams: Core 1 (220-1201) covers hardware, mobile devices, networking basics,
-          virtualization, and troubleshooting; Core 2 (220-1202) covers operating systems, security, software
-          troubleshooting, and operational procedures. This site gives you {c1.questionCount + c2.questionCount} original
-          practice questions and {c1.pbqCount + c2.pbqCount} performance-based questions across both cores, free and
-          without an account.
+        <p className="leading-relaxed">
+          CompTIA A+ is the entry-level certification for IT support roles. To earn it, you pass two exams. Core 1
+          (220-1201) covers hardware, mobile devices, networking, virtualization, and troubleshooting. Core 2
+          (220-1202) covers operating systems, security, software troubleshooting, and operational procedures.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a full
-          exam simulation with {c1.examMC} questions plus {c1.examPBQ} PBQs in {c1.examMinutes} minutes, scored on the
-          real 100 to 900 scale. Every topic links to the matching free Professor Messer video.
+        <p className="leading-relaxed">
+          You can practice each core by topic or take a timed practice exam with {c1.examMC} questions and{" "}
+          {c1.examPBQ} performance-based questions in {c1.examMinutes} minutes. Each topic links to the matching video
+          in Professor Messer's free course.
         </p>
-        <Cta label="Start the free A+ practice test" examId="220-1201" testid="guide-cta" />
+        <Cta label="Start with Core 1" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What each core exam covers</h2>
         <DomainTable examId="220-1201" />
         <DomainTable examId="220-1202" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: up to 90 questions per core, 90 minutes each, passing score 675 for Core 1 and 700 for Core 2.
-          Studying one core at a time? There is a dedicated{" "}
-          <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">
-            Core 1 (220-1201) practice test
-          </a>{" "}
-          and{" "}
-          <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">
-            Core 2 (220-1202) practice test
-          </a>{" "}
-          page for each.
-        </p>
+        <ExamFacts
+          rows={[
+            ["Exams", "Core 1 (220-1201) and Core 2 (220-1202)"],
+            ["Number of questions", "Maximum of 90 per exam, multiple choice and performance-based"],
+            ["Duration", "90 minutes per exam"],
+            ["Passing score", "675 for Core 1 and 700 for Core 2 (on a scale of 100-900)"],
+          ]}
+          note={<>
+            Studying one core at a time? See the{" "}
+            <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">Core 1 (220-1201) practice test</a>{" "}
+            and the{" "}
+            <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">Core 2 (220-1202) practice test</a>.
+          </>}
+        />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.aplus} />
         
-        <Cta label="Practice all of them free" examId="220-1201" testid="guide-cta-2" />
+        <Cta label="Practice more A+ questions" examId="220-1201" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -301,43 +312,41 @@ export function APlusCore1Guide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          CompTIA A+ Core 1 (220-1201) covers the hands-on half of the A+: hardware, mobile devices, networking
-          fundamentals, virtualization and cloud basics, and hardware and network troubleshooting. This site gives you{" "}
-          {ex.questionCount} original Core 1 practice questions and {ex.pbqCount} performance-based questions, free and
-          without an account.
+        <p className="leading-relaxed">
+          CompTIA A+ Core 1 (220-1201) covers the hardware side of A+: PCs and mobile devices, networking
+          fundamentals, virtualization and cloud basics, and hardware and network troubleshooting.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a
-          full exam simulation with {ex.examMC} questions plus {ex.examPBQ} PBQs in {ex.examMinutes} minutes, scored on
-          the real 100 to 900 scale with Core 1's actual 675 pass line. Every topic links to the matching free
-          Professor Messer video.
+        <p className="leading-relaxed">
+          The timed practice exam has {ex.examMC} questions and {ex.examPBQ} performance-based questions in{" "}
+          {ex.examMinutes} minutes. Cert900 uses CompTIA's 100-900 scale and the published 675 passing score as its
+          practice threshold. Each topic links to Professor Messer's free 220-1201 video.
         </p>
-        <Cta label="Start the free Core 1 practice test" examId="220-1201" testid="guide-cta" />
+        <Cta label="Start practicing" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What 220-1201 covers</h2>
         <DomainTable examId="220-1201" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: up to 90 questions, 90 minutes, passing score 675 on the 100 to 900 scale. Preparing for
-          both cores? The combined{" "}
-          <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">
-            A+ practice test
-          </a>{" "}
-          page covers Core 1 and Core 2 together, and Core 2 has its own{" "}
-          <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">
-            220-1202 practice test
-          </a>{" "}
-          page.
-        </p>
+        <ExamFacts
+          rows={[
+            ["Number of questions", "Maximum of 90, multiple choice and performance-based"],
+            ["Duration", "90 minutes"],
+            ["Passing score", "675 (on a scale of 100-900)"],
+          ]}
+          note={<>
+            Preparing for both cores? The{" "}
+            <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">A+ practice test</a>{" "}
+            page covers Core 1 and Core 2 together, and Core 2 has its own{" "}
+            <a href={GUIDE_META.aplus2.path} className="text-brand underline-offset-4 hover:underline">220-1202 practice test</a>.
+          </>}
+        />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.aplus1} />
         
-        <Cta label="Practice all of them free" examId="220-1201" testid="guide-cta-2" />
+        <Cta label="Practice more 220-1201 questions" examId="220-1201" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -349,42 +358,41 @@ export function APlusCore2Guide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          CompTIA A+ Core 2 (220-1202) covers the software half of the A+: operating systems, security, software
-          troubleshooting, and operational procedures. This site gives you {ex.questionCount} original Core 2 practice
-          questions and {ex.pbqCount} performance-based questions, free and without an account.
+        <p className="leading-relaxed">
+          CompTIA A+ Core 2 (220-1202) covers the software side of A+: Windows, macOS, and Linux administration,
+          security, software troubleshooting, and operational procedures.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a
-          full exam simulation with {ex.examMC} questions plus {ex.examPBQ} PBQs in {ex.examMinutes} minutes, scored on
-          the real 100 to 900 scale with Core 2's actual 700 pass line. Every topic links to the matching free
-          Professor Messer video.
+        <p className="leading-relaxed">
+          The timed practice exam has {ex.examMC} questions and {ex.examPBQ} performance-based questions in{" "}
+          {ex.examMinutes} minutes. Cert900 uses CompTIA's 100-900 scale and the published 700 passing score as its
+          practice threshold. Each topic links to Professor Messer's free 220-1202 video.
         </p>
-        <Cta label="Start the free Core 2 practice test" examId="220-1202" testid="guide-cta" />
+        <Cta label="Start practicing" examId="220-1202" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What 220-1202 covers</h2>
         <DomainTable examId="220-1202" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: up to 90 questions, 90 minutes, passing score 700 on the 100 to 900 scale. Preparing for
-          both cores? The combined{" "}
-          <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">
-            A+ practice test
-          </a>{" "}
-          page covers Core 1 and Core 2 together, and Core 1 has its own{" "}
-          <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">
-            220-1201 practice test
-          </a>{" "}
-          page.
-        </p>
+        <ExamFacts
+          rows={[
+            ["Number of questions", "Maximum of 90, multiple choice and performance-based"],
+            ["Duration", "90 minutes"],
+            ["Passing score", "700 (on a scale of 100-900)"],
+          ]}
+          note={<>
+            Preparing for both cores? The{" "}
+            <a href={GUIDE_META.aplus.path} className="text-brand underline-offset-4 hover:underline">A+ practice test</a>{" "}
+            page covers Core 1 and Core 2 together, and Core 1 has its own{" "}
+            <a href={GUIDE_META.aplus1.path} className="text-brand underline-offset-4 hover:underline">220-1201 practice test</a>.
+          </>}
+        />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.aplus2} />
         
-        <Cta label="Practice all of them free" examId="220-1202" testid="guide-cta-2" />
+        <Cta label="Practice more 220-1202 questions" examId="220-1202" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -396,21 +404,20 @@ export function AifGuide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="leading-relaxed">
           The AWS Certified AI Practitioner (AIF-C01) validates a foundational understanding of AI, machine learning,
-          and generative AI on AWS: what the technologies are, when to apply them, and how to use them responsibly and
-          securely. This site gives you {ex.questionCount} original practice questions plus {ex.pbqCount} interactive
-          matching and ordering items, free and without an account. The lessons below explain the ideas behind
-          the questions, with original worked scenarios and optional self-checks.
+          and generative AI on AWS, including when to apply these technologies and how to use them responsibly. The
+          lessons below explain the ideas behind the practice questions with original worked scenarios and optional
+          self-checks.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          AIF-C01 is not just multiple choice: the real exam also uses multiple-response ("Select TWO"), ordering, and
-          matching questions. Cert900 offers practice in those formats and runs {ex.examMinutes}-minute timed sessions
-          using its own instructional scoring model. A practice score does not reproduce AWS's proprietary scaled scoring
-          or predict an official result. Existing topic links open chapters of a free freeCodeCamp course; older chapters
-          may use previous service names and do not cover every newer objective.
+        <p className="leading-relaxed">
+          In addition to multiple choice, the exam uses multiple-response ("Select TWO"), ordering, and matching
+          questions. Cert900 offers practice in each of these formats and runs {ex.examMinutes}-minute timed sessions
+          with its own instructional scoring, so a practice score does not reproduce AWS's scaled scoring or predict an
+          official result. Topic links open chapters of a free freeCodeCamp course. Older chapters may use previous
+          service names and do not cover every newer objective.
         </p>
-        <Cta label="Start the free AIF-C01 practice test" examId="aif-c01" testid="guide-cta" />
+        <Cta label="Start practicing" examId="aif-c01" testid="guide-cta" />
       </section>
 
       <section>
@@ -420,19 +427,22 @@ export function AifGuide() {
           <summary className="min-h-11 cursor-pointer py-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Compare Cert900's practice allocation</summary>
           <DomainTable examId="aif-c01" />
         </details>
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: 65 questions (50 scored, 15 unscored), 90 minutes, scaled 100 to 1,000, passing score 700.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "65 (50 scored and 15 unscored)"],
+          ["Question types", "Multiple choice, multiple response, ordering, and matching"],
+          ["Duration", "90 minutes"],
+          ["Passing score", "700 (on a scale of 100-1,000)"],
+        ]} />
       </section>
 
       <AifLessonContents />
       <AifLessons />
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.aif} />
         
-        <Cta label="Practice all of them free" examId="aif-c01" testid="guide-cta-2" />
+        <Cta label="Practice more AIF-C01 questions" examId="aif-c01" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -444,32 +454,35 @@ export function ClfGuide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          The AWS Certified Cloud Practitioner (CLF-C02) validates cloud literacy: what the cloud is good for, how AWS
-          secures and prices it, and which core services solve which problems. This site gives you{" "}
-          {ex.questionCount} original practice questions in the exam's real formats, free and without an account.
+        <p className="leading-relaxed">
+          The AWS Certified Cloud Practitioner (CLF-C02) validates a foundational understanding of the AWS Cloud: its
+          value, its security and pricing models, and the core services. It is designed for candidates who are new to
+          the cloud, including those without an IT background.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          The real exam is multiple choice and multiple response only, and so is our simulator: {ex.examMC} questions in{" "}
-          {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 700 pass line. Every topic
-          links into the free 13-hour freeCodeCamp course at the matching chapter.
+        <p className="leading-relaxed">
+          The exam uses multiple-choice and multiple-response questions, and so does the timed practice exam:{" "}
+          {ex.examMC} questions in {ex.examMinutes} minutes, scored from 100 to 1,000 with a 700 practice threshold.
+          Each topic links to the matching chapter of a free freeCodeCamp course.
         </p>
-        <Cta label="Start the free CLF-C02 practice test" examId="clf-c02" testid="guide-cta" />
+        <Cta label="Start practicing" examId="clf-c02" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What CLF-C02 covers</h2>
         <DomainTable examId="clf-c02" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: 65 questions (50 scored, 15 unscored), 90 minutes, scaled 100 to 1,000, passing score 700.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "65 (50 scored and 15 unscored)"],
+          ["Question types", "Multiple choice and multiple response"],
+          ["Duration", "90 minutes"],
+          ["Passing score", "700 (on a scale of 100-1,000)"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.clf} />
         
-        <Cta label="Practice all of them free" examId="clf-c02" testid="guide-cta-2" />
+        <Cta label="Practice more CLF-C02 questions" examId="clf-c02" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -481,19 +494,18 @@ export function Az900Guide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          Microsoft Azure Fundamentals (AZ-900) introduces cloud concepts, Azure architecture and services,
-          and tools for management and governance. This site gives you{" "}
-          {ex.questionCount} original questions plus {ex.pbqCount} drag-and-drop and build-list items in
-          Cert900 practice formats, free and without an account. The ten lessons below explain the ideas behind
-          those questions through original examples, diagrams and optional self-checks.
+        <p className="leading-relaxed">
+          Microsoft Azure Fundamentals (AZ-900) validates foundational knowledge of cloud concepts, Azure architecture
+          and services, and Azure management and governance. The ten lessons below explain these ideas with original
+          examples, diagrams, and optional self-checks, and the practice questions include drag-and-drop and build-list
+          items.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="leading-relaxed">
           Timed practice runs for {ex.examMinutes} minutes using Cert900’s own instructional scoring. It doesn’t
           reproduce Microsoft’s proprietary scoring or predict your exam result. Existing topic links open John
           Savill’s free videos; older recordings may use earlier service names or omit current objectives.
         </p>
-        <Cta label="Start the free AZ-900 practice test" examId="az-900" testid="guide-cta" />
+        <Cta label="Start practicing" examId="az-900" testid="guide-cta" />
       </section>
 
       <section>
@@ -503,20 +515,25 @@ export function Az900Guide() {
           <summary className="min-h-11 cursor-pointer py-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2">Compare Cert900’s practice allocation</summary>
           <DomainTable examId="az-900" />
         </details>
-        <p className="text-muted-foreground mt-3 text-sm">
-          Microsoft lists 45 minutes for the assessment and a passing score of 700 or higher; question counts and
-          formats can vary. Fundamentals certifications do not expire. Check the official exam information before booking.
-        </p>
+        <ExamFacts
+          rows={[
+            ["Duration", "45 minutes"],
+            ["Number of questions", "Varies by exam"],
+            ["Passing score", "700 or higher"],
+            ["Renewal", "Fundamentals certifications do not expire"],
+          ]}
+          note="Question counts and formats can vary. Check the official exam information before you book."
+        />
       </section>
 
       <Az900LessonContents />
       <Az900Lessons />
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.az900} />
         
-        <Cta label="Practice all of them free" examId="az-900" testid="guide-cta-2" />
+        <Cta label="Practice more AZ-900 questions" examId="az-900" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -528,34 +545,35 @@ export function Sc900Guide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) proves you can describe core security and
-          compliance concepts and the capabilities of Microsoft Entra, Microsoft security solutions, and Microsoft
-          compliance solutions. This site gives you {ex.questionCount} original questions plus {ex.pbqCount}{" "}
-          drag-and-drop and matching items in Microsoft's own interactive formats, free and without an account.
+        <p className="leading-relaxed">
+          Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) validates that you can describe core
+          security and compliance concepts and the capabilities of Microsoft Entra, Microsoft security solutions, and
+          Microsoft compliance solutions.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
-          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
-          Savill's free SC-900 study video.
+        <p className="leading-relaxed">
+          The timed practice exam runs for {ex.examMinutes} minutes with a 700 practice threshold on a scale up to
+          1,000, and it includes drag-and-drop and matching items scored all or nothing. Each topic links to the
+          matching chapter of John Savill's free SC-900 study video.
         </p>
-        <Cta label="Start the free SC-900 practice test" examId="sc-900" testid="guide-cta" />
+        <Cta label="Start practicing" examId="sc-900" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What SC-900 covers</h2>
         <DomainTable examId="sc-900" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: typically 40-60 questions, about 45 minutes, scaled to 1,000 with a 700 pass line. The
-          certification never expires.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "Typically 40-60"],
+          ["Duration", "About 45 minutes"],
+          ["Passing score", "700 (on a scale up to 1,000)"],
+          ["Renewal", "Fundamentals certifications do not expire"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.sc900} />
         
-        <Cta label="Practice all of them free" examId="sc-900" testid="guide-cta-2" />
+        <Cta label="Practice more SC-900 questions" examId="sc-900" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -563,39 +581,37 @@ export function Sc900Guide() {
 
 export function CcnaGuide() {
   const meta = GUIDE_META.ccna
-  const ex = EXAM_META["ccna-200-301"]
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          The Cisco CCNA (200-301) is the foundational networking certification: it covers network fundamentals, network
-          access, IP connectivity, IP services, security fundamentals, and automation and programmability. This site
-          gives you {ex.questionCount} original practice questions and {ex.pbqCount} hands-on simulations for it, free
-          and without an account.
+        <p className="leading-relaxed">
+          The Cisco CCNA (200-301) validates associate-level networking skills in network fundamentals, network access,
+          IP connectivity, IP services, security fundamentals, and automation and programmability.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          CCNA leans hard on the command line and applied skills: subnetting under time, reading show output, and
-          configuring VLANs, OSPF, ACLs, and NAT. The simulation lab here reproduces those formats, including a device
-          terminal that accepts real IOS commands and clickable network diagrams. Every topic links to the matching free
-          Jeremy's IT Lab video.
+        <p className="leading-relaxed">
+          The exam places weight on the command line and on applied skills such as subnetting, reading show output,
+          and configuring VLANs, OSPF, ACLs, and NAT. Cert900's simulation lab includes a device terminal that accepts
+          IOS commands and network diagrams you can click. Each topic links to the matching lesson in Jeremy's IT Lab's
+          free CCNA course.
         </p>
-        <Cta label="Start the free CCNA practice test" examId="ccna-200-301" testid="guide-cta" />
+        <Cta label="Start practicing" examId="ccna-200-301" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What CCNA 200-301 covers</h2>
         <DomainTable examId="ccna-200-301" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: 120 minutes, roughly 90 to 120 items including sims and simlets. A scaled score near 825 of
-          1,000 is widely cited to pass; Cisco does not publish an official cut score.
-        </p>
+        <ExamFacts rows={[
+          ["Duration", "120 minutes"],
+          ["Number of questions", "About 90 to 120, including simulations"],
+          ["Passing score", "Not published by Cisco (about 825 of 1,000 is widely cited)"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.ccna} />
         
-        <Cta label="Practice all of them free" examId="ccna-200-301" testid="guide-cta-2" />
+        <Cta label="Practice more CCNA questions" examId="ccna-200-301" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -607,34 +623,34 @@ export function Az104Guide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="leading-relaxed">
           Microsoft AZ-104 (Azure Administrator Associate) validates that you can manage Azure identities and
-          governance, storage, compute resources, virtual networking, and monitoring. This site gives you{" "}
-          {ex.questionCount} original practice questions plus {ex.pbqCount} drag-and-drop and matching items in
-          Microsoft's own interactive formats, free and without an account.
+          governance, storage, compute resources, virtual networking, and monitoring.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          The simulator runs {ex.examMinutes} timed minutes on the real scale (pass line 700 of 1,000), grades
-          interactive items all-or-nothing the way Microsoft does, and links every topic to the matching chapter of John
-          Savill's free AZ-104 study video.
+        <p className="leading-relaxed">
+          The timed practice exam runs for {ex.examMinutes} minutes with a 700 practice threshold on a scale up to
+          1,000, and it includes drag-and-drop and matching items scored all or nothing. Each topic links to the
+          matching chapter of John Savill's free AZ-104 study video.
         </p>
-        <Cta label="Start the free AZ-104 practice test" examId="az-104" testid="guide-cta" />
+        <Cta label="Start practicing" examId="az-104" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What AZ-104 covers</h2>
         <DomainTable examId="az-104" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: typically 40-60 questions, about 100 minutes, scaled to 1,000 with a 700 pass line. Hands-on
-          Azure administration experience is assumed.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "Typically 40-60"],
+          ["Duration", "About 100 minutes"],
+          ["Passing score", "700 (on a scale up to 1,000)"],
+          ["Recommended experience", "Hands-on Azure administration"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.az104} />
         
-        <Cta label="Practice all of them free" examId="az-104" testid="guide-cta-2" />
+        <Cta label="Practice more AZ-104 questions" examId="az-104" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -646,32 +662,35 @@ export function SaaGuide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="leading-relaxed">
           The AWS Certified Solutions Architect - Associate (SAA-C03) validates that you can design secure, resilient,
-          high-performing, and cost-optimized architectures on AWS. This site gives you {ex.questionCount} original
-          scenario questions in the exam's real formats, free and without an account.
+          high-performing, and cost-optimized architectures on AWS. If you have no IT experience, AWS suggests starting
+          with Cloud Practitioner.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          The real exam is multiple choice and multiple response only, and so is our simulator: {ex.examMC} questions in{" "}
-          {ex.examMinutes} timed minutes, scored on the real 100 to 1,000 scale with the 720 pass line. Every topic links
-          into Andrew Brown's free freeCodeCamp course at the matching chapter.
+        <p className="leading-relaxed">
+          The exam uses multiple-choice and multiple-response scenario questions, and so does the timed practice
+          exam: {ex.examMC} questions in {ex.examMinutes} minutes, scored from 100 to 1,000 with a 720 practice
+          threshold. Each topic links to the matching chapter of Andrew Brown's free freeCodeCamp course.
         </p>
-        <Cta label="Start the free SAA-C03 practice test" examId="saa-c03" testid="guide-cta" />
+        <Cta label="Start practicing" examId="saa-c03" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What SAA-C03 covers</h2>
         <DomainTable examId="saa-c03" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: 65 questions (50 scored, 15 unscored), 130 minutes, scaled 100 to 1,000, passing score 720.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "65 (50 scored and 15 unscored)"],
+          ["Question types", "Multiple choice and multiple response"],
+          ["Duration", "130 minutes"],
+          ["Passing score", "720 (on a scale of 100-1,000)"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.saa} />
         
-        <Cta label="Practice all of them free" examId="saa-c03" testid="guide-cta-2" />
+        <Cta label="Practice more SAA-C03 questions" examId="saa-c03" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -683,34 +702,34 @@ export function NPlusGuide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          The CompTIA Network+ (N10-009) tests networking concepts, implementation, operations, security, and
-          troubleshooting. This site gives you {nx.questionCount} original practice questions and {nx.pbqCount} performance-based
-          questions for it, free and without an account: adaptive drills with an explanation after every answer, and a
-          full {nx.examMinutes}-minute exam simulation with {nx.examMC} questions plus {nx.examPBQ} PBQs on the real 100
-          to 900 scale.
+        <p className="leading-relaxed">
+          CompTIA Network+ (N10-009) validates the knowledge and skills to configure, manage, and troubleshoot
+          networks. It covers networking concepts, implementation, operations, security, and troubleshooting.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Network+ leans hard on applied skills: reading topology diagrams, knowing ports cold, and working subnetting
-          under time. The PBQ lab here simulates those formats, including a command-line terminal and clickable network
-          diagrams. Every topic links to the matching free Professor Messer video.
+        <p className="leading-relaxed">
+          The exam tests applied skills such as reading topology diagrams, knowing common ports, and subnetting under
+          time. The timed practice exam has {nx.examMC} questions and {nx.examPBQ} performance-based questions in{" "}
+          {nx.examMinutes} minutes, and the PBQ lab includes a simulated command line and network diagrams. Each topic
+          links to Professor Messer's free N10-009 video.
         </p>
-        <Cta label="Start the free Network+ practice test" examId="n10-009" testid="guide-cta" />
+        <Cta label="Start practicing" examId="n10-009" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What N10-009 covers</h2>
         <DomainTable examId="n10-009" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: up to 90 questions, 90 minutes, passing score 720 on the 100 to 900 scale.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "Maximum of 90, multiple choice and performance-based"],
+          ["Duration", "90 minutes"],
+          ["Passing score", "720 (on a scale of 100-900)"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.nplus} />
         
-        <Cta label={`Practice all ${EXAM_META["n10-009"].questionCount} free`} examId="n10-009" testid="guide-cta-2" />
+        <Cta label="Practice more N10-009 questions" examId="n10-009" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -722,36 +741,35 @@ export function SecplusGuide() {
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          The CompTIA Security+ (SY0-701) is the standard entry-level security certification: it covers core security
-          concepts, threats and mitigations, security architecture, day-to-day operations, and governance. This site
-          gives you {sx.questionCount} original practice questions and {sx.pbqCount} performance-based questions
-          for it, free and without an account.
+        <p className="leading-relaxed">
+          CompTIA Security+ (SY0-701) is a widely recognized entry-level security certification. It covers general
+          security concepts, threats and mitigations, security architecture, security operations, and security program
+          management.
         </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Practice two ways: adaptive drills that repeat your weak topics more often and explain every answer, or a full
-          {" "}{sx.examMinutes}-minute exam simulation with {sx.examMC} questions plus {sx.examPBQ} PBQs, scored on the
-          real 100 to 900 scale. The PBQ lab simulates the exam's hands-on formats: hardening configuration panels,
-          incident-response ordering, and clickable network diagrams. Every topic links to the matching free Professor
-          Messer video.
+        <p className="leading-relaxed">
+          The timed practice exam has {sx.examMC} questions and {sx.examPBQ} performance-based questions in{" "}
+          {sx.examMinutes} minutes. The PBQ lab includes hardening configuration panels, incident response ordering,
+          and network diagrams. Each topic links to Professor Messer's free SY0-701 video.
         </p>
-        <Cta label="Start the free Security+ practice test" examId="sy0-701" testid="guide-cta" />
+        <Cta label="Start practicing" examId="sy0-701" testid="guide-cta" />
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What SY0-701 covers</h2>
         <DomainTable examId="sy0-701" />
-        <p className="text-muted-foreground mt-3 text-sm">
-          Real exam facts: up to 90 questions, 90 minutes, passing score 750 on the 100 to 900 scale. CompTIA recommends
-          Network+ and about two years of security-focused IT administration.
-        </p>
+        <ExamFacts rows={[
+          ["Number of questions", "Maximum of 90, multiple choice and performance-based"],
+          ["Duration", "90 minutes"],
+          ["Passing score", "750 (on a scale of 100-900)"],
+          ["Recommended experience", "Network+ and about two years of security-focused IT administration"],
+        ]} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Practice questions from this bank</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Sample questions</h2>
         <Samples examIds={GUIDE_EXAMS.secplus} />
         
-        <Cta label="Practice all of them free" examId="sy0-701" testid="guide-cta-2" />
+        <Cta label="Practice more SY0-701 questions" examId="sy0-701" testid="guide-cta-2" />
       </section>
     </GuideShell>
   )
@@ -799,30 +817,28 @@ const PBQ_PREVIEWS = [
 
 export function PbqGuide() {
   const meta = GUIDE_META.pbq
-  const total = ["220-1201", "220-1202", "n10-009"].reduce((a, id) => a + EXAM_META[id].pbqCount, 0)
   return (
     <GuideShell meta={meta}>
       <section className="flex flex-col gap-4">
-        <p className="text-muted-foreground leading-relaxed">
-          Move from recognizing an answer to doing a task: inspect a network adapter, configure a firewall or connect
-          a workstation. Cert900 has {total} free PBQ exercises across A+ Core 1, A+ Core 2 and Network+, including the
-          four workspaces below and six interaction types.
+        <p className="leading-relaxed">
+          A performance-based question (PBQ) asks you to complete a task instead of choosing an answer. Cert900's PBQ
+          exercises for A+ Core 1, A+ Core 2, and Network+ include the four workspaces below and six interaction types.
         </p>
         <p className="text-sm leading-relaxed text-muted-foreground">These are original Cert900 study scenarios, not official CompTIA questions. All commands, devices and traffic tests run in application state; they do not change your computer or network. Practice scoring uses Cert900’s instructional rubrics, not proprietary exam scoring.</p>
         <Cta label="Open A+ Core 1 practice menu" examId="220-1201" testid="guide-cta" />
       </section>
 
       <section id="pbq-entry-points" aria-labelledby="pbq-entry-heading">
-        <h2 id="pbq-entry-heading" className="font-heading text-2xl font-semibold tracking-tight">Choose your certification</h2>
+        <h2 id="pbq-entry-heading" className="font-heading text-2xl font-semibold tracking-tight">Practice PBQs by exam</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Open an exam’s practice menu and choose PBQ Lab. The Study Hub brings its guide, relevant references and video resources together. Practice is available without an account.</p>
         <nav aria-label="PBQ practice by certification" className="mt-4 grid gap-3 sm:grid-cols-3">
           {(["220-1201", "220-1202", "n10-009"] as const).map(id => {
             const exam = EXAM_META[id]
             return <div key={id} className="min-w-0 rounded-lg border bg-card p-4">
               <h3 className="font-heading text-base font-semibold">{exam.cert} {exam.name}</h3>
-              <p className="mt-1 font-mono text-sm text-muted-foreground">{exam.code} · {exam.pbqCount} PBQs</p>
+              <p className="mt-1 font-mono text-sm text-muted-foreground">{exam.code}</p>
               <a href={examPath(id)} className="mt-3 flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${exam.code} practice menu`}>
-                Practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" />
+                Practice menu
               </a>
               <a href={studyPath(id)} className="flex min-h-11 items-center rounded-md text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${exam.code} Study Hub`}>Study Hub</a>
             </div>
@@ -850,7 +866,7 @@ export function PbqGuide() {
               </figcaption>
             </figure>
             <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:gap-x-5">
-              <a href={examPath(preview.examId)} className="inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${EXAM_META[preview.examId].code} practice menu for ${preview.title}`}>Open practice menu<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></a>
+              <a href={examPath(preview.examId)} className="inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`Open ${EXAM_META[preview.examId].code} practice menu for ${preview.title}`}>Open practice menu</a>
               <a href={`${studyPath(preview.examId)}#resources`} data-testid="pbq-preview-study" className="inline-flex min-h-11 items-center rounded-md text-sm font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2">Review {EXAM_META[preview.examId].code} study resources</a>
             </div>
           </article>)}
@@ -862,7 +878,7 @@ export function PbqGuide() {
         <div className="mt-4 flex flex-col gap-3">
           {PBQ_KINDS.map(([name, body]) => (
             <div key={name} className="rounded-lg border bg-card p-4">
-              <p className="font-heading font-semibold">{name}</p>
+              <h3 className="font-heading text-base font-semibold">{name}</h3>
               <p className="text-muted-foreground mt-1 text-sm leading-relaxed">{body}</p>
             </div>
           ))}
@@ -871,9 +887,9 @@ export function PbqGuide() {
 
       <section className="flex flex-col gap-3">
         <h2 className="font-heading text-2xl font-semibold tracking-tight">What a terminal PBQ looks like</h2>
-        <p className="text-muted-foreground leading-relaxed">
-          A worked study example from Cert900’s Core 1 bank. A laptop shows a 169.254.x.x address after sleeping through a
-          DHCP outage. The server is healthy again; refresh the client. Three objectives:
+        <p className="leading-relaxed">
+          This worked example comes from Cert900's Core 1 practice. A laptop shows a 169.254.x.x address after it slept
+          through a DHCP outage. The server is working again, and your task is to refresh the client in three steps:
         </p>
         <div className="rounded-lg border bg-card p-4 font-mono text-sm">
           <p className="text-muted-foreground"># Objective 1: give up the broken lease</p>

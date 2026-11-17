@@ -30,7 +30,7 @@ export function AppPromo({ variant = "card" }: { variant?: "card" | "line" }) {
     return (
       <p className="text-muted-foreground text-sm" data-testid="app-promo-line">
         <Smartphone className="text-brand mr-1.5 inline size-4 align-[-2px]" strokeWidth={2} />
-        {live ? <>Take it with you: get the cert900 app for {links}.</> : "Prefer your phone? The cert900 app for iOS and Android is coming soon."}
+        {live ? <>Practice on your phone: get the Cert900 app for {links}.</> : "The Cert900 app for iOS and Android is coming soon."}
       </p>
     )
   }
@@ -40,14 +40,14 @@ export function AppPromo({ variant = "card" }: { variant?: "card" | "line" }) {
       <div className="flex items-start gap-4">
         <Smartphone className="text-brand mt-0.5 size-5 shrink-0" strokeWidth={2} />
         <div className="min-w-0">
-          <p className="font-heading font-semibold">Practice offline, on the go</p>
+          <p className="font-heading font-semibold">Cert900 mobile app</p>
           <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
             {live ? (
-              <>Every question, timed exams, and synced progress in the cert900 app. Get it on {links}.</>
+              <>Practice on your phone with timed exams and synced progress. Get the app on {links}.</>
             ) : (
               <>
-                The cert900 app for iOS and Android is <span className="text-foreground font-medium">coming soon</span>:
-                the full question bank, timed exams, and your synced progress, even with no connection.
+                The Cert900 app for iOS and Android is <span className="text-foreground font-medium">coming soon</span>.
+                It will include timed exams and synced progress, and it will work offline.
               </>
             )}
           </p>

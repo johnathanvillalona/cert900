@@ -70,7 +70,7 @@ test('every registered guide and reference is delivered at its existing canonica
     const canonical = await page.evaluate(html => new DOMParser().parseFromString(html, 'text/html').querySelector('link[rel=canonical]')?.getAttribute('href'), html)
     expect(canonical).toBe(`https://cert900.com${path}`)
     if (Object.values(guides).some(key => GUIDE_PATHS[key] === path)) {
-      expect((html.match(/>How to use this to pass</g) ?? []).length, path).toBe(1)
+      expect((html.match(/>Prepare for the exam</g) ?? []).length, path).toBe(1)
     }
   }
 })
@@ -140,13 +140,12 @@ for (const mode of ['exam', 'practice', 'pbq'] as const) {
 }
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`discovery at ${width}px: both themes, all exam cards and menus, complete labels and non-overlapping controls`, async ({ page }, info) => {
+  test(`discovery at ${width}px: all exam cards and menus, complete labels and non-overlapping controls`, async ({ page }, info) => {
     const errors: string[] = []
     page.on('pageerror', e => errors.push(e.message))
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       for (const path of ['/', '/exams']) {
         await page.goto(path)
         await expect(page.getByTestId('certification-entry')).toHaveCount(11)
@@ -205,7 +204,7 @@ test('320px touch follows Study Hub without starting practice and preserves cons
     await checkMenu(page, '220-1201')
     await page.getByTestId('study-reference').tap()
     await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS.cables}$`))
-    await expect(page.getByRole('heading', { name: 'How to use this to pass', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('heading', { name: 'Prepare for the exam', exact: true })).toHaveCount(0)
     expect(google).toEqual([])
   } finally { await context.close() }
 })
@@ -231,8 +230,7 @@ test('returning-user cards expose Study Hub at every width and preserve earned l
   expect(progress).toBeTruthy()
   for (const width of [320, 375, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       await page.goto('/')
       await expect(page.getByRole('heading', { name: 'Welcome back', exact: true })).toBeVisible()
       const card = page.getByTestId('continue-entry').filter({ hasText: '220-1201' })

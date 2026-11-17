@@ -80,7 +80,7 @@ describe('AZ-900 beginner lessons and approved boundaries', () => {
     expect(html).toContain('Official AZ-900 domain weight ranges')
     expect(html).not.toContain('all-or-nothing the way Microsoft does')
     for (const lesson of AZ900_LESSONS) expect(html).toContain(`href="#${lesson.id}"`)
-    expect(html.match(/How to use this to pass/g)).toHaveLength(1)
+    expect(html.match(/Prepare for the exam/g)).toHaveLength(1)
   })
 
   it('preserves all eight original samples and maps every lesson to a real hub domain', () => {

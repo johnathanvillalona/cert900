@@ -2,13 +2,12 @@
 
 **Live at: https://cert900.com**
 
-A free practice-exam platform for eleven certifications across CompTIA (A+ Core 1
-and Core 2, Network+, Security+), Cisco (CCNA 200-301), AWS (AI Practitioner, Cloud
-Practitioner, Solutions Architect Associate) and Microsoft Azure (AZ-900, AZ-104,
-SC-900): timed simulations on each vendor's real scoring scale, performance-based
-questions in the vendor's native formats, adaptive drills, per-topic mastery,
-study plans, and a free video link for every topic missed. The exam registry and
-bank sizes live in `src/data/`; `PROJECT-GUIDE.md` is the authoritative project context.
+A free practice-exam site for CompTIA (A+ Core 1 and Core 2, Network+, Security+),
+Cisco (CCNA 200-301), AWS (AI Practitioner, Cloud Practitioner, Solutions Architect -
+Associate) and Microsoft Azure (AZ-900, AZ-104, SC-900) certifications. It offers
+timed practice exams, performance-based questions, topic practice, study plans, and
+a free training video for each exam topic. The exam registry lives in `src/data/`;
+`AGENTS.md` is the project guide.
 
 Stack: React + Vite + TypeScript + Tailwind + shadcn, served by a Cloudflare Worker
 with static assets and a D1 database. Optional Google (and, on iOS, Apple) sign-in
@@ -19,7 +18,7 @@ Progress is tracked separately per exam: browser-local by default, cloud-synced 
 
 ## Development
 
-- Architecture and conventions: see `PROJECT-GUIDE.md`.
+- Architecture and conventions: see `AGENTS.md`.
 - After any content or engine change, run the validator:
 
   ```
@@ -32,9 +31,10 @@ Progress is tracked separately per exam: browser-local by default, cloud-synced 
 
 ## Deployment
 
-Cloudflare Worker + static assets (`dist/`) + D1, from this private repo.
-`npm run build` then `npx wrangler deploy`, or push to `main` (CI build command:
-`npm ci && npm run build`). Secrets via `wrangler secret put`.
+Cloudflare Worker + static assets (`dist/`) + D1, from this private repo. Pushes to
+`main` upload an inactive Worker version; promotion is a separate, manual step
+(`wrangler versions deploy`). See `docs/advertising-activation-runbook.md` for the
+release procedure. Secrets via `wrangler secret put`.
 
 ## Legal
 

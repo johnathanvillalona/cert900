@@ -49,12 +49,12 @@ export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
     labDesc: "Only the performance-based questions: simulated terminals, config panels, network diagrams, matching, ordering, and drag-to-connect, with feedback on every one.",
     countNoun: "PBQs",
     itemBadge: {
-      match: "Performance-Based Question",
-      order: "Performance-Based Question",
-      terminal: "Performance-Based Question",
-      config: "Performance-Based Question",
-      hotspot: "Performance-Based Question",
-      dragconnect: "Performance-Based Question",
+      match: "Performance-based question",
+      order: "Performance-based question",
+      terminal: "Performance-based question",
+      config: "Performance-based question",
+      hotspot: "Performance-based question",
+      dragconnect: "Performance-based question",
     },
     itemSuffix: {
       match: "PBQ", order: "PBQ", terminal: "PBQ", config: "PBQ", hotspot: "PBQ", dragconnect: "PBQ",
@@ -64,8 +64,8 @@ export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
     interleave: false,
   },
   aws: {
-    labTitle: "Ordering & Matching",
-    labDesc: "Practice the exam's interactive question formats. Scored like the real thing: full credit only when every part is right.",
+    labTitle: "Ordering and matching",
+    labDesc: "Practice the exam's ordering and matching formats. Each item earns full credit only when every part is correct.",
     countNoun: "ordering & matching questions",
     itemBadge: { order: "Ordering question", match: "Matching question" },
     itemSuffix: { order: "Ordering", match: "Matching" },
@@ -74,7 +74,7 @@ export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
     interleave: true,
   },
   azure: {
-    labTitle: "Interactive Formats",
+    labTitle: "Interactive questions",
     labDesc: "Drag-and-drop and build-list questions in Microsoft's own formats, with full feedback.",
     countNoun: "interactive questions",
     itemBadge: { order: "Build list", match: "Drag and drop", config: "Hot area" },
@@ -84,7 +84,7 @@ export const VENDOR_FORMATS: Record<Vendor, VendorFormats> = {
     interleave: true,
   },
   cisco: {
-    labTitle: "Simulations & Labs",
+    labTitle: "Simulations and labs",
     labDesc: "Practice CCNA's hands-on formats: simulated device CLI, network-diagram selection, matching, and ordering, with feedback on every one.",
     countNoun: "simulations",
     itemBadge: { terminal: "Configuration sim", hotspot: "Diagram select", match: "Matching", order: "Ordering" },

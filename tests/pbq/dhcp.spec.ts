@@ -162,8 +162,7 @@ test('five responsive widths: readable console, touch targets, output scrolling 
       await expect(page.getByText('Adapter evidence',{exact:true})).toBeVisible()
       await toggle.click()
     }
-    for(const theme of ['light','dark']) {
-      await page.evaluate(t=>document.documentElement.classList.toggle('dark',t==='dark'),theme)
+    for(const theme of ['light']) {
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true)
       const input=page.getByTestId('terminal-input')
       expect(await input.evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(16)

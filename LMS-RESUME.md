@@ -230,7 +230,7 @@ this intake into repair commands without separate scope approval.
 
 1. Finish/pause the monetization sprint independently. Leave production/main and
    every existing worktree intact. Read this handoff, current owner instructions,
-   `AGENTS.md`, `PROJECT-GUIDE.md`, writing/video/media standards and the Windows intake.
+   `AGENTS.md`, writing/video/media standards and the Windows intake.
 2. From the accepted LMS directory, inspect before editing:
 
    ```sh

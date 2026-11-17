@@ -106,7 +106,9 @@ for (const width of [390, 1440]) {
     await page.evaluate(() => window.scrollTo({ top: 600, behavior: 'instant' }))
     const position = await page.evaluate(() => scrollY)
     await clearCalls(page)
-    await page.getByRole('button', { name: 'Toggle theme', exact: true }).click()
+    // Header interaction while Results is open (the theme toggle this used to click is gone).
+    await page.getByTestId('switch-exam').click()
+    await page.keyboard.press('Escape')
     expect(await page.evaluate(() => scrollY)).toBe(position)
     expect(await calls(page)).toEqual([])
     await expect(page.getByRole('heading', { name: 'Exam results', exact: true })).not.toBeFocused()

@@ -153,8 +153,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
     page.on('pageerror', e => errors.push(e.message))
     for (const path of ['/', '/common-network-ports']) {
       await page.goto(path)
-      for (const theme of ['light', 'dark']) {
-        await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
+      for (const theme of ['light']) {
         const change = page.getByRole('button', { name: 'Change preferences' })
         if (await change.isVisible()) await change.click()
         const button = page.getByRole('button', { name: 'Decline', exact: true })

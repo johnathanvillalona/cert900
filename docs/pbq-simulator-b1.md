@@ -175,7 +175,7 @@ are test tooling only and are not copied into production assets.
 
 Stop here, as required by the milestone table: review foundation scope, the
 rubric/accepted variants above and account credit usage before B2. No verified
-credit-usage telemetry is available in this environment, so no dollar or
+tool usage telemetry is available in this environment, so no dollar or
 remaining-balance claim is made. No new packages were needed for B1.
 
 The remaining funded pilot is one parser/command-handler set and one console

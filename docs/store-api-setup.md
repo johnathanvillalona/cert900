@@ -9,9 +9,9 @@ folder outside it (`~/secure/`) and pass the path with
 
 ### Current status (verified 2026-07-28)
 
-Both credentials live in `~/secure` (installed there by `docs/handoff/setup-ubuntu.sh`
-when the workspace moved to Ubuntu on 2026-09-05; verified working on the laptop on
-2026-07-28, re-verify with the dry-runs in `docs/handoff-ubuntu.md` section 6):
+Both credentials live in `~/secure` (installed there when the workspace moved to
+Ubuntu on 2026-09-05; verified working on the laptop on 2026-07-28; re-verify with a
+store dry-run before relying on them):
 
 | Store | Credential | Status |
 |---|---|---|

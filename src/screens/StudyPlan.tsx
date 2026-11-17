@@ -4,7 +4,7 @@ import { buildPlan, planExam } from "@/lib/plan"
 import { countdownCopy, dayNumber } from "@/lib/progress"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowLeft, ArrowRight, CalendarDays, Target } from "lucide-react"
+import { ArrowLeft, CalendarDays, Target } from "lucide-react"
 
 /**
  * A concrete week-by-week plan from the data the store already holds:
@@ -28,7 +28,7 @@ export function StudyPlan({ exam, onBack, onDrillDomain, onFullExam }: {
       <button onClick={onBack} className="text-muted-foreground hover:text-foreground mb-4 flex cursor-pointer items-center gap-1.5 text-sm transition-colors" data-testid="plan-back">
         <ArrowLeft className="size-4" strokeWidth={2} /> {exam.code}
       </button>
-      <h1 className="font-heading text-3xl font-semibold tracking-tight">Your study plan</h1>
+      <h1 className="font-heading text-3xl font-bold tracking-tight">Your study plan</h1>
 
       <Card className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 p-5" data-testid="plan-header">
         <span className="flex items-center gap-2">
@@ -56,8 +56,8 @@ export function StudyPlan({ exam, onBack, onDrillDomain, onFullExam }: {
       <section className="mt-8">
         <h2 className="font-heading text-xl font-semibold tracking-tight">Where the time should go</h2>
         <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
-          Exam weight times what you have not yet shown you know. Domains you have barely touched get
-          full weight — a plan budgets for learning, not just review.
+          Each domain's weight is multiplied by how much of it you have not yet mastered. Domains you have
+          barely started get full weight, because the plan budgets time for learning as well as review.
         </p>
         <div className="mt-4 flex flex-col gap-2">
           {plan.domains
@@ -79,7 +79,6 @@ export function StudyPlan({ exam, onBack, onDrillDomain, onFullExam }: {
                 </span>
                 <Button variant="outline" size="sm" onClick={() => onDrillDomain(d.domain)} data-testid={`plan-drill-${d.domain}`}>
                   Drill
-                  <ArrowRight className="size-3.5" strokeWidth={2} />
                 </Button>
               </div>
             ))}

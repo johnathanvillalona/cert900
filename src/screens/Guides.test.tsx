@@ -30,7 +30,7 @@ describe("static guide instructional content", () => {
       const html = renderToStaticMarkup(createElement(pages[key]))
       const headings = [...html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(m => text(m[1]))
       expect(new Set(headings).size, `${GUIDE_META[key].path}: duplicate headings`).toBe(headings.length)
-      const studyPaths = [...html.matchAll(/<section><h2\b[^>]*>How to use this to pass<\/h2>[\s\S]*?<\/section>/g)]
+      const studyPaths = [...html.matchAll(/<section><h2\b[^>]*>Prepare for the exam<\/h2>[\s\S]*?<\/section>/g)]
       const primaryExam = GUIDE_EXAMS[key][0]
       expect(studyPaths, `${key}: section belongs only on exam guides`).toHaveLength(primaryExam ? 1 : 0)
       if (primaryExam) {
@@ -42,7 +42,7 @@ describe("static guide instructional content", () => {
         expect(instructions).toContain("not an official result or a prediction of passing")
         expect(instructions).toContain(`${Object.keys(exam.videos).length} topics`)
         expect(studyPaths[0][0].match(/<li>/g)).toHaveLength(5)
-        for (const step of ["Drill the weak domains.", "Clear the review queue.", "Watch the linked video for each miss."]) {
+        for (const step of ["Practice your weakest domains.", "Work through your review list.", "Watch the video for each topic you miss."]) {
           expect(instructions.split(step)).toHaveLength(2)
         }
       }
@@ -76,11 +76,12 @@ describe("static guide instructional content", () => {
     }
   })
 
-  it("labels derived domain percentages and counts as instructional allocations", () => {
+  it("labels derived domain percentages as instructional allocations without inventory counts", () => {
     const html = renderToStaticMarkup(<Guides.Az900Guide />)
     expect(html).toContain("Practice allocation")
-    expect(html).toContain("Illustrative count")
-    expect(html).toContain("not measured domain totals")
+    expect(html).toContain("Percentages are Cert900’s practice allocations.")
+    expect(html).not.toContain("Illustrative count")
+    expect(html).not.toMatch(/about \d+<\/td>/)
     expect(html).not.toContain(">Exam weight<")
     expect(html).not.toContain(">Questions here<")
     for (const share of Object.values(EXAM_META["az-900"].examSplit)) {

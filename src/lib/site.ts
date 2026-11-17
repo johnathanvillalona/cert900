@@ -62,7 +62,7 @@ export const AFFILIATE = {
  * rule is the Grow script running on the site for 30 days before you may
  * apply. Setting a site id here starts that clock; whether to actually apply
  * is a separate decision (privacy-policy rewrite, public messaging) recorded
- * in the plan and PROJECT-GUIDE.md.
+ * in the plan and AGENTS.md.
  *
  * tools/prerender.tsx emits both tags: unconditional in the guide pages'
  * static HTML, and a hostname+pathname==="/"-gated copy in dist/index.html

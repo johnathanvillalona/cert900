@@ -66,7 +66,7 @@ describe("reviewed AIF-C01 learning content", () => {
     expect(html.match(/data-testid="guide-sample"/g)).toHaveLength(8)
     const escape = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#x27;")
     for (const { sample } of selected) expect(html).toContain(escape(sample.x))
-    expect(html.match(/How to use this to pass/g)).toHaveLength(1)
+    expect(html.match(/Prepare for the exam/g)).toHaveLength(1)
   })
 
   it("links all lessons from the AWS hub and keeps unrelated certifications unchanged", () => {

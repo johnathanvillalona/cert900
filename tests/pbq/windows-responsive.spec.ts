@@ -5,14 +5,14 @@ import {settled} from './helpers'
 const stylePath=fileURLToPath(new URL('./firewall-screenshot.css',import.meta.url))
 for(const width of [320,375,390,768,1440])test.describe(`Windows workflow ${width}px`,()=>{
   test.use({viewport:{width,height:900},hasTouch:width<768,reducedMotion:'reduce'})
-  test('configure, edit, inspect and grade in both themes without overflow',async({page})=>{
+  test('configure, edit, inspect and grade in light mode without overflow',async({page})=>{
     const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',e=>{if(e.type()==='error')errors.push(e.text())});await page.route('**/*',r=>['127.0.0.1','localhost'].includes(new URL(r.request().url()).hostname)?r.continue():r.abort())
     await openWindows(page)
     if(width<1024){await page.getByTestId('firewall-work-order-toggle').click();await expect(page.getByText('Service request',{exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);await page.getByTestId('firewall-work-order-toggle').click()}
     const name='Warehouse inventory application exception with a deliberately descriptive name'
     await addWindows(page,{name})
-    for(const theme of ['light','dark']){
-      await page.evaluate(t=>document.documentElement.classList.toggle('dark',t==='dark'),theme);await settled(page)
+    for(const theme of ['light']){
+      await settled(page)
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true)
       if(width<1280){await expect(page.getByTestId('windows-rule-card')).toHaveCount(1);await expect(page.getByRole('table',{name:'Windows inbound rules'})).toHaveCount(0)}else await expect(page.getByRole('table',{name:'Windows inbound rules'})).toBeVisible()
       for(const control of await page.getByTestId('firewall-workspace').getByRole('button').all()){const b=await control.boundingBox();if(b){expect(b.width).toBeGreaterThanOrEqual(44);expect(b.height).toBeGreaterThanOrEqual(44)}}

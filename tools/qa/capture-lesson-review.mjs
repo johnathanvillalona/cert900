@@ -38,7 +38,6 @@ try {
   writeFileSync(path.join(output, 'reading-metrics.json'), JSON.stringify(metrics, null, 2) + '\n');
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
-    await page.evaluate(() => document.documentElement.classList.remove('dark'));
     for (const id of ['aif-ai-ml-approaches', 'aif-model-performance', 'aif-retrieval-customization']) {
       await page.goto(new URL(`${guide}#${id}`, origin).href);
       await page.locator(`#${id}`).evaluate(element => element.scrollIntoView({ block: 'start' }));
@@ -48,12 +47,10 @@ try {
   }
   if (phase === 'after') {
     await page.setViewportSize({ width: 320, height: 1000 });
-    await page.evaluate(() => document.documentElement.classList.add('dark'));
     for (const kind of ['precision-recall', 'service-choice', 'responsible-review', 'security-boundaries']) {
-      await page.locator(`[data-diagram="${kind}"]`).screenshot({ path: path.join(output, `${kind}-320-dark.png`) });
+      await page.locator(`[data-diagram="${kind}"]`).screenshot({ path: path.join(output, `${kind}-320.png`) });
     }
     await page.setViewportSize({ width: 390, height: 1000 });
-    await page.evaluate(() => document.documentElement.classList.remove('dark'));
     const scenario = page.getByTestId('learning-lesson').nth(2).getByTestId('lesson-scenario');
     await scenario.locator('..').screenshot({ path: path.join(output, 'worked-example-390.png') });
   }

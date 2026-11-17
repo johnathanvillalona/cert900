@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, CalendarDays, Flame } from "lucide-react"
+import { BadgeCheck, CalendarDays, Flame } from "lucide-react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import type { ExamMeta } from "@/data/types"
 import { VENDORS } from "@/data/vendors"
@@ -64,7 +64,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams, onOpenPlan, on
   if (totalAnswered === 0 && !perExam.some((x) => x.passed) && plans.length === 0) {
     return (
       <main>
-        <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
+        <h1 className="font-heading text-3xl font-bold tracking-tight">Progress</h1>
         <Card className="mt-6 flex flex-col items-start gap-3 p-8">
           <p className="font-medium">Nothing tracked yet</p>
           <p className="text-muted-foreground max-w-md text-sm">
@@ -78,7 +78,7 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams, onOpenPlan, on
 
   return (
     <main>
-      <h1 className="font-heading text-3xl font-semibold tracking-tight">Progress</h1>
+      <h1 className="font-heading text-3xl font-bold tracking-tight">Progress</h1>
 
       <div className="mt-5 grid grid-cols-3 gap-3" data-testid="dash-tiles">
         <Card className="stagger-item p-4" style={{ "--i": 0 } as React.CSSProperties}>
@@ -106,7 +106,6 @@ export function Dashboard({ onContinue, onDetails, onBrowseExams, onOpenPlan, on
           {plans.length > 0 && (
             <Button variant="ghost" size="sm" onClick={onNewPlan} data-testid="dash-manage-plans">
               Manage plans
-              <ArrowRight className="size-3.5" strokeWidth={2} />
             </Button>
           )}
         </div>
@@ -176,7 +175,7 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
               {exam.cert} {exam.name}
               {passed && (
                 <span
-                  className="bg-success/10 text-success inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold"
+                  className="bg-success/10 text-success inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold"
                   data-testid="dash-passed"
                 >
                   <BadgeCheck className="size-3" strokeWidth={2.5} />
@@ -247,7 +246,6 @@ function ExamSummaryCard({ exam, answered, accuracy, lastExam, weakest, ready, p
           )}
           <Button size="sm" onClick={onContinue} className="gap-1.5">
             {started ? "Continue" : "Start"}
-            <ArrowRight className="size-3.5" strokeWidth={2} />
           </Button>
         </div>
       </div>

@@ -25,7 +25,7 @@ test('support is a native optional link after teaching, not a payment widget', a
     await expect(support.locator('script, iframe, form, button')).toHaveCount(0)
     await expect(support).toContainText('Every exam and study guide stays free.')
     expect(await support.evaluate(element => {
-      const faq = [...document.querySelectorAll('h2')].find(h => h.textContent === 'Common questions')!
+      const faq = [...document.querySelectorAll('h2')].find(h => h.textContent === 'Frequently asked questions')!
       return Boolean(faq.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)
     })).toBe(true)
     // Test link semantics without visiting a checkout or generating payment activity.
@@ -63,17 +63,16 @@ test('revised snippets match delivered and rendered metadata without moving cano
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`optional support and contextual links stay accessible at ${width}px in both themes`, async ({ page }, testInfo) => {
+  test(`optional support and contextual links stay accessible at ${width}px in light mode`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 900 })
     const errors: string[] = [], external: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     page.on('request', request => { if (!['127.0.0.1', 'localhost'].includes(new URL(request.url()).hostname)) external.push(request.url()) })
     page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${new URL(response.url()).pathname}`) })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(value => localStorage.setItem('trainer-theme', value), theme)
+    for (const theme of ['light']) {
       await page.goto(GUIDE_PATHS.pbq)
       expect(await page.evaluate(() => innerWidth)).toBe(width)
-      await expect(page.locator('html')).toHaveClass(theme === 'dark' ? /dark/ : /^(?!.*\bdark\b)/)
+      await expect(page.locator('html')).not.toHaveClass(/\bdark\b/)
       const support = page.getByTestId('guide-support')
       await support.scrollIntoViewIfNeeded()
       const link = support.getByRole('link', { name: /Support Cert900/ })

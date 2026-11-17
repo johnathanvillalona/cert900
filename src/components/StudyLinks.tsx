@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, FileText } from "lucide-react"
+import { BookOpen, FileText } from "lucide-react"
 import { EXAM_META } from "@/data/meta"
 import { primaryGuideForExam, resolveStudyResource, studyHubForExam, studyResourcesForExam } from "@/data/study-resources"
 import { cn } from "@/lib/utils"
@@ -27,19 +27,17 @@ export function StudyLinks({ examId, references = true }: { examId: string; refe
       <div className="flex items-start gap-3">
         <BookOpen className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
         <div className="min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Free learning resources</p>
-          <h2 className="font-heading mt-1 text-xl font-semibold">Study resources</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Find the guide, domain videos and practice tools together in your exam's Study Hub.</p>
+          <h2 className="font-heading text-xl font-semibold">Study resources</h2>
+          <p className="mt-1 text-sm text-muted-foreground">The Study Hub for this exam collects the study guide, domain videos, and practice tools in one place.</p>
         </div>
       </div>
       <a href={hub.path} data-testid="primary-study-hub" title={hub.title}
         className="mt-4 flex min-h-11 items-center justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 px-4 py-3 text-sm text-brand hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2">
-        <span className="min-w-0"><span className="block font-semibold">Open Study Hub</span><span className="mt-0.5 block break-words">{hub.heading}</span></span>
-        <ArrowRight className="size-4 shrink-0" aria-hidden="true" />
+        <span className="min-w-0"><span className="block font-semibold">Open the Study Hub</span><span className="mt-0.5 block break-words">{hub.heading}</span></span>
       </a>
       <a href={guide.path} data-testid="primary-study-guide" title={guide.title}
         className="mt-2 flex min-h-11 items-center gap-2 rounded-md px-3 py-2 text-sm text-brand hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2">
-        <BookOpen className="size-4 shrink-0" aria-hidden="true" /><span className="min-w-0 break-words">Read the original study guide</span>
+        <BookOpen className="size-4 shrink-0" aria-hidden="true" /><span className="min-w-0 break-words">Read the study guide</span>
       </a>
       {sheets.length > 0 && <div className="mt-4">
         <h3 className="text-sm font-medium">Reference sheets</h3>

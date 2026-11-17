@@ -23,25 +23,23 @@ import { primaryGuideForExam } from "@/data/study-resources"
 const exams = () => EXAM_ORDER.map((id) => EXAM_META[id])
 const byVendor = (v: Vendor) => exams().filter((e) => e.vendor === v)
 
-/** Full inventory table: one row per exam, every column from the registry. */
+/** One row per exam with Cert900 practice settings, every column from the registry. */
 function ExamTable({ showScores = false }: { showScores?: boolean }) {
   return (
     <div className="overflow-x-auto">
-      <table className="mt-3 w-full min-w-160 border-collapse text-sm">
+      <table className="mt-3 w-full min-w-120 border-collapse text-sm">
         <thead>
           <tr className="border-b text-left">
             <th className="py-2 pr-4 font-semibold">Exam</th>
-            <th className="py-2 pr-4 font-mono font-semibold">Code</th>
-            {showScores ? (
+            <th className="py-2 pr-4 font-semibold">Code</th>
+            {showScores && (
               <>
-                <th className="py-2 pr-4 font-mono font-semibold">Practice scale</th>
-                <th className="py-2 pr-4 font-mono font-semibold">Pass / practice threshold</th>
+                <th className="py-2 pr-4 font-semibold">Practice scale</th>
+                <th className="py-2 pr-4 font-semibold">Pass / practice threshold</th>
               </>
-            ) : (
-              <th className="py-2 pr-4 font-mono font-semibold">Questions here</th>
             )}
-            <th className="py-2 pr-4 font-mono font-semibold">Practice items</th>
-            <th className="py-2 font-mono font-semibold">Practice time</th>
+            <th className="py-2 pr-4 font-semibold">Practice items</th>
+            <th className="py-2 font-semibold">Practice time</th>
           </tr>
         </thead>
         <tbody>
@@ -54,22 +52,17 @@ function ExamTable({ showScores = false }: { showScores?: boolean }) {
                   </a>
                 </td>
                 <td className="py-2 pr-4 font-mono text-xs tabular-nums">{e.code}</td>
-                {showScores ? (
+                {showScores && (
                   <>
-                    <td className="py-2 pr-4 font-mono tabular-nums">100&ndash;{e.scale.max}</td>
-                    <td className="py-2 pr-4 font-mono font-semibold tabular-nums">{e.scale.pass}</td>
+                    <td className="py-2 pr-4 tabular-nums">100&ndash;{e.scale.max}</td>
+                    <td className="py-2 pr-4 font-semibold tabular-nums">{e.scale.pass}</td>
                   </>
-                ) : (
-                  <td className="py-2 pr-4 font-mono tabular-nums">
-                    {e.questionCount}
-                    {e.pbqCount > 0 && ` + ${e.pbqCount}`}
-                  </td>
                 )}
-                <td className="py-2 pr-4 font-mono tabular-nums">
+                <td className="py-2 pr-4 tabular-nums">
                   {e.examMC}
                   {e.examPBQ > 0 && ` + ${e.examPBQ}`}
                 </td>
-                <td className="py-2 font-mono tabular-nums">{e.examMinutes} min</td>
+                <td className="py-2 tabular-nums">{e.examMinutes} min</td>
               </tr>
             )),
           )}
@@ -86,25 +79,19 @@ function guidePathFor(examId: string): string {
 
 export function HubPage() {
   const meta = GUIDE_META.hub
-  const all = exams()
-  const totalQ = all.reduce((a, e) => a + e.questionCount, 0)
-  const totalPbq = all.reduce((a, e) => a + e.pbqCount, 0)
-  const totalVideos = new Set(all.flatMap((e) => Object.values(e.videos).map((v) => v.u))).size
 
   return (
     <GuideShell meta={meta}>
       <section>
         <p className="text-lg leading-relaxed">
-          {totalQ} original practice questions and {totalPbq} performance-based and interactive items
-          across {all.length} certification exams, free with no account. Every exam runs as a timed
-          practice session with exam-specific settings, and every question links to a free training
-          video for its topic. Question mixes and scoring use Cert900's instructional model.
+          Cert900 offers free practice exams for {vendorList()} certifications. Each exam runs as a timed
+          practice session with exam-specific settings, and each topic links to a free training video.
+          Question mixes and scoring use Cert900's instructional model.
         </p>
         <p className="text-muted-foreground mt-4 leading-relaxed">
-          Nothing here is a copy of a real exam. Every question is written from the current published
-          objectives, which is the only version of this that is both legal and useful: memorising
-          leaked items teaches you the items, not the material, and the vendors revoke certifications
-          over it.
+          Every question is original and written from the current published exam objectives. Cert900 does
+          not use real exam content, because memorizing leaked items does not teach the material and can
+          cost you your certification.
         </p>
         <div className="mt-6">
           <Cta label="Start practicing" examId="220-1201" testid="hub-cta" />
@@ -112,10 +99,10 @@ export function HubPage() {
       </section>
 
       <section>
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">Every exam covered</h2>
-        <p className="text-muted-foreground mt-2 text-sm">
-          "Questions here" is this site's inventory. "Practice items" and "Practice time" describe
-          Cert900's configured sessions; they do not promise a particular real-exam question count or mix.
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Exams and practice settings</h2>
+        <p className="text-muted-foreground mt-2">
+          "Practice items" and "Practice time" describe Cert900's practice sessions. They do not promise a
+          particular real-exam question count or mix.
         </p>
         <ExamTable />
       </section>
@@ -129,13 +116,13 @@ export function HubPage() {
             return (
               <div key={v}>
                 <h3 className="font-heading text-lg font-semibold">{VENDORS[v].name}</h3>
-                <ul className="mt-2 flex flex-col gap-1.5 text-sm">
+                <ul className="mt-2 flex flex-col gap-2">
                   {group.map((e) => (
                     <li key={e.id}>
                       <a href={guidePathFor(e.id)} className="text-brand underline-offset-4 hover:underline">
                         {e.cert} {e.name} ({e.code})
                       </a>
-                      <span className="text-muted-foreground"> — {e.blurb}</span>
+                      <span className="text-muted-foreground block">{e.blurb}</span>
                     </li>
                   ))}
                 </ul>
@@ -146,14 +133,13 @@ export function HubPage() {
       </section>
 
       <section>
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">What you get on every exam</h2>
-        <ul className="mt-4 flex flex-col gap-2 text-sm leading-relaxed">
-          <li>Timed practice with original questions, exam-specific settings and Cert900's instructional scoring.</li>
-          <li>Adaptive drills that weight your weakest topics and explain every answer as you go.</li>
-          <li>A spaced-repetition review queue that brings back what you missed until it sticks.</li>
-          <li>Per-domain accuracy and a readiness band, shown as a range rather than a promise.</li>
-          <li>{totalVideos} free training videos, one linked from every topic.</li>
-          <li>Offline practice on the phone app, with optional sync. No account required anywhere.</li>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">What each exam includes</h2>
+        <ul className="mt-4 flex list-disc flex-col gap-2 pl-5 leading-relaxed">
+          <li>A timed practice exam with exam-specific settings and Cert900's instructional scoring.</li>
+          <li>Topic practice that gives you more questions from your weakest topics and explains each answer.</li>
+          <li>A review list that brings back missed questions on a spaced schedule.</li>
+          <li>Accuracy by domain and a readiness estimate shown as a range.</li>
+          <li>A free training video linked from each topic.</li>
         </ul>
       </section>
     </GuideShell>
@@ -191,9 +177,9 @@ export function ScoresPage() {
           the same level of knowledge whichever form you sat.
         </p>
         <p className="mt-3 leading-relaxed">
-          Two consequences catch people out. The scale starts at 100, not zero, so a 675 out of 900 is
-          not "75 percent". And the conversion is not linear, which is why CompTIA publishes a cut
-          score but no corresponding percentage of questions.
+          This has two consequences. The scale starts at 100, not zero, so a 675 out of 900 is not
+          "75 percent." The conversion is also not linear, which is why CompTIA publishes a passing score
+          but no matching percentage of questions.
         </p>
       </section>
 
@@ -211,7 +197,7 @@ export function ScoresPage() {
           different scoring rules, which are not reproduced or inferred from these practice scores.
         </p>
         <div className="mt-6">
-          <Cta label="See where you would land today" examId="sy0-701" testid="scores-cta" />
+          <Cta label="Take a practice exam" examId="sy0-701" testid="scores-cta" />
         </div>
       </section>
     </GuideShell>
@@ -233,27 +219,27 @@ export function OrderPage() {
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">IT support and security: CompTIA</h2>
-        <ol className="mt-4 flex flex-col gap-3 text-sm leading-relaxed">
+        <ol className="mt-4 flex list-decimal flex-col gap-3 pl-5 leading-relaxed">
           <li>
             <a href={GUIDE_PATHS.aplus} className="font-semibold text-brand underline-offset-4 hover:underline">
               A+ ({e("220-1201").code} and {e("220-1202").code})
             </a>{" "}
-            — two exams, both required. The usual entry point for help desk and desktop support, and
-            the one most often named in job postings for a first IT role.
+            requires two exams. It is the usual entry point for help desk and desktop support, and it is
+            often listed in job postings for a first IT role.
           </li>
           <li>
             <a href={GUIDE_PATHS.nplus} className="font-semibold text-brand underline-offset-4 hover:underline">
               Network+ ({e("n10-009").code})
             </a>{" "}
-            — the vocabulary every later exam assumes: addressing, routing, ports, and topologies. Skip
-            it only if you already work with networks daily.
+            covers the networking knowledge that later exams assume: addressing, routing, ports, and
+            topologies. You can skip it if you already work with networks every day.
           </li>
           <li>
             <a href={GUIDE_PATHS.secplus} className="font-semibold text-brand underline-offset-4 hover:underline">
               Security+ ({e("sy0-701").code})
             </a>{" "}
-            — the baseline security certification, and the one that satisfies the US DoD 8140 baseline
-            for many roles. It leans hard on networking, which is why it sits after Network+.
+            is the baseline security certification and meets the US DoD 8140 baseline for many roles. It
+            builds on networking, which is why it follows Network+.
           </li>
         </ol>
       </section>
@@ -265,19 +251,19 @@ export function OrderPage() {
             CCNA ({e("ccna-200-301").code})
           </a>{" "}
           is a single exam with no prerequisite, and it goes deeper than Network+ on routing, switching,
-          and IOS configuration. Network+ first is a gentler ramp and is vendor-neutral; going straight
-          to CCNA is normal if networking is the actual goal. Expect hands-on simulations: the exam runs{" "}
-          {e("ccna-200-301").examMinutes} minutes and the configuration items are a large part of it.
+          and IOS configuration. Network+ is a gentler, vendor-neutral start, and many candidates go
+          straight to CCNA when networking is their goal. The exam runs{" "}
+          {e("ccna-200-301").examMinutes} minutes and includes hands-on configuration items.
         </p>
       </section>
 
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">Cloud: AWS and Microsoft</h2>
         <p className="mt-3 leading-relaxed">
-          Both vendors put a cheap, non-expiring fundamentals exam in front of their role-based ones,
-          and both are worth it if the vocabulary is new to you.
+          AWS and Microsoft both offer a lower-cost fundamentals exam before their role-based
+          certifications. A fundamentals exam is a good place to start if the terms are new to you.
         </p>
-        <ul className="mt-4 flex flex-col gap-3 text-sm leading-relaxed">
+        <ul className="mt-4 flex list-disc flex-col gap-3 pl-5 leading-relaxed">
           <li>
             <a href={GUIDE_PATHS.clf} className="font-semibold text-brand underline-offset-4 hover:underline">
               AWS Cloud Practitioner ({e("clf-c02").code})
@@ -286,16 +272,16 @@ export function OrderPage() {
             <a href={GUIDE_PATHS.saa} className="font-semibold text-brand underline-offset-4 hover:underline">
               Solutions Architect Associate ({e("saa-c03").code})
             </a>
-            . The associate exam is a large step up: {e("saa-c03").examMinutes} minutes of scenario
-            questions where several answers work and you pick the one that best fits the stated
-            constraint.
+            . The associate exam is a large step up, with {e("saa-c03").examMinutes} minutes of scenario
+            questions where several answers work and you choose the one that best fits the stated
+            requirement.
           </li>
           <li>
             <a href={GUIDE_PATHS.aif} className="font-semibold text-brand underline-offset-4 hover:underline">
               AWS AI Practitioner ({e("aif-c01").code})
             </a>{" "}
-            sits beside Cloud Practitioner rather than after it, and covers generative AI, foundation
-            models, and responsible AI on AWS.
+            is an alternative to Cloud Practitioner rather than a next step. It covers generative AI,
+            foundation models, and responsible AI on AWS.
           </li>
           <li>
             <a href={GUIDE_PATHS.az900} className="font-semibold text-brand underline-offset-4 hover:underline">
@@ -316,14 +302,13 @@ export function OrderPage() {
       </section>
 
       <section>
-        <h2 className="font-heading text-2xl font-semibold tracking-tight">A shortcut that actually works</h2>
+        <h2 className="font-heading text-2xl font-semibold tracking-tight">Check where you stand first</h2>
         <p className="mt-3 leading-relaxed">
-          Sit a timed practice exam cold before you buy anything. It costs nothing here and gives you
-          feedback using Cert900's practice model: if you are
-          already near the cut line, start higher up the ladder.
+          Take a timed practice exam before you buy any study materials. If your practice score is
+          already near the passing score, you may be ready for a more advanced certification.
         </p>
         <div className="mt-6">
-          <Cta label="Take a timed exam now" examId="220-1201" testid="order-cta" />
+          <Cta label="Take a practice exam" examId="220-1201" testid="order-cta" />
         </div>
       </section>
     </GuideShell>
@@ -337,8 +322,6 @@ export function OrderPage() {
  */
 export function MethodPage() {
   const meta = GUIDE_META.method
-  const totalQ = exams().reduce((a, e) => a + e.questionCount, 0)
-  const totalPbq = exams().reduce((a, e) => a + e.pbqCount, 0)
   return (
     <GuideShell meta={meta}>
       <section id="about" aria-labelledby="about-cert900-heading" className="scroll-mt-6">
@@ -358,11 +341,9 @@ export function MethodPage() {
 
       <section>
         <p className="text-lg leading-relaxed">
-          This site currently holds {totalQ.toLocaleString()} multiple-choice questions and {totalPbq}{" "}
-          performance-based and interactive questions across {exams().length} certification exams.
-          Every one of them is original work written against the exam's published objectives. None of
-          it comes from real exams: braindumps violate the vendors' agreements, can void a
-          certification, and train recall instead of understanding.
+          Every multiple-choice and performance-based question on Cert900 is original work written from
+          the exam's published objectives. None of it comes from real exams. Braindumps violate the
+          vendors' agreements, can void a certification, and teach recall instead of understanding.
         </p>
       </section>
 
@@ -376,8 +357,8 @@ export function MethodPage() {
           training video covering its exact topic.
         </p>
         <p className="mt-3 leading-relaxed">
-          The same standard bans what test-takers call test-wiseness tells: the longest option being
-          the answer, stem words echoed only in the key, grammatical giveaways, or negatives hidden in
+          The same standard rules out common giveaways, such as the longest option being the answer, words
+          from the question repeated only in the correct answer, grammatical clues, or negatives hidden in
           lowercase. An automated lint checks the measurable ones on every change, and the build fails
           if a bank violates the structural rules.
         </p>
@@ -402,10 +383,8 @@ export function MethodPage() {
       <section>
         <h2 className="font-heading text-2xl font-semibold tracking-tight">When something is still wrong</h2>
         <p className="mt-3 leading-relaxed">
-          Every question carries a report button. Reports are anonymous, land in a triage queue, and a
-          confirmed problem is fixed in the bank itself, so the correction reaches everyone at once.
-          If a question here cost you a point unfairly, that is the fastest way to make it cost nobody
-          else one.
+          Every question has a Report button. Reports are anonymous and go to a review queue. When a
+          problem is confirmed, the question is corrected for everyone at once.
         </p>
         <div className="mt-6">
           <Cta label="Start practicing" examId="sy0-701" testid="method-cta" />

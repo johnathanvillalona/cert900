@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { GUIDE_EXAMS } from '../../src/data/guide-meta'
 import { GUIDE_PATHS, type GuideKey } from '../../src/data/routes'
 
-const title = 'How to use this to pass'
+const title = 'Prepare for the exam'
 const guides = Object.entries(GUIDE_PATHS) as [GuideKey, string][]
 const representative = ['pbq', 'aplus', 'aplus1', 'nplus', 'secplus', 'clf', 'az900', 'ccna'] as const
 const countFor = (key: GuideKey) => GUIDE_EXAMS[key].length ? 1 : 0
@@ -50,8 +50,8 @@ for (const javaScriptEnabled of [false, true]) {
         expect(delivered.headings.filter(h => h === title), path).toHaveLength(countFor(key))
         await expectStudyPath(page, key)
         await expect(page.getByTestId('guide-page')).toHaveCount(1)
-        expect(rendered.text.split('Drill the weak domains.').length - 1, path).toBe(countFor(key))
-        expect(rendered.text.split('Clear the review queue.').length - 1, path).toBe(countFor(key))
+        expect(rendered.text.split('Practice your weakest domains.').length - 1, path).toBe(countFor(key))
+        expect(rendered.text.split('Work through your review list.').length - 1, path).toBe(countFor(key))
       }
       expect(errors).toEqual([])
     } finally { await context.close() }
@@ -93,8 +93,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
     page.on('pageerror', error => errors.push(error.message))
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       for (const key of representative) {
         await page.goto(GUIDE_PATHS[key])
         await expectStudyPath(page, key)

@@ -1,25 +1,19 @@
 import { useMemo, useState } from "react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
-import type { ConnectorGlyph, ExamMeta } from "@/data/types"
-import { useCountUp } from "@/hooks/useCountUp"
-import { useRepelField } from "@/hooks/useRepelField"
-import { Glyph } from "@/components/pbq-art"
+import type { ExamMeta } from "@/data/types"
 import { useProgress } from "@/hooks/useProgress"
-import { useTheme } from "@/hooks/useTheme"
 import { shuffle } from "@/lib/engine"
 import { reviewCount } from "@/lib/review"
 import { dayNumber } from "@/lib/progress"
 import { allSessions, studyStreak } from "@/lib/stats"
 import { questionOfTheDay, type DailyPick } from "@/lib/qotd"
-import { siteFaq } from "@/lib/copy"
+import { siteFaq, vendorList } from "@/lib/copy"
 import { QotdPbq, QotdPbqFooter } from "@/components/QotdPbq"
 import { NewsletterSignup } from "@/components/NewsletterSignup"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowRight, CalendarDays, ChartLine, Check, Plus, X } from "lucide-react"
+import { CalendarDays, ChartLine, Check, Plus, X } from "lucide-react"
 import { ExamEmblem } from "@/components/exam-art"
-import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
 import { SearchPalette } from "@/components/SearchPalette"
@@ -32,8 +26,8 @@ import { HomepageLearningLinks } from "@/components/LearningDestinations"
 /**
  * Real product in the hero: the question of the day, fully answerable.
  *
- * Some days that item is a match or order PBQ rather than multiple choice —
- * the pool carries both kinds so the hero shows off the interactive formats
+ * Some days that item is a match or order PBQ rather than multiple choice.
+ * The pool carries both kinds so the hero shows off the interactive formats
  * too, not just the four-option questions.
  */
 function LiveQuestion() {
@@ -43,10 +37,10 @@ function LiveQuestion() {
   if (pick.kind === "pbq") {
     return (
       <div className="rounded-lg border bg-card p-5 shadow-sm" data-testid="live-question">
-        <p className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-          <span className="text-brand">Question of the day</span>
+        <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">Question of the day</span>
           <span>
-            {pick.code} · {pick.pbq.kind === "match" ? "matching" : "ordering"}
+            <span className="font-mono">{pick.code}</span>, {pick.pbq.kind === "match" ? "matching" : "ordering"}
           </span>
         </p>
         <p className="mt-2 font-medium leading-snug">{pick.pbq.title}</p>
@@ -54,8 +48,8 @@ function LiveQuestion() {
         {pbqGraded && (
           <div role="status" className="enter-fade-rise">
             <QotdPbqFooter pick={pick} />
-            <p className="text-muted-foreground mt-2 font-mono text-xs">
-              Every question works like this. A new one lands tomorrow.
+            <p className="text-muted-foreground mt-2 text-sm">
+              A new question of the day appears here each day.
             </p>
             <NewsletterSignup />
           </div>
@@ -76,9 +70,9 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
 
   return (
     <div className="rounded-lg border bg-card p-5 shadow-sm" data-testid="live-question">
-      <p className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-        <span className="text-brand">Question of the day</span>
-        <span>{pick.code} · {pick.domain}</span>
+      <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+        <span className="font-semibold text-foreground">Question of the day</span>
+        <span><span className="font-mono">{pick.code}</span>, {pick.domain}</span>
       </p>
       <p className="mt-2 font-medium leading-snug">{q.x}</p>
       <div className="mt-3 flex flex-col gap-1.5">
@@ -96,7 +90,7 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
                 state === "wrong" && "border-destructive bg-destructive/10",
               )}
             >
-              <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border font-mono text-[11px] font-semibold">
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border text-xs font-semibold">
                 {state === "correct" ? <Check className="pop-in size-3.5" strokeWidth={2.5} /> : state === "wrong" ? <X className="pop-in size-3.5" strokeWidth={2.5} /> : "ABCD"[pos]}
               </span>
               {q.o[oi]}
@@ -106,7 +100,7 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
       </div>
       {graded && (
         <div role="status" className="enter-fade-rise mt-3 border-t pt-3 text-sm">
-          <p className="font-semibold">{ok ? "Correct." : "Not quite."}</p>
+          <p className="font-semibold">{ok ? "Correct." : "Incorrect."}</p>
           <p className="text-muted-foreground mt-1">{q.e}</p>
           <a
             href={pick.videoUrl}
@@ -114,11 +108,10 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
             rel="noopener noreferrer"
             className="mt-2 inline-flex items-center gap-1.5 font-medium text-brand underline-offset-4 hover:underline"
           >
-            Watch: {pick.vendor === "comptia" ? `Professor Messer, ${pick.videoName}` : pick.videoName}
-            <ArrowRight className="size-3.5" strokeWidth={2} />
+            Related video: {pick.vendor === "comptia" ? `Professor Messer, ${pick.videoName}` : pick.videoName}
           </a>
-          <p className="text-muted-foreground mt-2 font-mono text-xs">
-            Every question works like this. A new one lands tomorrow.
+          <p className="text-muted-foreground mt-2 text-sm">
+            A new question of the day appears here each day.
           </p>
           <NewsletterSignup />
         </div>
@@ -127,72 +120,12 @@ function LiveMcQuestion({ pick }: { pick: Extract<DailyPick, { kind: "mc" }> }) 
   )
 }
 
-/**
- * Decorative IT-icon field behind the hero. Reuses the PBQ bench glyphs
- * (currentColor, theme-aware) -- no icon library, no new art. Hand-placed
- * toward the edges so neither hero branch's copy fights it; a few icons are
- * hidden on phones. Idle drift is pure CSS (.hero-icon-drift); the
- * pointer-repel is the useRepelField rAF (see that file for the rules).
- * Negative animation-delay values desync loops that share a duration.
- */
-const HERO_ICONS: { g: ConnectorGlyph; x: number; y: number; s: number; dur: number; delay: number; cls?: string }[] = [
-  { g: "rj45", x: 3, y: 14, s: 30, dur: 26, delay: 0 },
-  { g: "sata", x: 12, y: 26, s: 22, dur: 32, delay: 21, cls: "hidden lg:block" },
-  { g: "multimeter", x: 9, y: 44, s: 24, dur: 31, delay: 9, cls: "hidden lg:block" },
-  { g: "molex", x: 17, y: 70, s: 26, dur: 24, delay: 17, cls: "hidden sm:block" },
-  { g: "shield", x: 6, y: 80, s: 36, dur: 23, delay: 4 },
-  { g: "usb-c", x: 27, y: 6, s: 24, dur: 29, delay: 13, cls: "hidden sm:block" },
-  { g: "power", x: 30, y: 84, s: 24, dur: 30, delay: 23 },
-  { g: "coax", x: 38, y: 90, s: 26, dur: 27, delay: 6, cls: "hidden sm:block" },
-  { g: "lock", x: 50, y: 12, s: 22, dur: 24, delay: 16, cls: "hidden lg:block" },
-  { g: "crimper", x: 44, y: 46, s: 24, dur: 28, delay: 26, cls: "hidden lg:block" },
-  { g: "punchdown", x: 55, y: 66, s: 24, dur: 33, delay: 2, cls: "hidden lg:block" },
-  { g: "hdmi", x: 64, y: 4, s: 26, dur: 28, delay: 11, cls: "hidden sm:block" },
-  { g: "lc-fiber", x: 78, y: 20, s: 24, dur: 25, delay: 30, cls: "hidden sm:block" },
-  { g: "badge", x: 71, y: 93, s: 24, dur: 25, delay: 19, cls: "hidden sm:block" },
-  { g: "keypad", x: 84, y: 8, s: 28, dur: 30, delay: 7 },
-  { g: "tester", x: 96, y: 34, s: 30, dur: 22, delay: 14 },
-  { g: "dp", x: 88, y: 58, s: 24, dur: 34, delay: 12, cls: "hidden sm:block" },
-  { g: "fan", x: 92, y: 84, s: 36, dur: 34, delay: 3 },
-]
-
-function HeroIconField() {
-  const { fieldRef, itemRefs } = useRepelField(HERO_ICONS)
-  return (
-    <div ref={fieldRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-      {HERO_ICONS.map(({ g, x, y, s, dur, delay, cls }, i) => (
-        <div
-          key={g}
-          ref={(el) => {
-            itemRefs.current[i] = el
-          }}
-          // Centered with negative margins, NOT translate utilities: the repel
-          // loop owns style.transform on this element and must never clobber
-          // (or be clobbered by) a centering transform.
-          className={cn("absolute", cls)}
-          style={{ left: `${x}%`, top: `${y}%`, marginLeft: -s / 2, marginTop: -s / 2 }}
-        >
-          {/* One colour for the whole field: text-brand, at the opacity below.
-              A mixed grey/amber field read as two unrelated things rather than
-              one piece of texture. */}
-          <div
-            className="hero-icon-drift text-brand opacity-[0.20] dark:opacity-[0.26]"
-            style={{ width: s, height: s, animationDuration: `${dur}s`, animationDelay: `-${delay}s` }}
-          >
-            <Glyph g={g} className="size-full" />
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta; answered: number; lastScaled: number | null; due: number }[]; streak: number; onChoose: (id: string) => void }) {
   const totalDue = started.reduce((a, s) => a + s.due, 0)
   return (
-    <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-center">
+    <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-5">
-        <h1 className="font-heading text-4xl font-semibold tracking-tight md:text-5xl">Welcome back</h1>
+        <h1 className="font-heading text-4xl font-bold tracking-tight md:text-5xl">Welcome back</h1>
         <p className="text-muted-foreground mt-4 max-w-md text-lg">
           {totalDue > 0
             ? `${totalDue} ${totalDue === 1 ? "question is" : "questions are"} due for review today.`
@@ -201,7 +134,7 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
         {/* The streak is a fact, not a nag: shown from the second day, never
             paired with guilt copy when it resets. */}
         {streak >= 2 && (
-          <p className="mt-3 inline-flex items-center gap-2 rounded-md border bg-card px-3 py-1.5 font-mono text-xs tabular-nums" data-testid="streak-chip">
+          <p className="mt-3 inline-flex items-center gap-2 rounded-md border bg-card px-3 py-1.5 text-sm tabular-nums" data-testid="streak-chip">
             <span className="text-brand font-semibold">{streak}-day</span> study streak
           </p>
         )}
@@ -221,7 +154,7 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
               <span className="mt-0.5 block font-heading text-lg font-semibold">
                 {exam.cert} {exam.name}
               </span>
-              <span className="text-muted-foreground mt-1 block font-mono text-xs tabular-nums">
+              <span className="text-muted-foreground mt-1 block text-sm tabular-nums">
                 {answered} answered{lastScaled !== null && ` · last exam ${lastScaled}`}
                 {due > 0 && (
                   <span className="text-brand"> · {due} due for review</span>
@@ -230,7 +163,6 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
             </span>
             <span className="flex min-h-11 shrink-0 items-center gap-2 font-medium text-brand">
               {due > 0 ? "Review" : "Continue"}
-              <ArrowRight className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1" strokeWidth={2} />
             </span>
           </button>
           <StudyGuideAction examId={exam.id} className="mx-5 mb-5" />
@@ -241,34 +173,13 @@ function ContinueHero({ started, streak, onChoose }: { started: { exam: ExamMeta
   )
 }
 
-/**
- * One number from the stats strip. These four figures are the strongest claim
- * the page makes, so they earn the one piece of motion on the section: they
- * count up the first time they scroll into view, once.
- */
-function Stat({ n, label }: { n: number; label: string }) {
-  const { value, ref } = useCountUp(n)
-  return (
-    <div>
-      {/* A visually-hidden span carries the final number so a screen reader
-          announces the fact, not whatever frame the count happened to be on.
-          (Not aria-label: that attribute is prohibited on a generic <p>.) */}
-      <p ref={ref} className="font-heading text-3xl font-semibold tabular-nums">
-        <span aria-hidden="true">{value}</span>
-        <span className="sr-only">{n}</span>
-      </p>
-      <p className="text-muted-foreground mt-1 text-sm">{label}</p>
-    </div>
-  )
-}
-
 function FaqSection() {
   // Derived from the exam registry, never retyped: this block twice shipped a
   // stale exam count after a new bank landed. See src/lib/copy.ts.
   const faq = siteFaq()
   return (
     <section id="faq" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-      <h2 className="font-heading text-3xl font-semibold tracking-tight">Common questions</h2>
+      <h2 className="font-heading text-3xl font-semibold tracking-tight">Frequently asked questions</h2>
       <div className="mt-8 max-w-3xl border-t">
         {faq.map(([q, a]) => (
           <details key={q} className="group border-b">
@@ -276,7 +187,7 @@ function FaqSection() {
               {q}
               <Plus className="size-4 shrink-0 text-brand transition-transform duration-200 group-open:rotate-45" strokeWidth={2.5} />
             </summary>
-            <p className="text-muted-foreground -mt-1 max-w-2xl pb-5 leading-relaxed">{a}</p>
+            <p className="-mt-1 max-w-2xl pb-5 leading-relaxed">{a}</p>
           </details>
         ))}
       </div>
@@ -286,12 +197,8 @@ function FaqSection() {
 
 export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopic }: { onChooseExam: (id: string) => void; onOpenDashboard: () => void; onNavigate: (path: string) => void; onDrillTopic: (examId: string, topic: string) => void }) {
   const store = useProgress()
-  const { toggle } = useTheme()
 
   const exams = useMemo(() => EXAM_ORDER.map((id) => EXAM_META[id]), [])
-  const totalQ = exams.reduce((a, e) => a + e.questionCount, 0)
-  const totalPBQ = exams.reduce((a, e) => a + e.pbqCount, 0)
-  const totalVideos = useMemo(() => new Set(exams.flatMap((e) => Object.values(e.videos).map((v) => v.u))).size, [exams])
 
   const today = dayNumber()
   const started = exams
@@ -328,7 +235,7 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
           >
             <Wordmark className="text-sm" />
           </button>
-          <div className="grid w-full grid-cols-6 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-2">
+          <div className="grid w-full grid-cols-5 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-2">
             <SearchPalette onChooseExam={onChooseExam} onNavigate={onNavigate} onDrillTopic={onDrillTopic} />
             <button
               onClick={() => onNavigate("/plan")}
@@ -346,9 +253,6 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
             <span data-testid="nav-exam-chips">
               <ExamsMenu currentId={null} onChoose={onChooseExam} />
             </span>
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme" data-testid="theme-toggle">
-              <ThemeIcon />
-            </Button>
             <AccountMenu onNavigate={onNavigate} />
           </div>
         </nav>
@@ -356,68 +260,43 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
       <main id="main">
       {/* hero */}
-      <section className="ambient mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-20">
-        {/* Sibling of the content, never an ancestor: pointer-events-none plus
-            this ordering makes click interception structurally impossible. The
-            content wrappers below carry z-10 so the field (z-0) stays behind
-            both hero branches. */}
-        <HeroIconField />
+      <section className="mx-auto max-w-6xl px-4 pt-14 pb-16 md:pt-16">
         {returning ? (
           <ContinueHero started={started} streak={streak} onChoose={onChooseExam} />
         ) : (
-          <div className="relative z-10 grid gap-10 lg:grid-cols-12 lg:items-center">
-            {/* 400ms, not 700: the documented budget is under 300ms and a
-                once-per-visit hero entrance is the fair exception to it, but
-                700ms had drifted past reading as intentional. */}
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-400 lg:col-span-6">
-              <h1 className="font-heading text-[1.9rem] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.6rem]">
-                Free practice exams.<br />Clear study guides.
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-6">
+              <h1 className="font-heading text-[1.9rem] font-bold leading-tight sm:text-4xl lg:text-[2.5rem]">
+                Free practice exams and study guides for IT certifications.
               </h1>
               <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">
-                Prepare for {exams.length} IT certification exams with original questions,
-                clear explanations and free study resources. No sign-up required.
+                Prepare for {vendorList()} certification exams with original practice questions and clear explanations.
+                You can start without an account.
               </p>
               <HomepageLearningLinks />
             </div>
-            <div className="animate-in fade-in slide-in-from-bottom-4 delay-150 duration-400 lg:col-span-6">
+            <div className="lg:col-span-6">
               <LiveQuestion />
             </div>
           </div>
         )}
       </section>
 
-      {/* stats strip */}
-      <section className="border-y bg-card">
-        <div className="reveal mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-6 px-4 py-8 sm:grid-cols-4">
-          {[
-            [totalQ, "original questions"] as const,
-            [totalPBQ, "PBQs & interactive questions"] as const,
-            [exams.length, "certifications covered"] as const,
-            [totalVideos, "video links, all verified"] as const,
-          ].map(([n, label]) => (
-            <Stat key={label} n={n} label={label} />
-          ))}
-        </div>
-      </section>
-
       {/* exam index */}
-      <section id="exams" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
+      <section id="exams" className="mx-auto max-w-6xl scroll-mt-20 px-4 pt-4 pb-16">
         <h2 className="font-heading text-3xl font-semibold tracking-tight">Choose your certification</h2>
         <p className="text-muted-foreground mt-2 max-w-lg">
-          Go straight to practice, or open a Study Hub for its guide, videos and reference sheets.
+          Start a practice exam, or open the Study Hub for each exam's guide, videos, and reference sheets.
         </p>
         <div className="mt-8">
           {VENDOR_ORDER.map((v) => {
             const group = exams.filter((ex) => ex.vendor === v)
             if (group.length === 0) return null
             return (
-              // No .reveal here on purpose: a vendor group is taller than the
-              // viewport, and a scroll-driven range on a tall element keeps it
-              // part-way through its entrance for most of the scroll past it.
               <div key={v} className="mb-8 last:mb-0">
-                <p className="text-muted-foreground border-b pb-2 font-mono text-[11px] font-semibold tracking-wider uppercase">
+                <h3 className="border-b pb-2 text-base font-semibold">
                   {VENDORS[v].name}
-                </p>
+                </h3>
                 {group.map((ex) => {
                   const p = store.all[ex.id]
                   const answered = p ? Object.values(p.topics).reduce((a, s) => a + s.t, 0) : 0
@@ -435,20 +314,17 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
                         <span className="font-mono text-sm text-muted-foreground">{ex.code}</span>
                       </span>
                       <span className="min-w-0 lg:col-span-5">
-                        <span className="font-heading text-xl font-semibold md:text-2xl">
+                        <span className="font-heading text-xl font-semibold md:text-[1.375rem]">
                           {ex.cert} {ex.name}
                         </span>
                         <span className="text-muted-foreground mt-1 block text-sm">{ex.blurb}</span>
                       </span>
-                      <span className="font-mono text-xs text-muted-foreground tabular-nums lg:col-span-3 lg:text-right">
-                        {ex.questionCount} questions{ex.pbqCount > 0 && ` · ${ex.pbqCount} ${ex.vendor === "comptia" ? "PBQs" : "interactive"}`}
-                        <span className="block">
-                          {Object.keys(ex.domains).length} domains
-                          {answered > 0 && <span className="text-brand"> · {answered} answered</span>}
-                        </span>
+                      <span className="text-sm text-muted-foreground tabular-nums lg:col-span-3 lg:text-right">
+                        {Object.keys(ex.domains).length} exam domains
+                        {answered > 0 && <span className="block text-brand">{answered} answered so far</span>}
                       </span>
-                      <span className="inline-flex min-h-11 items-center justify-self-start gap-2 rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground lg:col-span-2 lg:justify-self-end">
-                        Practice<ArrowRight className="size-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+                      <span className="inline-flex min-h-11 items-center justify-self-start rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground lg:col-span-2 lg:justify-self-end">
+                        Practice
                       </span>
                     </button>
                     <StudyGuideAction examId={ex.id} className="mx-4 mb-4 lg:mb-0" />
@@ -468,25 +344,25 @@ export function Landing({ onChooseExam, onOpenDashboard, onNavigate, onDrillTopi
 
       {/* how it works */}
       <section id="how" className="border-t bg-card">
-        <div className="mx-auto grid max-w-6xl scroll-mt-20 gap-10 px-4 py-20 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-6xl scroll-mt-20 gap-10 px-4 py-16 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <h2 className="font-heading text-3xl font-semibold tracking-tight">How people actually use it</h2>
+            <h2 className="font-heading text-3xl font-semibold tracking-tight">Ways to study</h2>
             <p className="text-muted-foreground mt-3 max-w-sm leading-relaxed">
-              Three ways in, depending on how much time you have and how close the test is.
+              Choose the mode that fits the time you have before your exam.
             </p>
           </div>
-          <div className="flex flex-col gap-8 lg:col-span-7">
+          <dl className="flex flex-col gap-7 lg:col-span-7">
             {[
-              ["Drill", "Short adaptive rounds with an explanation after every answer. Weak topics come back more often until they stick."],
-              ["Simulate", "Timed practice with exam-specific settings, flagging and a question palette. Scores use Cert900's instructional model and published vendor scales where available."],
-              ["Review", "Every miss links to the exact free training video for that topic. Watch, then drill it again."],
-            ].map(([verb, body]) => (
-              <div key={verb} className="reveal grid grid-cols-12 gap-4 border-l-2 border-primary/60 pl-5">
-                <p className="col-span-12 font-heading text-xl font-semibold sm:col-span-3">{verb}</p>
-                <p className="text-muted-foreground col-span-12 leading-relaxed sm:col-span-9">{body}</p>
+              ["Practice by topic", "Answer short sets of questions and read the explanation after each one. Topics you miss come back more often until you get them right."],
+              ["Take a timed exam", "Work through a full-length practice exam with a timer, then review your results by exam domain. Scores use each vendor's published scale where one exists."],
+              ["Review what you missed", "Each missed question links to a free training video on that topic. Watch the video, then practice the topic again."],
+            ].map(([title, body]) => (
+              <div key={title} className="border-l-2 border-primary/60 pl-5">
+                <dt className="font-heading text-lg font-semibold">{title}</dt>
+                <dd className="text-muted-foreground mt-1 leading-relaxed">{body}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 

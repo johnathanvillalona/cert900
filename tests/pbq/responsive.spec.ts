@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/*', r => ['127.0.0.1', 'localhost'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort())
 })
 for (const sample of samples) {
-  test(`${sample.kind}: five widths, both themes, readable controls and visual candidates`, async ({ page }) => {
+  test(`${sample.kind}: five widths, readable controls and visual candidates`, async ({ page }) => {
     const errors: string[] = []
     page.on('pageerror', e => errors.push(e.message))
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
@@ -27,8 +27,7 @@ for (const sample of samples) {
     await settled(page)
     for (const width of [320,375,390,768,1440]) {
       await page.setViewportSize({ width, height: 1000 })
-      for (const theme of ['light', 'dark']) {
-        await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
+      for (const theme of ['light']) {
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
         if (sample.kind === 'dragconnect') {
           for (const control of await page.locator('[data-testid^="port-"]').all()) {
@@ -74,13 +73,13 @@ for (const sample of samples) {
   })
 }
 
-test('both 320px headers retain all six accessible actions with 44px targets', async ({ page }) => {
+test('both 320px headers retain all five accessible actions with 44px targets', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 })
   await page.goto('/')
   for (const testId of ['landing', 'application']) {
     const header = page.locator('header').first()
     const buttons = header.getByRole('button')
-    await expect(buttons).toHaveCount(7) // brand plus six actions
+    await expect(buttons).toHaveCount(6) // brand plus five actions
     for (const button of await buttons.all()) {
       const r = (await button.boundingBox())!
       expect(r.width).toBeGreaterThanOrEqual(44)

@@ -96,7 +96,7 @@ export function ConfigView({ p, session, graded }: { p: PBQConfig; session: Quiz
 
   return (
     <div className="mt-3 overflow-hidden rounded-md border" data-testid="config-panel">
-      <p className="border-b bg-muted/60 px-4 py-2.5 font-mono text-sm font-semibold uppercase tracking-wider">{p.panel}</p>
+      <p className="border-b bg-muted/60 px-4 py-2.5 text-sm font-semibold">{p.panel}</p>
       <div className="divide-y">
         {p.fields.map((f, i) => (
           <div
@@ -359,7 +359,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
     >
       <div className="flex flex-col items-start justify-between gap-3 rounded-lg border bg-muted/30 p-3 sm:flex-row sm:p-4">
         <div className="min-w-0 flex-1">
-          <p className="font-mono text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">Work order</p>
+          <p className="text-sm font-semibold text-muted-foreground">Work order</p>
           <p className="mt-1 text-sm font-semibold">{p.prompt}</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             Select a connector, then choose a numbered port or its control below. You can also drag a connector onto a port. Press Escape to clear a selection.
@@ -475,7 +475,7 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
         <div className="min-w-0 rounded-lg border bg-muted/20 p-3 sm:p-4" data-testid="dragconnect-tray">
           <div className="mb-3 flex items-center justify-between gap-2">
             <div>
-              <p className="font-mono text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">Parts inventory</p>
+              <p className="text-sm font-semibold text-muted-foreground">Parts inventory</p>
               <p className="mt-0.5 text-sm font-semibold">Available connectors</p>
             </div>
             <span className="rounded-full border bg-background px-2 py-1 font-mono text-sm tabular-nums text-muted-foreground">{p.items.length} items</span>
@@ -495,10 +495,10 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
                 aria-label={`${it.label}${inZone ? `, connected to ${zoneById[inZone].label}` : isDistractor ? ", unused distractor" : ", not connected"}${held ? ", selected" : ""}`}
                 className={cn(
                   "pressable flex min-h-14 w-full cursor-grab touch-none items-center gap-3 rounded-md border bg-card p-2.5 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  held && "border-amber-500 bg-amber-50 ring-2 ring-amber-500/40 dark:bg-amber-950/30",
+                  held && "border-amber-500 bg-amber-50 ring-2 ring-amber-500/40",
                   inZone && !graded && "border-sky-300/80",
-                  correct && "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/25",
-                  graded && inZone && !correct && "border-rose-400 bg-rose-50 dark:bg-rose-950/25",
+                  correct && "border-emerald-500 bg-emerald-50",
+                  graded && inZone && !correct && "border-rose-400 bg-rose-50",
                   drag?.id === it.id && "opacity-40",
                 )}
                 onClick={(e) => {
@@ -527,14 +527,14 @@ export function DragConnectView({ p, session, graded }: { p: PBQDragConnect; ses
                 <ItemThumb glyph={it.glyph} className="size-12 shrink-0 border bg-white" />
                 <span className="min-w-0 flex-1">
                   <span className="block leading-snug">{it.label}</span>
-                  <span className={cn("mt-1 block text-sm leading-snug", held ? "font-semibold text-amber-800 dark:text-amber-200" : inZone ? "text-sky-700 dark:text-sky-300" : "text-muted-foreground")}>
+                  <span className={cn("mt-1 block text-sm leading-snug", held ? "font-semibold text-amber-800" : inZone ? "text-sky-700" : "text-muted-foreground")}>
                     {graded
                       ? correct ? `Correct · ${zoneById[inZone!].label}` : inZone ? `Check · ${zoneById[inZone].label}` : isDistractor ? "Unused distractor" : "Not connected"
                       : inZone ? `Connected · ${zoneById[inZone].label}` : held ? "Selected · choose a port" : "Available"}
                   </span>
                 </span>
-                {held && <span className="hidden rounded-full bg-amber-200 px-2 py-1 text-sm font-bold sm:inline-flex uppercase tracking-wide text-amber-950 dark:bg-amber-900 dark:text-amber-50">Selected</span>}
-                {graded && (correct ? <Check className="size-4 shrink-0 text-emerald-700 dark:text-emerald-300" aria-hidden /> : inZone ? <AlertCircle className="size-4 shrink-0 text-rose-700 dark:text-rose-300" aria-hidden /> : null)}
+                {held && <span className="hidden rounded-full bg-amber-200 px-2 py-1 text-sm font-bold sm:inline-flex text-amber-950">Selected</span>}
+                {graded && (correct ? <Check className="size-4 shrink-0 text-emerald-700" aria-hidden /> : inZone ? <AlertCircle className="size-4 shrink-0 text-rose-700" aria-hidden /> : null)}
               </button>
             )
           })}

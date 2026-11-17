@@ -87,7 +87,7 @@ and the proposed controlled release procedure. Nothing has been pushed or deploy
 
 ## Exact changed files
 
-- `PROJECT-GUIDE.md`
+- `AGENTS.md`
 - `docs/monetization-phase-b.md`
 - `docs/qa/monetization-phase-b/README.md`
 - `docs/qa/monetization-phase-b/disabled-guide-1440.png`

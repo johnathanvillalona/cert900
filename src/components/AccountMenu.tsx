@@ -105,7 +105,7 @@ export function AccountMenu({ onNavigate }: { onNavigate?: (path: string) => voi
             </Button>
             <div className="flex items-center gap-3">
               <span className="h-px flex-1 bg-border" />
-              <span className="text-muted-foreground font-mono text-[11px] uppercase">or</span>
+              <span className="text-muted-foreground text-xs">or</span>
               <span className="h-px flex-1 bg-border" />
             </div>
             <EmailAuthForm />
@@ -175,7 +175,7 @@ export function AccountMenu({ onNavigate }: { onNavigate?: (path: string) => voi
                   <Flag className="size-4" strokeWidth={2} />
                   <span className="flex-1">Reported questions</span>
                   {openReports > 0 && (
-                    <span className="bg-destructive/10 text-destructive rounded-md px-1.5 py-0.5 font-mono text-[11px] font-semibold tabular-nums">
+                    <span className="bg-destructive/10 text-destructive rounded-md px-1.5 py-0.5 text-xs font-semibold tabular-nums">
                       {openReports}
                     </span>
                   )}

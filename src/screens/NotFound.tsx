@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
  */
 export function NotFound({ onHome, onNavigate }: { onHome: () => void; onNavigate: (path: string) => void }) {
   return (
-    <main className="ambient" data-testid="not-found">
-      <p className="font-mono text-xs uppercase tracking-wider text-brand">404</p>
-      <h1 className="font-heading mt-2 text-3xl font-semibold tracking-tight">
+    <main data-testid="not-found">
+      <p className="text-sm font-semibold text-brand">Error 404</p>
+      <h1 className="font-heading mt-2 text-3xl font-bold tracking-tight">
         That page is not here
       </h1>
       <p className="text-muted-foreground mt-3 max-w-lg text-sm leading-relaxed">
-        The link may be old or mistyped. Everything on the site is free and needs no account,
-        so pick an exam and start practicing.
+        The link may be out of date or mistyped. You can choose an exam and start practicing without an
+        account.
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
         <Button onClick={onHome}>Start practicing</Button>

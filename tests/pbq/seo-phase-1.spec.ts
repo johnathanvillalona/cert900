@@ -85,15 +85,14 @@ test('sitemap preserves every URL and uses lastmod only for tracked legal dates;
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`PBQ previews, navigation and consent remain usable in both themes at ${width}px`, async ({ page }, testInfo) => {
+  test(`PBQ previews, navigation and consent remain usable in light mode at ${width}px`, async ({ page }, testInfo) => {
     const errors: string[] = [], tracking: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
     page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${new URL(response.url()).pathname}`) })
     page.on('request', request => { if (/google-analytics|googletagmanager|googlesyndication|doubleclick|grow\.me/.test(request.url())) tracking.push(request.url()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       await page.goto(GUIDE_PATHS.pbq)
       await expect(page.getByTestId('pbq-preview')).toHaveCount(4)
       for (const image of await page.locator('main img').all()) {

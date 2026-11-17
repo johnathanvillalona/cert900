@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowRight, CalendarDays } from "lucide-react"
+import { CalendarDays } from "lucide-react"
 import { EXAM_META } from "@/data/meta"
 import { examShortName } from "@/data/labels"
 import { VENDORS } from "@/data/vendors"
@@ -62,7 +62,6 @@ export function PlanCard({ examId, compact = false, onOpen, style }: {
         <div className="flex items-center gap-2">
           <Button size="sm" onClick={onOpen} className="gap-1.5" data-testid="plan-open">
             Open plan
-            <ArrowRight className="size-3.5" strokeWidth={2} />
           </Button>
         </div>
       </div>

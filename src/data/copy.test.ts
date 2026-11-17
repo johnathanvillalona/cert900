@@ -3,6 +3,9 @@ import { readFileSync, readdirSync, statSync } from "node:fs"
 import { resolve, join } from "node:path"
 import { EXAM_ORDER } from "./meta"
 import { examCount, examList, joinList, numberWord, scaleSummary, siteFaq, siteTitle, vendorList } from "../lib/copy"
+import { siteTagline } from "../lib/copy"
+import { GUIDE_META } from "./guide-meta"
+import { homeMetadata } from "../lib/page-metadata"
 
 const ROOT = resolve(import.meta.dirname, "../..")
 
@@ -101,5 +104,54 @@ describe("derived copy tracks the registry", () => {
   it("words small numbers and falls back to digits", () => {
     expect(numberWord(11)).toBe("eleven")
     expect(numberWord(99)).toBe("99")
+  })
+})
+
+/**
+ * The site is light only. A stray `dark:` utility, theme key or boot script
+ * would bring back a half-working dark mode, so the source is checked.
+ */
+describe("light-only theme", () => {
+  it("has no dark-mode utilities, theme storage or boot script", () => {
+    const offenders: string[] = []
+    for (const file of walk(resolve(ROOT, "src"))) {
+      readFileSync(file, "utf8").split("\n").forEach((line, i) => {
+        if (/(?<![\w-])(?:not-)?dark:[\w[]|trainer-theme|classList\.(?:add|toggle)\(["']dark/.test(line)) {
+          offenders.push(`${file.slice(ROOT.length + 1)}:${i + 1}`)
+        }
+      })
+    }
+    expect(offenders).toEqual([])
+    const css = readFileSync(resolve(ROOT, "src/index.css"), "utf8")
+    expect(css).not.toMatch(/@custom-variant dark|^\.dark\s*\{/m)
+    const html = readFileSync(resolve(ROOT, "index.html"), "utf8")
+    expect(html).not.toContain("data-boot")
+    expect(html).not.toContain("trainer-theme")
+  })
+})
+
+/**
+ * Site copy follows the house style: no em dashes in titles, descriptions,
+ * FAQs or the manifest, and no inventory counts in page descriptions. Exam
+ * facts ("a maximum of 90 questions in 90 minutes") are fine in FAQ answers.
+ */
+describe("house copy style", () => {
+  const manifest = JSON.parse(readFileSync(resolve(ROOT, "public/manifest.webmanifest"), "utf8")) as { name: string; description: string }
+  const strings = [
+    siteTitle(), siteTagline(), homeMetadata(siteTitle()).description, manifest.name, manifest.description,
+    ...siteFaq().flat(),
+    ...Object.values(GUIDE_META).flatMap(m => [m.title, m.description, m.h1, ...m.faq.flat()]),
+  ]
+  it("uses no em dashes", () => {
+    expect(strings.filter(text => text.includes("\u2014"))).toEqual([])
+  })
+  it("never quotes Cert900's own question inventory in a description", () => {
+    for (const m of Object.values(GUIDE_META)) {
+      expect(m.description, m.path).not.toMatch(/\d[\d,]*\s+(?:original\s+)?(?:practice\s+)?(?:questions|PBQs)/i)
+    }
+    expect(homeMetadata(siteTitle()).description).not.toMatch(/\d[\d,]*\s+(?:original\s+)?questions/i)
+  })
+  it("avoids filler words in site-wide copy", () => {
+    expect(strings.filter(text => /\b(actually|completely|really|simply)\b/i.test(text))).toEqual([])
   })
 })

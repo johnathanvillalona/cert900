@@ -21,7 +21,7 @@ deployment or external-account setting change was performed.
 The updated [educational content standard](educational-content-standard.md) now
 explicitly applies its voice guidance to diagram captions, help text and
 instructional UI as well as guides, hubs, lessons, checks, courses and future
-scripts/transcripts. Existing `AGENTS.md` and `PROJECT-GUIDE.md` already link to that
+scripts/transcripts. The existing `AGENTS.md` already links to that
 standard, so their instructions continue to apply without duplicate rule sets.
 
 It asks for the voice of a knowledgeable, patient instructor: context before

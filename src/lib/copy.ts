@@ -47,10 +47,6 @@ const exams = () => EXAM_ORDER.map((id) => EXAM_META[id])
 
 export const examCount = () => EXAM_ORDER.length
 export const vendorCount = () => new Set(exams().map((e) => e.vendor)).size
-export const questionTotal = () => exams().reduce((a, e) => a + e.questionCount, 0)
-export const pbqTotal = () => exams().reduce((a, e) => a + e.pbqCount, 0)
-export const videoTotal = () =>
-  new Set(exams().flatMap((e) => Object.values(e.videos).map((v) => v.u))).size
 
 /** Vendors that actually have exams, in menu order: "CompTIA, Cisco, AWS, and Azure". */
 export function vendorList(conjunction = "and", oxford = true): string {
@@ -97,29 +93,29 @@ export function scaleSummary(): string {
 }
 
 /** The site-wide title and meta description, so the SPA and index.html cannot drift apart. */
-export const siteTitle = () => `Cert900 — Free ${vendorList("&", false)} Practice Exams`
+export const siteTitle = () => `Free ${vendorList("&", false)} practice exams | Cert900`
 
 export const siteTagline = () =>
-  `Free, no-signup practice tests for ${numberWord(examCount())} IT certifications, each with timed simulations in the exam's real format, adaptive drills, and a free study video for every topic you miss.`
+  `Free practice exams and study guides for ${vendorList()} certifications. Each exam topic links to a free training video.`
 
-/** Landing "Common questions". Exam-agnostic by construction so it cannot go stale. */
+/** Landing FAQ. Exam-agnostic by construction so it cannot go stale. */
 export function siteFaq(): [string, string][] {
   return [
     [
-      "Is this really free?",
-      `Yes. Every question, every timed exam, every performance-based question, across all ${numberWord(vendorCount())} vendors. No paywall, no sign-up, no trial that expires. If it helps you pass, tell someone who is also studying.`,
+      "Is Cert900 free?",
+      "Yes. Every practice exam and study guide on Cert900 is free to use, and you do not need an account.",
     ],
     [
-      "Which exams are covered?",
-      `${titleCase(numberWord(examCount()))}, and each one follows its real exam's formats, length, and scoring: ${examList()}.`,
+      "Which certification exams does Cert900 cover?",
+      `Cert900 covers ${examList()}.`,
     ],
     [
       "How does scaled scoring work?",
-      `Certification exams report scaled scores, not percentages. ${scaleSummary()} Every simulation here uses its exam's real scale and cut score, so your practice score means what it says.`,
+      `Certification exams report a scaled score rather than a percentage. ${scaleSummary()} Practice exams on Cert900 use the same scales, but a practice score is an estimate and does not predict your official result.`,
     ],
     [
       "Do I need an account?",
-      "No. Progress saves in this browser on its own. Signing in only adds syncing, so you can drill on your phone and review the misses at your desk.",
+      "No. Your progress is saved in this browser. Signing in lets you sync your progress across devices.",
     ],
   ]
 }

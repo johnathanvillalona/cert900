@@ -55,7 +55,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
   return (
     <main>
       <p className="font-mono text-xs text-muted-foreground">{exam.cert} {exam.name} · {exam.code}</p>
-      <h1 className="font-heading mt-1 flex flex-wrap items-center gap-3 text-3xl font-semibold tracking-tight">
+      <h1 className="font-heading mt-1 flex flex-wrap items-center gap-3 text-3xl font-bold tracking-tight">
         Detailed progress
         {p.passed && (
           <span
@@ -73,7 +73,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
           <h2 className="text-lg font-semibold">Where you'd land today</h2>
           <span
             className={cn(
-              "font-mono text-xs font-semibold tracking-wide uppercase",
+              "text-xs font-semibold",
               ready.level === "on-track" && "text-success",
               ready.level === "not-yet" && "text-destructive",
               ready.level === "borderline" && "text-brand",
@@ -184,7 +184,7 @@ export function ProgressScreen({ exam, onHome }: { exam: ExamDef; onHome: () => 
         </p>
         {domainNumbers(exam).map((d) => (
           <div key={d}>
-            <p className="text-muted-foreground mt-4 font-mono text-xs uppercase tracking-wider">{exam.domains[d]}</p>
+            <p className="text-muted-foreground mt-4 text-sm font-medium">{exam.domains[d]}</p>
             <div className="mt-2 grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-2">
               {Object.keys(exam.videos)
                 .filter((t) => exam.videos[t].d === d)

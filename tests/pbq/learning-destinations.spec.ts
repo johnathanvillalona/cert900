@@ -10,7 +10,11 @@ test.beforeEach(async ({ context }) => {
 
 test('homepage practice destination opens the existing eleven-exam picker', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/Free practice exams\.\s*Clear study guides\./)
+  await expect(page.locator('html')).not.toHaveClass(/\bdark\b/)
+  await expect(page.getByTestId('theme-toggle')).toHaveCount(0)
+  // The homepage no longer advertises bank inventory anywhere in its main content.
+  expect(await page.locator('main').innerText()).not.toMatch(/\b\d{3,}\s+(?:original|questions|PBQs)/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Free practice exams and study guides for IT certifications.')
   await expect(page.getByTestId('homepage-learning-links')).toHaveCount(1)
   await expect(page.getByTestId('secondary-pbq-link')).toHaveAttribute('href', GUIDE_PATHS.pbq)
   await page.getByTestId('hero-cta').focus()
@@ -51,18 +55,14 @@ test('static educational navigation works without JavaScript', async ({ browser,
   }
 })
 
-test('primary links stay readable and keyboard accessible at all five widths in both themes', async ({ page }) => {
+test('primary links stay readable and keyboard accessible at all five widths in light mode', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   for (const width of [320, 375, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
+    for (const theme of ['light']) {
       await page.goto('/study/az-900')
-      await page.evaluate(value => {
-        localStorage.setItem('trainer-theme', value)
-        document.documentElement.classList.toggle('dark', value === 'dark')
-      }, theme)
-      await expect(page.locator('html')).toHaveClass(theme === 'dark' ? /dark/ : /^(?!.*\bdark\b)/)
+      await expect(page.locator('html')).not.toHaveClass(/\bdark\b/)
       const practice = page.getByTestId('nav-practice-exams')
       const study = page.getByTestId('nav-study-guides')
       for (const link of [practice, study]) {

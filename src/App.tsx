@@ -5,7 +5,6 @@ import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { useExamBank } from "@/hooks/useExamBank"
 
 import { ProgressContext, useProgressStore } from "@/hooks/useProgress"
-import { useTheme } from "@/hooks/useTheme"
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import type { QuizConfig, QuizOutcome } from "@/lib/quiz-session"
@@ -16,7 +15,6 @@ import { ExamPicker } from "@/screens/ExamPicker"
 import { Landing } from "@/screens/Landing"
 import { Dashboard } from "@/screens/Dashboard"
 import { CalendarDays, ChartLine } from "lucide-react"
-import { ThemeIcon } from "@/components/ThemeIcon"
 import { AccountMenu } from "@/components/AccountMenu"
 import { ExamsMenu } from "@/components/ExamsMenu"
 import { SearchPalette } from "@/components/SearchPalette"
@@ -150,7 +148,6 @@ function screenForPath(path: string): { screen: Screen; examId?: string } {
 
 export default function App() {
   const store = useProgressStore()
-  const { toggle } = useTheme()
   const initial = useMemo(() => screenForPath(window.location.pathname), [])
   const [examId, setExamId] = useState<string | null>(initial.examId ?? null)
   const [screen, setScreen] = useState<Screen>(initial.screen)
@@ -327,7 +324,7 @@ export default function App() {
                 </span>
               )}
             </button>
-            <div className="grid w-full grid-cols-6 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-1.5">
+            <div className="grid w-full grid-cols-5 items-center gap-1 max-sm:[&_button]:min-h-11 max-sm:[&_button]:min-w-11 max-sm:[&_button]:justify-center max-sm:[&_button]:px-1 sm:flex sm:w-auto sm:gap-1.5">
               <SearchPalette onChooseExam={chooseExam} onNavigate={openPath} onDrillTopic={drillTopic} />
               <Button
                 variant={screen.kind === "plans" ? "secondary" : "ghost"}
@@ -356,9 +353,6 @@ export default function App() {
                   setScreen({ kind: "home" })
                 }}
               />
-              <Button variant="ghost" size="icon" onClick={toggle} data-testid="theme-toggle" aria-label="Toggle theme">
-                <ThemeIcon />
-              </Button>
               <AccountMenu onNavigate={openPath} />
             </div>
           </div>

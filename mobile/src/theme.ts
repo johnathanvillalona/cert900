@@ -1,5 +1,5 @@
 // Brand palette mirrored from the web app: cool slate neutrals with a pale
-// amber accent (PROJECT-GUIDE.md design system). Dark surface by default.
+// amber accent (AGENTS.md design system). Dark surface by default.
 export const colors = {
   bg: "#0f1420",
   card: "#151b29",

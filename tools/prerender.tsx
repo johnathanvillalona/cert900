@@ -41,9 +41,13 @@ if (typeof contentEntry !== "string" || !/^assets\/[a-zA-Z0-9_.-]+\.js$/.test(co
  */
 const fontPreloads = (() => {
   const assets = readdirSync(resolve(dist, "assets"))
-  return ["geist-latin-wght-normal-", "geist-mono-latin-wght-normal-"]
-    .map((prefix) => assets.find((f) => f.startsWith(prefix) && f.endsWith(".woff2")))
-    .filter((f): f is string => !!f)
+  return ["commissioner-latin-wght-normal-", "red-hat-mono-latin-wght-normal-"]
+    .map((prefix) => {
+      const file = assets.find((f) => f.startsWith(prefix) && f.endsWith(".woff2"))
+      // A renamed font package used to drop its preload silently. Fail the build instead.
+      if (!file) throw new Error(`Missing font asset for preload: ${prefix}*.woff2`)
+      return file
+    })
     .map((f) => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin>`)
     .join("")
 })()
@@ -65,7 +69,7 @@ function noscriptBlock(): string {
     if (!hub) throw new Error(`Missing study hub: ${id}`)
     return `<li><a href="${hub.path}">${esc(hub.heading)}</a></li>`
   }).join("")
-  return `<noscript><h1>Cert900 — free certification practice exams</h1><p>${esc(siteTagline())}</p><h2>Study Hubs</h2><ul>${hubs}</ul><h2>Study guides and references</h2><ul>${links}</ul></noscript>`
+  return `<noscript><h1>Free IT certification practice exams</h1><p>${esc(siteTagline())}</p><h2>Study Hubs</h2><ul>${hubs}</ul><h2>Study guides and references</h2><ul>${links}</ul></noscript>`
 }
 
 /**
@@ -281,8 +285,7 @@ function advertisingEntry(path: string): string {
 function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false, keepApp = false): string {
   const url = `${SITE_URL}${meta.path}`
   // Per-guide OG card if one has been rendered (public/og/<slug>.png via
-  // tools/gen-og-data.mts + an OG renderer; the original scratchpad renderer
-  // qa/og-guides.js was lost 2026-09-05, re-author on demand). Falls back to the
+  // `npx tsx tools/gen-og.mts`, run manually after guide changes). Falls back to the
   // site-wide og.png from the template when the file is missing, so a
   // forgotten render degrades to a valid image, never a 404.
   const ogImage = existsSync(resolve(dist, "og", `${meta.path.slice(1)}.png`))

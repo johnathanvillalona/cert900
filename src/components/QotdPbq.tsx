@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { ArrowRight, Check, X } from "lucide-react"
+import { Check, X } from "lucide-react"
 import type { QotdPbqEntry } from "@/data/qotd-pool"
 import { pbqCredit, shuffledIndices } from "@/lib/engine"
 import { cn } from "@/lib/utils"
@@ -152,7 +152,7 @@ function OrderPbq({
                 state === "wrong" && "border-destructive bg-destructive/10",
               )}
             >
-              <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border font-mono text-[11px] font-semibold">
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-sm border text-xs font-semibold">
                 {state === "correct" ? (
                   <Check className="pop-in size-3.5" strokeWidth={2.5} />
                 ) : state === "wrong" ? (
@@ -219,7 +219,6 @@ export function QotdPbqFooter({ pick }: { pick: QotdPbqEntry }) {
       className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-brand underline-offset-4 hover:underline"
     >
       Watch: {pick.vendor === "comptia" ? `Professor Messer, ${pick.videoName}` : pick.videoName}
-      <ArrowRight className="size-3.5" strokeWidth={2} />
     </a>
   )
 }

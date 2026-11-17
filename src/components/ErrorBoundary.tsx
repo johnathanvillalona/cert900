@@ -20,8 +20,8 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
     return (
       <div className="flex min-h-[100dvh] items-center justify-center px-4">
         <div className="w-full max-w-md rounded-lg border bg-card p-8 text-center shadow-sm">
-          <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Unexpected error</p>
-          <h1 className="mt-2 font-heading text-2xl font-semibold">Something broke</h1>
+          <p className="text-sm font-medium text-muted-foreground">Unexpected error</p>
+          <h1 className="mt-2 font-heading text-2xl font-bold">Something broke</h1>
           <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
             Your progress is safe: it saves after every answer, so reloading picks up where you were.
           </p>

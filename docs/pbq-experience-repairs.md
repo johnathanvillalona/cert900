@@ -124,7 +124,7 @@ and restart afterward. The preview deliberately uses disposable local state.
   persistence, command history and virtual system state are deferred to Plan B.
 - OAuth/email/external integration delivery and production behavior were not
   exercised; local tests use synthetic configuration and block outbound requests.
-- This environment provides no verified credit-usage telemetry. Review
+- This environment provides no verified tool usage telemetry. Review
   account usage at this checkpoint before funding the next milestone.
 
 **Stop after Plan A.** Obtain screenshot/manual approval before simulator

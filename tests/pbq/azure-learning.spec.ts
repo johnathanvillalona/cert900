@@ -81,7 +81,7 @@ test('Azure hub and guide retain native anchors through refresh and history navi
   await expect(page.getByTestId('study-hub')).toBeVisible()
   await page.goForward()
   await expect(page.getByTestId('learning-lesson')).toHaveCount(10)
-  await expect(page.getByRole('heading', { name: 'How to use this to pass', exact: true })).toHaveCount(1)
+  await expect(page.getByRole('heading', { name: 'Prepare for the exam', exact: true })).toHaveCount(1)
 })
 
 test('Azure initial HTML, JSON-LD, internal links and headings agree', async ({ page, request }) => {
@@ -104,7 +104,7 @@ test('Azure initial HTML, JSON-LD, internal links and headings agree', async ({ 
         explanation: clean(answer.nextElementSibling!.textContent),
       }
     }),
-    faq: [...main.querySelectorAll('section')].find(section => section.querySelector(':scope > h2')?.textContent === 'Common questions')?.textContent,
+    faq: [...main.querySelectorAll('section')].find(section => section.querySelector(':scope > h2')?.textContent === 'Frequently asked questions')?.textContent,
     schema: [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(e => {
       const data = JSON.parse(e.textContent!)
       return Array.isArray(data) ? data : data['@graph'] ?? [data]
@@ -134,13 +134,12 @@ test('Azure initial HTML, JSON-LD, internal links and headings agree', async ({ 
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`Azure reading and all disclosures fit ${width}px in both themes`, async ({ page }) => {
+  test(`Azure reading and all disclosures fit ${width}px in light mode`, async ({ page }) => {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     await page.setViewportSize({ width, height: 800 })
     await page.goto(path)
-    for (const theme of ['light', 'dark']) {
-      await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
+    for (const theme of ['light']) {
       for (const open of [false, true]) {
         await page.getByTestId('learning-lesson').locator('details').evaluateAll((items, open) => {
           items.forEach(item => { (item as HTMLDetailsElement).open = open })

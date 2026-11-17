@@ -4,7 +4,7 @@
 //
 // Why copy instead of importing ../src directly: Metro's Windows file crawler
 // cannot hash files in a sibling watchFolder when the project path contains a
-// space and parentheses (this repo lives under ".../(Projects) Comptia practice
+// space and parentheses (this repo once lived under a folder named ".../(project) Comptia practice
 // exam"). Vendoring keeps the files under the project root, which Metro handles.
 // ../src stays the single source of truth; this runs as a prebuild step.
 const fs = require("fs")

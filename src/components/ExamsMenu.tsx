@@ -35,11 +35,11 @@ export function ExamsMenu({ currentId, onChoose }: { currentId?: string | null; 
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           data-testid="switch-exam"
           aria-label="Exams"
-          className="border-brand/50 text-brand hover:text-brand gap-1.5 font-medium"
+          className="gap-1.5 font-medium"
         >
           <GraduationCap className="size-4 sm:hidden" strokeWidth={2} />
           <span className="hidden sm:inline">Exams</span>
@@ -56,7 +56,7 @@ export function ExamsMenu({ currentId, onChoose }: { currentId?: string | null; 
           <DropdownMenuGroup key={g.v} aria-labelledby={`exams-${g.v}-label`} className="mb-2 last:mb-0">
             <DropdownMenuLabel
               id={`exams-${g.v}-label`}
-              className="text-muted-foreground font-mono text-[11px] font-semibold tracking-wider uppercase"
+              className="text-muted-foreground text-xs font-semibold"
             >
               {VENDORS[g.v].short}
             </DropdownMenuLabel>

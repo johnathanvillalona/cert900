@@ -49,10 +49,10 @@ export function GuideResources({ path }: { path: string }) {
 
   return (
     <section className="mt-12" data-testid="guide-resources">
-      <h2 className="font-heading text-2xl font-semibold tracking-tight">Worth paying for</h2>
-      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-        Everything on cert900 is free and stays that way. If you want more on top of it, these are
-        the paid resources actually worth the money, not a wall of sponsored filler.
+      <h2 className="font-heading text-2xl font-semibold tracking-tight">Paid resources</h2>
+      <p className="text-muted-foreground mt-2 leading-relaxed">
+        Everything on Cert900 is free. If you want additional study materials, these paid resources are
+        a good fit for this exam.
       </p>
       <div className="mt-4 flex flex-col gap-3">
         {[...offers.values()].map((o) => (

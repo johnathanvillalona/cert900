@@ -84,7 +84,7 @@ export function LearningDiagram({ kind }: { kind: DiagramKind }) {
             <Flow steps={[
               ["Documents", "Choose trusted documents and keep track of who is allowed to read them."],
               ["Chunks", "Split each document into passages while keeping a reference to its source."],
-              ["Embeddings", "Represent each passage as a vector—a list of numbers used to find similar content."],
+              ["Embeddings", "Represent each passage as a vector, a list of numbers used to find similar content."],
               ["Index", "Store the vectors with references to the text and the information needed to enforce access."],
             ]} />
           </div>

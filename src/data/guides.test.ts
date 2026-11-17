@@ -142,21 +142,12 @@ describe("guide/exam wiring", () => {
   })
 
   /**
-   * Any question count quoted in a description must equal what the guide's
-   * exams actually hold. The A+ page advertised 621 against 715 and Network+
-   * 315 against 355 because those numbers were typed in by hand.
+   * Descriptions no longer quote Cert900's question inventory at all: the
+   * totals went stale every time a bank grew, and the owner removed them.
    */
-  it("quotes question counts that match the banks", () => {
-    const siteTotal = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
+  it("quotes no question inventory in descriptions", () => {
     for (const key of GUIDE_KEYS) {
-      const claimed = GUIDE_META[key].description.match(/([\d,]+) original questions/)
-      if (!claimed) continue
-      // A per-exam guide quotes its own exams' total; a site-wide page quotes
-      // the whole bank.
-      const expected = GUIDE_EXAMS[key].length
-        ? GUIDE_EXAMS[key].reduce((a, id) => a + EXAM_META[id].questionCount, 0)
-        : siteTotal
-      expect(Number(claimed[1].replace(/,/g, "")), `${key} description`).toBe(expected)
+      expect(GUIDE_META[key].description, `${key} description`).not.toMatch(/([\d,]+) original questions/)
     }
   })
 })

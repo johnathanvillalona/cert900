@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { ArrowRight, BookOpen, CalendarDays, ChartLine, ExternalLink, FileText, FlaskConical, Play, Target, Timer } from "lucide-react"
+import { BookOpen, CalendarDays, ChartLine, ExternalLink, FileText, FlaskConical, Play, Plus, Target, Timer } from "lucide-react"
 import { EXAM_META } from "@/data/meta"
 import { examPath } from "@/data/routes"
 import { VENDOR_FORMATS } from "@/data/vendors"
@@ -15,7 +15,7 @@ function ResourceCard({ href, title, description, icon, testid, children }: {
 }) {
   return <a href={href} data-testid={testid}
     className="group flex min-w-0 flex-col rounded-lg border bg-card p-5 text-sm transition-colors hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2">
-    <span className="flex items-start justify-between gap-3 text-brand">{icon}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></span>
+    <span className="flex items-start gap-3 text-brand">{icon}</span>
     <h3 className="font-heading mt-4 break-words text-lg font-semibold leading-snug text-foreground">{title}</h3>
     <p className="mt-2 leading-relaxed text-muted-foreground">{description}</p>
     {children}
@@ -39,16 +39,16 @@ export function StudyHub({ examId }: { examId: string }) {
   const icon = "size-5 shrink-0"
   const lessons = examId === "aif-c01" ? AIF_LESSONS : examId === "az-900" ? AZ900_LESSONS : []
   return <StaticContentShell>
-    <main id="main" data-testid="study-hub" data-exam-id={examId} className="min-w-0">
+    <main id="main" data-testid="study-hub" data-exam-id={examId} className="guide-prose min-w-0">
       <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
         <a href="/" className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand hover:underline">All certifications</a>
         <span aria-hidden="true">/</span><span aria-current="page">{exam.code} Study Hub</span>
       </nav>
       <header className="rounded-xl border bg-card p-5 sm:p-8">
-        <p className="font-mono text-sm font-medium text-brand">{exam.code} · Free study resources</p>
-        <h1 className="font-heading mt-3 max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{hub.heading}</h1>
+        <p className="text-sm font-medium text-brand"><span className="font-mono">{exam.code}</span> study resources</p>
+        <h1 className="font-heading mt-3 max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{hub.heading}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{exam.blurb}</p>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Use this hub to move from reading to video review and practice. Your Study Plan is a separate scheduling tool; this page brings the available learning resources together.</p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">This Study Hub collects the study guide, domain videos, and practice tools for this exam. To schedule your study time, use the study plan.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a href={guide.path} data-testid="hub-primary-guide" className={`${linkStyle} justify-center bg-primary text-primary-foreground hover:bg-primary/90`}>
             <BookOpen className="size-4 shrink-0" aria-hidden="true" />Read the study guide
@@ -84,7 +84,7 @@ export function StudyHub({ examId }: { examId: string }) {
             return <details key={key} id={lessons.length ? `domain-${key}` : undefined} data-testid="hub-domain" className="group min-w-0 scroll-mt-6 rounded-lg border bg-card">
               <summary className="flex min-h-16 cursor-pointer list-none items-center gap-3 rounded-lg p-4 focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                 <span className="min-w-0 flex-1"><span className="block text-base font-semibold">{label}</span><span className="mt-1 block text-sm text-muted-foreground">{topics.length} topic links · {Math.round((exam.examSplit[Number(key)] ?? 0) * 100)}% practice allocation</span></span>
-                <ArrowRight className="size-4 shrink-0 text-brand transition-transform group-open:rotate-90" aria-hidden="true" />
+                <Plus className="size-4 shrink-0 text-brand transition-transform group-open:rotate-45" aria-hidden="true" />
               </summary>
               {lessons.length > 0 && <div className="border-t p-4"><p className="text-sm font-semibold">Read on Cert900 first</p><ul className="mt-2 space-y-1">{lessons.filter(lesson => lesson.domains[0] === Number(key)).map(lesson => <li key={lesson.id}><a data-testid="hub-guide-lesson" href={`${guide.path}#${lesson.id}`} className={`${linkStyle} text-brand hover:bg-accent`}>{lesson.title}</a></li>)}</ul><p className="mt-3 text-sm leading-relaxed text-muted-foreground">The videos below are existing resources. Older chapters may use previous names and do not cover every current objective; see the lessons' official references.</p></div>}
               <ul className="grid gap-2 border-t p-3 sm:grid-cols-2 sm:p-4">{topics.map(([topic, video]) => <li key={topic} className="min-w-0">

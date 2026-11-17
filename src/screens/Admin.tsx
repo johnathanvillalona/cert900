@@ -65,7 +65,7 @@ export function Admin({ onHome }: { onHome: () => void }) {
   if (denied) {
     return (
       <main>
-        <h1 className="font-heading text-3xl font-semibold tracking-tight">Not authorized</h1>
+        <h1 className="font-heading text-3xl font-bold tracking-tight">Not authorized</h1>
         <p className="text-muted-foreground mt-3 max-w-md">
           Nothing to see here. If you were looking for practice questions, the exams are this way.
         </p>
@@ -78,7 +78,7 @@ export function Admin({ onHome }: { onHome: () => void }) {
     <main>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-3xl font-semibold tracking-tight">Reported questions</h1>
+          <h1 className="font-heading text-3xl font-bold tracking-tight">Reported questions</h1>
           <p className="text-muted-foreground mt-2 max-w-lg text-sm">
             Grouped by question. Several reports on one item is the signal worth acting on; a single
             report is often someone disagreeing with a correct answer.

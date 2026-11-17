@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 
 /**
  * Brand mark (dial-9: a gauge arc that resolves into the "9" of 900, the
- * perfect CompTIA score) + "cert900" wordmark ("900" set in Geist Mono).
+ * perfect CompTIA score) + "cert900" wordmark ("900" set in Red Hat Mono).
  * Put `.brand-link` on the clickable parent to get the arc-draw hover; text
  * color follows the parent (hover:text-brand). Reduced-motion draws instantly.
  *

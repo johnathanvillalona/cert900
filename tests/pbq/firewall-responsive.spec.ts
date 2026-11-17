@@ -7,7 +7,7 @@ const stylePath=fileURLToPath(new URL('./firewall-screenshot.css',import.meta.ur
 for(const width of [320,375,390,768,1440]) {
   test.describe(`ACL complete workflow at ${width}px`,()=>{
     test.use({viewport:{width,height:900},hasTouch:width<768,reducedMotion:'reduce'})
-    test('read, configure, inspect traffic, edit, cancel, grade and review in both themes',async({page})=>{
+    test('read, configure, inspect traffic, edit, cancel, grade and review in light mode',async({page})=>{
       const errors:string[]=[]
       page.on('pageerror',e=>errors.push(e.message))
       page.on('console',e=>{if(e.type()==='error')errors.push(e.text())})
@@ -26,8 +26,7 @@ for(const width of [320,375,390,768,1440]) {
       await addRule(page,{...webRule,name:longName})
       await addRule(page,sshRule)
       await settled(page)
-      for(const theme of ['light','dark']) {
-        await page.evaluate(t=>document.documentElement.classList.toggle('dark',t==='dark'),theme)
+      for(const theme of ['light']) {
         expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true)
         if(width<1024) {
           await expect(page.getByTestId('acl-rule-card')).toHaveCount(2)

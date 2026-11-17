@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowLeft, ArrowRight, CalendarDays, Check } from "lucide-react"
+import { ArrowLeft, CalendarDays, Check } from "lucide-react"
 import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { examShortName } from "@/data/labels"
 import { VENDORS, VENDOR_ORDER } from "@/data/vendors"
@@ -65,10 +65,10 @@ export function PlanWizard({ onFinish, onCancel, backLabel = "Never mind" }: {
 
   return (
     <main className="mx-auto max-w-3xl">
-      <h1 className="font-heading text-3xl font-semibold tracking-tight">Build a study plan</h1>
+      <h1 className="font-heading text-3xl font-bold tracking-tight">Build a study plan</h1>
       <p className="text-muted-foreground mt-2 leading-relaxed">
-        Two questions, then you get a week-by-week plan weighted by what each exam actually tests and
-        what you have already shown you know.
+        Answer two questions to get a week-by-week plan based on each exam's domains and what you have
+        already mastered.
       </p>
 
       <ol className="text-muted-foreground mt-6 flex items-center gap-2 font-mono text-xs" aria-label="Progress">
@@ -89,7 +89,7 @@ export function PlanWizard({ onFinish, onCancel, backLabel = "Never mind" }: {
           <div className="mt-4 flex flex-col gap-5">
             {groups.map((g) => (
               <div key={g.v}>
-                <p className="text-muted-foreground border-b pb-2 font-mono text-[11px] font-semibold tracking-wider uppercase">
+                <p className="border-b pb-2 text-sm font-semibold">
                   {VENDORS[g.v].short}
                 </p>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">
@@ -115,10 +115,6 @@ export function PlanWizard({ onFinish, onCancel, backLabel = "Never mind" }: {
                             {existing && <span> · {countdownCopy(existing, today)}</span>}
                           </span>
                         </span>
-                        <ArrowRight
-                          className="text-muted-foreground size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brand"
-                          strokeWidth={2}
-                        />
                       </button>
                     )
                   })}
@@ -189,7 +185,6 @@ export function PlanWizard({ onFinish, onCancel, backLabel = "Never mind" }: {
           <div className="mt-8 flex flex-wrap items-center gap-3 border-t pt-6">
             <Button size="lg" disabled={!date} onClick={() => onFinish(chosen.id, date)} data-testid="plan-build">
               Build my plan
-              <ArrowRight className="size-4" strokeWidth={2} />
             </Button>
             <Button variant="ghost" onClick={() => onFinish(chosen.id, null)} data-testid="plan-no-date">
               I do not have a date yet

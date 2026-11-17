@@ -21,8 +21,8 @@ export function buildShareText(exam: ShareableExam, outcome: QuizOutcome): strin
   const right = outcome.review.filter((r) => r.ok).length
   const body =
     outcome.mode === "exam"
-      ? `I scored ${outcome.scaled} on a ${exam.cert} ${exam.name} (${exam.code}) practice exam — pass line is ${exam.scale.pass} on a ${exam.scale.max} scale.`
-      : `I just drilled ${outcome.review.length} ${exam.cert} ${exam.name} (${exam.code}) questions and got ${right} right.`
+      ? `I scored ${outcome.scaled} on a ${exam.cert} ${exam.name} (${exam.code}) practice exam. The passing score is ${exam.scale.pass} on a ${exam.scale.max}-point scale.`
+      : `I practiced ${outcome.review.length} ${exam.cert} ${exam.name} (${exam.code}) questions and got ${right} right.`
   return `${body}\n\nFree practice at ${SITE_URL}`
 }
 

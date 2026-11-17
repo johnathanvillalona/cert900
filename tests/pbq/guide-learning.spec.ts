@@ -75,7 +75,7 @@ function guideDocument(html?: string) {
     return value['@graph'] ?? [value]
   })
   const faqSection = [...main.querySelectorAll('section')].find(section =>
-    normalize(section.querySelector(':scope > h2')?.textContent) === 'Common questions')!
+    normalize(section.querySelector(':scope > h2')?.textContent) === 'Frequently asked questions')!
   return {
     text: normalize(main.textContent),
     canonical: [...doc.querySelectorAll('link[rel="canonical"]')].map(link => link.getAttribute('href')),
@@ -295,15 +295,13 @@ for (const javaScriptEnabled of [false, true]) {
 }
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`AWS lessons and open disclosures are readable without overflow at ${width}px in both themes`, async ({ page }, testInfo) => {
+  test(`AWS lessons and open disclosures are readable without overflow at ${width}px in light mode`, async ({ page }, testInfo) => {
     const observed = observe(page)
     await page.setViewportSize({ width, height: 1000 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       await page.goto(guidePath)
-      await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
       await expectGuide(page)
-      expect(await page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(theme === 'dark')
+      expect(await page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(false)
       await page.evaluate(() => document.querySelectorAll('main details').forEach(details => details.setAttribute('open', '')))
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), `${width}/${theme}: page overflow`).toBe(true)
       for (const link of await page.getByRole('navigation', { name: 'AWS lesson contents', exact: true }).getByRole('link').all()) {

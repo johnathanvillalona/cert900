@@ -68,13 +68,12 @@ test('native lesson checks and extensions leave learner progress and consent unc
 })
 
 for (const width of [320, 375, 390, 768, 1440]) {
-  test(`beginner reading path and all eight visuals fit ${width}px in both themes`, async ({ page }) => {
+  test(`beginner reading path and all eight visuals fit ${width}px in light mode`, async ({ page }) => {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     await page.setViewportSize({ width, height: 800 })
-    for (const theme of ['light', 'dark']) {
+    for (const theme of ['light']) {
       await page.goto(path)
-      await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
       await expect(page.getByTestId('learning-diagram')).toHaveCount(8)
       for (const lesson of await page.getByTestId('learning-lesson').all()) {
         await expect(lesson.getByTestId('lesson-advanced')).not.toHaveAttribute('open')

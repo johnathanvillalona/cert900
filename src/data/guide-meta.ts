@@ -7,9 +7,9 @@
  * embedded practice questions into the entry chunk that every quiz-taker
  * downloads. Data here, JSX there.
  */
-import { EXAM_META, EXAM_ORDER } from "@/data/meta"
 import { GUIDE_PATHS, type GuideKey } from "@/data/routes"
 import { REF_SHEETS } from "@/data/ref-sheets"
+import { vendorList } from "@/lib/copy"
 
 export interface GuideMeta {
   path: string
@@ -20,25 +20,15 @@ export interface GuideMeta {
 }
 
 /**
- * Inventory counts for a set of exams, for copy that quotes them.
- *
- * These are OUR question totals, not exam facts, so they move every time a bank
- * grows: the A+ description shipped "621 questions" against 715 and Network+
- * "315" against 355. Never retype them.
+ * Descriptions and FAQs never quote Cert900's own question counts. Exam facts
+ * (length, time limit, passing score) are fine; bank inventory is not.
  */
-const inventory = (...ids: string[]) => ({
-  q: ids.reduce((a, id) => a + EXAM_META[id].questionCount, 0),
-  pbq: ids.reduce((a, id) => a + EXAM_META[id].pbqCount, 0),
-})
-const APLUS = inventory("220-1201", "220-1202")
-const NPLUS = inventory("n10-009")
-
 const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
   secplus: {
     path: GUIDE_PATHS.secplus,
     title: "Free CompTIA Security+ Practice Test (SY0-701) | Cert900",
     description:
-      "Free CompTIA Security+ SY0-701 practice: original questions plus performance-based questions with hardening panels, incident-response ordering, and network hotspots, timed 90-minute exam simulation on the 100 to 900 scale. Every topic links to a free Professor Messer video. No signup.",
+      "Practice for the CompTIA Security+ (SY0-701) exam with original questions, performance-based exercises, and a timed 90-minute practice exam. Each topic links to Professor Messer's free course.",
     h1: "Free CompTIA Security+ (SY0-701) practice test",
     faq: [
       [
@@ -47,15 +37,15 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Do I need Network+ before Security+?",
-        "No, but CompTIA recommends Network+ plus about two years of IT administration with a security focus. Security+ leans on networking fundamentals, so comfort with ports, protocols, and topologies helps a lot.",
+        "No. CompTIA recommends Network+ and about two years of IT administration with a security focus. Security+ builds on networking fundamentals, so knowing ports, protocols, and topologies helps.",
       ],
       [
         "What does SY0-701 cover?",
-        "Five domains: General Security Concepts (12%), Threats, Vulnerabilities & Mitigations (22%), Security Architecture (18%), Security Operations (28%), and Security Program Management & Oversight (20%). Our drills track your accuracy in each domain separately.",
+        "Five domains: General Security Concepts (12%), Threats, Vulnerabilities & Mitigations (22%), Security Architecture (18%), Security Operations (28%), and Security Program Management & Oversight (20%). Cert900 reports your accuracy for each domain.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free SY0-701 course.",
+        "How long is the Security+ certification valid?",
+        "Three years. You can renew it by earning continuing education units through CompTIA or by passing a higher-level CompTIA certification.",
       ],
     ],
   },
@@ -63,7 +53,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.clf,
     title: "Free AWS Cloud Practitioner Practice Test (CLF-C02) | Cert900",
     description:
-      "Free AWS Certified Cloud Practitioner (CLF-C02) practice: original multiple-choice and multiple-response questions, timed 90-minute exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+      "Practice for the AWS Certified Cloud Practitioner (CLF-C02) exam with original multiple-choice and multiple-response questions and a timed 90-minute practice exam scored from 100 to 1,000.",
     h1: "Free AWS Cloud Practitioner (CLF-C02) practice test",
     faq: [
       [
@@ -72,11 +62,11 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Is Cloud Practitioner worth it before an associate cert?",
-        "It's the standard on-ramp: it proves cloud literacy for less technical roles and builds the vocabulary the associate exams assume. If you already administer AWS daily, some people skip straight to Solutions Architect Associate.",
+        "It is a common first step. It validates cloud literacy for less technical roles and builds the vocabulary the associate exams assume. If you already work with AWS every day, you can go straight to Solutions Architect - Associate.",
       ],
       [
         "What are the CLF-C02 domains?",
-        "Cloud Concepts (24%), Security and Compliance (30%), Cloud Technology and Services (34%), and Billing, Pricing, and Support (12%). Our drills track your accuracy in each domain separately.",
+        "Cloud Concepts (24%), Security and Compliance (30%), Cloud Technology and Services (34%), and Billing, Pricing, and Support (12%). Cert900 reports your accuracy for each domain.",
       ],
     ],
   },
@@ -84,7 +74,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.az900,
     title: "Free Azure Fundamentals Practice Test (AZ-900) | Cert900",
     description:
-      "Learn Azure fundamentals with ten beginner lessons, practical examples and original diagrams. Try eight samples, timed AZ-900 practice and topic drills. Free, no signup.",
+      "Learn Azure fundamentals with ten beginner lessons, practical examples, and original diagrams. Then try eight sample questions, timed AZ-900 practice, and topic practice.",
     h1: "Free Microsoft Azure Fundamentals (AZ-900) practice test",
     faq: [
       [
@@ -93,7 +83,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Does AZ-900 expire?",
-        "No. Fundamentals certifications like AZ-900 don't expire, so it's a one-time investment that stays on your transcript.",
+        "No. Microsoft Fundamentals certifications, including AZ-900, do not expire.",
       ],
       [
         "What does AZ-900 cover?",
@@ -105,7 +95,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.sc900,
     title: "Free Microsoft SC-900 Practice Test (Security, Compliance & Identity) | Cert900",
     description:
-      "Free Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) practice: original questions plus drag-and-drop and matching items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+      "Practice for Microsoft SC-900 (Security, Compliance, and Identity Fundamentals) with original questions, drag-and-drop and matching items, and a timed practice exam. Each topic links to John Savill's free video.",
     h1: "Free Microsoft SC-900 (Security, Compliance, and Identity) practice test",
     faq: [
       [
@@ -118,11 +108,11 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What does SC-900 cover?",
-        "Four areas: security, compliance, and identity concepts (10-15%), the capabilities of Microsoft Entra (25-30%), Microsoft security solutions (35-40%), and Microsoft compliance solutions (20-25%). Our drills track your accuracy in each separately.",
+        "Four areas: security, compliance, and identity concepts (10-15%), the capabilities of Microsoft Entra (25-30%), Microsoft security solutions (35-40%), and Microsoft compliance solutions (20-25%). Cert900 reports your accuracy for each domain.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free SC-900 study video.",
+        "Do I need technical experience for SC-900?",
+        "No. Microsoft designed SC-900 for people who are getting familiar with security, compliance, and identity. General familiarity with Azure and Microsoft 365 is helpful.",
       ],
     ],
   },
@@ -130,7 +120,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.ccna,
     title: "Free Cisco CCNA 200-301 Practice Test | Cert900",
     description:
-      "Free Cisco CCNA 200-301 practice: original questions plus simulated IOS configuration labs, network-diagram hotspots, matching, and ordering. Timed exam simulation. Every topic links to a free Jeremy's IT Lab video. No signup.",
+      "Practice for the Cisco CCNA (200-301) exam with original questions, simulated IOS configuration labs, network diagram exercises, and a timed practice exam. Each topic links to Jeremy's IT Lab.",
     h1: "Free Cisco CCNA (200-301) practice test",
     faq: [
       [
@@ -143,11 +133,11 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What does CCNA 200-301 cover?",
-        "Six domains: Network Fundamentals (20%), Network Access (20%), IP Connectivity (25%), IP Services (10%), Security Fundamentals (15%), and Automation and Programmability (10%). Our drills track your accuracy in each domain separately.",
+        "Six domains: Network Fundamentals (20%), Network Access (20%), IP Connectivity (25%), IP Services (10%), Security Fundamentals (15%), and Automation and Programmability (10%). Cert900 reports your accuracy for each domain.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every question, every simulation, and the exam simulator are free with no account. Every topic links to the matching Day lesson in Jeremy's IT Lab's free CCNA 200-301 course.",
+        "How long is the CCNA certification valid?",
+        "Three years. You can recertify by passing an eligible exam or by earning Cisco Continuing Education credits.",
       ],
     ],
   },
@@ -155,7 +145,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.az104,
     title: "Free Microsoft AZ-104 Practice Test (Azure Administrator) | Cert900",
     description:
-      "Free Microsoft AZ-104 (Azure Administrator Associate) practice: original questions plus drag-and-drop and build-list items in Microsoft's own formats, timed exam simulation scored to 1,000. Every topic links to a free John Savill video. No signup.",
+      "Practice for Microsoft AZ-104 (Azure Administrator Associate) with original questions, drag-and-drop and build-list items, and a timed practice exam. Each topic links to John Savill's free video.",
     h1: "Free Microsoft AZ-104 (Azure Administrator) practice test",
     faq: [
       [
@@ -168,11 +158,11 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "What does AZ-104 cover?",
-        "Five areas: manage identities and governance (20-25%), implement and manage storage (15-20%), deploy and manage compute (20-25%), implement and manage virtual networking (15-20%), and monitor and maintain resources (10-15%). Our drills track your accuracy in each separately.",
+        "Five areas: manage identities and governance (20-25%), implement and manage storage (15-20%), deploy and manage compute (20-25%), implement and manage virtual networking (15-20%), and monitor and maintain resources (10-15%). Cert900 reports your accuracy for each domain.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every question, every interactive item, and the exam simulator are free with no account. Every topic links to the matching chapter of John Savill's free AZ-104 study video.",
+        "Does AZ-104 expire?",
+        "Yes. Role-based Microsoft certifications such as AZ-104 are valid for one year. You can renew for free by passing an online renewal assessment in the six months before it expires.",
       ],
     ],
   },
@@ -180,7 +170,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.saa,
     title: "Free AWS Solutions Architect Associate Practice Test (SAA-C03) | Cert900",
     description:
-      "Free AWS Certified Solutions Architect Associate (SAA-C03) practice: original scenario questions in the real multiple-choice and multiple-response formats, timed exam simulation scored 100 to 1,000. Every topic links to a free video. No signup.",
+      "Practice for the AWS Certified Solutions Architect - Associate (SAA-C03) exam with original scenario questions and a timed 130-minute practice exam scored from 100 to 1,000.",
     h1: "Free AWS Solutions Architect Associate (SAA-C03) practice test",
     faq: [
       [
@@ -189,15 +179,15 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "How hard is SAA-C03 compared to Cloud Practitioner?",
-        "Substantially harder. Where Cloud Practitioner tests cloud literacy, SAA-C03 tests designing real architectures: choosing between services for security, resilience, performance, and cost under scenario constraints.",
+        "It is considerably harder. Cloud Practitioner tests cloud literacy, while SAA-C03 tests architecture design: choosing services for security, resilience, performance, and cost under scenario constraints.",
       ],
       [
         "What does SAA-C03 cover?",
-        "Four domains: Design Secure Architectures (30%), Design Resilient Architectures (26%), Design High-Performing Architectures (24%), and Design Cost-Optimized Architectures (20%). Our drills track your accuracy in each separately.",
+        "Four domains: Design Secure Architectures (30%), Design Resilient Architectures (26%), Design High-Performing Architectures (24%), and Design Cost-Optimized Architectures (20%). Cert900 reports your accuracy for each domain.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every question and the exam simulator are free with no account. Every topic links into Andrew Brown's free SAA-C03 course on freeCodeCamp's YouTube channel.",
+        "How long is the Solutions Architect - Associate certification valid?",
+        "Three years. You can recertify by passing the current version of the exam or by earning a higher-level AWS certification.",
       ],
     ],
   },
@@ -205,7 +195,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aif,
     title: "Free AWS AI Practitioner Practice Test (AIF-C01) | Cert900",
     description:
-      "Learn AIF-C01 foundations with nine free lessons on AI, AWS services, prompting, RAG, agents and responsible AI, plus original practice questions. No signup.",
+      "Learn the AIF-C01 foundations with nine free lessons on AI, AWS services, prompting, RAG, agents, and responsible AI, then practice with original questions.",
     h1: "Free AWS Certified AI Practitioner (AIF-C01) practice test",
     faq: [
       [
@@ -221,15 +211,15 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
         "AWS recommends up to six months of exposure to AI and ML workloads on AWS. The target candidate uses AI services rather than builds models; no coding or data-science background is required.",
       ],
       [
-        "Is this actually free?",
-        "Yes. The lessons, questions, exam simulator and progress tracking are free with no account. Existing topic reviews link to Andrew Brown's free AIF-C01 course on freeCodeCamp's YouTube channel. Some topics share older course chapters, which may not cover newer objectives or current service names.",
+        "How long is the AI Practitioner certification valid?",
+        "Three years, like other AWS certifications. You can recertify by passing the current version of the exam.",
       ],
     ],
   },
   aplus: {
     path: GUIDE_PATHS.aplus,
     title: "Free CompTIA A+ Practice Test (220-1201 & 220-1202) | Cert900",
-    description: "Free A+ Core 1 (220-1201) and Core 2 (220-1202) practice tests, eight explained sample questions and links to both Study Hubs. No signup required.",
+    description: "Free CompTIA A+ Core 1 (220-1201) and Core 2 (220-1202) practice tests, eight explained sample questions, and links to both Study Hubs.",
     h1: "Free CompTIA A+ practice test: Core 1 and Core 2",
     faq: [
       [
@@ -241,8 +231,8 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
         "CompTIA scores on a 100 to 900 scale. Core 1 (220-1201) requires 675 and Core 2 (220-1202) requires 700. Cert900 uses those published ranges and thresholds with its own practice scoring formula; practice results do not predict an official score.",
       ],
       [
-        "Is this actually free?",
-        `Yes. All ${APLUS.q} A+ questions, all ${APLUS.pbq} PBQs, and the full exam simulator are free with no account required. Progress saves in your browser; an optional sign-in syncs it across devices.`,
+        "How long is CompTIA A+ valid?",
+        "Three years. You can renew it through the CompTIA continuing education program or by earning a higher-level CompTIA certification.",
       ],
     ],
   },
@@ -250,7 +240,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aplus1,
     title: "Free CompTIA A+ Core 1 Practice Test (220-1201) | Cert900",
     description:
-      "Free CompTIA A+ Core 1 (220-1201) practice: original hardware, mobile, networking, virtualization and troubleshooting questions, simulated PBQs and timed 90-minute practice. No signup.",
+      "Practice for CompTIA A+ Core 1 (220-1201) with original hardware, mobile, networking, virtualization, and troubleshooting questions, simulated PBQs, and a timed 90-minute exam.",
     h1: "Free CompTIA A+ Core 1 (220-1201) practice test",
     faq: [
       [
@@ -266,8 +256,8 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
         "Most candidates sit Core 1 (220-1201) first because its hardware and networking material underpins Core 2's operating system and security topics, but CompTIA allows either order. You need both to earn the A+.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every Core 1 question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free 220-1201 course.",
+        "How should I study for Core 1?",
+        "Start with a timed practice exam to find your weakest domains. Then practice those topics and watch the linked Professor Messer video for each topic you miss.",
       ],
     ],
   },
@@ -275,7 +265,7 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
     path: GUIDE_PATHS.aplus2,
     title: "Free CompTIA A+ Core 2 Practice Test (220-1202) | Cert900",
     description:
-      "Free CompTIA A+ Core 2 (220-1202) practice: original operating-system, security, troubleshooting and operational-procedure questions, simulated PBQs and timed 90-minute practice. No signup.",
+      "Practice for CompTIA A+ Core 2 (220-1202) with original operating system, security, troubleshooting, and operational procedure questions, simulated PBQs, and a timed 90-minute exam.",
     h1: "Free CompTIA A+ Core 2 (220-1202) practice test",
     faq: [
       [
@@ -288,18 +278,18 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Do I need to pass Core 1 before Core 2?",
-        "No. CompTIA lets you take the two core exams in either order; you just need to pass both within the same series to earn the A+ certification.",
+        "No. CompTIA lets you take the two core exams in either order. You need to pass both exams in the same series to earn the A+ certification.",
       ],
       [
-        "Is this actually free?",
-        "Yes. Every Core 2 question, every PBQ, and the full exam simulator are free with no account. Every topic links to the matching video in Professor Messer's free 220-1202 course.",
+        "How should I study for Core 2?",
+        "Spend extra time on Windows command-line tools and settings, then use topic practice for security and troubleshooting. Each topic links to Professor Messer's free 220-1202 video.",
       ],
     ],
   },
   nplus: {
     path: GUIDE_PATHS.nplus,
     title: "Free CompTIA Network+ Practice Test (N10-009) | Cert900",
-    description: `Free CompTIA Network+ N10-009 practice: ${NPLUS.q} original questions, ${NPLUS.pbq} performance-based questions including simulated CLI and network diagrams, timed exam simulation on the 100 to 900 scale. No signup.`,
+    description: "Practice for the CompTIA Network+ (N10-009) exam with original questions, performance-based exercises with a simulated command line and network diagrams, and a timed 90-minute exam.",
     h1: "Free CompTIA Network+ (N10-009) practice test",
     faq: [
       [
@@ -308,18 +298,18 @@ const EXAM_GUIDE_META: Record<Exclude<GuideKey, InfoKey>, GuideMeta> = {
       ],
       [
         "Do I need A+ before Network+?",
-        "No, A+ is recommended but not required. If you already work with networks or are comfortable with hardware basics, starting at Network+ is common and completely allowed.",
+        "No. CompTIA recommends A+ but does not require it. If you already work with networks or are comfortable with hardware basics, starting with Network+ is common.",
       ],
       [
         "What topics does N10-009 cover?",
-        "Five domains: networking concepts (23%), network implementation (20%), network operations (19%), network security (14%), and network troubleshooting (24%). Our drills track your accuracy in each domain separately.",
+        "Five domains: networking concepts (23%), network implementation (20%), network operations (19%), network security (14%), and network troubleshooting (24%). Cert900 reports your accuracy for each domain.",
       ],
     ],
   },
   pbq: {
     path: GUIDE_PATHS.pbq,
     title: "Free CompTIA PBQ Practice Labs: A+ & Network+ | Cert900",
-    description: "Practice A+ and Network+ PBQs: Windows command troubleshooting, firewall configuration, ACL simulation and photo-backed cabling. Free, no signup.",
+    description: "Practice A+ and Network+ PBQs: Windows command troubleshooting, firewall configuration, ACL simulation, and photo-backed cabling. No account is required.",
     h1: "Free CompTIA PBQ practice labs for A+ and Network+",
     faq: [
       [
@@ -372,12 +362,10 @@ const EXAM_GUIDE_EXAMS = {
  * These target query classes the per-exam guides cannot: the generic "IT
  * certification practice test" head term, and the two questions every candidate
  * asks before picking an exam (what score do I need, and which one first). All
- * three are built from data the site already owns — real cut scores, scales,
- * question counts, and time limits for every exam — rather than being thin
+ * three are built from data the site already owns (real cut scores, scales,
+ * question counts, and time limits for every exam) rather than being thin
  * doorway pages restating the guides.
  */
-const N_EXAMS = EXAM_ORDER.length
-const TOTAL_Q = EXAM_ORDER.reduce((a, id) => a + EXAM_META[id].questionCount, 0)
 
 type InfoKey = "hub" | "scores" | "order" | "method" | "ports" | "ccnacli" | "cables" | "cloudsvc"
 
@@ -385,16 +373,16 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
   hub: {
     path: GUIDE_PATHS.hub,
     title: "Free IT Certification Practice Tests (CompTIA, Cisco, AWS, Azure) | Cert900",
-    description: `Free practice tests for ${N_EXAMS} IT certifications: CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104. ${TOTAL_Q} original questions and timed practice. No signup.`,
+    description: "Free practice tests for CompTIA A+, Network+, and Security+, Cisco CCNA, AWS Cloud Practitioner, AI Practitioner, and Solutions Architect, and Microsoft AZ-900, SC-900, and AZ-104.",
     h1: "Free IT certification practice tests",
     faq: [
       [
-        "Are these practice tests really free?",
-        "Yes, all of them. There is no paywall, no signup wall, and no trial that expires. The full question bank for every exam is open, and progress saves in your browser without an account.",
+        "Are the practice tests on Cert900 free?",
+        "Yes. Every practice test on Cert900 is free, and your progress saves in your browser without an account.",
       ],
       [
         "Are these real exam questions?",
-        "No, and you should avoid anyone who says otherwise. Every question here is original, written from the current published exam objectives. Sites distributing actual exam content are violating their agreements with the vendor, and using them can get your certification revoked.",
+        "No. Every question on Cert900 is original and written from the current published exam objectives. Sites that share actual exam content violate the vendors' candidate agreements, and using them can lead to a revoked certification.",
       ],
       [
         "How close is the simulation to the real exam?",
@@ -402,14 +390,14 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
       ],
       [
         "Which certification should I start with?",
-        "It depends on the track. CompTIA A+ is the usual first step for IT support, CCNA for networking, and the cloud vendors have their own fundamentals exams. There is a full walkthrough on the which-certification-first page.",
+        "It depends on the track. CompTIA A+ is the usual first step for IT support, CCNA for networking, and the cloud vendors have their own fundamentals exams. The page on which certification to take first covers each track.",
       ],
     ],
   },
   scores: {
     path: GUIDE_PATHS.scores,
     title: "IT Certification Passing Scores: CompTIA, Cisco, AWS & Azure | Cert900",
-    description: `Published passing scores and Cert900 practice thresholds for ${N_EXAMS} IT certification exams. Compare score ranges, time limits and practice settings. Cisco does not publish a CCNA passing score.`,
+    description: `Published passing scores and Cert900 practice thresholds for ${vendorList()} certification exams. Compare score ranges and time limits. Cisco does not publish a CCNA passing score.`,
     h1: "IT certification passing scores, by exam",
     faq: [
       [
@@ -438,11 +426,11 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
     faq: [
       [
         "Do I need A+ before Network+ or Security+?",
-        "No. CompTIA recommends that order but enforces no prerequisites, so you can sit any of them in any order. If you already work in IT, starting at Network+ or Security+ is common and completely allowed.",
+        "No. CompTIA recommends that order but has no prerequisites, so you can take them in any order. If you already work in IT, starting with Network+ or Security+ is common.",
       ],
       [
         "Is A+ worth it if I already work in IT?",
-        "If you are already doing the job, A+ mostly certifies what you can already do. It still helps for HR filters and government contracting roles, but Network+ or Security+ usually moves the needle more for someone already employed in IT.",
+        "If you already do the job, A+ mostly confirms skills you have. It still helps with HR screening and some government roles, but Network+ or Security+ is usually more valuable for someone already working in IT.",
       ],
       [
         "Should I do a cloud fundamentals exam before an associate one?",
@@ -457,12 +445,12 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
   method: {
     path: GUIDE_PATHS.method,
     title: "How Our Practice Questions Are Made and Reviewed | Cert900",
-    description: `How Cert900's ${TOTAL_Q} original practice questions are written and checked: published objectives, automated checks, documented internal review and learner reports. Learn how to report an error.`,
+    description: "How Cert900 writes and checks its original practice questions: published exam objectives, automated checks, documented internal review, and learner reports. Learn how to report an error.",
     h1: "How our practice questions are made",
     faq: [
       [
         "Are these real exam questions?",
-        "No, and that is deliberate. Every question is original work written for this site against each exam's published objectives. Using leaked exam content (braindumps) violates the vendors' agreements, can void your certification, and teaches recall instead of understanding.",
+        "No. Every question is original work written for Cert900 from each exam's published objectives. Using leaked exam content (braindumps) violates the vendors' agreements, can void your certification, and teaches recall instead of understanding.",
       ],
       [
         "How do you know the answers are correct?",
@@ -474,7 +462,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
       ],
       [
         "Why is this free?",
-        "The marginal cost of serving practice questions is near zero, and certification study is expensive enough already. The site runs on donations and, on the article pages only, may eventually carry ads; the practice tool itself stays free and unregistered.",
+        "Serving practice questions costs very little, and certification study is already expensive. Cert900 is supported by donations and may show an ad on a study guide page. The practice tools stay free and do not require an account.",
       ],
     ],
   },
@@ -490,7 +478,7 @@ const INFO_META: Record<InfoKey, GuideMeta> = {
     path: GUIDE_PATHS.ccnacli,
     title: "CCNA CLI Commands Quick Reference (200-301) | Cert900",
     description:
-      "The Cisco IOS commands the CCNA 200-301 sims actually grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type.",
+      "The Cisco IOS commands the CCNA 200-301 simulations grade: mode navigation, the show commands that answer real troubleshooting questions, base switch and router configuration in order, VLANs and trunking, and the abbreviations engineers type.",
     h1: "CCNA CLI quick reference",
     faq: REF_SHEETS.ccnacli.faq,
   },

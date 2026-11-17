@@ -200,7 +200,7 @@ export const AIF_LESSON_CONTENT: Readonly<Record<AifLessonId, LessonContent>> = 
       </LessonConcept>
       <LessonConcept title="Check the source before judging the wording">
         <p>An answer can sound clear and confident while repeating the wrong manual. Start by checking that retrieval found the right, current material and that the user has permission to see it.</p>
-        <p>Next, check whether the retrieved passages actually support the answer. RAG can reduce hallucinations—answers that aren’t supported by the evidence—but adding retrieved text or citations doesn’t guarantee correctness.</p>
+        <p>Next, check whether the retrieved passages actually support the answer. RAG can reduce hallucinations (answers that aren’t supported by the evidence), but adding retrieved text or citations doesn’t guarantee correctness.</p>
       </LessonConcept>
       <LessonConcept title="Work on the part that’s causing the problem">
         <p>If the facts keep changing, work on retrieval first. If you need a consistent output format, try a prompt template and examples. If that behavior is still unreliable, evaluate whether training would improve it enough to justify the data, computing and maintenance costs.</p>
@@ -331,7 +331,7 @@ export const AIF_LESSON_CONTENT: Readonly<Record<AifLessonId, LessonContent>> = 
       <p>Keep personal information out of datasets, prompts, memory and logs unless it’s needed. Masking can hide sensitive values, redaction removes sensitive text, and pseudonymization replaces identifiers.</p>
       <p>Information that can still be linked to someone needs protection. Combine these measures with access restrictions, integrity checks and a review of relevant privacy requirements.</p>
       <p>Data lineage records where information came from and how it changed. Catalogs, citations, source and model versions, and documentation help with an investigation. Governance also sets permitted uses, approvals, review schedules, incident processes and staff training, including where data may be processed, how long it’s kept and when it’s deleted.</p>
-      <p>The AWS Generative AI Security Scoping Matrix distinguishes using an external application from building increasingly customized systems. As your control grows, so do your responsibilities. When sources or tools change, review the settings—including cross-Region processing—with the appropriate specialists.</p>
+      <p>The AWS Generative AI Security Scoping Matrix distinguishes using an external application from building increasingly customized systems. As your control grows, so do your responsibilities. When sources or tools change, review the settings, including cross-Region processing, with the appropriate specialists.</p>
       <p>Grounding checks whether an answer is supported by evidence; output validation checks claims or structured fields. Compare confidence signals with actual results, because a confident tone or a model’s own score isn’t proof. Use several controls against prompt injection and data leakage rather than relying on one instruction.</p>
     </> },
   },

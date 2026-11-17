@@ -10,8 +10,8 @@ describe("discreet guide support and search readiness", () => {
   it("places one native optional invitation after the PBQ teaching and FAQ", () => {
     const html = renderToStaticMarkup(<PbqGuide />)
     expect(html.match(/data-testid="guide-support"/g)).toHaveLength(1)
-    expect(html.indexOf('id="guide-support-heading"')).toBeGreaterThan(html.indexOf("Common questions"))
-    expect(html.indexOf('id="guide-support-heading"')).toBeLessThan(html.indexOf("More free practice tests"))
+    expect(html.indexOf('id="guide-support-heading"')).toBeGreaterThan(html.indexOf("Frequently asked questions"))
+    expect(html.indexOf('id="guide-support-heading"')).toBeLessThan(html.indexOf("Related practice tests"))
     const invitation = html.match(/<aside[^>]*data-testid="guide-support"[\s\S]*?<\/aside>/)![0]
     expect(invitation).toContain(`href="${DONATE_URL}"`)
     expect(invitation).toContain('target="_blank" rel="noopener noreferrer"')

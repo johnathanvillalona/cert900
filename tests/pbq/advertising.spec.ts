@@ -17,7 +17,7 @@ const policy = { ...ADVERTISING, enabled: true, siteApproved: true, cmpVerified:
   placements: { 'guide-primary': { enabled: true, slot: '0000000000' }, 'guide-secondary': { enabled: false, slot: '' } } }
 const markup = renderToStaticMarkup(React.createElement(AdSlot, { path: ADVERTISING_GUIDE_PATH, policy }))
 const original = readFileSync(resolve('dist', `${ADVERTISING_GUIDE_PATH.slice(1)}.html`), 'utf8')
-const insertion = '<section class="mt-12"><h2 class="font-heading text-2xl font-semibold tracking-tight">More free practice tests</h2>'
+const insertion = '<section class="mt-12"><h2 class="font-heading text-2xl font-semibold tracking-tight">Related practice tests</h2>'
 let bundle = ''
 test.beforeAll(async () => {
   const output = await build({ configFile: false, envDir: false, envPrefix: [], logLevel: 'silent', resolve: { alias: { '@': resolve('src') } },
@@ -147,7 +147,7 @@ test('production HTML for all static content contains no inventory or advertisin
     await page.setViewportSize({ width, height: 900 })
     await page.goto(ADVERTISING_GUIDE_PATH)
     await settled(page)
-    await page.getByRole('heading', { name: 'More free practice tests', exact: true }).scrollIntoViewIfNeeded()
+    await page.getByRole('heading', { name: 'Related practice tests', exact: true }).scrollIntoViewIfNeeded()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
     await page.screenshot({ path: info.outputPath(`disabled-guide-${width}.png`) })
   }
@@ -173,7 +173,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
     await choose(page, 'deny'); expect(requests).toEqual([])
     const surface = unit.locator('.guide-ad-surface')
     const before = await surface.boundingBox()
-    const afterSection = page.getByRole('heading', { name: 'More free practice tests', exact: true })
+    const afterSection = page.getByRole('heading', { name: 'Related practice tests', exact: true })
     const beforeY = (await afterSection.boundingBox())!.y
     await choose(page, 'grant')
     await expect.poll(() => unitRequests(page)).toBe(1)
@@ -182,8 +182,7 @@ for (const width of [320, 375, 390, 768, 1440]) {
     expect((await surface.boundingBox())!.width).toBe(before!.width)
     expect((await afterSection.boundingBox())!.y).toBe(beforeY)
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-    for (const theme of ['light', 'dark']) {
-      await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
+    for (const theme of ['light']) {
       await unit.scrollIntoViewIfNeeded()
       await page.screenshot({ path: info.outputPath(`mock-guide-${width}-${theme}.png`) })
     }

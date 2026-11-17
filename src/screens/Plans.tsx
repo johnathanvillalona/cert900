@@ -42,7 +42,7 @@ export function Plans({ onOpenPlan, onFinish, onCancel }: {
     <main className="mx-auto max-w-3xl" data-testid="plans-list">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-3xl font-semibold tracking-tight">Study plans</h1>
+          <h1 className="font-heading text-3xl font-bold tracking-tight">Study plans</h1>
           <p className="text-muted-foreground mt-2 leading-relaxed">
             {plans.length === 1 ? "One plan running." : `${plans.length} plans running.`} Each one weights the
             weeks by what its exam tests and what you have already shown you know.

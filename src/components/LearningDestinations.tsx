@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, GraduationCap } from "lucide-react"
+import { BookOpen, GraduationCap } from "lucide-react"
 import { GUIDE_PATHS } from "@/data/routes"
 import { cn } from "@/lib/utils"
 
@@ -10,7 +10,6 @@ export function LearningDestinations({ prominent = false }: { prominent?: boolea
         className={cn("inline-flex min-h-11 items-center justify-center gap-2 rounded-md text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2",
           prominent ? "border border-primary bg-primary px-5 py-3 text-primary-foreground transition-colors hover:bg-primary/90" : "text-foreground underline-offset-4 hover:text-brand hover:underline")}>
         {prominent && <GraduationCap className="size-4 shrink-0" aria-hidden="true" />}Practice exams
-        {prominent && <ArrowRight className="size-4 shrink-0" aria-hidden="true" />}
       </a>
       <a href={GUIDE_PATHS.hub} data-testid={prominent ? "hero-study-guides" : "nav-study-guides"}
         className={cn("inline-flex min-h-11 items-center justify-center gap-2 rounded-md text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2",
@@ -27,7 +26,7 @@ export function HomepageLearningLinks() {
       <LearningDestinations prominent />
       <a href={GUIDE_PATHS.pbq} data-testid="secondary-pbq-link"
         className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-md text-sm text-muted-foreground underline-offset-4 hover:text-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2">
-        Explore PBQ labs<ArrowRight className="size-3.5 shrink-0" aria-hidden="true" />
+        Explore PBQ labs
       </a>
     </nav>
   )

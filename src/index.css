@@ -24,17 +24,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 @import "./styles/vendor/shadcn-tailwind.css";
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/geist-mono";
-
-@custom-variant dark (&:is(.dark *));
+/* Commissioner (weight axis only) for all text; Red Hat Mono for exam codes and commands. */
+@import "@fontsource-variable/commissioner";
+@import "@fontsource-variable/red-hat-mono";
 
 @theme inline {
     --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
-    --font-heading: 'Geist Variable', system-ui, sans-serif;
-    --font-sans: 'Geist Variable', system-ui, sans-serif;
-    --font-mono: 'Geist Mono Variable', ui-monospace, Consolas, monospace;
+    --font-heading: 'Commissioner Variable', system-ui, sans-serif;
+    --font-sans: 'Commissioner Variable', system-ui, sans-serif;
+    --font-mono: 'Red Hat Mono Variable', ui-monospace, Consolas, monospace;
+    /* Commissioner has open letterforms; the default -0.025em crowds its
+       headings, so the existing tracking-tight call sites get a lighter value. */
+    --tracking-tight: -0.01em;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -82,8 +84,7 @@ SOFTWARE.
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* CompTIA Trainer palette: cool slate neutrals + one pale-orange accent (terminal amber).
-   Light = clean lab bench; dark = code editor at night. One accent, both modes. */
+/* Cert900 palette: cool slate neutrals and one pale-orange accent. Light only. */
 :root {
     color-scheme: light;
     --background: oklch(0.984 0.003 247.9);
@@ -115,9 +116,6 @@ SOFTWARE.
        measured 4.3:1, just under WCAG AA's 4.5 for 14px text. */
     --success: oklch(0.5 0.154 150.1);
     --success-foreground: oklch(0.985 0.005 155);
-    /* Ambient surface tints. Decoration only, never carry meaning. */
-    --grid-line: oklch(0.208 0.042 265.8 / 0.045);
-    --aurora-1: oklch(0.80 0.13 70 / 0.10);
     /* Vendor tints for exam emblems: three low-chroma steps of the house
        slate ramp. Deliberately NOT the vendors brand colors (no AWS orange,
        no Azure blue, no CompTIA red) - this is our grouping cue, not their
@@ -140,49 +138,6 @@ SOFTWARE.
     --sidebar-ring: oklch(0.62 0.14 60);
 }
 
-.dark {
-    color-scheme: dark;
-    --success: oklch(0.723 0.192 149.6);
-    --success-foreground: oklch(0.216 0.055 153);
-    --grid-line: oklch(1 0 0 / 0.035);
-    --aurora-1: oklch(0.85 0.115 75 / 0.085);
-    --vendor-comptia: oklch(0.78 0.028 258);
-    --vendor-aws: oklch(0.72 0.022 246);
-    --vendor-azure: oklch(0.66 0.016 262);
-    --vendor-cisco: oklch(0.70 0.024 250);
-    --brand: oklch(0.85 0.115 75);
-    --background: oklch(0.185 0.037 262);
-    --foreground: oklch(0.951 0.007 247.9);
-    --card: oklch(0.222 0.04 264);
-    --card-foreground: oklch(0.951 0.007 247.9);
-    --popover: oklch(0.222 0.04 264);
-    --popover-foreground: oklch(0.951 0.007 247.9);
-    --primary: oklch(0.85 0.115 75);
-    --primary-foreground: oklch(0.25 0.06 60);
-    --secondary: oklch(0.279 0.041 260);
-    --secondary-foreground: oklch(0.951 0.007 247.9);
-    --muted: oklch(0.279 0.041 260);
-    --muted-foreground: oklch(0.704 0.04 256.8);
-    --accent: oklch(0.3 0.05 70);
-    --accent-foreground: oklch(0.9 0.09 80);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 12%);
-    --input: oklch(1 0 0 / 16%);
-    --ring: oklch(0.85 0.115 75);
-    --chart-1: oklch(0.77 0.13 70);
-    --chart-2: oklch(0.699 0.14 241.97);
-    --chart-3: oklch(0.795 0.16 86);
-    --chart-4: oklch(0.62 0.04 257.42);
-    --chart-5: oklch(0.712 0.19 16.44);
-    --sidebar: oklch(0.222 0.04 264);
-    --sidebar-foreground: oklch(0.951 0.007 247.9);
-    --sidebar-primary: oklch(0.85 0.115 75);
-    --sidebar-primary-foreground: oklch(0.25 0.06 60);
-    --sidebar-accent: oklch(0.3 0.05 70);
-    --sidebar-accent-foreground: oklch(0.9 0.09 80);
-    --sidebar-border: oklch(1 0 0 / 12%);
-    --sidebar-ring: oklch(0.85 0.115 75);
-}
 
 /* Reduced motion: fewer and gentler, not zero. Movement is removed
    (transforms jump, entrances complete instantly to their end state),
@@ -213,7 +168,7 @@ SOFTWARE.
     }
 }
 
-/* ---- Motion vocabulary (CSS-only; see PROJECT-GUIDE.md design section) ---- */
+/* ---- Motion vocabulary (CSS-only; see the design section in AGENTS.md) ---- */
 
 /* Press feedback for custom pressables (ui/Button has its own). */
 .pressable {
@@ -231,37 +186,6 @@ SOFTWARE.
     @starting-style {
         opacity: 0;
         transform: translateY(4px);
-    }
-}
-
-/* Scroll reveal for marketing sections. Scroll-driven rather than JS: the
-   timeline IS the scroll position, so there is no observer, no state, and no
-   chance of content stranded at opacity 0 because a callback never fired.
-   Firefox has no view() yet; @supports means those visitors simply get the
-   section with no entrance, which is the correct degradation. The hidden
-   start state MUST stay inside @supports for that reason.
-   rise-in has only a `to` frame, so the start state has to be declared here or
-   the animation would run from the element's normal style to itself.
-   The range ends at `entry 40%`: an element is fully opaque once it is 40%
-   into the viewport. Ranges that end at `cover` look better in isolation but
-   strand anything the page cannot scroll far enough past at partial opacity.
-   The reduced-motion rule is NOT redundant with the global one above -- a
-   scroll-driven animation is paced by the timeline, so overriding
-   animation-duration does nothing to it. */
-@supports (animation-timeline: view()) {
-    .reveal {
-        opacity: 0;
-        transform: translateY(8px);
-        animation: rise-in 1ms var(--ease-out-strong) both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 40%;
-    }
-    @media (prefers-reduced-motion: reduce) {
-        .reveal {
-            opacity: 1;
-            transform: none;
-            animation: none;
-        }
     }
 }
 
@@ -359,124 +283,6 @@ SOFTWARE.
     animation-timing-function: var(--ease-in-out-strong);
 }
 
-/* ---- Ambient surface ----------------------------------------------------
-   Marketing surfaces only (landing hero, exam picker, guides, results
-   reveal). Quiz and drill stay flat: it's a timed study tool and a moving
-   backdrop competes with the question.
-
-   Two inert decorative layers behind content:
-     ::before  a STATIC hairline grid (light = lab bench, dark = editor gutter)
-     ::after   ONE very slow amber drift, transform only
-   No canvas, no library. Both layers are absolutely positioned at
-   z-index -1 inside an isolated stacking context, so they add zero layout
-   and zero CLS, and a CSS background-image is never LCP-eligible.
-   (One sanctioned rAF exception rides on top of this system: the landing
-   hero's icon field uses useRepelField for its pointer repel, because CSS
-   cannot express cursor-distance effects. Its idle drift is still pure CSS,
-   .hero-icon-drift below.)
-
-   REDUCED MOTION: the global rule above collapses every animation to 0.01ms
-   with iteration-count 1, so an infinite loop would SNAP to its last frame.
-   The drift is therefore authored so 100% is byte-identical to 0% and to the
-   base rule, making that snap a no-op; the explicit `animation: none` below
-   then stops it outright. Decoration carries no information, so unlike the
-   spinner exemption it simply holds still. */
-.ambient {
-    position: relative;
-    isolation: isolate;
-    /* The drift layer is intentionally wider than its host so the wash has soft
-       edges; `clip` contains that bleed without it widening the page (it caused
-       a horizontal scrollbar at 360px) and, unlike `hidden`, does not create a
-       scroll container, so sticky/anchor behaviour is untouched. */
-    overflow: clip;
-}
-.ambient::before,
-.ambient::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-    z-index: -1;
-    contain: layout paint;
-}
-/* Layer 1: static grid, no animation at all. */
-.ambient::before {
-    inset: 0 0 auto 0;
-    height: 420px;
-    background-image:
-        repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 96px),
-        repeating-linear-gradient(to bottom, var(--grid-line) 0 1px, transparent 1px 96px);
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%);
-}
-/* Layer 2: one slow amber drift. translate3d self-promotes; no will-change,
-   so we don't hold a full-viewport GPU layer for the life of the page. */
-.ambient::after {
-    inset: -30vh -20vw auto -20vw;
-    height: 110vh;
-    background-image: radial-gradient(
-        42rem 26rem at 50% 40%,
-        var(--aurora-1) 0%,
-        color-mix(in oklab, var(--aurora-1) 40%, transparent) 45%,
-        transparent 72%
-    );
-    transform: translate3d(0, 0, 0) scale(1);
-    animation: ambient-drift 64s var(--ease-in-out-strong) infinite;
-}
-@keyframes ambient-drift {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    25% { transform: translate3d(4%, 2%, 0) scale(1.06); }
-    50% { transform: translate3d(1%, 5%, 0) scale(1.02); }
-    75% { transform: translate3d(-3%, 2%, 0) scale(1.05); }
-    100% { transform: translate3d(0, 0, 0) scale(1); } /* == 0%, by contract */
-}
-/* Grid only, no drift. For long scrolling pages (guides). */
-.ambient-still::after {
-    content: none;
-}
-@media (prefers-reduced-motion: reduce) {
-    .ambient::after { animation: none !important; }
-}
-
-/* Idle float for the landing hero's icon field. Same contract as
-   ambient-drift: transform only, translate3d self-promotion, no will-change,
-   100% byte-identical to 0% so the reduced-motion snap is a no-op -- and the
-   explicit animation:none below stops it outright. Duration and (negative)
-   delay are set inline per icon to desync the loops. */
-.hero-icon-drift {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    animation: hero-icon-drift 26s var(--ease-in-out-strong) infinite;
-}
-@keyframes hero-icon-drift {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    30% { transform: translate3d(6px, -8px, 0) rotate(1.2deg); }
-    65% { transform: translate3d(-5px, 6px, 0) rotate(-1deg); }
-    100% { transform: translate3d(0, 0, 0) rotate(0deg); } /* == 0%, by contract */
-}
-@media (prefers-reduced-motion: reduce) {
-    .hero-icon-drift { animation: none !important; }
-}
-
-/* One-shot bloom behind a passing verdict. Base IS the end state, so the
-   global policy (opacity kept, transform dropped) degrades it to a plain
-   fade, same contract as .verdict-pop. */
-.ambient-bloom {
-    position: absolute;
-    inset: -25% -12%;
-    z-index: -1;
-    pointer-events: none;
-    border-radius: 9999px;
-    background-image: radial-gradient(closest-side, var(--aurora-1), transparent 72%);
-    opacity: 1;
-    transform: scale(1);
-    transition:
-        opacity 700ms var(--ease-out-strong) 120ms,
-        transform 700ms var(--ease-out-strong) 120ms;
-    @starting-style {
-        opacity: 0;
-        transform: scale(0.82);
-    }
-}
-
 /* Grow (Mediavine) UI belongs on the static guide pages, not inside the app.
    The script itself only ever executes on "/" (tools/prerender.tsx gates it),
    but it survives client-side navigation, so any widget it rendered on the
@@ -504,6 +310,27 @@ html.spa iframe[src*="grow.me"] {
   html {
     @apply font-sans;
     }
+  /* One family for everything: hierarchy comes from size and weight
+     (body 400, labels 500, h2/h3 600, h1 700). */
+  h1, h2, h3 {
+    @apply font-heading;
+    text-wrap: balance;
+    }
+}
+
+/* Long-form reading on static guides and Study Hubs: 17px body, 1.6 leading,
+   and about 75 characters per line. The measure is in rem, not ch, because
+   ch follows each element's font size and Commissioner's zero is wide.
+   Bordered, rounded or tinted boxes keep their container width so their
+   edges line up. In the components layer so utilities can still override. */
+@layer components {
+  .guide-prose {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  .guide-prose :where(p, li):not([class*="border"], [class*="rounded"], [class*="bg-"]) {
+    max-width: 38rem;
+  }
 }
 /* Manual guide inventory: fixed-height creative area, reserved before any SDK.
    No absolute positioning, overlays, animations, or page-width expansion. */

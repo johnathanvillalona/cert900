@@ -6,7 +6,7 @@
 > App Store Connect key and the Play service account exist and work (see
 > `store-api-setup.md`), `eas.json` already carries the submit credentials, the Play
 > listing is published, and iOS v1.0 was submitted. Treat the store-console steps as a
-> reference and the `resume-ledger` memory as the record of what is done.
+> reference and the maintainer's `resume-ledger` notes as the record of what is done.
 
 Complete, ordered path to get the Expo app in [`mobile/`](../mobile) onto the **App
 Store** and **Google Play**, from Linux or Windows (no Mac). Verified against Apple, Google,

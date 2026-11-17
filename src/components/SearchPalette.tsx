@@ -25,7 +25,7 @@ function buildIndex(): Hit[] {
       kind: "exam",
       id: `exam:${id}`,
       title: `${ex.cert} ${ex.name}`,
-      sub: `${ex.code} · ${ex.questionCount} questions`,
+      sub: `${ex.code} · ${ex.cert}`,
     })
     const hub = studyHubForExam(id)!
     hits.push({ kind: "page", id: `page:${hub.path}`, path: hub.path, title: hub.heading, sub: `${ex.code} · Study resources · ${hub.path}` })
@@ -200,7 +200,7 @@ export function SearchPalette({
               return (
                 <div key={hit.id}>
                   {header && (
-                    <p className="text-muted-foreground px-3 pt-2 pb-1 font-mono text-[11px] font-semibold tracking-wider uppercase">
+                    <p className="text-muted-foreground px-3 pt-2 pb-1 text-xs font-semibold">
                       {header}
                     </p>
                   )}

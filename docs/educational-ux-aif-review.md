@@ -37,7 +37,7 @@ numbered steps. No visualization dependency, animation or runtime script is adde
 
 [Educational content standard](educational-content-standard.md) applies to guides,
 Study Hub instruction, lessons, diagrams, checks, future courses, video/animation
-scripts and transcripts. Root `AGENTS.md` and the existing `PROJECT-GUIDE.md` point future
+scripts and transcripts. Root `AGENTS.md` points future
 coding work to it. It requires prerequisites, plain definitions, short connected
 paragraphs, progressive disclosure, meaningful visuals, realistic examples,
 source verification, coverage mapping and owner review.
@@ -252,7 +252,6 @@ this is a payload description, not a measured performance claim.
 ## Exact changed files
 
 - `AGENTS.md`
-- `PROJECT-GUIDE.md`
 - `docs/educational-content-standard.md`
 - `docs/educational-ux-aif-review.md`
 - `docs/qa/educational-ux-aif/after/aif-ai-ml-approaches-1440.png`

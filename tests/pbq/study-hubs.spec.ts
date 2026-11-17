@@ -42,7 +42,7 @@ async function assertHub(page: Page, id: string) {
   await expect(hub.getByTestId('hub-domain')).toHaveCount(Object.keys(meta.domains).length)
   await expect(hub.getByTestId('hub-video')).toHaveCount(Object.keys(meta.videos).length)
   expect(await page.locator('html').getAttribute('class') ?? '').not.toContain('spa')
-  await expect(page.getByRole('heading', { name: 'How to use this to pass', exact: true })).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'Prepare for the exam', exact: true })).toHaveCount(0)
   await expect(page.locator('script[src*="adsbygoogle"], ins.adsbygoogle')).toHaveCount(0)
 }
 
@@ -57,7 +57,7 @@ test('all 11 hubs cold-load, refresh, link natively to canonical guides and retu
     await page.getByTestId('hub-primary-guide').focus()
     await page.keyboard.press('Enter')
     await expect(page).toHaveURL(new RegExp(`${GUIDE_PATHS[key]}$`))
-    await expect(page.getByRole('heading', { name: 'How to use this to pass', exact: true })).toHaveCount(1)
+    await expect(page.getByRole('heading', { name: 'Prepare for the exam', exact: true })).toHaveCount(1)
     await expect(page.locator(`[data-testid="guide-study-hub"][href="/study/${id}"]`)).toHaveCount(1)
     await page.goBack()
     await assertHub(page, id)
@@ -172,17 +172,15 @@ test('hub practice, drills, plan, progress and available lab links open the corr
 })
 
 for (const width of widths) {
-  test(`hubs at ${width}px: all exams, both themes, complete domain controls and no overflow`, async ({ page }, info) => {
+  test(`hubs at ${width}px: all exams, complete domain controls and no overflow`, async ({ page }, info) => {
     const errors: string[] = []
     page.on('pageerror', e => errors.push(e.message))
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()) })
     await page.setViewportSize({ width, height: 900 })
-    for (const theme of ['light', 'dark']) {
-      await page.addInitScript(theme => localStorage.setItem('trainer-theme', theme), theme)
+    for (const theme of ['light']) {
       for (const id of Object.keys(guides)) {
         await page.goto(`/study/${id}`)
-        await page.evaluate(theme => document.documentElement.classList.toggle('dark', theme === 'dark'), theme)
-        expect(await page.locator('html').evaluate(e => e.classList.contains('dark'))).toBe(theme === 'dark')
+        expect(await page.locator('html').evaluate(e => e.classList.contains('dark'))).toBe(false)
         await assertHub(page, id)
         await page.evaluate(() => document.querySelectorAll('details[data-testid="hub-domain"]').forEach(e => e.setAttribute('open', '')))
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
