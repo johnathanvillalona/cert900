@@ -275,7 +275,7 @@ function advertisingEntry(path: string): string {
   if (!GUIDE_PLACEMENTS.some(placement => placementForGuide(path, placement))) return ""
   const file = manifest["src/advertising-client.ts"]?.file
   if (typeof file !== "string" || !/^assets\/[a-zA-Z0-9_.-]+\.js$/.test(file)) throw new Error("Missing advertising entry")
-  return `<script type="module" src="/${file}"></script>`
+  return `<script type="module" src="/${file}" data-cert900-advertising-entry></script>`
 }
 
 function page(meta: StaticPageMeta, body: string, structuredData: string, includeGrow = false, keepApp = false): string {

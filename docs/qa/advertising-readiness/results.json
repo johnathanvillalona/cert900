@@ -1,0 +1,64 @@
+{
+  "task": "Advertising readiness: runtime kill switch, pilot-only CSP, Google CMP bootstrap, regional policy flag, conditional privacy disclosure; everything ships disabled",
+  "branch": "feature/advertising-readiness",
+  "base": "b88a7cf467056c5c638330e4662141518097b29d",
+  "date": "2026-11-17",
+  "unit": {
+    "files": 49,
+    "tests": 748,
+    "baselineTests": 674,
+    "exit": 0
+  },
+  "build": {
+    "exit": 0,
+    "pilotDocumentCarriesAdMarkup": false
+  },
+  "worker": {
+    "checkGroups": 16,
+    "baselineGroups": 13,
+    "outboundAttempts": 0,
+    "exit": 0
+  },
+  "browser": {
+    "tests": 238,
+    "baselineTests": 224,
+    "exit": 0,
+    "widths": [
+      320,
+      375,
+      390,
+      768,
+      1440
+    ]
+  },
+  "simulations": {
+    "tests": 7,
+    "exit": 0,
+    "note": "Run with CHOKIDAR_USEPOLLING=1 because VS Code held 65,022 of the host's 65,536 inotify watches; no simulation source or test changed on this branch"
+  },
+  "auditProduction": {
+    "advisories": 8,
+    "preExisting": true,
+    "introducedHere": 0,
+    "note": "1 critical better-auth (device login approval), 5 high picomatch/fdir/tinyglobby via vite/vitest, 2 low better-auth adapters; separate hotfix recommended"
+  },
+  "auditFull": {
+    "advisories": 11,
+    "preExisting": true
+  },
+  "npmLs": {
+    "exit": 0
+  },
+  "gitDiffCheck": {
+    "exit": 0
+  },
+  "dependenciesChanged": false,
+  "packageLockChanged": false,
+  "advertisingDefaults": {
+    "ADVERTISING.enabled": false,
+    "ADVERTISING.regions": "tcf-only",
+    "ADVERTISING_RUNTIME": "off",
+    "productionChanged": false
+  },
+  "screenshots": "mock-guide-<width>-<theme>.png from the mocked consent/SDK fixture; disabled-guide-<width>.png from the real build with advertising off"
+}

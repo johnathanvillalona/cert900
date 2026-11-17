@@ -158,7 +158,10 @@ Set `ADVERTISING.enabled = false`, build/test and release via the existing
 controlled Cloudflare workflow. This removes the entry and placement from every
 HTML document regardless of individual slot settings. Per-placement false is
 available for narrower removal. Source-controlled switches are **not instant
-remote switches** and cannot stop already-open documents by themselves.
+remote switches** and cannot stop already-open documents by themselves. The
+November 2026 advertising-readiness work added the Cloudflare variable
+`ADVERTISING_RUNTIME` as the instant remote switch (fail-closed unless exactly
+`on`); `docs/advertising-activation-runbook.md` is now the current procedure.
 
 For an incident after a future activation, the fastest approved procedure is to
 restore the most recent verified **ads-disabled Worker version to 100%**, then

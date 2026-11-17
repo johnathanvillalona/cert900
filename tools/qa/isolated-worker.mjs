@@ -71,7 +71,8 @@ if (process.argv[2] !== '--isolated-child') {
     workers_dev: false,
     assets: { directory: path.join(repo, 'dist'), binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: true },
     d1_databases: [{ binding: 'DB', database_name: 'cert900-security-smoke', database_id: '11111111-1111-4111-8111-111111111111', remote: false }],
-    vars: { BETTER_AUTH_SECRET: randomBytes(48).toString('hex'), BETTER_AUTH_URL: `http://localhost:${port}` },
+    // ADVERTISING_RUNTIME mirrors the committed wrangler.jsonc default; `--advertising-runtime=on` applies to --serve only.
+    vars: { BETTER_AUTH_SECRET: randomBytes(48).toString('hex'), BETTER_AUTH_URL: `http://localhost:${port}`, ADVERTISING_RUNTIME: 'off' },
   };
   writeFileSync(configPath, JSON.stringify(config), { mode: 0o600 });
   const state = path.join(root, 'state');
@@ -172,6 +173,24 @@ if (process.argv[2] !== '--isolated-child') {
       assert.equal(www.headers.get('location'), 'https://cert900.com/ads.txt');
     }
     record('HTML, security headers, compiled CSS, immutable caching, MIT license, and verified ads.txt served');
+    // Advertising runtime switch (committed default off): the config endpoint is
+    // disabled and uncached, and the pilot guide carries neither advertising
+    // hosts in its policy nor any inventory. The path literal is pinned to the
+    // policy constant by src/lib/advertising-core.test.ts.
+    const pilotPath = '/network-plus-practice-test';
+    result = await req('/advertising-config.json');
+    assert.equal(result.response.status, 200);
+    assert.deepEqual(result.data, { enabled: false });
+    assert.equal(result.response.headers.get('cache-control'), 'no-store');
+    assert(!result.response.headers.has('content-security-policy'));
+    result = await req('/advertising-config.json', { method: 'POST', body: {} });
+    assert.equal(result.response.status, 405);
+    result = await req(pilotPath);
+    assert.equal(result.response.status, 200);
+    const guideCsp = result.response.headers.get('content-security-policy');
+    assert(guideCsp && !/googlesyndication|doubleclick|fundingchoices|adtrafficquality/.test(guideCsp));
+    assert(!result.text.includes('data-guide-ad=') && !result.text.includes('data-cert900-advertising-entry'));
+    record('advertising runtime off: config disabled and uncached, pilot guide served without advertising hosts or inventory');
     result = await req('/api/config');
     assert.equal(result.response.status, 200);
     assert.deepEqual(result.data, { emailAuth: false, newsletter: false });
@@ -224,6 +243,54 @@ if (process.argv[2] !== '--isolated-child') {
     result = await req('/api/auth/sign-in/email', { method: 'POST', body: { email, password: randomBytes(24).toString('hex') } }); assert.equal(result.response.status, 401);
     result = await req('/api/auth/sign-in/email', { method: 'POST', body: { email, password } }); assert.equal(result.response.status, 200);
     record('synthetic wrong-password rejection and valid local password sign-in');
+    // Runtime kill switch against a synthetic pilot document that carries the
+    // markers a future gates build would emit. Served from a scratch assets
+    // directory; the real dist is never modified.
+    await worker.dispose(); worker = undefined;
+    const adAssets = path.join(root, 'ad-assets');
+    mkdirSync(adAssets);
+    const realPilot = readFileSync(path.join(repo, 'dist', pilotPath.slice(1) + '.html'), 'utf8');
+    assert(realPilot.includes('</body>') && !realPilot.includes('data-guide-ad='));
+    const markers = '<aside data-guide-ad="guide-primary" aria-label="Advertisement"><ins class="adsbygoogle"></ins></aside>'
+      + '<script type="module" src="/assets/advertising-synthetic.js" data-cert900-advertising-entry></script>';
+    writeFileSync(path.join(adAssets, pilotPath.slice(1) + '.html'), realPilot.replace('</body>', markers + '</body>'));
+    writeFileSync(path.join(adAssets, 'index.html'), readFileSync(path.join(repo, 'dist/index.html')));
+    const realAssets = config.assets.directory;
+    config.assets.directory = adAssets;
+    config.vars.ADVERTISING_RUNTIME = 'off';
+    writeFileSync(configPath, JSON.stringify(config), { mode: 0o600 });
+    origin = await start();
+    result = await req(pilotPath, { method: 'GET' });
+    assert.equal(result.response.status, 200);
+    assert(!result.text.includes('data-guide-ad=') && !result.text.includes('data-cert900-advertising-entry') && !result.text.includes('adsbygoogle'));
+    assert(result.text.includes('</body>'));
+    assert.equal(result.response.headers.get('content-security-policy'), guideCsp);
+    result = await req('/advertising-config.json');
+    assert.deepEqual(result.data, { enabled: false });
+    await worker.dispose(); worker = undefined;
+    config.vars.ADVERTISING_RUNTIME = 'on';
+    writeFileSync(configPath, JSON.stringify(config), { mode: 0o600 });
+    origin = await start();
+    result = await req(pilotPath);
+    assert.equal(result.response.status, 200);
+    assert(result.text.includes('data-guide-ad="guide-primary"') && result.text.includes('data-cert900-advertising-entry'));
+    // The source policy is still off, so even the live switch never widens the policy.
+    assert.equal(result.response.headers.get('content-security-policy'), guideCsp);
+    result = await req('/advertising-config.json');
+    assert.deepEqual(result.data, { enabled: true });
+    assert.equal(result.response.headers.get('cache-control'), 'no-store');
+    result = await req('/comptia-a-plus-practice-test');
+    assert.equal(result.response.status, 200);
+    assert.equal(result.response.headers.get('content-security-policy'), guideCsp);
+    record('advertising runtime switch: off strips synthetic pilot inventory and entry; on serves them while the source policy keeps the guide CSP');
+    await worker.dispose(); worker = undefined;
+    config.assets.directory = realAssets;
+    config.vars.ADVERTISING_RUNTIME = 'off';
+    writeFileSync(configPath, JSON.stringify(config), { mode: 0o600 });
+    origin = await start();
+    result = await req(pilotPath);
+    assert(!result.text.includes('data-guide-ad='));
+    record('real dist restored with the runtime switch off');
     assert(!Object.keys(config.vars).some(k => /GOOGLE|APPLE|RESEND|EMAIL|BSKY|REDDIT/.test(k)));
     assert(!config.triggers && !config.routes && !config.services);
     assert.equal(outboundAttempts, 0);
@@ -235,6 +302,7 @@ if (process.argv[2] !== '--isolated-child') {
       await worker.dispose();
       options.dev.server.port = previewPort;
       config.vars.BETTER_AUTH_URL = `http://localhost:${previewPort}`;
+      config.vars.ADVERTISING_RUNTIME = process.argv.includes('--advertising-runtime=on') ? 'on' : 'off';
       writeFileSync(configPath, JSON.stringify(config), { mode: 0o600 });
       origin = await start();
       save();

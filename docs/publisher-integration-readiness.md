@@ -71,12 +71,13 @@ AdSense also retains its existing independent `ADVERTISING.enabled` switch,
 currently false. Future integrations must consult both applicable gates and
 must not cache enablement across page navigation or consent withdrawal.
 
-If advertising is ever approved and released, changing a source flag requires
-the controlled build/release process; it is not an immediate remote kill
-switch. Immediate recovery uses the previously verified inactive/rollback
-Worker version and a separately authorized traffic change. No KV control plane
-or new Cloudflare service is introduced. Preserve the known ad-free production
-Worker as the rollback checkpoint during any future activation.
+Changing a source flag requires the controlled build/release process. Since
+the advertising-readiness work (November 2026) the Cloudflare variable
+`ADVERTISING_RUNTIME` is the immediate remote switch: anything but the exact
+value `on` disables the runtime config, strips the pilot document's inventory
+and keeps the guide CSP, without a rebuild. Rollback to the previously verified
+ad-free Worker version remains the second line. No KV control plane or new
+Cloudflare service is introduced. See `docs/advertising-activation-runbook.md`.
 
 ## Validation
 

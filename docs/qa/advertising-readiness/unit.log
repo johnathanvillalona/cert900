@@ -1,0 +1,14 @@
+
+> comptia-practice-trainer@2.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 <workspace>/advertising-readiness-worktree
+
+
+ Test Files  49 passed (49)
+      Tests  748 passed (748)
+   Start at  14:57:05
+   Duration  9.99s (transform 12.55s, setup 0ms, import 26.46s, tests 17.76s, environment 9ms)
+
+unit_exit=0

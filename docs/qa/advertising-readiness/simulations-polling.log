@@ -1,0 +1,19 @@
+
+> comptia-practice-trainer@2.0.0 test:simulations
+> playwright test --config playwright.simulations.config.ts
+
+
+Running 7 tests using 1 worker
+
+ACL Chrome 4x CPU performance: [{"name":"boundary","samples":10,"p95":64.19999998807907,"max":64.19999998807907,"cells":43740,"ruleVisits":524814},{"name":"overlap","samples":10,"p95":15.100000023841858,"max":15.100000023841858,"cells":14336,"ruleVisits":113820},{"name":"complete","samples":10,"p95":35.69999998807907,"max":35.69999998807907,"cells":27508,"ruleVisits":329568}]
+  ✓  1 tests/simulations/acl-performance.spec.ts:2:1 › exact ACL grading stays bounded at 4x CPU throttling (2.2s)
+  ✓  2 tests/simulations/acl-session.spec.ts:2:1 › ACL Apply and repeated grading in one event use committed rules and notify once (450ms)
+  ✓  3 tests/simulations/foundation.spec.ts:6:1 › real hook: batched action then grading, exactly-once notification and locked state (560ms)
+  ✓  4 tests/simulations/foundation.spec.ts:21:1 › real hook: model survives navigation, authoritative reset is isolated and version is frozen (534ms)
+  ✓  5 tests/simulations/foundation.spec.ts:37:1 › exam: same scoring entry, vendor weight/scaling, one progress fold and post-finish lock (606ms)
+Windows runtime Chrome 4x CPU: {"p95":28.600000023841858,"max":28.600000023841858,"cells":15000,"ruleVisits":180000}
+  ✓  6 tests/simulations/windows-performance.spec.ts:2:1 › exact Windows runtime grading remains bounded at Chrome 4x CPU (717ms)
+  ✓  7 tests/simulations/windows-session.spec.ts:2:1 › Windows batched Apply and grade sees effective policy, locks and notifies exactly once (417ms)
+
+  7 passed (7.4s)
+sim_exit=0

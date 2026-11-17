@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { renderToStaticMarkup } from "react-dom/server"
 import { CONTACT_EMAIL } from "@/lib/site"
+import { ADVERTISING, ADVERTISING_GUIDE_PATH, type AdvertisingPolicy } from "@/lib/advertising-policy"
 import { DeleteAccount, LEGAL_EFFECTIVE_DATE, LEGAL_EFFECTIVE_LABEL, Privacy, Terms } from "./Legal"
 
 const pages = [
@@ -118,5 +119,53 @@ describe("rendered legal pages", () => {
         }
       }
     }
+  })
+})
+
+describe("advertising disclosure follows the source policy", () => {
+  const activated: AdvertisingPolicy = {
+    ...ADVERTISING, enabled: true, siteApproved: true, cmpVerified: true,
+    placements: { "guide-primary": { enabled: true, slot: "1234567890" }, "guide-secondary": { enabled: false, slot: "" } },
+  }
+  it("renders today's no-advertising text by default and for the committed policy", () => {
+    const html = renderToStaticMarkup(<Privacy />)
+    expect(html).toBe(renderToStaticMarkup(<Privacy policy={ADVERTISING} />))
+    expect(visibleText(html)).toContain("separate from an account. This website currently displays no ads, and Grow is paused.")
+  })
+  it("keeps the no-advertising text while any gate is still off", () => {
+    for (const partial of [{ enabled: false }, { siteApproved: false }, { cmpVerified: false }, { placements: ADVERTISING.placements }]) {
+      const text = visibleText(renderToStaticMarkup(<Privacy policy={{ ...activated, ...partial }} />))
+      expect(text, JSON.stringify(partial)).toContain("This website currently displays no ads, and Grow is paused")
+      expect(text, JSON.stringify(partial)).not.toContain("DoubleClick")
+    }
+  })
+  it("switches to Google's required advertising disclosure once a unit can render", () => {
+    const html = renderToStaticMarkup(<Privacy policy={activated} />)
+    const text = visibleText(html)
+    expect(text).not.toContain("currently displays no ads")
+    expect(text).not.toContain("AdSense is not currently serving ads here")
+    expect(text).toContain("This website shows one labelled advertisement on a single study guide, and Grow is paused.")
+    expect(text).toContain("one clearly labelled Google AdSense advertisement on a single static study guide")
+    expect(text).toContain("No advertising appears inside practice exams, PBQs, simulations, results, sign-in, account or progress screens")
+    expect(text).toContain("Third-party vendors, including Google, use cookies to serve ads")
+    expect(text).toContain("DoubleClick cookie")
+    expect(text).toContain("certified consent manager, Google Privacy")
+    expect(text).toContain("messaging, before any advertising code")
+    expect(text).toContain("no ad request is made until you have made a choice")
+    expect(text).toContain("Global Privacy Control")
+    expect(text).toContain("Do Not Sell or Share")
+    expect(text).toContain("Optional analytics permission does not authorize advertising")
+    expect(text).toContain("will not restrict access to our free study resources")
+    expect(text).toContain("Advertising privacy choices")
+    expect(text).toContain("control under the advertisement")
+    expect(html).not.toMatch(/<(?:script|iframe|ins)\b/i)
+    const renderedLinks = links(html)
+    for (const href of ["https://adssettings.google.com", "https://www.aboutads.info/choices", "https://policies.google.com/technologies/ads", "https://policies.google.com/technologies/partner-sites"]) {
+      const link = renderedLinks.find((item) => item.href === href)
+      expect(link, href).toBeDefined()
+      expect(link?.text.length, href).toBeGreaterThan(3)
+      expect(link?.attributes, href).toContain('rel="noopener noreferrer"')
+    }
+    expect(renderedLinks.find((item) => item.href === ADVERTISING_GUIDE_PATH)?.text).toBe("Network+ practice-test guide")
   })
 })

@@ -5,6 +5,8 @@ import { mailEnabled } from "./mail"
 import { isGuidePath, isKnownPath } from "../src/data/routes"
 import { EXAM_IDS } from "../src/data/exam-ids"
 import { METADATA_SELECTORS, NOT_FOUND_METADATA, metadataForPath, metadataMarkup } from "../src/lib/page-metadata"
+import { ADVERTISING_CONFIG_PATH, advertisingRuntimeEnabled } from "../src/lib/advertising-core"
+import { ADVERTISING_STRIP_SELECTORS, advertisingPilotActive, cspForPath, shouldStripAdvertising } from "./csp"
 
 const JSON_HEADERS = { "Content-Type": "application/json" }
 
@@ -284,81 +286,11 @@ async function authThrottled(req: Request, env: Env, pathname: string): Promise<
 
 const CANONICAL_HOST = "cert900.com"
 
-// CSP allows exactly what index.html ships: self-hosted assets, the two inline
-// scripts (theme boot + beacon loader), and Cloudflare Web Analytics. The
-// media.ethicalads.io / server.ethicalads.io hosts pre-authorize EthicalAds
-// (script + creative + ad-decision fetch) so the ad unit works the moment
-// ADS.enabled flips in site.ts -- no worker change needed then. Harmless while
-// ads are off: with an empty publisherId the script is never loaded, so these
-// hosts are never contacted. Confirm the decision host in DevTools when first
-// enabling, in case EthicalAds changes it.
-const CSP = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io https://www.googletagmanager.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://media.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com",
-  "font-src 'self'",
-  "connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com",
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self' https://accounts.google.com",
-  "object-src 'none'",
-].join("; ")
-
-const GROW_HOSTS = "https://grow.me https://*.grow.me"
-
-/**
- * The 16 static guide pages get their own, slightly wider CSP: the app policy
- * above plus the grow.me hosts for the Grow script (see tools/prerender.tsx).
- * frame-src exists here and not above because Grow's favourites sign-in
- * renders in an iframe; the strict app CSP inherits frame-src from
- * `default-src 'self'` and stays closed.
- *
- * If ads ever go live (the September decision), this policy -- NOT the app
- * one -- is what gets replaced with the permissive https: version, because
- * programmatic creatives come from arbitrary advertiser hosts that no static
- * allowlist can enumerate.
+/** Security headers on every response; CSP only on HTML documents. The
+ * policy choice (worker/csp.ts) and the advertising strip depend on the
+ * `ADVERTISING_RUNTIME` variable; a missing env fails closed.
  */
-const GUIDE_CSP = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com ${GROW_HOSTS}`,
-  "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
-  "font-src 'self'",
-  `connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
-  `frame-src ${GROW_HOSTS}`,
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'",
-].join("; ")
-
-/**
- * The homepage carries a pathname-gated Grow snippet (Grow's install
- * verification fetches the domain root, so "/" must serve it -- see
- * tools/prerender.tsx). This is the app CSP with ONLY the grow.me hosts
- * added: NOT a reuse of GUIDE_CSP, because the landing has the Google
- * sign-in and must keep `form-action https://accounts.google.com` (and the
- * ethicalads hosts, since a session that cold-loads "/" lives under this
- * policy for its whole SPA lifetime, Dashboard included). Every app path
- * other than "/" keeps the strict CSP above.
- */
-const HOME_CSP = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://media.ethicalads.io https://www.googletagmanager.com ${GROW_HOSTS}`,
-  "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: https://media.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
-  "font-src 'self'",
-  `connect-src 'self' https://cloudflareinsights.com https://server.ethicalads.io https://www.google-analytics.com https://region1.google-analytics.com ${GROW_HOSTS}`,
-  `frame-src ${GROW_HOSTS}`,
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self' https://accounts.google.com",
-  "object-src 'none'",
-].join("; ")
-
-/** Security headers on every response; CSP only on HTML documents. */
-function withSecurityHeaders(res: Response, pathname: string): Response {
+function withSecurityHeaders(res: Response, pathname: string, env: Pick<Env, "ADVERTISING_RUNTIME"> = {}): Response {
   const out = new Response(res.body, res)
   out.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
   out.headers.set("X-Content-Type-Options", "nosniff")
@@ -366,17 +298,25 @@ function withSecurityHeaders(res: Response, pathname: string): Response {
   out.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
   out.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
   if ((out.headers.get("content-type") ?? "").includes("text/html")) {
-    out.headers.set("Content-Security-Policy", isGuidePath(pathname) ? GUIDE_CSP : pathname === "/" ? HOME_CSP : CSP)
+    out.headers.set("Content-Security-Policy", cspForPath(pathname, advertisingPilotActive(pathname, env.ADVERTISING_RUNTIME)))
     // Metadata-only adaptation of the public HTML shell. API/auth handlers,
     // bindings, routing, sessions and database operations remain untouched.
     const meta = pathname.startsWith("/api/") ? null : out.status === 404 ? NOT_FOUND_METADATA : metadataForPath(pathname)
-    if (meta) {
-      if (!meta.indexable) out.headers.set("X-Robots-Tag", "noindex")
-      if (out.body) return new HTMLRewriter()
-        .on(METADATA_SELECTORS, { element(element) { element.remove() } })
-        .on('head script[data-home-jsonld]', { element(element) { element.remove() } })
-        .on("head", { element(element) { element.append(metadataMarkup(meta), { html: true }) } })
-        .transform(out)
+    if (meta && !meta.indexable) out.headers.set("X-Robots-Tag", "noindex")
+    // Emergency disable: while the runtime switch is off, the pilot document
+    // is served without its advertising entry and reserved unit even if a
+    // build ever carried them. Every other document is untouched.
+    const strip = shouldStripAdvertising(pathname, env.ADVERTISING_RUNTIME)
+    if (meta || strip) {
+      const rewriter = new HTMLRewriter()
+      if (meta) {
+        rewriter
+          .on(METADATA_SELECTORS, { element(element) { element.remove() } })
+          .on('head script[data-home-jsonld]', { element(element) { element.remove() } })
+          .on("head", { element(element) { element.append(metadataMarkup(meta), { html: true }) } })
+      }
+      if (strip) for (const selector of ADVERTISING_STRIP_SELECTORS) rewriter.on(selector, { element(element) { element.remove() } })
+      if (out.body) return rewriter.transform(out)
     }
   }
   return out
@@ -447,7 +387,25 @@ async function route(req: Request, env: Env): Promise<Response> {
   // (max-age=0, must-revalidate) so deploys land on the next navigation.
   // The text/html guard matters: missing asset paths fall through to the SPA
   // index.html with a 200, which must never be cached as immutable.
-  const res = await env.ASSETS.fetch(req)
+  // Advertising runtime switch, read by the browser before any consent or ad
+  // script loads. Never cached: a dashboard flip must apply on the next
+  // navigation. Only the exact variable value "on" enables it.
+  if (url.pathname === ADVERTISING_CONFIG_PATH) {
+    if (req.method !== "GET" && req.method !== "HEAD") return json({ error: "method not allowed" }, 405)
+    const res = json({ enabled: advertisingRuntimeEnabled(env.ADVERTISING_RUNTIME) })
+    res.headers.set("cache-control", "no-store")
+    return res
+  }
+  // A 304 revalidation has no body for the strip above to act on, so while
+  // the switch is off the pilot document is always fetched in full.
+  let assetRequest = req
+  if (shouldStripAdvertising(url.pathname, env.ADVERTISING_RUNTIME) && (req.headers.has("if-none-match") || req.headers.has("if-modified-since"))) {
+    const headers = new Headers(req.headers)
+    headers.delete("if-none-match")
+    headers.delete("if-modified-since")
+    assetRequest = new Request(req, { headers })
+  }
+  const res = await env.ASSETS.fetch(assetRequest)
   const type = res.headers.get("content-type") ?? ""
   if (
     url.pathname.startsWith("/assets/") &&
@@ -475,7 +433,7 @@ async function route(req: Request, env: Env): Promise<Response> {
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    return withSecurityHeaders(await route(req, env), new URL(req.url).pathname)
+    return withSecurityHeaders(await route(req, env), new URL(req.url).pathname, env)
   },
 
   // Marketing automation. "30 14 * * *" = daily question-of-the-day post;

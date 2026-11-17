@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site"
+import { ADVERTISING, ADVERTISING_GUIDE_PATH, GUIDE_PLACEMENTS, placementForGuide, type AdvertisingPolicy } from "@/lib/advertising-policy"
 
 // Shared with prerendered legal-page metadata so the visible date and sitemap agree.
 export const LEGAL_EFFECTIVE_DATE = "2026-10-21"
@@ -16,7 +17,102 @@ function LegalShell({ title, children }: { title: string; children: React.ReactN
   )
 }
 
-export function Privacy() {
+const link = "text-brand underline underline-offset-2"
+
+/** The advertising section follows the source policy: while no unit can
+ * render (every gate false, as committed) the policy states that no ads are
+ * shown; once the gates commit ships, the same build discloses the single
+ * AdSense unit, Google's certified consent manager and the available choices
+ * (Google's required publisher disclosures). Pure: no hooks, no scripts.
+ */
+export function advertisingDisclosure(policy: AdvertisingPolicy = ADVERTISING): { active: boolean; summary: string; section: React.ReactNode } {
+  const active = GUIDE_PLACEMENTS.some((placement) => placementForGuide(ADVERTISING_GUIDE_PATH, placement, policy) !== null)
+  if (!active) {
+    return {
+      active,
+      summary: "This website currently displays no ads, and Grow is paused.",
+      section: (
+        <section>
+          <h2>Advertising and Grow</h2>
+          <p className="mt-2">
+            Grow by Mediavine is paused, and its script is not loaded by this website. We have added
+            a static HTML tag identifying our AdSense account for site verification. It does not
+            load Google's advertising JavaScript, request ads, or set advertising cookies. AdSense
+            is not currently serving ads here.
+          </p>
+          <p className="mt-2">
+            Before enabling advertising, we will update this policy and put applicable consent and
+            privacy choices in place. Optional analytics permission does not authorize advertising.
+            Disabled manual-placement infrastructure is limited to an explicitly selected static guide;
+            it makes no advertising requests. Any future advertising consent will use a certified
+            consent provider where required, separately from our analytics controls. Declining
+            advertising will not restrict access to our free study resources. Google explains its advertising data practices and controls
+            in{" "}
+            <a className="text-brand underline underline-offset-2" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">
+              how Google uses information from partner sites and apps
+            </a>
+            .
+          </p>
+        </section>
+      ),
+    }
+  }
+  return {
+    active,
+    summary: "This website shows one labelled advertisement on a single study guide, and Grow is paused.",
+    section: (
+      <section>
+        <h2>Advertising and Grow</h2>
+        <p className="mt-2">
+          Grow by Mediavine is paused, and its script is not loaded by this website. We show one
+          clearly labelled Google AdSense advertisement on a single static study guide, the{" "}
+          <a className={link} href={ADVERTISING_GUIDE_PATH}>Network+ practice-test guide</a>. No
+          advertising appears inside practice exams, PBQs, simulations, results, sign-in, account
+          or progress screens, and nothing else on this website requests ads.
+        </p>
+        <p className="mt-2">
+          Third-party vendors, including Google, use cookies to serve ads based on your prior
+          visits to this website or other websites. Google's use of advertising cookies, including
+          the DoubleClick cookie, enables it and its partners to serve ads based on your visits to
+          this site and other sites on the internet.
+        </p>
+        <p className="mt-2">
+          Where consent is required (the European Economic Area, the United Kingdom and
+          Switzerland), that guide loads Google's certified consent manager, Google Privacy &amp;
+          messaging, before any advertising code, and no ad request is made until you have made a
+          choice. Elsewhere, Google's US state privacy message offers a Do Not Sell or Share choice
+          where applicable, and a Global Privacy Control signal from your browser disables
+          advertising on that page. Optional analytics permission does not authorize advertising,
+          and declining advertising will not restrict access to our free study resources.
+        </p>
+        <p className="mt-2">
+          You can review or withdraw your advertising choices at any time with the "Advertising
+          privacy choices" control under the advertisement. You can also opt out of personalized
+          advertising from Google in{" "}
+          <a className={link} href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">
+            Google Ads Settings
+          </a>
+          , or from many third-party vendors at{" "}
+          <a className={link} href="https://www.aboutads.info/choices" target="_blank" rel="noopener noreferrer">
+            www.aboutads.info
+          </a>
+          . Google explains its advertising data practices and controls in{" "}
+          <a className={link} href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">
+            how Google uses information from partner sites and apps
+          </a>{" "}
+          and in{" "}
+          <a className={link} href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">
+            Google's advertising technologies page
+          </a>
+          .
+        </p>
+      </section>
+    ),
+  }
+}
+
+export function Privacy({ policy = ADVERTISING }: { policy?: AdvertisingPolicy } = {}) {
+  const advertising = advertisingDisclosure(policy)
   return (
     <LegalShell title="Privacy policy">
       <section>
@@ -24,8 +120,8 @@ export function Privacy() {
         <p className="mt-2">
           You can use everything here without an account, and in that case your practice progress
           stays on your device. With an account, we store your profile and synced progress so you
-          can study across devices. Newsletter signup is optional and separate from an account.
-          This website currently displays no ads, and Grow is paused.
+          can study across devices. Newsletter signup is optional and separate from an account.{" "}
+          {advertising.summary}
         </p>
       </section>
 
@@ -128,28 +224,7 @@ export function Privacy() {
         </p>
       </section>
 
-      <section>
-        <h2>Advertising and Grow</h2>
-        <p className="mt-2">
-          Grow by Mediavine is paused, and its script is not loaded by this website. We have added
-          a static HTML tag identifying our AdSense account for site verification. It does not
-          load Google's advertising JavaScript, request ads, or set advertising cookies. AdSense
-          is not currently serving ads here.
-        </p>
-        <p className="mt-2">
-          Before enabling advertising, we will update this policy and put applicable consent and
-          privacy choices in place. Optional analytics permission does not authorize advertising.
-          Disabled manual-placement infrastructure is limited to an explicitly selected static guide;
-          it makes no advertising requests. Any future advertising consent will use a certified
-          consent provider where required, separately from our analytics controls. Declining
-          advertising will not restrict access to our free study resources. Google explains its advertising data practices and controls
-          in{" "}
-          <a className="text-brand underline underline-offset-2" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">
-            how Google uses information from partner sites and apps
-          </a>
-          .
-        </p>
-      </section>
+      {advertising.section}
 
       <section>
         <h2>Deleting your data</h2>

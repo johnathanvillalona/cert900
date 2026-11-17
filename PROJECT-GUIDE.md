@@ -89,11 +89,14 @@ endings are pinned LF by `.gitattributes`; Node 24 via `.nvmrc`.
 
 ## Stack
 
-**Monetization readiness, owner-approved 2026-10-21:** AdSense ownership is
-verified and review is requested; site approval is still pending. The public `google-adsense-account` meta tag verifies
-ownership only; it must not be replaced with an advertising loader during
-readiness. `ADVERTISING.enabled` in `src/lib/advertising-policy.ts` remains
-false. The owner explicitly paused Grow by
+**Monetization readiness, owner-approved 2026-10-21; status 2026-11-17:** AdSense
+ownership is verified, but the application was not approved (Google's notice of
+2026-10-25 names no specific criterion); resubmission needs owner approval. The
+public `google-adsense-account` meta tag verifies ownership only; it must not be
+replaced with an advertising loader during readiness. `ADVERTISING.enabled` in
+`src/lib/advertising-core.ts` (re-exported by `advertising-policy.ts`) remains
+false, and the Cloudflare variable `ADVERTISING_RUNTIME` stays `off`; activation,
+verification and emergency disable are in `docs/advertising-activation-runbook.md`. The owner explicitly paused Grow by
 clearing `GROW.siteId`, superseding the earlier Journey continuity instruction
 below. No new consent-dependent advertising requests are enabled. A future
 ads launch requires separate approval, accurate disclosures, and appropriate
@@ -201,7 +204,7 @@ url.protocol (wrangler dev simulates the route host and would loop).
 ## Commands
 - `npm run dev` + `npm run dev:worker` (two terminals; Vite proxies `/api` → :8787)
 - `npm run build` — typechecks app + worker, builds `dist/`
-- `npm test` — Vitest (55+ tests: data parity, engine, sync merge, stats)
+- `npm test` — Vitest (700+ tests: data parity, engine, sync merge, stats, consent, advertising gates, Worker headers)
 - `node tools/linkcheck.js` — HTTP-checks all video URLs in `src/data` (214/214 OK)
 - Local D1: `npx wrangler d1 execute comptia-trainer --local --file=worker/schema.sql`;
   copy `.dev.vars.example` → `.dev.vars` for local auth.

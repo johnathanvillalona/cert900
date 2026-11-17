@@ -63,6 +63,12 @@
     // carries an SPF record and MX records for Email Routing, and a second SPF
     // record at the apex would break SPF for both. A subdomain is also Resend's
     // own recommendation, since it isolates sending reputation.
-    "AUTH_EMAIL_FROM": "no-reply@send.cert900.com"
+    "AUTH_EMAIL_FROM": "no-reply@send.cert900.com",
+    // Advertising runtime switch for the one allowlisted guide. "on" is the
+    // only enabling value. Flip it in the dashboard (Settings > Variables) to
+    // activate or to emergency-disable without a rebuild; every config upload
+    // resets it to this committed "off", which is the fail-closed default.
+    // Never commit "on": src/lib/advertising-core.test.ts enforces it.
+    "ADVERTISING_RUNTIME": "off"
   }
 }

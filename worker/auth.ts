@@ -28,6 +28,14 @@ export interface Env {
    */
   ADMIN_EMAILS?: string
   /**
+   * Advertising runtime switch for the single allowlisted guide. Only the
+   * exact string `on` enables the runtime config, the pilot document's ad
+   * markup and its wider CSP; `off`, unset or any other value fails closed.
+   * Edited in the Cloudflare dashboard for activation and emergency disable
+   * (every config upload resets it to the wrangler.jsonc value, `off`).
+   */
+  ADVERTISING_RUNTIME?: string
+  /**
    * Transactional mail. `AUTH_EMAIL_FROM` plus ONE transport is what enables
    * email/password sign-in at all (see worker/mail.ts): without a working
    * reset, a forgotten password is a permanent lockout.

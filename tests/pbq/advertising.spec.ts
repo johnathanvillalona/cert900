@@ -6,6 +6,8 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { AdSlot } from '../../src/components/AdSlot'
 import { ADVERTISING, ADVERTISING_GUIDE_PATH } from '../../src/lib/advertising-policy'
+import type { AdvertisingPolicy } from '../../src/lib/advertising-core'
+import { ADVERTISING_GUIDE_CSP, CSP, GUIDE_CSP, HOME_CSP } from '../../worker/csp'
 import { GUIDE_META } from '../../src/data/guide-meta'
 import { STUDY_PATHS } from '../../src/data/routes'
 import { settled } from './helpers'
@@ -25,15 +27,32 @@ test.beforeAll(async () => {
   bundle = result.output.filter(chunk => chunk.type === 'chunk').map(chunk => chunk.code).join('\n')
 })
 
-// Every synthetic HTTPS document and SDK response is fulfilled by Playwright.
-// Chrome has no external DNS. No Google code, real ads, or production data.
-async function fixture(page: Page, blocked = false, bootGate: Promise<void> = Promise.resolve(), withSecondary = false) {
+// Every synthetic HTTPS document, consent-manager and SDK response is fulfilled
+// by Playwright. Chrome has no external DNS. No Google code, real ads, or
+// production data. `events` records the order of config, consent manager and
+// SDK requests for the most recent fixture.
+interface FixtureOptions {
+  runtime?: 'on' | 'off' | 'missing' | 'error' | 'malformed'
+  cmp?: 'ok' | 'blocked'
+  policy?: Partial<AdvertisingPolicy>
+  gdprApplies?: boolean
+  gpc?: boolean
+  usStatus?: number
+  csp?: string
+}
+let events: string[] = []
+async function fixture(page: Page, blocked = false, bootGate: Promise<void> = Promise.resolve(), withSecondary = false, options: FixtureOptions = {}) {
   const requests: string[] = []
-  await page.addInitScript(() => {
+  events = []
+  await page.addInitScript(({ policy, gdprApplies, gpc, usStatus }) => {
     const host = window as unknown as Record<string, any>
+    if (policy) host.__mockAdPolicy = policy
+    if (gpc) Object.defineProperty(navigator, 'globalPrivacyControl', { value: true, configurable: true })
+    host.__cspViolations = []
+    document.addEventListener('securitypolicyviolation', (event: any) => host.__cspViolations.push(`${event.violatedDirective} ${event.blockedURI}`))
     let callback: ((data: object, success: boolean) => void) | undefined
     const granted = () => sessionStorage.getItem('mock-ad-choice') === 'grant'
-    const emit = (eventStatus = 'useractioncomplete') => callback?.({ cmpId: 300, cmpStatus: 'loaded', gdprApplies: true, eventStatus, listenerId: 12,
+    const emit = (eventStatus = 'useractioncomplete') => callback?.({ cmpId: 300, cmpStatus: 'loaded', gdprApplies, eventStatus, listenerId: 12,
       purpose: { consents: Object.fromEntries([1, 2, 3, 4, 7, 9, 10].map(id => [id, granted()])) }, vendor: { consents: { 755: granted() } } }, true)
     host.__mockAdDialog = () => emit('cmpuishown')
     host.__mockAdChoice = (choice: string) => { sessionStorage.setItem('mock-ad-choice', choice); emit() }
@@ -41,18 +60,33 @@ async function fixture(page: Page, blocked = false, bootGate: Promise<void> = Pr
     host.googlefc = { callbackQueue: { push: (entry: Record<string, () => void>) => Object.values(entry).forEach(fn => fn()) },
       ConsentModePurposeStatusEnum: { GRANTED: 1 },
       getGoogleConsentModeValues: () => ({ adStoragePurposeConsentStatus: granted() ? 1 : 2, adUserDataPurposeConsentStatus: granted() ? 1 : 2, adPersonalizationPurposeConsentStatus: granted() ? 1 : 2 }),
-      showRevocationMessage: () => { host.__preferencesOpened = true; host.__mockAdChoice('deny') } }
-  })
+      showRevocationMessage: () => { host.__preferencesOpened = true; host.__mockAdChoice('deny') },
+      ...(usStatus === null ? {} : { usstatesoptout: { InitialUsStatesOptOutStatusEnum: { DOES_NOT_APPLY: 1, NOT_OPTED_OUT: 2, OPTED_OUT: 3 }, getInitialUsStatesOptOutStatus: () => usStatus } }) }
+  }, { policy: options.policy ?? null, gdprApplies: options.gdprApplies ?? true, gpc: !!options.gpc, usStatus: options.usStatus ?? null })
   await page.route('**/*', async route => {
     const url = new URL(route.request().url())
+    if (url.hostname === 'fundingchoicesmessages.google.com') {
+      events.push('cmp')
+      if (options.cmp === 'blocked') return route.abort()
+      return route.fulfill({ contentType: 'application/javascript', body: 'window.__mockCmpLoads=(window.__mockCmpLoads||0)+1;' })
+    }
     if (url.hostname === 'pagead2.googlesyndication.com') {
       requests.push(url.pathname)
+      events.push('sdk')
       if (blocked) return route.abort()
       return route.fulfill({ contentType: 'application/javascript', body: `window.__mockLoads=(window.__mockLoads||0)+1;
         window.adsbygoogle={push:function(){window.__mockRequests=(window.__mockRequests||0)+1;
         const el=document.querySelector('ins.adsbygoogle'); el.innerHTML='<div style="height:250px;display:grid;place-items:center;font:14px system-ui">Mock advertisement · no network</div>';}};` })
     }
     if (url.origin === 'https://cert900.com') {
+      if (url.pathname === '/advertising-config.json') {
+        events.push('config')
+        const mode = options.runtime ?? 'on'
+        if (mode === 'missing') return route.fulfill({ status: 404, body: '' })
+        if (mode === 'error') return route.fulfill({ status: 500, body: '' })
+        if (mode === 'malformed') return route.fulfill({ contentType: 'application/json', body: 'not json' })
+        return route.fulfill({ json: { enabled: mode === 'on' }, headers: { 'cache-control': 'no-store' } })
+      }
       if (url.pathname.startsWith('/assets/') && /^\/assets\/[\w.-]+$/.test(url.pathname)) {
         const mime = url.pathname.endsWith('.css') ? 'text/css' : url.pathname.endsWith('.js') ? 'application/javascript' : 'font/woff2'
         return route.fulfill({ contentType: mime, body: readFileSync(resolve('dist', url.pathname.slice(1))) })
@@ -66,7 +100,7 @@ async function fixture(page: Page, blocked = false, bootGate: Promise<void> = Pr
           policy: { ...policy, placements: { ...policy.placements, 'guide-secondary': { enabled: true, slot: '1111111111' } } },
         })) : ''
         const html = original.replace(insertion, `${markup}${extra}${insertion}`).replace('</body>', '<script src="/__mock-ad-fixture.js"></script></body>')
-        return route.fulfill({ contentType: 'text/html', body: html })
+        return route.fulfill({ contentType: 'text/html', body: html, headers: options.csp ? { 'content-security-policy': options.csp } : undefined })
       }
       return route.fulfill({ status: 204, body: '' })
     }
@@ -229,3 +263,110 @@ test('future secondary unit uses one SDK and one request per enabled unit', asyn
   expect(requests).toHaveLength(1)
   expect(await unitRequests(page)).toBe(2)
 })
+
+test('real Worker: every document keeps its policy and the runtime config is disabled and uncached', async ({ request }) => {
+  for (const [path, expected] of [[ADVERTISING_GUIDE_PATH, GUIDE_CSP], ['/comptia-a-plus-practice-test', GUIDE_CSP], ['/', HOME_CSP], ['/privacy', CSP], ['/study/n10-009', CSP]] as const) {
+    const response = await request.get(path)
+    expect(response.ok(), path).toBe(true)
+    expect(response.headers()['content-security-policy'], path).toBe(expected)
+  }
+  expect(GUIDE_CSP).not.toMatch(/googlesyndication|fundingchoices/)
+  const config = await request.get('/advertising-config.json')
+  expect(config.status()).toBe(200)
+  expect(await config.json()).toEqual({ enabled: false })
+  expect(config.headers()['cache-control']).toBe('no-store')
+  expect(config.headers()['content-security-policy']).toBeUndefined()
+})
+
+for (const runtime of ['off', 'missing', 'error', 'malformed'] as const) {
+  test(`runtime switch ${runtime}: no consent manager or SDK request even with an enabled unit and a granted choice`, async ({ page }) => {
+    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message))
+    const requests = await fixture(page, false, Promise.resolve(), false, { runtime })
+    await page.goto(`https://cert900.com${ADVERTISING_GUIDE_PATH}`)
+    const unit = page.getByRole('complementary', { name: 'Advertisement', exact: true })
+    await expect(unit).toBeVisible()
+    await settled(page)
+    await expect.poll(() => events.includes('config')).toBe(true)
+    await choose(page, 'grant'); await settled(page)
+    expect(events).toEqual(['config'])
+    expect(requests).toEqual([])
+    await expect(page.getByRole('button', { name: 'Advertising privacy choices' })).toBeDisabled()
+    expect((await unit.locator('.guide-ad-surface').boundingBox())!.height).toBe(250)
+    expect(await page.locator('iframe[name="googlefcPresent"]').count()).toBe(0)
+    expect(await page.locator('script[data-cert900-cmp]').count()).toBe(0)
+    expect(errors).toEqual([])
+  })
+}
+
+test('runtime on: config, then the consent manager, then the SDK only after a granted choice, with no policy violations under the advertising CSP', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message))
+  const requests = await fixture(page, false, Promise.resolve(), false, { csp: ADVERTISING_GUIDE_CSP })
+  await page.goto(`https://cert900.com${ADVERTISING_GUIDE_PATH}`)
+  await expect(page.getByRole('button', { name: 'Advertising privacy choices' })).toBeEnabled()
+  expect(events).toEqual(['config', 'cmp'])
+  expect(await page.locator('iframe[name="googlefcPresent"]').count()).toBe(1)
+  expect(await page.locator('script[data-cert900-cmp="google-privacy-messaging"]').count()).toBe(1)
+  await choose(page, 'deny'); await settled(page)
+  expect(requests).toEqual([])
+  await choose(page, 'grant')
+  await expect.poll(() => unitRequests(page)).toBe(1)
+  expect(events).toEqual(['config', 'cmp', 'sdk'])
+  expect(await page.evaluate(() => (window as unknown as { __cspViolations: string[] }).__cspViolations)).toEqual([])
+  expect(errors).toEqual([])
+})
+
+test('consent manager blocked: a granted choice never loads the SDK and choices stay unavailable', async ({ page }) => {
+  const requests = await fixture(page, false, Promise.resolve(), false, { cmp: 'blocked' })
+  await page.goto(`https://cert900.com${ADVERTISING_GUIDE_PATH}`)
+  await settled(page)
+  await expect.poll(() => events).toEqual(['config', 'cmp'])
+  await choose(page, 'grant'); await settled(page)
+  expect(requests).toEqual([])
+  await expect(page.getByRole('button', { name: 'Advertising privacy choices' })).toBeDisabled()
+  await page.getByTestId('guide-study-hub').click()
+  await expect(page).toHaveURL('https://cert900.com/study/n10-009')
+})
+
+test('emergency disable: flipping the runtime config off stops the next document from loading anything', async ({ page }) => {
+  const options: FixtureOptions = { runtime: 'on' }
+  const requests = await fixture(page, false, Promise.resolve(), false, options)
+  await page.goto(`https://cert900.com${ADVERTISING_GUIDE_PATH}`)
+  await choose(page, 'grant')
+  await expect.poll(() => unitRequests(page)).toBe(1)
+  expect(requests).toHaveLength(1)
+  options.runtime = 'off'
+  await page.reload(); await settled(page)
+  await choose(page, 'grant'); await settled(page)
+  expect(requests).toHaveLength(1)
+  expect(events.slice(events.lastIndexOf('config'))).toEqual(['config'])
+  expect(await unitRequests(page)).toBe(0)
+  await expect(page.getByRole('button', { name: 'Advertising privacy choices' })).toBeDisabled()
+  expect(await page.locator('script[data-cert900-advertising]').count()).toBe(0)
+})
+
+const regional: { name: string; options: FixtureOptions; loads: boolean }[] = [
+  { name: 'committed TCF-only policy', options: { gdprApplies: false }, loads: false },
+  { name: 'tcf-and-non-tcf policy', options: { gdprApplies: false, policy: { regions: 'tcf-and-non-tcf' } }, loads: true },
+  { name: 'tcf-and-non-tcf with Global Privacy Control', options: { gdprApplies: false, policy: { regions: 'tcf-and-non-tcf' }, gpc: true }, loads: false },
+  { name: 'tcf-and-non-tcf with a US state opt-out', options: { gdprApplies: false, policy: { regions: 'tcf-and-non-tcf' }, usStatus: 3 }, loads: false },
+  { name: 'tcf-and-non-tcf without a US state opt-out', options: { gdprApplies: false, policy: { regions: 'tcf-and-non-tcf' }, usStatus: 2 }, loads: true },
+  { name: 'tcf-and-non-tcf on a TCF document', options: { gdprApplies: true, policy: { regions: 'tcf-and-non-tcf' } }, loads: true },
+]
+for (const scenario of regional) {
+  test(`non-TCF handling, ${scenario.name}: ${scenario.loads ? 'loads only after a granted choice' : 'never loads'}`, async ({ page }) => {
+    const requests = await fixture(page, false, Promise.resolve(), false, scenario.options)
+    await page.goto(`https://cert900.com${ADVERTISING_GUIDE_PATH}`)
+    await expect(page.getByRole('button', { name: 'Advertising privacy choices' })).toBeEnabled()
+    await choose(page, 'deny'); await settled(page)
+    expect(requests).toEqual([])
+    await choose(page, 'grant')
+    if (scenario.loads) {
+      await expect.poll(() => unitRequests(page)).toBe(1)
+      expect(requests).toHaveLength(1)
+    } else {
+      await settled(page)
+      expect(requests).toEqual([])
+      expect(await unitRequests(page)).toBe(0)
+    }
+  })
+}

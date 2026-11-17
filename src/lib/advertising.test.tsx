@@ -6,7 +6,7 @@ import { GUIDE_META } from "../data/guide-meta"
 import { STUDY_PATHS } from "../data/routes"
 import { ADVERTISING, ADVERTISING_GUIDE_PATH, advertisingDocument, placementForGuide, type AdvertisingPolicy } from "./advertising-policy"
 import { googleAdvertisingConsent, googleAdvertisingPermission, type PrivacyWindow, type TcfData } from "./advertising-consent"
-import { startAdvertising, type AdvertisingRuntime } from "./advertising"
+import { startAdvertising, startGatedAdvertising, type AdvertisingGate, type AdvertisingRuntime, type GateOptions } from "./advertising"
 
 const enabled: AdvertisingPolicy = {
   ...ADVERTISING, enabled: true, siteApproved: true, cmpVerified: true,
@@ -167,5 +167,149 @@ describe("manual request lifecycle", () => {
     const { runtime, update } = fixture({ load: vi.fn(async () => { throw new Error("Blocked") }) })
     update(true); await settle(); update(true)
     expect(runtime.request).not.toHaveBeenCalled(); expect(runtime.load).toHaveBeenCalledOnce()
+  })
+})
+
+describe("regional policy", () => {
+  const nonTcf = (): TcfData => ({ ...tc(), gdprApplies: false, purpose: {}, vendor: {} })
+  const withUsStatus = (status: number | undefined, enumeration?: { DOES_NOT_APPLY?: number; NOT_OPTED_OUT?: number; OPTED_OUT?: number }) => {
+    const host = source()
+    host.googlefc!.usstatesoptout = { getInitialUsStatesOptOutStatus: () => status as number, ...(enumeration ? { InitialUsStatesOptOutStatusEnum: enumeration } : {}) }
+    return host
+  }
+  it("defaults to TCF-only, so a non-TCF document never grants by default or explicitly", () => {
+    expect(ADVERTISING.regions).toBe("tcf-only")
+    expect(googleAdvertisingPermission(source(), nonTcf(), true)).toBe(false)
+    expect(googleAdvertisingPermission(source(), nonTcf(), true, "tcf-only")).toBe(false)
+  })
+  it("tcf-and-non-tcf grants only a loaded Google CMP that reports TCF does not apply, with granted consent-mode values", () => {
+    expect(googleAdvertisingPermission(source(), nonTcf(), true, "tcf-and-non-tcf")).toBe(true)
+    for (const patch of [{ gdprApplies: undefined }, { cmpId: 1 }, { cmpStatus: "stub" }, { eventStatus: "cmpuishown" }, { eventStatus: undefined }]) {
+      expect(googleAdvertisingPermission(source(), { ...nonTcf(), ...patch }, true, "tcf-and-non-tcf"), JSON.stringify(patch)).toBe(false)
+    }
+    expect(googleAdvertisingPermission(source(), nonTcf(), false, "tcf-and-non-tcf")).toBe(false)
+    const gpc = source(); gpc.navigator.globalPrivacyControl = true
+    expect(googleAdvertisingPermission(gpc, nonTcf(), true, "tcf-and-non-tcf")).toBe(false)
+    for (const field of ["adStoragePurposeConsentStatus", "adUserDataPurposeConsentStatus", "adPersonalizationPurposeConsentStatus"]) {
+      const host = source(); const original = host.googlefc!.getGoogleConsentModeValues!()
+      host.googlefc!.getGoogleConsentModeValues = () => ({ ...original, [field]: 2 })
+      expect(googleAdvertisingPermission(host, nonTcf(), true, "tcf-and-non-tcf"), field).toBe(false)
+    }
+    expect(googleAdvertisingPermission({ navigator: {} }, nonTcf(), true, "tcf-and-non-tcf")).toBe(false)
+    // TCF documents keep every vendor and purpose requirement under the wider policy.
+    expect(googleAdvertisingPermission(source(), tc(), true, "tcf-and-non-tcf")).toBe(true)
+    expect(googleAdvertisingPermission(source(), { ...tc(), purpose: {} }, true, "tcf-and-non-tcf")).toBe(false)
+  })
+  it("honors Google's US state opt-out status outside TCF and ignores it inside TCF", () => {
+    expect(googleAdvertisingPermission(withUsStatus(1), nonTcf(), true, "tcf-and-non-tcf")).toBe(true)
+    expect(googleAdvertisingPermission(withUsStatus(2), nonTcf(), true, "tcf-and-non-tcf")).toBe(true)
+    for (const status of [0, 3, undefined, 99]) expect(googleAdvertisingPermission(withUsStatus(status), nonTcf(), true, "tcf-and-non-tcf"), String(status)).toBe(false)
+    const enumeration = { DOES_NOT_APPLY: 7, NOT_OPTED_OUT: 8, OPTED_OUT: 9 }
+    expect(googleAdvertisingPermission(withUsStatus(7, enumeration), nonTcf(), true, "tcf-and-non-tcf")).toBe(true)
+    expect(googleAdvertisingPermission(withUsStatus(8, enumeration), nonTcf(), true, "tcf-and-non-tcf")).toBe(true)
+    for (const status of [1, 2, 9]) expect(googleAdvertisingPermission(withUsStatus(status, enumeration), nonTcf(), true, "tcf-and-non-tcf"), String(status)).toBe(false)
+    expect(googleAdvertisingPermission(withUsStatus(3), tc(), true, "tcf-and-non-tcf")).toBe(true)
+    const throwing = source(); throwing.googlefc!.usstatesoptout = { getInitialUsStatesOptOutStatus: () => { throw new Error("Unavailable") } }
+    expect(googleAdvertisingPermission(throwing, nonTcf(), true, "tcf-and-non-tcf")).toBe(false)
+  })
+  it("threads the regional policy through the subscription", () => {
+    const run = (regions?: "tcf-only" | "tcf-and-non-tcf") => {
+      const host = source(); let emit = (_data: TcfData, _success: boolean) => {}
+      host.__tcfapi = vi.fn((command, _version, callback) => { if (command === "addEventListener") emit = callback })
+      const decisions: boolean[] = []
+      const stop = googleAdvertisingConsent(host, regions).subscribe(value => decisions.push(value))
+      host.googlefc!.callbackQueue[0].CONSENT_API_READY()
+      emit(nonTcf(), true)
+      stop()
+      return decisions
+    }
+    expect(run("tcf-and-non-tcf")).toEqual([false, true])
+    expect(run("tcf-only")).toEqual([false, false])
+    expect(run()).toEqual([false, false])
+  })
+})
+
+describe("runtime gate", () => {
+  function gated(overrides: Partial<AdvertisingRuntime & AdvertisingGate> = {}, options?: GateOptions) {
+    const order: string[] = []
+    let listener = (_value: boolean) => {}
+    const runtime: AdvertisingRuntime & AdvertisingGate = {
+      eligible: vi.fn(() => true),
+      consent: { subscribe: vi.fn((fn: (value: boolean) => void) => { order.push("subscribe"); listener = fn; fn(false); return vi.fn() }), openPreferences: vi.fn() },
+      config: vi.fn(async () => { order.push("config"); return { enabled: true } }),
+      bootstrap: vi.fn(async () => { order.push("bootstrap") }),
+      load: vi.fn(async () => { order.push("load") }), request: vi.fn(() => { order.push("request") }), clear: vi.fn(), unload: vi.fn(),
+      ...overrides,
+    }
+    const stop = startGatedAdvertising(runtime, options)
+    return { runtime, order, stop, grant: () => listener(true) }
+  }
+  it("runs the runtime config, then the consent manager, then the subscription, and loads only after permission", async () => {
+    const { order, grant } = gated()
+    expect(order).toEqual(["config"])
+    await settle()
+    expect(order).toEqual(["config", "bootstrap", "subscribe"])
+    grant(); await settle()
+    expect(order).toEqual(["config", "bootstrap", "subscribe", "load", "request"])
+  })
+  it.each([{ enabled: false }, null, undefined, { enabled: "true" }, "enabled", [{ enabled: true }], 1])("a runtime config of %j stops before the consent manager", async value => {
+    const { order, runtime, grant } = gated({ config: async () => value })
+    await settle()
+    expect(order).toEqual([])
+    expect(runtime.bootstrap).not.toHaveBeenCalled()
+    expect(runtime.consent.subscribe).not.toHaveBeenCalled()
+    grant(); await settle()
+    expect(runtime.load).not.toHaveBeenCalled()
+  })
+  it("a rejected config or consent manager stops the sequence without retry", async () => {
+    const failedConfig = gated({ config: vi.fn(async () => { throw new Error("offline") }) })
+    await settle()
+    expect(failedConfig.runtime.bootstrap).not.toHaveBeenCalled()
+    expect(failedConfig.runtime.config).toHaveBeenCalledOnce()
+    const failedBootstrap = gated({ bootstrap: vi.fn(async () => { throw new Error("blocked") }) })
+    await settle()
+    expect(failedBootstrap.order).toEqual(["config"])
+    expect(failedBootstrap.runtime.bootstrap).toHaveBeenCalledOnce()
+    expect(failedBootstrap.runtime.consent.subscribe).not.toHaveBeenCalled()
+  })
+  it("lost eligibility between steps stops the sequence", async () => {
+    const afterConfig = gated({ eligible: vi.fn().mockReturnValueOnce(true).mockReturnValue(false) })
+    await settle()
+    expect(afterConfig.order).toEqual(["config"])
+    const afterBootstrap = gated({ eligible: vi.fn().mockReturnValueOnce(true).mockReturnValueOnce(true).mockReturnValue(false) })
+    await settle()
+    expect(afterBootstrap.order).toEqual(["config", "bootstrap"])
+    expect(afterBootstrap.runtime.consent.subscribe).not.toHaveBeenCalled()
+  })
+  it("stopping before the gates settle prevents every later step", async () => {
+    let release = (_value: unknown) => {}
+    const { runtime, stop } = gated({ config: () => new Promise(resolve => { release = resolve }) })
+    stop()
+    release({ enabled: true })
+    await settle()
+    expect(runtime.bootstrap).not.toHaveBeenCalled()
+    expect(runtime.consent.subscribe).not.toHaveBeenCalled()
+    expect(runtime.unload).not.toHaveBeenCalled()
+  })
+  it("ready runs once after both gates; serve=false never subscribes or loads", async () => {
+    const ready = vi.fn()
+    const preferences = gated({}, { serve: false, ready })
+    await settle()
+    expect(ready).toHaveBeenCalledOnce()
+    expect(preferences.order).toEqual(["config", "bootstrap"])
+    const serving = gated({}, { ready: () => serving.order.push("ready") })
+    await settle()
+    expect(serving.order).toEqual(["config", "bootstrap", "ready", "subscribe"])
+  })
+  it("stop after start propagates to the lifecycle exactly once", async () => {
+    const { runtime, stop, grant } = gated()
+    await settle(); grant(); await settle()
+    stop(); stop()
+    expect(runtime.clear).toHaveBeenCalledOnce()
+    expect(runtime.unload).toHaveBeenCalledOnce()
+  })
+  it("ineligible documents never fetch the runtime config", () => {
+    const { runtime } = gated({ eligible: () => false })
+    expect(runtime.config).not.toHaveBeenCalled()
   })
 })
