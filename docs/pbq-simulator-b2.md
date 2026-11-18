@@ -3,7 +3,7 @@
 ## Scope and fairness review
 
 Branch: `feature/pbq-simulator-foundation`, based on approved B1 checkpoint
-`05310ac37be525fc9e03698e0d1d1374a31c6c78`.
+`c2f8d3a2077748c639a5f792672ecae447d5da7b`.
 Worktree: `<workspace>/simulator-worktree`.
 
 The original **Fix a Stale DHCP Lease** scenario has a broad connectivity-repair

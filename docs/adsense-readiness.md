@@ -3,7 +3,7 @@
 ## Scope and source
 
 Isolated branch `feature/adsense-readiness`, based on production source
-`73cd98ad3959d8f5534f8bdc14bca07db5ae27da`.
+`6eca169aafe738a0cc6c2ca764949cccfe998df8`.
 
 The official Microsoft Playwright MCP extension connection was verified after
 the VS Code restart. Only Cert900's AdSense site details were inspected. The
@@ -81,7 +81,7 @@ Auto ads, anchors, or interstitials as part of readiness.
 
 ## Validation and local preview
 
-Baseline: clean source at `73cd98a`, scripts-disabled reproducible installation,
+Baseline: clean source at `6eca169`, scripts-disabled reproducible installation,
 445 unit tests passing, production build passing, both audits zero, dependency
 tree valid. No lifecycle scripts were approved.
 
@@ -150,7 +150,7 @@ Verified production before readiness:
 - Active version `83256be4-c934-4718-9497-48c2212b8624`, 100% traffic.
 - Deployment `23188be0-776a-4e47-b20e-9c1af91491d7`.
 - Previous rollback version `2e67b382-5d16-48bd-a4cc-7ea15c4de716` remains available.
-- GitHub main is `73cd98ad3959d8f5534f8bdc14bca07db5ae27da`.
+- GitHub main is `6eca169aafe738a0cc6c2ca764949cccfe998df8`.
 
 Preserve the installed Wrangler version and production configuration. The
 approved preparation command is **versions upload**, never ordinary deploy:

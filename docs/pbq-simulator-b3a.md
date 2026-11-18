@@ -4,7 +4,7 @@
 
 Branch: `feature/pbq-firewall-b3a`.
 Worktree: `<workspace>/firewall-b3a-worktree`.
-Base: accepted B2 `a3543d2af16e48db1e9712065d8c510965b42cae`.
+Base: accepted B2 `dcc962ec85892405788c84c5be9fe501c168c106`.
 
 The first commit is the foundation checkpoint: pure ACL state, actions,
 validation, exact analysis, grading, session tests, performance fixtures and the
@@ -115,7 +115,7 @@ overlap 4.57ms, complete 11.97ms. A repeat Chrome run at 4× CPU measured p95
 Chrome 155.0.8059.39, x86_64 Ubuntu. No source/lockfile security dependency
 changes. Both dependency audit baselines remain zero.
 
-Foundation commit: `3a3de455c57b32b8d308a30c0cb7601851aed5a6`.
+Foundation commit: `67ca244902119a59a25b0da2d6cde58f14a6eea2`.
 
 Final workspace validation:
 
@@ -163,7 +163,7 @@ are used. No dependency/install-script approvals, production changes, push,
 merge or deployment occurred.
 
 Protected worktrees were rechecked clean at their original SHAs: PBQ b8f59b7,
-security f569645, integration 9af7163, repairs e3bb082, and B2 a3543d2. The security
+security 95ad8d7, integration 4baf20a, repairs 773dc17, and B2 dcc962e. The security
 checkpoint remains in this branch's ancestry. Original question banks, engine,
 session reducer, Worker code, package manifest and lockfile have no B3A diff.
 

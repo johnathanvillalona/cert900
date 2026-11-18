@@ -3,7 +3,7 @@
 ## Scope
 
 Isolated branch `feature/first-revenue-phase-3`, based on verified main
-`87b3b9f697c07e87ed1da970735f9d15124c811e`.
+`87f1099d33e15eabc800420a8e0bdb0192b1e437`.
 
 One optional support invitation follows the PBQ guide FAQ. It uses the existing
 `DONATE_URL` as an ordinary HTML link, with an announced new tab, visible focus and

@@ -4,18 +4,18 @@
 
 Repair branch: `feature/pbq-experience-repairs`.
 Worktree: `<workspace>/repairs-worktree`.
-Base/checkpoint: `9af716315c0603a3463693d158a5b934758f3576`.
+Base/checkpoint: `4baf20a6f29c772f7a76a9ca6f53733db875bb85`.
 
 Protected worktrees remain clean and unchanged:
 
 - PBQ pilot: `b8f59b7622865439133d3357e373ec743d0b2667`.
-- Security: `f5696454a902e6aef1a9d6887af5e957c33b3a59`.
-- Integration: `9af716315c0603a3463693d158a5b934758f3576`.
+- Security: `95ad8d7b5c0f12d5d7c995afe9dba67fcc61e818`.
+- Integration: `4baf20a6f29c772f7a76a9ca6f53733db875bb85`.
 
 Three delivery commits (see `git log -3 --oneline` for the final SHA):
 
-1. `d6693e4`: installed-Chrome browser foundation and isolated Worker harness.
-2. `2e35e35`: neutral connector names, correct scene descriptions, drag cleanup,
+1. `8e0c41a`: installed-Chrome browser foundation and isolated Worker harness.
+2. `0257d52`: neutral connector names, correct scene descriptions, drag cleanup,
    ordering cancellation and regression tests.
 3. Current repair HEAD: responsive and accessibility repairs, review screenshots
    and session/browser regression coverage.

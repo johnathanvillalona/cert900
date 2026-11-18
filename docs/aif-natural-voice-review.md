@@ -2,7 +2,7 @@
 
 ## Checkpoint and scope
 
-Accepted parent: `46ae668889a48bb7b73ce0fd6c396264b7f385cd`.
+Accepted parent: `9526b892a99286770029e493851b0f0b0eed0145`.
 Branch: `feature/aif-natural-voice`.
 Worktree: `<workspace>/aif-editorial-worktree`.
 

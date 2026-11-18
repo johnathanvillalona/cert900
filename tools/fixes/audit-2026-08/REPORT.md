@@ -41,7 +41,7 @@ Bastion-connected VM a public IP), 4 terminal accept-regex sets (false-
 rejecting common correct forms; one also false-accepting an impossible
 command), 1 hotspot title contradicting its own scenario.
 
-**Fix commits:** 2c525f5 (round 1), 7a6b200 (round 2), 94669a4 (round 3 /
+**Fix commits:** eea78bd (round 1), 670f585 (round 2), 0f9aab2 (round 3 /
 PBQs). Batches with per-fix rationale and citations live in this directory.
 
 ## Projection and recommendation

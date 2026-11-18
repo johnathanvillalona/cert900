@@ -6,7 +6,7 @@
 // take the same choice unless that is intended, and no two adjacent order steps
 // are interchangeable — each consumes the output of the one before it.
 //
-// Topics are drawn from the maps expanded in 50ad82e, favouring keys no PBQ
+// Topics are drawn from the maps expanded in 9156c26, favouring keys no PBQ
 // used yet so the mastery map spreads instead of stacking.
 
 export const aif = {

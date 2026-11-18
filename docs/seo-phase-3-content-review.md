@@ -2,7 +2,7 @@
 
 ## Scope and baseline
 
-AWS-only expansion from `b985ee32560656b601db162c4af8b2672dc0c827` on
+AWS-only expansion from `ce59fddb53bbe5520e402b6bc278ec25ed6cf447` on
 `feature/seo-phase-3-aif`. Canonical guide:
 <https://cert900.com/aws-ai-practitioner-practice-test>. No Azure lesson, new
 route, question-bank edit, scoring change, dependency change or runtime service.

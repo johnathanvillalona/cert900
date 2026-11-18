@@ -1,6 +1,6 @@
 # Light-only UI and copy refresh, 2026-11-17
 
-Branch `feature/humanize-ui` from `main` at `b8360a0`. Front-end, copy, test and
+Branch `feature/humanize-ui` from `main` at `5af0226`. Front-end, copy, test and
 documentation changes only. No question-bank, grading, scoring, authentication,
 consent, advertising-policy, Worker or mobile change. `data-testid` values are
 unchanged.
@@ -128,9 +128,10 @@ See `docs/qa/humanize-ui/results.json` for the run summary.
 
 ## Release and rollback
 
-No upload, deploy or promotion is part of this change. Release follows the
-standard procedure: inactive upload with `--keep-vars`, staging with a version
-override on cert900.com, then promotion. Rollback: deploy the previous version
-at 100%. To undo locally, revert the commit and run
+Released on 2026-11-17 as Worker version `868703e3`. The version was uploaded
+inactive with `--keep-vars`, staged at 0% beside the live version, checked on
+cert900.com with a version override, and then promoted to 100%. Advertising
+stayed off. Rollback: deploy the previous version, `06c4733c`, at 100%. To
+undo locally, revert the commit and run
 `npm ci --ignore-scripts --no-audit --no-fund` (the font packages and
 `next-themes` change).

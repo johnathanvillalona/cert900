@@ -2,7 +2,7 @@
 
 ## Scope and checkpoint
 
-Accepted parent: `0e415d0ace9715e6392cb783d2675e7814549cf7` on
+Accepted parent: `a44a96d0b6ee14a77cc0308b99fe2e5e71147150` on
 `feature/seo-phase-3-aif`. This isolated revision uses
 `feature/educational-ux-aif` in `aif-refinement-worktree`.
 
@@ -226,7 +226,7 @@ Final-build validation:
 
 A first audit attempt timed out at the npm registry. Completed bounded retries
 returned zero findings in both modes; no advisory was suppressed and no package
-changed. The accepted parent worktree remains clean at `0e415d0`.
+changed. The accepted parent worktree remains clean at `a44a96d`.
 
 Reproduction commands:
 

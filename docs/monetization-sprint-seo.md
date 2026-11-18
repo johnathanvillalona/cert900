@@ -1,6 +1,6 @@
 # Monetization sprint: focused SEO preservation review
 
-Reviewed October 24, 2026 (America/New_York). Production source baseline: `53e91bc3955b562562cd2c2a41ff4b398dac0363`. This review changes no application content, routes, metadata, Google configuration, sitemap or production settings.
+Reviewed October 24, 2026 (America/New_York). Production source baseline: `6cbf8c57ca2d96a7b0abd723190b3eecc6281ba6`. This review changes no application content, routes, metadata, Google configuration, sitemap or production settings.
 
 ## Confirmed public baseline
 

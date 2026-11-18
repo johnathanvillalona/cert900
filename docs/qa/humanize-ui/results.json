@@ -2,7 +2,7 @@
   "change": "Light-only UI, Commissioner type and copy refresh",
   "date": "2026-11-17",
   "branch": "feature/humanize-ui",
-  "base": "b8360a0",
+  "base": "5af0226",
   "unit": {
     "files": 50,
     "tests": 755,
@@ -54,5 +54,12 @@
     "exit": 0
   },
   "earlierRun": "First full run: 238 passed, 1 failed (the new font-preload test had a greedy filename regex; test fixed, product unaffected).",
-  "notDone": "No push, upload, deploy or promotion."
+  "release": {
+    "date": "2026-11-17",
+    "workerVersion": "868703e3-064e-49ac-8213-5a03e3911607",
+    "staging": "Uploaded inactive with --keep-vars, deployed at 0% beside the live version, 14 URLs checked through a version override (status and CSP matched production)",
+    "promotion": "100%",
+    "rollbackVersion": "06c4733c-ce6b-4c99-b21b-17f202feb6e8",
+    "advertising": "off"
+  }
 }

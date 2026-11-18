@@ -1,6 +1,6 @@
 # SEO Phase 1 final usability review
 
-Starting source: `6e7cf3600e9637ac2bc3e6c6cd843c6d043cb3c9`.
+Starting source: `6c58f2e389852fe56dd25526cf6eb2e3781175ce`.
 
 At 320px the inline preview images are 254px wide; their internal terminal/table
 text cannot reasonably be read at that scale. The descriptive HTML remains
@@ -54,7 +54,7 @@ all same-origin requests and blocks production writes and third-party tracking.
 - Protected question banks, grading/session/simulation code, authentication,
   analytics/consent and advertising policy have no diff from the accepted source.
 
-Remote main was verified at `5563fc8eb3fa59a0b43b9bccad0162a0837fe851`.
+Remote main was verified at `33593287fa875a57709753afa0fedef56272366b`.
 The pre-staging production checkpoint remains
 `27e9beaa-2e7d-4637-9c38-f0e1502ff2cb` at 100%, deployment
 `b4551713-f738-4557-a5bd-5459684c3701`. All 18 binding definitions,

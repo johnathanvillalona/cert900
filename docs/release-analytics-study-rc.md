@@ -6,16 +6,16 @@ Prepared on 2026-10-21. **Preparation only; no upload, staging, promotion, push 
 
 - Branch: `feature/release-analytics-study-rc`.
 - Worktree: `<workspace>/analytics-study-release-worktree`.
-- Accepted application source: `572032bb12b3552b78d77efb9df95a105a638e1d`.
+- Accepted application source: `78d00c1b5724b43b50414c2dc36c4814e869c17a`.
 - Release checkpoint: the documentation-only commit containing this report; see Git HEAD.
-- Freshly fetched GitHub main: `01d0fca10159fb228b23afe11043e9828bc13844`.
+- Freshly fetched GitHub main: `63e9da2d8103ac02937bd37a364bdb1c03d1ddbe`.
 - Account: `1b1616577db046499059fc8a612da241`.
 - Worker: `comptia-practice-trainer`, default production environment.
 - Active production/rollback version: `1fc39b02-f078-441c-a147-6a1a7326082c`, **100%**.
 - Active deployment: `7157f986-95e7-4ff6-91b4-00d7d2391444`.
 - Activated: `2026-10-21T05:55:55.342710Z` (01:55:55 America/New_York).
 - Version uploaded: `2026-10-21T05:44:48.775190Z`.
-- Its version annotation identifies source `01d0fca10159fb228b23afe11043e9828bc13844`.
+- Its version annotation identifies source `63e9da2d8103ac02937bd37a364bdb1c03d1ddbe`.
 - Older PBQ/security fallback remains available: `83256be4-c934-4718-9497-48c2212b8624`.
 
 Live main JavaScript and CSS were downloaded without executing them and matched
@@ -42,29 +42,29 @@ All the following commits are ancestors of the accepted Phase B source:
 
 | Milestone | Commit |
 | --- | --- |
-| Security batches 1/2/3/4 | `6fc6dfe`, `42a8dac`, `5f7e1bf`, `f569645` |
-| Workstation integration | `9af7163` |
-| Disclosure, interaction and mobile repairs | `2e35e35`, `e3bb082` |
-| B1 simulator foundation | `05310ac` |
-| B2 DHCP Command Prompt | `a3543d2` |
-| B3A Network+ ACL | `e02f48c` |
-| B3B Windows Firewall | `7274ef1` |
-| Vite security patch | `f2d355e` |
-| Prior release and AdSense readiness | `73cd98a`, `01d0fca` |
-| Analytics/consent and verified configuration | `98fffab`, `0f55cee` |
-| Guide duplication repair | `c89d082` |
-| Study Discovery A | `521dffa` |
-| Study Hubs B | `572032b` |
+| Security batches 1/2/3/4 | `63733a9`, `aeb2c96`, `b56e63a`, `95ad8d7` |
+| Workstation integration | `4baf20a` |
+| Disclosure, interaction and mobile repairs | `0257d52`, `773dc17` |
+| B1 simulator foundation | `c2f8d3a` |
+| B2 DHCP Command Prompt | `dcc962e` |
+| B3A Network+ ACL | `3321d80` |
+| B3B Windows Firewall | `ec07e6c` |
+| Vite security patch | `5321620` |
+| Prior release and AdSense readiness | `6eca169`, `63e9da2` |
+| Analytics/consent and verified configuration | `68ac55c`, `c35a013` |
+| Guide duplication repair | `ea4939f` |
+| Study Discovery A | `1a40400` |
+| Study Hubs B | `78d00c1` |
 
 Original workstation checkpoint `b8f59b7` has the same stable patch ID as its
-integrated `9af7163` counterpart: `c3393ec3678d6c150b2e4db6f3969a1d8bb5a9af`.
+integrated `4baf20a` counterpart: `c3393ec3678d6c150b2e4db6f3969a1d8bb5a9af`.
 It must not be cherry-picked again. Historical `react-migration` work is not part
 of this release. Existing worktrees and feature branches were preserved.
 
 ## Exact change boundary from production
 
 [The complete 67-file accepted-feature diff](release-analytics-study-files.txt)
-lists every added/modified path between `01d0fca` and `572032b`, including tests,
+lists every added/modified path between `63e9da2` and `78d00c1`, including tests,
 reports and prior screenshots. This release checkpoint adds only this report,
 that inventory and eight fresh review screenshots. No application changes were
 made during release preparation.

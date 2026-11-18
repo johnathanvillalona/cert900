@@ -1,7 +1,7 @@
 # SEO Phase 1 screenshot provenance
 
 These PNGs are native screenshots of the real, ungraded Cert900 renderers at
-baseline `5563fc8eb3fa59a0b43b9bccad0162a0837fe851`. They are not illustrations,
+baseline `33593287fa875a57709753afa0fedef56272366b`. They are not illustrations,
 composites, or edited screenshots. `preview-provenance.json` records browser,
 viewport, state, dimensions, image hashes, and the captured build-manifest hash.
 

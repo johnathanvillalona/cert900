@@ -4,7 +4,7 @@
 
 Branch: `feature/study-discovery-a`.
 Worktree: `<workspace>/study-discovery-worktree`.
-Parent: `c89d08249589503449bdf2736657a4ac91df75ba` (clean repaired Phase A baseline).
+Parent: `ea4939f89e50a14709855623d63770f9aa4c26c5` (clean repaired Phase A baseline).
 The parent analytics branch/worktree and local/remote-tracking main were preserved.
 
 This release exposes existing educational content. It adds no Study Hub routes,

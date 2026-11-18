@@ -92,7 +92,7 @@ export function composePost(q: FeedEntry, link: string, linkLen: number, limit: 
 // X's API answered every post with `402 credits depleted`: the free tier can no
 // longer write. Promise.allSettled meant it failed silently for weeks. Rather
 // than keep ~45 lines of OAuth 1.0a signing warm for an endpoint that cannot
-// succeed, the whole path is gone; `git show 7f57c1e:worker/social.ts` has it
+// succeed, the whole path is gone; `git show ef1e7ea:worker/social.ts` has it
 // intact if a paid plan ever makes it worth restoring.
 //
 // The X_* secrets are still set on the Worker and are now unused. Remove them

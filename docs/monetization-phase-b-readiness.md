@@ -1,7 +1,7 @@
 # Phase B final readiness: ads.txt and GA4
 
 2026-10-21. Follow-up to accepted commit
-`532b8481fc1b5c2ba3079068c5eb318e798e59ed` on
+`8572089f25f67d8316f75a6c3f18dbd4089a61d5` on
 `feature/monetization-phase-b`, in `monetization-phase-b-worktree`.
 
 ## Google-supplied ads.txt

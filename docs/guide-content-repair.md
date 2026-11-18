@@ -5,7 +5,7 @@
 Date: 2026-10-21 (America/New_York).
 Branch: `feature/monetization-phase-a`.
 Worktree: `monetization-phase-a-worktree`.
-Starting checkpoint: `0f55cee22645624b1ab38a35373adcafb75bb768`, clean.
+Starting checkpoint: `c35a013ddc0c0cf5b9334c25844dc7327a025ee5`, clean.
 
 No dependencies, question banks, grading, simulations, authentication, Worker
 configuration, Google Analytics settings or production resources were changed.
@@ -21,13 +21,13 @@ remaining blocks reused the same five steps with different exams' numeric facts.
 
 `PbqGuide` explicitly rendered all 12 `StudyPath` instances consecutively in
 `src/screens/Guides.tsx`. Git blame locates those calls in
-`04049f72236570d3953221d212bf5726cf0c0486` (2026-07-28). The existing component
+`3d0b677fda95261eff892a937f6c03eff12911b3` (2026-07-28). The existing component
 comment and that commit's description specify a closing study path on each exam
 guide. The calls had instead all been placed on the PBQ overview, leaving the
 12 exam-guide pages without their closing instructions.
 
 The entire Guides source file was unchanged between production source
-`01d0fca10159fb228b23afe11043e9828bc13844` and the Phase A starting checkpoint.
+`63e9da2d8103ac02937bd37a364bdb1c03d1ddbe` and the Phase A starting checkpoint.
 Prerendering serialized the faulty component tree faithfully. Phase A's content
 entry only initializes consent and page analytics; it neither hydrates React nor
 inserts article content. Analytics did not cause or amplify this defect.
